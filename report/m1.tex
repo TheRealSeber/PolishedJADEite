@@ -1,0 +1,92 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+
+\usetheme{metropolis}
+\setbeamercolor{background canvas}{bg=white}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox to \paperwidth{%
+    \hfill
+    \begin{beamercolorbox}[ht=3ex,dp=2ex,right]{}
+       \color{black}
+       \insertframenumber{} / \inserttotalframenumberhspace*{3ex}
+    \end{beamercolorbox}%
+  }%
+  \vskip0pt%
+}
+
+\title{Modernizing JADE: Autonomous Agentic Pipeline}
+\subtitle{M1 Checkpoint: Self-Improving Skills for Codebase Evolution}
+\author{Mateusz Jarosz, Sebastian Rydz}
+\institute{Warsaw University of Technology}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Project Goals}
+\begin{itemize}
+  \item \textbf{Goal:} Migrate the legacy JADE framework (Java 1.5) to modern LTS versions (up to 21) without human-in-the-loop during execution.
+  \item \textbf{Innovation:} Move beyond standard LLM chat by building a system that \textbf{generates its own migration tooling}.
+  \item It identifies failure patterns, creates reusable skills, and compounds knowledge across version jumps.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{System Structure}
+\begin{itemize}
+  \item \textbf{The Orchestrator:} Claude Code acts as the central router, executing specific tasks via modular files.
+  \item \textbf{The 6-Step Loop:}
+  \begin{itemize}
+    \item \textbf{Scan} (detect idioms), \textbf{Plan} (order execution), \textbf{Copy} (freeze baseline)
+    \item \textbf{Apply} (run tools), \textbf{Verify} (benchmark), \textbf{Capture} (feed failures to Skill-Creator)
+  \end{itemize}
+  \item \textbf{Skill Architecture:} Differentiates between Hand-authored skills (e.g., \texttt{jade-phase0-scanner}) and Auto-generated skills stored in a versioned registry.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Conceptual Changes \& Industry Validation}
+\begin{itemize}
+  \item \textbf{The Pivot:} Shifted from ``teaching an agent to code'' to ``equipping an agent with deterministic enterprise skills''.
+  \item \textbf{AWS Summit Inspiration:} Attended the ``Updating Legacy Applications'' panel and consulted with AWS engineers.
+  \item \textbf{Validation:} Discovered the \textbf{AWS Transform CLI} uses a highly similar approach.
+  \item Analyzed their open-source repository (\texttt{aws-transform-custom-samples}) and adapted their \texttt{codebase-analysis} and \texttt{java-modernization} blueprints into our custom Claude skills.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Working Components \& Progress}
+\begin{itemize}
+  \item \textbf{Component 1: The Scanner (\texttt{jade-phase0-scanner}).} A grep-based idiom detector that outputs structured severity flags (e.g., \texttt{RAW\_INST\_FILES}, \texttt{BLOCKER}).
+  \item \textbf{Component 2: Migration Skills.} Built \texttt{jade-1.5-to-1.6-raw-types} and \texttt{jade-1.5-to-1.6-enhanced-for} to handle specific, isolated refactoring tasks safely.
+  \item \textbf{Component 3: Verification Sandbox.} Implemented \texttt{run-benchmark.sh} to measure unchecked warning deltas and enforce compile-success gates.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Pathway Going Forward}
+\begin{itemize}
+  \item \textbf{Late-May:} Fully automate the \textbf{Skill-Creator} (transitioning from manually capturing failure patterns to autonomous generation).
+  \item \textbf{Early-June:} Tackle the complex 1.7 $\rightarrow$ 1.8 LTS paradigm shift (Streams/Lambdas).
+  \item \textbf{Mid-June:} Execute the 1.8 $\rightarrow$ 11 LTS jump (handling the removal of CORBA/IIOP dependencies).
+\end{itemize}
+\end{frame}
+
+\begin{frame}[plain]
+  \centering
+  \Huge \textbf{Thank You!}
+
+  \vspace{1.2em}
+  \Large \textbf{Questions?}
+\end{frame}
+
+\end{document}

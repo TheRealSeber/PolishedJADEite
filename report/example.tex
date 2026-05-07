@@ -1,0 +1,112 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+
+\usetheme{metropolis}
+\setbeamercolor{background canvas}{bg=white}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox to \paperwidth{%
+    \hfill
+    \begin{beamercolorbox}[ht=3ex,dp=2ex,right]{}
+       \color{black}
+       \insertframenumber{} / \inserttotalframenumber\hspace*{3ex}
+    \end{beamercolorbox}%
+  }%
+  \vskip0pt%
+}
+
+\title{Modernizing JADE: Agentic Pipeline Legacy Migration}
+\subtitle{Equipping AI Agents with Custom Skills for Codebase Evolution}
+\author{Mateusz Jarosz, Sebastian Rydz}
+\institute{Warsaw University of Technology}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Project Concept and Objective}
+\begin{itemize}
+  \item \textbf{Problem:} The JADE framework is constrained by outdated Java versions (\texttt{1.5}). Standard LLM chats fail at complex migrations due to context loss and lack of execution tools.
+  \item \textbf{Solution:} Build an \textbf{Agentic Pipeline} by empowering an advanced AI Agent (e.g., OpenCode) with a custom suite of skills to collaboratively modernize the codebase.
+  \item \textbf{Architecture Focus:} This is a tool-building and methodology task:
+  \begin{itemize}
+    \item \textbf{The Core:} An existing Chat AI interface acting as the orchestrator.
+    \item \textbf{Our Contribution:} Custom CLI tools, testing sandboxes, and structured prompts tailored specifically for JADE and legacy Java.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Agentic Pipeline Architecture}
+\begin{itemize}
+  \item \textbf{Agentic Paradigm:} Moving beyond simple prompt-response to a continuous, tool-augmented pipeline. 
+  \item \textbf{Where is the Multi-Agent?} 
+  \begin{itemize}
+      \item Currently structured as a \textbf{Router/Orchestrator Agent} using specialized skills.
+      \item This lays the architectural groundwork for a true multi-agent system, where skills (Tester, Refactorer, Linter) can easily be decoupled into autonomous sub-agents.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The Agentic Migration Methodology}
+\begin{itemize}
+  \item \textbf{Stepping-Stone Approach:} Execute iterative version jumps (\texttt{1.5 -> 1.6 -> 1.7 -> 1.8 LTS -> newer LTS}).
+  \item \textbf{The Agentic Execution Loop:}
+  \begin{itemize}
+    \item \textbf{Contextualize:} Feed the Agent generated \texttt{CHANGELOG.md} and \texttt{MIGRATION-GUIDE.md}.
+    \item \textbf{Instruct:} Prompt the agent to utilize its custom skills on specific JADE modules.
+    \item \textbf{Execute \& Iterate:} The agent drafts \texttt{REFACTOR.md}, applies changes, and runs our custom test scripts.
+    \item \textbf{Knowledge Capture:} The agent summarizes hurdles into \texttt{LESSONS.md} to improve prompts for the next version jump.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Creating Custom Agent Skills}
+\begin{itemize}
+  \item \textbf{Integration:} Extending the Agent's capabilities via custom bash scripts, CLI wrappers, or MCP integrations.
+  \item \textbf{Skill Set Provided to the Agent:}
+  \begin{itemize}
+    \item \texttt{env-manager}: Spins up isolated Maven/Gradle environments for target Java versions.
+    \item \texttt{test-runner}: Triggers JUnit test suites and feeds failure reports directly back into the agent's context.
+    \item \texttt{linter-check}: Runs PMD/SonarLint/SpotBugs, allowing the agent to autonomously fix architectural debt.
+    \item \texttt{context-fetcher}: Retrieves deprecation lists for specific Java version jumps.
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Demonstration Scenarios}
+\begin{itemize}
+  \item \textbf{Scenario 1 -- Skill Verification (\texttt{1.5} to \texttt{1.6}):} The Agent successfully uses \texttt{env-manager} to set up Java 1.6, applies updates, and verifies via \texttt{test-runner}.
+  \item \textbf{Scenario 2 -- The \texttt{1.8} LTS Shift:} The developer prompts the modernization of legacy loops. The agent uses linter skills to rewrite inner classes to Lambdas/Streams.
+  \item \textbf{Scenario 3 -- Accelerated Legacy:} The \texttt{1.8} to \texttt{1.11} jump requires significantly fewer human interventions because the context from \texttt{LESSONS.md} preempts common errors.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Proof of Effectiveness}
+\begin{itemize}
+  \item \textbf{KPI 1 -- Regression Rate:} Target is \textbf{0} broken core functionalities, verified by the agent's use of JUnit skills.
+  \item \textbf{KPI 2 -- Prompt Reduction:} Measuring the decrease in human interventions as the agent learns from previous version jumps.
+  \item \textbf{KPI 3 -- Code Quality Score:} Quantifiable decrease in technical debt using integrated static analysis tools.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[plain]
+  \centering
+  \Huge \textbf{Thank You!}
+
+  \vspace{1.2em}
+  \Large \textbf{Questions?}
+\end{frame}
+
+\end{document}

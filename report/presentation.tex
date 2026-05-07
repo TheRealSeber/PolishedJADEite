@@ -1,0 +1,134 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+
+\usetheme{metropolis}
+\setbeamercolor{background canvas}{bg=white}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox to \paperwidth{%
+    \hfill
+    \begin{beamercolorbox}[ht=3ex,dp=2ex,right]{}
+       \color{black}
+       \insertframenumber{} / \inserttotalframenumber\hspace*{3ex}
+    \end{beamercolorbox}%
+  }%
+  \vskip0pt%
+}
+
+\title{Modernizing JADE: The Autonomous Agentic Pipeline}
+\subtitle{M1 Checkpoint: Self-Improving Skills for Codebase Evolution}
+\author{Mateusz Jarosz, Sebastian Rydz}
+\institute{Warsaw University of Technology}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{The Problem \& The AWS Pivot}
+\begin{itemize}
+  \item \textbf{The Problem:} JADE is stuck on Java 1.5 (2004). Standard LLM chats fail at complex migrations due to context loss and lack of execution tools. Human experts are a bottleneck.
+  \item \textbf{The AWS Summit:} Attended the ``Updating Legacy Applications'' panel. Consulted with AWS engineers on enterprise migration patterns.
+  \item \textbf{The Pivot:} Discovered the \textbf{AWS Transform CLI} (\texttt{aws-transform-custom-samples}) and its blueprint approach.
+  \item Shifted from ``teaching an agent to code'' to \textbf{equipping an agent with deterministic enterprise skills} --- inspired by the Transform CLI's \texttt{codebase-analysis} and \texttt{java-modernization} modules.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{System Structure}
+\begin{itemize}
+  \item \textbf{Orchestrator:} Claude Code acts as the central router, delegating to specialized skills via modular \texttt{SKILL.md} files.
+  \item \textbf{The 6-Step Loop:}
+  \begin{itemize}
+    \item \textbf{Scan} --- Detect idiom patterns and severity flags
+    \item \textbf{Plan} --- Propose skill execution order with dependency reasoning
+    \item \textbf{Copy} --- Freeze baseline, create versioned migration directory
+    \item \textbf{Apply} --- Execute skills file-by-file with per-file compile verification
+    \item \textbf{Verify} --- Benchmark unchecked-warning deltas; gate on \texttt{BUILD SUCCESSFUL}
+    \item \textbf{Capture} --- Extract failure patterns; feed into skill registry
+  \end{itemize}
+  \item \textbf{Skill Architecture:} Hand-authored skills (reviewed, stable) vs. auto-generated skills (versioned registry, benchmarked).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Deep Dive 1: Phase 0 Scanner}
+\begin{itemize}
+  \item \textbf{Role:} Acts as the pipeline's ``eyes'' --- always run before any migration.
+  \item \textbf{Mechanism:} Grep-based idiom detection across the source tree. Produces a structured flag report:
+  \begin{itemize}
+    \item \texttt{RAW\_INST\_FILES}, \texttt{RAW\_DECL\_LINES} --- raw generic instantiations
+    \item \texttt{CAST\_GET\_LINES} --- casts that generics will remove
+    \item \texttt{LEAP\_ITER\_FILES} --- \textbf{INFO (never modify)} --- JADE's own MIDP types
+    \item \texttt{MIXED\_ITER\_FILES} --- \textbf{WARN} --- LEAP + \texttt{java.util} coexistence
+    \item \texttt{FOR\_SIZE\_LOOPS}, \texttt{FOR\_LENGTH\_LOOPS} --- traditional for-loops
+    \item \texttt{JVMDI\_JVMPI\_REFS} --- \textbf{BLOCKER} if $>$ 0 (removed in Java 6)
+  \end{itemize}
+  \item \textbf{Severity thresholds:} HIGH $>$ 100, MEDIUM 20--100, LOW 1--19, NONE = 0.
+  \item Any \texttt{BLOCKER} flag \textbf{prevents unsafe execution} --- migration must not proceed.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Deep Dive 2: Codebase Analysis (AWS Inspired)}
+\begin{itemize}
+  \item \textbf{Role:} Non-executing static analysis --- builds a complete documentation ecosystem.
+  \item \textbf{Output:} Generates \texttt{ATXDocumentation/} with cross-referenced sections:
+  \begin{itemize}
+    \item \textbf{architecture/} --- system overview, components, dependencies, patterns
+    \item \textbf{behavior/} --- business logic, workflows, decision trees, error handling
+    \item \textbf{technical-debt/} --- summary, outdated components, remediation plan
+    \item \textbf{diagrams/} --- text-based structural, behavioral, and architecture diagrams
+    \item \textbf{migration/} --- component order, test specs, validation criteria
+  \end{itemize}
+  \item \textbf{Debt prioritization (fixed order):}
+  \begin{enumerate}
+    \item EOL / deprecated runtimes and frameworks --- \textbf{High}
+    \item Outdated runtime dependencies --- \textbf{Medium}
+    \item Code quality and architectural issues --- \textbf{Low}
+  \end{enumerate}
+  \item \textbf{Strictly static} --- never builds, compiles, or executes code.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Deep Dive 3: Java Modernization (AWS Inspired)}
+\begin{itemize}
+  \item \textbf{Role:} Executes the actual migration with strict validation gates.
+  \item \textbf{Atomic Transformation Groups:}
+  \begin{itemize}
+    \item \textbf{Group 1:} Build system readiness --- update Gradle/Maven compiler, Lombok, Java version
+    \item \textbf{Group 2:} Jakarta EE migration --- \textbf{one atomic pass}, never split
+    \item \textbf{Group 3:} Database \& ORM --- drivers, Hibernate, connection pooling
+    \item \textbf{Group 4:} Core dependencies --- Apache Commons, Jackson, serialization
+    \item \textbf{Group 5:} Spring ecosystem --- Security config first, then Boot upgrade
+    \item \textbf{Group 6:} Final integration --- fix language issues, run test suite
+  \end{itemize}
+  \item \textbf{Compilation gates:} Each group must compile before proceeding. No partial Jakarta migration. Never downgrade dependencies. Baseline build must use \textbf{source} Java version, not target.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Pathway Going Forward}
+\begin{itemize}
+  \item \textbf{Late-May:} Fully automate the \textbf{Skill-Creator} --- transition from manual failure capture to autonomous skill generation and benchmarking.
+  \item \textbf{Early-June:} Tackle the complex \textbf{1.7 $\rightarrow$ 1.8 LTS} paradigm shift --- Streams, Lambdas, functional interfaces.
+  \item \textbf{Mid-June:} Execute the \textbf{1.8 $\rightarrow$ 11 LTS} jump --- CORBA/IIOP removal, module system adaptation, FIPA/\texttt{jade/mtp/iiop/} exclusion.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[plain]
+  \centering
+  \Huge \textbf{Thank You!}
+
+  \vspace{1.2em}
+  \Large \textbf{Questions?}
+\end{frame}
+
+\end{document}

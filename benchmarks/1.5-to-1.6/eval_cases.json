@@ -1,0 +1,86 @@
+{
+  "version_jump": "1.5-to-1.6",
+  "description": "Before/after cases extracted from real JADE 4.6.0 source files",
+  "skills_covered": ["jade-1.5-to-1.6-raw-types", "jade-1.5-to-1.6-enhanced-for"],
+  "cases": [
+    {
+      "id": "raw-vector-return",
+      "skill": "jade-1.5-to-1.6-raw-types",
+      "source_file": "jade/BootHelper.java",
+      "description": "Raw Vector used as return type and local variable",
+      "before": {
+        "code": "public Vector T2(String s1, boolean keepquote) {\n    Vector l = new Vector();\n    if (s1 == null) {\n        return l;\n    }\n    // ... builds vector of String tokens ...\n    return l;\n}",
+        "issues": ["Raw Vector declaration", "Raw Vector instantiation"]
+      },
+      "after": {
+        "code": "public Vector<String> T2(String s1, boolean keepquote) {\n    Vector<String> l = new Vector<String>();\n    if (s1 == null) {\n        return l;\n    }\n    // ... builds vector of String tokens ...\n    return l;\n}",
+        "changes": ["Added <String> type parameter to declaration", "Added <String> type parameter to instantiation"]
+      },
+      "notes": "Element type inferred from: method name T2 (tokenize), context shows String tokens added"
+    },
+    {
+      "id": "raw-arraylist-with-cast",
+      "skill": "jade-1.5-to-1.6-raw-types",
+      "source_file": "jade/BootHelper.java",
+      "description": "Raw ArrayList with downstream cast removal",
+      "before": {
+        "code": "List asArgs = new ArrayList();\n// ...\nObject agentArgs[] = new Object[asArgs.size()];\nfor (int i3 = 0; i3 < asArgs.size(); i3++) {\n    agentArgs[i3] = (String) asArgs.get(i3);\n}",
+        "issues": ["Raw List declaration", "Raw ArrayList instantiation", "Explicit cast (String)"]
+      },
+      "after": {
+        "code": "List<String> asArgs = new ArrayList<String>();\n// ...\nObject agentArgs[] = new Object[asArgs.size()];\nfor (int i3 = 0; i3 < asArgs.size(); i3++) {\n    agentArgs[i3] = asArgs.get(i3);\n}",
+        "changes": ["Added <String> to declaration", "Added <String> to instantiation", "Removed (String) cast — now safe via generics"]
+      },
+      "notes": "Cast removal is safe because type parameter proves element is String"
+    },
+    {
+      "id": "raw-arraylist-object-params",
+      "skill": "jade-1.5-to-1.6-raw-types",
+      "source_file": "jade/gui/GuiEvent.java",
+      "description": "Raw ArrayList storing Object parameters — type is legitimately Object",
+      "before": {
+        "code": "parameters = new ArrayList();\n\npublic Object getParameter(int number) {\n    return parameters.get(number);\n}\n\npublic Iterator getAllParameter() {\n    return parameters.iterator();\n}",
+        "issues": ["Raw ArrayList instantiation", "Raw Iterator return type"]
+      },
+      "after": {
+        "code": "parameters = new ArrayList<Object>();\n\npublic Object getParameter(int number) {\n    return parameters.get(number);\n}\n\npublic Iterator<Object> getAllParameter() {\n    return parameters.iterator();\n}",
+        "changes": ["Added <Object> — element type is intentionally Object (GUI event params)", "Added <Object> to Iterator return type"]
+      },
+      "notes": "Object is the correct type here — GuiEvent accepts arbitrary parameters. Do not guess a more specific type."
+    },
+    {
+      "id": "for-loop-safe-conversion",
+      "skill": "jade-1.5-to-1.6-enhanced-for",
+      "source_file": "jade/BootHelper.java",
+      "description": "Indexed for-loop where index is only used for .get(i) — safe to convert",
+      "before": {
+        "code": "Object agentArgs[] = new Object[asArgs.size()];\nfor (int i3 = 0; i3 < asArgs.size(); i3++) {\n    agentArgs[i3] = asArgs.get(i3);\n}",
+        "safety_check": "UNSAFE — i3 is used as index into agentArgs[i3], not just for list.get(). Cannot use enhanced-for."
+      },
+      "after": {
+        "code": "// MIGRATION-SKIP: i3 used as index into agentArgs array — enhanced-for not safe\nObject agentArgs[] = new Object[asArgs.size()];\nfor (int i3 = 0; i3 < asArgs.size(); i3++) {\n    agentArgs[i3] = asArgs.get(i3);\n}",
+        "changes": ["Added MIGRATION-SKIP comment explaining why this loop was not converted"]
+      },
+      "notes": "Demonstrates the safety check: index used for both list.get() AND array assignment → unsafe"
+    },
+    {
+      "id": "for-loop-simple-iteration",
+      "skill": "jade-1.5-to-1.6-enhanced-for",
+      "source_file": "jade/core (generic example from pattern seen in codebase)",
+      "description": "Pure iteration loop — index only used for .get(i), no other purpose",
+      "before": {
+        "code": "for (int i = 0; i < services.size(); i++) {\n    ServiceDescriptor sd = (ServiceDescriptor) services.get(i);\n    sd.install(container);\n}",
+        "safety_check": "SAFE — i used only for services.get(i), result assigned to local, no other index use"
+      },
+      "after": {
+        "code": "for (ServiceDescriptor sd : services) {\n    sd.install(container);\n}",
+        "changes": ["Converted to enhanced-for", "Removed (ServiceDescriptor) cast — safe if services is List<ServiceDescriptor>", "Loop variable named meaningfully (sd)"]
+      },
+      "notes": "Cast removal only valid if raw-types skill already parameterized services as List<ServiceDescriptor>"
+    }
+  ],
+  "pass_criteria": {
+    "raw_types": "All before-code patterns are absent in migrated dir; all after-code patterns are present; zero new compile errors",
+    "enhanced_for": "SAFE loops converted; UNSAFE loops have MIGRATION-SKIP comment; zero new compile errors"
+  }
+}

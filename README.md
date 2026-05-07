@@ -2,7 +2,7 @@
 
 **Autonomous agentic pipeline for migrating the JADE multi-agent framework from Java 1.5 to a modern LTS version — with self-improving skills that compound across version jumps.**
 
-JADE (Java Agent Development Framework) is a legacy multi-agent system last updated for Java 1.5 (2004). PolishedJADEite is a research project from Warsaw University of Technology that runs a fully autonomous migration pipeline on Hermes Agent — no human-in-the-loop at execution time.
+JADE (Java Agent Development Framework) is a legacy multi-agent system last updated for Java 1.5 (2004). PolishedJADEite is a research project from Warsaw University of Technology that runs a fully autonomous migration pipeline — no human-in-the-loop at execution time.
 
 The system doesn't just migrate code. It **builds its own migration tooling** — generating, benchmarking, and improving skills from each migration failure, so subsequent modules migrate faster.
 
@@ -17,21 +17,19 @@ The system doesn't just migrate code. It **builds its own migration tooling** �
 
 ## The Solution
 
-An **agentic pipeline** where an orchestrator (Hermes Agent) coordinates specialized sub-agents, and a **skill-creation loop** lets the system build its own migration tooling:
+An **agentic pipeline** where Claude Code skills coordinate the migration, and a **skill-creation loop** lets the system build its own migration tooling:
 
 ```
-Hermes Orchestrator
-│
-├── Analyzer agent      → detects: "this is a 1.5→1.6 enum idiom"
-├── Refactorer agent   → applies modernization using skills
-├── Tester agent       → runs JUnit, parses failures
-├── Skill-Creator agent → reads failures → generates or improves skills
-└── Archivist agent    → maintains skill registry + version history
+Phase 0: Scan    → jade-phase0-scanner detects idiom patterns and severity
+Phase 1: Migrate → jade-1.5-to-1.6-raw-types adds generics file-by-file
+Phase 2: Migrate → jade-1.5-to-1.6-enhanced-for converts safe for-loops
+Phase 3: Verify  → benchmarks/run-benchmark.sh measures delta
+Phase 4: Learn   → failures feed the skill-creator (auto-generated skills)
 ```
 
 **Skills** are the core innovation. Instead of human-written migration guides, the system generates its own skills from failures:
 
-1. Tester runs tests → finds a failure pattern
+1. Migration runs → finds a failure pattern
 2. Skill-Creator analyzes the failure → generates a skill that handles this pattern
 3. Skill is benchmarked, versioned, and registered
 4. Next module uses the improved skill instead of repeating the failure
@@ -40,86 +38,111 @@ Over time, skills **compound** — the 1.8→11 jump requires far fewer interven
 
 ---
 
-## Architecture
+## Migration Strategy
 
-### Agentic Pipeline
+### Stepping-Stone Jumps
 
-The pipeline executes iterative version jumps (`1.5 → 1.6 → 1.7 → 1.8 LTS → newer LTS`):
-
-```
-For each version jump V → V+1:
-
-  Contextualize   → Feed the agent generated migration context
-  Instruct        → Agent uses skills on specific JADE modules
-  Execute & Iter  → Draft refactors, apply changes, run tests
-  Knowledge Cap   → Summarize hurdles into improved skills
-```
-
-This is a **closed learning loop** — the system gets better at migration over time, not just better at individual files.
-
-### Meta-Circular Skill Ecosystem
-
-Skills live in a versioned registry. A skill is a prompt template + optional scripts + evaluation harness:
+Rather than jumping directly to Java 21, the pipeline uses incremental version checkpoints:
 
 ```
-skill-registry/
-├── 1.5-to-1.6/
-│   ├── enum-modernization/     # handles Java 1.5 enum idioms
-│   │   ├── SKILL.md
-│   │   ├── scripts/
-│   │   │   └── detect_enum_patterns.py
-│   │   └── evals/
-│   │       └── eval_cases.json
-│   └── assert-statements/      # handles assert→throw patterns
-│       └── ...
-├── 1.6-to-1.7/
-│   └── diamond-operator/       # handles <> type inference
-│       └── ...
-├── 1.7-to-1.8/
-│   ├── lambda-rewriter/        # inner classes → lambdas
-│   └── stream-api-advisor/     # loop→stream transformations
-│       └── ...
-└── 1.8-to-11/
-    └── ...
+1.5 → 1.6 → 1.7 → 1.8 LTS → 11 LTS → 17 LTS → 21 LTS
 ```
 
-Skills are created by the **Skill-Creator agent** — they are not human-written. The Skill-Creator:
+Each jump produces a new versioned directory (`JADE-4.6.0-java1.6/`, `JADE-4.6.0-java1.7/`, etc.). The original `JADE-4.6.0/` is **never modified**.
 
-1. Reads failed test outputs from the Tester agent
-2. Identifies the pattern that caused the failure
-3. Proposes a new skill (or improvement to an existing one)
-4. Runs benchmarks to verify the skill works
-5. If the skill improves pass rate, it is committed to the registry
+1.6 and 1.7 can be collapsed into a single pass in practice (1.6 adds nothing syntactically, 1.7 adds only diamond operator + try-with-resources + multi-catch). The 1.8→11 jump is always its own phase — CORBA/IIOP removal, module system.
 
-### Sub-Agent Responsibilities
+### JDK Requirements Per Jump
 
-| Agent | Role | Skills it uses |
-|-------|------|---------------|
-| **Analyzer** | Scans JADE module for Java version patterns | `java-version-detector`, `dependency-scanner` |
-| **Refactorer** | Applies modernization transformations | `enum-modernizer`, `lambda-rewriter`, `stream-advisor` |
-| **Tester** | Runs JUnit, parses failures, feeds back to Skill-Creator | `test-runner`, `failure-classifier` |
-| **Skill-Creator** | Generates and improves migration skills | `skill-creator` (meta — creates other skills) |
-| **Archivist** | Maintains skill registry, version history, benchmarks | `skill-registry-manager` |
+| Jump | JDK needed | Notes |
+|------|-----------|-------|
+| 1.5→1.6, 1.6→1.7 | JDK 8 | Only JDK that still supports `source/target 1.5` and `1.6` |
+| 1.7→1.8 | JDK 8 | |
+| 1.8→11 | JDK 11 | CORBA/IIOP removed — `FIPA/` and `jade/mtp/iiop/` must be excluded or replaced |
+| 11→17, 17→21 | JDK 17 / 21 | |
+
+JDK 8 is installed at `/usr/lib/jvm/java-8-openjdk`. All ant compile commands use `JAVA_HOME=/usr/lib/jvm/java-8-openjdk` explicitly.
 
 ---
 
-## Key Principles
+## Skill Architecture
 
-### 1. Benchmark-Driven Iteration
+Skills live under `.claude/skills/` and follow the Claude Code skill format (`SKILL.md` with frontmatter). The pipeline uses three types:
 
-Migration quality is measured by **benchmark pass rate**, not gut feeling. Each skill is evaluated against a suite of test cases extracted from real JADE code patterns. A skill only improves if it increases pass rate on held-out cases.
+**Hand-authored migration skills** — reviewed, stable, used directly:
 
-### 2. Skills Compounding
+| Skill | Purpose | When to use |
+|-------|---------|-------------|
+| `jade-phase0-scanner` | Scans source for Java 1.5 idiom patterns, outputs flag report | Always first |
+| `jade-1.5-to-1.6-raw-types` | Adds generic type parameters to raw collections | After scanner confirms RAW_INST_FILES > 0 |
+| `jade-1.5-to-1.6-enhanced-for` | Converts safe indexed for-loops to enhanced-for | After raw-types |
+| `java-modernization` | Generic Java 8+ modernization (lambdas, streams) | Later jumps |
+| `codebase-analysis` | Deep static analysis | Exploration |
 
-Early version jumps (1.5→1.6) teach the system about JADE's patterns. Later jumps (1.8→11) inherit those lessons. The result is **superlinear acceleration** — each module takes less time than the last because the skills already exist.
+**Auto-generated skills** (Skill-Creator output) live under:
+```
+.claude/skills/java-migration-skill-registry/1.5-to-1.6/
+```
+These are created from migration failures and benchmarked before being registered.
 
-### 3. No Human-in-the-Loop at Execution
+---
 
-The orchestrator decides what to migrate next, which skills to generate, when to branch and revert. Humans set goals and review outcomes — but the execution loop runs autonomously.
+## Workflow
 
-### 4. Semantic Preservation
+### 1.5→1.6 Migration (current PoC)
 
-JUnit catches **regressions** (behavior that used to work and broke). But semantic drift — behavior that technically passes tests but subtly changed — requires **contract testing** and **property-based verification**. The system tracks both.
+```bash
+# Step 0: Scan
+/jade-phase0-scanner JADE-4.6.0/src/jade/src
+
+# Step 1: Add generics (creates JADE-4.6.0-java1.6/ copy)
+/jade-1.5-to-1.6-raw-types JADE-4.6.0/src/jade/src
+
+# Step 2: Convert for-loops
+/jade-1.5-to-1.6-enhanced-for JADE-4.6.0/src/jade/src
+
+# Step 3: Benchmark
+./benchmarks/run-benchmark.sh JADE-4.6.0-java1.6
+```
+
+### What the scanner reports
+
+```
+FLAG                        COUNT    SEVERITY
+---------------------------------------------
+RAW_INST_FILES              <N>      HIGH / MEDIUM / LOW / NONE
+RAW_DECL_LINES              <N>      ...
+CAST_GET_LINES              <N>      ...
+LEAP_ITER_FILES             <N>      INFO (never modify)
+MIXED_ITER_FILES            <N>      WARN if > 0
+FOR_SIZE_LOOPS              <N>      ...
+FOR_LENGTH_LOOPS            <N>      ...
+JVMDI_JVMPI_REFS            <N>      BLOCKER if > 0
+```
+
+---
+
+## Key Constraints
+
+### JADE LEAP Types — Never Modify
+
+JADE's `jade.util.leap.*` package provides MIDP/J2ME-compatible collection types that mirror `java.util.*` but do not extend it. **These must never be parameterised or replaced with `java.util.*` equivalents.**
+
+```
+jade.util.leap.Iterator   jade.util.leap.List       jade.util.leap.ArrayList
+jade.util.leap.Map        jade.util.leap.HashMap     jade.util.leap.Set
+jade.util.leap.HashSet    jade.util.leap.LinkedList
+```
+
+Detection: `grep -n "jade\.util\.leap" <file.java>`
+
+### No Diamond Operator in 1.6
+
+Target is Java 1.6 — diamond operator (`<>`) requires Java 1.7. Use explicit type parameters: `new ArrayList<String>()` not `new ArrayList<>()`.
+
+### Unsafe For-Loop Patterns
+
+Loops that modify the collection by index (`list.remove(i)`, `list.set(i, x)`), iterate two parallel collections, or use LEAP types must not be converted. They get a `// MIGRATION-SKIP: <reason>` comment instead.
 
 ---
 
@@ -139,8 +162,8 @@ JUnit catches **regressions** (behavior that used to work and broke). But semant
 | Paper | Relevance |
 |-------|-----------|
 | [From Translation to Superset](https://arxiv.org/abs/2604.11518) (Wang & Sengupta, 2026) | Benchmark-driven migration of a production Rust codebase (648K LOC) to Python using SWE-bench as objective function. Direct methodological inspiration. |
-| [SWE-Adept](https://arxiv.org/abs/2603.01327) (He & Roy, 2026) | Two-agent codebase analysis with shared working memory and Git-based version control. Localization agent + resolution agent pattern maps to Analyzer + Refactorer. |
-| [FullStack-Agent](https://arxiv.org/abs/2602.03798) (Lu et al., 2026) | Multi-agent framework with self-improvement via back-translation. The FullStack-Learn self-improvement loop is the template for our Skill-Creator agent. |
+| [SWE-Adept](https://arxiv.org/abs/2603.01327) (He & Roy, 2026) | Two-agent codebase analysis with shared working memory and Git-based version control. Localization agent + resolution agent pattern maps to scanner + refactorer. |
+| [FullStack-Agent](https://arxiv.org/abs/2602.03798) (Lu et al., 2026) | Multi-agent framework with self-improvement via back-translation. The FullStack-Learn self-improvement loop is the template for the Skill-Creator. |
 | [From Helpful to Trustworthy](https://arxiv.org/abs/2604.10300) (Ayon, 2026) | Multi-agent pair programming with iterative validation. Accepted at FSE 2026. |
 
 ---
@@ -149,20 +172,46 @@ JUnit catches **regressions** (behavior that used to work and broke). But semant
 
 ```
 PolishedJADEite/
-├── README.md                   # This file
-├── LICENSE                     # MIT
-├── jade/                       # JADE source (cloned/forked separately)
-│   └── ...
-├── skill-registry/             # Autogenerated skill ecosystem
-│   ├── 1.5-to-1.6/
-│   ├── 1.6-to-1.7/
-│   └── ...
-├── benchmarks/                 # Evaluation harnesses per version jump
+├── README.md
+├── LICENSE                              # MIT
+├── JADE-4.6.0/                          # Original JADE source — never modified
+│   └── src/jade/
+│       ├── build.xml                    # Ant build (source/target 1.5)
+│       ├── build.properties
+│       └── src/                         # Java source tree
+├── JADE-4.6.0-java1.6/                  # 1.5→1.6 migrated copy (created by skills)
+├── .claude/skills/
+│   ├── jade-phase0-scanner/             # Scan module for idiom flags (run first)
+│   ├── jade-1.5-to-1.6-raw-types/      # Add generics to raw collections
+│   │   └── references/
+│   │       └── jade-leap-types.md       # JADE LEAP type catalogue
+│   ├── jade-1.5-to-1.6-enhanced-for/   # Convert indexed for-loops to enhanced-for
+│   ├── java-migration-skill-registry/   # Auto-generated skills (Skill-Creator output)
+│   │   └── 1.5-to-1.6/
+│   ├── java-modernization/              # Generic Java 8+ modernization
+│   └── codebase-analysis/              # Deep static analysis
+├── benchmarks/
+│   ├── run-benchmark.sh                 # Compare original vs migrated
 │   └── 1.5-to-1.6/
-│       └── eval_cases.json
-├── hermes-config/              # Hermes Agent configuration for this project
-│   └── ...
-└── .gitignore
+│       └── eval_cases.json             # Before/after cases from real JADE code
+└── deep-research-referenced-works.md   # Extended notes on related work
+```
+
+---
+
+## Setup
+
+```bash
+# Required: JDK 8 for 1.5/1.6 compilation
+sudo pacman -S jdk8-openjdk apache-ant
+
+# Required: commons-codec (not included in JADE repo)
+mkdir -p JADE-4.6.0/src/jade/lib/commons-codec
+curl -L "https://repo1.maven.org/maven2/commons-codec/commons-codec/1.3/commons-codec-1.3.jar" \
+  -o JADE-4.6.0/src/jade/lib/commons-codec/commons-codec-1.3.jar
+
+# Verify baseline compiles
+cd JADE-4.6.0/src/jade && JAVA_HOME=/usr/lib/jvm/java-8-openjdk ant jade 2>&1 | tail -3
 ```
 
 ---

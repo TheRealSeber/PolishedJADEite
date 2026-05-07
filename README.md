@@ -89,23 +89,17 @@ These are created from migration failures and benchmarked before being registere
 
 ## Workflow
 
-### 1.5→1.6 Migration (current PoC)
+Each version jump follows the same six-step loop. `X` is the source version, `Y` is the target.
 
-```bash
-# Step 0: Scan
-/jade-phase0-scanner JADE-4.6.0/src/jade/src
+---
 
-# Step 1: Add generics (creates JADE-4.6.0-java1.6/ copy)
-/jade-1.5-to-1.6-raw-types JADE-4.6.0/src/jade/src
+### Step 1 — SCAN
 
-# Step 2: Convert for-loops
-/jade-1.5-to-1.6-enhanced-for JADE-4.6.0/src/jade/src
-
-# Step 3: Benchmark
-./benchmarks/run-benchmark.sh JADE-4.6.0-java1.6
+```
+/jade-phase0-scanner JADE-X/src/jade/src
 ```
 
-### What the scanner reports
+Runs grep-based idiom detection across the source tree. Produces a structured flag report:
 
 ```
 FLAG                        COUNT    SEVERITY
@@ -118,7 +112,86 @@ MIXED_ITER_FILES            <N>      WARN if > 0
 FOR_SIZE_LOOPS              <N>      ...
 FOR_LENGTH_LOOPS            <N>      ...
 JVMDI_JVMPI_REFS            <N>      BLOCKER if > 0
+
+=== Recommended Skills ===
+1. jade-X-to-Y-<skill-name>   (invoke as: /jade-X-to-Y-<skill-name> JADE-X/src/jade/src)
 ```
+
+Any `BLOCKER` flag must be resolved before proceeding. `INFO` flags (LEAP types) inform which files to skip — they are never touched.
+
+---
+
+### Step 2 — PLAN
+
+Claude proposes the skill execution order based on the flag report and explains the dependency between skills (e.g. generics must precede enhanced-for because element types need to be known). You approve or adjust before any file is touched.
+
+Example plan output:
+
+```
+Plan for 1.5 → 1.6:
+  1. jade-1.5-to-1.6-raw-types     — RAW_INST_FILES=239, HIGH severity
+  2. jade-1.5-to-1.6-enhanced-for  — FOR_SIZE_LOOPS=159, depends on (1)
+  Reason: generics must be in place before enhanced-for so element types are known.
+  Estimated files touched: ~280
+```
+
+---
+
+### Step 3 — COPY
+
+The first skill run creates the migration directory:
+
+```bash
+cp -r JADE-X/ JADE-X-javaY/
+```
+
+`JADE-X/` becomes a frozen baseline from this point. All edits target `JADE-X-javaY/` only. The Ant build in the copy has its `source`/`target` bumped from `X` to `Y`.
+
+---
+
+### Step 4 — APPLY
+
+Skills run in the approved order on `JADE-X-javaY/src/jade/src`:
+
+```
+/jade-X-to-Y-raw-types     JADE-X-javaY/src/jade/src
+/jade-X-to-Y-enhanced-for  JADE-X-javaY/src/jade/src
+```
+
+Each skill verifies compilation after every file it edits. If a file fails to compile, the skill fixes the error before moving on — it never leaves the tree in a broken state.
+
+Unsafe patterns are never silently skipped — they receive a `// MIGRATION-SKIP: <reason>` comment so they are visible and auditable.
+
+---
+
+### Step 5 — VERIFY
+
+```bash
+./benchmarks/run-benchmark.sh JADE-X-javaY/
+```
+
+Reports:
+- Unchecked warning delta (`BEFORE → AFTER`)
+- Raw instantiation files remaining
+- For-loop candidates remaining
+- Compile result (`BUILD SUCCESSFUL` required)
+
+A jump is considered complete when `BUILD SUCCESSFUL` and all delta counts have moved in the right direction. Runtime regression testing (JUnit) is a planned addition — currently the verification gate is compile-only.
+
+---
+
+### Step 6 — CAPTURE
+
+Any failure pattern that required manual intervention during Step 4 is captured and fed back into the skill registry:
+
+1. Failure pattern is extracted from compiler output
+2. A skill is written (manually now, auto-generated later) in `.claude/skills/java-migration-skill-registry/X-to-Y/`
+3. New skill is benchmarked against `benchmarks/X-to-Y/eval_cases.json`
+4. Committed to the registry only if pass rate improves over the previous version
+
+**Current state:** the registry scaffold and eval harness exist. Automated Skill-Creator generation is planned but not yet implemented — patterns are captured manually and converted into skills by hand.
+
+This is the **compounding mechanism** — each jump produces better skills for the next one. By the time the system reaches 1.8→11, the registry already contains proven patterns from the earlier jumps.
 
 ---
 

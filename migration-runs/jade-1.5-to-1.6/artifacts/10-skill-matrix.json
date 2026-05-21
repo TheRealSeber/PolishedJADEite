@@ -1,0 +1,122 @@
+[
+  {
+    "skill_id": "jade-migration-orchestrator",
+    "scores": {
+      "contract_compliance": 90,
+      "reproducibility": 80,
+      "gate_pass_rate": 100,
+      "artifact_completeness": 60,
+      "failure_handling": 50
+    },
+    "aggregate": 76,
+    "classification": "candidate"
+  },
+  {
+    "skill_id": "jade-change-collector-strict",
+    "scores": {
+      "contract_compliance": 90,
+      "reproducibility": 80,
+      "gate_pass_rate": 100,
+      "artifact_completeness": 60,
+      "failure_handling": 50
+    },
+    "aggregate": 76,
+    "classification": "candidate"
+  },
+  {
+    "skill_id": "jade-tooling-scout",
+    "scores": {
+      "contract_compliance": 90,
+      "reproducibility": 80,
+      "gate_pass_rate": 100,
+      "artifact_completeness": 60,
+      "failure_handling": 50
+    },
+    "aggregate": 76,
+    "classification": "candidate"
+  },
+  {
+    "skill_id": "jade-build-system-fixer",
+    "scores": {
+      "contract_compliance": 90,
+      "reproducibility": 80,
+      "gate_pass_rate": 100,
+      "artifact_completeness": 60,
+      "failure_handling": 50
+    },
+    "aggregate": 76,
+    "classification": "candidate"
+  },
+  {
+    "skill_id": "jade-scanner",
+    "scores": {
+      "contract_compliance": 90,
+      "reproducibility": 80,
+      "gate_pass_rate": 100,
+      "artifact_completeness": 60,
+      "failure_handling": 50
+    },
+    "aggregate": 76,
+    "classification": "candidate"
+  },
+  {
+    "skill_id": "jade-rule-batch-processor",
+    "scores": {
+      "contract_compliance": 90,
+      "reproducibility": 80,
+      "gate_pass_rate": 100,
+      "artifact_completeness": 60,
+      "failure_handling": 50
+    },
+    "aggregate": 76,
+    "classification": "candidate"
+  },
+  {
+    "skill_id": "jade-rule-fixer",
+    "scores": {
+      "contract_compliance": 90,
+      "reproducibility": 80,
+      "gate_pass_rate": 100,
+      "artifact_completeness": 60,
+      "failure_handling": 50
+    },
+    "aggregate": 76,
+    "classification": "candidate"
+  },
+  {
+    "skill_id": "jade-verification-semantic",
+    "scores": {
+      "contract_compliance": 90,
+      "reproducibility": 80,
+      "gate_pass_rate": 100,
+      "artifact_completeness": 60,
+      "failure_handling": 50
+    },
+    "aggregate": 76,
+    "classification": "candidate"
+  },
+  {
+    "skill_id": "jade-atomic-rule-commit",
+    "scores": {
+      "contract_compliance": 90,
+      "reproducibility": 80,
+      "gate_pass_rate": 100,
+      "artifact_completeness": 60,
+      "failure_handling": 50
+    },
+    "aggregate": 76,
+    "classification": "candidate"
+  },
+  {
+    "skill_id": "jade-retry-router",
+    "scores": {
+      "contract_compliance": 90,
+      "reproducibility": 80,
+      "gate_pass_rate": 100,
+      "artifact_completeness": 60,
+      "failure_handling": 50
+    },
+    "aggregate": 76,
+    "classification": "candidate"
+  }
+]

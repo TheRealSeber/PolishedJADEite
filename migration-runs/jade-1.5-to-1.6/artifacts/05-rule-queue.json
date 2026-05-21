@@ -1,0 +1,7 @@
+{
+  "rules": [
+    "ENHANCED_FOR",
+    "RAW_TYPES"
+  ],
+  "order": "sequential"
+}

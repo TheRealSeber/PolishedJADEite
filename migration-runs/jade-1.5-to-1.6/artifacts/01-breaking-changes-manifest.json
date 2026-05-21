@@ -1,0 +1,30 @@
+{
+  "rules": [
+    {
+      "id": "RAW_TYPES",
+      "name": "RAW_TYPES",
+      "severity": "HIGH",
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "new Vector\\(\\)|new Hashtable\\(\\)|new ArrayList\\(\\)|new HashMap\\(\\)",
+          "reason": "Add generic type parameters to raw java.util collections",
+          "confidence": "0.95"
+        }
+      ]
+    },
+    {
+      "id": "ENHANCED_FOR",
+      "name": "ENHANCED_FOR",
+      "severity": "MEDIUM",
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "for \\(int \\w+ = 0; \\w+ < \\w+\\.size\\(\\); ",
+          "reason": "Convert safe indexed for-loops to enhanced-for loops",
+          "confidence": "0.9"
+        }
+      ]
+    }
+  ]
+}

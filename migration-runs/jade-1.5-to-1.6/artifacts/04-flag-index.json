@@ -1,0 +1,1485 @@
+{
+  "run_id": "jade-1.5-to-1.6",
+  "generated_at": "2026-05-21T21:32:13Z",
+  "workspace": "JADE-4.6.0-java1.6/src/jade/src",
+  "total_flags": 211,
+  "flags": [
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/BootHelper.java",
+      "line": 204,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/BootHelper.java",
+      "line": 225,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/BootProfileImpl.java",
+      "line": 393,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/BootProfileImpl.java",
+      "line": 328,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/BootProfileImpl.java",
+      "line": 287,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/ContentElementList.java",
+      "line": 37,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/ContentManager.java",
+      "line": 58,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/ContentManager.java",
+      "line": 57,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/ContentManager.java",
+      "line": 52,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/ContentManager.java",
+      "line": 51,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/abs/AbsAggregate.java",
+      "line": 41,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/abs/AbsContentElementList.java",
+      "line": 40,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/abs/AbsHelper.java",
+      "line": 281,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/abs/AbsHelper.java",
+      "line": 439,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/abs/AbsHelper.java",
+      "line": 376,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/abs/AbsHelper.java",
+      "line": 365,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/abs/AbsHelper.java",
+      "line": 333,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/abs/AbsHelper.java",
+      "line": 306,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/abs/AbsHelper.java",
+      "line": 285,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/abs/AbsHelper.java",
+      "line": 205,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/abs/AbsHelper.java",
+      "line": 66,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/abs/AbsObjectImpl.java",
+      "line": 41,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/abs/AbsObjectImpl.java",
+      "line": 39,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/abs/AbsObjectImpl.java",
+      "line": 120,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/lang/leap/LEAPCodec.java",
+      "line": 237,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/lang/leap/LEAPCodec.java",
+      "line": 220,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/lang/sl/ExtendedSLParser.java",
+      "line": 1157,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/lang/sl/SLParser.java",
+      "line": 1091,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/onto/BCReflectiveIntrospector.java",
+      "line": 293,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/onto/BCReflectiveIntrospector.java",
+      "line": 296,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/onto/CFReflectiveIntrospector.java",
+      "line": 71,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/onto/Ontology.java",
+      "line": 1011,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/onto/Ontology.java",
+      "line": 928,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/onto/Ontology.java",
+      "line": 922,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/onto/Ontology.java",
+      "line": 897,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/onto/Ontology.java",
+      "line": 872,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/onto/Ontology.java",
+      "line": 175,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/onto/Ontology.java",
+      "line": 174,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/onto/Ontology.java",
+      "line": 173,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/onto/ReflectiveIntrospector.java",
+      "line": 179,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/onto/ReflectiveIntrospector.java",
+      "line": 182,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/onto/ReflectiveIntrospector.java",
+      "line": 167,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/schema/ObjectSchemaImpl.java",
+      "line": 630,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/schema/ObjectSchemaImpl.java",
+      "line": 272,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/schema/ObjectSchemaImpl.java",
+      "line": 244,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/schema/ObjectSchemaImpl.java",
+      "line": 240,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/schema/ObjectSchemaImpl.java",
+      "line": 222,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/schema/ObjectSchemaImpl.java",
+      "line": 108,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/content/schema/ObjectSchemaImpl.java",
+      "line": 107,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/schema/ObjectSchemaImpl.java",
+      "line": 684,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/schema/ObjectSchemaImpl.java",
+      "line": 652,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/content/schema/ObjectSchemaImpl.java",
+      "line": 622,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/Agent.java",
+      "line": 1908,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/Agent.java",
+      "line": 542,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/AgentContainerImpl.java",
+      "line": 383,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/BackEndContainer.java",
+      "line": 723,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/BackEndContainer.java",
+      "line": 608,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/BackEndContainer.java",
+      "line": 188,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/BackEndManager.java",
+      "line": 53,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/BehaviourID.java",
+      "line": 53,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/GADT.java",
+      "line": 40,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/InternalMessageQueue.java",
+      "line": 62,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/MainContainerImpl.java",
+      "line": 1349,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/MainContainerImpl.java",
+      "line": 1305,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/MainContainerImpl.java",
+      "line": 106,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/NodeFailureMonitor.java",
+      "line": 118,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/PlatformManagerImpl.java",
+      "line": 841,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/PlatformManagerImpl.java",
+      "line": 810,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/PlatformManagerImpl.java",
+      "line": 209,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/PlatformManagerImpl.java",
+      "line": 208,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/PlatformManagerImpl.java",
+      "line": 207,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/PlatformManagerImpl.java",
+      "line": 206,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/PlatformManagerImpl.java",
+      "line": 85,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/core/Runtime.java",
+      "line": 275,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/core/Specifier.java",
+      "line": 197,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/behaviours/FSMBehaviour.java",
+      "line": 71,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/behaviours/FSMBehaviour.java",
+      "line": 68,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/behaviours/LoaderBehaviour.java",
+      "line": 395,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/behaviours/SequentialBehaviour.java",
+      "line": 46,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/event/NotificationService.java",
+      "line": 115,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/management/CodeLocator.java",
+      "line": 51,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/messaging/MessagingService.java",
+      "line": 756,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/messaging/MessagingService.java",
+      "line": 241,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/messaging/MessagingService.java",
+      "line": 240,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/messaging/MessagingService.java",
+      "line": 159,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/messaging/OutBox.java",
+      "line": 43,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/core/messaging/OutBox.java",
+      "line": 216,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/messaging/PersistentDeliveryManager.java",
+      "line": 325,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/messaging/RoutingTable.java",
+      "line": 195,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/mobility/AgentMobilityService.java",
+      "line": 1418,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/mobility/AgentMobilityService.java",
+      "line": 1414,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/mobility/AgentMobilityService.java",
+      "line": 301,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/replication/MainReplicationService.java",
+      "line": 858,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+      "line": 111,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/core/sam/SAMService.java",
+      "line": 207,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/core/sam/SAMService.java",
+      "line": 450,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/core/sam/SAMService.java",
+      "line": 214,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/ams.java",
+      "line": 1456,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/ams.java",
+      "line": 572,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/ams.java",
+      "line": 275,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/AMSFipaAgentManagementBehaviour.java",
+      "line": 97,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/DFDBKB.java",
+      "line": 1747,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/DFDBKB.java",
+      "line": 1481,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/DFDBKB.java",
+      "line": 1480,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/DFDBKB.java",
+      "line": 1238,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/DFDBKB.java",
+      "line": 1219,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/DFDBKB.java",
+      "line": 1014,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/DFDBKB.java",
+      "line": 1008,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/DFDBKB.java",
+      "line": 937,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/DFDBKB.java",
+      "line": 668,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/DFIteratedSearchManagementBehaviour.java",
+      "line": 104,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/DFMemKB.java",
+      "line": 72,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/KBSubscriptionManager.java",
+      "line": 172,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/KBSubscriptionManager.java",
+      "line": 160,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/KBSubscriptionManager.java",
+      "line": 58,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/FIPAAgentManagement/APService.java",
+      "line": 42,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/FIPAAgentManagement/DFAgentDescription.java",
+      "line": 47,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/FIPAAgentManagement/DFAgentDescription.java",
+      "line": 46,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/FIPAAgentManagement/DFAgentDescription.java",
+      "line": 45,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/FIPAAgentManagement/DFAgentDescription.java",
+      "line": 44,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/FIPAAgentManagement/ServiceDescription.java",
+      "line": 42,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/FIPAAgentManagement/ServiceDescription.java",
+      "line": 41,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/FIPAAgentManagement/ServiceDescription.java",
+      "line": 40,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/FIPAAgentManagement/ServiceDescription.java",
+      "line": 39,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/introspection/IntrospectionServer.java",
+      "line": 113,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/introspection/StartNotify.java",
+      "line": 49,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/introspection/StopNotify.java",
+      "line": 49,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/JADEAgentManagement/CreateAgent.java",
+      "line": 50,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/JADEAgentManagement/DebugOff.java",
+      "line": 47,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/JADEAgentManagement/DebugOn.java",
+      "line": 47,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/JADEAgentManagement/SniffOff.java",
+      "line": 47,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/JADEAgentManagement/SniffOn.java",
+      "line": 46,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/KBManagement/DBKB.java",
+      "line": 285,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/KBManagement/MemKB.java",
+      "line": 90,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/domain/KBManagement/MemKB.java",
+      "line": 54,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/gui/GuiEvent.java",
+      "line": 63,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/gui/VisualStringList.java",
+      "line": 51,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/CommandDispatcher.java",
+      "line": 630,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/CommandDispatcher.java",
+      "line": 139,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/CommandDispatcher.java",
+      "line": 134,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/CommandDispatcher.java",
+      "line": 128,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/CommandDispatcher.java",
+      "line": 113,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/CommandDispatcher.java",
+      "line": 106,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/CommandDispatcher.java",
+      "line": 84,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/imtp/leap/CommandDispatcher.java",
+      "line": 877,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/imtp/leap/CommandDispatcher.java",
+      "line": 852,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/imtp/leap/CommandDispatcher.java",
+      "line": 448,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/DeliverableDataInputStream.java",
+      "line": 763,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/FrontEndStub.java",
+      "line": 155,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/FrontEndStub.java",
+      "line": 154,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/Stub.java",
+      "line": 56,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/JICP/ConnectionPool.java",
+      "line": 216,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/JICP/ConnectionPool.java",
+      "line": 142,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/JICP/ConnectionPool.java",
+      "line": 86,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/JICP/ConnectionPool.java",
+      "line": 50,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/imtp/leap/JICP/ConnectionPool.java",
+      "line": 193,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/JICP/JICPServer.java",
+      "line": 108,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/JICP/JICPServer.java",
+      "line": 88,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/JICP/MaskableJICPPeer.java",
+      "line": 54,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/nio/BEManagementService.java",
+      "line": 1349,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/imtp/leap/nio/BEManagementService.java",
+      "line": 155,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/imtp/leap/nio/BEManagementService.java",
+      "line": 221,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/lang/acl/ACLParser.java",
+      "line": 635,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/mtp/http/KeepAlive.java",
+      "line": 173,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/mtp/iiop/MessageTransportProtocol.java",
+      "line": 572,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/mtp/iiop/MessageTransportProtocol.java",
+      "line": 301,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/mtp/iiop/MessageTransportProtocol.java",
+      "line": 264,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/mtp/iiop/MessageTransportProtocol.java",
+      "line": 246,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/proto/Initiator.java",
+      "line": 65,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/proto/ProposeInitiator.java",
+      "line": 145,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/proto/SubscriptionResponder.java",
+      "line": 83,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/proto/states/HandlerSelector.java",
+      "line": 45,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/ToolNotifier.java",
+      "line": 469,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/ToolNotifier.java",
+      "line": 77,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/applet/DFAppletCommunicator.java",
+      "line": 189,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/applet/DFAppletCommunicator.java",
+      "line": 188,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/applet/FIPAAppletRequestProto.java",
+      "line": 154,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/applet/JADEAppletRequestProto.java",
+      "line": 222,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/applet/JADEAppletRequestProto.java",
+      "line": 187,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/tools/gui/ACLSLTokenMarker.java",
+      "line": 82,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/tools/gui/ACLSLTokenMarker.java",
+      "line": 60,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/gui/ACLStatisticsFrame.java",
+      "line": 295,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/gui/ACLStatisticsFrame.java",
+      "line": 283,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/logging/JavaLoggingLogManagerImpl.java",
+      "line": 115,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/logging/JavaLoggingLogManagerImpl.java",
+      "line": 95,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/logging/JavaLoggingLogManagerImpl.java",
+      "line": 41,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "ENHANCED_FOR",
+      "file": "jade/tools/logging/gui/ContainerLogWindow.java",
+      "line": 126,
+      "confidence": "0.9",
+      "reason": "Convert safe indexed for-loops to enhanced-for loops"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/sniffer/DoNotSnifferAction.java",
+      "line": 51,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/sniffer/DoSnifferAction.java",
+      "line": 51,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/sniffer/MMCanvas.java",
+      "line": 124,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/sniffer/MMCanvas.java",
+      "line": 101,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/sniffer/PopNoSniffAgent.java",
+      "line": 61,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/sniffer/PopShowAgent.java",
+      "line": 60,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/sniffer/PopSniffAgent.java",
+      "line": 62,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/sniffer/ShowOnlyAction.java",
+      "line": 49,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/tools/sniffer/Sniffer.java",
+      "line": 151,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/util/ClassFinder.java",
+      "line": 344,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/util/ClassFinder.java",
+      "line": 306,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/util/ClassFinder.java",
+      "line": 131,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/util/ClassFinder.java",
+      "line": 120,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/util/ClassFinder.java",
+      "line": 113,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/util/ClassFinder.java",
+      "line": 78,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/util/ClassFinder.java",
+      "line": 61,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/util/ClassFinder.java",
+      "line": 60,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/util/ClassFinder.java",
+      "line": 59,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/util/ObjectManager.java",
+      "line": 77,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/util/ObjectManager.java",
+      "line": 31,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/util/leap/ArrayList.java",
+      "line": 232,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/util/leap/ArrayList.java",
+      "line": 197,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/util/leap/HashMap.java",
+      "line": 303,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    },
+    {
+      "rule_id": "RAW_TYPES",
+      "file": "jade/util/leap/LinkedList.java",
+      "line": 218,
+      "confidence": "0.95",
+      "reason": "Add generic type parameters to raw java.util collections"
+    }
+  ]
+}

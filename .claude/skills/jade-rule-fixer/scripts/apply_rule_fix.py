@@ -467,8 +467,7 @@ def _infer_collection_element_type(lines: List[str], coll_var: str) -> str:
             inner = decl.group(2)
             if inner:
                 return inner
-            type_name = decl.group(1)
-            return type_name
+            return "Object"
     return "Object"
 
 
@@ -957,6 +956,7 @@ def main() -> int:
     status = "NEEDS_REVIEW" if needs_review else "FIXED"
 
     # Rule-specific transforms (runs after generic fix plan, before file apply)
+    transform_applied = False
     if status == "FIXED":
         try:
             if rule_id == "RAW_TYPES":
@@ -965,7 +965,9 @@ def main() -> int:
                     file_path, flagged
                 )
                 warnings.extend(fix_warnings)
-                if fix_status == "NOOP":
+                if fix_status == "FIXED":
+                    transform_applied = True
+                else:
                     warnings.append(
                         "RAW_TYPES transform produced no changes (falling back to generic)"
                     )
@@ -975,13 +977,19 @@ def main() -> int:
                     file_path, flagged
                 )
                 warnings.extend(fix_warnings)
-                if fix_status == "NOOP":
+                if fix_status == "FIXED":
+                    transform_applied = True
+                else:
                     warnings.append(
                         "ENHANCED_FOR transform produced no changes (falling back to generic)"
                     )
         except Exception as exc:
             errors.append(f"Rule-specific transform failed: {exc}")
             status = "FAILED"
+
+    # When a rule-specific transform already wrote the file, skip generic apply
+    if transform_applied and replacement is not None:
+        replacement = region  # no-op the generic apply
 
     if replacement is not None and region != replacement:
         ok = apply_fix(file_path, before, region, after, replacement)

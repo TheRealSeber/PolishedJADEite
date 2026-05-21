@@ -1,12 +1,1 @@
-{
-  "RAW_TYPES": {
-    "skill": "jade-recipe-java1.5-raw-types",
-    "script": ".claude/skills/jade-recipe-java1.5-raw-types/scripts/apply.py",
-    "description": "Add generic type parameters to raw collections"
-  },
-  "ENHANCED_FOR": {
-    "skill": "jade-recipe-java1.5-enhanced-for",
-    "script": ".claude/skills/jade-recipe-java1.5-enhanced-for/scripts/apply.py",
-    "description": "Convert safe indexed for-loops to enhanced-for"
-  }
-}
+{}

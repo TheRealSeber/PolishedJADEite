@@ -1,0 +1,13 @@
+{
+  "scenarios": [
+    "agent-lifecycle",
+    "acl-messaging",
+    "df-ams",
+    "fipa-protocols"
+  ],
+  "semantic_tolerance": {
+    "max_duration_delta_percent": 20,
+    "allow_message_reordering": true,
+    "allow_timestamp_drift": true
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "run_id": "sample-run",
+  "rule_id": "RAW_TYPES",
+  "total_files": 0,
+  "completed": 0,
+  "failed": 0,
+  "skipped": 0,
+  "pending": 0,
+  "status": "DONE",
+  "updated_at": "2026-05-21T21:27:05Z"
+}

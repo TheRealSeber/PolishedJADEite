@@ -1,5 +1,5 @@
 ---
-name: jade-tooling-scout
+name: jade-core-tooling-scout
 description: >-
   Detects what can be auto-assisted by OpenRewrite, PMD, and Checkstyle before
   manual scanner work. Probes tool availability, runs each tool against the

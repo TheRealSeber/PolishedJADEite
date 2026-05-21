@@ -1,5 +1,5 @@
 ---
-name: jade-skill-matrix-evaluator
+name: jade-core-evaluator
 description: >-
   Classifies JADE migration skills as experimental/candidate/official using reproducible evidence
   from pipeline run artifacts. Use after a complete migration run to assess skill quality.

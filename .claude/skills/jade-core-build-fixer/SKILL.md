@@ -1,5 +1,5 @@
 ---
-name: jade-build-system-fixer
+name: jade-core-build-fixer
 description: >-
   Build prerequisite gate for JADE migration pipeline. Analyzes build files
   (build.xml/pom.xml/gradle), checks dependency/plugin compatibility for the

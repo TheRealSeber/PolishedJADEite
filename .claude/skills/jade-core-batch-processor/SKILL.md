@@ -1,5 +1,5 @@
 ---
-name: jade-rule-batch-processor
+name: jade-core-batch-processor
 description: >-
   Enforces Rule-by-Rule Sequential Batching — processes exactly ONE rule_id batch
   at a time. For the selected rule_id, prepares all per-file tasks from the flag

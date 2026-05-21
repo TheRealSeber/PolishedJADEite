@@ -1,5 +1,5 @@
 ---
-name: jade-retry-router
+name: jade-core-retry-router
 description: >-
   Routes failed JADE migration rule tasks back into the same rule batch with
   bounded retries. Use when the orchestrator encounters VERIFICATION_FAILED

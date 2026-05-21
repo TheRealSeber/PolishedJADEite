@@ -1,5 +1,5 @@
 ---
-name: jade-atomic-rule-commit
+name: jade-core-atomic-commit
 description: >-
   Stages and commits all files touched by a single migration rule, using a strict
   conventional-commit message format. Logs the commit SHA to artifacts/09-rule-commit-log.json

@@ -1,5 +1,5 @@
 ---
-name: jade-verification-semantic
+name: jade-core-verification
 description: >-
   Verifies JADE migration correctness by semantic outcome matching instead of raw
   textual log diffing. Normalizes traces (strips timestamps, thread IDs, nonces),
@@ -70,6 +70,34 @@ Extracted from directory-facilitator and agent-management-system logs:
 
 ---
 
+## Phase 0 — Optional codebase documentation
+
+Before verification, the pipeline may run `codebase-analysis` (optional Phase 0) to
+produce `JadeDocumentation/` in the workspace root. If this directory exists, the
+verification skill consumes it for enriched semantic scenarios.
+
+**Files consumed:**
+| File | Purpose |
+|------|---------|
+| `JadeDocumentation/behavior/workflows.md` | Application-level process flows — converted into expected event sequences |
+| `JadeDocumentation/migration/test-specifications.md` | Pre-written test case specifications — used as assertion targets |
+| `JadeDocumentation/reference/data-models.md` | Type definitions — used to resolve agent/behaviour type names in traces |
+
+**Dynamic Scenario Generation:**
+When `JadeDocumentation/behavior/workflows.md` exists, the verification skill extracts
+workflow descriptions and produces **dynamic trace scenarios**. Each documented workflow
+becomes a required event sequence that must be matched in the migrated traces.
+
+Example: if `workflows.md` documents a "ContractNet protocol (initiate → propose →
+accept → confirm)", the verification gate asserts that all four event types appear in
+the migrated traces with matching conversation IDs.
+
+These scenarios are merged with the static `tolerance_config.json` — if a workflow
+requires an event NOT listed in `require_events`, it is added dynamically at runtime.
+
+Without `JadeDocumentation/`, verification falls back to the static tolerance config
+only. The pipeline is never blocked by missing documentation.
+
 ## Input Requirements
 
 | Input | Description |
@@ -77,6 +105,7 @@ Extracted from directory-facilitator and agent-management-system logs:
 | `baseline_logs/` | Directory of logs/traces from the **pre-migration** JADE build |
 | `migrated_logs/` | Directory of logs/traces from the **post-migration** JADE build |
 | `tolerance_config.json` | Per-event-type tolerance rules (see below) |
+| `JadeDocumentation/` *(optional)* | Codebase documentation from Phase 0 — enables dynamic scenarios |
 
 If a trace format requires XML parsing (JADE Sniffer XML exports), the normalizer
 detects the format automatically.

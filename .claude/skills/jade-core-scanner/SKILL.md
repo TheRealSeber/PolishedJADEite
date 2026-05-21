@@ -1,5 +1,5 @@
 ---
-name: jade-scanner
+name: jade-core-scanner
 description: >-
   Production-grade scanner that reads a breaking-changes manifest, scans workspace
   sources against rule patterns using regex, injects deterministic inline

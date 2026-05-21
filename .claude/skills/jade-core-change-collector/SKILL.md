@@ -1,5 +1,5 @@
 ---
-name: jade-change-collector-strict
+name: jade-core-change-collector
 description: >-
   Collects Java version breaking-change rules from user-supplied sources (URLs,
   files, KB references) and produces an evidence-backed manifest. Strict mode —

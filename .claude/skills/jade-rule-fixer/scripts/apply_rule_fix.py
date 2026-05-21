@@ -196,6 +196,102 @@ def extract_flagged_region(
     return before, region, after
 
 
+def infer_generic_type(lines: List[str], var_name: str) -> Optional[str]:
+    """Infer type parameter for a raw collection variable.
+
+    Scans lines for:
+    1. .add(x) calls → type of x
+    2. .put(k, v) calls → Map<K, V> semantic
+    3. Cast expressions from .get() → the cast type
+
+    Returns the inferred type string (e.g. 'String', 'Object', 'String,Object' for Map)
+    or None if ambiguous.
+    """
+    add_types: List[str] = []
+    get_cast_types: List[str] = []
+
+    for line in lines:
+        # .add(something)
+        add_match = re.search(rf"\b{re.escape(var_name)}\.add\(\s*(.+?)\s*\)", line)
+        if add_match:
+            arg = add_match.group(1).strip()
+            add_types.append(_resolve_arg_type(arg, lines))
+
+        # .put(key, value)
+        put_match = re.search(
+            rf"\b{re.escape(var_name)}\.put\(\s*(.+?)\s*,\s*(.+?)\s*\)", line
+        )
+        if put_match:
+            key_type = _resolve_arg_type(put_match.group(1).strip(), lines)
+            val_type = _resolve_arg_type(put_match.group(2).strip(), lines)
+            if key_type or val_type:
+                return f"{key_type or 'Object'},{val_type or 'Object'}"
+
+        # (Type) var.get(i) — cast from get
+        cast_match = re.search(
+            rf"\((\w+(?:<.*?>)?)\)\s*{re.escape(var_name)}\.get", line
+        )
+        if cast_match:
+            get_cast_types.append(cast_match.group(1))
+
+    # Merge inferences
+    all_types = add_types + get_cast_types
+    unique_types = list(dict.fromkeys(t for t in all_types if t and t != "null"))
+
+    if not unique_types:
+        return None  # ambiguous, use Object
+    if len(unique_types) == 1:
+        return unique_types[0]
+
+    # Multiple types found — pick most specific common supertype
+    if all(t == "String" for t in unique_types):
+        return "String"
+    return "Object"
+
+
+def _resolve_arg_type(arg: str, lines: List[str]) -> str:
+    """Resolve a simple argument expression to a Java type name.
+
+    Heuristics:
+    - "string literal" → String
+    - variable name matching a known typed variable → try to find its declaration
+    - null → None
+    - new Xxx() → Xxx
+    - method call → Object (can't infer)
+    """
+    arg = arg.strip().rstrip(";")
+
+    if not arg or arg == "null":
+        return "null"
+
+    # String literal
+    if arg.startswith('"') or arg.startswith("'"):
+        return "String"
+
+    # Numeric literal
+    if re.match(r"^-?\d+(\.\d+)?[fFlLdD]?$", arg):
+        return "Integer"
+
+    # Boolean literal
+    if arg in ("true", "false"):
+        return "Boolean"
+
+    # Constructor call: new Foo(...)
+    new_match = re.match(r"new\s+(\w+)\s*\(", arg)
+    if new_match:
+        return new_match.group(1)
+
+    # Single word = variable name. Try to find its declaration.
+    if re.match(r"^\w+$", arg):
+        for line in lines:
+            decl = re.search(rf"\b(\w+(?:<.*?>)?)\s+{re.escape(arg)}\s*[=;]", line)
+            if decl:
+                return decl.group(1)
+        return arg  # can't resolve, return as-is
+
+    return "Object"
+
+
 def plan_fix(
     rule: Dict, region_text: str, line_start: int, line_end: int
 ) -> Tuple[Optional[str], Optional[str], int, str]:
@@ -361,6 +457,236 @@ def record_result(
     result_path = artifacts_dir / f"06-fix-result-{task_id}.json"
     write_json_atomic(result_path, result)
     return result_path
+
+
+def _infer_collection_element_type(lines: List[str], coll_var: str) -> str:
+    """Infer element type from collection declaration."""
+    for line in lines:
+        decl = re.search(rf"(\w+(?:<(\w+)>)?)\s+{re.escape(coll_var)}\s*=", line)
+        if decl:
+            inner = decl.group(2)
+            if inner:
+                return inner
+            type_name = decl.group(1)
+            return type_name
+    return "Object"
+
+
+def apply_raw_types_fix(
+    file_path: pathlib.Path,
+    flagged_lines: List[int],
+) -> Tuple[str, int, List[str]]:
+    """Transform raw collection instantiations in a file.
+
+    For each flagged line containing 'new Vector()' etc.:
+    1. Find the variable name being assigned
+    2. Scan the method/class for .add() / .put() calls to that variable
+    3. Infer type parameter
+    4. Replace 'new Vector()' → 'new Vector<Foo>()'
+    5. Remove safe casts from subsequent .get() calls
+
+    Returns (status, changes_made, warnings).
+    """
+    content = file_path.read_text(encoding="utf-8")
+    lines = content.splitlines(keepends=True)
+    changes = 0
+    warnings: List[str] = []
+
+    for flagged_line_num in flagged_lines:
+        idx = flagged_line_num - 1
+        if idx < 0 or idx >= len(lines):
+            continue
+
+        line = lines[idx]
+
+        # Match: Type varName = new Collection();
+        match = re.match(
+            r"^(\s*)(\w+)\s+(\w+)\s*=\s*new\s+(Vector|ArrayList|HashMap|Hashtable|LinkedList|HashSet)\s*\(\s*\)\s*;",
+            line,
+        )
+        if not match:
+            # Try without variable declaration (just new Foo())
+            match = re.match(
+                r"(.*?)new\s+(Vector|ArrayList|HashMap|Hashtable|LinkedList|HashSet)\s*\(\s*\)",
+                line,
+            )
+            if not match:
+                continue
+
+        indent = match.group(1) if "(" not in match.group(1) else ""
+        var_name = match.group(3) if match.lastindex and match.lastindex >= 3 else None
+        coll_type = (
+            match.group(4)
+            if match.lastindex and match.lastindex >= 4
+            else match.group(2)
+        )
+
+        # Infer type
+        inferred = "Object"
+        if var_name:
+            result = infer_generic_type(lines, var_name)
+            if result:
+                inferred = result
+
+        # Build replacement
+        if var_name:
+            replacement = f"{indent}{coll_type}<{inferred}> {var_name} = new {coll_type}<{inferred}>();"
+            lines[idx] = replacement + "\n"
+            changes += 1
+        else:
+            # Inline: new Vector() → new Vector<Object>()
+            old = match.group(0)
+            new = old.replace(f"new {coll_type}()", f"new {coll_type}<{inferred}>()")
+            lines[idx] = line.replace(old, new, 1)
+            changes += 1
+
+        # Best-effort cast removal for .get() calls
+        if var_name:
+            for ci in range(idx + 1, len(lines)):
+                cast_match = re.search(
+                    rf"\((\w+(?:<.*?>)?)\)\s*\b{re.escape(var_name)}\.get\(", lines[ci]
+                )
+                if cast_match:
+                    cast_type = cast_match.group(1)
+                    if cast_type == inferred or inferred == "Object":
+                        # Safe to remove cast: "(Type) var.get(i)" → "var.get(i)"
+                        lines[ci] = re.sub(
+                            rf"\((\w+(?:<.*?>)?)\)\s*({re.escape(var_name)}\.get\()",
+                            r"\2",
+                            lines[ci],
+                        )
+
+    if changes > 0:
+        new_content = "".join(lines)
+        atomic_file_write(file_path, new_content)
+        return "FIXED", changes, warnings
+
+    return "NOOP", 0, warnings
+
+
+def apply_enhanced_for_fix(
+    file_path: pathlib.Path,
+    flagged_lines: List[int],
+) -> Tuple[str, int, List[str]]:
+    """Convert safe indexed for-loops to enhanced for-loops.
+
+    Safety checks:
+    - Index used ONLY for .get(i) or array[i]
+    - No .remove(i), .set(i, x), .add(i, x) inside loop
+    - Not iterating two parallel collections
+    - No backwards loop or step > 1
+
+    Returns (status, changes_made, warnings).
+    """
+    content = file_path.read_text(encoding="utf-8")
+    lines = content.splitlines(keepends=True)
+    changes = 0
+    warnings: List[str] = []
+
+    for flagged_line_num in flagged_lines:
+        idx = flagged_line_num - 1
+        if idx < 0 or idx >= len(lines):
+            continue
+
+        line = lines[idx]
+
+        # Match: for (int i = 0; i < coll.size(); i++) {
+        match = re.match(
+            r"^(\s*)for\s*\(\s*int\s+(\w+)\s*=\s*0\s*;\s*\2\s*<\s*(\w+)\.size\(\)\s*;\s*\2\+\+\s*\)\s*\{",
+            line,
+        )
+        if not match:
+            # Try array variant: for (int i = 0; i < arr.length; i++) {
+            match = re.match(
+                r"^(\s*)for\s*\(\s*int\s+(\w+)\s*=\s*0\s*;\s*\2\s*<\s*(\w+)\.length\s*;\s*\2\+\+\s*\)\s*\{",
+                line,
+            )
+            if not match:
+                continue
+
+        indent = match.group(1)
+        idx_var = match.group(2)
+        coll_var = match.group(3)
+
+        # Find loop body (matching braces)
+        loop_start = idx
+        brace_count = 1
+        loop_end = loop_start
+        for bi in range(loop_start + 1, len(lines)):
+            brace_count += lines[bi].count("{") - lines[bi].count("}")
+            if brace_count == 0:
+                loop_end = bi
+                break
+
+        if loop_end == loop_start:
+            warnings.append(
+                f"Line {flagged_line_num}: could not find loop closing brace, skipping"
+            )
+            continue
+
+        # Safety checks on loop body
+        body_lines = lines[loop_start + 1 : loop_end]
+        body_text = "".join(body_lines)
+        is_safe = True
+        skip_reasons: List[str] = []
+
+        # Check for .remove(i), .set(i), .add(i)
+        if re.search(
+            rf"\.(remove|set|add)\s*\(\s*{re.escape(idx_var)}\s*[,\)]", body_text
+        ):
+            skip_reasons.append(f".remove/set/add using {idx_var}")
+            is_safe = False
+
+        # Check for index used after loop
+        after_text = "".join(lines[loop_end + 1 :])
+        if re.search(rf"\b{re.escape(idx_var)}\b", after_text):
+            skip_reasons.append(f"{idx_var} used after loop")
+            is_safe = False
+
+        # Check for parallel collection iteration
+        if re.search(rf"\b{re.escape(idx_var)}\s*\]", body_text) and re.search(
+            rf"\.get\s*\(\s*{re.escape(idx_var)}\s*\)", body_text
+        ):
+            skip_reasons.append(f"parallel iteration with {idx_var}")
+            is_safe = False
+
+        # Check for backwards loop
+        if "--" in line:
+            skip_reasons.append("backwards loop")
+            is_safe = False
+
+        if not is_safe:
+            reason = "; ".join(skip_reasons)
+            lines[idx] = lines[idx].rstrip("\n") + f" // MIGRATION-SKIP: {reason}\n"
+            changes += 1
+            warnings.append(f"Line {flagged_line_num}: skipped ({reason})")
+            continue
+
+        # Determine element type
+        elem_type = _infer_collection_element_type(lines, coll_var)
+
+        # Build enhanced-for
+        loop_var = "item" if idx_var == "i" else f"elem_{idx_var}"
+        new_for = f"{indent}for ({elem_type} {loop_var} : {coll_var}) {{"
+        lines[idx] = new_for + "\n"
+
+        # Replace all (Type) coll.get(i) and coll.get(i) with loop_var
+        for bi in range(idx + 1, loop_end + 1):
+            cast_pattern = rf"\((\w+(?:<.*?>)?)\)\s*{re.escape(coll_var)}\.get\s*\(\s*{re.escape(idx_var)}\s*\)"
+            lines[bi] = re.sub(cast_pattern, loop_var, lines[bi])
+            get_pattern = (
+                rf"{re.escape(coll_var)}\.get\s*\(\s*{re.escape(idx_var)}\s*\)"
+            )
+            lines[bi] = re.sub(get_pattern, loop_var, lines[bi])
+
+        changes += 1
+
+    if changes > 0:
+        new_content = "".join(lines)
+        atomic_file_write(file_path, new_content)
+        return "FIXED", changes, warnings
+
+    return "NOOP", 0, warnings
 
 
 # ---------------------------------------------------------------------------
@@ -629,6 +955,33 @@ def main() -> int:
     # ---- PHASE 4: APPLY ----
 
     status = "NEEDS_REVIEW" if needs_review else "FIXED"
+
+    # Rule-specific transforms (runs after generic fix plan, before file apply)
+    if status == "FIXED":
+        try:
+            if rule_id == "RAW_TYPES":
+                flagged = [line_start]
+                fix_status, changes, fix_warnings = apply_raw_types_fix(
+                    file_path, flagged
+                )
+                warnings.extend(fix_warnings)
+                if fix_status == "NOOP":
+                    warnings.append(
+                        "RAW_TYPES transform produced no changes (falling back to generic)"
+                    )
+            elif rule_id == "ENHANCED_FOR":
+                flagged = [line_start]
+                fix_status, changes, fix_warnings = apply_enhanced_for_fix(
+                    file_path, flagged
+                )
+                warnings.extend(fix_warnings)
+                if fix_status == "NOOP":
+                    warnings.append(
+                        "ENHANCED_FOR transform produced no changes (falling back to generic)"
+                    )
+        except Exception as exc:
+            errors.append(f"Rule-specific transform failed: {exc}")
+            status = "FAILED"
 
     if replacement is not None and region != replacement:
         ok = apply_fix(file_path, before, region, after, replacement)

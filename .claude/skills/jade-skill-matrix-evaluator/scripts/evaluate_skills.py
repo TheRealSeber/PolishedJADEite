@@ -43,7 +43,10 @@ def _run_completed(artifacts_dir: pathlib.Path) -> bool:
     state = artifacts_dir / "00-run-state.json"
     if not state.exists():
         return False
-    data = json.loads(state.read_text(encoding="utf-8"))
+    try:
+        data = json.loads(state.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return False
     return data.get("state") in ("DONE",)
 
 
@@ -67,7 +70,10 @@ def score_skill(skill_id: str, artifacts_dir: pathlib.Path) -> Dict:
     # Check rule-status.json for gate pass rate
     rule_status = artifacts_dir / "rule-status.json"
     if rule_status.exists():
-        data = json.loads(rule_status.read_text(encoding="utf-8"))
+        try:
+            data = json.loads(rule_status.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            data = {}
         rules = data.get("rules", {})
         if rules:
             passed = sum(1 for r in rules.values() if r.get("status") == "DONE")
@@ -88,7 +94,10 @@ def score_skill(skill_id: str, artifacts_dir: pathlib.Path) -> Dict:
     # Check queue for contract compliance
     queue = artifacts_dir / "05-rule-queue.json"
     if queue.exists():
-        q = json.loads(queue.read_text(encoding="utf-8"))
+        try:
+            q = json.loads(queue.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            q = {}
         rules_list = q.get("rules", [])
         if isinstance(rules_list, list) and len(rules_list) > 0:
             scores["contract_compliance"] = 95
@@ -96,8 +105,12 @@ def score_skill(skill_id: str, artifacts_dir: pathlib.Path) -> Dict:
     # Check phase-history.log.jsonl for overall health
     phase_history = artifacts_dir / "phase-history.log.jsonl"
     if phase_history.exists():
+        try:
+            raw_text = phase_history.read_text(encoding="utf-8")
+        except OSError:
+            raw_text = ""
         phases = []
-        for line in phase_history.read_text(encoding="utf-8").splitlines():
+        for line in raw_text.splitlines():
             if line.strip():
                 try:
                     phases.append(json.loads(line))

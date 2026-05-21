@@ -8,7 +8,7 @@ description: >-
 # JADE Skill Matrix Evaluator
 
 ## Objective
-Classify each pipeline skill as `experimental`, `candidate`, or `official` based on run evidence.
+Classify each pipeline skill as `draft`, `experimental`, `candidate`, or `official` based on run evidence.
 
 ## Scoring dimensions
 - contract compliance (adherence to SKILL.md constraints)
@@ -18,9 +18,10 @@ Classify each pipeline skill as `experimental`, `candidate`, or `official` based
 - failure handling quality (graceful degradation on missing data)
 
 ## Classification thresholds
-- `< 60%` aggregate → `experimental`
-- `60-84%` → `candidate`
-- `>= 85%` → `official`
+- `< 50%` aggregate → `draft`
+- `50-69%` → `experimental`
+- `70-89%` → `candidate`
+- `>= 90%` → `official`
 
 ## Inputs
 - artifacts from full run (00-run-config.json, 05-rule-queue.json, rule-status.json, per-rule batch artifacts)

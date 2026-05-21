@@ -28,42 +28,49 @@
 ## File structure and ownership
 
 ### Skill package root (new)
-- Create: `.claude/skills/jade-migration-orchestrator/SKILL.md`
-- Create: `.claude/skills/jade-migration-orchestrator/scripts/orchestrator.py`
-- Create: `.claude/skills/jade-migration-orchestrator/references/schemas.md`
+- Create: `.claude/skills/jade-core-orchestrator/SKILL.md`
+- Create: `.claude/skills/jade-core-orchestrator/scripts/orchestrator.py`
+- Create: `.claude/skills/jade-core-orchestrator/references/schemas.md`
 
-- Create: `.claude/skills/jade-change-collector-strict/SKILL.md`
-- Create: `.claude/skills/jade-change-collector-strict/scripts/collect_changes.py`
-- Create: `.claude/skills/jade-change-collector-strict/scripts/fetch_source.py`
+- Create: `.claude/skills/jade-core-change-collector/SKILL.md`
+- Create: `.claude/skills/jade-core-change-collector/scripts/collect_changes.py`
+- Create: `.claude/skills/jade-core-change-collector/scripts/fetch_source.py`
 
-- Create: `.claude/skills/jade-tooling-scout/SKILL.md`
-- Create: `.claude/skills/jade-tooling-scout/scripts/tooling_scout.py`
+- Create: `.claude/skills/jade-core-tooling-scout/SKILL.md`
+- Create: `.claude/skills/jade-core-tooling-scout/scripts/tooling_scout.py`
 
-- Create: `.claude/skills/jade-build-system-fixer/SKILL.md`
-- Create: `.claude/skills/jade-build-system-fixer/scripts/build_audit.py`
+- Create: `.claude/skills/jade-core-build-fixer/SKILL.md`
+- Create: `.claude/skills/jade-core-build-fixer/scripts/build_audit.py`
 
-- Create: `.claude/skills/jade-scanner/SKILL.md`
-- Create: `.claude/skills/jade-scanner/scripts/scan_and_tag.py`
+- Create: `.claude/skills/jade-core-scanner/SKILL.md`
+- Create: `.claude/skills/jade-core-scanner/scripts/scan_and_tag.py`
 
-- Create: `.claude/skills/jade-rule-batch-processor/SKILL.md`
-- Create: `.claude/skills/jade-rule-batch-processor/scripts/rule_batch_runner.py`
+- Create: `.claude/skills/jade-core-batch-processor/SKILL.md`
+- Create: `.claude/skills/jade-core-batch-processor/scripts/rule_batch_runner.py`
 
-- Create: `.claude/skills/jade-rule-fixer/SKILL.md`
-- Create: `.claude/skills/jade-rule-fixer/scripts/apply_rule_fix.py`
+- Create: `.claude/skills/jade-core-rule-dispatcher/SKILL.md`
+- Create: `.claude/skills/jade-core-rule-dispatcher/scripts/dispatcher.py`
+- Create: `.claude/skills/jade-core-rule-dispatcher/recipe-registry.json`
 
-- Create: `.claude/skills/jade-verification-semantic/SKILL.md`
-- Create: `.claude/skills/jade-verification-semantic/scripts/semantic_verify.py`
-- Create: `.claude/skills/jade-verification-semantic/scripts/normalize_trace.py`
+- Create: `.claude/skills/jade-recipe-java1.5-raw-types/SKILL.md`
+- Create: `.claude/skills/jade-recipe-java1.5-raw-types/scripts/apply.py`
 
-- Create: `.claude/skills/jade-atomic-rule-commit/SKILL.md`
-- Create: `.claude/skills/jade-atomic-rule-commit/scripts/commit_rule.sh`
-- Create: `.claude/skills/jade-atomic-rule-commit/scripts/list_rule_files.py`
+- Create: `.claude/skills/jade-recipe-java1.5-enhanced-for/SKILL.md`
+- Create: `.claude/skills/jade-recipe-java1.5-enhanced-for/scripts/apply.py`
 
-- Create: `.claude/skills/jade-retry-router/SKILL.md`
-- Create: `.claude/skills/jade-retry-router/scripts/retry_router.py`
+- Create: `.claude/skills/jade-core-verification/SKILL.md`
+- Create: `.claude/skills/jade-core-verification/scripts/semantic_verify.py`
+- Create: `.claude/skills/jade-core-verification/scripts/normalize_trace.py`
 
-- Create: `.claude/skills/jade-skill-matrix-evaluator/SKILL.md`
-- Create: `.claude/skills/jade-skill-matrix-evaluator/scripts/evaluate_skills.py`
+- Create: `.claude/skills/jade-core-atomic-commit/SKILL.md`
+- Create: `.claude/skills/jade-core-atomic-commit/scripts/commit_rule.sh`
+- Create: `.claude/skills/jade-core-atomic-commit/scripts/list_rule_files.py`
+
+- Create: `.claude/skills/jade-core-retry-router/SKILL.md`
+- Create: `.claude/skills/jade-core-retry-router/scripts/retry_router.py`
+
+- Create: `.claude/skills/jade-core-evaluator/SKILL.md`
+- Create: `.claude/skills/jade-core-evaluator/scripts/evaluate_skills.py`
 
 ### Validation harness (new)
 - Create: `migration-runs/.gitkeep`

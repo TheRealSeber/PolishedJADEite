@@ -3,6 +3,7 @@
     {
       "id": "RAW_TYPES",
       "name": "RAW_TYPES",
+      "fix_strategy": "recipe:jade-recipe-java1.5-raw-types",
       "severity": "HIGH",
       "patterns": [
         {
@@ -16,6 +17,7 @@
     {
       "id": "ENHANCED_FOR",
       "name": "ENHANCED_FOR",
+      "fix_strategy": "recipe:jade-recipe-java1.5-enhanced-for",
       "severity": "MEDIUM",
       "patterns": [
         {

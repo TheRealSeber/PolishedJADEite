@@ -6,7 +6,7 @@ import sys
 
 import pytest
 
-SCAN_SCRIPT = pathlib.Path(".claude/skills/jade-scanner/scripts/scan_and_tag.py")
+SCAN_SCRIPT = pathlib.Path(".claude/skills/jade-core-scanner/scripts/scan_and_tag.py")
 
 
 def test_scanner_second_run_no_new_flags(artifacts_dir, workspace_dir, tmp_path):

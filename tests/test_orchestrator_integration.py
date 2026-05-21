@@ -11,7 +11,7 @@ import sys
 import pytest
 
 ORCH_SCRIPT = pathlib.Path(
-    ".claude/skills/jade-migration-orchestrator/scripts/orchestrator.py"
+    ".claude/skills/jade-core-orchestrator/scripts/orchestrator.py"
 )
 
 

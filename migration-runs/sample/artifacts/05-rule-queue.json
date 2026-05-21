@@ -1,0 +1,7 @@
+{
+  "rules": [
+    "RAW_TYPES",
+    "ENHANCED_FOR",
+    "DEPRECATED_API"
+  ]
+}

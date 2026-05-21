@@ -1,0 +1,29 @@
+{
+  "skill_name": "jade-migration-orchestrator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Run orchestrator happy path with all required artifacts present and a 3-rule queue.",
+      "expected_output": "State reaches DONE and rule-status lists all rules DONE.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Run orchestrator with missing artifacts/03-build-audit.json.",
+      "expected_output": "Fail fast with ARTIFACT_MISSING and write failure-summary.json.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Run orchestrator with empty source manifest and simulate AWAITING_SOURCE_INPUT handoff state.",
+      "expected_output": "State transitions to AWAITING_SOURCE_INPUT and does not continue.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Run orchestrator with rule queue [RULE_A, RULE_B, RULE_C] and verify strict sequential order.",
+      "expected_output": "History shows RULE_A complete before RULE_B start, RULE_B before RULE_C.",
+      "files": []
+    }
+  ]
+}

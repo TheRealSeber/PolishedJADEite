@@ -69,6 +69,24 @@ def atomic_file_write(file_path: pathlib.Path, content: str) -> None:
     tmp.replace(file_path)
 
 
+def apply_file_transform(
+    file_path: pathlib.Path, edit_fn
+) -> Tuple[str, int, List[str]]:
+    """Load file, apply edit_fn(lines) -> lines, atomically write back.
+
+    edit_fn receives List[str] and returns (changed_lines, changes_count, warnings).
+    Returns (status, changes_made, warnings).
+    """
+    content = file_path.read_text(encoding="utf-8")
+    lines = content.splitlines(keepends=True)
+    lines, changes, warnings = edit_fn(lines)
+    if changes > 0:
+        new_content = "".join(lines)
+        atomic_file_write(file_path, new_content)
+        return "FIXED", changes, warnings
+    return "NOOP", 0, warnings
+
+
 def exit_fail(code: str, message: str) -> int:
     """Print error to stderr and return exit code 2."""
     print(f"ERROR [{code}] {message}", file=sys.stderr)
@@ -486,81 +504,83 @@ def apply_raw_types_fix(
 
     Returns (status, changes_made, warnings).
     """
-    content = file_path.read_text(encoding="utf-8")
-    lines = content.splitlines(keepends=True)
-    changes = 0
-    warnings: List[str] = []
 
-    for flagged_line_num in flagged_lines:
-        idx = flagged_line_num - 1
-        if idx < 0 or idx >= len(lines):
-            continue
+    def _raw_types_editor(lines: List[str]) -> Tuple[List[str], int, List[str]]:
+        changes = 0
+        warnings: List[str] = []
 
-        line = lines[idx]
+        for flagged_line_num in flagged_lines:
+            idx = flagged_line_num - 1
+            if idx < 0 or idx >= len(lines):
+                continue
 
-        # Match: Type varName = new Collection();
-        match = re.match(
-            r"^(\s*)(\w+)\s+(\w+)\s*=\s*new\s+(Vector|ArrayList|HashMap|Hashtable|LinkedList|HashSet)\s*\(\s*\)\s*;",
-            line,
-        )
-        if not match:
-            # Try without variable declaration (just new Foo())
+            line = lines[idx]
+
+            # Match: Type varName = new Collection();
             match = re.match(
-                r"(.*?)new\s+(Vector|ArrayList|HashMap|Hashtable|LinkedList|HashSet)\s*\(\s*\)",
+                r"^(\s*)(\w+)\s+(\w+)\s*=\s*new\s+(Vector|ArrayList|HashMap|Hashtable|LinkedList|HashSet)\s*\(\s*\)\s*;",
                 line,
             )
             if not match:
-                continue
-
-        indent = match.group(1) if "(" not in match.group(1) else ""
-        var_name = match.group(3) if match.lastindex and match.lastindex >= 3 else None
-        coll_type = (
-            match.group(4)
-            if match.lastindex and match.lastindex >= 4
-            else match.group(2)
-        )
-
-        # Infer type
-        inferred = "Object"
-        if var_name:
-            result = infer_generic_type(lines, var_name)
-            if result:
-                inferred = result
-
-        # Build replacement
-        if var_name:
-            replacement = f"{indent}{coll_type}<{inferred}> {var_name} = new {coll_type}<{inferred}>();"
-            lines[idx] = replacement + "\n"
-            changes += 1
-        else:
-            # Inline: new Vector() → new Vector<Object>()
-            old = match.group(0)
-            new = old.replace(f"new {coll_type}()", f"new {coll_type}<{inferred}>()")
-            lines[idx] = line.replace(old, new, 1)
-            changes += 1
-
-        # Best-effort cast removal for .get() calls
-        if var_name:
-            for ci in range(idx + 1, len(lines)):
-                cast_match = re.search(
-                    rf"\((\w+(?:<.*?>)?)\)\s*\b{re.escape(var_name)}\.get\(", lines[ci]
+                # Try without variable declaration (just new Foo())
+                match = re.match(
+                    r"(.*?)new\s+(Vector|ArrayList|HashMap|Hashtable|LinkedList|HashSet)\s*\(\s*\)",
+                    line,
                 )
-                if cast_match:
-                    cast_type = cast_match.group(1)
-                    if cast_type == inferred or inferred == "Object":
-                        # Safe to remove cast: "(Type) var.get(i)" → "var.get(i)"
-                        lines[ci] = re.sub(
-                            rf"\((\w+(?:<.*?>)?)\)\s*({re.escape(var_name)}\.get\()",
-                            r"\2",
-                            lines[ci],
-                        )
+                if not match:
+                    continue
 
-    if changes > 0:
-        new_content = "".join(lines)
-        atomic_file_write(file_path, new_content)
-        return "FIXED", changes, warnings
+            indent = match.group(1) if "(" not in match.group(1) else ""
+            var_name = (
+                match.group(3) if match.lastindex and match.lastindex >= 3 else None
+            )
+            coll_type = (
+                match.group(4)
+                if match.lastindex and match.lastindex >= 4
+                else match.group(2)
+            )
 
-    return "NOOP", 0, warnings
+            # Infer type
+            inferred = "Object"
+            if var_name:
+                result = infer_generic_type(lines, var_name)
+                if result:
+                    inferred = result
+
+            # Build replacement
+            if var_name:
+                replacement = f"{indent}{coll_type}<{inferred}> {var_name} = new {coll_type}<{inferred}>();"
+                lines[idx] = replacement + "\n"
+                changes += 1
+            else:
+                # Inline: new Vector() → new Vector<Object>()
+                old = match.group(0)
+                new = old.replace(
+                    f"new {coll_type}()", f"new {coll_type}<{inferred}>()"
+                )
+                lines[idx] = line.replace(old, new, 1)
+                changes += 1
+
+            # Best-effort cast removal for .get() calls
+            if var_name:
+                for ci in range(idx + 1, len(lines)):
+                    cast_match = re.search(
+                        rf"\((\w+(?:<.*?>)?)\)\s*\b{re.escape(var_name)}\.get\(",
+                        lines[ci],
+                    )
+                    if cast_match:
+                        cast_type = cast_match.group(1)
+                        if cast_type == inferred or inferred == "Object":
+                            # Safe to remove cast: "(Type) var.get(i)" → "var.get(i)"
+                            lines[ci] = re.sub(
+                                rf"\((\w+(?:<.*?>)?)\)\s*({re.escape(var_name)}\.get\()",
+                                r"\2",
+                                lines[ci],
+                            )
+
+        return lines, changes, warnings
+
+    return apply_file_transform(file_path, _raw_types_editor)
 
 
 def apply_enhanced_for_fix(
@@ -577,115 +597,119 @@ def apply_enhanced_for_fix(
 
     Returns (status, changes_made, warnings).
     """
-    content = file_path.read_text(encoding="utf-8")
-    lines = content.splitlines(keepends=True)
-    changes = 0
-    warnings: List[str] = []
 
-    for flagged_line_num in flagged_lines:
-        idx = flagged_line_num - 1
-        if idx < 0 or idx >= len(lines):
-            continue
+    def _enhanced_for_editor(lines: List[str]) -> Tuple[List[str], int, List[str]]:
+        changes = 0
+        warnings: List[str] = []
 
-        line = lines[idx]
+        for flagged_line_num in flagged_lines:
+            idx = flagged_line_num - 1
+            if idx < 0 or idx >= len(lines):
+                continue
 
-        # Match: for (int i = 0; i < coll.size(); i++) {
-        match = re.match(
-            r"^(\s*)for\s*\(\s*int\s+(\w+)\s*=\s*0\s*;\s*\2\s*<\s*(\w+)\.size\(\)\s*;\s*\2\+\+\s*\)\s*\{",
-            line,
-        )
-        if not match:
-            # Try array variant: for (int i = 0; i < arr.length; i++) {
+            line = lines[idx]
+
+            # Match: for (int i = 0; i < coll.size(); i++) {
             match = re.match(
-                r"^(\s*)for\s*\(\s*int\s+(\w+)\s*=\s*0\s*;\s*\2\s*<\s*(\w+)\.length\s*;\s*\2\+\+\s*\)\s*\{",
+                r"^(\s*)for\s*\(\s*int\s+(\w+)\s*=\s*0\s*;\s*\2\s*<\s*(\w+)\.size\(\)\s*;\s*\2\+\+\s*\)\s*\{",
                 line,
             )
             if not match:
+                # Try array variant: for (int i = 0; i < arr.length; i++) {
+                match = re.match(
+                    r"^(\s*)for\s*\(\s*int\s+(\w+)\s*=\s*0\s*;\s*\2\s*<\s*(\w+)\.length\s*;\s*\2\+\+\s*\)\s*\{",
+                    line,
+                )
+                if not match:
+                    continue
+
+            indent = match.group(1)
+            idx_var = match.group(2)
+            coll_var = match.group(3)
+
+            # Find loop body (matching braces)
+            loop_start = idx
+            brace_count = 1
+            loop_end = loop_start
+            for bi in range(loop_start + 1, len(lines)):
+                brace_count += lines[bi].count("{") - lines[bi].count("}")
+                if brace_count == 0:
+                    loop_end = bi
+                    break
+
+            if loop_end == loop_start:
+                warnings.append(
+                    f"Line {flagged_line_num}: could not find loop closing brace, skipping"
+                )
                 continue
 
-        indent = match.group(1)
-        idx_var = match.group(2)
-        coll_var = match.group(3)
+            # Safety checks on loop body
+            body_lines = lines[loop_start + 1 : loop_end]
+            body_text = "".join(body_lines)
+            is_safe = True
+            skip_reasons: List[str] = []
 
-        # Find loop body (matching braces)
-        loop_start = idx
-        brace_count = 1
-        loop_end = loop_start
-        for bi in range(loop_start + 1, len(lines)):
-            brace_count += lines[bi].count("{") - lines[bi].count("}")
-            if brace_count == 0:
-                loop_end = bi
-                break
+            # Check for .remove(i), .set(i), .add(i)
+            if re.search(
+                rf"\.(remove|set|add)\s*\(\s*{re.escape(idx_var)}\s*[,\)]", body_text
+            ):
+                skip_reasons.append(f".remove/set/add using {idx_var}")
+                is_safe = False
 
-        if loop_end == loop_start:
-            warnings.append(
-                f"Line {flagged_line_num}: could not find loop closing brace, skipping"
-            )
-            continue
+            # Check for index used after loop
+            after_text = "".join(lines[loop_end + 1 :])
+            if re.search(rf"\b{re.escape(idx_var)}\b", after_text):
+                skip_reasons.append(f"{idx_var} used after loop")
+                is_safe = False
 
-        # Safety checks on loop body
-        body_lines = lines[loop_start + 1 : loop_end]
-        body_text = "".join(body_lines)
-        is_safe = True
-        skip_reasons: List[str] = []
+            # Check for parallel collection iteration
+            if re.search(rf"\b{re.escape(idx_var)}\s*\]", body_text) and re.search(
+                rf"\.get\s*\(\s*{re.escape(idx_var)}\s*\)", body_text
+            ):
+                skip_reasons.append(f"parallel iteration with {idx_var}")
+                is_safe = False
 
-        # Check for .remove(i), .set(i), .add(i)
-        if re.search(
-            rf"\.(remove|set|add)\s*\(\s*{re.escape(idx_var)}\s*[,\)]", body_text
-        ):
-            skip_reasons.append(f".remove/set/add using {idx_var}")
-            is_safe = False
+            # Check for backwards loop
+            if "--" in line:
+                skip_reasons.append("backwards loop")
+                is_safe = False
 
-        # Check for index used after loop
-        after_text = "".join(lines[loop_end + 1 :])
-        if re.search(rf"\b{re.escape(idx_var)}\b", after_text):
-            skip_reasons.append(f"{idx_var} used after loop")
-            is_safe = False
+            if not is_safe:
+                reason = "; ".join(skip_reasons)
+                lines[idx] = lines[idx].rstrip("\n") + f" // MIGRATION-SKIP: {reason}\n"
+                changes += 1
+                warnings.append(f"Line {flagged_line_num}: skipped ({reason})")
+                continue
 
-        # Check for parallel collection iteration
-        if re.search(rf"\b{re.escape(idx_var)}\s*\]", body_text) and re.search(
-            rf"\.get\s*\(\s*{re.escape(idx_var)}\s*\)", body_text
-        ):
-            skip_reasons.append(f"parallel iteration with {idx_var}")
-            is_safe = False
+            # Determine element type
+            elem_type = _infer_collection_element_type(lines, coll_var)
 
-        # Check for backwards loop
-        if "--" in line:
-            skip_reasons.append("backwards loop")
-            is_safe = False
+            # Build enhanced-for
+            loop_var = "item" if idx_var == "i" else f"elem_{idx_var}"
+            new_for = f"{indent}for ({elem_type} {loop_var} : {coll_var}) {{"
+            lines[idx] = new_for + "\n"
 
-        if not is_safe:
-            reason = "; ".join(skip_reasons)
-            lines[idx] = lines[idx].rstrip("\n") + f" // MIGRATION-SKIP: {reason}\n"
+            # Replace arr[idx], (Type) coll.get(idx), and coll.get(idx) with loop_var
+            for bi in range(idx + 1, loop_end + 1):
+                # Replace arr[idx] with loop_var (array element access)
+                array_pattern = (
+                    rf"\b{re.escape(coll_var)}\s*\[\s*{re.escape(idx_var)}\s*\]"
+                )
+                lines[bi] = re.sub(array_pattern, loop_var, lines[bi])
+                # Replace cast-get: (Type) coll.get(idx)
+                cast_pattern = rf"\((\w+(?:<.*?>)?)\)\s*{re.escape(coll_var)}\.get\s*\(\s*{re.escape(idx_var)}\s*\)"
+                lines[bi] = re.sub(cast_pattern, loop_var, lines[bi])
+                # Replace plain get: coll.get(idx)
+                get_pattern = (
+                    rf"{re.escape(coll_var)}\.get\s*\(\s*{re.escape(idx_var)}\s*\)"
+                )
+                lines[bi] = re.sub(get_pattern, loop_var, lines[bi])
+
             changes += 1
-            warnings.append(f"Line {flagged_line_num}: skipped ({reason})")
-            continue
 
-        # Determine element type
-        elem_type = _infer_collection_element_type(lines, coll_var)
+        return lines, changes, warnings
 
-        # Build enhanced-for
-        loop_var = "item" if idx_var == "i" else f"elem_{idx_var}"
-        new_for = f"{indent}for ({elem_type} {loop_var} : {coll_var}) {{"
-        lines[idx] = new_for + "\n"
-
-        # Replace all (Type) coll.get(i) and coll.get(i) with loop_var
-        for bi in range(idx + 1, loop_end + 1):
-            cast_pattern = rf"\((\w+(?:<.*?>)?)\)\s*{re.escape(coll_var)}\.get\s*\(\s*{re.escape(idx_var)}\s*\)"
-            lines[bi] = re.sub(cast_pattern, loop_var, lines[bi])
-            get_pattern = (
-                rf"{re.escape(coll_var)}\.get\s*\(\s*{re.escape(idx_var)}\s*\)"
-            )
-            lines[bi] = re.sub(get_pattern, loop_var, lines[bi])
-
-        changes += 1
-
-    if changes > 0:
-        new_content = "".join(lines)
-        atomic_file_write(file_path, new_content)
-        return "FIXED", changes, warnings
-
-    return "NOOP", 0, warnings
+    return apply_file_transform(file_path, _enhanced_for_editor)
 
 
 # ---------------------------------------------------------------------------

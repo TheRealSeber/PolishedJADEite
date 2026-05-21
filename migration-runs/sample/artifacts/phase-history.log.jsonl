@@ -20,3 +20,124 @@
 {"ts": "2026-05-21T21:01:55Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule DEPRECATED_API", "artifacts": ["rule-status.json"]}
 {"ts": "2026-05-21T21:01:55Z", "phase": "VERIFIED", "status": "OK", "message": "Phase completed: VERIFIED", "artifacts": ["00-run-state.json"]}
 {"ts": "2026-05-21T21:01:55Z", "phase": "DONE", "status": "OK", "message": "Run complete", "artifacts": ["00-run-state.json", "rule-status.json"]}
+{"ts": "2026-05-21T21:26:21Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T21:26:21Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Phase completed: WORKSPACE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T21:26:21Z", "phase": "MANIFEST_READY", "status": "OK", "message": "Phase completed: MANIFEST_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T21:26:21Z", "phase": "TOOLING_SCOUT_READY", "status": "OK", "message": "Phase completed: TOOLING_SCOUT_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T21:26:21Z", "phase": "BUILD_GATE_READY", "status": "OK", "message": "Phase completed: BUILD_GATE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T21:26:21Z", "phase": "SCAN_READY", "status": "OK", "message": "Phase completed: SCAN_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T21:26:21Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule RAW_TYPES", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T21:26:21Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule ENHANCED_FOR", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T21:26:21Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule DEPRECATED_API", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T21:26:21Z", "phase": "VERIFIED", "status": "OK", "message": "Phase completed: VERIFIED", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T21:26:21Z", "phase": "DONE", "status": "OK", "message": "Run complete", "artifacts": ["00-run-state.json", "rule-status.json"]}
+{"ts": "2026-05-21T22:49:58Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:49:58Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Phase completed: WORKSPACE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:49:58Z", "phase": "MANIFEST_READY", "status": "OK", "message": "Phase completed: MANIFEST_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:49:58Z", "phase": "TOOLING_SCOUT_READY", "status": "OK", "message": "Phase completed: TOOLING_SCOUT_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:49:58Z", "phase": "BUILD_GATE_READY", "status": "OK", "message": "Phase completed: BUILD_GATE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:49:58Z", "phase": "SCAN_READY", "status": "OK", "message": "Phase completed: SCAN_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:49:58Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule RAW_TYPES", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T22:49:58Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule ENHANCED_FOR", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T22:49:58Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule DEPRECATED_API", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T22:49:58Z", "phase": "VERIFIED", "status": "OK", "message": "Phase completed: VERIFIED", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:49:58Z", "phase": "DONE", "status": "OK", "message": "Run complete", "artifacts": ["00-run-state.json", "rule-status.json"]}
+{"ts": "2026-05-21T22:50:03Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:50:03Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Phase completed: WORKSPACE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:50:03Z", "phase": "MANIFEST_READY", "status": "OK", "message": "Phase completed: MANIFEST_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:50:03Z", "phase": "TOOLING_SCOUT_READY", "status": "OK", "message": "Phase completed: TOOLING_SCOUT_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:50:03Z", "phase": "BUILD_GATE_READY", "status": "OK", "message": "Phase completed: BUILD_GATE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:50:03Z", "phase": "SCAN_READY", "status": "OK", "message": "Phase completed: SCAN_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:50:03Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule RAW_TYPES", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T22:50:03Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule ENHANCED_FOR", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T22:50:03Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule DEPRECATED_API", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T22:50:03Z", "phase": "VERIFIED", "status": "OK", "message": "Phase completed: VERIFIED", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:50:03Z", "phase": "DONE", "status": "OK", "message": "Run complete", "artifacts": ["00-run-state.json", "rule-status.json"]}
+{"ts": "2026-05-21T22:51:40Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:51:40Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Phase completed: WORKSPACE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:51:40Z", "phase": "MANIFEST_READY", "status": "OK", "message": "Phase completed: MANIFEST_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:51:40Z", "phase": "TOOLING_SCOUT_READY", "status": "OK", "message": "Phase completed: TOOLING_SCOUT_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:51:40Z", "phase": "BUILD_GATE_READY", "status": "OK", "message": "Phase completed: BUILD_GATE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:51:40Z", "phase": "SCAN_READY", "status": "OK", "message": "Phase completed: SCAN_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:51:40Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule RAW_TYPES", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T22:51:40Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule ENHANCED_FOR", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T22:51:40Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule DEPRECATED_API", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T22:51:40Z", "phase": "VERIFIED", "status": "OK", "message": "Phase completed: VERIFIED", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:51:40Z", "phase": "DONE", "status": "OK", "message": "Run complete", "artifacts": ["00-run-state.json", "rule-status.json"]}
+{"ts": "2026-05-21T22:57:07Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:57:07Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Phase completed: WORKSPACE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:57:07Z", "phase": "MANIFEST_READY", "status": "OK", "message": "Phase completed: MANIFEST_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:57:07Z", "phase": "TOOLING_SCOUT_READY", "status": "OK", "message": "Phase completed: TOOLING_SCOUT_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:57:07Z", "phase": "BUILD_GATE_READY", "status": "OK", "message": "Phase completed: BUILD_GATE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:57:07Z", "phase": "SCAN_READY", "status": "OK", "message": "Phase completed: SCAN_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:57:07Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule RAW_TYPES", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T22:57:07Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule ENHANCED_FOR", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T22:57:07Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule DEPRECATED_API", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T22:57:07Z", "phase": "VERIFIED", "status": "OK", "message": "Phase completed: VERIFIED", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:57:07Z", "phase": "DONE", "status": "OK", "message": "Run complete", "artifacts": ["00-run-state.json", "rule-status.json"]}
+{"ts": "2026-05-21T22:58:34Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:58:34Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Phase completed: WORKSPACE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:58:34Z", "phase": "MANIFEST_READY", "status": "OK", "message": "Phase completed: MANIFEST_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:58:34Z", "phase": "TOOLING_SCOUT_READY", "status": "OK", "message": "Phase completed: TOOLING_SCOUT_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:58:34Z", "phase": "BUILD_GATE_READY", "status": "OK", "message": "Phase completed: BUILD_GATE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:58:34Z", "phase": "SCAN_READY", "status": "OK", "message": "Phase completed: SCAN_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:58:34Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule RAW_TYPES", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T22:58:34Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule ENHANCED_FOR", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T22:58:34Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule DEPRECATED_API", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T22:58:34Z", "phase": "VERIFIED", "status": "OK", "message": "Phase completed: VERIFIED", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T22:58:34Z", "phase": "DONE", "status": "OK", "message": "Run complete", "artifacts": ["00-run-state.json", "rule-status.json"]}
+{"ts": "2026-05-21T23:00:06Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:00:06Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Phase completed: WORKSPACE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:00:06Z", "phase": "MANIFEST_READY", "status": "OK", "message": "Phase completed: MANIFEST_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:00:06Z", "phase": "TOOLING_SCOUT_READY", "status": "OK", "message": "Phase completed: TOOLING_SCOUT_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:00:06Z", "phase": "BUILD_GATE_READY", "status": "OK", "message": "Phase completed: BUILD_GATE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:00:06Z", "phase": "SCAN_READY", "status": "OK", "message": "Phase completed: SCAN_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:00:06Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule RAW_TYPES", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T23:00:06Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule ENHANCED_FOR", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T23:00:06Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule DEPRECATED_API", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T23:00:06Z", "phase": "VERIFIED", "status": "OK", "message": "Phase completed: VERIFIED", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:00:06Z", "phase": "DONE", "status": "OK", "message": "Run complete", "artifacts": ["00-run-state.json", "rule-status.json"]}
+{"ts": "2026-05-21T23:01:01Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:01Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Phase completed: WORKSPACE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:01Z", "phase": "MANIFEST_READY", "status": "OK", "message": "Phase completed: MANIFEST_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:01Z", "phase": "TOOLING_SCOUT_READY", "status": "OK", "message": "Phase completed: TOOLING_SCOUT_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:01Z", "phase": "BUILD_GATE_READY", "status": "OK", "message": "Phase completed: BUILD_GATE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:01Z", "phase": "SCAN_READY", "status": "OK", "message": "Phase completed: SCAN_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:01Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule RAW_TYPES", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T23:01:01Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule ENHANCED_FOR", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T23:01:01Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule DEPRECATED_API", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T23:01:01Z", "phase": "VERIFIED", "status": "OK", "message": "Phase completed: VERIFIED", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:01Z", "phase": "DONE", "status": "OK", "message": "Run complete", "artifacts": ["00-run-state.json", "rule-status.json"]}
+{"ts": "2026-05-21T23:01:07Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:07Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Phase completed: WORKSPACE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:07Z", "phase": "MANIFEST_READY", "status": "OK", "message": "Phase completed: MANIFEST_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:07Z", "phase": "TOOLING_SCOUT_READY", "status": "OK", "message": "Phase completed: TOOLING_SCOUT_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:07Z", "phase": "BUILD_GATE_READY", "status": "OK", "message": "Phase completed: BUILD_GATE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:07Z", "phase": "SCAN_READY", "status": "OK", "message": "Phase completed: SCAN_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:07Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule RAW_TYPES", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T23:01:07Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule ENHANCED_FOR", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T23:01:07Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule DEPRECATED_API", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T23:01:07Z", "phase": "VERIFIED", "status": "OK", "message": "Phase completed: VERIFIED", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:07Z", "phase": "DONE", "status": "OK", "message": "Run complete", "artifacts": ["00-run-state.json", "rule-status.json"]}
+{"ts": "2026-05-21T23:01:59Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:59Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Phase completed: WORKSPACE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:59Z", "phase": "MANIFEST_READY", "status": "OK", "message": "Phase completed: MANIFEST_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:59Z", "phase": "TOOLING_SCOUT_READY", "status": "OK", "message": "Phase completed: TOOLING_SCOUT_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:59Z", "phase": "BUILD_GATE_READY", "status": "OK", "message": "Phase completed: BUILD_GATE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:59Z", "phase": "SCAN_READY", "status": "OK", "message": "Phase completed: SCAN_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:59Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule RAW_TYPES", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T23:01:59Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule ENHANCED_FOR", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T23:01:59Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule DEPRECATED_API", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T23:01:59Z", "phase": "VERIFIED", "status": "OK", "message": "Phase completed: VERIFIED", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:01:59Z", "phase": "DONE", "status": "OK", "message": "Run complete", "artifacts": ["00-run-state.json", "rule-status.json"]}
+{"ts": "2026-05-21T23:02:20Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:02:20Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Phase completed: WORKSPACE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:02:20Z", "phase": "MANIFEST_READY", "status": "OK", "message": "Phase completed: MANIFEST_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:02:20Z", "phase": "TOOLING_SCOUT_READY", "status": "OK", "message": "Phase completed: TOOLING_SCOUT_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:02:20Z", "phase": "BUILD_GATE_READY", "status": "OK", "message": "Phase completed: BUILD_GATE_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:02:20Z", "phase": "SCAN_READY", "status": "OK", "message": "Phase completed: SCAN_READY", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:02:20Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule RAW_TYPES", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T23:02:20Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule ENHANCED_FOR", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T23:02:20Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule DEPRECATED_API", "artifacts": ["rule-status.json"]}
+{"ts": "2026-05-21T23:02:20Z", "phase": "VERIFIED", "status": "OK", "message": "Phase completed: VERIFIED", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-21T23:02:20Z", "phase": "DONE", "status": "OK", "message": "Run complete", "artifacts": ["00-run-state.json", "rule-status.json"]}

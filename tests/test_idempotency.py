@@ -1,31 +1,32 @@
 import json
 import pathlib
+import shutil
 import subprocess
 import sys
 
 import pytest
 
 SCAN_SCRIPT = pathlib.Path(".claude/skills/jade-scanner/scripts/scan_and_tag.py")
-ARTIFACTS_DIR = pathlib.Path("migration-runs/sample/artifacts")
-WORKSPACE = pathlib.Path("migration-runs/sample/workspace")
 
 
-def _assert_workspace_exists():
-    if not WORKSPACE.is_dir():
-        pytest.skip(f"Workspace not found: {WORKSPACE}")
-
-
-def _assert_flag_index_exists():
-    idx_path = ARTIFACTS_DIR / "04-flag-index.json"
+def test_scanner_second_run_no_new_flags(artifacts_dir, workspace_dir, tmp_path):
+    if not workspace_dir.is_dir():
+        pytest.skip(f"Workspace not found: {workspace_dir}")
+    idx_path = artifacts_dir / "04-flag-index.json"
     if not idx_path.exists():
-        pytest.skip("Run scanner first to produce 04-flag-index.json")
+        pytest.skip(f"Flag index not found: {idx_path}")
 
+    workspace_copy = tmp_path / "workspace"
+    shutil.copytree(str(workspace_dir), str(workspace_copy))
 
-def test_scanner_second_run_no_new_flags():
-    _assert_workspace_exists()
-    _assert_flag_index_exists()
+    artifacts_copy = tmp_path / "artifacts"
+    artifacts_copy.mkdir()
+    shutil.copy2(str(idx_path), str(artifacts_copy / "04-flag-index.json"))
+    manifest = artifacts_dir / "01-breaking-changes-manifest.json"
+    shutil.copy2(
+        str(manifest), str(artifacts_copy / "01-breaking-changes-manifest.json")
+    )
 
-    idx_path = ARTIFACTS_DIR / "04-flag-index.json"
     existing = json.loads(idx_path.read_text(encoding="utf-8"))
     first_count = existing.get("total_flags", len(existing.get("flags", [])))
 
@@ -34,16 +35,16 @@ def test_scanner_second_run_no_new_flags():
             sys.executable,
             str(SCAN_SCRIPT),
             "--workspace",
-            str(WORKSPACE),
+            str(workspace_copy),
             "--artifacts",
-            str(ARTIFACTS_DIR),
+            str(artifacts_copy),
         ],
         capture_output=True,
         text=True,
     )
     assert result.returncode == 0, f"Scanner failed:\n{result.stderr}"
 
-    summary_path = ARTIFACTS_DIR / "04-scan-summary.json"
+    summary_path = artifacts_copy / "04-scan-summary.json"
     if summary_path.exists():
         summary = json.loads(summary_path.read_text(encoding="utf-8"))
         assert summary["total_new_flags"] == 0, (

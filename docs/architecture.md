@@ -86,10 +86,25 @@ deterministic ordering). Different rules are never processed concurrently.
 
 **The Change Collector cannot invent rules.**
 
+The change collector uses **LLM reading comprehension, not regex** to extract rules
+from source documents. The agent reads clean text from `artifacts/01-source-content-*.txt`
+(fetched and HTML-stripped by `fetch_source.py`). It extracts rules by understanding
+the text, NOT by matching patterns — eliminating the fragility of regex extraction.
+
+Every extracted rule is validated by `write_manifest.py` before being accepted.
+The validator enforces 12 schema checks:
+
 Every entry in `01-breaking-changes-manifest.json` MUST cite a specific source with:
-- `evidence_ref` — source label, section anchor, and line range
-- `evidence_hash` — SHA-256 of the exact source text snippet that supports the rule
+- `evidence_ref` — source label, section anchor, and line range (from text the agent read)
+- `evidence_hash` — SHA-256 of the source text (from `01-source-index.json`)
 - `confidence` — never below 0.7
+
+`write_manifest.py` additionally validates:
+- `fix_strategy` starts with `"recipe:"`
+- `match_pattern` compiles as valid regex
+- No duplicate `rule_id` values
+- `severity` and `category` are valid enum values
+- Every rule has at least one pattern
 
 **Hard constraints:**
 - Confidence `1.0` is reserved for official Oracle/OpenJDK release notes or JEP documents
@@ -99,6 +114,8 @@ Every entry in `01-breaking-changes-manifest.json` MUST cite a specific source w
   and halts — it NEVER proceeds with LLM-priors
 - A `match_pattern` or `fix_strategy` may not be fabricated; ambiguous changes go into
   `rejected_candidates`, not promoted to rules
+- **The agent writes extracted rules to a temp file; `write_manifest.py` validates and
+  atomically writes the manifest. The agent never directly writes the manifest.**
 
 This prevents the most common failure mode in LLM-assisted migration: an agent
 confidently applying a "known" Java 1.5→1.6 change that was never actually a
@@ -168,7 +185,7 @@ plumbing.
 | 1 | `jade-core-orchestrator` | State machine, phase sequencing, rule queue iteration |
 | 2 | `jade-core-change-collector` | Strict evidence-backed manifest generation |
 | 3 | `jade-core-tooling-scout` | OpenRewrite/PMD/Checkstyle dry-run discovery |
-| 4 | `jade-core-build-fixer` | Build system audit + safe compiler flag updates |
+| 4 | `jade-core-build-fixer` | Build system audit + Dockerized compilation |
 | 5 | `jade-core-scanner` | Regex tag injection + idempotent flag index |
 | 6 | `jade-core-batch-processor` | Per-rule file task list from flag index |
 | 7 | `jade-core-rule-dispatcher` | Routes tasks to recipe skills via `recipe-registry.json` |
@@ -422,7 +439,11 @@ python .claude/skills/<skill-name>/scripts/<script>.py \
 - `0` — success (fix applied, gate passed, phase completed)
 - `1` — informational (run complete but attention needed)
 - `2` — failure (invalid input, missing artifact, unrecoverable error)
-- `3` — environment failure (missing JDK, tool not found)
+- `3` — environment failure (missing Docker, missing JDK, tool not found)
+
+**Build gates use Docker:** The `jade-core-build-fixer` and `jade-core-verification`
+skills compile code in ephemeral Docker containers (`frekele/ant:1.10.3-jdk8`).
+No host JDK or Ant installation is required.
 
 **Atomic writes:** All artifact writes use tmp-file + atomic rename. No partial files
 on disk. If the process is killed mid-write, the artifact either doesn't exist or is

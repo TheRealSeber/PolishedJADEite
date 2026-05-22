@@ -5,6 +5,7 @@ import argparse
 import datetime as dt
 import json
 import pathlib
+import shutil
 import sys
 from typing import Dict, List
 
@@ -23,7 +24,12 @@ TERMINAL_STATES = {"DONE", "FAILED", "AWAITING_SOURCE_INPUT"}
 
 
 def iso_now() -> str:
-    return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    return (
+        dt.datetime.now(dt.timezone.utc)
+        .replace(microsecond=0)
+        .isoformat()
+        .replace("+00:00", "Z")
+    )
 
 
 def read_json(path: pathlib.Path) -> Dict:
@@ -85,14 +91,26 @@ def main() -> int:
 
     config_path = pathlib.Path(args.config)
     if not config_path.exists():
-        print(f"ERROR [CONFIG_NOT_FOUND] Missing config: {config_path}", file=sys.stderr)
+        print(
+            f"ERROR [CONFIG_NOT_FOUND] Missing config: {config_path}", file=sys.stderr
+        )
         return 2
 
     cfg = read_json(config_path)
-    required = {"run_id", "workspace_path", "artifacts_path", "source_version", "target_version"}
+    required = {
+        "run_id",
+        "baseline_path",
+        "workspace_path",
+        "artifacts_path",
+        "source_version",
+        "target_version",
+    }
     missing = sorted(required - set(cfg.keys()))
     if missing:
-        print(f"ERROR [CONFIG_INVALID] Missing keys: {', '.join(missing)}", file=sys.stderr)
+        print(
+            f"ERROR [CONFIG_INVALID] Missing keys: {', '.join(missing)}",
+            file=sys.stderr,
+        )
         return 2
 
     artifacts = pathlib.Path(cfg["artifacts_path"])
@@ -109,7 +127,53 @@ def main() -> int:
     write_json(state_path, state)
     append_jsonl(
         hist_path,
-        {"ts": iso_now(), "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]},
+        {
+            "ts": iso_now(),
+            "phase": "INIT",
+            "status": "OK",
+            "message": "Run initialized",
+            "artifacts": ["00-run-state.json"],
+        },
+    )
+
+    # ------------------------------------------------------------------
+    # WORKSPACE_READY — isolate workspace (never mutate baseline)
+    # ------------------------------------------------------------------
+    baseline = pathlib.Path(cfg["baseline_path"])
+    workspace = pathlib.Path(cfg["workspace_path"])
+
+    if not baseline.exists():
+        return fail(
+            artifacts,
+            state,
+            "BASELINE_MISSING",
+            f"Baseline path does not exist: {baseline}",
+        )
+
+    if not workspace.exists():
+        try:
+            shutil.copytree(baseline, workspace)
+        except shutil.Error as exc:
+            return fail(
+                artifacts,
+                state,
+                "COPY_FAILED",
+                f"Failed to copy {baseline} → {workspace}: {exc}",
+            )
+
+    state["state"] = "WORKSPACE_READY"
+    state["updated_at"] = iso_now()
+    write_json(state_path, state)
+    append_jsonl(
+        hist_path,
+        {
+            "ts": iso_now(),
+            "phase": "WORKSPACE_READY",
+            "status": "OK",
+            "message": f"Workspace ready: {workspace}"
+            + (" (fresh copy)" if not workspace.exists() else " (existing)"),
+            "artifacts": ["00-run-state.json"],
+        },
     )
 
     required_phase_inputs = {
@@ -122,7 +186,9 @@ def main() -> int:
     for phase in PHASES[1:]:
         for p in required_phase_inputs.get(phase, []):
             if not p.exists():
-                return fail(artifacts, state, "ARTIFACT_MISSING", f"Required for {phase}: {p}")
+                return fail(
+                    artifacts, state, "ARTIFACT_MISSING", f"Required for {phase}: {p}"
+                )
 
         if phase == "RULE_BATCH_LOOP":
             queue = read_json(artifacts / "05-rule-queue.json")
@@ -137,9 +203,18 @@ def main() -> int:
                 state["updated_at"] = iso_now()
                 write_json(state_path, state)
 
-                ok = placeholder_runner(f"batch:{rule_id}") and placeholder_runner(f"verify:{rule_id}") and placeholder_runner(f"commit:{rule_id}")
+                ok = (
+                    placeholder_runner(f"batch:{rule_id}")
+                    and placeholder_runner(f"verify:{rule_id}")
+                    and placeholder_runner(f"commit:{rule_id}")
+                )
                 if not ok:
-                    return fail(artifacts, state, "RULE_GATE_FAILED", f"Rule pipeline failed for {rule_id}")
+                    return fail(
+                        artifacts,
+                        state,
+                        "RULE_GATE_FAILED",
+                        f"Rule pipeline failed for {rule_id}",
+                    )
 
                 rule_status[rule_id] = {"status": "DONE", "updated_at": iso_now()}
                 append_jsonl(
@@ -153,7 +228,10 @@ def main() -> int:
                     },
                 )
 
-            write_json(artifacts / "rule-status.json", {"run_id": cfg["run_id"], "rules": rule_status})
+            write_json(
+                artifacts / "rule-status.json",
+                {"run_id": cfg["run_id"], "rules": rule_status},
+            )
             continue
 
         if not placeholder_runner(phase):
@@ -179,7 +257,13 @@ def main() -> int:
     write_json(state_path, state)
     append_jsonl(
         hist_path,
-        {"ts": iso_now(), "phase": "DONE", "status": "OK", "message": "Run complete", "artifacts": ["00-run-state.json", "rule-status.json"]},
+        {
+            "ts": iso_now(),
+            "phase": "DONE",
+            "status": "OK",
+            "message": "Run complete",
+            "artifacts": ["00-run-state.json", "rule-status.json"],
+        },
     )
     print("DONE")
     return 0

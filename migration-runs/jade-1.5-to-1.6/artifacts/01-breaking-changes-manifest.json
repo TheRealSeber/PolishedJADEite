@@ -1,32 +1,55 @@
 {
   "run_id": "jade-1.5-to-1.6",
-  "generated_at": "2026-05-22T09:48:20Z",
+  "generated_at": "2026-05-22T09:17:50Z",
   "source_version": "1.5",
   "target_version": "1.6",
   "citation": "Extracted from 3 source(s): oracle-java-6-compat, wikipedia-java-history, mock-sources",
   "rules": [
     {
-      "id": "DUMMY_TEST_RULE",
-      "name": "Dummy E2E Test Rule",
-      "fix_strategy": "recipe:jade-recipe-dummy",
-      "severity": "INFO",
+      "id": "RAW_TYPES",
+      "name": "Raw Types to Generics",
+      "fix_strategy": "recipe:jade-recipe-java1.5-raw-types",
+      "severity": "HIGH",
       "category": "LANGUAGE_CHANGE",
-      "match_pattern": "public class",
-      "verification_hint": "No-op — appends // E2E TEST comment",
+      "match_pattern": "new\\s+(Vector|ArrayList|HashMap|Hashtable|LinkedList|HashSet)\\s*\\(\\)",
+      "verification_hint": "Build must compile without raw-type warnings for java.util collections; LEAP types must not be parameterized",
       "patterns": [
         {
           "type": "regex",
-          "pattern": "public class",
+          "pattern": "new\\s+(Vector|ArrayList|HashMap|Hashtable|LinkedList|HashSet)\\s*\\(\\)",
           "target_extensions": [
             ".java"
           ],
-          "reason": "Dummy pattern matching every Java class declaration",
+          "reason": "Raw collection instantiation — Java 1.5+ requires parameterized types per JLS 4.8",
           "confidence": "HIGH"
         }
       ],
-      "evidence_ref": "mock-sources::lines 1-5 (dummy e2e test)",
+      "evidence_ref": "mock-sources::lines 19-55 (JLS 3rd Ed. 4.8 Raw Types)",
       "evidence_hash": "dd251f683048fa9e882155b9e5aeccad9a46605bde50cac26741a564a2833a35",
       "confidence": 0.95
+    },
+    {
+      "id": "ENHANCED_FOR",
+      "name": "Enhanced For Loops",
+      "fix_strategy": "recipe:jade-recipe-java1.5-enhanced-for",
+      "severity": "MEDIUM",
+      "category": "LANGUAGE_CHANGE",
+      "match_pattern": "for\\s*\\(\\s*int\\s+\\w+\\s*=\\s*0\\s*;\\s*\\w+\\s*<\\s*\\w+\\.(?:size|length)\\(\\)",
+      "verification_hint": "Build must compile; verify loop behavior unchanged by runtime test; unsafe loops marked MIGRATION-SKIP",
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "for\\s*\\(\\s*int\\s+\\w+\\s*=\\s*0\\s*;\\s*\\w+\\s*<\\s*\\w+\\.(?:size|length)\\(\\)",
+          "target_extensions": [
+            ".java"
+          ],
+          "reason": "Indexed for-loop convertible to enhanced-for per JLS 14.14.2",
+          "confidence": "MEDIUM"
+        }
+      ],
+      "evidence_ref": "mock-sources::lines 66-108 (JLS 3rd Ed. 14.14.2 Enhanced For Statement)",
+      "evidence_hash": "dd251f683048fa9e882155b9e5aeccad9a46605bde50cac26741a564a2833a35",
+      "confidence": 0.85
     }
   ]
 }

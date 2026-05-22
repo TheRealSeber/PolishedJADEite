@@ -1,9 +1,0 @@
-{
-  "rule_id": "DUMMY_TEST_RULE",
-  "commit_hash": "bbe4e94e60d1f8ecdb07e970a6b0b3cb6bb7f6b1",
-  "message": "fix(migration): resolved DUMMY_TEST_RULE - E2E dummy test - validates full pipeline",
-  "timestamp": "2026-05-22T09:58:40Z",
-  "files": [
-    "JADE-4.6.0/src/jade/src/FIPA/AgentIDHelper.java",\n    "JADE-4.6.0/src/jade/src/jade/content/lang/sl/SLCodec.java",\n    "JADE-4.6.0/src/jade/src/jade/gui/AgentTree.java"
-  ]
-}

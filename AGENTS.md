@@ -31,6 +31,9 @@ Apply ONE `rule_id` to ALL flagged files → verify compile + semantic gates →
 6. **Separation** — Core skills contain zero version-specific logic. Recipe skills contain zero pipeline logic.
 7. **One commit per rule** — never squash rule commits. SHA logged to `09-rule-commit-log.json`.
 8. **Phase 0 optional** — `JadeDocumentation/` enriches verification but pipeline never requires it.
+9. **Workspace isolation** — pipeline NEVER mutates baseline source. Orchestrator copies
+   `baseline_path` → `workspace_path` at INIT. All skills operate on the copy only. `JADE-4.6.0/`
+   is read-only and never modified.
 
 ## Skill Inventory
 

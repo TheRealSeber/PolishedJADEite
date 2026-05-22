@@ -41,6 +41,19 @@ Skill invocations carry:
 
 No raw source code, no raw JSON arrays, no large payloads cross the agent boundary.
 
+**Workspace Isolation:**
+
+The pipeline never mutates the baseline source code. The `00-run-config.json` has
+two paths:
+- `baseline_path` — the pristine, read-only master source (e.g., `JADE-4.6.0`)
+- `workspace_path` — an isolated sandbox copy (e.g., `migration-runs/jade-1.5-to-1.6/workspace`)
+
+At INIT, the orchestrator copies the entire baseline tree to the workspace via
+`shutil.copytree`. This preserves the complete directory structure including `lib/`,
+build files, and source — ensuring all relative paths in Ant/Maven/Gradle work
+correctly. Every skill reads and writes exclusively under `workspace_path`. The
+baseline directory is never touched by any phase.
+
 **Artifact numbering convention:**
 
 | Prefix | Phase | Produced by |

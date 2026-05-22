@@ -1,9 +1,0 @@
-{
-  "run_id": "jade-1.5-to-1.6",
-  "rules": {
-    "DUMMY_TEST_RULE": {
-      "status": "DONE",
-      "updated_at": "2026-05-22T09:54:09Z"
-    }
-  }
-}

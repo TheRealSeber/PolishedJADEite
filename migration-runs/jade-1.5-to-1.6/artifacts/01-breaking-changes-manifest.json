@@ -1,0 +1,51 @@
+{
+  "run_id": "jade-1.5-to-1.6",
+  "generated_at": "2026-05-22T09:00:00Z",
+  "source_version": "1.5",
+  "target_version": "1.6",
+  "citation": "Oracle Java SE 6 release notes + JLS 3rd Ed. (generics, enhanced-for). Sources fetched successfully (HTTP 200 from oracle.com and wikipedia.org).",
+  "rules": [
+    {
+      "id": "RAW_TYPES",
+      "name": "Raw Types to Generics",
+      "fix_strategy": "recipe:jade-recipe-java1.5-raw-types",
+      "severity": "HIGH",
+      "category": "LANGUAGE_CHANGE",
+      "match_pattern": "new\\s+(Vector|ArrayList|HashMap|Hashtable|LinkedList|HashSet)\\s*\\(\\)",
+      "verification_hint": "Build must compile without raw-type warnings for java.util collections",
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "new\\s+(Vector|ArrayList|HashMap|Hashtable|LinkedList|HashSet)\\s*\\(\\)",
+          "target_extensions": [".java"],
+          "reason": "Raw collection instantiation — Java 1.5+ requires parameterized types",
+          "confidence": "HIGH"
+        }
+      ],
+      "evidence_ref": "oracle-java-6-compat::generics::JLS-3rd-Ed-Ch4.8",
+      "evidence_hash": "641604d318ed0e55fa71df59ff0f1aad70e2a92d528cb317073931038abff13d",
+      "confidence": 0.95
+    },
+    {
+      "id": "ENHANCED_FOR",
+      "name": "Enhanced For Loops",
+      "fix_strategy": "recipe:jade-recipe-java1.5-enhanced-for",
+      "severity": "MEDIUM",
+      "category": "LANGUAGE_CHANGE",
+      "match_pattern": "for\\s*\\(\\s*int\\s+\\w+\\s*=\\s*0\\s*;\\s*\\w+\\s*<\\s*\\w+\\.(?:size|length)\\(\\)",
+      "verification_hint": "Build must compile; verify loop behavior unchanged by runtime test",
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "for\\s*\\(\\s*int\\s+\\w+\\s*=\\s*0\\s*;\\s*\\w+\\s*<\\s*\\w+\\.(?:size|length)\\(\\)",
+          "target_extensions": [".java"],
+          "reason": "Indexed for-loop convertible to enhanced-for (Java 1.5+ feature)",
+          "confidence": "MEDIUM"
+        }
+      ],
+      "evidence_ref": "oracle-java-6-compat::enhanced-for::JLS-3rd-Ed-Ch14.14.2",
+      "evidence_hash": "641604d318ed0e55fa71df59ff0f1aad70e2a92d528cb317073931038abff13d",
+      "confidence": 0.85
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "run_id": "jade-1.5-to-1.6",
+  "sources": [
+    {
+      "source_label": "oracle-java-6-compat",
+      "source_url": "https://www.oracle.com/java/technologies/javase/6-relnotes.html",
+      "fetch_status": "success",
+      "error_type": null,
+      "error_message": null,
+      "content_hash": "641604d318ed0e55fa71df59ff0f1aad70e2a92d528cb317073931038abff13d",
+      "content_length": 342305,
+      "http_status": 200,
+      "fetched_at": "2026-05-22T08:57:24Z",
+      "content_snippet": "\n<!DOCTYPE html>\n<html lang=\"en-US\" class=\"no-js\"><head>\n<title>Java SE 6 Advanced</title>\n<meta name=\"Title\" content=\"Java SE 6 Advanced\">\n<meta name=\"Description\" content=\"Java SE 6 Advanced\">\n<meta name=\"Keywords\" content=\"Java SE 6 Advanced\">\n<!-- Container/Display Start -->\n<!-- _Raw-Text -->\n<!-- css / js files start -->\n<script>\n!function(){\nvar d=document.documentElement;d.className=d.className.replace(/no-js/,'js');\nif(document.location.href.indexOf('betamode=') > -1) document.write('<script src=\"https://www.oracle.com/asset/web/js/ocom-betamode.js\"><\\/script>');\n}();\n</script>\n<link data-wscss href=\"/asset/web/css/ocom-v1-base.css\" rel=\"stylesheet\">\n<link data-wscss href=\"/asset/web/css/ocom-v1-styles.css\" rel=\"preload\" as=\"style\" onload=\"this.rel='stylesheet'\" onerror=\"this.rel='stylesheet'\">\n<noscript>\n<link href=\"/asset/web/css/ocom-v1-styles.css\" rel=\"stylesheet\">\n</noscript>\n<link data-wsjs data-reqjq href=\"/asset/web/js/ocom-v1-base.js\" rel=\"preload\" as=\"script\">\n<link data-wsjs data-reqjq href=\"/asset/web/js/ocom-v1-lib.js\" rel=\"preload\" as=\"script\">\n<script data-wsjs src=\"/asset/web/js/jquery-min.js\" async onload=\"$('head link[data-reqjq][rel=preload]').each(function(){var a = document.createElement('script');a.async=false;a.src=$(this).attr('href');this.parentNode.insertBefore(a, this);});$(function(){$('script[data-reqjq][data-src]').each(function(){this.async=true;this.src=$(this).data('src');});});\"></script>\n<!-- end css / js files start -->\n<!-- / _Raw-Text -->\n<!-- Container/Display end -->\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<meta name=\"siteid\" content=\"us\">\n<meta name=\"countryid\" content=\"US\">\n<meta name=\"robots\" content=\"index, follow\">\n<meta name=\"country\" content=\"United States\">\n<meta name=\"Language\" content=\"en\">\n<meta name=\"Updated Date\" content=\"2019-03-04T20:06:36Z\">\n<script type=\"text/javascript\">\nvar pageData = pageData || {};\n//p"
+    },
+    {
+      "source_label": "wikipedia-java-history",
+      "source_url": "https://en.wikipedia.org/wiki/Java_version_history",
+      "fetch_status": "success",
+      "error_type": null,
+      "error_message": null,
+      "content_hash": "6cfa15893695284b2f4f952c919be8588d69299790257003ac1ce28999c32124",
+      "content_length": 882516,
+      "http_status": 200,
+      "fetched_at": "2026-05-22T08:57:36Z",
+      "content_snippet": "<!DOCTYPE html>\n<html class=\"client-nojs vector-feature-language-in-header-enabled vector-feature-language-in-main-menu-disabled vector-feature-language-in-main-page-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-1 vector-feature-appearance-pinned-clientpref-1 skin-theme-clientpref-day vector-sticky-header-enabled vector-toc-available skin-thumbsize-clientpref-standard\" lang=\"en\" dir=\"ltr\">\n<head>\n<meta charset=\"UTF-8\">\n<title>Java version history - Wikipedia</title>\n<script>(function(){var className=\"client-js vector-feature-language-in-header-enabled vector-feature-language-in-main-menu-disabled vector-feature-language-in-main-page-header-disabled vector-feature-page-tools-pinned-disabled vector-feature-toc-pinned-clientpref-1 vector-feature-main-menu-pinned-disabled vector-feature-limited-width-clientpref-1 vector-feature-limited-width-content-enabled vector-feature-custom-font-size-clientpref-1 vector-feature-appearance-pinned-clientpref-1 skin-theme-clientpref-day vector-sticky-header-enabled vector-toc-available skin-thumbsize-clientpref-standard\";var cookie=document.cookie.match(/(?:^|; )enwikimwclientpreferences=([^;]+)/);if(cookie){cookie[1].split('%2C').forEach(function(pref){className=className.replace(new RegExp('(^| )'+pref.replace(/-clientpref-\\w+$|[^\\w-]+/g,'')+'-clientpref-\\\\w+( |$)'),'$1'+pref+'$2');});}document.documentElement.className=className;}());RLCONF={\"wgBreakFrames\":false,\"wgSeparatorTransformTable\":[\"\",\"\"],\"wgDigitTransformTable\":[\"\",\"\"],\"wgDefaultDateFormat\":\"dmy\",\"wgMonthNames\":[\"\",\"January\",\"February\",\"March\",\"April\",\"May\",\"June\",\"July\",\"August\",\"September\",\"October\",\"November\",\"December\"],\"wgRequestId\":\"a1dc4a24-134e-45a3-bc71-99465580aff3\",\"wgCanonicalNamespace\":\"\",\"wgCanonicalSpecialPageName\":false,\"wgNamespaceNumbe"
+    }
+  ]
+}

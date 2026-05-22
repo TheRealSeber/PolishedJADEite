@@ -13,12 +13,16 @@ when_to_use: >-
 arguments: []
 argument-hint: ""
 disable-model-invocation: false
-allowed-tools: Bash(ant *) Bash(grep *) Bash(find *) Bash(python *) Read Write
-env: JAVA_HOME=/usr/lib/jvm/java-8-openjdk
+allowed-tools: Bash(docker *) Bash(python *) Read Write
+env: {}
 paths: "**/build.xml" "**/pom.xml" "**/build.gradle"
 ---
 
 # JADE Build System Fixer — Build Prerequisite Gate
+
+## Prerequisites
+**Docker must be installed and running.** All builds execute in ephemeral
+containers — no legacy JDK or build tools required on the host.
 
 ## Objective
 Act as the **BUILD_GATE_READY** phase gate. Analyze the project's build system for

@@ -1,0 +1,19 @@
+{
+  "run_id": "jade-1.5-to-1.6",
+  "entries": [
+    {
+      "source_label": "oracle-java-6-compat",
+      "source_url": "https://www.oracle.com/java/technologies/javase/6-relnotes.html",
+      "fetch_status": "success",
+      "extracted_rules": [],
+      "rejected_candidates": []
+    },
+    {
+      "source_label": "wikipedia-java-history",
+      "source_url": "https://en.wikipedia.org/wiki/Java_version_history",
+      "fetch_status": "success",
+      "extracted_rules": [],
+      "rejected_candidates": []
+    }
+  ]
+}

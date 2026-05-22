@@ -414,102 +414,128 @@ def apply_ant_fixes(
 
 
 # ---------------------------------------------------------------------------
-# Build execution
+# Docker helpers — all builds run in ephemeral containers
 # ---------------------------------------------------------------------------
+
+DOCKER_ANT_IMAGE = "frekele/ant:1.10.3-jdk8"
+DOCKER_MAVEN_IMAGE = "maven:3.6-jdk-8"
+DOCKER_GRADLE_IMAGE = "gradle:5.6-jdk8"
+
+
+def _docker_available() -> bool:
+    try:
+        subprocess.run(
+            ["docker", "info"],
+            capture_output=True,
+            timeout=10,
+        )
+        return True
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        return False
+
+
+def _docker_run(
+    image: str, workdir_abs: pathlib.Path, cmd: List[str], timeout: int = 300
+) -> Tuple[int, str]:
+    """Run a command inside a Docker container.
+
+    Mounts the project root (2 levels above workdir for JADE layouts)
+    and sets the working directory relative to the mount point.
+    """
+    workdir = workdir_abs.resolve()
+    # For JADE-style layout: workdir = JADE-4.6.0/src/jade/
+    # Mount JADE-4.6.0/ → /workspace, workdir becomes src/jade
+    mount_root = workdir
+    container_workdir = "."
+    for _ in range(3):  # go up up to 3 levels to find project root
+        parent = mount_root.parent
+        # prefer mounting the project root (two levels up from src/jade)
+        pass
+    if workdir.name in ("jade", "src") and workdir.parent.name in ("jade", "src"):
+        # Detect JADE-style: .../JADE-4.6.0/src/jade/
+        p = workdir
+        while p.parent != p and p.parent.name not in ("", "src"):
+            p = p.parent
+        mount_root = p.parent if p.name == "src" else p
+        try:
+            container_workdir = str(workdir.relative_to(mount_root))
+        except ValueError:
+            container_workdir = "."
+    else:
+        mount_root = workdir
+        container_workdir = "."
+
+    docker_cmd = [
+        "docker",
+        "run",
+        "--rm",
+        "-v",
+        f"{mount_root}:/workspace",
+        "-w",
+        f"/workspace/{container_workdir}".rstrip("/."),
+        image,
+    ] + cmd
+
+    try:
+        proc = subprocess.run(
+            docker_cmd,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        return proc.returncode, proc.stdout + "\n" + proc.stderr
+    except subprocess.TimeoutExpired:
+        return 1, f"ERROR: docker build timed out after {timeout}s"
+    except FileNotFoundError:
+        return 1, "ERROR: docker not found"
 
 
 def run_ant_build(
     build_path: pathlib.Path, default_target: str = "jade"
 ) -> Tuple[int, str]:
-    """Run ant build in the build.xml directory."""
-    ant_bin = find_ant_binary()
-    if not ant_bin:
-        return 1, "ERROR: ant executable not found on PATH"
-
-    cmd = [ant_bin, default_target, "-q"]
-    try:
-        proc = subprocess.run(
-            cmd,
-            cwd=str(build_path.parent),
-            capture_output=True,
-            text=True,
-            timeout=300,
-        )
-        output = proc.stdout + "\n" + proc.stderr
-        return proc.returncode, output
-    except subprocess.TimeoutExpired:
-        return 1, "ERROR: ant build timed out after 300s"
-    except FileNotFoundError:
-        return 1, f"ERROR: ant not found at {ant_bin}"
+    return _docker_run(
+        DOCKER_ANT_IMAGE,
+        build_path.parent,
+        ["ant", default_target, "-q"],
+    )
 
 
 def run_maven_build(pom_path: pathlib.Path) -> Tuple[int, str]:
-    mvn_bin = find_mvn_binary()
-    if not mvn_bin:
-        return 1, "ERROR: mvn executable not found on PATH"
-
-    cmd = [mvn_bin, "compile", "-q"]
-    try:
-        proc = subprocess.run(
-            cmd,
-            cwd=str(pom_path.parent),
-            capture_output=True,
-            text=True,
-            timeout=300,
-        )
-        output = proc.stdout + "\n" + proc.stderr
-        return proc.returncode, output
-    except subprocess.TimeoutExpired:
-        return 1, "ERROR: mvn build timed out after 300s"
-    except FileNotFoundError:
-        return 1, f"ERROR: mvn not found at {mvn_bin}"
+    return _docker_run(
+        DOCKER_MAVEN_IMAGE,
+        pom_path.parent,
+        ["mvn", "compile", "-q"],
+    )
 
 
 def run_gradle_build(build_path: pathlib.Path) -> Tuple[int, str]:
-    gradle_bin = find_gradle_binary()
-    if not gradle_bin:
-        # Try gradlew in build directory
-        for name in ("gradlew", "gradlew.bat"):
-            local = build_path.parent / name
-            if local.exists():
-                gradle_bin = str(local.resolve())
-                break
-    if not gradle_bin:
-        return 1, "ERROR: gradle executable not found on PATH"
-
-    cmd = [gradle_bin, "compileJava", "-q"]
-    try:
-        proc = subprocess.run(
-            cmd,
-            cwd=str(build_path.parent),
-            capture_output=True,
-            text=True,
-            timeout=300,
-        )
-        output = proc.stdout + "\n" + proc.stderr
-        return proc.returncode, output
-    except subprocess.TimeoutExpired:
-        return 1, "ERROR: gradle build timed out after 300s"
-    except FileNotFoundError:
-        return 1, f"ERROR: gradle not found at {gradle_bin}"
+    return _docker_run(
+        DOCKER_GRADLE_IMAGE,
+        build_path.parent,
+        ["gradle", "compileJava", "-q"],
+    )
 
 
 def capture_env(build_path: pathlib.Path) -> str:
     lines = ["=== Build Environment ==="]
-    java_bin = find_java_binary()
-    lines.append(f"java: {java_bin or 'NOT FOUND'}")
-    if java_bin:
+    lines.append("runtime: docker (ephemeral container)")
+    lines.append(f"ant image: {DOCKER_ANT_IMAGE}")
+    lines.append(f"maven image: {DOCKER_MAVEN_IMAGE}")
+    lines.append(f"gradle image: {DOCKER_GRADLE_IMAGE}")
+    if _docker_available():
+        lines.append("docker: available")
         try:
             proc = subprocess.run(
-                [java_bin, "-version"],
+                ["docker", "version", "--format", "{{.Server.Version}}"],
                 capture_output=True,
                 text=True,
                 timeout=10,
             )
-            lines.append(proc.stdout.strip() + "\n" + proc.stderr.strip())
+            lines.append(f"docker version: {proc.stdout.strip()}")
         except Exception:
-            lines.append("(version check failed)")
-    lines.append(f"JAVA_HOME: {os.environ.get('JAVA_HOME', 'not set')}")
+            lines.append("docker version: (check failed)")
+    else:
+        lines.append("docker: NOT AVAILABLE")
     lines.append(f"Working dir: {build_path.parent}")
     lines.append("")
     return "\n".join(lines)
@@ -565,6 +591,14 @@ def main() -> int:
             file=sys.stderr,
         )
         return 2
+
+    # Docker prerequisite
+    if not _docker_available():
+        print(
+            "ERROR [DOCKER_MISSING] Docker not available — all builds run in ephemeral containers",
+            file=sys.stderr,
+        )
+        return 3
 
     # ------------------------------------------------------------------
     # Step 1 — Detect build system

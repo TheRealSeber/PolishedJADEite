@@ -12,7 +12,7 @@ when_to_use: >-
   or after the orchestrator completes RULE_BATCH_LOOP and enters VERIFIED phase.
 arguments: [baseline_logs, migrated_logs, tolerance_config]
 argument-hint: "[baseline-traces-dir] [migrated-traces-dir] [tolerance-config.json]"
-allowed-tools: Bash(python *) Bash(grep *) Bash(find *) Read Write
+allowed-tools: Bash(docker *) Bash(python *) Bash(find *) Read Write
 paths: "**/*.log" "**/*.trace" "**/*.xml" "**/*.json"
 disable-model-invocation: true
 ---
@@ -178,10 +178,13 @@ python scripts/normalize_trace.py \
 
 ### Step 4: Build migrated JADE and capture build log
 
+All builds run in Docker — no host JDK required.
+
 ```bash
-cd JADE-4.6.0-java1.6/src/jade && \
-  JAVA_HOME=/usr/lib/jvm/java-8-openjdk ant jade -q 2>&1 | tee ../../../artifacts/07-build.log && \
-  cd ../../..
+docker run --rm \
+  -v "$(pwd)/JADE-4.6.0:/workspace" \
+  -w /workspace/src/jade \
+  frekele/ant:1.10.3-jdk8 ant jade -q 2>&1 | tee artifacts/07-build.log
 ```
 
 If build fails, fail with `BUILD_FAILED` — migration is not verifiable.

@@ -75,3 +75,39 @@ def test_orchestrator_produces_phase_history(artifacts_dir):
         assert "phase" in entry
         assert "status" in entry
         assert "artifacts" in entry
+
+
+def test_orchestrator_produces_progress_md(artifacts_dir):
+    progress_path = artifacts_dir / "PROGRESS.md"
+    if not progress_path.exists():
+        pytest.skip(f"{progress_path} not found (orchestrator hasn't run yet)")
+
+    content = progress_path.read_text(encoding="utf-8")
+    assert "Migration Progress" in content
+    assert "| Phase | Status |" in content
+    assert len(content.splitlines()) >= 5, (
+        "PROGRESS.md should have header + at least 3 rows"
+    )
+
+
+def test_transition_table_integrity():
+    import itertools
+
+    orch_path = pathlib.Path(
+        ".claude/skills/jade-core-orchestrator/scripts/orchestrator.py"
+    )
+    source = orch_path.read_text(encoding="utf-8")
+    ns = {}
+    exec(compile(source, str(orch_path), "exec"), ns)
+    transitions = ns["TRANSITIONS"]
+    terminal_states = ns.get("TERMINAL_STATES", set())
+
+    assert isinstance(transitions, dict), "TRANSITIONS must be a dict"
+    assert len(transitions) > 0
+
+    for state, outcomes in transitions.items():
+        for outcome, next_state in outcomes.items():
+            assert next_state in transitions or next_state in terminal_states, (
+                f"State '{state}' → outcome '{outcome}' → '{next_state}' "
+                f"is not a valid state in TRANSITIONS or TERMINAL_STATES"
+            )

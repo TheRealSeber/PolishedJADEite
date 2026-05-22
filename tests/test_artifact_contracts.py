@@ -29,6 +29,8 @@ def test_run_state_has_required_keys(artifacts_dir):
         "BUILD_GATE_READY",
         "SCAN_READY",
         "RULE_BATCH_LOOP",
+        "RULE_RETRY",
+        "RULE_ESCALATE",
         "VERIFIED",
         "DONE",
         "FAILED",
@@ -49,6 +51,13 @@ def test_manifest_has_valid_rules(artifacts_dir):
         assert "name" in rule
         assert "severity" in rule
         assert "patterns" in rule
+        assert "fix_strategy" in rule
+        assert rule["fix_strategy"].startswith("recipe:")
+        assert "evidence_ref" in rule
+        assert "evidence_hash" in rule
+        assert isinstance(rule.get("confidence", 0), (int, float))
+        assert rule.get("confidence", 0) >= 0.7
+        assert "match_pattern" in rule
         for pattern in rule["patterns"]:
             assert "pattern" in pattern
             assert "target_extensions" in pattern

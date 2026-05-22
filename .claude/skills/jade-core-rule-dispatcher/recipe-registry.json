@@ -1,1 +1,7 @@
-{}
+{
+  "DUMMY_TEST_RULE": {
+    "skill": "jade-recipe-dummy",
+    "script": ".claude/skills/jade-recipe-dummy/scripts/apply.py",
+    "description": "E2E dummy recipe — appends // E2E TEST comment"
+  }
+}

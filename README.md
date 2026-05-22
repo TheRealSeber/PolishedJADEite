@@ -1,243 +1,106 @@
 # PolishedJADEite
 
-**Autonomous agentic pipeline for migrating the JADE multi-agent framework from Java 1.5 to a modern LTS version — with self-improving skills that compound across version jumps.**
-
-JADE (Java Agent Development Framework) is a legacy multi-agent system last updated for Java 1.5 (2004). PolishedJADEite is a research project from Warsaw University of Technology that runs a fully autonomous migration pipeline — no human-in-the-loop at execution time.
-
-The system doesn't just migrate code. It **builds its own migration tooling** — generating, benchmarking, and improving skills from each migration failure, so subsequent modules migrate faster.
+**Autonomous AI-driven pipeline for migrating the JADE multi-agent framework from Java 1.5 to modern LTS versions — with a product-first skill suite that compounds across migrations.**
 
 ---
 
-## The Problem
+## What This Is
 
-- JADE is stuck on **Java 1.5** (2004) — no generics, no enums as classes, no lambda expressions, no stream API
-- Standard LLM chats fail at complex migrations because of **context loss** and **lack of execution tools**
-- Human experts are a bottleneck — every module requires the same pattern of analysis, refactoring, testing
-- Legacy migration isn't a one-shot task — as JADE evolves upstream, the migration must stay in sync
+A **JADE Migration Skill Suite** — 11 agnostic core pipeline skills (`jade-core-*`) plus per-migration recipe skills (`jade-recipe-*`) that migrate legacy Java codebases through sequential version jumps. The JADE 1.5→1.6 migration is the validation harness; the skill suite is the product.
 
-## The Solution
+The pipeline operates as a file-based state machine where artifacts on disk are the sole source of truth. Skills communicate through a shared `artifacts/` directory — no agent ever passes raw source code or large JSON in its prompt context.
 
-An **agentic pipeline** where Claude Code skills coordinate the migration, and a **skill-creation loop** lets the system build its own migration tooling:
-
-```
-Phase 0: Scan    → jade-phase0-scanner detects idiom patterns and severity
-Phase 1: Migrate → jade-1.5-to-1.6-raw-types adds generics file-by-file
-Phase 2: Migrate → jade-1.5-to-1.6-enhanced-for converts safe for-loops
-Phase 3: Verify  → benchmarks/run-benchmark.sh measures delta
-Phase 4: Learn   → failures feed the skill-creator (auto-generated skills)
-```
-
-**Skills** are the core innovation. Instead of human-written migration guides, the system generates its own skills from failures:
-
-1. Migration runs → finds a failure pattern
-2. Skill-Creator analyzes the failure → generates a skill that handles this pattern
-3. Skill is benchmarked, versioned, and registered
-4. Next module uses the improved skill instead of repeating the failure
-
-Over time, skills **compound** — the 1.8→11 jump requires far fewer interventions than 1.5→1.6 because the system already learned from earlier iterations.
+**Architecture:** `docs/architecture.md` — read before modifying the pipeline.  
+**Agent directives:** `AGENTS.md` — the constitution in 52 lines.
 
 ---
 
-## Migration Strategy
+## Architecture (30 seconds)
 
-### Stepping-Stone Jumps
+| Layer | Prefix | Contains | Example |
+|-------|--------|----------|---------|
+| **Core** | `jade-core-*` | Agnostic pipeline plumbing | orchestrator, scanner, dispatcher, verification |
+| **Recipe** | `jade-recipe-*` | Version-specific transforms | `jade-recipe-java1.5-raw-types` |
 
-Rather than jumping directly to Java 21, the pipeline uses incremental version checkpoints:
+**The Dispatcher Pattern:** Core skills never contain transform logic. The `jade-core-rule-dispatcher` reads a rule from the manifest, looks up the matching recipe in `recipe-registry.json`, and invokes it as a subprocess. Adding a new migration means adding recipe skills — the core pipeline never changes.
 
-```
-1.5 → 1.6 → 1.7 → 1.8 LTS → 11 LTS → 17 LTS → 21 LTS
-```
-
-Each jump produces a new versioned directory (`JADE-4.6.0-java1.6/`, `JADE-4.6.0-java1.7/`, etc.). The original `JADE-4.6.0/` is **never modified**.
-
-1.6 and 1.7 can be collapsed into a single pass in practice (1.6 adds nothing syntactically, 1.7 adds only diamond operator + try-with-resources + multi-catch). The 1.8→11 jump is always its own phase — CORBA/IIOP removal, module system.
-
-### JDK Requirements Per Jump
-
-| Jump | JDK needed | Notes |
-|------|-----------|-------|
-| 1.5→1.6, 1.6→1.7 | JDK 8 | Only JDK that still supports `source/target 1.5` and `1.6` |
-| 1.7→1.8 | JDK 8 | |
-| 1.8→11 | JDK 11 | CORBA/IIOP removed — `FIPA/` and `jade/mtp/iiop/` must be excluded or replaced |
-| 11→17, 17→21 | JDK 17 / 21 | |
-
-JDK 8 is installed at `/usr/lib/jvm/java-8-openjdk`. All ant compile commands use `JAVA_HOME=/usr/lib/jvm/java-8-openjdk` explicitly.
+**Rule-by-Rule Sequential Batching:** One `rule_id` is applied to ALL flagged files before verification and git commit. The next rule only starts after the previous rule passes verification. Component-by-component migration is forbidden — it breaks cross-package contracts.
 
 ---
 
-## Skill Architecture
+## Pipeline Phases
 
-Skills live under `.claude/skills/` and follow the Claude Code skill format (`SKILL.md` with frontmatter). The pipeline uses three types:
-
-**Hand-authored migration skills** — reviewed, stable, used directly:
-
-| Skill | Purpose | When to use |
-|-------|---------|-------------|
-| `jade-phase0-scanner` | Scans source for Java 1.5 idiom patterns, outputs flag report | Always first |
-| `jade-1.5-to-1.6-raw-types` | Adds generic type parameters to raw collections | After scanner confirms RAW_INST_FILES > 0 |
-| `jade-1.5-to-1.6-enhanced-for` | Converts safe indexed for-loops to enhanced-for | After raw-types |
-| `java-modernization` | Generic Java 8+ modernization (lambdas, streams) | Later jumps |
-| `codebase-analysis` | Deep static analysis | Exploration |
-
-**Auto-generated skills** (Skill-Creator output) live under:
 ```
-.claude/skills/java-migration-skill-registry/1.5-to-1.6/
+0 (optional) → 1 → 2 → 3 → 4 → 5 → 6 → 7 (batch loop) → 8 → 9
 ```
-These are created from migration failures and benchmarked before being registered.
+
+| Phase | Skill | What happens |
+|-------|-------|-------------|
+| 0\* | `codebase-analysis` | Static analysis → `JadeDocumentation/` (optional) |
+| 1 | `jade-core-orchestrator` | Reads config, initializes run state |
+| 2 | `jade-core-orchestrator` | Verifies workspace + build file exist |
+| 3 | `jade-core-change-collector` | Strict evidence-backed manifest of breaking changes |
+| 4 | `jade-core-tooling-scout` | OpenRewrite/PMD/Checkstyle dry-run discovery |
+| 5 | `jade-core-build-fixer` | Updates compiler flags, verifies build compiles |
+| 6 | `jade-core-scanner` | Injects `// JADE-FLAG:` markers, writes flag index |
+| 7 | batch loop | **Rule-by-Rule:** prepare → dispatch to recipe → verify → commit → next rule |
+| 8 | `jade-core-orchestrator` | Confirms all rules passed |
+| 9 | `jade-core-evaluator` | Scores all skills, writes matrix |
+
+\*Phase 0 is optional — pipeline never requires `JadeDocumentation/`.
 
 ---
 
-## Workflow
+## The Rule Batch Loop (Phase 7) in detail
 
-Each version jump follows the same six-step loop. `X` is the source version, `Y` is the target.
+For each `rule_id` in the queue:
+
+```
+7.1 jade-core-batch-processor     → 05-rule-batch-{rule_id}.json (per-file tasks)
+7.2 jade-core-rule-dispatcher     → dispatches each file to recipe script
+       └─ recipe script            → applies transform, returns JSON status
+7.3 jade-core-verification        → compiles, semantic trace diff
+7.4 jade-core-retry-router        → (if failed) requeue or escalate
+7.5 jade-core-atomic-commit       → git commit only batch files, log SHA
+```
+
+Every rule gets its own git commit. History is clean and revertible per rule.
 
 ---
 
-### Step 1 — SCAN
+## Five Pillars (Hard Constraints)
 
-```
-/jade-phase0-scanner JADE-X/src/jade/src
-```
+1. **File-based handoff** — agents pass artifact paths, never raw source or large JSON
+2. **Rule-by-Rule Sequential Batching** — one rule applied to all files before next rule
+3. **Strict source evidence** — change collector halts with `AWAITING_SOURCE_INPUT` rather than fabricate rules
+4. **Semantic verification** — compares normalized agent lifecycle/ACL/DF events, not raw text logs
+5. **Atomic per-rule commits** — safety gate rejects unrelated dirty files
 
-Runs grep-based idiom detection across the source tree. Produces a structured flag report:
-
-```
-FLAG                        COUNT    SEVERITY
----------------------------------------------
-RAW_INST_FILES              <N>      HIGH / MEDIUM / LOW / NONE
-RAW_DECL_LINES              <N>      ...
-CAST_GET_LINES              <N>      ...
-LEAP_ITER_FILES             <N>      INFO (never modify)
-MIXED_ITER_FILES            <N>      WARN if > 0
-FOR_SIZE_LOOPS              <N>      ...
-FOR_LENGTH_LOOPS            <N>      ...
-JVMDI_JVMPI_REFS            <N>      BLOCKER if > 0
-
-=== Recommended Skills ===
-1. jade-X-to-Y-<skill-name>   (invoke as: /jade-X-to-Y-<skill-name> JADE-X/src/jade/src)
-```
-
-Any `BLOCKER` flag must be resolved before proceeding. `INFO` flags (LEAP types) inform which files to skip — they are never touched.
+Full details: `AGENTS.md` (52 lines) and `docs/architecture.md` (448 lines).
 
 ---
 
-### Step 2 — PLAN
+## Skill Inventory
 
-Claude proposes the skill execution order based on the flag report and explains the dependency between skills (e.g. generics must precede enhanced-for because element types need to be known). You approve or adjust before any file is touched.
+### Core (11 skills)
 
-Example plan output:
+| Skill | Purpose |
+|-------|---------|
+| `jade-core-orchestrator` | State machine, phase sequencing |
+| `jade-core-change-collector` | Evidence-backed manifest of breaking changes |
+| `jade-core-tooling-scout` | Auto-fix discovery via OpenRewrite/PMD/Checkstyle |
+| `jade-core-build-fixer` | Build system audit + compiler flag updates |
+| `jade-core-scanner` | Regex flag injection + idempotent flag index |
+| `jade-core-batch-processor` | Per-rule file task lists from flag index |
+| `jade-core-rule-dispatcher` | Routes tasks to recipe skills via registry |
+| `jade-core-verification` | Semantic trace normalization + outcome matching |
+| `jade-core-atomic-commit` | Per-rule git commit with safety gate |
+| `jade-core-retry-router` | Failure classification + bounded retry |
+| `jade-core-evaluator` | Skill matrix scoring from run artifacts |
 
-```
-Plan for 1.5 → 1.6:
-  1. jade-1.5-to-1.6-raw-types     — RAW_INST_FILES=239, HIGH severity
-  2. jade-1.5-to-1.6-enhanced-for  — FOR_SIZE_LOOPS=159, depends on (1)
-  Reason: generics must be in place before enhanced-for so element types are known.
-  Estimated files touched: ~280
-```
+### Recipes (generated per-migration)
 
----
-
-### Step 3 — COPY
-
-The first skill run creates the migration directory:
-
-```bash
-cp -r JADE-X/ JADE-X-javaY/
-```
-
-`JADE-X/` becomes a frozen baseline from this point. All edits target `JADE-X-javaY/` only. The Ant build in the copy has its `source`/`target` bumped from `X` to `Y`.
-
----
-
-### Step 4 — APPLY
-
-Skills run in the approved order on `JADE-X-javaY/src/jade/src`:
-
-```
-/jade-X-to-Y-raw-types     JADE-X-javaY/src/jade/src
-/jade-X-to-Y-enhanced-for  JADE-X-javaY/src/jade/src
-```
-
-Each skill verifies compilation after every file it edits. If a file fails to compile, the skill fixes the error before moving on — it never leaves the tree in a broken state.
-
-Unsafe patterns are never silently skipped — they receive a `// MIGRATION-SKIP: <reason>` comment so they are visible and auditable.
-
----
-
-### Step 5 — VERIFY
-
-```bash
-./benchmarks/run-benchmark.sh JADE-X-javaY/
-```
-
-Reports:
-- Unchecked warning delta (`BEFORE → AFTER`)
-- Raw instantiation files remaining
-- For-loop candidates remaining
-- Compile result (`BUILD SUCCESSFUL` required)
-
-A jump is considered complete when `BUILD SUCCESSFUL` and all delta counts have moved in the right direction. Runtime regression testing (JUnit) is a planned addition — currently the verification gate is compile-only.
-
----
-
-### Step 6 — CAPTURE
-
-Any failure pattern that required manual intervention during Step 4 is captured and fed back into the skill registry:
-
-1. Failure pattern is extracted from compiler output
-2. A skill is written (manually now, auto-generated later) in `.claude/skills/java-migration-skill-registry/X-to-Y/`
-3. New skill is benchmarked against `benchmarks/X-to-Y/eval_cases.json`
-4. Committed to the registry only if pass rate improves over the previous version
-
-**Current state:** the registry scaffold and eval harness exist. Automated Skill-Creator generation is planned but not yet implemented — patterns are captured manually and converted into skills by hand.
-
-This is the **compounding mechanism** — each jump produces better skills for the next one. By the time the system reaches 1.8→11, the registry already contains proven patterns from the earlier jumps.
-
----
-
-## Key Constraints
-
-### JADE LEAP Types — Never Modify
-
-JADE's `jade.util.leap.*` package provides MIDP/J2ME-compatible collection types that mirror `java.util.*` but do not extend it. **These must never be parameterised or replaced with `java.util.*` equivalents.**
-
-```
-jade.util.leap.Iterator   jade.util.leap.List       jade.util.leap.ArrayList
-jade.util.leap.Map        jade.util.leap.HashMap     jade.util.leap.Set
-jade.util.leap.HashSet    jade.util.leap.LinkedList
-```
-
-Detection: `grep -n "jade\.util\.leap" <file.java>`
-
-### No Diamond Operator in 1.6
-
-Target is Java 1.6 — diamond operator (`<>`) requires Java 1.7. Use explicit type parameters: `new ArrayList<String>()` not `new ArrayList<>()`.
-
-### Unsafe For-Loop Patterns
-
-Loops that modify the collection by index (`list.remove(i)`, `list.set(i, x)`), iterate two parallel collections, or use LEAP types must not be converted. They get a `// MIGRATION-SKIP: <reason>` comment instead.
-
----
-
-## KPIs
-
-| Metric | Definition | Target |
-|--------|------------|--------|
-| **Regression Rate** | Core functionalities broken after migration | 0 |
-| **Prompt Reduction** | Decrease in human interventions per version jump | Monotonically decreasing |
-| **Skill Coverage** | % of failure patterns handled by registered skills | 100% after bootstrap |
-| **Migration Velocity** | Time to migrate one module | Decreasing per skill generation |
-
----
-
-## Related Work
-
-| Paper | Relevance |
-|-------|-----------|
-| [From Translation to Superset](https://arxiv.org/abs/2604.11518) (Wang & Sengupta, 2026) | Benchmark-driven migration of a production Rust codebase (648K LOC) to Python using SWE-bench as objective function. Direct methodological inspiration. |
-| [SWE-Adept](https://arxiv.org/abs/2603.01327) (He & Roy, 2026) | Two-agent codebase analysis with shared working memory and Git-based version control. Localization agent + resolution agent pattern maps to scanner + refactorer. |
-| [FullStack-Agent](https://arxiv.org/abs/2602.03798) (Lu et al., 2026) | Multi-agent framework with self-improvement via back-translation. The FullStack-Learn self-improvement loop is the template for the Skill-Creator. |
-| [From Helpful to Trustworthy](https://arxiv.org/abs/2604.10300) (Ayon, 2026) | Multi-agent pair programming with iterative validation. Accepted at FSE 2026. |
+Recipe skills are produced dynamically by the Skill Creator from manifest data. The `recipe-registry.json` starts empty (`{}`) and is populated before Phase 7. Each recipe is a standalone CLI script invoked by the dispatcher: `python apply.py --file <path> --line <num>`.
 
 ---
 
@@ -245,30 +108,45 @@ Loops that modify the collection by index (`list.remove(i)`, `list.set(i, x)`), 
 
 ```
 PolishedJADEite/
-├── README.md
-├── LICENSE                              # MIT
-├── JADE-4.6.0/                          # Original JADE source — never modified
+├── AGENTS.md                         # 52-line agent constitution
+├── README.md                         # This file
+├── LICENSE                           # MIT
+├── JADE-4.6.0/                       # Original JADE source — never modified
 │   └── src/jade/
-│       ├── build.xml                    # Ant build (source/target 1.5)
-│       ├── build.properties
-│       └── src/                         # Java source tree
-├── JADE-4.6.0-java1.6/                  # 1.5→1.6 migrated copy (created by skills)
+│       ├── build.xml                 # Ant build (source/target 1.5)
+│       └── src/                      # Java source tree
 ├── .claude/skills/
-│   ├── jade-phase0-scanner/             # Scan module for idiom flags (run first)
-│   ├── jade-1.5-to-1.6-raw-types/      # Add generics to raw collections
-│   │   └── references/
-│   │       └── jade-leap-types.md       # JADE LEAP type catalogue
-│   ├── jade-1.5-to-1.6-enhanced-for/   # Convert indexed for-loops to enhanced-for
-│   ├── java-migration-skill-registry/   # Auto-generated skills (Skill-Creator output)
-│   │   └── 1.5-to-1.6/
-│   ├── java-modernization/              # Generic Java 8+ modernization
-│   └── codebase-analysis/              # Deep static analysis
-├── benchmarks/
-│   ├── run-benchmark.sh                 # Compare original vs migrated
-│   └── 1.5-to-1.6/
-│       └── eval_cases.json             # Before/after cases from real JADE code
-└── deep-research-referenced-works.md   # Extended notes on related work
+│   ├── jade-core-orchestrator/       # Phase sequencing, state machine
+│   ├── jade-core-change-collector/   # Evidence-backed manifest
+│   ├── jade-core-tooling-scout/      # Tooling discovery
+│   ├── jade-core-build-fixer/        # Build system gate
+│   ├── jade-core-scanner/            # Idempotent source tagger
+│   ├── jade-core-batch-processor/    # Per-rule task preparation
+│   ├── jade-core-rule-dispatcher/    # Dispatcher + recipe-registry.json
+│   ├── jade-core-verification/       # Semantic trace verification
+│   ├── jade-core-atomic-commit/      # Per-rule git commit
+│   ├── jade-core-retry-router/       # Failure retry/requeue
+│   ├── jade-core-evaluator/          # Skill matrix scoring
+│   ├── codebase-analysis/            # Static analysis (Phase 0)
+│   ├── java-modernization/           # Generic Java modernization
+│   └── java-migration-skill-registry/ # Auto-generated skill registry
+├── docs/
+│   └── architecture.md               # Full pipeline constitution
+├── migration-runs/
+│   └── sample/artifacts/             # Harness artifacts for testing
+├── tests/                            # pytest suite (9 passed, 2 skipped)
+└── benchmarks/                       # Benchmark harness
 ```
+
+---
+
+## Current State
+
+- **11 core pipeline skills** built and validated (scanner ran on 1,015 JADE files, 211 flags injected, orchestrator completed on harness)
+- **Core/Recipe split** enforced — dispatcher routes via `recipe-registry.json`, recipes are pure transforms
+- **Phase 0 optional** — `codebase-analysis` produces `JadeDocumentation/` consumed by verification for dynamic trace scenarios
+- **Test suite** — 9 passed, 2 skipped (idempotency + integration tests)
+- **Next:** Generate recipe skills for 1.5→1.6 from changing data, execute real migration
 
 ---
 
@@ -285,6 +163,9 @@ curl -L "https://repo1.maven.org/maven2/commons-codec/commons-codec/1.3/commons-
 
 # Verify baseline compiles
 cd JADE-4.6.0/src/jade && JAVA_HOME=/usr/lib/jvm/java-8-openjdk ant jade 2>&1 | tail -3
+
+# Run test suite
+python -m pytest tests/ -v
 ```
 
 ---
@@ -293,8 +174,6 @@ cd JADE-4.6.0/src/jade && JAVA_HOME=/usr/lib/jvm/java-8-openjdk ant jade 2>&1 | 
 
 - **Mateusz Jarosz**, Warsaw University of Technology
 - **Sebastian Rydz**, Warsaw University of Technology
-
----
 
 ## License
 

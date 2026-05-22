@@ -360,6 +360,62 @@ def route(
     return requeue, escalated
 
 
+def write_action_required(
+    artifacts: pathlib.Path,
+    escalated: List[EscalationEntry],
+    fix_results: List[FixResult],
+) -> None:
+    """Write a human-readable escalation ledger — ACTION_REQUIRED.md."""
+    path = artifacts / "ACTION_REQUIRED.md"
+    lines = [
+        "# Action Required — Escalated Items",
+        "",
+        f"**Generated:** {iso_now()}",
+        f"**Escalated rules:** {len(escalated)}",
+        "",
+        "The following items could not be fixed automatically after the maximum",
+        "retry budget. Manual intervention is required.",
+        "",
+        "---",
+        "",
+    ]
+
+    for entry in escalated:
+        lines.append(f"## Rule: `{entry.rule_id}`")
+        lines.append(f"- **Attempts:** {entry.total_attempts}")
+        lines.append(f"- **Final failure:** {entry.final_failure}")
+        lines.append(f"- **Escalated at:** {entry.escalated_at}")
+
+        matching = [fr for fr in fix_results if fr.rule_id == entry.rule_id]
+        for fr in matching:
+            if fr.files_modified:
+                lines.append("")
+                lines.append("### Affected files")
+                for fname in sorted(set(fr.files_modified)):
+                    lines.append(f"- `{fname}`")
+            if fr.error:
+                lines.append("")
+                lines.append("### Error details")
+                lines.append("```")
+                lines.append(fr.error)
+                lines.append("```")
+        lines.append("")
+        lines.append("---")
+        lines.append("")
+
+    lines.append("## Suggested actions")
+    lines.append("1. Review the error messages above for each escalated rule.")
+    lines.append(
+        "2. Manually fix the affected files, or adjust the recipe transform logic."
+    )
+    lines.append("3. Clear the entry from `08-escalations.json`.")
+    lines.append("4. Re-run the orchestrator to re-attempt the rule.")
+    lines.append("")
+
+    path.write_text("\n".join(lines), encoding="utf-8")
+    return path
+
+
 def determine_overall_status(
     requeue_count: int,
     escalated_count: int,
@@ -504,6 +560,12 @@ def main() -> int:
             },
         },
     )
+
+    if escalated:
+        write_action_required(artifacts, escalated, fix_results)
+        print(
+            f"ACTION_REQUIRED: {escalated_count} rule(s) escalated — see ACTION_REQUIRED.md"
+        )
 
     # Write final status
     rules_status: Dict[str, Dict] = {}

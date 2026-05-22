@@ -35,6 +35,7 @@ All paths are relative to the artifacts directory configured in
 | `artifacts/08-retry-queue.json` | Rules that still have retries remaining, ordered by priority |
 | `artifacts/08-escalations.json` | Rules that exhausted their retry budget, with failure trail |
 | `artifacts/08-final-status.json` | Summary: requeued count, escalated count, overall status |
+| `artifacts/ACTION_REQUIRED.md` | **Human-readable escalation ledger.** Written when rules are escalated. Contains per-rule failure reasons, affected files, error details, and suggested remediation steps. |
 
 ## Retry policy
 

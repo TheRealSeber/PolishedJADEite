@@ -1,9 +1,9 @@
 {
   "run_id": "jade-1.5-to-1.6",
-  "generated_at": "2026-05-22T09:00:00Z",
+  "generated_at": "2026-05-22T09:17:50Z",
   "source_version": "1.5",
   "target_version": "1.6",
-  "citation": "Oracle Java SE 6 release notes + JLS 3rd Ed. (generics, enhanced-for). Sources fetched successfully (HTTP 200 from oracle.com and wikipedia.org).",
+  "citation": "Extracted from 3 source(s): oracle-java-6-compat, wikipedia-java-history, mock-sources",
   "rules": [
     {
       "id": "RAW_TYPES",
@@ -12,18 +12,20 @@
       "severity": "HIGH",
       "category": "LANGUAGE_CHANGE",
       "match_pattern": "new\\s+(Vector|ArrayList|HashMap|Hashtable|LinkedList|HashSet)\\s*\\(\\)",
-      "verification_hint": "Build must compile without raw-type warnings for java.util collections",
+      "verification_hint": "Build must compile without raw-type warnings for java.util collections; LEAP types must not be parameterized",
       "patterns": [
         {
           "type": "regex",
           "pattern": "new\\s+(Vector|ArrayList|HashMap|Hashtable|LinkedList|HashSet)\\s*\\(\\)",
-          "target_extensions": [".java"],
-          "reason": "Raw collection instantiation — Java 1.5+ requires parameterized types",
+          "target_extensions": [
+            ".java"
+          ],
+          "reason": "Raw collection instantiation — Java 1.5+ requires parameterized types per JLS 4.8",
           "confidence": "HIGH"
         }
       ],
-      "evidence_ref": "oracle-java-6-compat::generics::JLS-3rd-Ed-Ch4.8",
-      "evidence_hash": "641604d318ed0e55fa71df59ff0f1aad70e2a92d528cb317073931038abff13d",
+      "evidence_ref": "mock-sources::lines 19-55 (JLS 3rd Ed. 4.8 Raw Types)",
+      "evidence_hash": "dd251f683048fa9e882155b9e5aeccad9a46605bde50cac26741a564a2833a35",
       "confidence": 0.95
     },
     {
@@ -33,18 +35,20 @@
       "severity": "MEDIUM",
       "category": "LANGUAGE_CHANGE",
       "match_pattern": "for\\s*\\(\\s*int\\s+\\w+\\s*=\\s*0\\s*;\\s*\\w+\\s*<\\s*\\w+\\.(?:size|length)\\(\\)",
-      "verification_hint": "Build must compile; verify loop behavior unchanged by runtime test",
+      "verification_hint": "Build must compile; verify loop behavior unchanged by runtime test; unsafe loops marked MIGRATION-SKIP",
       "patterns": [
         {
           "type": "regex",
           "pattern": "for\\s*\\(\\s*int\\s+\\w+\\s*=\\s*0\\s*;\\s*\\w+\\s*<\\s*\\w+\\.(?:size|length)\\(\\)",
-          "target_extensions": [".java"],
-          "reason": "Indexed for-loop convertible to enhanced-for (Java 1.5+ feature)",
+          "target_extensions": [
+            ".java"
+          ],
+          "reason": "Indexed for-loop convertible to enhanced-for per JLS 14.14.2",
           "confidence": "MEDIUM"
         }
       ],
-      "evidence_ref": "oracle-java-6-compat::enhanced-for::JLS-3rd-Ed-Ch14.14.2",
-      "evidence_hash": "641604d318ed0e55fa71df59ff0f1aad70e2a92d528cb317073931038abff13d",
+      "evidence_ref": "mock-sources::lines 66-108 (JLS 3rd Ed. 14.14.2 Enhanced For Statement)",
+      "evidence_hash": "dd251f683048fa9e882155b9e5aeccad9a46605bde50cac26741a564a2833a35",
       "confidence": 0.85
     }
   ]

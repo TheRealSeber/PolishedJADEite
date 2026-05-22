@@ -135,6 +135,29 @@ def discover_fix_results(artifacts: pathlib.Path) -> List[FixResult]:
             )
         return results
 
+    # Per-rule aggregate files (06-fix-results-{rule_id}.json)
+    for fp in sorted(artifacts.glob("06-fix-results-*.json")):
+        data = read_json(fp)
+        if isinstance(data, list):
+            for entry in data:
+                results.append(
+                    FixResult(
+                        rule_id=entry.get("rule_id", ""),
+                        attempt=entry.get("attempt", 1),
+                        status=entry.get("status", "UNKNOWN"),
+                        files_modified=[entry.get("file", "")]
+                        if entry.get("file")
+                        else [],
+                        error=entry.get("error")
+                        or (
+                            entry.get("errors", [None])[0]
+                            if entry.get("errors")
+                            else None
+                        ),
+                        error_hash=_hash_error(entry.get("error", "")),
+                    )
+                )
+
     # Per-rule files
     for fp in sorted(artifacts.glob("06-fix-result-*.json")):
         data = read_json(fp)

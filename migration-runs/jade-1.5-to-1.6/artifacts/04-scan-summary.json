@@ -1,0 +1,19 @@
+{
+  "run_id": "jade-1.5-to-1.6",
+  "generated_at": "2026-05-22T09:53:35Z",
+  "workspace": "JADE-4.6.0/src/jade",
+  "total_files_scanned": 1015,
+  "total_new_flags": 637,
+  "idempotent_skips": 0,
+  "elapsed_seconds": 0.98,
+  "by_rule": {
+    "DUMMY_TEST_RULE": {
+      "name": "Dummy E2E Test Rule",
+      "severity": "INFO",
+      "count": 637
+    }
+  },
+  "by_confidence": {
+    "HIGH": 637
+  }
+}

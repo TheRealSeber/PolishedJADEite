@@ -1,0 +1,14 @@
+{
+  "task_id": "DUMMY_TEST_RULE-0000",
+  "rule_id": "DUMMY_TEST_RULE",
+  "file": "src/FIPA/AgentIDHelper.java",
+  "status": "FIXED",
+  "match_count": 1,
+  "match_region": "lines 9-9",
+  "match_context": "jade-recipe-dummy",
+  "diff_summary": "Dummy test executed at line 9",
+  "verification_hint": "No-op — appends // E2E TEST comment",
+  "errors": [],
+  "warnings": [],
+  "applied_at": "2026-05-22T09:54:59Z"
+}

@@ -1,0 +1,69 @@
+{
+  "run_id": "jade-1.5-to-1.6",
+  "build_system": "ant",
+  "target_version": "1.6",
+  "fixes": [
+    {
+      "type": "compiler_source",
+      "applied": true,
+      "detail": "Updated source to 1.6 (1 occurrence(s))"
+    },
+    {
+      "type": "compiler_target",
+      "applied": true,
+      "detail": "Updated target to 1.6 (5 occurrence(s))"
+    },
+    {
+      "type": "javacc_jdkversion",
+      "applied": true,
+      "detail": "Updated jdkversion to 1.6 (3 occurrence(s))"
+    },
+    {
+      "type": "javacc_jdkversion",
+      "applied": true,
+      "detail": "Updated jdkversion to 1.6 (3 occurrence(s))"
+    },
+    {
+      "type": "javacc_jdkversion",
+      "applied": true,
+      "detail": "Updated jdkversion to 1.6 (3 occurrence(s))"
+    }
+  ],
+  "analysis_summary": {
+    "compiler_targets": [
+      {
+        "current_source": "1.5",
+        "current_target": "1.5",
+        "needs_update": true,
+        "new_source": "1.6",
+        "new_target": "1.6"
+      }
+    ],
+    "javacc_targets": [
+      {
+        "jdkversion": "1.4",
+        "needs_update": true,
+        "new_jdkversion": "1.6"
+      },
+      {
+        "jdkversion": "1.4",
+        "needs_update": true,
+        "new_jdkversion": "1.6"
+      },
+      {
+        "jdkversion": "1.4",
+        "needs_update": true,
+        "new_jdkversion": "1.6"
+      }
+    ],
+    "dependencies": [
+      {
+        "group": "commons-codec",
+        "artifact": "commons-codec",
+        "version": "1.3"
+      }
+    ],
+    "issues": []
+  },
+  "updated_at": "2026-05-22T09:52:43Z"
+}

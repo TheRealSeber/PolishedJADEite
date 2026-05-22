@@ -1,0 +1,4467 @@
+{
+  "run_id": "jade-1.5-to-1.6",
+  "generated_at": "2026-05-22T09:53:35Z",
+  "workspace": "JADE-4.6.0/src/jade",
+  "total_flags": 637,
+  "flags": [
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/AgentIDHelper.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/AgentIDsHelper.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/DateTimeHelper.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/EnvelopeHelper.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/EnvelopesHelper.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/FipaMessageHelper.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/MTSHelper.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/OptAgentIDHelper.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/OptDateTimeHelper.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/OptReceivedObjectHelper.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/OptTransportBehaviourTypeHelper.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/PayloadHelper.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/PropertyHelper.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/ReceivedObjectHelper.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/stringsHelper.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/TransportBehaviourTypeHelper.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/URLHelper.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/FIPA/_MTSStub.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/AppletBoot.java",
+      "line": 42,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/Boot.java",
+      "line": 48,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/Boot3.java",
+      "line": 57,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/BootException.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/BootGUI.java",
+      "line": 54,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/BootHelper.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/BootProfileImpl.java",
+      "line": 58,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/MicroBoot.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/PropertyType.java",
+      "line": 42,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/ContentElementList.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/ContentException.java",
+      "line": 8,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/ContentManager.java",
+      "line": 50,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/OntoACLMessage.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/OntoAID.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/abs/AbsAgentAction.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/abs/AbsAggregate.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/abs/AbsConcept.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/abs/AbsConceptSlotFunction.java",
+      "line": 3,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/abs/AbsContentElementList.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/abs/AbsExtendedPrimitive.java",
+      "line": 31,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/abs/AbsHelper.java",
+      "line": 52,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/abs/AbsIRE.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/abs/AbsObjectImpl.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/abs/AbsPredicate.java",
+      "line": 33,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/abs/AbsPrimitive.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/abs/AbsPrimitiveSlotsHolder.java",
+      "line": 33,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/abs/AbsReference.java",
+      "line": 13,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/abs/AbsVariable.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/frame/FrameException.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/frame/LEAPFrameCodec.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/frame/OrderedFrame.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/frame/QualifiedFrame.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/frame/SLFrameCodec.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/lang/leap/LEAPCodec.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/lang/sl/ExtendedSLParserTokenManager.java",
+      "line": 15,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/lang/sl/ParseException.java",
+      "line": 13,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/lang/sl/SimpleCharStream.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/lang/sl/SimpleSLCodec.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/lang/sl/SimpleSLTokenizer.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/lang/sl/SLCodec.java",
+      "line": 64,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/lang/sl/SLCodec.java",
+      "line": 61,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/lang/sl/SLOntology.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/lang/sl/SLParserTokenManager.java",
+      "line": 15,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/lang/sl/Token.java",
+      "line": 8,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/lang/sl/TokenMgrError.java",
+      "line": 4,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/AggregateHelper.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/BasicOntology.java",
+      "line": 52,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/BCReflectiveIntrospector.java",
+      "line": 55,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/BeanOntology.java",
+      "line": 106,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/BeanOntologyException.java",
+      "line": 33,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/CFReflectiveIntrospector.java",
+      "line": 12,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/ConceptSlotFunction.java",
+      "line": 45,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/JavaCollectionOntology.java",
+      "line": 33,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/MicroIntrospector.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/NotAnAggregate.java",
+      "line": 5,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/NotASpecialType.java",
+      "line": 5,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/Ontology.java",
+      "line": 167,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/OntologyException.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/OntologyUtils.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/ReflectiveIntrospector.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/SerializableOntology.java",
+      "line": 45,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/UngroundedException.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/UnknownSchemaException.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/UnknownSlotException.java",
+      "line": 3,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/basic/Action.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/basic/Done.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/basic/Equals.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/basic/FalseProposition.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/basic/Result.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/onto/basic/TrueProposition.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/AgentActionSchema.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/AggregateSchema.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/ConceptSchema.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/ConceptSlotFunctionSchema.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/ContentElementListSchema.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/ContentElementSchema.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/IRESchema.java",
+      "line": 42,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/PredicateSchema.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/PrimitiveSchema.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/ReferenceSchema.java",
+      "line": 13,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/TermSchema.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/VariableSchema.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/facets/CardinalityFacet.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/facets/DefaultValueFacet.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/facets/DocumentationFacet.java",
+      "line": 32,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/facets/JavaTypeFacet.java",
+      "line": 32,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/facets/PermittedValuesFacet.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/facets/RegexFacet.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/content/schema/facets/TypedAggregateFacet.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/Agent.java",
+      "line": 82,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/AgentDescriptor.java",
+      "line": 42,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/AgentState.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/AID.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/BackEndContainer.java",
+      "line": 637,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/BackEndContainer.java",
+      "line": 54,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/BackEndManager.java",
+      "line": 41,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/BehaviourID.java",
+      "line": 47,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/CallbackInvokator.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/CaseInsensitiveString.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/Channel.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/ContainerID.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/ExtendedMessageQueue.java",
+      "line": 27,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/GenericCommand.java",
+      "line": 42,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/IMTPException.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/MainContainerImpl.java",
+      "line": 74,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/MainDetectionManager.java",
+      "line": 19,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/MicroRuntime.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/NameClashException.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/NodeDescriptor.java",
+      "line": 47,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/NotFoundException.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/PlatformID.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/PlatformManagerImpl.java",
+      "line": 53,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/PostponedException.java",
+      "line": 41,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/ProfileException.java",
+      "line": 33,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/ProfileImpl.java",
+      "line": 56,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/Runtime.java",
+      "line": 57,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/ScalabilityTest.java",
+      "line": 24,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/Service.java",
+      "line": 151,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/ServiceDescriptor.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/ServiceException.java",
+      "line": 32,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/ServiceManagerImpl.java",
+      "line": 47,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/ServiceNotActiveException.java",
+      "line": 30,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/SliceProxy.java",
+      "line": 30,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/Specifier.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/TemplateBasedMessageQueue.java",
+      "line": 24,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/Timer.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/TimerDispatcher.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/UnreachableException.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/VersionManager.java",
+      "line": 12,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/behaviours/ActionExecutor.java",
+      "line": 48,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/behaviours/DataStore.java",
+      "line": 28,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/behaviours/FSMBehaviour.java",
+      "line": 66,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/behaviours/LoaderBehaviour.java",
+      "line": 68,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/behaviours/OntologyServer.java",
+      "line": 53,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/behaviours/OutcomeManager.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/behaviours/ParallelBehaviour.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/behaviours/SequentialBehaviour.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/behaviours/ThreadedBehaviourFactory.java",
+      "line": 209,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/behaviours/ThreadedBehaviourFactory.java",
+      "line": 58,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/behaviours/WrapperBehaviour.java",
+      "line": 28,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/event/AgentAdapter.java",
+      "line": 6,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/event/AgentEvent.java",
+      "line": 42,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/event/ContainerAdapter.java",
+      "line": 6,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/event/ContainerEvent.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/event/JADEEvent.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/event/MessageAdapter.java",
+      "line": 6,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/event/MessageEvent.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/event/MTPEvent.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/event/NotificationProxy.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/event/NotificationService.java",
+      "line": 69,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/event/PlatformEvent.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/faultRecovery/FaultRecoveryService.java",
+      "line": 528,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/faultRecovery/FaultRecoveryService.java",
+      "line": 76,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/management/AgentManagementProxy.java",
+      "line": 52,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/management/AgentManagementService.java",
+      "line": 72,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/management/BEAgentManagementService.java",
+      "line": 74,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/management/CodeLocator.java",
+      "line": 48,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/management/JarClassLoader.java",
+      "line": 49,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/messaging/DeliveryTracing.java",
+      "line": 7,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/messaging/GenericMessage.java",
+      "line": 50,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/messaging/IncomingEncodingFilter.java",
+      "line": 49,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/messaging/LightMessagingService.java",
+      "line": 73,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/messaging/MatchAllFilter.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/messaging/MessagingProxy.java",
+      "line": 51,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/messaging/MessagingService.java",
+      "line": 100,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/messaging/MultipleGenericMessage.java",
+      "line": 8,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/messaging/OutgoingEncodingFilter.java",
+      "line": 61,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/messaging/PersistentDeliveryProxy.java",
+      "line": 53,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/messaging/PersistentDeliveryService.java",
+      "line": 63,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/messaging/TopicManagementFEService.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/messaging/TopicManagementProxy.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/messaging/TopicManagementService.java",
+      "line": 45,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/messaging/TopicUtility.java",
+      "line": 8,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/mobility/AgentMobilityProxy.java",
+      "line": 54,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/mobility/AgentMobilityService.java",
+      "line": 99,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/nodeMonitoring/BlockingNodeFailureMonitor.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/nodeMonitoring/UDPNodeMonitoringProxy.java",
+      "line": 12,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/nodeMonitoring/UDPNodeMonitoringService.java",
+      "line": 56,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/replication/AddressNotificationProxy.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/replication/AddressNotificationService.java",
+      "line": 56,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/replication/AgentReplicationHandle.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/replication/AgentReplicationProxy.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/replication/AgentReplicationService.java",
+      "line": 67,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/replication/MainReplicationHandle.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/replication/MainReplicationProxy.java",
+      "line": 47,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/replication/MainReplicationService.java",
+      "line": 83,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/resource/ResourceManagementProxy.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/resource/ResourceManagementService.java",
+      "line": 53,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/sam/AverageMeasure.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/sam/AverageMeasureProviderImpl.java",
+      "line": 33,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/sam/MediatedMeasureProvider.java",
+      "line": 3,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/sam/SAMInfo.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/sam/SAMProxy.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/core/sam/SAMService.java",
+      "line": 58,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/ams.java",
+      "line": 82,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/AMSEventQueueFeeder.java",
+      "line": 33,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/AMSService.java",
+      "line": 80,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/df.java",
+      "line": 230,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/DFDBKB.java",
+      "line": 73,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/DFHSQLKB.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/DFKBFactory.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/DFMemKB.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/DFService.java",
+      "line": 94,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAException.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAService.java",
+      "line": 47,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/RequestFIPAServiceBehaviour.java",
+      "line": 73,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/DFGUIManagement/DeregisterFrom.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/DFGUIManagement/DFAppletOntology.java",
+      "line": 55,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/DFGUIManagement/Federate.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/DFGUIManagement/GetDescription.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/DFGUIManagement/GetDescriptionUsed.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/DFGUIManagement/GetParents.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/DFGUIManagement/ModifyOn.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/DFGUIManagement/RegisterWith.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/DFGUIManagement/SearchOn.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/AlreadyRegistered.java",
+      "line": 33,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/AMSAgentDescription.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/APDescription.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/APService.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/Deregister.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/DFAgentDescription.java",
+      "line": 41,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/Envelope.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/ExceptionOntology.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/FailureException.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/FIPAManagementOntology.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/GetDescription.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/InternalError.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/MissingArgument.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/MissingParameter.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/Modify.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/MultiValueProperty.java",
+      "line": 28,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/NotRegistered.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/NotUnderstoodException.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/Property.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/ReceivedObject.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/RefuseException.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/Register.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/Search.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/SearchConstraints.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/ServiceDescription.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/Unauthorised.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/UnexpectedAct.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/UnexpectedArgument.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/UnexpectedArgumentCount.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/UnexpectedParameter.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/UnrecognisedParameterValue.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/UnrecognisedValue.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/UnsupportedAct.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/UnsupportedFunction.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/FIPAAgentManagement/UnsupportedValue.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/ACLMessage.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/AddedBehaviour.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/AddedContainer.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/AddedMTP.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/BornAgent.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/ChangedAgentOwnership.java",
+      "line": 41,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/ChangedAgentState.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/ChangedBehaviourState.java",
+      "line": 42,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/DeadAgent.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/EventRecord.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/FrozenAgent.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/GetKeys.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/GetValue.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/IntrospectionOntology.java",
+      "line": 54,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/IntrospectionServer.java",
+      "line": 20,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/KillContainerRequested.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/MovedAgent.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/Occurred.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/PlatformDescription.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/PostedMessage.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/ReceivedMessage.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/RemovedBehaviour.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/RemovedContainer.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/RemovedMTP.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/ResetEvents.java",
+      "line": 33,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/ResumedAgent.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/RoutedMessage.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/SentMessage.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/ShutdownPlatformRequested.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/StartNotify.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/StopNotify.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/SuspendedAgent.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/introspection/ThawedAgent.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/JADEAgentManagement/CreateAgent.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/JADEAgentManagement/DebugOff.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/JADEAgentManagement/DebugOn.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/JADEAgentManagement/InstallMTP.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/JADEAgentManagement/JADEManagementOntology.java",
+      "line": 45,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/JADEAgentManagement/KillAgent.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/JADEAgentManagement/KillContainer.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/JADEAgentManagement/QueryAgentsOnLocation.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/JADEAgentManagement/QueryPlatformLocationsAction.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/JADEAgentManagement/ShowGui.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/JADEAgentManagement/ShutdownPlatform.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/JADEAgentManagement/SniffOff.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/JADEAgentManagement/SniffOn.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/JADEAgentManagement/UninstallMTP.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/JADEAgentManagement/WhereIsAgentAction.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/mobility/BehaviourLoadingOntology.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/mobility/CloneAction.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/mobility/LoadBehaviour.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/mobility/MobileAgentDescription.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/mobility/MobileAgentLanguage.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/mobility/MobileAgentOS.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/mobility/MobileAgentProfile.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/mobility/MobileAgentSystem.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/mobility/MobilityOntology.java",
+      "line": 53,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/mobility/MoveAction.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/mobility/Parameter.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/persistence/AgentGroup.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/persistence/DeleteAgent.java",
+      "line": 42,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/persistence/DeleteAgentGroup.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/persistence/DeleteContainer.java",
+      "line": 41,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/persistence/FreezeAgent.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/persistence/LoadAgent.java",
+      "line": 42,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/persistence/LoadAgentGroup.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/persistence/LoadContainer.java",
+      "line": 41,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/persistence/PersistenceOntology.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/persistence/ReloadAgent.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/persistence/SaveAgent.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/persistence/SaveAgentGroup.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/persistence/SaveContainer.java",
+      "line": 41,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/domain/persistence/ThawAgent.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/AboutJadeAction.java",
+      "line": 53,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/AclGui.java",
+      "line": 113,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/AgentTree.java",
+      "line": 336,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/AgentTree.java",
+      "line": 295,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/AgentTree.java",
+      "line": 274,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/AgentTree.java",
+      "line": 252,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/AgentTree.java",
+      "line": 231,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/AgentTree.java",
+      "line": 198,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/AgentTree.java",
+      "line": 163,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/AgentTree.java",
+      "line": 55,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/AgentTreeModel.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/AIDGui.java",
+      "line": 52,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/APDescriptionPanel.java",
+      "line": 53,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/APServicePanel.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/BrowserLauncher.java",
+      "line": 56,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/ClassSelectionDialog.java",
+      "line": 59,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/ConstraintDlg.java",
+      "line": 48,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/DFAgentDscDlg.java",
+      "line": 50,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/GuiEvent.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/GuiProperties.java",
+      "line": 41,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/JadeLogoButton.java",
+      "line": 45,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/MyFilterImage.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/ServiceDscDlg.java",
+      "line": 49,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/StringDlg.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/TimeChooser.java",
+      "line": 48,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/TreeHelp.java",
+      "line": 51,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/TreeIconRenderer.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/UserPropertyGui.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/VisualAIDList.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/VisualAPServiceList.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/VisualPropertiesList.java",
+      "line": 50,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/VisualServicesList.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/gui/VisualStringList.java",
+      "line": 64,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/BackEndSkel.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/BackEndStub.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/Command.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/ConnectionDropped.java",
+      "line": 25,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/FrontEndSkel.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/FrontEndStub.java",
+      "line": 48,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/ICPDispatchException.java",
+      "line": 3,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/ICPException.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/LEAPIMTPManager.java",
+      "line": 50,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/LEAPSerializationException.java",
+      "line": 49,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/MicroStub.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/SSLHelper.java",
+      "line": 23,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/http/HTTPAddress.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/http/HTTPBEDispatcher.java",
+      "line": 52,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/http/HTTPFEDispatcher.java",
+      "line": 57,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/http/HTTPFESDispatcher.java",
+      "line": 13,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/http/HTTPHelper.java",
+      "line": 15,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/http/HTTPPacket.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/http/HTTPPeer.java",
+      "line": 51,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/http/HTTPProtocol.java",
+      "line": 50,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/http/HTTPRequest.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/http/HTTPResponse.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/http/HTTPSAddress.java",
+      "line": 10,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/http/HTTPSPeer.java",
+      "line": 18,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/http/HTTPSProtocol.java",
+      "line": 13,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/BIBEDispatcher.java",
+      "line": 52,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/BIFEDispatcher.java",
+      "line": 51,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/BIFESDispatcher.java",
+      "line": 17,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/FrontEndDispatcher.java",
+      "line": 54,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/FrontEndSDispatcher.java",
+      "line": 17,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/JICPAddress.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/JICPCompressor.java",
+      "line": 53,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/JICPCompressor1.java",
+      "line": 21,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/JICPCompressor3.java",
+      "line": 21,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/JICPConnection.java",
+      "line": 54,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/JICPPacket.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/JICPPeer.java",
+      "line": 53,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/JICPProtocol.java",
+      "line": 50,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/JICPSConnection.java",
+      "line": 57,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/JICPServer.java",
+      "line": 62,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/JICPSPeer.java",
+      "line": 65,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/MaskableJICPPeer.java",
+      "line": 53,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/JICP/NATUtils.java",
+      "line": 11,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/nio/BackEndDispatcher.java",
+      "line": 32,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/nio/BEManagementService.java",
+      "line": 107,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/nio/NIOBEDispatcher.java",
+      "line": 32,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/nio/NIOHelper.java",
+      "line": 17,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/nio/NIOHTTPBEDispatcher.java",
+      "line": 36,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/nio/NIOHTTPConnection.java",
+      "line": 18,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/nio/NIOHTTPHelper.java",
+      "line": 23,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/nio/NIOHTTPPeer.java",
+      "line": 22,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/nio/NIOHTTPSConnection.java",
+      "line": 20,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/nio/NIOHTTPSPeer.java",
+      "line": 18,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/nio/NIOJICPConnection.java",
+      "line": 22,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/nio/NIOJICPPeer.java",
+      "line": 23,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/nio/NIOJICPSConnection.java",
+      "line": 26,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/nio/NIOJICPSPeer.java",
+      "line": 21,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/sms/Boot.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/sms/PhoneBasedSMSManager.java",
+      "line": 42,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/sms/SMSBEDispatcher.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/leap/sms/SMSManagerGui.java",
+      "line": 15,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/rmi/RMIAddress.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/imtp/rmi/RMIIMTPManager.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/lang/acl/ACLMessage.java",
+      "line": 84,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/lang/acl/ACLMessage.java",
+      "line": 81,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/lang/acl/ACLParser.java",
+      "line": 16,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/lang/acl/ACLParserTokenManager.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/lang/acl/ConversationList.java",
+      "line": 16,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/lang/acl/ISO8601.java",
+      "line": 62,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/lang/acl/LEAPACLCodec.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/lang/acl/MessageTemplate.java",
+      "line": 63,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/lang/acl/ParseException.java",
+      "line": 13,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/lang/acl/SimpleCharStream.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/lang/acl/StringACLCodec.java",
+      "line": 47,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/lang/acl/Token.java",
+      "line": 8,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/lang/acl/TokenMgrError.java",
+      "line": 4,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/lang/acl/UnreadableException.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/mtp/MTPDescriptor.java",
+      "line": 31,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/mtp/MTPException.java",
+      "line": 31,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/mtp/http/BasicFipaDateTime.java",
+      "line": 42,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/mtp/http/HTTPAddress.java",
+      "line": 48,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/mtp/http/HTTPIO.java",
+      "line": 55,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/mtp/http/HTTPServer.java",
+      "line": 59,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/mtp/http/HTTPSocketFactory.java",
+      "line": 67,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/mtp/http/KeepAlive.java",
+      "line": 58,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/mtp/http/MessageTransportProtocol.java",
+      "line": 59,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/mtp/http/XMLCodec.java",
+      "line": 71,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/mtp/http/https/FriendListAuthentication.java",
+      "line": 59,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/mtp/http/https/KeyStoreKeyManager.java",
+      "line": 62,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/mtp/http/https/NoAuthentication.java",
+      "line": 48,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/mtp/http/https/StrongAuthentication.java",
+      "line": 56,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/mtp/iiop/MessageTransportProtocol.java",
+      "line": 67,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/AchieveREInitiator.java",
+      "line": 92,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/AchieveREResponder.java",
+      "line": 52,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/ContractNetInitiator.java",
+      "line": 133,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/ContractNetResponder.java",
+      "line": 102,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/IteratedAchieveREInitiator.java",
+      "line": 50,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/ProposeInitiator.java",
+      "line": 96,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/ProposeResponder.java",
+      "line": 79,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/SimpleAchieveREInitiator.java",
+      "line": 96,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/SimpleAchieveREResponder.java",
+      "line": 59,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/SSContractNetResponder.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/SSIteratedAchieveREResponder.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/SSIteratedContractNetResponder.java",
+      "line": 7,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/SubscriptionInitiator.java",
+      "line": 83,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/SubscriptionResponder.java",
+      "line": 54,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/TwoPh0Initiator.java",
+      "line": 41,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/TwoPh1Initiator.java",
+      "line": 41,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/TwoPh2Initiator.java",
+      "line": 41,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/TwoPhInitiator.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/TwoPhResponder.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/states/MsgReceiver.java",
+      "line": 42,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/states/ReplySender.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/proto/states/StateResetter.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/security/JADESecurityException.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/security/ThreadGroupHttpAuthenticator.java",
+      "line": 33,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/ToolNotifier.java",
+      "line": 70,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/applet/DFApplet.java",
+      "line": 45,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/applet/DFAppletCommunicator.java",
+      "line": 56,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/applet/FIPAAppletRequestProto.java",
+      "line": 55,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/applet/JADEAppletRequestProto.java",
+      "line": 65,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/dfgui/DFGUI.java",
+      "line": 102,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/DummyAgent/DummyAgent.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/DummyAgent/GuiProperties.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLAIDDialog.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLAIDList.java",
+      "line": 377,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLAIDList.java",
+      "line": 337,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLAIDList.java",
+      "line": 51,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLComboBox.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLContentDialog.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLFrame.java",
+      "line": 45,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLMessageNode.java",
+      "line": 53,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLPanel.java",
+      "line": 53,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLPerformativesRenderer.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLPropertyList.java",
+      "line": 50,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLSLTokenMarker.java",
+      "line": 994,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLSLTokenMarker.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLStatisticsFrame.java",
+      "line": 58,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLSyntaxDocument.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLSyntaxUtilities.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLSytntaxStyle.java",
+      "line": 41,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLTextArea.java",
+      "line": 64,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLTextAreaPainter.java",
+      "line": 41,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLTextField.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLTimeChooserDialog.java",
+      "line": 49,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLToken.java",
+      "line": 39,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/ACLTracePanel.java",
+      "line": 61,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/AIDAddressList.java",
+      "line": 50,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/AIDTextField.java",
+      "line": 47,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/gui/EnvCommentsTextArea.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/Introspector.java",
+      "line": 83,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/Sensor.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/AboutBoxAction.java",
+      "line": 53,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/BehaviourPanel.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/BehaviourTreeNode.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/GuiProperties.java",
+      "line": 47,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/IntrospectorGUI.java",
+      "line": 50,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/MainBar.java",
+      "line": 33,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/MainBarListener.java",
+      "line": 41,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/MainWindow.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/MessagePanel.java",
+      "line": 45,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/MessageTableModel.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/MyDialog.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/StatePanel.java",
+      "line": 51,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/StateUpdater.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/TablePopupMenu.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/TablePopupMenuListener.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/TableUpdater.java",
+      "line": 45,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/TreePopupMenu.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/TreePopupMenuListener.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/introspector/gui/TreeUpdater.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/logging/JavaLoggingLogManagerImpl.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/logging/LogHelperAgent.java",
+      "line": 60,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/logging/LogManagerAgent.java",
+      "line": 23,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/logging/gui/ContainerLogWindow.java",
+      "line": 59,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/logging/gui/LogManagerGUI.java",
+      "line": 33,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/logging/ontology/GetAllLoggers.java",
+      "line": 7,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/logging/ontology/LevelInfo.java",
+      "line": 5,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/logging/ontology/LoggerInfo.java",
+      "line": 8,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/logging/ontology/LogManagementOntology.java",
+      "line": 43,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/logging/ontology/SetFile.java",
+      "line": 7,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/logging/ontology/SetLevel.java",
+      "line": 7,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/rma/ManageMTPsDialog.java",
+      "line": 28,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/rma/rma.java",
+      "line": 70,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/rma/RMACustomizer.java",
+      "line": 8,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/rma/StartDialog.java",
+      "line": 56,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sl/SLFormatter.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/AboutBoxAction.java",
+      "line": 49,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/AbstractPopup.java",
+      "line": 53,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/Agent.java",
+      "line": 48,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/AgentList.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/ClearCanvasAction.java",
+      "line": 48,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/DisplayLogFileAction.java",
+      "line": 53,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/DoNotSnifferAction.java",
+      "line": 47,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/DoSnifferAction.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/ExitAction.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/GuiProperties.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/MainMenu.java",
+      "line": 55,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/MainMenu.java",
+      "line": 52,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/MainPanel.java",
+      "line": 54,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/MainWindow.java",
+      "line": 70,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/Message.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/MessageList.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/MMCanvas.java",
+      "line": 80,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/PanelCanvas.java",
+      "line": 51,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/PopMouserAgent.java",
+      "line": 42,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/PopMouserMessage.java",
+      "line": 45,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/PopNoSniffAgent.java",
+      "line": 51,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/PopShowAgent.java",
+      "line": 51,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/PopSniffAgent.java",
+      "line": 51,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/PopupAgent.java",
+      "line": 48,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/PopupMenuAgent.java",
+      "line": 42,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/PopupMessage.java",
+      "line": 51,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/PopupMouser.java",
+      "line": 44,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/ShowOnlyAction.java",
+      "line": 45,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/Sniffer.java",
+      "line": 143,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/ToolBar.java",
+      "line": 45,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/ViewMessage.java",
+      "line": 48,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/WriteLogFileAction.java",
+      "line": 51,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/sniffer/WriteMessageListAction.java",
+      "line": 51,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/SocketProxyAgent/JadeBridge.java",
+      "line": 32,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/SocketProxyAgent/SocketProxyAgent.java",
+      "line": 55,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/testagent/ReceiveCyclicBehaviour.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/testagent/TestAgent.java",
+      "line": 57,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/tools/testagent/TestAgentFrame.java",
+      "line": 47,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/AccessControlList.java",
+      "line": 97,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/ClassFinder.java",
+      "line": 57,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/Event.java",
+      "line": 45,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/ExtendedProperties.java",
+      "line": 69,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/HashCache.java",
+      "line": 45,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/InputQueue.java",
+      "line": 45,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/Logger.java",
+      "line": 123,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/ObjectManager.java",
+      "line": 22,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/PerDayFileLogger.java",
+      "line": 41,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/PrintStreamSplitter.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/PropertiesException.java",
+      "line": 30,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/RWLock.java",
+      "line": 38,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/SynchList.java",
+      "line": 40,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/ThreadDumpManager.java",
+      "line": 10,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/Toolkit.java",
+      "line": 29,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/TransportAddressWrapper.java",
+      "line": 17,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/leap/ArrayList.java",
+      "line": 42,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/leap/EmptyIterator.java",
+      "line": 34,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/leap/EnumIterator.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/leap/HashMap.java",
+      "line": 42,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/leap/HashSet.java",
+      "line": 7,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/leap/LinkedList.java",
+      "line": 42,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/leap/Properties.java",
+      "line": 73,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/leap/Properties.java",
+      "line": 62,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/leap/RoundList.java",
+      "line": 41,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/util/leap/SortedSetImpl.java",
+      "line": 37,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/wrapper/AgentContainer.java",
+      "line": 35,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/wrapper/AgentState.java",
+      "line": 32,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/wrapper/ContainerController.java",
+      "line": 50,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/wrapper/ControllerException.java",
+      "line": 31,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/wrapper/O2AException.java",
+      "line": 27,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/wrapper/PlatformState.java",
+      "line": 32,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/wrapper/StaleProxyException.java",
+      "line": 33,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/wrapper/gateway/DynamicJadeGateway.java",
+      "line": 22,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/wrapper/gateway/GatewayAgent.java",
+      "line": 22,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/wrapper/gateway/JadeGateway.java",
+      "line": 46,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/wrapper/gateway/LocalJadeGateway.java",
+      "line": 9,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    },
+    {
+      "rule_id": "DUMMY_TEST_RULE",
+      "file": "src/jade/wrapper/gateway/SplitJadeGateway.java",
+      "line": 16,
+      "confidence": "HIGH",
+      "reason": "Dummy pattern matching every Java class declaration"
+    }
+  ]
+}

@@ -6,8 +6,7 @@
  */
 
 package FIPA;
-public class AgentIDHelper { // E2E TEST
-// JADE-FLAG:DUMMY_TEST_RULE Dummy pattern matching every Java class declaration HIGH
+public class AgentIDHelper {
      // It is useless to have instances of this class
      private AgentIDHelper() { }
 

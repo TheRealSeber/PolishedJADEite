@@ -58,12 +58,10 @@ import org.apache.commons.codec.binary.Base64;
  * @version $Date: 2017-11-09 09:25:16 +0100 (gio, 09 nov 2017) $ $Revision: 6832 $
  */
 /*#MIDP_INCLUDE_BEGIN
-public class SLCodec extends SimpleSLCodec { // E2E TEST
-// JADE-FLAG:DUMMY_TEST_RULE Dummy pattern matching every Java class declaration HIGH
+public class SLCodec extends SimpleSLCodec {
 #MIDP_INCLUDE_END*/
 //#MIDP_EXCLUDE_BEGIN
 public class SLCodec extends StringCodec {
-// JADE-FLAG:DUMMY_TEST_RULE Dummy pattern matching every Java class declaration HIGH
 
 	public static final String PRESERVE_JAVA_TYPES = "SL-preserve-java-types";
 

@@ -53,7 +53,6 @@ import jade.domain.FIPAAgentManagement.AMSAgentDescription;
    @version $Date: 2010-04-12 18:07:05 +0200 (lun, 12 apr 2010) $ $Revision: 6302 $
  */
 public class AgentTree extends JPanel {
-// JADE-FLAG:DUMMY_TEST_RULE Dummy pattern matching every Java class declaration HIGH
 	// FIXME: Use better values for TYPE constants
     public static final String TREE_ROOT_TYPE = "SUPERCONTAINER";
     
@@ -162,7 +161,6 @@ public class AgentTree extends JPanel {
 	 * Inner class AgentNode
 	 */
 	public class AgentNode extends Node {
-// JADE-FLAG:DUMMY_TEST_RULE Dummy pattern matching every Java class declaration HIGH
 		private String agentType;
 		private String agentAddress;
 
@@ -198,7 +196,6 @@ public class AgentTree extends JPanel {
 	 * Inner class ContainerNode
 	 */
 	public class ContainerNode extends Node {
-// JADE-FLAG:DUMMY_TEST_RULE Dummy pattern matching every Java class declaration HIGH
 		private InetAddress addressmachine;
 		private String containerType;
 
@@ -232,7 +229,6 @@ public class AgentTree extends JPanel {
 	 * Inner class SuperContainer
 	 */
 	public class SuperContainer extends Node {
-// JADE-FLAG:DUMMY_TEST_RULE Dummy pattern matching every Java class declaration HIGH
 
 		public SuperContainer(String name) {
 			super(name);
@@ -254,7 +250,6 @@ public class AgentTree extends JPanel {
 	 * Inner class RemotePlatformsFolderNode
 	 */
 	public class RemotePlatformsFolderNode extends Node{
-// JADE-FLAG:DUMMY_TEST_RULE Dummy pattern matching every Java class declaration HIGH
 	
 		public RemotePlatformsFolderNode(String name){
 			super(name);
@@ -271,13 +266,12 @@ public class AgentTree extends JPanel {
 			return(REMOTE_PLATFORMS_FOLDER_TYPE);
 		}
 	} // END of inner class RemotePlatformsFolderNode
- // E2E TEST
+
 
 	/**
 	 * Inner class localPlatformFolderNode
 	 */
 	public class LocalPlatformFolderNode extends Node{
-// JADE-FLAG:DUMMY_TEST_RULE Dummy pattern matching every Java class declaration HIGH
 
 		public LocalPlatformFolderNode(String name){
 			super(name);
@@ -299,7 +293,6 @@ public class AgentTree extends JPanel {
 	 * Inner class RemotePlatformNode
 	 */
 	public class RemotePlatformNode extends Node{
-// JADE-FLAG:DUMMY_TEST_RULE Dummy pattern matching every Java class declaration HIGH
 	
 		private APDescription AP_Profile;
 		private AID amsAID;
@@ -341,7 +334,6 @@ public class AgentTree extends JPanel {
 	 * Inner class RemoteAgentNode
 	 */
 	public class RemoteAgentNode extends AgentNode{
-// JADE-FLAG:DUMMY_TEST_RULE Dummy pattern matching every Java class declaration HIGH
 
 		private AMSAgentDescription amsd;
 	

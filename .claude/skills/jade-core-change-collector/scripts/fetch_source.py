@@ -12,6 +12,7 @@ import datetime as dt
 import hashlib
 import json
 import pathlib
+import re
 import sys
 import urllib.error
 import urllib.request
@@ -78,6 +79,31 @@ def detect_paywall(source: str) -> Optional[str]:
 
 def sha256(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8", errors="replace")).hexdigest()
+
+
+def strip_html(raw: str) -> str:
+    """Remove HTML tags and decode entities to produce readable text."""
+    import html as _html
+    import re as _re
+
+    text = _re.sub(
+        r"<script[^>]*?>.*?</script>", " ", raw, flags=_re.DOTALL | _re.IGNORECASE
+    )
+    text = _re.sub(
+        r"<style[^>]*?>.*?</style>", " ", text, flags=_re.DOTALL | _re.IGNORECASE
+    )
+    text = _re.sub(r"<[^>]+?>", " ", text)
+    text = _html.unescape(text)
+    text = _re.sub(r"\n\s*\n\s*\n+", "\n\n", text)
+    lines = [ln.strip() for ln in text.splitlines()]
+    lines = [ln for ln in lines if ln]
+    return "\n".join(lines)
+
+
+def looks_like_html(text: str) -> bool:
+    return bool(
+        re.search(r"<\s*(html|head|body|div|p|script|meta)\b", text, re.IGNORECASE)
+    )
 
 
 def fetch_url(url: str, timeout_sec: int = 30) -> Dict:
@@ -299,10 +325,15 @@ def main() -> int:
         "fetched_at": iso_now(),
     }
 
-    # Attach full content so collect_changes.py can use it; caller decides trim
+    # Attach full content so the agent can read it; caller decides trim
     content = result.get("content")
     if content:
         entry["content"] = content
+        # Write clean text file for LLM reading comprehension
+        clean = strip_html(content) if looks_like_html(content) else content
+        content_path = artifacts_dir / f"01-source-content-{source_label}.txt"
+        content_path.write_text(clean, encoding="utf-8", errors="replace")
+        print(f"       Clean text written to {content_path} ({len(clean)} chars)")
 
     if not args.full_content:
         entry = trim_content(entry)

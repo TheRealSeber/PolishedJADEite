@@ -132,8 +132,10 @@ PolishedJADEite/
 │   └── java-migration-skill-registry/ # Auto-generated skill registry
 ├── docs/
 │   └── architecture.md               # Full pipeline constitution
+├── mock-sources/                      # KB files for change collector Phase B
 ├── migration-runs/
-│   └── sample/artifacts/             # Harness artifacts for testing
+│   ├── jade-1.5-to-1.6/artifacts/     # Artifacts for 1.5→1.6 migration run
+│   └── sample/artifacts/              # Harness artifacts for testing
 ├── tests/                            # pytest suite (9 passed, 2 skipped)
 └── benchmarks/                       # Benchmark harness
 ```
@@ -142,27 +144,27 @@ PolishedJADEite/
 
 ## Current State
 
-- **11 core pipeline skills** built and validated (scanner ran on 1,015 JADE files, 211 flags injected, orchestrator completed on harness)
-- **Core/Recipe split** enforced — dispatcher routes via `recipe-registry.json`, recipes are pure transforms
-- **Phase 0 optional** — `codebase-analysis` produces `JadeDocumentation/` consumed by verification for dynamic trace scenarios
+- **Core pipeline complete** — all 11 `jade-core-*` skills built, agnostic, validated
+- **Dockerized build gates** — no host JDK or build tools required
+- **LLM-as-Extractor change collector** — `write_manifest.py` enforces 12 schema validations per rule
+- **Core/Recipe split enforced** — dispatcher routes via `recipe-registry.json`
+- **Phase 0 optional** — `JadeDocumentation/` enriches verification for dynamic trace scenarios
 - **Test suite** — 9 passed, 2 skipped (idempotency + integration tests)
-- **Next:** Generate recipe skills for 1.5→1.6 from changing data, execute real migration
+- **Deferred:** Recipe skills for 1.5→1.6 (generated from manifest by Skill Creator)
+- **Deferred:** Full JADE 1.5→1.6 real migration execution
 
 ---
 
 ## Setup
 
 ```bash
-# Required: JDK 8 for 1.5/1.6 compilation
-sudo pacman -S jdk8-openjdk apache-ant
+# Required: Docker (all builds run in ephemeral containers — no host JDK needed)
+docker info  # verify Docker is running
 
 # Required: commons-codec (not included in JADE repo)
 mkdir -p JADE-4.6.0/src/jade/lib/commons-codec
 curl -L "https://repo1.maven.org/maven2/commons-codec/commons-codec/1.3/commons-codec-1.3.jar" \
   -o JADE-4.6.0/src/jade/lib/commons-codec/commons-codec-1.3.jar
-
-# Verify baseline compiles
-cd JADE-4.6.0/src/jade && JAVA_HOME=/usr/lib/jvm/java-8-openjdk ant jade 2>&1 | tail -3
 
 # Run test suite
 python -m pytest tests/ -v

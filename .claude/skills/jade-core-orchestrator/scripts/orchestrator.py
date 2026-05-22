@@ -417,7 +417,9 @@ def main() -> int:
             write_progress_md(artifacts, state, cfg)
             return 2 if outcome == "FAILED" else 0
         try:
-            shutil.copytree(baseline, workspace)
+            shutil.copytree(
+                baseline, workspace, ignore=shutil.ignore_patterns("doc", "examples")
+            )
         except shutil.Error as exc:
             outcome = fail(
                 artifacts,

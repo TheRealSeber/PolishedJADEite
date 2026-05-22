@@ -1,0 +1,4 @@
+{
+  "rules": ["DUMMY_TEST_RULE"],
+  "order": "sequential"
+}

@@ -2,7 +2,7 @@
 
 **Source:** 1.5 → **Target:** 1.6
 **Current state:** FAILED
-**Updated:** 2026-05-22T18:56:22Z
+**Updated:** 2026-05-23T17:56:14Z
 
 | Phase | Status | Details |
 |-------|--------|---------|
@@ -204,6 +204,8 @@
 | ✅ RULE_BATCH_LOOP | OK | Completed rule DEPRECATED_API |
 | ✅ VERIFIED | OK | Phase completed: VERIFIED |
 | ✅ DONE | OK | Run complete |
+| ✅ INIT | OK | Run initialized |
+| 🔴 FAILED | ERROR | BASELINE_MISSING: Baseline not found: migration-runs\sample\workspace |
 | ✅ INIT | OK | Run initialized |
 | 🔴 FAILED | ERROR | BASELINE_MISSING: Baseline not found: migration-runs\sample\workspace |
 | ✅ INIT | OK | Run initialized |

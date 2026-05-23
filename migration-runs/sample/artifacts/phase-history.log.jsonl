@@ -204,3 +204,5 @@
 {"ts": "2026-05-22T18:19:30Z", "phase": "FAILED", "status": "ERROR", "message": "BASELINE_MISSING: Baseline not found: migration-runs\\sample\\workspace", "artifacts": ["failure-summary.json", "00-run-state.json"]}
 {"ts": "2026-05-22T18:56:22Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
 {"ts": "2026-05-22T18:56:22Z", "phase": "FAILED", "status": "ERROR", "message": "BASELINE_MISSING: Baseline not found: migration-runs\\sample\\workspace", "artifacts": ["failure-summary.json", "00-run-state.json"]}
+{"ts": "2026-05-23T17:56:14Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-23T17:56:14Z", "phase": "FAILED", "status": "ERROR", "message": "BASELINE_MISSING: Baseline not found: migration-runs\\sample\\workspace", "artifacts": ["failure-summary.json", "00-run-state.json"]}

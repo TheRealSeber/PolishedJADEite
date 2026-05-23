@@ -1,0 +1,11 @@
+{
+  "allowed_domains": [
+    "oracle.com",
+    "docs.oracle.com",
+    "openjdk.org"
+  ],
+  "allowed_url_prefixes": [
+    "https://docs.oracle.com/javase/specs/",
+    "https://openjdk.org/jeps/"
+  ]
+}

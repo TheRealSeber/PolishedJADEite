@@ -1,0 +1,7 @@
+{
+  "run_id": "policy-prod",
+  "artifacts_path": "tests/fixtures/source-policy/artifacts",
+  "source_version": "1.5",
+  "target_version": "1.6",
+  "source_policy_mode": "production"
+}

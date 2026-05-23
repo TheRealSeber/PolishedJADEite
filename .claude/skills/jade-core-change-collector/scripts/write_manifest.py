@@ -74,7 +74,7 @@ def validate_pattern(pattern: Dict[str, Any]) -> List[str]:
     return errors
 
 
-def validate_rule(rule: Dict[str, Any], source_labels: List[str]) -> List[str]:
+def validate_rule(rule: Dict[str, Any]) -> List[str]:
     errors: List[str] = []
     rule_id = rule.get("id", "<missing>")
 
@@ -142,6 +142,65 @@ def validate_rule(rule: Dict[str, Any], source_labels: List[str]) -> List[str]:
     return errors
 
 
+def validate_evidence_policy(
+    rule: Dict[str, Any],
+    source_index: Dict[str, Any],
+    mode: str,
+) -> List[str]:
+    errors: List[str] = []
+    rule_id = rule.get("id", "<missing>")
+    evidence_ref = rule.get("evidence_ref", "")
+    evidence_hash = rule.get("evidence_hash", "")
+
+    if not evidence_ref:
+        return errors
+
+    if "::" not in evidence_ref:
+        if mode == "production":
+            errors.append(
+                f"Rule {rule_id}: malformed evidence_ref "
+                f"(missing '::' separator), got '{evidence_ref}'"
+            )
+        else:
+            print(
+                f"WARNING [LEGACY_REF] Rule {rule_id}: legacy evidence_ref "
+                f"format (no '::' separator), allowed in {mode} mode",
+                file=sys.stderr,
+            )
+        return errors
+
+    source_label = evidence_ref.split("::", 1)[0].strip()
+
+    sources = source_index.get("sources", [])
+    source_entry: Optional[Dict[str, Any]] = None
+    for s in sources:
+        if s.get("source_label") == source_label:
+            source_entry = s
+            break
+
+    if source_entry is None:
+        errors.append(
+            f"Rule {rule_id}: evidence_ref source_label '{source_label}' "
+            f"not found in source index"
+        )
+        return errors
+
+    if evidence_hash and source_entry.get("content_hash"):
+        if evidence_hash != source_entry["content_hash"]:
+            errors.append(
+                f"Rule {rule_id}: evidence_hash does not match source "
+                f"'{source_label}' content_hash"
+            )
+
+    if not source_entry.get("is_official", False):
+        errors.append(
+            f"Rule {rule_id}: evidence source '{source_label}' "
+            f"is not official (non-official evidence rejected in all modes)"
+        )
+
+    return errors
+
+
 def validate_manifest(rules: List[Dict], source_labels: List[str]) -> List[str]:
     errors: List[str] = []
     seen_ids: set = set()
@@ -156,7 +215,7 @@ def validate_manifest(rules: List[Dict], source_labels: List[str]) -> List[str]:
         if rid in seen_ids:
             errors.append(f"Duplicate rule_id: {rid}")
         seen_ids.add(rid)
-        errors.extend(validate_rule(rule, source_labels))
+        errors.extend(validate_rule(rule))
 
     return errors
 
@@ -174,6 +233,12 @@ def main() -> int:
     parser.add_argument("--run-id", required=True, help="Migration run ID")
     parser.add_argument("--source-version", required=True, help="Source Java version")
     parser.add_argument("--target-version", required=True, help="Target Java version")
+    parser.add_argument(
+        "--source-policy-mode",
+        default="production",
+        choices=["production", "development"],
+        help="Source policy enforcement mode (default: production)",
+    )
     args = parser.parse_args()
 
     artifacts_dir = pathlib.Path(args.artifacts_dir)
@@ -191,18 +256,31 @@ def main() -> int:
 
     rules = data if isinstance(data, list) else data.get("rules", [])
 
-    # Gather source labels from source index
+    # Gather source labels and full index data from source index
     source_labels: List[str] = []
-    source_index = artifacts_dir / "01-source-index.json"
-    if source_index.exists():
+    source_index_data: Optional[Dict[str, Any]] = None
+    source_index_path = artifacts_dir / "01-source-index.json"
+    if source_index_path.exists():
         try:
-            idx = read_json(source_index)
-            source_labels = [s.get("source_label", "") for s in idx.get("sources", [])]
+            source_index_data = read_json(source_index_path)
+            source_labels = [
+                s.get("source_label", "") for s in source_index_data.get("sources", [])
+            ]
         except (json.JSONDecodeError, OSError):
-            pass
+            source_index_data = None
 
     # Validate
     validation_errors = validate_manifest(rules, source_labels)
+
+    # Evidence policy validation (only when source index exists)
+    if source_index_data:
+        for rule in rules:
+            validation_errors.extend(
+                validate_evidence_policy(
+                    rule, source_index_data, args.source_policy_mode
+                )
+            )
+
     if validation_errors:
         print("=== VALIDATION FAILED ===")
         for e in validation_errors:

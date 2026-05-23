@@ -55,7 +55,7 @@ Recipe scripts MUST:
 
 In `01-breaking-changes-manifest.json`, rules specify:
 ```json
-"fix_strategy": "recipe:jade-recipe-java1.5-raw-types"
+"fix_strategy": "recipe:jade-recipe-java1.5-generics"
 ```
 
 The dispatcher looks up `rule_id` in `recipe-registry.json` to resolve the

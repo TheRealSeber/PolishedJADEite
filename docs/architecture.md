@@ -81,11 +81,11 @@ will not compile. Verification becomes impossible until the next batch, and the 
 batch may depend on a contract that no longer exists.
 
 **The Rule-by-Rule approach instead:**
-1. Select one `rule_id` from the rule queue (e.g., `ENHANCED_FOR`)
+1. Select one `rule_id` from the rule queue (e.g., `LOOP_MODERNIZATION`)
 2. Apply that rule to **every flagged file** in the entire workspace
 3. Verify the full build compiles and passes semantic checks
 4. Atomic git commit for that rule
-5. Select the next `rule_id` (`RAW_TYPES`)
+5. Select the next `rule_id` (`GENERICS_UPGRADE`)
 6. Repeat
 
 This guarantees that every intermediate state is compilable and verifiable. No broken
@@ -195,7 +195,7 @@ This ensures:
 
 Core skills are **100% agnostic to the migration version**. They contain zero
 Java-version-specific logic, zero regex patterns for specific rules, and zero
-knowledge of what "RAW_TYPES" or "ENHANCED_FOR" means. They are the pipeline's
+knowledge of what any specific rule ID means. They are the pipeline's
 plumbing.
 
 | # | Skill | Responsibility |
@@ -225,24 +225,24 @@ A recipe skill:
 - Prints a single JSON line to stdout: `{"status": "FIXED|FAILED|SKIPPED", "changes": N, ...}`
 - Exits 0 on success, non-zero on failure
 
-Examples (for JADE 1.5→1.6):
-- `jade-recipe-java1.5-raw-types` — infers generics from `.add()`/`.put()` calls
-- `jade-recipe-java1.5-enhanced-for` — converts safe indexed loops to enhanced-for
+Examples (for a hypothetical 1.5→1.6 migration):
+- `jade-recipe-1.5-to-1.6-generics` — infers generics from `.add()`/`.put()` calls
+- `jade-recipe-1.5-to-1.6-loops` — converts safe indexed loops to for-each
 
 ### The Dispatcher Pattern
 
 ```
-Rule ID "RAW_TYPES" arrives at jade-core-rule-dispatcher
+Rule ID "EXAMPLE_RULE" arrives at jade-core-rule-dispatcher
     │
-    ├─► LOAD task from 05-rule-batch-RAW_TYPES.json
+    ├─► LOAD task from 05-rule-batch-EXAMPLE_RULE.json
     ├─► LOAD rule from 01-breaking-changes-manifest.json
-    │       fix_strategy = "recipe:jade-recipe-java1.5-raw-types"
+    │       fix_strategy = "recipe:jade-recipe-1.5-to-1.6-example-rule"
     ├─► LOOKUP recipe-registry.json:
-    │       "RAW_TYPES" → ".claude/skills/jade-recipe-java1.5-raw-types/scripts/apply.py"
+    │       "EXAMPLE_RULE" → ".claude/skills/jade-recipe-1.5-to-1.6-example-rule/scripts/apply.py"
     ├─► DISPATCH subprocess:
-    │       python apply.py --file jade/core/Agent.java --line 142
+    │       python apply.py --file workspace/src/Example.java --line 42
     ├─► CAPTURE recipe stdout → {"status": "FIXED", ...}
-    └─► RECORD → 06-fix-result-RAW_TYPES-0001.json
+    └─► RECORD → 06-fix-result-EXAMPLE_RULE-0001.json
 ```
 
 The dispatcher contains **zero transform logic**. It never compiles a regex against
@@ -255,10 +255,10 @@ and updating `recipe-registry.json` — the core pipeline never changes.
 
 ```json
 {
-  "RAW_TYPES": {
-    "skill": "jade-recipe-java1.5-raw-types",
-    "script": ".claude/skills/jade-recipe-java1.5-raw-types/scripts/apply.py",
-    "description": "Add generic type parameters to raw collections"
+  "EXAMPLE_RULE": {
+    "skill": "jade-recipe-1.5-to-1.6-example",
+    "script": ".claude/skills/jade-recipe-1.5-to-1.6-example/scripts/apply.py",
+    "description": "Apply a migration transform"
   }
 }
 ```

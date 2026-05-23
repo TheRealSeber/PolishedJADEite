@@ -2,6 +2,6 @@
   "run_id": "sample-run",
   "state": "FAILED",
   "current_rule_id": null,
-  "updated_at": "2026-05-23T17:56:14Z",
+  "updated_at": "2026-05-23T18:29:48Z",
   "failure_reason": "BASELINE_MISSING"
 }

@@ -20,7 +20,7 @@ The pipeline operates as a file-based state machine where artifacts on disk are 
 | Layer | Prefix | Contains | Example |
 |-------|--------|----------|---------|
 | **Core** | `jade-core-*` | Agnostic pipeline plumbing | orchestrator, scanner, dispatcher, verification |
-| **Recipe** | `jade-recipe-*` | Version-specific transforms | `jade-recipe-java1.5-raw-types` |
+| **Recipe** | `jade-recipe-*` | Version-specific transforms | `jade-recipe-1.5-to-1.6-<rule-id>` |
 
 **The Dispatcher Pattern:** Core skills never contain transform logic. The `jade-core-rule-dispatcher` reads a rule from the manifest, looks up the matching recipe in `recipe-registry.json`, and invokes it as a subprocess. Adding a new migration means adding recipe skills — the core pipeline never changes.
 

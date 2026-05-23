@@ -24,6 +24,7 @@ TRANSITIONS: Dict[str, Dict[str, str]] = {
         "NEXT_RULE": "RULE_BATCH_LOOP",
         "NO_MORE_RULES": "VERIFIED",
         "VERIFY_FAIL": "RULE_RETRY",
+        "ARTIFACT_MISSING": "FAILED",
     },
     "RULE_RETRY": {"RETRY": "RULE_BATCH_LOOP", "ESCALATE": "RULE_ESCALATE"},
     "RULE_ESCALATE": {"OK": "RULE_BATCH_LOOP"},
@@ -162,9 +163,31 @@ def process_rule_batch(
 ) -> str:
     queue_path = artifacts / "05-rule-queue.json"
     if not queue_path.exists():
-        return fail(
-            artifacts, state, "MISSING_RULE_QUEUE", "05-rule-queue.json not found"
+        state["failure_reason"] = "MISSING_RULE_QUEUE"
+        state["updated_at"] = iso_now()
+        write_json(state_path, state)
+        write_json(
+            artifacts / "failure-summary.json",
+            {
+                "code": "MISSING_RULE_QUEUE",
+                "message": "05-rule-queue.json not found",
+                "updated_at": state["updated_at"],
+            },
         )
+        append_jsonl(
+            hist_path,
+            {
+                "ts": iso_now(),
+                "phase": "RULE_BATCH_LOOP",
+                "status": "ERROR",
+                "message": "MISSING_RULE_QUEUE: 05-rule-queue.json not found",
+                "artifacts": ["failure-summary.json"],
+            },
+        )
+        print(
+            "ERROR [MISSING_RULE_QUEUE] 05-rule-queue.json not found", file=sys.stderr
+        )
+        return "ARTIFACT_MISSING"
 
     queue = read_json(queue_path)
     rules: List[str] = queue.get("rules", [])

@@ -88,7 +88,7 @@ text the agent explicitly read.
    - `evidence_hash` — SHA-256 from `01-source-index.json` for that source
 
 3. **Build a JSON array of rules.** Each rule MUST have:
-   - `id` — unique ID, e.g., `RAW_TYPES`, `ENHANCED_FOR`
+   - `id` — unique ID, e.g., `GENERICS_UPGRADE`, `LOOP_MODERNIZATION`
    - `name` — human-readable name
    - `fix_strategy` — `"recipe:jade-recipe-{version}-{id}"` format
    - `severity` — `HIGH`, `MEDIUM`, `LOW`, `WARNING`, `INFO`

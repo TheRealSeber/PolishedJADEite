@@ -23,7 +23,7 @@ This repository (`PolishedJADEite`) is a **research project from Warsaw Universi
 - **`JADE-4.6.0/`** — Original JADE source (never modified). The canonical source of truth for the baseline.
 - **`.claude/skills/`** — Migration skills for stepping-stone Java version jumps (1.5→1.6→...→21).
 - **`benchmarks/`** — Evaluation cases and benchmark scripts for measuring migration quality.
-- **`ATXDocumentation/`** — This comprehensive documentation generated from static code analysis.
+- **`JadeDocumentation/`** — This comprehensive documentation generated from static code analysis.
 
 ## Technology Stack
 

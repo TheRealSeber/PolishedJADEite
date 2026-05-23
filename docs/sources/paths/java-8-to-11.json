@@ -1,0 +1,32 @@
+{
+  "document_type": "migration_source_path",
+  "path_id": "java-8-to-11",
+  "path_title": "Path 4: Java 8 to Java 11 (LTS to LTS)",
+  "sources": [
+    {
+      "document_title": "Oracle JDK 11 Migration Guide",
+      "url": "https://docs.oracle.com/en/java/javase/11/migrate/index.html",
+      "summary": "Outlines removal of the underscore character as a legal identifier and provides guidance for utilizing the jdeps tool for static dependency analysis."
+    },
+    {
+      "document_title": "JEP 320: Remove the Java EE and CORBA Modules",
+      "url": "https://openjdk.org/jeps/320",
+      "summary": "Details the specific packages removed and establishes the necessity of AST rules for external dependency substitution."
+    },
+    {
+      "document_title": "JEP 261: Module System",
+      "url": "https://openjdk.org/jeps/261",
+      "summary": "Defines the syntax for module-info.java and the command-line arguments required to restructure classpaths into module paths."
+    },
+    {
+      "document_title": "Oracle JDK Migration Guide: Removed APIs",
+      "url": "https://docs.oracle.com/en/java/javase/22/migrate/removed-apis.html",
+      "summary": "Provides mapping rules to replace legacy internal APIs, including shifts from sun.misc.BASE64Encoder to java.util.Base64."
+    },
+    {
+      "document_title": "Project Jigsaw: Module System Quick-Start Guide",
+      "url": "https://openjdk.org/projects/jigsaw/quick-start",
+      "summary": "Contains baseline compilation rules and directory structuring paradigms necessary for assembling modularized JADE JAR files and avoiding split packages."
+    }
+  ]
+}

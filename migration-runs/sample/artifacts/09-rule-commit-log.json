@@ -1,9 +1,0 @@
-{
-  "rule_id": "RAW_TYPES",
-  "commit_hash": "cec906c56db07c43ccaf5f2e03ee348a32d8454c",
-  "message": "fix(migration): resolved RAW_TYPES - raw collections to generics",
-  "timestamp": "2026-05-21T21:27:55Z",
-  "files": [
-    ".claude/skills/jade-migration-orchestrator/scripts/orchestrator.py"
-  ]
-}

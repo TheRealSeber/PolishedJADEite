@@ -36,6 +36,8 @@ _PAYWALL_PATH_TOKENS: Set[str] = {
     "/paywall",
 }
 
+_LOCAL_HOSTS: Set[str] = {"localhost", "127.0.0.1", "0.0.0.0"}
+
 
 def iso_now() -> str:
     return (
@@ -49,6 +51,94 @@ def iso_now() -> str:
 def read_json(path: pathlib.Path) -> Dict:
     with path.open("r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def repo_root_from_script() -> pathlib.Path:
+    # fetch_source.py -> scripts -> jade-core-change-collector -> skills -> .claude -> repo
+    return pathlib.Path(__file__).resolve().parents[4]
+
+
+def sanitize_label(label: str) -> str | None:
+    if ".." in label:
+        return None
+    sanitized = re.sub(r"[^A-Za-z0-9._\-]", "_", label)
+    if not sanitized:
+        sanitized = "unnamed"
+    return sanitized
+
+
+def load_official_allowlist() -> Dict:
+    allowlist_path = (
+        repo_root_from_script() / "docs" / "sources" / "official-allowlist.json"
+    )
+    payload = read_json(allowlist_path)
+    return {
+        "allowed_domains": [d.lower() for d in payload.get("allowed_domains", [])],
+        "allowed_url_prefixes": payload.get("allowed_url_prefixes", []),
+    }
+
+
+def _host_matches_allowlist(host: str, allowlist: Dict) -> bool:
+    for allowed_domain in allowlist.get("allowed_domains", []):
+        if host == allowed_domain or host.endswith(f".{allowed_domain}"):
+            return True
+    return False
+
+
+def is_allowlisted_url(source: str, allowlist: Dict) -> bool:
+    parsed = urlparse(source)
+    if parsed.scheme == "http":
+        return False
+    host = (parsed.hostname or "").lower()
+    if not host:
+        return False
+
+    if _host_matches_allowlist(host, allowlist):
+        return True
+
+    for prefix in allowlist.get("allowed_url_prefixes", []):
+        if source.startswith(prefix):
+            return True
+    return False
+
+
+def classify_source(source: str, allowlist: Dict) -> Dict[str, object]:
+    if not is_url(source):
+        return {
+            "source_tier": "local",
+            "is_official": False,
+            "policy_reason": "local source path is not permitted in production mode",
+        }
+
+    parsed = urlparse(source)
+    host = (parsed.hostname or "").lower()
+
+    if host in _LOCAL_HOSTS or host.endswith(".local"):
+        return {
+            "source_tier": "local",
+            "is_official": False,
+            "policy_reason": f"local/mock host is not permitted in production mode: {host}",
+        }
+
+    if is_allowlisted_url(source, allowlist):
+        return {
+            "source_tier": "official",
+            "is_official": True,
+            "policy_reason": None,
+        }
+
+    if _host_matches_allowlist(host, allowlist) and parsed.scheme == "http":
+        return {
+            "source_tier": "non_official",
+            "is_official": False,
+            "policy_reason": f"HTTP scheme rejected for allowlisted domain: {host} (require HTTPS)",
+        }
+
+    return {
+        "source_tier": "non_official",
+        "is_official": False,
+        "policy_reason": f"non-official domain is not allowlisted: {host or source}",
+    }
 
 
 def write_json(path: pathlib.Path, payload: Dict) -> None:
@@ -220,6 +310,9 @@ _SOURCE_INDEX_FIELDS = {
     "http_status",
     "content_snippet",
     "fetched_at",
+    "source_tier",
+    "is_official",
+    "policy_status",
 }
 
 
@@ -254,7 +347,7 @@ def trim_content(entry: Dict, max_chars: int = 2000) -> Dict:
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
-def main() -> int:
+def main(argv: Optional[list[str]] = None) -> int:
     parser = argparse.ArgumentParser(
         description="Fetch one source for jade-change-collector-strict"
     )
@@ -284,7 +377,7 @@ def main() -> int:
         action="store_true",
         help="Store full content in index (default: snippet only)",
     )
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     config_path = pathlib.Path(args.run_config)
     if not config_path.exists():
@@ -303,12 +396,45 @@ def main() -> int:
 
     artifacts_dir = pathlib.Path(cfg["artifacts_path"])
     index_path = artifacts_dir / "01-source-index.json"
+    source_policy_mode = (
+        str(cfg.get("source_policy_mode", "production")).strip().lower()
+    )
+    if source_policy_mode not in {"production", "development"}:
+        print(
+            f"CONFIG_INVALID: unknown source_policy_mode: {source_policy_mode!r}",
+            file=sys.stderr,
+        )
+        return 2
+
+    try:
+        allowlist = load_official_allowlist()
+    except (FileNotFoundError, json.JSONDecodeError) as exc:
+        print(f"ALLOWLIST_LOAD_FAILED: {exc}", file=sys.stderr)
+        return 2
 
     source_url = args.source_url.strip()
     source_label = args.source_label.strip()
 
+    source_classification = classify_source(source_url, allowlist)
+    source_tier = str(source_classification["source_tier"])
+    is_official = bool(source_classification["is_official"])
+
+    policy_rejected = source_policy_mode == "production" and not is_official
+    policy_status = "rejected" if policy_rejected else "allowed"
+
     # Fetch
-    if is_url(source_url):
+    if policy_rejected:
+        result = {
+            "status": "error",
+            "error_type": "POLICY_REJECTED",
+            "error_message": str(
+                source_classification.get("policy_reason") or "source blocked by policy"
+            ),
+            "content": None,
+            "content_hash": None,
+            "content_length": 0,
+        }
+    elif is_url(source_url):
         result = fetch_url(source_url, args.timeout)
     else:
         result = fetch_file(pathlib.Path(source_url))
@@ -323,6 +449,9 @@ def main() -> int:
         "content_length": result.get("content_length"),
         "http_status": result.get("http_status"),
         "fetched_at": iso_now(),
+        "source_tier": source_tier,
+        "is_official": is_official,
+        "policy_status": policy_status,
     }
 
     # Attach full content so the agent can read it; caller decides trim
@@ -331,9 +460,32 @@ def main() -> int:
         entry["content"] = content
         # Write clean text file for LLM reading comprehension
         clean = strip_html(content) if looks_like_html(content) else content
-        content_path = artifacts_dir / f"01-source-content-{source_label}.txt"
-        content_path.write_text(clean, encoding="utf-8", errors="replace")
-        print(f"       Clean text written to {content_path} ({len(clean)} chars)")
+        safe_label = sanitize_label(source_label)
+        if safe_label is None:
+            print(
+                f"       [SKIP] Unsafe source_label rejected: {source_label!r}",
+                file=sys.stderr,
+            )
+        else:
+            content_path = artifacts_dir / f"01-source-content-{safe_label}.txt"
+            try:
+                content_path_resolved = content_path.resolve()
+                artifacts_resolved = artifacts_dir.resolve()
+                if content_path_resolved.is_relative_to(artifacts_resolved):
+                    content_path.write_text(clean, encoding="utf-8", errors="replace")
+                    print(
+                        f"       Clean text written to {content_path} ({len(clean)} chars)"
+                    )
+                else:
+                    print(
+                        f"       [SKIP] Unsafe source_label rejected by path validation: {source_label!r}",
+                        file=sys.stderr,
+                    )
+            except (OSError, ValueError) as exc:
+                print(
+                    f"       [SKIP] Failed to write content file: {exc}",
+                    file=sys.stderr,
+                )
 
     if not args.full_content:
         entry = trim_content(entry)

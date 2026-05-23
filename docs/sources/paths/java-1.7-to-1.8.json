@@ -1,0 +1,37 @@
+{
+  "document_type": "migration_source_path",
+  "path_id": "java-1.7-to-1.8",
+  "path_title": "Path 3: Java 1.7 to Java 1.8",
+  "sources": [
+    {
+      "document_title": "Java SE 8 Compatibility Guide",
+      "url": "https://www.oracle.com/java/technologies/javase/8-compatibility-guide.html",
+      "summary": "Details binary compatibility constraints for version 52.0 and lists deprecated APIs removed from JDK 8."
+    },
+    {
+      "document_title": "JEP 122: Remove the Permanent Generation",
+      "url": "https://openjdk.org/jeps/122",
+      "summary": "Defines the architectural shift of class metadata to native memory, providing regex and parsing rules for eliminating legacy PermGen tuning flags in shell startup scripts."
+    },
+    {
+      "document_title": "JSR 335: Lambda Expressions for the Java Programming Language",
+      "url": "https://jcp.org/en/jsr/detail?id=335",
+      "summary": "Provides the formal Java Language Specification updates for Single Abstract Method conversions and Method References needed for AST transformations."
+    },
+    {
+      "document_title": "JEP 126: Lambda Expressions & Virtual Extension Methods",
+      "url": "https://openjdk.org/jeps/126",
+      "summary": "Specifies the abstract syntax tree rules for converting anonymous inner classes to functional interfaces and utilizing the invokedynamic instruction for memory reduction."
+    },
+    {
+      "document_title": "Java Tutorials: The try-with-resources Statement",
+      "url": "https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html",
+      "summary": "Outlines the syntactic rewrite patterns for AutoCloseable implementations and the bytecode generation patterns for capturing suppressed exceptions."
+    },
+    {
+      "document_title": "Java Tutorials: The Diamond Operator",
+      "url": "https://docs.oracle.com/javase/tutorial/collections/interfaces/collection.html",
+      "summary": "Details the compiler inference rules for denotable and non-denotable types when instantiating parameterized classes, guiding automated code minification."
+    }
+  ]
+}

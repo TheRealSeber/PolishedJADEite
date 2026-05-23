@@ -1,0 +1,32 @@
+{
+  "document_type": "migration_source_path",
+  "path_id": "java-11-to-17",
+  "path_title": "Path 5: Java 11 to Java 17 (LTS to LTS)",
+  "sources": [
+    {
+      "document_title": "Oracle JDK 17 Migration Guide",
+      "url": "https://docs.oracle.com/en/java/javase/17/migrate/getting-started.html",
+      "summary": "Highlights significant removed APIs, tools, and components the agent must flag during migration to Java 17."
+    },
+    {
+      "document_title": "JEP 403: Strongly Encapsulate JDK Internals",
+      "url": "https://openjdk.org/jeps/403",
+      "summary": "Mandates the removal of --illegal-access flags and provides rules for handling InaccessibleObjectException through explicitly declared --add-opens manifests."
+    },
+    {
+      "document_title": "JEP 361: Switch Expressions",
+      "url": "https://openjdk.org/jeps/361",
+      "summary": "Outlines the AST mapping rules for converting fall-through switch statements into exhaustive poly expressions utilizing yield and -> syntax."
+    },
+    {
+      "document_title": "JEP 395: Records",
+      "url": "https://openjdk.org/jeps/395",
+      "summary": "Defines constraints for immutable data carriers, detailing accessor generation and restrictions on inheritance and state mutability."
+    },
+    {
+      "document_title": "Java Almanac: Records",
+      "url": "https://javaalmanac.io/features/records/",
+      "summary": "Details operational behavior of canonical versus custom constructors and the implementation of java.lang.Record for serialization proxy generation."
+    }
+  ]
+}

@@ -20,7 +20,7 @@ The pipeline operates as a file-based state machine where artifacts on disk are 
 | Layer | Prefix | Contains | Example |
 |-------|--------|----------|---------|
 | **Core** | `jade-core-*` | Agnostic pipeline plumbing | orchestrator, scanner, dispatcher, verification |
-| **Recipe** | `jade-recipe-*` | Version-specific transforms | `jade-recipe-java1.5-raw-types` |
+| **Recipe** | `jade-recipe-*` | Version-specific transforms | `jade-recipe-1.5-to-1.6-<rule-id>` |
 
 **The Dispatcher Pattern:** Core skills never contain transform logic. The `jade-core-rule-dispatcher` reads a rule from the manifest, looks up the matching recipe in `recipe-registry.json`, and invokes it as a subprocess. Adding a new migration means adding recipe skills — the core pipeline never changes.
 
@@ -131,13 +131,24 @@ PolishedJADEite/
 │   ├── java-modernization/           # Generic Java modernization
 │   └── java-migration-skill-registry/ # Auto-generated skill registry
 ├── docs/
-│   └── architecture.md               # Full pipeline constitution
-├── mock-sources/                      # KB files for change collector Phase B
+│   ├── architecture.md               # Full pipeline constitution
+│   ├── sources/
+│   │   ├── migration-source-catalog.json   # Canonical source registry
+│   │   ├── official-allowlist.json         # Allowed domains for evidence
+│   │   ├── official-source-policy.md       # Source governance policy
+│   │   ├── paths/                          # Per-migration source lists (JSON)
+│   │   └── schema/                         # Catalog JSON Schema
+│   └── superpowers/
+│       ├── specs/                     # Design specifications
+│       └── plans/                     # Implementation plans
+├── JadeDocumentation/                 # Static analysis output (Phase 0, optional)
 ├── migration-runs/
-│   ├── jade-1.5-to-1.6/artifacts/     # Artifacts for 1.5→1.6 migration run
-│   └── sample/artifacts/              # Harness artifacts for testing
-├── tests/                            # pytest suite (9 passed, 2 skipped)
-└── benchmarks/                       # Benchmark harness
+│   ├── jade-1.5-to-1.6/               # Target migration run (clean start)
+│   └── sample/                        # Harness artifacts for testing
+├── tests/                            # pytest suite (29 passed, 5 skipped)
+├── benchmarks/                       # Evaluation cases and benchmark scripts
+├── evals/                            # Skill evaluation harness
+└── report/                           # Project report
 ```
 
 ---
@@ -145,11 +156,13 @@ PolishedJADEite/
 ## Current State
 
 - **Core pipeline complete** — all 11 `jade-core-*` skills built, agnostic, validated
+- **Source governance enforced** — production mode restricts evidence to official allowlist only (Oracle/OpenJDK)
+- **Source catalog** — structured JSON registry for 8 migration paths with per-path source lists
 - **Dockerized build gates** — no host JDK or build tools required
-- **LLM-as-Extractor change collector** — `write_manifest.py` enforces 12 schema validations per rule
+- **LLM-as-Extractor change collector** — `write_manifest.py` enforces 12+ schema validations per rule
 - **Core/Recipe split enforced** — dispatcher routes via `recipe-registry.json`
 - **Phase 0 optional** — `JadeDocumentation/` enriches verification for dynamic trace scenarios
-- **Test suite** — 9 passed, 2 skipped (idempotency + integration tests)
+- **Test suite** — 29 passed, 5 skipped (ingestion policy, manifest gate, schema, idempotency, integration)
 - **Deferred:** Recipe skills for 1.5→1.6 (generated from manifest by Skill Creator)
 - **Deferred:** Full JADE 1.5→1.6 real migration execution
 

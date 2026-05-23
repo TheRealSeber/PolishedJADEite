@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
+import os
 import pathlib
 import shutil
 import subprocess
@@ -78,7 +79,7 @@ def os_pathsep() -> str:
 
 
 def java_home_env(jdk_path: pathlib.Path) -> Dict[str, str]:
-    env = dict(sys.environ)
+    env = dict(os.environ)
     env["JAVA_HOME"] = str(jdk_path)
     env["PATH"] = str(jdk_path / "bin") + os_pathsep() + env.get("PATH", "")
     return env

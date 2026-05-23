@@ -37,7 +37,7 @@ def read_json(path: pathlib.Path) -> Dict:
         return {"_error": str(exc)}
 
 
-def write_json_atomic(path: pathlib.Path, payload: Dict) -> None:
+def write_json_atomic(path: pathlib.Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(path.suffix + TMP_FILE_SUFFIX)
     with tmp.open("w", encoding="utf-8") as f:
@@ -150,9 +150,19 @@ def record_result(
         "warnings": warnings,
         "applied_at": iso_now(),
     }
-    result_path = artifacts_dir / f"06-fix-result-{task_id}.json"
-    write_json_atomic(result_path, result)
-    return result_path
+
+    # Aggregate: one file per rule_id, append to array
+    aggregate_path = artifacts_dir / f"06-fix-results-{rule_id}.json"
+    existing: list = []
+    if aggregate_path.exists():
+        try:
+            existing = json.loads(aggregate_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            pass
+
+    existing.append(result)
+    write_json_atomic(aggregate_path, existing)
+    return aggregate_path
 
 
 def main() -> int:

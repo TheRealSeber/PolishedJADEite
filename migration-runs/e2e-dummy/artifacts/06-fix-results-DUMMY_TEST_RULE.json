@@ -1,0 +1,44 @@
+[
+  {
+    "task_id": "DUMMY_TEST_RULE-0000",
+    "rule_id": "DUMMY_TEST_RULE",
+    "file": "src/jade/src/FIPA/AgentIDHelper.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 9-9",
+    "match_context": "jade-recipe-dummy",
+    "diff_summary": "Dummy test executed at line 9",
+    "verification_hint": "No-op — appends // E2E ISOLATION TEST comment",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-22T18:55:08Z"
+  },
+  {
+    "task_id": "DUMMY_TEST_RULE-0001",
+    "rule_id": "DUMMY_TEST_RULE",
+    "file": "src/jade/src/jade/content/lang/sl/SLCodec.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 61-61",
+    "match_context": "jade-recipe-dummy",
+    "diff_summary": "Dummy test executed at line 61",
+    "verification_hint": "No-op — appends // E2E ISOLATION TEST comment",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-22T18:55:08Z"
+  },
+  {
+    "task_id": "DUMMY_TEST_RULE-0002",
+    "rule_id": "DUMMY_TEST_RULE",
+    "file": "src/jade/src/jade/gui/AgentTree.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 274-274",
+    "match_context": "jade-recipe-dummy",
+    "diff_summary": "Dummy test executed at line 274",
+    "verification_hint": "No-op — appends // E2E ISOLATION TEST comment",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-22T18:55:09Z"
+  }
+]

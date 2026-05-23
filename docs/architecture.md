@@ -41,6 +41,19 @@ Skill invocations carry:
 
 No raw source code, no raw JSON arrays, no large payloads cross the agent boundary.
 
+**Workspace Isolation:**
+
+The pipeline never mutates the baseline source code. The `00-run-config.json` has
+two paths:
+- `baseline_path` — the pristine, read-only master source (e.g., `JADE-4.6.0`)
+- `workspace_path` — an isolated sandbox copy (e.g., `migration-runs/jade-1.5-to-1.6/workspace`)
+
+At INIT, the orchestrator copies the entire baseline tree to the workspace via
+`shutil.copytree`. This preserves the complete directory structure including `lib/`,
+build files, and source — ensuring all relative paths in Ant/Maven/Gradle work
+correctly. Every skill reads and writes exclusively under `workspace_path`. The
+baseline directory is never touched by any phase.
+
 **Artifact numbering convention:**
 
 | Prefix | Phase | Produced by |
@@ -78,9 +91,14 @@ batch may depend on a contract that no longer exists.
 This guarantees that every intermediate state is compilable and verifiable. No broken
 contracts. No race conditions between agents.
 
-**Parallel execution is forbidden within a rule batch.** The batch processor produces
-per-file task lists, and the dispatcher processes them sequentially (or with
-deterministic ordering). Different rules are never processed concurrently.
+**Parallel execution is forbidden within a rule batch.** The orchestrator operates
+as a transition-table state machine. Different rules are never processed concurrently.
+
+On verification failure, the orchestrator routes through the retry router. If a
+rule's retry budget is exhausted, it is escalated (marked `ESCALATED_TO_LLM` in
+`rule-status.json`) and the pipeline continues to the next rule — never blocking
+the entire run for one problematic rule. An `ACTION_REQUIRED.md` ledger details
+every escalated file with failure reasons.
 
 ### Pillar 3 — Strict Source Evidence (Anti-Hallucination)
 

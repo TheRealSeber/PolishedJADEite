@@ -25,12 +25,17 @@ Apply ONE `rule_id` to ALL flagged files → verify compile + semantic gates →
 
 1. **File paths only** — never pass raw source or large JSON in prompts.
 2. **Never skip verification** — failed gate = halt, do not proceed.
-3. **Sequential only** — no parallel rule execution.
+3. **Sequential only** — no parallel rule execution. Orchestrator operates as a
+   transition-table state machine. Verification failures route through retry router;
+   retry exhaustion → escalation → skip rule → continue to next rule.
 4. **Safety gate** — commit only files in batch artifact; unrelated dirty files = abort.
 5. **Evidence required** — change collector halts with `AWAITING_SOURCE_INPUT` rather than fabricate.
 6. **Separation** — Core skills contain zero version-specific logic. Recipe skills contain zero pipeline logic.
 7. **One commit per rule** — never squash rule commits. SHA logged to `09-rule-commit-log.json`.
 8. **Phase 0 optional** — `JadeDocumentation/` enriches verification but pipeline never requires it.
+9. **Workspace isolation** — pipeline NEVER mutates baseline source. Orchestrator copies
+   `baseline_path` → `workspace_path` at INIT. All skills operate on the copy only. `JADE-4.6.0/`
+   is read-only and never modified.
 
 ## Skill Inventory
 

@@ -1,0 +1,19 @@
+{
+  "run_id": "e2e-dummy",
+  "generated_at": "2026-05-22T18:34:20Z",
+  "workspace": "migration-runs/e2e-dummy/workspace",
+  "total_files_scanned": 1015,
+  "total_new_flags": 637,
+  "idempotent_skips": 0,
+  "elapsed_seconds": 0.64,
+  "by_rule": {
+    "DUMMY_TEST_RULE": {
+      "name": "Dummy E2E Isolation Test",
+      "severity": "INFO",
+      "count": 637
+    }
+  },
+  "by_confidence": {
+    "HIGH": 637
+  }
+}

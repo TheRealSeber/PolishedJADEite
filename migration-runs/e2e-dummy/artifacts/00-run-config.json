@@ -1,0 +1,8 @@
+{
+  "run_id": "e2e-dummy",
+  "baseline_path": "JADE-4.6.0",
+  "workspace_path": "migration-runs/e2e-dummy/workspace",
+  "artifacts_path": "migration-runs/e2e-dummy/artifacts",
+  "source_version": "1.5",
+  "target_version": "1.6"
+}

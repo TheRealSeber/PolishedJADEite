@@ -26,6 +26,29 @@ Run the migration pipeline as a deterministic state machine using artifact file 
 - `artifacts/phase-history.log.jsonl`
 - `artifacts/rule-status.json`
 - `artifacts/failure-summary.json` (on failure)
+- `artifacts/PROGRESS.md` — human-readable progress table, updated on every state transition
+
+## State machine
+
+The orchestrator is a directed graph. Each state + outcome maps to a next state.
+The `TRANSITIONS` dict drives all routing:
+
+| State | Outcome | Next state |
+|-------|---------|------------|
+| INIT | OK | WORKSPACE_READY |
+| WORKSPACE_READY | OK | MANIFEST_READY |
+| MANIFEST_READY | OK / ARTIFACT_MISSING | TOOLING_SCOUT_READY / FAILED |
+| BUILD_GATE_READY | OK / ARTIFACT_MISSING | SCAN_READY / FAILED |
+| SCAN_READY | OK / ARTIFACT_MISSING | RULE_BATCH_LOOP / FAILED |
+| RULE_BATCH_LOOP | NEXT_RULE / NO_MORE_RULES / VERIFY_FAIL | RULE_BATCH_LOOP / VERIFIED / RULE_RETRY |
+| RULE_RETRY | RETRY / ESCALATE | RULE_BATCH_LOOP / RULE_ESCALATE |
+| RULE_ESCALATE | OK | RULE_BATCH_LOOP |
+
+Terminal states: DONE, FAILED, AWAITING_SOURCE_INPUT.
+
+On `VERIFY_FAIL`, the orchestrator invokes `retry_router.py` as a subprocess.
+On `ESCALATE`, the rule is marked `ESCALATED` and skipped; the loop advances
+to the next rule.
 
 ## Phase order
 0. PHASE_0_DOCS (optional — skipped if `JadeDocumentation/` not present in workspace)

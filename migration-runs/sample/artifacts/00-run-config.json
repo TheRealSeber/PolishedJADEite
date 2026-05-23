@@ -1,5 +1,6 @@
 {
   "run_id": "sample-run",
+  "baseline_path": "migration-runs/sample/workspace",
   "workspace_path": "migration-runs/sample/workspace",
   "artifacts_path": "migration-runs/sample/artifacts",
   "source_version": "1.5",

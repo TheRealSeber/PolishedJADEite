@@ -1,0 +1,12 @@
+{
+  "document_type": "migration_source_path",
+  "path_id": "java-1.5-to-1.6",
+  "path_title": "Path 1: Java 1.5 to Java 1.6",
+  "sources": [
+    {
+      "document_title": "Java SE 6 Compatibility Guide",
+      "url": "https://www.oracle.com/java/technologies/javase/compatibility.html",
+      "summary": "Provides rules for identifying removed JVMDI and disabled JVMPI interfaces, along with the new class file verification scheme."
+    }
+  ]
+}

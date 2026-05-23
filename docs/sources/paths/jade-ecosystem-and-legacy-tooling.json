@@ -1,0 +1,32 @@
+{
+  "document_type": "migration_source_path",
+  "path_id": "jade-ecosystem-and-legacy-tooling",
+  "path_title": "Path 7: JADE Ecosystem & Legacy Tooling",
+  "sources": [
+    {
+      "document_title": "JADE Official GitLab Repository",
+      "url": "https://gitlab.com/jade-project/jade",
+      "summary": "Serves as the primary source of truth for the baseline JADE fork, providing initial AST and class structures required for pipeline ingestion."
+    },
+    {
+      "document_title": "JADE Administrator's Guide",
+      "url": "https://jade.tilab.com/doc/administratorsguide.pdf",
+      "summary": "Defines command-line arguments and property file configurations required to provision main containers and peripheral nodes."
+    },
+    {
+      "document_title": "Maven AntRun Plugin",
+      "url": "https://maven.apache.org/plugins/maven-antrun-plugin/",
+      "summary": "Provides XML templates required to encapsulate legacy Ant targets and bind them to standard Maven build lifecycles."
+    },
+    {
+      "document_title": "SLF4J Migrator Documentation",
+      "url": "https://www.slf4j.org/migrator.html",
+      "summary": "Details regex and AST transformation rules used to refactor legacy JCL or log4j imports to the SLF4J API."
+    },
+    {
+      "document_title": "SLF4J Bridging Legacy APIs",
+      "url": "https://www.slf4j.org/legacy.html",
+      "summary": "Outlines dependency management rules for deploying jcl-over-slf4j.jar to intercept and redirect legacy logging calls at runtime."
+    }
+  ]
+}

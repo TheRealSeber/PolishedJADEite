@@ -1,0 +1,32 @@
+{
+  "document_type": "migration_source_path",
+  "path_id": "java-17-to-21",
+  "path_title": "Path 6: Java 17 to Java 21 (LTS to LTS)",
+  "sources": [
+    {
+      "document_title": "Oracle JDK 21 Migration Guide",
+      "url": "https://docs.oracle.com/en/java/javase/21/migrate/preparing-migration.html",
+      "summary": "Instructs the pipeline on resolving migration tasks, updating third-party libraries, and identifying code requiring recompilation."
+    },
+    {
+      "document_title": "JEP 444: Virtual Threads",
+      "url": "https://openjdk.org/jeps/444",
+      "summary": "Provides fundamental rules for deploying unpooled lightweight threads and replacing standard Thread factory methods with virtual thread executors."
+    },
+    {
+      "document_title": "Oracle Virtual Threads Documentation",
+      "url": "https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html",
+      "summary": "Instructs on mitigating Thread-Local performance risks and resolving OS carrier thread pinning caused by synchronized monitor acquisition."
+    },
+    {
+      "document_title": "JEP 491: Synchronize Virtual Threads without Pinning",
+      "url": "https://openjdk.org/jeps/491",
+      "summary": "Details diagnostic rules for identifying pinned threads via jdk.tracePinnedThreads and JFR events to ensure carrier thread liberation."
+    },
+    {
+      "document_title": "JEP 431: Sequenced Collections",
+      "url": "https://openjdk.org/jeps/431",
+      "summary": "Specifies interface hierarchy rules for using getFirst(), removeLast(), and reversed() encounter-order methodologies."
+    }
+  ]
+}

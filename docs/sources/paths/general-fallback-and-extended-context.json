@@ -1,0 +1,42 @@
+{
+  "document_type": "migration_source_path",
+  "path_id": "general-fallback-and-extended-context",
+  "path_title": "Path 8: General Fallback & Extended Context Sources",
+  "sources": [
+    {
+      "document_title": "OpenJDK Bug Database",
+      "url": "https://bugs.openjdk.org/",
+      "summary": "Serves as a fallback for unexpected JVM behavior, undocumented bugs, and stack trace resolutions not covered in migration guides."
+    },
+    {
+      "document_title": "Java Dependency Analysis Tool (jdeps)",
+      "url": "https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jdeps.html",
+      "summary": "Provides specification for analyzing class-level and package-level dependencies to find unexpected internal API usages."
+    },
+    {
+      "document_title": "Java Deprecated API Scanner (jdeprscan)",
+      "url": "https://docs.oracle.com/en/java/javase/21/docs/specs/man/jdeprscan.html",
+      "summary": "Details static analysis for scanning JAR files for deprecated or removed API usage."
+    },
+    {
+      "document_title": "Java Language and Virtual Machine Specifications",
+      "url": "https://docs.oracle.com/javase/specs/",
+      "summary": "Primary source for the Java Language Specification and JVM Specification across releases."
+    },
+    {
+      "document_title": "OpenJDK JEP Index",
+      "url": "https://openjdk.org/jeps/0",
+      "summary": "Comprehensive index of all JDK Enhancement Proposals for unmapped architectural changes."
+    },
+    {
+      "document_title": "OpenJDK Quality Outreach",
+      "url": "https://wiki.openjdk.java.net/display/quality/Quality+Outreach",
+      "summary": "Lists testing status of many FOSS projects against OpenJDK versions for third-party fallback resolutions."
+    },
+    {
+      "document_title": "JDK Troubleshooting Guide",
+      "url": "https://docs.oracle.com/en/java/java-components/jdk-mission-control/9/user-guide/jdk-mission-control-users-guide.pdf",
+      "summary": "Provides troubleshooting instructions using Java Mission Control and Java Flight Recorder for unexpected runtime errors."
+    }
+  ]
+}

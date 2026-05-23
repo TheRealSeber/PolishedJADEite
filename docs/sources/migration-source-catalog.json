@@ -1,0 +1,86 @@
+{
+  "document_type": "migration_source_catalog",
+  "title": "Architectural Mapping and Source Extraction Registry for JADE Codebase Modernization",
+  "version": "1.0",
+  "generated_from": "some_ready_sources.md",
+  "paths": [
+    {
+      "path_id": "java-1.5-to-1.6",
+      "path_title": "Path 1: Java 1.5 to Java 1.6",
+      "file": "paths/java-1.5-to-1.6.json"
+    },
+    {
+      "path_id": "java-1.6-to-1.7",
+      "path_title": "Path 2: Java 1.6 to Java 1.7",
+      "file": "paths/java-1.6-to-1.7.json"
+    },
+    {
+      "path_id": "java-1.7-to-1.8",
+      "path_title": "Path 3: Java 1.7 to Java 1.8",
+      "file": "paths/java-1.7-to-1.8.json"
+    },
+    {
+      "path_id": "java-8-to-11",
+      "path_title": "Path 4: Java 8 to Java 11 (LTS to LTS)",
+      "file": "paths/java-8-to-11.json"
+    },
+    {
+      "path_id": "java-11-to-17",
+      "path_title": "Path 5: Java 11 to Java 17 (LTS to LTS)",
+      "file": "paths/java-11-to-17.json"
+    },
+    {
+      "path_id": "java-17-to-21",
+      "path_title": "Path 6: Java 17 to Java 21 (LTS to LTS)",
+      "file": "paths/java-17-to-21.json"
+    },
+    {
+      "path_id": "jade-ecosystem-and-legacy-tooling",
+      "path_title": "Path 7: JADE Ecosystem & Legacy Tooling",
+      "file": "paths/jade-ecosystem-and-legacy-tooling.json"
+    },
+    {
+      "path_id": "general-fallback-and-extended-context",
+      "path_title": "Path 8: General Fallback & Extended Context Sources",
+      "file": "paths/general-fallback-and-extended-context.json"
+    }
+  ],
+  "cited_works": [
+    {
+      "id": 1,
+      "title": "The Java Community Process Program - JSRs: Java Specification Requests - detail JSR# 334",
+      "url": "https://jcp.org/en/jsr/detail?id=334",
+      "accessed": "2026-05-23"
+    },
+    {
+      "id": 2,
+      "title": "Compatibility Guide for JDK 8 - Java - Oracle",
+      "url": "https://www.oracle.com/java/technologies/javase/8-compatibility-guide.html",
+      "accessed": "2026-05-23"
+    },
+    {
+      "id": 3,
+      "title": "The Java Community Process Program - JSRs: Java Specification Requests - detail JSR# 335",
+      "url": "https://jcp.org/en/jsr/detail?id=335",
+      "accessed": "2026-05-23"
+    },
+    {
+      "id": 4,
+      "title": "Java Platform, Standard Edition Oracle JDK Migration Guide, Release 11",
+      "url": "https://docs.oracle.com/en/java/javase/11/migrate/index.html",
+      "accessed": "2026-05-23"
+    },
+    {
+      "id": 5,
+      "title": "Oracle JDK Migration Guide",
+      "url": "https://docs.oracle.com/en/java/javase/17/migrate/getting-started.html",
+      "accessed": "2026-05-23"
+    },
+    {
+      "id": 6,
+      "title": "Preparing For Migration - Java - Oracle Help Center",
+      "url": "https://docs.oracle.com/en/java/javase/21/migrate/preparing-migration.html",
+      "accessed": "2026-05-23"
+    }
+  ]
+}

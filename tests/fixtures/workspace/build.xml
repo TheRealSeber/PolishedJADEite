@@ -1,0 +1,5 @@
+<project name="fixture" default="compile" basedir=".">
+    <target name="compile">
+        <javac srcdir="src" destdir="classes" source="1.5" target="1.5"/>
+    </target>
+</project>

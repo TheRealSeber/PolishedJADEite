@@ -17,6 +17,6 @@ def artifacts_dir():
 def workspace_dir():
     path = os.environ.get(
         "JADE_TEST_WORKSPACE_DIR",
-        str(pathlib.Path("migration-runs/sample/workspace")),
+        str(pathlib.Path("tests/fixtures/workspace")),
     )
     return pathlib.Path(path)

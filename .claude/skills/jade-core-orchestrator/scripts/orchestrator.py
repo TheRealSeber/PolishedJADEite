@@ -28,16 +28,19 @@ TRANSITIONS: Dict[str, Dict[str, str]] = {
         "OK": "BUILD_GATE_READY",
         "ARTIFACT_MISSING": "FAILED",
         "ARTIFACT_TAMPERED": "FAILED",
+        "SCRIPT_ERROR": "FAILED",
     },
     "BUILD_GATE_READY": {
         "OK": "SCAN_READY",
         "ARTIFACT_MISSING": "FAILED",
         "ARTIFACT_TAMPERED": "FAILED",
+        "SCRIPT_ERROR": "FAILED",
     },
     "SCAN_READY": {
         "OK": "RULE_BATCH_LOOP",
         "ARTIFACT_MISSING": "FAILED",
         "ARTIFACT_TAMPERED": "FAILED",
+        "SCRIPT_ERROR": "FAILED",
     },
     "RULE_BATCH_LOOP": {
         "NEXT_RULE": "RULE_BATCH_LOOP",
@@ -116,7 +119,7 @@ of being treated as tamper-evident immutable records."""
 SCRIPT_PHASES: Dict[str, Dict[str, Any]] = {
     "TOOLING_SCOUT_READY": {
         "script": ".claude/skills/jade-core-tooling-scout/scripts/tooling_scout.py",
-        "args": ["--modern-jdk", "_JAVA_HOME_", "--probe", "--run"],
+        "args": ["--modern-jdk", "_JAVA_HOME_", "--all"],
     },
     "BUILD_GATE_READY": {
         "script": ".claude/skills/jade-core-build-fixer/scripts/build_audit.py",
@@ -365,25 +368,22 @@ def _run_script_phase(phase: str, cfg: Dict) -> str:
     if proc.returncode == 0:
         return "OK"
     if proc.returncode < 0:
-        return fail(
-            pathlib.Path(cfg["artifacts_path"]),
-            {},
-            "SCRIPT_SIGNALED",
-            f"Script {script.name} killed by signal {-proc.returncode}",
+        print(
+            f"ERROR [SCRIPT_SIGNALED] {script.name} killed by signal {-proc.returncode}",
+            file=sys.stderr,
         )
+        return "SCRIPT_ERROR"
     if proc.returncode == 3:
-        return fail(
-            pathlib.Path(cfg["artifacts_path"]),
-            {},
-            "DOCKER_MISSING",
-            f"Script {script.name} exited 3 (environment error)",
+        print(
+            f"ERROR [DOCKER_MISSING] {script.name} exited 3 (environment error)",
+            file=sys.stderr,
         )
-    return fail(
-        pathlib.Path(cfg["artifacts_path"]),
-        {},
-        "SCRIPT_ERROR",
-        f"Script {script.name} exited {proc.returncode}: {proc.stderr.strip()[:300] if proc.stderr else 'no stderr'}",
+        return "SCRIPT_ERROR"
+    print(
+        f"ERROR [SCRIPT_ERROR] {script.name} exited {proc.returncode}",
+        file=sys.stderr,
     )
+    return "SCRIPT_ERROR"
 
 
 def _pause_for_agent(

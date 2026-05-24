@@ -3,7 +3,9 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import hashlib
 import json
+import os
 import pathlib
 import shutil
 import subprocess
@@ -16,15 +18,32 @@ from typing import Any, Dict, List, Optional, Tuple
 TRANSITIONS: Dict[str, Dict[str, str]] = {
     "INIT": {"OK": "WORKSPACE_READY"},
     "WORKSPACE_READY": {"OK": "MANIFEST_READY"},
-    "MANIFEST_READY": {"OK": "TOOLING_SCOUT_READY", "ARTIFACT_MISSING": "FAILED"},
-    "TOOLING_SCOUT_READY": {"OK": "BUILD_GATE_READY", "ARTIFACT_MISSING": "FAILED"},
-    "BUILD_GATE_READY": {"OK": "SCAN_READY", "ARTIFACT_MISSING": "FAILED"},
-    "SCAN_READY": {"OK": "RULE_BATCH_LOOP", "ARTIFACT_MISSING": "FAILED"},
+    "MANIFEST_READY": {
+        "OK": "TOOLING_SCOUT_READY",
+        "ARTIFACT_MISSING": "FAILED",
+        "ARTIFACT_TAMPERED": "FAILED",
+    },
+    "TOOLING_SCOUT_READY": {
+        "OK": "BUILD_GATE_READY",
+        "ARTIFACT_MISSING": "FAILED",
+        "ARTIFACT_TAMPERED": "FAILED",
+    },
+    "BUILD_GATE_READY": {
+        "OK": "SCAN_READY",
+        "ARTIFACT_MISSING": "FAILED",
+        "ARTIFACT_TAMPERED": "FAILED",
+    },
+    "SCAN_READY": {
+        "OK": "RULE_BATCH_LOOP",
+        "ARTIFACT_MISSING": "FAILED",
+        "ARTIFACT_TAMPERED": "FAILED",
+    },
     "RULE_BATCH_LOOP": {
         "NEXT_RULE": "RULE_BATCH_LOOP",
         "NO_MORE_RULES": "VERIFIED",
         "VERIFY_FAIL": "RULE_RETRY",
         "ARTIFACT_MISSING": "FAILED",
+        "ARTIFACT_TAMPERED": "FAILED",
     },
     "RULE_RETRY": {"RETRY": "RULE_BATCH_LOOP", "ESCALATE": "RULE_ESCALATE"},
     "RULE_ESCALATE": {"OK": "RULE_BATCH_LOOP"},
@@ -85,6 +104,11 @@ BUILD_LOG_VALIDATION = {
     "require_substr": ["[javac]", "BUILD SUCCESSFUL"],
 }
 """07-build.log must contain BOTH required substrings to pass."""
+
+MUTABLE_ARTIFACTS = {"07-build.log"}
+"""Artifacts that may legitimately change across rule iterations.
+For these, hash is updated after each successful verification instead
+of being treated as tamper-evident immutable records."""
 
 RETRY_SCRIPT = pathlib.Path(
     ".claude/skills/jade-core-retry-router/scripts/retry_router.py"
@@ -212,6 +236,38 @@ def _validate_artifact(path: pathlib.Path, phase: str) -> Tuple[bool, str]:
     return True, ""
 
 
+def _compute_hash(path: pathlib.Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _verify_artifact(path: pathlib.Path, phase: str, state: Dict) -> str:
+    """Verify artifact integrity via hash chain.
+
+    Returns "OK", "ARTIFACT_TAMPERED", or "OK" (first-time store).
+    Mutable artifacts (07-build.log) update their hash silently on change.
+    Immutable artifacts reject any hash change.
+    """
+    hashes = state.setdefault("artifact_hashes", {})
+    name = path.name
+    if not path.exists():
+        return "ARTIFACT_MISSING"
+
+    current = _compute_hash(path)
+    if name not in hashes:
+        hashes[name] = current
+        return "OK"
+
+    stored = hashes[name]
+    if current == stored:
+        return "OK"
+
+    if name in MUTABLE_ARTIFACTS:
+        hashes[name] = current
+        return "OK"
+
+    return "ARTIFACT_TAMPERED"
+
+
 # ------------------------------------------------------------------
 # PROGRESS.md writer
 # ------------------------------------------------------------------
@@ -271,6 +327,17 @@ def check_gate_artifacts(phase: str, artifacts: pathlib.Path, state: Dict) -> st
                 f"Artifact {af} failed content validation: {reason}",
             )
             return "ARTIFACT_MISSING"
+        integrity = _verify_artifact(fp, phase, state)
+        if integrity == "ARTIFACT_TAMPERED":
+            current = _compute_hash(fp)
+            stored = state.get("artifact_hashes", {}).get(af, "none")
+            fail(
+                artifacts,
+                state,
+                "ARTIFACT_TAMPERED",
+                f"Artifact {af} was modified after gate approval (stored={stored[:12]}..., current={current[:12]}...)",
+            )
+            return "ARTIFACT_TAMPERED"
     return "OK"
 
 
@@ -382,6 +449,14 @@ def process_rule_batch(
             write_json(rule_status_path, {"run_id": cfg["run_id"], "rules": rstatus})
             write_progress_md(artifacts, state, cfg)
             return "VERIFY_FAIL"
+
+        integrity = _verify_artifact(verify_log, "RULE_BATCH_LOOP", state)
+        if integrity == "ARTIFACT_TAMPERED":
+            state["failure_reason"] = (
+                f"Build log tampered (hash mismatch) for rule {rule_id}"
+            )
+            write_json(state_path, state)
+            return "ARTIFACT_TAMPERED"
 
         rstatus[rule_id] = {"status": "DONE", "updated_at": iso_now()}
         write_json(rule_status_path, {"run_id": cfg["run_id"], "rules": rstatus})

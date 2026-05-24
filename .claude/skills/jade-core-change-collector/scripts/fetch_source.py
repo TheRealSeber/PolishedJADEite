@@ -496,9 +496,17 @@ def main(argv: Optional[list[str]] = None) -> int:
     write_json(index_path, index)
 
     status = "OK" if result["status"] == "success" else "FAIL"
-    print(f"[{status}] {source_label} → {source_url}")
+    try:
+        print(f"[{status}] {source_label} → {source_url}")
+    except UnicodeEncodeError:
+        print(f"[{status}] {source_label} -> {source_url}")
     if result["status"] != "success":
-        print(f"       {result.get('error_type')}: {result.get('error_message')}")
+        try:
+            print(f"       {result.get('error_type')}: {result.get('error_message')}")
+        except UnicodeEncodeError:
+            print(
+                f"       {result.get('error_type', '')}: {result.get('error_message', '')}"
+            )
 
     return 0 if result["status"] == "success" else 1
 

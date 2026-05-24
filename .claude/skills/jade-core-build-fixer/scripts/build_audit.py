@@ -422,12 +422,21 @@ DOCKER_MAVEN_IMAGE = "maven:3.6-jdk-8"
 DOCKER_GRADLE_IMAGE = "gradle:5.6-jdk8"
 
 
+def _docker_env() -> dict:
+    """Return an os.environ dict that suppresses MSYS path mangling on Windows."""
+    env = os.environ.copy()
+    if sys.platform == "win32":
+        env["MSYS_NO_PATHCONV"] = "1"
+    return env
+
+
 def _docker_available() -> bool:
     try:
         subprocess.run(
             ["docker", "info"],
             capture_output=True,
             timeout=10,
+            env=_docker_env(),
         )
         return True
     except (FileNotFoundError, subprocess.TimeoutExpired):
@@ -439,12 +448,13 @@ def _docker_run(
 ) -> Tuple[int, str]:
     """Run a command inside a Docker container.
 
-    Mounts the project root (2 levels above workdir for JADE layouts)
-    and sets the working directory relative to the mount point.
+    Mounts the project root and sets the working directory relative to
+    the mount point.  Handles Windows paths so Docker receives valid
+    ``-v`` arguments even when called from MSYS2 / Git Bash.
     """
     workdir = workdir_abs.resolve()
     # For JADE-style layout: workdir = JADE-4.6.0/src/jade/
-    # Mount JADE-4.6.0/ → /workspace, workdir becomes src/jade
+    # Mount JADE-4.6.0/ -> /workspace, workdir becomes src/jade
     mount_root = workdir
     container_workdir = "."
     for _ in range(3):  # go up up to 3 levels to find project root
@@ -465,14 +475,22 @@ def _docker_run(
         mount_root = workdir
         container_workdir = "."
 
+    # -- cross-platform path normalisation -----------------------------------
+    # Docker on Windows requires forward-slashed paths in -v arguments.
+    # MSYS2 / Git Bash will mangle paths like "/workspace" unless
+    # MSYS_NO_PATHCONV=1 is in the environment.
+    mount_host = str(mount_root.resolve()).replace("\\", "/")
+    cw = container_workdir.replace("\\", "/")
+    # ------------------------------------------------------------------------
+
     docker_cmd = [
         "docker",
         "run",
         "--rm",
         "-v",
-        f"{mount_root}:/workspace",
+        f"{mount_host}:/workspace",
         "-w",
-        f"/workspace/{container_workdir}".rstrip("/."),
+        f"/workspace/{cw}".rstrip("/."),
         image,
     ] + cmd
 
@@ -482,6 +500,7 @@ def _docker_run(
             capture_output=True,
             text=True,
             timeout=timeout,
+            env=_docker_env(),
         )
         return proc.returncode, proc.stdout + "\n" + proc.stderr
     except subprocess.TimeoutExpired:
@@ -530,6 +549,7 @@ def capture_env(build_path: pathlib.Path) -> str:
                 capture_output=True,
                 text=True,
                 timeout=10,
+                env=_docker_env(),
             )
             lines.append(f"docker version: {proc.stdout.strip()}")
         except Exception:

@@ -36,6 +36,16 @@ Apply ONE `rule_id` to ALL flagged files → verify compile + semantic gates →
 9. **Workspace isolation** — pipeline NEVER mutates baseline source. Orchestrator copies
    `baseline_path` → `workspace_path` at INIT. All skills operate on the copy only. `JADE-4.6.0/`
    is read-only and never modified.
+10. **Never fake artifacts** — every `artifacts/` file must be produced by the Phase-appropriate
+    script (Phase 4 tooling-scout → `02-tooling-scout-report.json`, Phase 5 build-fixer →
+    `03-build-audit.json` + `03-build-verify.log`, Phase 7 verification → `07-build.log`).
+    Manually writing a file that "looks like" a pipeline output to bypass a gate is forbidden.
+11. **Never exclude existing source** — the workspace MUST be a faithful copy of the
+    baseline (minus `doc/` and `examples/`).  Adding exclusion patterns to build files
+    (e.g. `excludes="FIPA/**,jade/mtp/iiop/**"`) to force a successful compilation
+    on an incompatible JDK is forbidden.  Build failures caused by JDK version
+    mismatches must be solved via the Docker-isolated build environment, not source
+    mutilation.
 
 ## Skill Inventory
 

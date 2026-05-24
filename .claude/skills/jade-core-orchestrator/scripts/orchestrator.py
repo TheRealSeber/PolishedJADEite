@@ -8,7 +8,7 @@ import pathlib
 import shutil
 import subprocess
 import sys
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 # ------------------------------------------------------------------
 # Transition table — current state + outcome → next state
@@ -40,6 +40,51 @@ REQUIRED_ARTIFACTS: Dict[str, List[str]] = {
     "BUILD_GATE_READY": ["03-build-audit.json"],
     "SCAN_READY": ["04-flag-index.json"],
 }
+
+ARTIFACT_CONTENT_RULES: Dict[str, Dict[str, Any]] = {
+    "01-breaking-changes-manifest.json": {
+        "json_keys_required": [
+            "rules",
+            "source_version",
+            "target_version",
+            "generated_at",
+        ],
+        "json_nonempty_list": ["rules"],
+        "json_nonempty_str": ["source_version", "target_version"],
+    },
+    "02-tooling-scout-report.json": {
+        "json_keys_required": ["tools", "findings"],
+        "json_nonempty_dict": ["tools"],
+    },
+    "03-build-audit.json": {
+        "json_keys_required": ["build_system", "build_file"],
+        "json_nonempty_str": ["build_system", "build_file"],
+        "json_contains": {
+            "env": {
+                "docker": "available",
+            }
+        },
+    },
+    "04-flag-index.json": {
+        "json_keys_required": ["flags", "total_flags", "total_files_scanned"],
+        "json_nonzero_int": ["total_files_scanned"],
+        "json_len_match": [("flags", "total_flags")],
+    },
+}
+"""Content validation rules for each phase artifact.
+json_keys_required   — top-level keys must exist
+json_nonempty_list   — key must be a list with len > 0
+json_nonempty_str    — key must be a non-empty string
+json_nonempty_dict   — key must be a dict with at least 1 entry
+json_nonzero_int     — key must be an int > 0
+json_contains        — nested key path must have expected value
+json_len_match       — len(key[0]) must equal int(key[1])
+"""
+
+BUILD_LOG_VALIDATION = {
+    "require_substr": ["[javac]", "BUILD SUCCESSFUL"],
+}
+"""07-build.log must contain BOTH required substrings to pass."""
 
 RETRY_SCRIPT = pathlib.Path(
     ".claude/skills/jade-core-retry-router/scripts/retry_router.py"
@@ -101,6 +146,72 @@ def fail(artifacts: pathlib.Path, state: Dict, code: str, message: str) -> int:
     return 2
 
 
+def _validate_artifact(path: pathlib.Path, phase: str) -> Tuple[bool, str]:
+    """Validate artifact content against rules for *phase*.
+
+    Returns (ok, reason).  If ok is False, reason explains why.
+    """
+    # JSON artifacts
+    rules = ARTIFACT_CONTENT_RULES.get(path.name)
+    if rules:
+        try:
+            data = read_json(path)
+        except (json.JSONDecodeError, OSError) as exc:
+            return False, f"invalid JSON: {exc}"
+        for key in rules.get("json_keys_required", []):
+            if key not in data:
+                return False, f"missing required key: {key}"
+        for key in rules.get("json_nonempty_list", []):
+            val = data.get(key)
+            if not isinstance(val, list) or len(val) == 0:
+                return False, f"key '{key}' must be a non-empty list"
+        for key in rules.get("json_nonempty_str", []):
+            val = data.get(key)
+            if not isinstance(val, str) or not val.strip():
+                return False, f"key '{key}' must be a non-empty string"
+        for key in rules.get("json_nonempty_dict", []):
+            val = data.get(key)
+            if not isinstance(val, dict) or len(val) == 0:
+                return False, f"key '{key}' must be a non-empty dict"
+        for key in rules.get("json_nonzero_int", []):
+            val = data.get(key)
+            if not isinstance(val, (int, float)) or val <= 0:
+                return False, f"key '{key}' must be > 0"
+        for list_key, count_key in rules.get("json_len_match", []):
+            lst = data.get(list_key)
+            cnt = data.get(count_key)
+            if not isinstance(lst, list) or not isinstance(cnt, int) or len(lst) != cnt:
+                return (
+                    False,
+                    f"len({list_key})={len(lst) if isinstance(lst, list) else '?'} != {count_key}={cnt}",
+                )
+        for top_key, expected in rules.get("json_contains", {}).items():
+            actual = data.get(top_key, {})
+            if not isinstance(actual, dict):
+                return False, f"key '{top_key}' must be a dict"
+            for sub_key, sub_val in expected.items():
+                if actual.get(sub_key) != sub_val:
+                    return (
+                        False,
+                        f"expected {top_key}.{sub_key}='{sub_val}', got '{actual.get(sub_key)}'",
+                    )
+        return True, ""
+
+    # Text artifacts (07-build.log)
+    if path.name == "07-build.log":
+        try:
+            text = path.read_text(encoding="utf-8", errors="replace")
+        except OSError as exc:
+            return False, f"cannot read: {exc}"
+        for substr in BUILD_LOG_VALIDATION.get("require_substr", []):
+            if substr not in text:
+                return False, f"build log missing required marker: '{substr}'"
+        return True, ""
+
+    # Unrecognised artifact — pass (future-proofing)
+    return True, ""
+
+
 # ------------------------------------------------------------------
 # PROGRESS.md writer
 # ------------------------------------------------------------------
@@ -142,12 +253,22 @@ def write_progress_md(artifacts: pathlib.Path, state: Dict, cfg: Dict) -> None:
 def check_gate_artifacts(phase: str, artifacts: pathlib.Path, state: Dict) -> str:
     required = REQUIRED_ARTIFACTS.get(phase, [])
     for af in required:
-        if not (artifacts / af).exists():
+        fp = artifacts / af
+        if not fp.exists():
             fail(
                 artifacts,
                 state,
                 "ARTIFACT_MISSING",
-                f"Required for {phase}: {artifacts / af}",
+                f"Required for {phase}: {fp}",
+            )
+            return "ARTIFACT_MISSING"
+        ok, reason = _validate_artifact(fp, phase)
+        if not ok:
+            fail(
+                artifacts,
+                state,
+                "UNTRUSTED",
+                f"Artifact {af} failed content validation: {reason}",
             )
             return "ARTIFACT_MISSING"
     return "OK"
@@ -249,28 +370,33 @@ def process_rule_batch(
             write_progress_md(artifacts, state, cfg)
             return "VERIFY_FAIL"
 
-        # Check build log for success
-        try:
-            vtext = verify_log.read_text(encoding="utf-8", errors="replace")
-        except OSError:
-            vtext = ""
-        if "BUILD SUCCESSFUL" in vtext or "BUILD SUCCESS" in vtext:
-            rstatus[rule_id] = {"status": "DONE", "updated_at": iso_now()}
+        ok, reason = _validate_artifact(verify_log, "RULE_BATCH_LOOP")
+        if not ok:
+            state["failure_reason"] = f"Build log validation failed: {reason}"
+            write_json(state_path, state)
+            rstatus[rule_id] = {
+                "status": "PENDING_VERIFY",
+                "updated_at": iso_now(),
+                "note": f"07-build.log failed validation: {reason}",
+            }
             write_json(rule_status_path, {"run_id": cfg["run_id"], "rules": rstatus})
             write_progress_md(artifacts, state, cfg)
-            append_jsonl(
-                hist_path,
-                {
-                    "ts": iso_now(),
-                    "phase": "RULE_BATCH_LOOP",
-                    "status": "OK",
-                    "message": f"Completed rule {rule_id}",
-                    "artifacts": ["rule-status.json", "07-build.log"],
-                },
-            )
-            return "NEXT_RULE"
+            return "VERIFY_FAIL"
 
-        return "VERIFY_FAIL"
+        rstatus[rule_id] = {"status": "DONE", "updated_at": iso_now()}
+        write_json(rule_status_path, {"run_id": cfg["run_id"], "rules": rstatus})
+        write_progress_md(artifacts, state, cfg)
+        append_jsonl(
+            hist_path,
+            {
+                "ts": iso_now(),
+                "phase": "RULE_BATCH_LOOP",
+                "status": "OK",
+                "message": f"Completed rule {rule_id}",
+                "artifacts": ["rule-status.json", "07-build.log"],
+            },
+        )
+        return "NEXT_RULE"
 
     return "NO_MORE_RULES"
 

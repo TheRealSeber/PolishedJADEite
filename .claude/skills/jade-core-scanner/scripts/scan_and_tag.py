@@ -2,9 +2,10 @@
 """JADE Scanner — Deterministic source tagger.
 
 Reads a breaking-changes manifest, walks a workspace, matches rule patterns
-against source lines via regex, and injects inline ``// JADE-FLAG:<rule_id>``
-markers exactly once per match.  Fully idempotent — re-running never creates
-duplicate flags.
+against source lines via regex, and injects inline comment markers (e.g.
+``// JADE-FLAG:<rule_id>`` for ``.java``, ``<!-- JADE-FLAG:... -->`` for
+``.xml``, ``# JADE-FLAG:...`` for ``.properties``) exactly once per match.
+Fully idempotent — re-running never creates duplicate flags.
 """
 
 from __future__ import annotations
@@ -21,14 +22,43 @@ import time
 from typing import Any, Dict, List, Optional, Set, Tuple
 
 # ---------------------------------------------------------------------------
-# Constants
+# Comment-syntax helpers — extension-aware
 # ---------------------------------------------------------------------------
 
-FLAG_PREFIX: str = "// JADE-FLAG:"
-"""Inline marker inserted immediately after a matched line."""
+_COMMENT_SYNTAX: Dict[str, Tuple[str, str]] = {
+    ".java": ("// ", ""),
+    ".xml": ("<!-- ", " -->"),
+    ".properties": ("# ", ""),
+    ".py": ("# ", ""),
+    ".yaml": ("# ", ""),
+    ".yml": ("# ", ""),
+}
+"""Map file extension to (prefix, suffix) for inline flag comments.
 
-FLAG_LINE_RE: re.Pattern = re.compile(r"^\s*//\s*JADE-FLAG:\s*(\S+)")
-"""Regex that detects an existing flag line (used for idempotency)."""
+Prefix and suffix are appended/prepended so the resulting line is a
+valid comment in the target file format.  The suffix should include a
+trailing space if the comment style requires it before newline.
+"""
+
+_DEFAULT_COMMENT = ("# ", "")
+
+
+def _comment_syntax(ext: str) -> Tuple[str, str]:
+    """Return (prefix, suffix) comment markers for *ext* (lowercased)."""
+    return _COMMENT_SYNTAX.get(ext.lower(), _DEFAULT_COMMENT)
+
+
+def _flag_pattern_for_ext(ext: str) -> re.Pattern:
+    """Build a regex that detects an existing ``JADE-FLAG`` comment for *ext*."""
+    prefix, _ = _comment_syntax(ext)
+    # Escape the prefix for use in a regex
+    escaped = re.escape(prefix.strip())
+    return re.compile(rf"^\s*{escaped}\s*JADE-FLAG:\s*(\S+)")
+
+
+# ---------------------------------------------------------------------------
+# Constants
+# ---------------------------------------------------------------------------
 
 EXCLUSION_GLOBS: List[str] = [
     ".git",
@@ -229,20 +259,22 @@ def collect_candidate_files(
 # ---------------------------------------------------------------------------
 
 
-def _flag_exists(lines: List[str], match_line_idx: int, rule_id: str) -> bool:
+def _flag_exists(
+    lines: List[str], match_line_idx: int, rule_id: str, file_ext: str
+) -> bool:
     """Return True if a flag for *rule_id* already exists among the consecutive
-    ``// JADE-FLAG:`` lines immediately following *match_line_idx*.
+    ``JADE-FLAG:`` lines immediately following *match_line_idx*.
 
-    Multiple patterns can inject flags after the same matched line, so we scan
-    forward through the entire flag block instead of checking a fixed window.
+    Comment syntax is selected based on *file_ext* (e.g. ``.java``, ``.xml``).
     """
     target = f"JADE-FLAG:{rule_id}"
+    flag_re = _flag_pattern_for_ext(file_ext)
     for offset in range(1, 51):
         idx = match_line_idx + offset
         if idx >= len(lines):
             return False
         stripped = lines[idx].strip()
-        if stripped.startswith("// JADE-FLAG:"):
+        if flag_re.match(stripped):
             if target in stripped:
                 return True
         elif stripped:
@@ -250,8 +282,22 @@ def _flag_exists(lines: List[str], match_line_idx: int, rule_id: str) -> bool:
     return False
 
 
-def _format_flag_line(rule_id: str, reason: str, confidence: str) -> str:
-    return f"// JADE-FLAG:{rule_id} {reason} {confidence}\n"
+def _format_flag_line(rule_id: str, reason: str, confidence: str, file_ext: str) -> str:
+    """Format a flag injection line using the correct comment syntax for *file_ext*."""
+    prefix, suffix = _comment_syntax(file_ext)
+    return f"{prefix}JADE-FLAG:{rule_id} {reason} {confidence}{suffix}\n"
+
+
+def _comment_skip_prefixes(ext: str) -> Tuple[str, ...]:
+    """Return tuple of comment-start strings to skip when scanning *ext* files."""
+    e = ext.lower()
+    if e == ".java":
+        return ("//", "/*", "*")
+    if e == ".xml":
+        return ("<!--",)
+    if e in (".properties", ".py", ".yaml", ".yml"):
+        return ("#",)
+    return ("#", "//")
 
 
 def scan_and_tag_file(
@@ -272,31 +318,27 @@ def scan_and_tag_file(
     new_flags: List[FlagEntry] = []
     modified = False
     rel_path = str(file_path.relative_to(workspace)).replace("\\", "/")
+    ext = file_path.suffix
 
     for rule in rules:
         for pattern in rule.patterns:
-            ext = file_path.suffix
             allowed = {e.lower() for e in pattern.target_extensions}
             if ext.lower() not in allowed:
                 continue
 
             compiled = pattern.compiled
+            comment_prefixes = _comment_skip_prefixes(ext)
             # Iterate backwards so insertions do not shift subsequent indices.
             for i in range(len(lines) - 1, -1, -1):
                 line = lines[i]
-                # Skip lines that are only comments or Javadoc lines
                 stripped = line.strip()
-                if (
-                    stripped.startswith("//")
-                    or stripped.startswith("/*")
-                    or stripped.startswith("*")
-                ):
+                if stripped.startswith(comment_prefixes):
                     continue
                 if compiled.search(line):
-                    if _flag_exists(lines, i, rule.id):
+                    if _flag_exists(lines, i, rule.id, ext):
                         continue
                     flag_line = _format_flag_line(
-                        rule.id, pattern.reason, pattern.confidence
+                        rule.id, pattern.reason, pattern.confidence, ext
                     )
                     lines.insert(i + 1, flag_line)
                     modified = True

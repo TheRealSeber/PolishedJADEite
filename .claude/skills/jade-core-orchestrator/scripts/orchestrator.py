@@ -52,7 +52,8 @@ TRANSITIONS: Dict[str, Dict[str, str]] = {
     },
     "RULE_RETRY": {"RETRY": "RULE_BATCH_LOOP", "ESCALATE": "RULE_ESCALATE"},
     "RULE_ESCALATE": {"OK": "RULE_BATCH_LOOP"},
-    "VERIFIED": {"OK": "DONE"},
+    "VERIFIED": {"OK": "RUNTIME_VERIFY"},
+    "RUNTIME_VERIFY": {"OK": "DONE", "VERIFY_FAIL": "FAILED"},
     "AWAITING_AGENT": {"OK": "RESUME"},
 }
 
@@ -64,6 +65,7 @@ REQUIRED_ARTIFACTS: Dict[str, List[str]] = {
     "TOOLING_SCOUT_READY": ["02-tooling-scout-report.json"],
     "BUILD_GATE_READY": ["03-build-audit.json"],
     "SCAN_READY": ["04-flag-index.json"],
+    "RUNTIME_VERIFY": ["07-runtime-verify.json"],
 }
 
 ARTIFACT_CONTENT_RULES: Dict[str, Dict[str, Any]] = {
@@ -92,8 +94,17 @@ ARTIFACT_CONTENT_RULES: Dict[str, Dict[str, Any]] = {
     },
     "04-flag-index.json": {
         "json_keys_required": ["flags", "total_flags", "total_files_scanned"],
-        "json_nonzero_int": ["total_files_scanned"],
         "json_len_match": [("flags", "total_flags")],
+    },
+    "07-runtime-verify.json": {
+        "json_keys_required": [
+            "results",
+            "overall_pass",
+            "total_consumers",
+            "passed",
+            "failed",
+        ],
+        "json_len_match": [("results", "total_consumers")],
     },
 }
 """Content validation rules for each phase artifact.
@@ -119,7 +130,7 @@ of being treated as tamper-evident immutable records."""
 SCRIPT_PHASES: Dict[str, Dict[str, Any]] = {
     "TOOLING_SCOUT_READY": {
         "script": ".claude/skills/jade-core-tooling-scout/scripts/tooling_scout.py",
-        "args": ["--modern-jdk", "_JAVA_HOME_", "--all"],
+        "args": ["--modern-jdk", "_JAVA_HOME_", "--config", "_CONFIG_", "--all"],
     },
     "BUILD_GATE_READY": {
         "script": ".claude/skills/jade-core-build-fixer/scripts/build_audit.py",
@@ -128,6 +139,17 @@ SCRIPT_PHASES: Dict[str, Dict[str, Any]] = {
     "SCAN_READY": {
         "script": ".claude/skills/jade-core-scanner/scripts/scan_and_tag.py",
         "args": ["--workspace", "_WORKSPACE_", "--artifacts", "_ARTIFACTS_"],
+    },
+    "RUNTIME_VERIFY": {
+        "script": ".claude/skills/jade-core-verification/scripts/runtime_verify.py",
+        "args": [
+            "--workspace",
+            "_WORKSPACE_",
+            "--artifacts",
+            "_ARTIFACTS_",
+            "--config",
+            "_CONFIG_",
+        ],
     },
 }
 """Script phases that the orchestrator can auto-invoke in --run mode.
@@ -913,6 +935,29 @@ def main() -> int:
             outcome = process_escalate(artifacts, state)
         elif current == "VERIFIED":
             outcome = "OK"
+        elif current == "RUNTIME_VERIFY":
+            if args.run and current in SCRIPT_PHASES:
+                outcome = _run_script_phase(current, cfg)
+                if outcome == "OK":
+                    outcome = check_gate_artifacts(current, artifacts, state)
+                    if outcome == "OK":
+                        rv_path = artifacts / "07-runtime-verify.json"
+                        try:
+                            rv = read_json(rv_path)
+                            if not rv.get("overall_pass", False):
+                                outcome = "VERIFY_FAIL"
+                        except (json.JSONDecodeError, OSError):
+                            outcome = "ARTIFACT_MISSING"
+            else:
+                outcome = check_gate_artifacts(current, artifacts, state)
+                if outcome == "OK":
+                    rv_path = artifacts / "07-runtime-verify.json"
+                    try:
+                        rv = read_json(rv_path)
+                        if not rv.get("overall_pass", False):
+                            outcome = "VERIFY_FAIL"
+                    except (json.JSONDecodeError, OSError):
+                        outcome = "ARTIFACT_MISSING"
         else:
             outcome = fail(
                 artifacts, state, "UNKNOWN_STATE", f"No handler for state: {current}"

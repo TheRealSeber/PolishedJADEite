@@ -370,12 +370,14 @@ def build_flag_index(
     run_id: str,
     workspace_str: str,
     all_flags: List[FlagEntry],
+    total_files_scanned: int = 0,
 ) -> Dict[str, Any]:
     return {
         "run_id": run_id,
         "generated_at": iso_now(),
         "workspace": workspace_str,
         "total_flags": len(all_flags),
+        "total_files_scanned": total_files_scanned,
         "flags": [f.to_dict() for f in all_flags],
     }
 
@@ -533,7 +535,9 @@ def main() -> int:
     # ------------------------------------------------------------------
     # Write artifacts
     # ------------------------------------------------------------------
-    flag_index = build_flag_index(run_id, str(args.workspace), all_flags)
+    flag_index = build_flag_index(
+        run_id, str(args.workspace), all_flags, total_files_scanned=len(candidates)
+    )
     write_json_atomic(artifacts / "04-flag-index.json", flag_index)
 
     summary = build_scan_summary(

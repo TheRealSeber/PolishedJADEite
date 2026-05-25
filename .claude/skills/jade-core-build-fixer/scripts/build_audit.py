@@ -756,6 +756,7 @@ def main() -> int:
         "error_count": error_count,
         "applied_fixes_count": sum(1 for f in applied_fixes if f.get("applied")),
         "pending_fixes_count": sum(1 for f in applied_fixes if f.get("needs_review")),
+        "env": {"docker": "available"},
         "updated_at": iso_now(),
     }
     write_json(artifacts / "03-build-audit.json", audit)

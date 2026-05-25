@@ -351,3 +351,23 @@ The normalizer (`normalize_trace.py`) applies these transformations:
 - `artifacts/07-semantic-diff.json` exists with `overall_pass` result
 - `artifacts/07-metrics.json` exists with all metric fields populated
 - If `overall_pass` is `false`, `artifacts/failure-summary.json` is written with code `VERIFICATION_FAILED`
+
+## runtime_verify.py — Consumer Playground Runtime Tests
+
+**Purpose:** Compiles consumer projects from `consumer-playground/`, injects migrated `jade.jar`, runs each in Docker, and asserts expected output markers.
+
+**Invocation:**
+```
+python .claude/skills/jade-core-verification/scripts/runtime_verify.py \
+  --workspace <migrated_workspace> \
+  --artifacts <artifacts_dir> \
+  --config <00-run-config.json>
+```
+
+**Consumer projects:** Stored in `consumer-playground/<name>/` with:
+- `*.java` — JADE agent source files
+- `test-config.json` — docker image, boot args, expected markers, classpath deps
+
+**Output:** `artifacts/07-runtime-verify.json` — per-consumer PASS/FAIL with stdout evidence.
+
+**Exit codes:** 0 = all pass, 2 = failures, 3 = env error

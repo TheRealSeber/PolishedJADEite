@@ -1,0 +1,376 @@
+#!/usr/bin/env python3
+"""Runtime verification for JADE migration consumer playground.
+
+Discovers consumer projects in consumer-playground/, injects jade.jar,
+compiles, runs in Docker, asserts expected output markers.
+
+Output: artifacts/07-runtime-verify.json
+Exit: 0 = all pass, 2 = failures, 3 = env error
+"""
+
+from __future__ import annotations
+
+import argparse
+import datetime as dt
+import json
+import os
+import pathlib
+import shutil
+import subprocess
+import sys
+import tempfile
+import time
+from typing import Any, Dict, List, Optional, Tuple
+
+# ------------------------------------------------------------------
+# Constants
+# ------------------------------------------------------------------
+PLAYGROUND_DIR = pathlib.Path("consumer-playground")
+TIMEOUT_BUFFER = 15  # extra seconds beyond test-config timeout for docker pull etc.
+
+
+def iso_now() -> str:
+    return (
+        dt.datetime.now(dt.timezone.utc)
+        .replace(microsecond=0)
+        .isoformat()
+        .replace("+00:00", "Z")
+    )
+
+
+def read_json(path: pathlib.Path) -> Dict[str, Any]:
+    with path.open("r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def write_json(path: pathlib.Path, payload: Dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    with tmp.open("w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=2)
+    tmp.replace(path)
+
+
+def discover_consumers() -> List[Tuple[pathlib.Path, Dict[str, Any]]]:
+    """Find all consumer projects with valid test-config.json."""
+    consumers: List[Tuple[pathlib.Path, Dict[str, Any]]] = []
+    if not PLAYGROUND_DIR.exists():
+        return consumers
+    for candidate in sorted(PLAYGROUND_DIR.iterdir()):
+        if not candidate.is_dir():
+            continue
+        config_path = candidate / "test-config.json"
+        if not config_path.exists():
+            continue
+        try:
+            cfg = read_json(config_path)
+            consumers.append((candidate, cfg))
+        except (json.JSONDecodeError, OSError) as exc:
+            print(
+                f"WARNING: skipping {candidate.name}: invalid test-config.json ({exc})",
+                file=sys.stderr,
+            )
+    return consumers
+
+
+def verify_deps(workspace: pathlib.Path, cfg: Dict[str, Any]) -> List[str]:
+    """Check that all classpath_deps exist. Returns list of missing paths."""
+    missing: List[str] = []
+    for dep in cfg.get("classpath_deps", []):
+        full = workspace / dep
+        if not full.exists():
+            missing.append(dep)
+    return missing
+
+
+def compile_consumer(
+    project_dir: pathlib.Path,
+    workspace: pathlib.Path,
+    cfg: Dict[str, Any],
+    build_dir: pathlib.Path,
+) -> Tuple[bool, str]:
+    """Compile consumer .java files against workspace jars. Returns (ok, output)."""
+    java_files = sorted(project_dir.glob("**/*.java"))
+    if not java_files:
+        return False, "No .java files found in project directory"
+
+    # Build classpath from workspace deps
+    cp_parts: List[str] = []
+    for dep in cfg.get("classpath_deps", []):
+        full = workspace / dep
+        cp_parts.append(str(full.resolve()))
+    classpath = os.pathsep.join(cp_parts)
+
+    javac = shutil.which("javac")
+    if not javac:
+        javac = "javac"  # hope it's on PATH
+
+    source_level = cfg.get("source_level")
+    cmd = [javac]
+    if source_level:
+        cmd.extend(["-source", str(source_level), "-target", str(source_level)])
+    cmd.extend(["-cp", classpath, "-d", str(build_dir)])
+    cmd.extend(str(f.resolve()) for f in java_files)
+
+    try:
+        proc = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=120,
+            env={**os.environ, "JAVA_TOOL_OPTIONS": ""},
+        )
+        output = (proc.stdout + proc.stderr).strip()
+        return proc.returncode == 0, output
+    except subprocess.TimeoutExpired:
+        return False, "Compilation timed out after 120s"
+    except OSError as exc:
+        return False, f"Failed to run javac: {exc}"
+
+
+def run_in_docker(
+    workspace: pathlib.Path,
+    build_dir: pathlib.Path,
+    cfg: Dict[str, Any],
+) -> Tuple[int, str, str]:
+    """Run consumer in Docker. Returns (exit_code, stdout, stderr)."""
+    docker_image = cfg["docker_image"]
+    main_class = cfg["main_class"]
+    timeout = cfg.get("timeout_seconds", 60) + TIMEOUT_BUFFER
+
+    # Build container classpath
+    cp_parts: List[str] = ["/playground"]
+    for dep in cfg.get("classpath_deps", []):
+        cp_parts.append(f"/ws/{dep}")
+    classpath = ":".join(cp_parts)
+
+    # Normalize paths for Docker on Windows: drive letter + forward slashes
+    def _docker_path(p: pathlib.Path) -> str:
+        raw = str(p.resolve())
+        # e.g. C:\Users\... -> /c/Users/... or keep as C:/Users/...
+        if ":" in raw and raw[1] == ":":
+            drive = raw[0].lower()
+            rest = raw[2:].replace("\\", "/")
+            return f"{drive}:{rest}"
+        return raw.replace("\\", "/")
+
+    ws_docker = _docker_path(workspace)
+    bd_docker = _docker_path(build_dir)
+
+    cmd = [
+        "docker",
+        "run",
+        "--rm",
+        "-v",
+        f"{ws_docker}:/ws",
+        "-v",
+        f"{bd_docker}:/playground",
+        "-w",
+        "/playground",
+        docker_image,
+        "java",
+        "-cp",
+        classpath,
+        main_class,
+    ]
+    cmd.extend(cfg.get("boot_args", []))
+
+    print(
+        f"  $ docker run ... {docker_image} java -cp ... {main_class} {' '.join(cfg.get('boot_args', []))}"
+    )
+    print(f"     ws={ws_docker} bd={bd_docker}")
+
+    # Use temp files for stdout/stderr so we can read output even on timeout
+    tmp_out = tempfile.NamedTemporaryFile(
+        mode="w", delete=False, suffix=".out", prefix="jade-rt-"
+    )
+    tmp_err = tempfile.NamedTemporaryFile(
+        mode="w", delete=False, suffix=".err", prefix="jade-rt-"
+    )
+    tmp_out_path = pathlib.Path(tmp_out.name)
+    tmp_err_path = pathlib.Path(tmp_err.name)
+    tmp_out.close()
+    tmp_err.close()
+
+    try:
+        with open(tmp_out_path, "w") as fout, open(tmp_err_path, "w") as ferr:
+            proc = subprocess.run(
+                cmd,
+                stdout=fout,
+                stderr=ferr,
+                timeout=timeout,
+                env={**os.environ, "MSYS_NO_PATHCONV": "1"},
+            )
+        stdout_text = tmp_out_path.read_text(errors="replace")
+        stderr_text = tmp_err_path.read_text(errors="replace")
+        return proc.returncode, stdout_text, stderr_text
+    except subprocess.TimeoutExpired:
+        stdout_text = tmp_out_path.read_text(errors="replace")
+        stderr_text = tmp_err_path.read_text(errors="replace")
+        return -1, stdout_text, stderr_text + f"\nContainer timed out after {timeout}s"
+    except OSError as exc:
+        return -2, "", f"Failed to run docker: {exc}"
+    finally:
+        tmp_out_path.unlink(missing_ok=True)
+        tmp_err_path.unlink(missing_ok=True)
+
+
+def test_consumer(
+    project_dir: pathlib.Path,
+    workspace: pathlib.Path,
+    cfg: Dict[str, Any],
+) -> Dict[str, Any]:
+    """Run one consumer test. Returns result dict."""
+    name = cfg["name"]
+    result: Dict[str, Any] = {
+        "project": name,
+        "status": "PENDING",
+        "duration_seconds": 0.0,
+        "jade_booted": False,
+        "stdout_snippet": "",
+        "error": None,
+    }
+
+    t0 = time.monotonic()
+
+    print(f"\n=== Consumer: {name} ===")
+
+    # Check deps
+    missing = verify_deps(workspace, cfg)
+    if missing:
+        result["status"] = "FAIL"
+        result["error"] = f"Missing dependencies: {', '.join(missing)}"
+        result["duration_seconds"] = round(time.monotonic() - t0, 1)
+        return result
+
+    # Compile
+    with tempfile.TemporaryDirectory(prefix=f"jade-rt-{name}-") as tmp:
+        build_dir = pathlib.Path(tmp)
+        ok, output = compile_consumer(project_dir, workspace, cfg, build_dir)
+        if not ok:
+            result["status"] = "FAIL"
+            result["error"] = "Compilation failed"
+            result["stdout_snippet"] = output[:2000]
+            result["duration_seconds"] = round(time.monotonic() - t0, 1)
+            return result
+
+        # Run in Docker
+        rc, stdout, stderr = run_in_docker(workspace, build_dir, cfg)
+        combined = stdout + "\n" + stderr
+
+        result["duration_seconds"] = round(time.monotonic() - t0, 1)
+        result["stdout_snippet"] = combined[:2000]
+
+        # Timeout is always a failure
+        if rc == -1:
+            result["status"] = "FAIL"
+            result["error"] = "Container timed out"
+            return result
+
+        # Check for failure patterns FIRST (reverse assertion)
+        failure_patterns = [
+            "NullPointerException",
+            "ArrayIndexOutOfBoundsException",
+            "Exception",
+            "SEVERE:",
+        ]
+        found_failures = [p for p in failure_patterns if p in combined]
+        if found_failures:
+            result["status"] = "FAIL"
+            result["error"] = f"Failure patterns detected: {found_failures}"
+            return result
+
+        # Check expected markers
+        markers = cfg.get("expected_stdout_markers", [])
+        missing_markers = [m for m in markers if m not in combined]
+
+        if missing_markers:
+            result["status"] = "FAIL"
+            result["error"] = f"Missing expected markers: {missing_markers}"
+        else:
+            result["status"] = "PASS"
+            result["jade_booted"] = "is ready" in combined
+
+    return result
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="JADE Runtime Verification")
+    parser.add_argument("--workspace", required=True, help="Path to migrated workspace")
+    parser.add_argument(
+        "--artifacts", required=True, help="Path to artifacts directory"
+    )
+    parser.add_argument("--config", required=True, help="Path to 00-run-config.json")
+    args = parser.parse_args()
+
+    workspace = pathlib.Path(args.workspace)
+    artifacts = pathlib.Path(args.artifacts)
+
+    # Read run config
+    try:
+        run_cfg = read_json(pathlib.Path(args.config))
+    except (json.JSONDecodeError, OSError) as exc:
+        print(f"ERROR: cannot read config: {exc}", file=sys.stderr)
+        return 3
+
+    run_id = run_cfg.get("run_id", "unknown")
+
+    # Verify env
+    if shutil.which("docker") is None:
+        print("ERROR: docker not found on PATH", file=sys.stderr)
+        return 3
+    # Check daemon is reachable
+    try:
+        subprocess.run(["docker", "info"], capture_output=True, timeout=10, check=False)
+    except (subprocess.TimeoutExpired, OSError):
+        print("ERROR: docker daemon not running or unreachable", file=sys.stderr)
+        return 3
+
+    # Discover consumers
+    consumers = discover_consumers()
+    if not consumers:
+        result = {
+            "run_id": run_id,
+            "generated_at": iso_now(),
+            "overall_pass": True,
+            "total_consumers": 0,
+            "passed": 0,
+            "failed": 0,
+            "results": [],
+        }
+        write_json(artifacts / "07-runtime-verify.json", result)
+        print("No consumer projects found — pass")
+        return 0
+
+    # Test each consumer
+    results: List[Dict[str, Any]] = []
+    for project_dir, cfg in consumers:
+        result = test_consumer(project_dir, workspace, cfg)
+        results.append(result)
+        status_icon = "PASS" if result["status"] == "PASS" else "FAIL"
+        print(f"  [{status_icon}] {result['project']} ({result['duration_seconds']}s)")
+
+    passed = sum(1 for r in results if r["status"] == "PASS")
+    failed = sum(1 for r in results if r["status"] == "FAIL")
+
+    output = {
+        "run_id": run_id,
+        "generated_at": iso_now(),
+        "overall_pass": failed == 0,
+        "total_consumers": len(results),
+        "passed": passed,
+        "failed": failed,
+        "results": results,
+    }
+    write_json(artifacts / "07-runtime-verify.json", output)
+
+    if failed > 0:
+        print(f"\n{failed} consumer(s) FAILED", file=sys.stderr)
+        return 2
+
+    print(f"\nAll {passed} consumer(s) PASSED")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

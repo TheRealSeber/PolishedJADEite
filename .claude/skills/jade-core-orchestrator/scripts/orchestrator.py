@@ -459,13 +459,32 @@ The pipeline has paused at the **rule batch processing** phase.
 
 ## What to do
 
-1. Review `04-scan-summary.json` and `04-flag-index.json` for flagged rules
-2. Create `{cfg["artifacts_path"]}/05-rule-queue.json` with rule IDs from flagged rules
-3. For each rule:
+**ANTI-BYPASS:** You are strictly forbidden from manually creating a batch
+artifact and marking it `DONE` or `NOOP` if flags exist for that rule.
+You must either (a) write a true Recipe Skill to transform the flagged
+code, or (b) use `defer_rules.py` to defer modernization flags and preserve
+them as `// JADE-MODERNIZATION-DEFERRED` markers for future developers.
+Failure to comply is a pipeline integrity violation.
+
+1. Review `04-scan-summary.json` and group flagged rules by severity:
+   - `HIGH`/`MEDIUM` → Breaking Changes (mandatory — must be transformed)
+   - `LOW`/`INFO` → Modernization Opportunities (optional)
+2. ASK THE USER in chat: "Which modernization rules should be applied vs deferred?"
+   Present the flagged modernization rules with their counts. Wait for user's answer.
+3. For rules the user defers, run:
+   ```
+   python .claude/skills/jade-core-batch-processor/scripts/defer_rules.py \\
+     --workspace {cfg["workspace_path"]} \\
+     --artifacts {cfg["artifacts_path"]} \\
+     --rule-id <rule_id> --reason "<user-provided reason>"
+   ```
+4. Create `{cfg["artifacts_path"]}/05-rule-queue.json` with ONLY rules the user
+   approved (all mandatory breaking changes + user-selected modernization rules)
+5. For each rule:
    a. Create `{cfg["artifacts_path"]}/05-rule-batch-<rule_id>.json` with per-file tasks
    b. Dispatch recipe via rule-dispatcher
    c. Apply transforms to flagged source files
-4. After all rules processed, produce `{cfg["artifacts_path"]}/07-build.log`
+6. After all rules processed, produce `{cfg["artifacts_path"]}/07-build.log`
    by running the build in Docker via `build_audit.py`
 
 ## Resume

@@ -53,6 +53,16 @@ Apply ONE `rule_id` to ALL flagged files → verify compile + semantic gates →
     compatibility auditing for removed JDK modules/libraries (including CORBA/JAXB families)
     during BUILD_GATE_READY and report blockers/warnings in build audit artifacts.
 
+14. **Interactive Modernization Decision** — At `RULE_BATCH_LOOP`, the Agent MUST
+    read `04-scan-summary.json` and group flagged rules by severity. `HIGH`/`MEDIUM`
+    rules are Breaking Changes (mandatory — must be transformed via a Recipe Skill).
+    `LOW`/`INFO` rules are Modernization Opportunities (optional). The Agent
+    MUST ask the user in-chat: "Which modernization rules should be applied vs
+    deferred?" before generating `05-rule-queue.json`. Only user-acknowledged
+    rules may enter the rule queue. Rules the user chooses to defer MUST be
+    processed via `defer_rules.py` so flags persist as
+    `// JADE-MODERNIZATION-DEFERRED:<rule_id>` markers for future developers.
+
 ## Skill Inventory
 
 | Type | Count | Examples |

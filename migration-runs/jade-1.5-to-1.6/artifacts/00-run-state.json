@@ -1,0 +1,10 @@
+{
+  "run_id": "jade-1.5-to-1.6",
+  "state": "DONE",
+  "current_rule_id": null,
+  "updated_at": "2026-05-25T17:35:03Z",
+  "failure_reason": null,
+  "artifact_hashes": {
+    "07-runtime-verify.json": "33bc2978a2982f5ea7adfba6fef1d90c6da05e4eb71585bbf64a0a705754bdc5"
+  }
+}

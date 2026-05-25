@@ -1,0 +1,15 @@
+{"ts": "2026-05-25T17:16:59Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-25T17:17:04Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs\\jade-1.5-to-1.6\\workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-25T17:17:04Z", "phase": "MANIFEST_READY", "status": "OK", "message": "Paused for agent input \u2014 see AWAITING_AGENT.md", "artifacts": ["AWAITING_AGENT.md"]}
+{"ts": "2026-05-25T17:17:04Z", "phase": "AWAITING_AGENT", "status": "ERROR", "message": "Run terminated: AWAITING_AGENT", "artifacts": ["00-run-state.json", "PROGRESS.md"]}
+{"ts": "2026-05-25T17:22:03Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-25T17:22:03Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs\\jade-1.5-to-1.6\\workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-25T17:24:54Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Paused for agent input \u2014 see AWAITING_AGENT.md", "artifacts": ["AWAITING_AGENT.md"]}
+{"ts": "2026-05-25T17:24:54Z", "phase": "AWAITING_AGENT", "status": "ERROR", "message": "Run terminated: AWAITING_AGENT", "artifacts": ["00-run-state.json", "PROGRESS.md"]}
+{"ts": "2026-05-25T17:26:58Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-25T17:26:58Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs\\jade-1.5-to-1.6\\workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-05-25T17:26:58Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Processing rule STRICTER_CAST_CHECKING", "artifacts": ["05-rule-batch-status.json"]}
+{"ts": "2026-05-25T17:26:58Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule STRICTER_CAST_CHECKING", "artifacts": ["rule-status.json", "07-build.log"]}
+{"ts": "2026-05-25T17:26:58Z", "phase": "FAILED", "status": "ERROR", "message": "Run terminated: FAILED", "artifacts": ["00-run-state.json", "PROGRESS.md"]}
+{"ts": "2026-05-25T17:32:45Z", "phase": "DONE", "status": "OK", "message": "Run terminated: DONE", "artifacts": ["00-run-state.json", "PROGRESS.md"]}
+{"ts": "2026-05-25T17:35:03Z", "phase": "DONE", "status": "OK", "message": "Run terminated: DONE", "artifacts": ["00-run-state.json", "PROGRESS.md"]}

@@ -1,7 +1,7 @@
 {
   "name": "version-check",
   "description": "Verify JADE boots and reports Java runtime version",
-  "docker_image": "frekele/ant:1.10.3-jdk8",
+  "docker_image": "eclipse-temurin:17-jre",
   "main_class": "jade.Boot",
   "source_level": "8",
   "boot_args": ["-agents", "check:VersionCheckAgent"],

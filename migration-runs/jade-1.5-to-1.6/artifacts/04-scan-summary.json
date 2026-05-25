@@ -1,0 +1,19 @@
+{
+  "run_id": "jade-1.5-to-1.6",
+  "generated_at": "2026-05-25T17:24:54Z",
+  "workspace": "migration-runs/jade-1.5-to-1.6/workspace",
+  "total_files_scanned": 1017,
+  "total_new_flags": 2548,
+  "idempotent_skips": 0,
+  "elapsed_seconds": 1.48,
+  "by_rule": {
+    "STRICTER_CAST_CHECKING": {
+      "name": "Java 6 enforces stricter cast checking per JLS",
+      "severity": "LOW",
+      "count": 2548
+    }
+  },
+  "by_confidence": {
+    "0.8": 2548
+  }
+}

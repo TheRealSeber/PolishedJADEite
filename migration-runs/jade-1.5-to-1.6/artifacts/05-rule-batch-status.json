@@ -1,0 +1,10 @@
+{
+  "run_id": "jade-1.5-to-1.6",
+  "rule_id": "STRICTER_CAST_CHECKING",
+  "batch_id": "batch-STRICTER_CAST_CHECKING-2026-05-25T17-26-16Z",
+  "status": "DONE",
+  "total_files": 336,
+  "files_done": 336,
+  "files_failed": 0,
+  "completed_at": "2026-05-25T17:30:00Z"
+}

@@ -1,0 +1,119 @@
+Java SE 6 Compatibility
+Skip to content
+Accessibility Policy
+Menu
+QUICK LINKS
+Cloud
+Database
+Java
+AI
+SUGGESTED LINKS
+SUGGESTED SEARCHES
+Country
+Back
+Cloud Account
+Sign in to Cloud
+Sign Up for Free Cloud Tier
+Oracle Account
+Sign-In
+Create an Account
+Help
+Sign Out
+Java
+Technical Details
+Java SE 6 Compatibility
+Compatibility
+Java SE 6 documentation
+Contents
+This document describes Java™ SE 6 compatibility with J2SE 5.0 under the following topics:
+Binary Compatibility
+Source Compatibility
+Standard Edition 6   (since J2SE 5.0)
+The compatibility documents listed below track incompatibility between adjacent Java versions. For example, this compatibility page reports only Java SE 6 incompatibilities with J2SE 5.0, and not with previous versions. To examine Java SE 6 incompatibilities with earlier Java versions, you must trace incompatiblities through the files listed below, in order.
+Incompatibilities in J2SE 5.0   (since 1.4.2)
+See the                Java Language Specification Maintenance Page  for a summary of changes that have been made to the specification of the Java programming language since the publication of the                                Java Language Specification, Second Edition   .
+Binary Compatibility
+Java SE 6 is upwards binary-compatible with J2SE 5.0 except for the                incompatibilities  listed below. Except for the noted incompatibilities, class files built with version 5.0 compilers will run correctly in JDK 6.
+Some early bytecode obfuscators produced class files that violated the class file format as given in the virtual machine specification. Such improperly formatted class files will not run on the JDK virtual machine, though some of them could have run on earlier versions of the virtual machine. To remedy this problem, regenerate the class files with a newer obfuscator that produces properly formatted class files.
+Source Compatibility
+Java SE 6 does not support downward source compatibility. If source files use new language features or Java SE platform APIs, they will not be usable with an earlier version of the Java platform.
+In general, the policy is as follows, except for any                incompatibilities  listed further below:
+Maintenance releases (such as 1.4.1, 1.4.2) do not introduce any new language features or APIs. They will maintain source-compatibility with each other.
+Functionality releases and major releases (such as 1.3.0, 1.4.0, 5.0) maintain upwards but not downwards source-compatibility.
+Deprecated APIs are interfaces that are supported                only  for backwards compatibility. The                javac  compiler generates a warning message whenever one of these is used, unless the                -nowarn  command-line option is used. It is recommended that programs be modified to eliminate the use of                deprecated APIs , although there are no current plans to remove such APIs entirely from the system with the exception of JVMDI and JVMPI.
+Some APIs in the                sun.*  packages have changed. These APIs are not intended for use by developers. Developers importing from                sun.*  packages do so at their own risk. For more details, see                Why Developers Should Not Write Programs That Call sun.* Packages.
+Incompatibilities between the Java Platform, Standard Edition 6 and J2SE 5.0
+Java SE 6 is strongly compatible with previous versions of the Java platform. Almost all existing programs should run on Java SE 6 without modification. However, there are some minor potential source and binary incompatibilities in the JRE and JDK that involve rare circumstances and "corner cases" that we are documenting here for completeness.
+JVMDI was removed and JVMPI was disabled in Java SE 6
+JVM™ TI is defined by JSR-163. An implementation was released in J2SE 5.0. JVM™ TI replaces the functionality in JVMDI and JVMPI. JVMDI was deprecated in J2SE 5.0. It has been removed from Java SE 6.
+JVMPI was deprecated in J2SE 5.0. It has been disabled in Java SE 6, and it will be removed in the next release.
+Java SE 6 includes a new verification scheme and a new class file format to support this scheme
+By default the Java compiler, javac, generates class files for the new verification scheme (class file version 50.0). While this new class file version has been designed to be backwards compatible, vendors of byte code manipulation tools should start updating their tools to support the new class file format.
+The                    java.nio.channels.FileLock  class checks for files already locked by other                    FileChannel  instances
+Java SE 6 throws an                  OverlappingFileLockException  if an application attempts to lock a region that overlaps a region locked through another                  FileChannel  instance. Previous versions did not check for file locks obtained by other                  FileChannel  instances.
+By default the                  java.nio.channels.FileChannel.lock  method checks if the requested lock overlaps with a region held by this Java virtual machine.
+Java SE 6 has added the system property                  sun.nio.ch.disableSystemWideOverlappingFileLockCheck  to control                  java.nio.channels.FileChannel.lock  file checking behavior, as follows:
+If this system property is set (or is set to some value other than                      false ) then                      java.nio.channels.FileChannel.lock  checks for overlapping file locks obtained using this                      FileChannel  instance only. Locks acquired by other                      FileChannel  instances to the same file are not checked.
+If this system property is not set (or is set to the value                      false ) then                      java.nio.channels.FileChannel.lock  checks for overlapping file locks from all                      FileChannel  instances, according to the specification.
+The                  sun.nio.ch.disableSystemWideOverlappingFileLockCheck  system property exists to provide compatibility with J2SE 1.4 and 5.0, which do not implement the JVM-wide overlapping file lock check.
+Java SE 6 defaults to the                    sun.awt.x11.XToolkit  on Solaris and other Unix-based platforms
+Users can use the MToolkit by setting the                  awt.toolkit  property to                  sun.awt.motif.MToolkit .
+Java SE 6 Properly Rejects Illegal Casts
+The cast implementation adheres more closely to the Java Language Specification. In general, this means that                  javac  will accept more programs. However, in some rare cases,                  javac  can now reject previously accepted, yet incorrect programs.
+Non class files have been moved from                    rt.jar  in Java SE 6
+Java applications that specify                  -Xbootclasspath:<path to rt.jar>  and request any resource files will fail since these resources now reside in a different jar file called                  resources.jar .
+java.beans.EventHandler  Enforces Valid Arguments
+java.beans.EventHandler Enforces Valid Arguments                  java.beans.EventHandler  documentation more completely describes the following:
+Currently                      EventHandler  does not enforce valid arguments. The                      target ,                      action  and                      listenerInterface  arguments need to be non-null for it to work correctly. In Java SE 6, The                      constructor  and                      create  methods now check these arguments and immediately throw an                      IllegalArgumentException  if any arguments are null.
+In Java SE 6, specifying                      ""  for                      eventPropertyName  causes the event to be passed to the target action.
+In Java SE 6, the specificification now more fully describes                      eventPropertyName  and notes that                      target/action/listenerInterface  needs to be non-null.
+In Java SE 6, the specification now notes that                      create  and                      constructor  methods can throw an                      NullPointerException .
+These changes force                  constructor  and                  create  to throw a                  nullPointerException  immediately with null target/action, rather than later on. While the exception is now thrown at a different time, the exception is still the same and is thrown at a point where code logic can catch it and appropriately deal with it.
+Specifying constraints on                    SpringLayout  was order dependent
+SpringLayout  specifies three Springs along each axis which dictate the size and position of a component. Only two Springs are needed along each axis, with the third being derived. If three Springs are specified, the layout is considered overly constrained and one of the Springs is dropped. Currently, the behavior for determining which Spring to drop is not intuitive and leads to ordering problems.
+In Java SE 6,                  SpringLayout  maintains the order in which springs have been set. As a result, specifying springs is no longer order-dependent. Support for centering and aligning along the baseline has also been added.
+Programs affected by this change can contain statements that were redundant in J2SE 5.0.
+For example:
+constraints.setX(xSpring);
+constraints.setConstraint("East", eastSpring);
+In J2SE 5.0, the                  setX  call in effect resulted in nothing, in Java SE 6, the                  setX  call is meaningful and different behavior will result.
+Double buffering enhancements
+Currently, there can be a noticable delay between the time a window is unobscured and the time the window is repainted.
+In Java SE 6, Swing provides full double buffering. For each window, Java SE 6 maintains an offscreen buffer that remains in sync with the onscreen window buffer. Any time a window is unobscured, Swing copies from the back buffer directly to the screen. Swing also manages repainting for                  JWindow, JDialog, JApplet, JFrame  and other heavyweight components in the Swing package. New methods have been added to                  RepaintManager  to manage this activity.
+Applications which can rely on Swing to do painting on an expose event can be affected. In Java SE 6, Swing classes might not paint an expose event if they can instead refresh the screen from the backbuffer.
+Java SE 6 drag behavior is consistent with Microsoft Windows drag behavior
+In the current Swing implementation of Drag and Drop, we require users first click on an object to select it, and then to click again on the same object before they can initiate a drag operation. This is not intuitive behavor for users who are used to using a single click to both select an object and then start a drag operation.
+Java SE 6 has changed the appropriate Swing Classes to implement the single click drag model. Documentation has been updated for affected components to describe how drag gestures are recognized.
+The solution to this problem has required making some small potentially incompatible changes in the implementation of our drag and drop support. Note that none of these incompatibilities will affect components where drag support is turned off, which is the default. Also, these will not affect most users even with drag support turned on.
+Consolidation of MouseListeners
+Previously, the UIs for drag-enabled components installed two mouse listeners. One listener handled the details of selection changes and the other handled the details of drag gesture recognition. To modify drag-and-drop behavior, these separate pieces of logic required much more communication. The best way to allow a drag gesture to manage a selection change, was to consolidate these two listeners into a single listener.
+Applications affected by this consolidation include the two cases described below:
+Applications that explicitly assume two mouse listeners exist
+Applications that implement a custom look-and-feel which replaces the UI installed mouse listeners. If a custom look-and-feel replaces the UI MouseListeners, it will no longer have drag support.
+JTable  and                        JTree  editing semantics
+JTable  s and                      JTree  s with drag enabled will now consider editing only after receiving a mouse-released event. Previously, certain press events (such as those not part of a drag gesture) could trigger editing. For consistency, to allow selection changes, and for drag-and-drop to properly occur on the press event; editing can now only start upon the release. With drag disabled, selection will continue to function as it has in the past.
+JTable  and                        JTree  editors and                        shouldSelectCell()
+Editors for                      JTable  and                      JTree  contain a boolean method called                      shouldSelectCell() . This method returns whether the current cell should be selected. It is called once editing is started. It also can be used to determine when editing has started, in order to configure the editor. When drag is enabled in a component, a cell MUST be selected before it can be dragged. For this reason, Java SE 6 ignores                      shouldSelectCell  and always selects cells when drag is enabled. However, Java SE 6 still calls                      shouldSelectCell  after it starts editing, for those users expecting it for side-effects. There is no change if drag is disabled.
+JDK1_1InitArgs  and                    JDK1_1AttachArgs  no longer used
+The                  JDK1_1InitArgs  and                  JDK1_1AttachArgs  data structures are no longer used, but were present in the                  jni.h  file and corresponding documentation.                  JDK1_1AttachArgs  has been removed from                  jni.h  and                  JDK1_1InitArgs  has been moved from                  jni.h  to                  jvm.h  where it is used internally.
+Password no longer visible in Java SE security tools
+The JDK tools                  keytool ,                  jarsigner , and                  kinit  will no longer echo passwords to the screen. Users will need to enter a password twice when entering a new password or changing an existing password. Scripts that use keytool to either create a new keystore or create a new key in the keystore using a password unique from the keystore password will need to be updated.
+jar  will preserve file modification dates and times during extract
+Files and directories extracted from a jar archive will now have their timestamp set to match the timestamp of the corresponding file/directory in the jar archive. Prior to Java SE 6, files and directories extracted from a jar archive were given the date and time of the extraction. A system property,                  sun.tools.jar.useExtractionTime=true , is provided so that the Java SE 5.0 and earlier behavior can be obtained. The default value of this property in Java SE is                  false .
+The Duration and                    XMLGregorianCalendar equals()  methods now return                    false  for                    null  parameter
+The                  javax.xml.datatype.Duration.equals()  and                  javax.xml.datatype.XMLGregorianCalendar.equals()  methods now return                  false  instead of throwing a                  NullPointerException  for a null parameter.
+The double-slash character string ("//") is reserved in JMX ObjectNames
+JSR 255 plans to use "//" in the domain part of an                  javax.management.ObjectName  as a separator for "cascading". While JSR 255 is not part of Java SE 6, it is recommended that the domain part of an                  ObjectName  not contain the string "//" to avoid future compatibility issues.
+© 2026 Oracle
+Privacy
+/
+Do Not Sell My Info
+Ad Choices
+Careers
+Subscribe to emails
+Integrity Helpline
+Contact Us
+Facebook
+X
+LinkedIn
+YouTube

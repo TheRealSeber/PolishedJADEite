@@ -1,0 +1,21 @@
+{
+  "run_id": "jade-1.5-to-1.6",
+  "status": "OK",
+  "build_system": "ant",
+  "build_file": "migration-runs\\jade-1.5-to-1.6\\workspace\\src\\jade\\build.xml",
+  "source_version": "1.5",
+  "target_version": "1.6",
+  "build_exit_code": 0,
+  "docker_image": "frekele/ant:1.10.3-jdk8",
+  "error_count": 0,
+  "applied_fixes_count": 5,
+  "pending_fixes_count": 0,
+  "dependency_risk_level": "NONE",
+  "dependency_blockers_count": 0,
+  "dependency_warnings_count": 0,
+  "dependency_upgrade_candidates_count": 0,
+  "env": {
+    "docker": "available"
+  },
+  "updated_at": "2026-05-25T17:24:52Z"
+}

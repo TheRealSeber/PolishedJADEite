@@ -1,0 +1,5 @@
+<project name="test" basedir=".">
+    <target name="parse" if="make">
+        <javacc jdkversion="1.4" target="grammar.jj"/>
+    </target>
+</project>

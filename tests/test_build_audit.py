@@ -15,7 +15,7 @@ sys.path.insert(
         / "scripts"
     ),
 )
-from build_audit import apply_ant_fixes, analyse_ant, version_key
+from build_audit import apply_ant_fixes, analyse_ant
 
 FIXTURES = pathlib.Path(__file__).parent / "fixtures"
 
@@ -31,11 +31,6 @@ def _get_attr_value(xml_text: str, element_tag: str, attr_name: str) -> str | No
         if val is not None:
             return val
     return None
-
-
-def _count_elements(xml_text: str, tag: str) -> int:
-    root = ET.fromstring(xml_text)
-    return len(list(root.iter(tag)))
 
 
 class TestApplyAntFixesJavacOnly:
@@ -87,20 +82,21 @@ class TestApplyAntFixesJavacOnly:
 
 
 class TestApplyAntFixesNoJavac:
-    """When no <javac> elements exist, nothing is changed."""
+    """When no <javac> elements exist, only javacc jdkversion is updated."""
 
     def test_no_javac_no_op(self, tmp_path):
-        """XML with only <javacc> should be unchanged."""
+        """XML with only <javacc>: jdkversion updated, target preserved."""
         src = FIXTURES / "build_no_javac.xml"
         build = tmp_path / "build.xml"
         build.write_text(src.read_text(encoding="utf-8"))
-        original = build.read_text(encoding="utf-8")
         analysis = _analyse(build)
         fixes = apply_ant_fixes(build, analysis, "1.7")
-        result = build.read_text(encoding="utf-8")
+        xml_text = build.read_text(encoding="utf-8")
 
-        assert result == original, "File with no <javac> must be unchanged"
-        assert len(fixes) == 0
+        assert _get_attr_value(xml_text, "javacc", "jdkversion") == "1.7"
+        assert _get_attr_value(xml_text, "javacc", "target") == "grammar.jj"
+        assert len(fixes) == 1
+        assert fixes[0]["type"] == "javacc_jdkversion"
 
     def test_no_javac_javacc_target_preserved(self, tmp_path):
         """Only <javacc> present: target="grammar.jj" preserved."""

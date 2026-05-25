@@ -281,7 +281,6 @@ def analyse_ant(build_path: pathlib.Path, target_version: str) -> Dict[str, Any]
         if jdk:
             jacc_entry: Dict[str, Any] = {"jdkversion": jdk, "needs_update": False}
             if version_key(jdk) != target_key:
-                # Only flag if old version is <= 1.4 and target >= 1.5
                 jacc_entry["needs_update"] = True
                 jacc_entry["new_jdkversion"] = target_version
             result["javacc_targets"].append(jacc_entry)
@@ -509,7 +508,7 @@ def apply_ant_fixes(
             continue
         if "new_source" in entry:
             raw, count = re.subn(
-                r'(\bsource\s*=\s*["\'])([^"\']*?)(["\'])',
+                r'(<javac\b[^>]*?\bsource\s*=\s*["\'])([^"\']*?)(["\'])',
                 rf"\g<1>{target_version}\g<3>",
                 raw,
             )
@@ -523,7 +522,7 @@ def apply_ant_fixes(
                 )
         if "new_target" in entry:
             raw, count = re.subn(
-                r'(\btarget\s*=\s*["\'])([^"\']*?)(["\'])',
+                r'(<javac\b[^>]*?\btarget\s*=\s*["\'])([^"\']*?)(["\'])',
                 rf"\g<1>{target_version}\g<3>",
                 raw,
             )
@@ -541,7 +540,7 @@ def apply_ant_fixes(
         for entry in analysis.get("javacc_targets", []):
             if entry.get("needs_update"):
                 raw, count = re.subn(
-                    r'(\bjdkversion\s*=\s*["\'])([^"\']*?)(["\'])',
+                    r'(<javacc\b[^>]*?\bjdkversion\s*=\s*["\'])([^"\']*?)(["\'])',
                     rf"\g<1>{target_version}\g<3>",
                     raw,
                 )

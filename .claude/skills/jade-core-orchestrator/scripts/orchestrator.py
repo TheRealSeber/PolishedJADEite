@@ -923,9 +923,23 @@ def main() -> int:
             else:
                 outcome = check_gate_artifacts(current, artifacts, state)
         elif current == "RULE_BATCH_LOOP":
-            # In --run mode, pause at RULE_BATCH_LOOP for agent
             if args.run and not (artifacts / "05-rule-queue.json").exists():
-                outcome = _pause_for_agent(current, artifacts, state, cfg)
+                # Auto-create empty queue when scanner found no flags
+                flag_index = artifacts / "04-flag-index.json"
+                if flag_index.exists():
+                    fi = read_json(flag_index)
+                    if fi.get("total_flags", 0) == 0:
+                        write_json(
+                            artifacts / "05-rule-queue.json",
+                            {"run_id": state.get("run_id", ""), "rules": []},
+                        )
+                        # Fall through to process_rule_batch → NO_MORE_RULES →
+                    else:
+                        outcome = _pause_for_agent(current, artifacts, state, cfg)
+                        break
+                else:
+                    outcome = _pause_for_agent(current, artifacts, state, cfg)
+                    break
             else:
                 outcome = process_rule_batch(
                     cfg, artifacts, state, hist_path, state_path, rule_status_path

@@ -46,6 +46,12 @@ Apply ONE `rule_id` to ALL flagged files → verify compile + semantic gates →
     on an incompatible JDK is forbidden.  Build failures caused by JDK version
     mismatches must be solved via the Docker-isolated build environment, not source
     mutilation.
+12. **Container agnosticism** — never hardcode JDK versions or Docker images in consumer
+    test configs, recipes, or core scripts. Resolve container images from the central
+    registry (`config/docker-images.json`) using run-config target version and dynamic placeholders.
+13. **Java 11+ readiness** — every migration targeting Java 11 or newer MUST run dependency
+    compatibility auditing for removed JDK modules/libraries (including CORBA/JAXB families)
+    during BUILD_GATE_READY and report blockers/warnings in build audit artifacts.
 
 ## Skill Inventory
 

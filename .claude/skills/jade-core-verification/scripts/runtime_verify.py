@@ -27,6 +27,8 @@ from typing import Any, Dict, List, Optional, Tuple
 # ------------------------------------------------------------------
 PLAYGROUND_DIR = pathlib.Path("consumer-playground")
 TIMEOUT_BUFFER = 15  # extra seconds beyond test-config timeout for docker pull etc.
+REPO_ROOT = pathlib.Path(__file__).resolve().parents[4]
+DOCKER_IMAGE_CONFIG_PATH = REPO_ROOT / "config" / "docker-images.json"
 
 
 def iso_now() -> str:
@@ -49,6 +51,55 @@ def write_json(path: pathlib.Path, payload: Dict[str, Any]) -> None:
     with tmp.open("w", encoding="utf-8") as f:
         json.dump(payload, f, indent=2)
     tmp.replace(path)
+
+
+def version_key(raw: str) -> str:
+    parts = raw.replace("_", ".").split(".")
+    numeric = [int(x) for x in parts if x.isdigit()]
+    if len(numeric) == 1 and numeric[0] >= 5:
+        return f"1.{numeric[0]}"
+    if len(numeric) >= 2 and numeric[0] == 1:
+        return f"1.{numeric[1]}"
+    return raw
+
+
+def java_major(version: str) -> int:
+    key = version_key(version)
+    if key.startswith("1."):
+        parts = key.split(".")
+        if len(parts) > 1 and parts[1].isdigit():
+            return int(parts[1])
+    nums = [int(x) for x in key.replace("-", ".").split(".") if x.isdigit()]
+    return nums[0] if nums else 0
+
+
+def load_docker_image_registry(config_path: pathlib.Path) -> Dict[str, str]:
+    payload = read_json(config_path)
+    required = {"java-8", "java-11", "java-17"}
+    missing = sorted(required - set(payload.keys()))
+    if missing:
+        raise ValueError(
+            f"Docker image config missing required keys: {', '.join(missing)}"
+        )
+    return {str(k): str(v) for k, v in payload.items()}
+
+
+def resolve_docker_image(target_version: str, registry: Dict[str, str]) -> str:
+    major = java_major(target_version)
+    if major >= 17:
+        return registry["java-17"]
+    if major >= 11:
+        return registry["java-11"]
+    return registry["java-8"]
+
+
+def resolve_consumer_docker_image(
+    consumer_cfg: Dict[str, Any], run_cfg: Dict[str, Any], registry: Dict[str, str]
+) -> str:
+    configured = str(consumer_cfg.get("docker_image", "")).strip()
+    if configured == "${TARGET_DOCKER_IMAGE}" or not configured:
+        return resolve_docker_image(str(run_cfg.get("target_version", "")), registry)
+    return configured
 
 
 def discover_consumers() -> List[Tuple[pathlib.Path, Dict[str, Any]]]:
@@ -317,6 +368,12 @@ def main() -> int:
 
     run_id = run_cfg.get("run_id", "unknown")
 
+    try:
+        registry = load_docker_image_registry(DOCKER_IMAGE_CONFIG_PATH)
+    except (FileNotFoundError, ValueError, json.JSONDecodeError) as exc:
+        print(f"ERROR: invalid docker image config: {exc}", file=sys.stderr)
+        return 3
+
     # Verify env
     if shutil.which("docker") is None:
         print("ERROR: docker not found on PATH", file=sys.stderr)
@@ -347,6 +404,8 @@ def main() -> int:
     # Test each consumer
     results: List[Dict[str, Any]] = []
     for project_dir, cfg in consumers:
+        cfg = dict(cfg)
+        cfg["docker_image"] = resolve_consumer_docker_image(cfg, run_cfg, registry)
         result = test_consumer(project_dir, workspace, cfg)
         results.append(result)
         status_icon = "PASS" if result["status"] == "PASS" else "FAIL"

@@ -47,6 +47,49 @@ JAVACC_JDKVERSION_MAP = {
 # Ant javac source/target values that indicate a version gate
 JAVAC_VERSION_KEYS = ("source", "target")
 
+REPO_ROOT = pathlib.Path(__file__).resolve().parents[4]
+DOCKER_IMAGE_CONFIG_PATH = REPO_ROOT / "config" / "docker-images.json"
+
+KNOWN_INCOMPATIBLE_DEPENDENCIES = {
+    "javax.xml.bind:jaxb-api": {
+        "removed_in": 11,
+        "min_compatible_version": "2.3.0",
+        "severity": "BLOCKER",
+        "reason": "Java 11 removed JAXB from JDK; jaxb-api below 2.3.0 is incompatible.",
+        "recommended_version": "2.3.1",
+    },
+    "com.sun.corba:corba-api": {
+        "removed_in": 11,
+        "severity": "BLOCKER",
+        "reason": "CORBA modules were removed from Java 11+.",
+        "recommended_version": "MIGRATE_AWAY",
+    },
+    "org.omg:CORBA": {
+        "removed_in": 11,
+        "severity": "BLOCKER",
+        "reason": "CORBA modules were removed from Java 11+.",
+        "recommended_version": "MIGRATE_AWAY",
+    },
+    "javax.activation:activation": {
+        "removed_in": 11,
+        "severity": "WARNING",
+        "reason": "Java 11 removed JavaBeans Activation Framework from JDK.",
+        "recommended_version": "1.2.0",
+    },
+    "javax.xml.ws:jaxws-api": {
+        "removed_in": 11,
+        "severity": "WARNING",
+        "reason": "Java 11 removed JAX-WS from JDK; explicit dependencies are required.",
+        "recommended_version": "2.3.1",
+    },
+}
+
+KNOWN_UPGRADE_CANDIDATES = {
+    "javax.xml.bind:jaxb-api": "2.3.1",
+    "javax.activation:activation": "1.2.0",
+    "javax.xml.ws:jaxws-api": "2.3.1",
+}
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
@@ -121,6 +164,16 @@ def find_build_file(
 
 def version_tuple(raw: str) -> Tuple[int, ...]:
     return tuple(int(x) for x in re.split(r"[.\-_]", raw) if x.isdigit())
+
+
+def java_major(version: str) -> int:
+    key = version_key(version)
+    if key.startswith("1."):
+        parts = key.split(".")
+        if len(parts) > 1 and parts[1].isdigit():
+            return int(parts[1])
+    nums = [int(x) for x in re.split(r"[^0-9]+", key) if x.isdigit()]
+    return nums[0] if nums else 0
 
 
 def version_key(raw: str) -> str:
@@ -308,6 +361,99 @@ def _text(el) -> Optional[str]:
     return (el.text or "").strip() if el is not None else None
 
 
+def dependency_coords(dep: Dict[str, Any]) -> Tuple[str, str, str]:
+    group = dep.get("groupId") or dep.get("group") or ""
+    artifact = dep.get("artifactId") or dep.get("artifact") or ""
+    version = dep.get("version") or "unknown"
+    return str(group), str(artifact), str(version)
+
+
+def load_docker_image_registry(config_path: pathlib.Path) -> Dict[str, str]:
+    if not config_path.exists():
+        raise FileNotFoundError(f"Docker image config not found: {config_path}")
+    payload = read_json(config_path)
+    required = {"java-8", "java-11", "java-17"}
+    missing = sorted(required - set(payload.keys()))
+    if missing:
+        raise ValueError(
+            f"Docker image config missing required keys: {', '.join(missing)}"
+        )
+    return {str(k): str(v) for k, v in payload.items()}
+
+
+def resolve_docker_image(target_version: str, registry: Dict[str, str]) -> str:
+    major = java_major(target_version)
+    if major >= 17:
+        return registry["java-17"]
+    if major >= 11:
+        return registry["java-11"]
+    return registry["java-8"]
+
+
+def _is_version_less(current: str, minimum: str) -> bool:
+    if current in ("", "unknown"):
+        return True
+    return version_tuple(current) < version_tuple(minimum)
+
+
+def audit_dependencies(
+    build_system: str, dependencies: List[Dict[str, Any]], target_version: str
+) -> Dict[str, Any]:
+    report: Dict[str, Any] = {
+        "build_system": build_system,
+        "target_version": target_version,
+        "risk_level": "NONE",
+        "blockers": [],
+        "warnings": [],
+        "upgrade_candidates": [],
+    }
+    target_major = java_major(target_version)
+
+    if target_major < 11:
+        return report
+
+    for dep in dependencies:
+        group, artifact, version = dependency_coords(dep)
+        if not group or not artifact:
+            continue
+        ga = f"{group}:{artifact}"
+        gav = f"{group}:{artifact}:{version}"
+
+        rule = KNOWN_INCOMPATIBLE_DEPENDENCIES.get(ga)
+        if rule and target_major >= int(rule.get("removed_in", 11)):
+            min_ver = rule.get("min_compatible_version")
+            if min_ver and not _is_version_less(version, str(min_ver)):
+                pass
+            else:
+                entry = {
+                    "dependency": gav,
+                    "severity": rule.get("severity", "WARNING"),
+                    "reason": rule.get("reason", "Known Java 11+ incompatibility."),
+                    "recommended_version": rule.get("recommended_version", "unknown"),
+                }
+                if entry["severity"] == "BLOCKER":
+                    report["blockers"].append(entry)
+                else:
+                    report["warnings"].append(entry)
+
+        recommended = KNOWN_UPGRADE_CANDIDATES.get(ga)
+        if recommended and _is_version_less(version, recommended):
+            report["upgrade_candidates"].append(
+                {
+                    "dependency": gav,
+                    "recommended_version": recommended,
+                    "reason": f"Upgrade recommended for Java {target_major}+ readiness.",
+                }
+            )
+
+    if report["blockers"]:
+        report["risk_level"] = "BLOCKER"
+    elif report["warnings"]:
+        report["risk_level"] = "WARNING"
+
+    return report
+
+
 def analyse_gradle(build_path: pathlib.Path, target_version: str) -> Dict[str, Any]:
     """Analyse a Gradle build.gradle for compatibility."""
     result: Dict[str, Any] = {
@@ -417,10 +563,6 @@ def apply_ant_fixes(
 # Docker helpers — all builds run in ephemeral containers
 # ---------------------------------------------------------------------------
 
-DOCKER_ANT_IMAGE = "frekele/ant:1.10.3-jdk8"
-DOCKER_MAVEN_IMAGE = "maven:3.6-jdk-8"
-DOCKER_GRADLE_IMAGE = "gradle:5.6-jdk8"
-
 
 def _docker_env() -> dict:
     """Return an os.environ dict that suppresses MSYS path mangling on Windows."""
@@ -510,37 +652,36 @@ def _docker_run(
 
 
 def run_ant_build(
-    build_path: pathlib.Path, default_target: str = "jade"
+    build_path: pathlib.Path, docker_image: str, default_target: str = "jade"
 ) -> Tuple[int, str]:
     return _docker_run(
-        DOCKER_ANT_IMAGE,
+        docker_image,
         build_path.parent,
         ["ant", default_target, "-q"],
     )
 
 
-def run_maven_build(pom_path: pathlib.Path) -> Tuple[int, str]:
+def run_maven_build(pom_path: pathlib.Path, docker_image: str) -> Tuple[int, str]:
     return _docker_run(
-        DOCKER_MAVEN_IMAGE,
+        docker_image,
         pom_path.parent,
         ["mvn", "compile", "-q"],
     )
 
 
-def run_gradle_build(build_path: pathlib.Path) -> Tuple[int, str]:
+def run_gradle_build(build_path: pathlib.Path, docker_image: str) -> Tuple[int, str]:
     return _docker_run(
-        DOCKER_GRADLE_IMAGE,
+        docker_image,
         build_path.parent,
         ["gradle", "compileJava", "-q"],
     )
 
 
-def capture_env(build_path: pathlib.Path) -> str:
+def capture_env(build_path: pathlib.Path, docker_image: str) -> str:
     lines = ["=== Build Environment ==="]
     lines.append("runtime: docker (ephemeral container)")
-    lines.append(f"ant image: {DOCKER_ANT_IMAGE}")
-    lines.append(f"maven image: {DOCKER_MAVEN_IMAGE}")
-    lines.append(f"gradle image: {DOCKER_GRADLE_IMAGE}")
+    lines.append(f"docker image config: {DOCKER_IMAGE_CONFIG_PATH}")
+    lines.append(f"resolved image: {docker_image}")
     if _docker_available():
         lines.append("docker: available")
         try:
@@ -612,6 +753,14 @@ def main() -> int:
         )
         return 2
 
+    try:
+        docker_registry = load_docker_image_registry(DOCKER_IMAGE_CONFIG_PATH)
+    except (FileNotFoundError, ValueError, json.JSONDecodeError) as exc:
+        print(f"ERROR [DOCKER_IMAGE_CONFIG_INVALID] {exc}", file=sys.stderr)
+        return 2
+
+    resolved_docker_image = resolve_docker_image(target_version, docker_registry)
+
     # Docker prerequisite
     if not _docker_available():
         print(
@@ -671,9 +820,57 @@ def main() -> int:
     # ------------------------------------------------------------------
     applied_fixes: List[Dict[str, Any]] = []
     issues: List[str] = list(analysis.get("issues", []))
+    dependency_report = audit_dependencies(
+        build_system, analysis.get("dependencies", []), target_version
+    )
+
+    for blocker in dependency_report.get("blockers", []):
+        issues.append(
+            f"Dependency blocker: {blocker['dependency']} - {blocker['reason']}"
+        )
+        applied_fixes.append(
+            {
+                "type": "dependency_blocker",
+                "applied": False,
+                "needs_review": True,
+                "detail": (
+                    f"{blocker['dependency']} is incompatible with Java {target_version}. "
+                    f"Recommended: {blocker['recommended_version']}"
+                ),
+            }
+        )
+
+    for warning in dependency_report.get("warnings", []):
+        issues.append(
+            f"Dependency warning: {warning['dependency']} - {warning['reason']}"
+        )
+        applied_fixes.append(
+            {
+                "type": "dependency_warning",
+                "applied": False,
+                "needs_review": True,
+                "detail": (
+                    f"{warning['dependency']} may break on Java {target_version}. "
+                    f"Recommended: {warning['recommended_version']}"
+                ),
+            }
+        )
+
+    for candidate in dependency_report.get("upgrade_candidates", []):
+        applied_fixes.append(
+            {
+                "type": "dependency_upgrade_candidate",
+                "applied": False,
+                "needs_review": True,
+                "detail": (
+                    f"Upgrade {candidate['dependency']} -> {candidate['recommended_version']} "
+                    f"({candidate['reason']})"
+                ),
+            }
+        )
 
     if build_system == "ant":
-        applied_fixes = apply_ant_fixes(build_path, analysis, target_version)
+        applied_fixes.extend(apply_ant_fixes(build_path, analysis, target_version))
 
     # For Maven and Gradle, source/target fixes require pom.xml or build.gradle
     # editing — these are SAFE but currently not auto-applied. Flag as NEEDS_REVIEW.
@@ -713,16 +910,16 @@ def main() -> int:
     build_output = ""
 
     # Write header
-    build_output = capture_env(build_path)
+    build_output = capture_env(build_path, resolved_docker_image)
 
     if build_system == "ant":
-        build_rc, out = run_ant_build(build_path)
+        build_rc, out = run_ant_build(build_path, resolved_docker_image)
         build_output += out
     elif build_system == "maven":
-        build_rc, out = run_maven_build(build_path)
+        build_rc, out = run_maven_build(build_path, resolved_docker_image)
         build_output += out
     elif build_system == "gradle":
-        build_rc, out = run_gradle_build(build_path)
+        build_rc, out = run_gradle_build(build_path, resolved_docker_image)
         build_output += out
 
     # ------------------------------------------------------------------
@@ -753,9 +950,16 @@ def main() -> int:
         "source_version": source_version,
         "target_version": target_version,
         "build_exit_code": build_rc,
+        "docker_image": resolved_docker_image,
         "error_count": error_count,
         "applied_fixes_count": sum(1 for f in applied_fixes if f.get("applied")),
         "pending_fixes_count": sum(1 for f in applied_fixes if f.get("needs_review")),
+        "dependency_risk_level": dependency_report.get("risk_level", "NONE"),
+        "dependency_blockers_count": len(dependency_report.get("blockers", [])),
+        "dependency_warnings_count": len(dependency_report.get("warnings", [])),
+        "dependency_upgrade_candidates_count": len(
+            dependency_report.get("upgrade_candidates", [])
+        ),
         "env": {"docker": "available"},
         "updated_at": iso_now(),
     }
@@ -770,6 +974,7 @@ def main() -> int:
             "compiler_targets": analysis.get("compiler_targets", []),
             "javacc_targets": analysis.get("javacc_targets", []),
             "dependencies": analysis.get("dependencies", []),
+            "dependency_compatibility": dependency_report,
             "issues": issues,
         },
         "updated_at": iso_now(),

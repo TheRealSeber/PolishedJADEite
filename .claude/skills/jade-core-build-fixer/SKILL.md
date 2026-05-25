@@ -48,6 +48,7 @@ halts with `BUILD_GATE_FAILED`.
 | Artifact | Description |
 |----------|-------------|
 | `artifacts/00-run-config.json` | Run configuration with `source_version`, `target_version`, `workspace_path` |
+| `config/docker-images.json` | Central Docker image registry (`java-8`, `java-11`, `java-17`) |
 | Workspace build files | `build.xml`, `pom.xml`, or `build.gradle` in the workspace |
 
 ## Produced Output
@@ -123,6 +124,35 @@ The script auto-detects the build system:
 | `sourceCompatibility` / `targetCompatibility` | Must match target version |
 | Gradle wrapper version | Must support target JDK |
 | Plugin versions | Must be compatible |
+
+## Dependency Compatibility (Java 11+ Readiness)
+
+For target versions `11` and above, the build auditor MUST run a dependency compatibility scan
+before finalizing gate status.
+
+Required behavior:
+
+1. Parse declared dependencies from `pom.xml` (and Ant/Gradle dependency declarations where present)
+2. Detect known Java 11+ removals (minimum baseline):
+   - CORBA (`com.sun.corba:*`, `org.omg:*`)
+   - JAXB APIs below Java 11 compatible levels (e.g., `javax.xml.bind:jaxb-api < 2.3`)
+3. Emit findings to `03-build-audit.json` and `03-build-fixes-plan.json` with explicit severity (`BLOCKER`/`WARNING`)
+4. Include actionable replacement or upgrade guidance in fixes-plan (`recommended_version`, migration notes)
+
+This scan is a proactive dependency-hell defense. It does not auto-upgrade dependencies silently.
+
+## Docker Infrastructure
+
+All Docker images used by this skill MUST be resolved from `config/docker-images.json`.
+Hardcoded image strings are forbidden in skill scripts.
+
+Resolution policy:
+
+1. Load registry keys: `java-8`, `java-11`, `java-17`
+2. Map `target_version` from run config to the proper registry key
+3. Record the resolved image in `03-build-audit.json` for traceability
+
+If the registry file is missing or malformed, the skill fails with configuration error; it must not fallback to hardcoded defaults.
 
 ---
 

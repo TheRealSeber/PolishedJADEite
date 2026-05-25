@@ -523,6 +523,11 @@ def main() -> int:
     parser.add_argument(
         "--modern-jdk", required=True, help="Path to modern JDK (11/17+)"
     )
+    parser.add_argument(
+        "--config",
+        default="artifacts/00-run-config.json",
+        help="Path to 00-run-config.json",
+    )
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument(
         "--validate", action="store_true", help="Validate inputs and JDK only"
@@ -554,7 +559,7 @@ def main() -> int:
     env = java_home_env(modern_jdk)
 
     # --- Locate config ---
-    config_path = pathlib.Path("artifacts/00-run-config.json")
+    config_path = pathlib.Path(args.config)
     if not config_path.exists():
         print(f"ERROR [CONFIG_NOT_FOUND] Missing: {config_path}", file=sys.stderr)
         return 2
@@ -664,6 +669,14 @@ def main() -> int:
     report = {
         "run_id": run_id,
         "modern_jdk": str(modern_jdk),
+        "tools": {
+            t: {
+                "available": t in available_tools,
+                "version": tool_probes.get(t, {}).get("version"),
+            }
+            for t in TOOL_NAMES
+        },
+        "findings": findings,
         "available_tools": available_tools,
         "unavailable_tools": unavailable_tools,
         "findings_summary": {

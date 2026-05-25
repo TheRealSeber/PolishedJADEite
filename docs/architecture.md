@@ -65,7 +65,7 @@ baseline directory is never touched by any phase.
 | `04-` | SCAN | Scanner |
 | `05-` | BATCH | Batch processor |
 | `06-` | FIX | Rule dispatcher (per task) |
-| `07-` | VERIFY | Verification |
+| `07-` | VERIFY | Verification (build log, semantic diff, runtime verify) |
 | `08-` | RETRY | Retry router |
 | `09-` | COMMIT | Atomic commit |
 | `10-` | EVAL | Skill matrix evaluator |
@@ -212,6 +212,14 @@ plumbing.
 | 10 | `jade-core-retry-router` | Failure classification + bounded retry/requeue |
 | 11 | `jade-core-evaluator` | Skill matrix scoring from run artifacts |
 
+### Utility Skills (`jade-utility-*`)
+
+Utility skills support the pipeline but are not part of the core state machine.
+
+| # | Skill | Responsibility |
+|---|-------|---------------|
+| 1 | `jade-utility-consumer-onboarder` | ZIP extraction + test-config.json generation for consumer playground |
+
 ### Recipe Skills (`jade-recipe-*`)
 
 Recipe skills are **version-specific transform scripts** generated dynamically
@@ -265,6 +273,39 @@ and updating `recipe-registry.json` — the core pipeline never changes.
 
 Recipes are generated per-migration by the Skill Creator from manifest data. The
 registry starts empty (`{}`) and is populated before the RULE_BATCH_LOOP phase.
+
+### Consumer Playground & Runtime Verification
+
+After all rules pass verification, a **RUNTIME_VERIFY** phase boots the migrated
+JADE in Docker against consumer projects from `consumer-playground/`.
+
+```
+RULE_BATCH_LOOP → VERIFIED → RUNTIME_VERIFY → DONE
+                              ↘ VERIFY_FAIL → FAILED
+```
+
+Each consumer project contains:
+- JADE agent `.java` source files (preserved in package structure)
+- `test-config.json` — Docker image, boot args, expected stdout markers, classpath deps
+
+The `runtime_verify.py` script (in `jade-core-verification`) performs:
+1. Discovers consumer projects from `consumer-playground/`
+2. Compiles each against the migrated workspace's `jade.jar`
+3. Runs in an isolated Docker container
+4. **Reverse assertion** — scans output for `Exception`/`NullPointerException`/`SEVERE:` patterns
+5. Validates all `expected_stdout_markers` are present
+6. Treats container timeout as FAIL
+7. Expects graceful shutdown (via `TestRunnerAgent` pattern or `System.exit(0)`)
+
+The `jade-utility-consumer-onboarder` skill automates ingestion of new consumer
+projects from ZIP archives, generating the directory structure and boilerplate
+`test-config.json`.
+
+**TestRunnerAgent pattern:** When consumer agents require constructor arguments
+(which `jade.Boot -agents` cannot pass), create a `TestRunnerAgent.java` that
+programmatically creates mock data and starts agents via `getContainerController()`.
+This agent also handles graceful shutdown via `System.exit(0)`. See
+`consumer-playground/hw-jade/TestRunnerAgent.java` for a reference implementation.
 
 ---
 
@@ -404,31 +445,48 @@ PHASE 0 (optional)           PHASE 1                 PHASE 2
                                │                     │
                                │     All rules DONE   │
                                │                     │
-                    PHASE 8    │                     │
-              ┌────────────────┴─────────────────────┘
-              │              VERIFIED
-              │
-              │ jade-core-orchestrator
-              │
-              │ Confirms: all rule-status = DONE
-              │           all commits logged
-              └────────────────┬─────────────────────┐
-                               │                     │
-                    PHASE 9    │                     │
-              ┌────────────────┴──────────┐          │
-              │           DONE            │          │
-              │                           │          │
-              │ jade-core-evaluator       │          │
-              │                           │          │
-              │ Reads: all artifacts      │          │
-              │                           │          │
-              │ Writes: 10-skill-matrix   │          │
-              │                           │          │
-              │ Scores all core skills    │          │
-              │ on completeness,          │          │
-              │ reproducibility,          │          │
-              │ gate pass rate            │          │
-              └───────────────────────────┘          │
+                     PHASE 8    │                     │
+               ┌────────────────┴─────────────────────┘
+               │              VERIFIED
+               │
+               │ jade-core-orchestrator
+               │
+               │ Confirms: all rule-status = DONE
+               │           all commits logged
+               └────────────────┬─────────────────────┐
+                                │                     │
+                     PHASE 8b   │                     │
+               ┌────────────────┴──────────┐          │
+               │      RUNTIME_VERIFY       │          │
+               │                           │          │
+               │ jade-core-verification    │          │
+               │ (runtime_verify.py)       │          │
+               │                           │          │
+               │ Tests consumer projects   │          │
+               │ in consumer-playground/   │          │
+               │                           │          │
+               │ Writes: 07-runtime-       │          │
+               │         verify.json       │          │
+               │                           │          │
+               │ Gate: VERIFY_FAIL → halt  │          │
+               │       OK → DONE           │          │
+               └────────────────┬──────────┘          │
+                                │                     │
+                     PHASE 9    │                     │
+               ┌────────────────┴─────────────────────┘
+                 │              DONE
+                │
+                │ jade-core-evaluator
+                │
+                │ Reads: all artifacts
+                │
+                │ Writes: 10-skill-matrix
+                │
+                │ Scores all core skills
+                │ on completeness,
+                │ reproducibility,
+                │ gate pass rate
+                └───────────────────────────┐
                                                      │
       ┌──────────────────────────────────────────────┘
       │

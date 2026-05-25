@@ -1,0 +1,14 @@
+{
+  "name": "version-check",
+  "description": "Verify JADE boots and reports Java runtime version",
+  "docker_image": "frekele/ant:1.10.3-jdk8",
+  "main_class": "jade.Boot",
+  "source_level": "8",
+  "boot_args": ["-agents", "check:VersionCheckAgent"],
+  "expected_stdout_markers": ["is ready", "RUNTIME_CHECK_PASSED"],
+  "timeout_seconds": 90,
+  "classpath_deps": [
+    "src/jade/lib/jade.jar",
+    "src/jade/lib/commons-codec/commons-codec-1.3.jar"
+  ]
+}

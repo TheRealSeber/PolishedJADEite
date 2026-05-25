@@ -15,7 +15,7 @@ sys.path.insert(
         / "scripts"
     ),
 )
-from build_audit import apply_ant_fixes, analyse_ant
+from build_audit import apply_ant_fixes, validate_ant_fixes, analyse_ant
 
 FIXTURES = pathlib.Path(__file__).parent / "fixtures"
 
@@ -144,3 +144,31 @@ class TestRegressionJadeBuildXml:
                 assert not (tgt and tgt.replace(".", "").isdigit()), (
                     f"javacc target looks like a version number: {tgt}"
                 )
+
+
+class TestValidateAntFixes:
+    """Post-fix validation warns about corrupted attributes."""
+
+    def test_clean_fix_no_warnings(self):
+        """Validation returns empty list when fix is correct."""
+        original = '<project><javac source="1.5" target="1.5"/></project>'
+        fixed = '<project><javac source="1.7" target="1.7"/></project>'
+        warnings = validate_ant_fixes(original, fixed, "1.7")
+        assert warnings == []
+
+    def test_javacc_corruption_detected(self):
+        """javacc target changed to version string is flagged."""
+        original = '<project><javacc target="grammar.jj"/></project>'
+        fixed = '<project><javacc target="1.7"/></project>'
+        warnings = validate_ant_fixes(original, fixed, "1.7")
+        assert len(warnings) == 1
+        assert "javacc" in warnings[0].lower()
+        assert "corrupted" in warnings[0].lower()
+
+    def test_antcall_corruption_detected(self):
+        """antcall target changed to version string is flagged."""
+        original = '<project><antcall target="deploy"/></project>'
+        fixed = '<project><antcall target="1.7"/></project>'
+        warnings = validate_ant_fixes(original, fixed, "1.7")
+        assert len(warnings) == 1
+        assert "antcall" in warnings[0].lower()

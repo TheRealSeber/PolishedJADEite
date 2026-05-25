@@ -558,6 +558,47 @@ def apply_ant_fixes(
     return fixes
 
 
+def validate_ant_fixes(
+    original_text: str, fixed_text: str, target_version: str
+) -> List[str]:
+    """Verify fix correctness: javac attributes updated, no collision damage.
+
+    Returns list of warning strings (empty = clean).
+    """
+    warnings: List[str] = []
+    try:
+        orig_root = ET.fromstring(original_text)
+        fixed_root = ET.fromstring(fixed_text)
+    except ET.ParseError:
+        return ["XML parse error — cannot validate fixes"]
+
+    # 1. Verify <javac> source/target are present and match target_version
+    for el in fixed_root.iter("javac"):
+        for attr in ("source", "target"):
+            val = el.get(attr)
+            if val is not None and val != target_version:
+                warnings.append(
+                    f"<javac> {attr}={val} does not match target "
+                    f"version {target_version}"
+                )
+
+    # 2. Verify <javacc> target was NOT mutated to target_version
+    for el in fixed_root.iter("javacc"):
+        val = el.get("target")
+        if val is not None and val == target_version:
+            warnings.append(f"<javacc> target corrupted: changed to '{target_version}'")
+
+    # 3. Verify <antcall> target was NOT mutated to target_version
+    for el in fixed_root.iter("antcall"):
+        val = el.get("target")
+        if val is not None and val == target_version:
+            warnings.append(
+                f"<antcall> target corrupted: changed to '{target_version}'"
+            )
+
+    return warnings
+
+
 # ---------------------------------------------------------------------------
 # Docker helpers — all builds run in ephemeral containers
 # ---------------------------------------------------------------------------

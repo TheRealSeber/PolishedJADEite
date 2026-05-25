@@ -1,0 +1,20 @@
+{
+  "run_id": "jade-1.5-to-1.6",
+  "sources": [
+    {
+      "source_label": "oracle-java6-compatibility",
+      "source_url": "https://www.oracle.com/java/technologies/javase/compatibility.html",
+      "fetch_status": "success",
+      "error_type": null,
+      "error_message": null,
+      "content_hash": "655eccd35dc8c708729fe0fe4e1ea10d5807afcbf3ccbb00d9dd33f582ffc0bd",
+      "content_length": 43982,
+      "http_status": 200,
+      "fetched_at": "2026-05-25T17:17:44Z",
+      "source_tier": "official",
+      "is_official": true,
+      "policy_status": "allowed",
+      "content_snippet": "\n<!DOCTYPE html>\n<html lang=\"en-US\" class=\"no-js\"><head>\n<title>Java SE 6 Compatibility</title>\n<meta name=\"Title\" content=\"Java SE 6 Compatibility\">\n<meta name=\"Description\" content=\"Java SE 6 Compatibility\">\n<meta name=\"Keywords\" content=\"Java SE 6 Compatibility\">\n<!-- Container/Display Start -->\n<!-- _Raw-Text -->\n<!-- css / js files start -->\n<script>\n!function(){\nvar d=document.documentElement;d.className=d.className.replace(/no-js/,'js');\nif(document.location.href.indexOf('betamode=') > -1) document.write('<script src=\"https://www.oracle.com/asset/web/js/ocom-betamode.js\"><\\/script>');\n}();\n</script>\n<link data-wscss href=\"/asset/web/css/ocom-v1-base.css\" rel=\"stylesheet\">\n<link data-wscss href=\"/asset/web/css/ocom-v1-styles.css\" rel=\"preload\" as=\"style\" onload=\"this.rel='stylesheet'\" onerror=\"this.rel='stylesheet'\">\n<noscript>\n<link href=\"/asset/web/css/ocom-v1-styles.css\" rel=\"stylesheet\">\n</noscript>\n<link data-wsjs data-reqjq href=\"/asset/web/js/ocom-v1-base.js\" rel=\"preload\" as=\"script\">\n<link data-wsjs data-reqjq href=\"/asset/web/js/ocom-v1-lib.js\" rel=\"preload\" as=\"script\">\n<script data-wsjs src=\"/asset/web/js/jquery-min.js\" async onload=\"$('head link[data-reqjq][rel=preload]').each(function(){var a = document.createElement('script');a.async=false;a.src=$(this).attr('href');this.parentNode.insertBefore(a, this);});$(function(){$('script[data-reqjq][data-src]').each(function(){this.async=true;this.src=$(this).data('src');});});\"></script>\n<!-- end css / js files start -->\n<!-- / _Raw-Text -->\n<!-- Container/Display end -->\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<meta name=\"siteid\" content=\"us\">\n<meta name=\"countryid\" content=\"US\">\n<meta name=\"robots\" content=\"index, follow\">\n<meta name=\"country\" content=\"United States\">\n<meta name=\"Language\" content=\"en\">\n<meta name=\"Updated Date\" content=\"2019-03-04T20:06:36Z\">\n<script type=\"text/javascript\">\nvar pageData ="
+    }
+  ]
+}

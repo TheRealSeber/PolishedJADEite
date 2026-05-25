@@ -1,0 +1,51 @@
+[
+  {
+    "id": "BUILD_XML_SOURCE_TARGET_UPGRADE",
+    "name": "Upgrade Ant javac source/target from 1.5 to 1.6",
+    "description": "Ant build.xml specifies javac source=1.5 and target=1.5. These must be updated to 1.6.",
+    "fix_strategy": "recipe:jade-recipe-1.5-to-1.6-BUILD_XML_SOURCE_TARGET_UPGRADE",
+    "severity": "HIGH",
+    "category": "BUILD",
+    "match_pattern": "(source|target)\\s*=\\s*\"1\\.5\"",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "(source|target)\\s*=\\s*\"1\\.5\"",
+        "target_extensions": [
+          ".xml",
+          ".properties"
+        ],
+        "reason": "Update Java source and target compatibility from 1.5 to 1.6",
+        "confidence": 1.0
+      }
+    ],
+    "evidence_ref": "oracle-java6-compatibility::lines 50-51",
+    "evidence_hash": "655eccd35dc8c708729fe0fe4e1ea10d5807afcbf3ccbb00d9dd33f582ffc0bd",
+    "confidence": 1.0,
+    "verification_hint": "Check that build.xml javac tasks use source=1.6 and target=1.6 and compilation succeeds on Java 6."
+  },
+  {
+    "id": "STRICTER_CAST_CHECKING",
+    "name": "Java 6 enforces stricter cast checking per JLS",
+    "description": "Java SE 6 casts adhere more closely to JLS. Previously accepted incorrect programs may be rejected by Java 6 javac.",
+    "fix_strategy": "recipe:jade-recipe-1.5-to-1.6-STRICTER_CAST_CHECKING",
+    "severity": "LOW",
+    "category": "LANGUAGE_CHANGE",
+    "match_pattern": "\\(\\s*\\w+\\.\\w+\\s*\\)",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "\\(\\s*\\w+\\.\\w+\\s*\\)",
+        "target_extensions": [
+          ".java"
+        ],
+        "reason": "Java 6 enforces stricter cast rules. Complex casts should be reviewed.",
+        "confidence": 0.8
+      }
+    ],
+    "evidence_ref": "oracle-java6-compatibility::lines 61-62",
+    "evidence_hash": "655eccd35dc8c708729fe0fe4e1ea10d5807afcbf3ccbb00d9dd33f582ffc0bd",
+    "confidence": 0.85,
+    "verification_hint": "Compile with Java 6 javac and ensure no new type incompatibility errors appear."
+  }
+]

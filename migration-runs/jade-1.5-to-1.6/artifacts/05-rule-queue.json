@@ -1,0 +1,7 @@
+{
+  "run_id": "jade-1.5-to-1.6",
+  "rules": [
+    "STRICTER_CAST_CHECKING"
+  ],
+  "generated_at": "2026-05-25T17:30:00Z"
+}

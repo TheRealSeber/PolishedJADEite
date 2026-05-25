@@ -65,6 +65,8 @@ def validate_pattern(pattern: Dict[str, Any]) -> List[str]:
     errors: List[str] = []
     if not isinstance(pattern.get("pattern"), str):
         errors.append("pattern.pattern must be a string")
+    elif pattern.get("pattern", "").strip() == "":
+        errors.append("pattern.pattern must not be empty (would match every line)")
     if not isinstance(pattern.get("target_extensions"), list):
         errors.append("pattern.target_extensions must be a list")
     if not isinstance(pattern.get("reason"), str):

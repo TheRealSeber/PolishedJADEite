@@ -1,0 +1,21 @@
+{
+  "run_id": "jade-1.5-to-1.6",
+  "source_version": "1.5",
+  "target_version": "1.6",
+  "workspace_path": "migration-runs\\jade-1.5-to-1.6\\workspace",
+  "openrewrite": {
+    "available": false,
+    "version": null,
+    "recipes": []
+  },
+  "pmd": {
+    "available": false,
+    "version": null,
+    "violations": []
+  },
+  "checkstyle": {
+    "available": false,
+    "version": null,
+    "violations": []
+  }
+}

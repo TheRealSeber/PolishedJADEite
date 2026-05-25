@@ -309,6 +309,8 @@ def main() -> int:
 
     recipe_entry = registry.get(args.rule_id)
     if recipe_entry is None:
+        recipe_entry = registry.get("fallback")
+    if recipe_entry is None:
         record_result(
             artifacts_dir,
             args.task_id,
@@ -319,7 +321,9 @@ def main() -> int:
             "",
             "",
             "",
-            [f"No recipe registered for rule_id: {args.rule_id}"],
+            [
+                f"No recipe registered for rule_id: {args.rule_id} and no fallback available"
+            ],
             [],
             0,
             0,

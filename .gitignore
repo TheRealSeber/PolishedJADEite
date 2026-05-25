@@ -33,7 +33,6 @@ JADE-4.6.0-java1.6/
 
 # Generated workspace copies (never commit isolated workspaces)
 migration-runs/*/workspace/
-migration-runs/*/artifacts/
 
 # Source policy test output artifacts (config JSONs are tracked)
 tests/fixtures/source-policy/artifacts/

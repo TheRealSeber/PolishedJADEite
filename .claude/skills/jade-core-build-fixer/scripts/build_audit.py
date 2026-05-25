@@ -919,8 +919,20 @@ def main() -> int:
             }
         )
 
+    fix_validation_warnings: Optional[List[str]] = None
+
     if build_system == "ant":
+        original_build_text = build_path.read_text(encoding="utf-8", errors="replace")
         applied_fixes.extend(apply_ant_fixes(build_path, analysis, target_version))
+        fix_warnings = validate_ant_fixes(
+            original_build_text,
+            build_path.read_text(encoding="utf-8", errors="replace"),
+            target_version,
+        )
+        if fix_warnings:
+            for w in fix_warnings:
+                print(f"[WARN] build_audit: {w}", file=sys.stderr)
+            fix_validation_warnings = fix_warnings
 
     # For Maven and Gradle, source/target fixes require pom.xml or build.gradle
     # editing — these are SAFE but currently not auto-applied. Flag as NEEDS_REVIEW.
@@ -1013,6 +1025,8 @@ def main() -> int:
         "env": {"docker": "available"},
         "updated_at": iso_now(),
     }
+    if fix_validation_warnings:
+        audit["fix_validation_warnings"] = fix_validation_warnings
     write_json(artifacts / "03-build-audit.json", audit)
 
     fixes_plan = {

@@ -5,10 +5,12 @@
 ```json
 {
   "run_id": "string",
+  "baseline_path": "string",
   "workspace_path": "string",
   "artifacts_path": "string",
   "source_version": "string",
-  "target_version": "string"
+  "target_version": "string",
+  "build_target": "string (optional, defaults to \"jade\" for ant)"
 }
 ```
 

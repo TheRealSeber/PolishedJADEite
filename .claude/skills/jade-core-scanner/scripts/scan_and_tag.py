@@ -119,6 +119,10 @@ class PatternDef:
         if self.type != "regex":
             raise ValueError(f"Unsupported pattern type: {self.type}")
         self.pattern_str: str = raw["pattern"]
+        if not self.pattern_str.strip():
+            raise ValueError(
+                "Empty pattern string — skipping rule (would match every line)"
+            )
         self.compiled: re.Pattern = re.compile(raw["pattern"])
         self.target_extensions: List[str] = raw.get("target_extensions", [".java"])
         self.reason: str = raw.get("reason", "")

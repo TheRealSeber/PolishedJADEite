@@ -661,6 +661,16 @@ def run_ant_build(
     )
 
 
+def run_ant_build_target(
+    build_path: pathlib.Path, docker_image: str, target: str
+) -> Tuple[int, str]:
+    return _docker_run(
+        docker_image,
+        build_path.parent,
+        ["ant", target, "-q"],
+    )
+
+
 def run_maven_build(pom_path: pathlib.Path, docker_image: str) -> Tuple[int, str]:
     return _docker_run(
         docker_image,
@@ -982,6 +992,7 @@ def main() -> int:
     write_json(artifacts / "03-build-fixes-plan.json", fixes_plan)
 
     write_text(artifacts / "03-build-verify.log", build_output)
+    write_text(artifacts / "07-build.log", build_output)
 
     # Report
     print(f"\n=== Build Audit Result ===")

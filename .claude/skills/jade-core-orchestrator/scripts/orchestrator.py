@@ -53,7 +53,7 @@ TRANSITIONS: Dict[str, Dict[str, str]] = {
     "RULE_RETRY": {"RETRY": "RULE_BATCH_LOOP", "ESCALATE": "RULE_ESCALATE"},
     "RULE_ESCALATE": {"OK": "RULE_BATCH_LOOP"},
     "VERIFIED": {"OK": "RUNTIME_VERIFY"},
-    "RUNTIME_VERIFY": {"OK": "DONE", "VERIFY_FAIL": "FAILED"},
+    "RUNTIME_VERIFY": {"OK": "DONE", "VERIFY_FAIL": "FAILED", "SCRIPT_ERROR": "FAILED"},
     "AWAITING_AGENT": {"OK": "RESUME"},
 }
 
@@ -904,8 +904,9 @@ def main() -> int:
         if current in ("INIT", "WORKSPACE_READY"):
             outcome = "OK"
         elif current in REQUIRED_ARTIFACTS:
-            # In --run mode, auto-invoke script phases
-            if args.run and current in SCRIPT_PHASES:
+            af = REQUIRED_ARTIFACTS.get(current, [])
+            artifact_missing = not all((artifacts / a).exists() for a in af)
+            if args.run and current in SCRIPT_PHASES and artifact_missing:
                 script_outcome = _run_script_phase(current, cfg)
                 if script_outcome != "OK":
                     outcome = script_outcome

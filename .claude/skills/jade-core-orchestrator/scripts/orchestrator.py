@@ -934,6 +934,14 @@ def main() -> int:
                             {"run_id": state.get("run_id", ""), "rules": []},
                         )
                         # Fall through to process_rule_batch → NO_MORE_RULES →
+                        outcome = process_rule_batch(
+                            cfg,
+                            artifacts,
+                            state,
+                            hist_path,
+                            state_path,
+                            rule_status_path,
+                        )
                     else:
                         outcome = _pause_for_agent(current, artifacts, state, cfg)
                         break

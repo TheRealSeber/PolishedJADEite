@@ -53,15 +53,27 @@ Apply ONE `rule_id` to ALL flagged files → verify compile + semantic gates →
 |------|-------|----------|
 | Core (`jade-core-*`) | 11 | orchestrator, change-collector, scanner, batch-processor, rule-dispatcher, verification, atomic-commit, retry-router, evaluator, tooling-scout, build-fixer |
 | Recipe (`jade-recipe-*`) | 0 (per-migration) | Generated dynamically by Skill Creator from manifest data. Registry starts empty. |
+| Utility (`jade-utility-*`) | 1 | consumer-onboarder — ingests ZIP archives of JADE projects into the `consumer-playground/` for runtime testing |
 
-## When to Read docs/architecture.md
+## Consumer Playground & Runtime Verification
 
-If you are tasked with: creating a new core skill, modifying the dispatcher pattern, altering the phase flow, understanding the semantic verification model, or debugging cross-phase artifact handoff — **read `docs/architecture.md` before making any plans.**
+After migration compilation, a **RUNTIME_VERIFY** phase boots JADE in Docker against consumer projects
+stored in `consumer-playground/`. Each consumer project contains JADE agent source files and a
+`test-config.json` defining the Docker image, boot arguments, and expected stdout markers.
+The `runtime_verify.py` script (in `jade-core-verification`) compiles each consumer against the
+migrated workspace's `jade.jar`, runs it in an isolated Docker container, and validates:
+
+1. **Expected markers** — all `expected_stdout_markers` must appear in output
+2. **Reverse assertion** — failure patterns (`Exception`, `NullPointerException`, `SEVERE:`) cause immediate FAIL
+3. **Timeout** — always treated as FAIL
+4. **Graceful shutdown** — consumers must shut down JADE cleanly (see TestRunnerAgent pattern)
+
+Consumer projects are managed via `jade-utility-consumer-onboarder`.
 
 ## Quick Phase Reference
 
 ```
-0 (opt) → 1 → 2 → 3 → 4 → 5 → 6 → 7 (batch loop) → 8 → 9
+0 (opt) → 1 → 2 → 3 → 4 → 5 → 6 → 7 (batch loop) → 8 → RUNTIME_VERIFY → DONE
 ```
 
 Artifact prefixes: `00-run`, `01-manifest`, `02-tooling`, `03-build`, `04-flag`, `05-batch`, `06-fix`, `07-verify`, `08-retry`, `09-commit`, `10-eval`.

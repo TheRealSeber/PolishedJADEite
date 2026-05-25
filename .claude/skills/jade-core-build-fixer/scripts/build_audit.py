@@ -970,6 +970,7 @@ def main() -> int:
     # ------------------------------------------------------------------
     build_rc = 0
     build_output = ""
+    jar_rc = None
 
     # Write header
     build_output = capture_env(build_path, resolved_docker_image)
@@ -977,6 +978,13 @@ def main() -> int:
     if build_system == "ant":
         build_rc, out = run_ant_build(build_path, resolved_docker_image)
         build_output += out
+        if build_rc == 0:
+            jar_rc, jar_out = run_ant_build_target(
+                build_path, resolved_docker_image, "lib"
+            )
+            build_output += jar_out
+            if jar_rc != 0:
+                build_output += "\n[WARN] ant lib (jar packaging) failed — jade.jar may be missing\n"
     elif build_system == "maven":
         build_rc, out = run_maven_build(build_path, resolved_docker_image)
         build_output += out
@@ -1023,6 +1031,7 @@ def main() -> int:
             dependency_report.get("upgrade_candidates", [])
         ),
         "env": {"docker": "available"},
+        "jade_jar_built": jar_rc is not None and jar_rc == 0,
         "updated_at": iso_now(),
     }
     if fix_validation_warnings:

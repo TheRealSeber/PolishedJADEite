@@ -1,6 +1,6 @@
 {
   "name": "hw-jade",
-  "description": "Integration test: boots JADE, starts CustomerAgent with mock TripRequest via TestRunnerAgent, verifies agent negotiation runs without exceptions",
+  "description": "Full ensemble integration test: 4 hotels, 3 flights, 2 travel agencies, 1 customer running FIPA ContractNet negotiation",
   "docker_image": "eclipse-temurin:17-jre",
   "main_class": "jade.Boot",
   "boot_args": [
@@ -8,9 +8,11 @@
     "runner:pw.agents.TestRunnerAgent"
   ],
   "expected_stdout_markers": [
-    "HW_JADE_PASSED"
+    "Customer initialized for request Warsaw -> Tokyo",
+    "Found agencies in DF: 2",
+    "SUCCESS: Booking completed"
   ],
-  "timeout_seconds": 30,
+  "timeout_seconds": 60,
   "classpath_deps": [
     "src/jade/lib/jade.jar",
     "src/jade/lib/commons-codec/commons-codec-1.3.jar"

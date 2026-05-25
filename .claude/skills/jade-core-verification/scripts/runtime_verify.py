@@ -259,7 +259,9 @@ def test_consumer(
         combined = stdout + "\n" + stderr
 
         result["duration_seconds"] = round(time.monotonic() - t0, 1)
-        result["stdout_snippet"] = combined[:2000]
+        result["stdout_snippet"] = (
+            combined[-5000:] if len(combined) > 5000 else combined
+        )
 
         # Timeout is always a failure
         if rc == -1:

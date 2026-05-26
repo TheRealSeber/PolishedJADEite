@@ -3,13 +3,15 @@
 ## Step 1 — Compile JADE (build jade.jar)
 
 Compiles the full JADE framework targeting Java 1.7 inside Docker (Ant + JDK 8).
-Produces `jade.jar` at `migration-runs/jade-1.6-to-1.7/workspace/src/jade/lib/jade.jar`.
 
 ```powershell
 docker run --rm -v "C:\Users\jrsh4\ds\sem8\asa\PolishedJADEite\migration-runs\jade-1.6-to-1.7\workspace:/workspace" -w /workspace/src/jade frekele/ant:1.10.3-jdk8 ant jade lib
 ```
 
-*(jade.jar is already pre-built — skip this step unless you need to recompile from scratch.)*
+*(jade.jar is already pre-built — skip this step unless you need to recompile.)*
+
+**Proof it targets Java 7:** the migrated `build.xml` (lines 158–159) has `source="1.7" target="1.7"`.
+Original baseline had `source="1.5" target="1.5"`. Ant's javac task passes these flags directly to the compiler — `javac -source 1.7 -target 1.7`.
 
 ---
 
@@ -29,12 +31,15 @@ javac -cp "$WS\src\jade\lib\jade.jar" "$ROOT\consumer-playground\hw-jade\*.java"
 ## Step 3 — Run consumer (hw-jade)
 
 Starts JADE platform with 10 agents negotiating a trip Warsaw → Tokyo via FIPA ContractNet.
+Runs from the build directory so JADE's runtime files (`APDescription.txt`, `MTPs-Main-Container.txt`)
+stay there instead of the project root.
 
 ```powershell
 $ROOT="C:\Users\jrsh4\ds\sem8\asa\PolishedJADEite"
 $WS="$ROOT\migration-runs\jade-1.6-to-1.7\workspace"
+cd "$ROOT\consumer-playground\hw-jade\build"
 
-java -cp "$ROOT\consumer-playground\hw-jade\build;$WS\src\jade\lib\jade.jar;$WS\src\jade\lib\commons-codec\commons-codec-1.3.jar" jade.Boot -agents runner:pw.agents.TestRunnerAgent
+java -cp ".;$WS\src\jade\lib\jade.jar;$WS\src\jade\lib\commons-codec\commons-codec-1.3.jar" jade.Boot -agents runner:pw.agents.TestRunnerAgent
 ```
 
 Runtime: `jade.Boot` starts a container → `TestRunnerAgent` spawns 4 hotels, 3 flights, 2 travel agencies, 1 customer → agents negotiate → booking confirmed → platform shuts down.

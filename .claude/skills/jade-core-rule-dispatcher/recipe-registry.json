@@ -22,7 +22,7 @@
   },
   "NAVIGABLE_SET_MAP": {
     "skill": "jade-recipe-1.5-1.6-navigable-set-map",
-    "script": ".claude/skills/jade-recipe-noop/scripts/apply.py",
+    "script": ".claude/skills/jade-recipe-1.5-1.6-navigable-set-map/scripts/apply.py",
     "description": "TreeSet/TreeMap already implement NavigableSet/NavigableMap in Java 6 — informational only"
   },
   "DIAMOND_OPERATOR": {

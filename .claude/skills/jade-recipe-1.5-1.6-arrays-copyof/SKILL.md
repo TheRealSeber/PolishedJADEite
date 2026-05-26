@@ -25,7 +25,12 @@ The `scripts/apply.py` subprocess handles three cases:
 3. **Non-zero destPos:** Leaves the call as-is with a `// NOTE:` comment
    suggesting `Arrays.copyOfRange` for manual review.
 
-The script also adds `import java.util.Arrays` if not already present.
+The automated transform preserves the `// JADE-FLAG:ARRAYS_COPY_OF_UPGRADE` comment
+in the trailing portion of the matched line. After applying, check that the flag
+comment is cleaned up (the agent fallback step 7 handles this).
+
+Note: `import java.util.Arrays` is **not** injected by apply.py. The agent must
+add it manually — see agent fallback step 6.
 
 ## Agent fallback (when apply.py fails or the pattern is complex)
 

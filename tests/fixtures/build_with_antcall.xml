@@ -1,0 +1,11 @@
+<project name="test" basedir=".">
+    <target name="main" depends="compile">
+        <antcall target="deploy"/>
+    </target>
+    <target name="compile">
+        <javac srcdir="src" destdir="build" source="1.5" target="1.5"/>
+    </target>
+    <target name="deploy">
+        <echo message="deployed"/>
+    </target>
+</project>

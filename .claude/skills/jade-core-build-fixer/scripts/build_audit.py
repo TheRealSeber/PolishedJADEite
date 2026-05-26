@@ -281,7 +281,6 @@ def analyse_ant(build_path: pathlib.Path, target_version: str) -> Dict[str, Any]
         if jdk:
             jacc_entry: Dict[str, Any] = {"jdkversion": jdk, "needs_update": False}
             if version_key(jdk) != target_key:
-                # Only flag if old version is <= 1.4 and target >= 1.5
                 jacc_entry["needs_update"] = True
                 jacc_entry["new_jdkversion"] = target_version
             result["javacc_targets"].append(jacc_entry)
@@ -509,7 +508,7 @@ def apply_ant_fixes(
             continue
         if "new_source" in entry:
             raw, count = re.subn(
-                r'(\bsource\s*=\s*["\'])([^"\']*?)(["\'])',
+                r'(<javac\b[^>]*?\bsource\s*=\s*["\'])([^"\']*?)(["\'])',
                 rf"\g<1>{target_version}\g<3>",
                 raw,
             )
@@ -523,7 +522,7 @@ def apply_ant_fixes(
                 )
         if "new_target" in entry:
             raw, count = re.subn(
-                r'(\btarget\s*=\s*["\'])([^"\']*?)(["\'])',
+                r'(<javac\b[^>]*?\btarget\s*=\s*["\'])([^"\']*?)(["\'])',
                 rf"\g<1>{target_version}\g<3>",
                 raw,
             )
@@ -541,7 +540,7 @@ def apply_ant_fixes(
         for entry in analysis.get("javacc_targets", []):
             if entry.get("needs_update"):
                 raw, count = re.subn(
-                    r'(\bjdkversion\s*=\s*["\'])([^"\']*?)(["\'])',
+                    r'(<javacc\b[^>]*?\bjdkversion\s*=\s*["\'])([^"\']*?)(["\'])',
                     rf"\g<1>{target_version}\g<3>",
                     raw,
                 )
@@ -557,6 +556,47 @@ def apply_ant_fixes(
     if raw != original:
         build_path.write_text(raw, encoding="utf-8")
     return fixes
+
+
+def validate_ant_fixes(
+    original_text: str, fixed_text: str, target_version: str
+) -> List[str]:
+    """Verify fix correctness: javac attributes updated, no collision damage.
+
+    Returns list of warning strings (empty = clean).
+    """
+    warnings: List[str] = []
+    try:
+        orig_root = ET.fromstring(original_text)
+        fixed_root = ET.fromstring(fixed_text)
+    except ET.ParseError:
+        return ["XML parse error — cannot validate fixes"]
+
+    # 1. Verify <javac> source/target are present and match target_version
+    for el in fixed_root.iter("javac"):
+        for attr in ("source", "target"):
+            val = el.get(attr)
+            if val is not None and val != target_version:
+                warnings.append(
+                    f"<javac> {attr}={val} does not match target "
+                    f"version {target_version}"
+                )
+
+    # 2. Verify <javacc> target was NOT mutated to target_version
+    for el in fixed_root.iter("javacc"):
+        val = el.get("target")
+        if val is not None and val == target_version:
+            warnings.append(f"<javacc> target corrupted: changed to '{target_version}'")
+
+    # 3. Verify <antcall> target was NOT mutated to target_version
+    for el in fixed_root.iter("antcall"):
+        val = el.get("target")
+        if val is not None and val == target_version:
+            warnings.append(
+                f"<antcall> target corrupted: changed to '{target_version}'"
+            )
+
+    return warnings
 
 
 # ---------------------------------------------------------------------------
@@ -879,8 +919,20 @@ def main() -> int:
             }
         )
 
+    fix_validation_warnings: Optional[List[str]] = None
+
     if build_system == "ant":
+        original_build_text = build_path.read_text(encoding="utf-8", errors="replace")
         applied_fixes.extend(apply_ant_fixes(build_path, analysis, target_version))
+        fix_warnings = validate_ant_fixes(
+            original_build_text,
+            build_path.read_text(encoding="utf-8", errors="replace"),
+            target_version,
+        )
+        if fix_warnings:
+            for w in fix_warnings:
+                print(f"[WARN] build_audit: {w}", file=sys.stderr)
+            fix_validation_warnings = fix_warnings
 
     # For Maven and Gradle, source/target fixes require pom.xml or build.gradle
     # editing — these are SAFE but currently not auto-applied. Flag as NEEDS_REVIEW.
@@ -918,6 +970,7 @@ def main() -> int:
     # ------------------------------------------------------------------
     build_rc = 0
     build_output = ""
+    jar_rc = None
 
     # Write header
     build_output = capture_env(build_path, resolved_docker_image)
@@ -925,6 +978,13 @@ def main() -> int:
     if build_system == "ant":
         build_rc, out = run_ant_build(build_path, resolved_docker_image)
         build_output += out
+        if build_rc == 0:
+            jar_rc, jar_out = run_ant_build_target(
+                build_path, resolved_docker_image, "lib"
+            )
+            build_output += jar_out
+            if jar_rc != 0:
+                build_output += "\n[WARN] ant lib (jar packaging) failed — jade.jar may be missing\n"
     elif build_system == "maven":
         build_rc, out = run_maven_build(build_path, resolved_docker_image)
         build_output += out
@@ -971,8 +1031,11 @@ def main() -> int:
             dependency_report.get("upgrade_candidates", [])
         ),
         "env": {"docker": "available"},
+        "jade_jar_built": jar_rc is not None and jar_rc == 0,
         "updated_at": iso_now(),
     }
+    if fix_validation_warnings:
+        audit["fix_validation_warnings"] = fix_validation_warnings
     write_json(artifacts / "03-build-audit.json", audit)
 
     fixes_plan = {

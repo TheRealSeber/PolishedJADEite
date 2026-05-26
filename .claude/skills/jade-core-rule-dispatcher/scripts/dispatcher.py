@@ -86,6 +86,33 @@ def load_rule(manifest_path: pathlib.Path, rule_id: str) -> Optional[Dict]:
     return None
 
 
+def _fail(
+    artifacts_dir: pathlib.Path,
+    task_id: str,
+    rule_id: str,
+    file_rel: str,
+    line: int,
+    message: str,
+) -> int:
+    """Record a failed result and return exit code 2."""
+    record_result(
+        artifacts_dir,
+        task_id,
+        rule_id,
+        file_rel,
+        "FAILED",
+        0,
+        "",
+        "",
+        "",
+        [message],
+        [],
+        line,
+        line,
+    )
+    return 2
+
+
 def load_registry() -> Dict:
     registry_path = pathlib.Path(__file__).parent.parent / "recipe-registry.json"
     return read_json(registry_path)
@@ -119,6 +146,71 @@ def dispatch_recipe(script_path: str, file_path: str, line: int) -> Dict:
             "warnings": [],
             "errors": [f"Recipe returned non-JSON: {result.stdout[:200]}"],
         }
+
+
+def update_batch_status(
+    artifacts_dir: pathlib.Path,
+    rule_id: str,
+    file_rel: str,
+    status: str,
+) -> None:
+    """Atomically update the batch file entry for *file_rel* to *status*.
+
+    Also refreshes ``05-rule-batch-status.json`` so the orchestrator
+    can track overall completion without external scripts.
+    """
+    batch_path = artifacts_dir / f"05-rule-batch-{rule_id}.json"
+    if not batch_path.exists():
+        return
+    try:
+        batch = json.loads(batch_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return
+
+    now = iso_now()
+    updated = False
+    for entry in batch.get("files", []):
+        if entry.get("file") == file_rel:
+            entry["status"] = status
+            entry["updated_at"] = now
+            updated = True
+            break
+
+    if not updated:
+        return
+
+    write_json_atomic(batch_path, batch)
+
+    files = batch.get("files", [])
+    total = len(files)
+    counts = {"DONE": 0, "FAILED": 0, "SKIPPED": 0}
+    for f in files:
+        s = f.get("status", "PENDING")
+        if s in counts:
+            counts[s] += 1
+
+    pending = total - counts["DONE"] - counts["FAILED"] - counts["SKIPPED"]
+    if counts["FAILED"] > 0:
+        batch_overall = "FAILED"
+    elif counts["DONE"] + counts["SKIPPED"] == total:
+        batch_overall = "DONE"
+    elif counts["DONE"] + counts["SKIPPED"] > 0 or pending > 0:
+        batch_overall = "IN_PROGRESS"
+    else:
+        batch_overall = "READY"
+
+    status_payload = {
+        "run_id": batch.get("run_id", artifacts_dir.name),
+        "rule_id": rule_id,
+        "total_files": total,
+        "completed": counts["DONE"],
+        "failed": counts["FAILED"],
+        "skipped": counts["SKIPPED"],
+        "pending": pending,
+        "status": batch_overall,
+        "updated_at": now,
+    }
+    write_json_atomic(artifacts_dir / "05-rule-batch-status.json", status_payload)
 
 
 def record_result(
@@ -208,9 +300,11 @@ def main() -> int:
 
     file_rel = task.get("file", "")
     flags = task.get("flags", [])
-    flag = task.get("_flag", flags[0] if flags else {})
-    line_start = flag.get("line", 0)
-    line_end = line_start
+
+    # If a synthetic _flag was injected by load_task (single-flag routing),
+    # use that. Otherwise loop over all flags in the file entry.
+    if "_flag" in task:
+        flags = [task["_flag"]]
 
     if not file_rel:
         record_result(
@@ -332,40 +426,70 @@ def main() -> int:
 
     script_path = recipe_entry["script"]
 
-    print(
-        f"DISPATCH {args.rule_id} → {recipe_entry['skill']} ({file_rel}:{line_start})"
+    # Dispatch for every flag in this file entry
+    overall_status = "SKIPPED"
+    total_changes = 0
+    any_failure = False
+
+    for fi, flag in enumerate(flags):
+        line_start = flag.get("line", 0)
+        per_flag_task_id = (
+            f"{args.task_id}-f{fi:03d}" if len(flags) > 1 else args.task_id
+        )
+
+        print(
+            f"DISPATCH {args.rule_id} -> {recipe_entry['skill']} ({file_rel}:{line_start})"
+        )
+        recipe_result = dispatch_recipe(script_path, str(file_path), line_start)
+
+        status = recipe_result.get("status", "FAILED")
+        changes = recipe_result.get("changes", 0)
+        recipe_warnings = recipe_result.get("warnings", [])
+        recipe_errors = recipe_result.get("errors", [])
+        diff_summary = recipe_result.get("diff_summary", f"{changes} change(s)")
+
+        errors.extend(recipe_errors)
+        warnings.extend(recipe_warnings)
+        total_changes += changes
+
+        if status == "FAILED":
+            any_failure = True
+            overall_status = "FAILED"
+        elif status == "FIXED":
+            overall_status = "FIXED"
+        elif status == "DEFERRED" and overall_status not in ("FIXED", "FAILED"):
+            overall_status = "DEFERRED"
+
+        record_result(
+            artifacts_dir,
+            per_flag_task_id,
+            args.rule_id,
+            file_rel,
+            status,
+            1 if changes > 0 else 0,
+            recipe_entry["skill"],
+            diff_summary,
+            rule.get("verification_hint", ""),
+            errors,
+            warnings,
+            line_start,
+            line_start,
+        )
+        safe_summary = diff_summary.encode("ascii", errors="replace").decode("ascii")
+        print(f"{status} | {per_flag_task_id} | {file_rel} | {safe_summary}")
+
+    if len(flags) > 1:
+        print(
+            f"AGGREGATE | {args.task_id} | {file_rel} | "
+            f"{len(flags)} flag(s), {total_changes} change(s), {overall_status}"
+        )
+
+    batch_status = (
+        "DONE" if overall_status in ("FIXED", "SKIPPED", "DEFERRED") else "FAILED"
     )
-    recipe_result = dispatch_recipe(script_path, str(file_path), line_start)
+    update_batch_status(artifacts_dir, args.rule_id, file_rel, batch_status)
 
-    status = recipe_result.get("status", "FAILED")
-    changes = recipe_result.get("changes", 0)
-    recipe_warnings = recipe_result.get("warnings", [])
-    recipe_errors = recipe_result.get("errors", [])
-    diff_summary = recipe_result.get("diff_summary", f"{changes} change(s)")
-
-    errors.extend(recipe_errors)
-    warnings.extend(recipe_warnings)
-
-    result_path = record_result(
-        artifacts_dir,
-        args.task_id,
-        args.rule_id,
-        file_rel,
-        status,
-        1 if changes > 0 else 0,
-        recipe_entry["skill"],
-        diff_summary,
-        rule.get("verification_hint", ""),
-        errors,
-        warnings,
-        line_start,
-        line_end,
-    )
-
-    print(f"{status} | {args.task_id} | {file_rel} | {diff_summary}")
-    print(f"Result written to {result_path}")
-
-    return 0 if status in ("FIXED", "NEEDS_REVIEW", "SKIPPED") else 2
+    return 0 if overall_status != "FAILED" else 2
 
 
 if __name__ == "__main__":

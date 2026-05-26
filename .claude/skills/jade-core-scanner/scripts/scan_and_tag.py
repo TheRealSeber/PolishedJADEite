@@ -304,6 +304,60 @@ def _comment_skip_prefixes(ext: str) -> Tuple[str, ...]:
     return ("#", "//")
 
 
+_XML_OPENING_RE = re.compile(r"<\s*\w+[^>]*$")
+_XML_CLOSING_RE = re.compile(r"[^<]*>")
+
+
+def _inside_xml_tag(lines: List[str], match_idx: int) -> bool:
+    """Return True if *match_idx* falls inside an open (unclosed) XML tag.
+
+    An open XML tag is one whose ``<`` appeared on a prior line (or the same
+    line) but whose closing ``>`` has not yet been reached.
+
+    This is used to avoid injecting ``<!-- JADE-FLAG:... -->`` between
+    attributes of a multi-line tag, which would break XML parsers.
+    """
+    for scan in range(match_idx, -1, -1):
+        line = lines[scan]
+        stripped = line.strip()
+        if _XML_OPENING_RE.search(stripped):
+            if not _XML_CLOSING_RE.search(stripped):
+                return True
+            if _XML_CLOSING_RE.search(stripped) and scan < match_idx:
+                return False
+            if ">" in stripped and "<" in stripped:
+                return False
+        if stripped.endswith(">") or stripped.endswith("/>"):
+            return False
+    return False
+
+
+def _xml_safe_insertion_index(lines: List[str], match_idx: int) -> int:
+    """For an XML match inside an open tag, return the index right after
+    the closing ``>`` of that tag (or right before its opening ``<`` if no
+    closing ``>`` can be found).
+
+    Returns *match_idx + 1* (the default inline insertion) when the match
+    is NOT inside an open XML tag.
+    """
+    if not _inside_xml_tag(lines, match_idx):
+        return match_idx + 1
+
+    tag_open_idx = match_idx
+    for scan in range(match_idx, -1, -1):
+        stripped = lines[scan].strip()
+        if _XML_OPENING_RE.search(stripped) and not _XML_CLOSING_RE.search(stripped):
+            tag_open_idx = scan
+            break
+
+    for scan in range(match_idx + 1, len(lines)):
+        stripped = lines[scan].strip()
+        if ">" in stripped or "/>" in stripped:
+            return scan + 1
+
+    return tag_open_idx
+
+
 def scan_and_tag_file(
     file_path: pathlib.Path,
     rules: List[RuleDef],
@@ -344,13 +398,19 @@ def scan_and_tag_file(
                     flag_line = _format_flag_line(
                         rule.id, pattern.reason, pattern.confidence, ext
                     )
-                    lines.insert(i + 1, flag_line)
+
+                    if ext.lower() == ".xml":
+                        insert_at = _xml_safe_insertion_index(lines, i)
+                    else:
+                        insert_at = i + 1
+
+                    lines.insert(insert_at, flag_line)
                     modified = True
                     new_flags.append(
                         FlagEntry(
                             rule_id=rule.id,
                             file=rel_path,
-                            line=i + 1,  # 1-based line number
+                            line=insert_at + 1,
                             confidence=pattern.confidence,
                             reason=pattern.reason,
                         )

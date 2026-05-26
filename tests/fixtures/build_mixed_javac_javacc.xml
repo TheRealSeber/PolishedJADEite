@@ -1,0 +1,8 @@
+<project name="test" basedir=".">
+    <target name="parser" depends="init" if="makeParsers">
+        <javacc jdkversion="1.4" javacchome="${env.JAVACC_HOME}" outputdirectory="src/jade/lang/acl" target="src/jade/lang/acl/ACLParser.jj"/>
+    </target>
+    <target name="compile">
+        <javac srcdir="src" destdir="build" source="1.5" target="1.5"/>
+    </target>
+</project>

@@ -1,0 +1,15 @@
+{
+  "run_id": "jade-1.6-to-1.7",
+  "state": "DONE",
+  "current_rule_id": "STRINGS_IN_SWITCH",
+  "updated_at": "2026-05-26T14:43:18Z",
+  "failure_reason": null,
+  "artifact_hashes": {
+    "01-breaking-changes-manifest.json": "266c81ee2cdbeccc1dccb11b7e5cce02a7c09dbdb08010500237884f16b7d013",
+    "02-tooling-scout-report.json": "26be125c1ed82e1b4e01f425823c2476010ea66089737f80dd7e645b2231a9da",
+    "03-build-audit.json": "c35ee28bc04af8018149f58c8c3daff9d46368dc670ae1f6344527ebb1e31071",
+    "04-flag-index.json": "8f460a0cb1932d19cceb839dac64b1c96a1e61e0a39907881349ece3ed927fe7",
+    "07-build.log": "791252e4c93ee3de82d86bb30589e434fd7eff9afc6df05f3ae4bdf1f1a7b2db",
+    "07-runtime-verify.json": "23442f173ec286898203c63cb4db8b14ad19d69d633346f189e454ce4050d903"
+  }
+}

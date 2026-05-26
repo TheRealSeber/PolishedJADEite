@@ -1,0 +1,8 @@
+{
+  "run_id": "jade-1.6-to-1.7",
+  "baseline_path": "JADE-4.6.0",
+  "workspace_path": "migration-runs/jade-1.6-to-1.7/workspace",
+  "artifacts_path": "migration-runs/jade-1.6-to-1.7/artifacts",
+  "source_version": "1.6",
+  "target_version": "1.7"
+}

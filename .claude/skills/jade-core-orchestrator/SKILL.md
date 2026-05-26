@@ -78,6 +78,20 @@ contracts (e.g., applying generics to Component A but not Component B causes
 compilation failures). The pipeline strictly follows Rule-by-Rule Sequential
 Batching — each rule is applied to ALL files before verification and commit.
 
+### Anti-Bypass Guard (IMPORTANT)
+
+At `RULE_BATCH_LOOP`, the Agent MUST NOT manually create a batch artifact
+and mark it `DONE` or `NOOP` if flagged files exist for that rule.
+Acceptable resolution paths:
+1. **Transform** — Write a Recipe Skill (`jade-recipe-*`) that actually applies
+   the change, then dispatch it via the rule dispatcher.
+2. **Defer** — Use `defer_rules.py` to rewrite `// JADE-FLAG:<rule_id>` to
+   `// JADE-MODERNIZATION-DEFERRED:<rule_id> <reason>`. This preserves the
+   marker as technical debt while removing it from the active pipeline.
+
+Artifact-based bypasses (manually writing a JSON file to skip a rule) are
+prohibited and constitute a pipeline integrity violation.
+
 ## Rule batch policy
 For each `rule_id` in queue:
 1. Run rule batch processor for that rule.

@@ -1,0 +1,1156 @@
+{
+  "rule_id": "STRINGS_IN_SWITCH",
+  "batch_id": "batch-STRINGS_IN_SWITCH-2026-05-26T14-35-34Z",
+  "created_at": "2026-05-26T14:35:34Z",
+  "total_files": 43,
+  "files": [
+    {
+      "file": "src/jade/src/jade/BootGUI.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 341,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 328,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 239,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 172,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 128,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:48Z"
+    },
+    {
+      "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
+          "line": 232,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
+          "line": 223,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
+          "line": 214,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
+          "line": 211,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
+          "line": 167,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:48Z"
+    },
+    {
+      "file": "src/jade/src/jade/content/lang/sl/SimpleSLCodec.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/content/lang/sl/SimpleSLCodec.java",
+          "line": 340,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/content/lang/sl/SimpleSLCodec.java",
+          "line": 337,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/content/lang/sl/SimpleSLCodec.java",
+          "line": 200,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/content/lang/sl/SimpleSLCodec.java",
+          "line": 194,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:49Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/AgentContainerImpl.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/core/AgentContainerImpl.java",
+          "line": 473,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:49Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/PlatformManagerImpl.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/core/PlatformManagerImpl.java",
+          "line": 212,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:50Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/Specifier.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/core/Specifier.java",
+          "line": 210,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:50Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+          "line": 334,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:50Z"
+    },
+    {
+      "file": "src/jade/src/jade/domain/KBManagement/DBKB.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/domain/KBManagement/DBKB.java",
+          "line": 176,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:51Z"
+    },
+    {
+      "file": "src/jade/src/jade/gui/AIDGui.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AIDGui.java",
+          "line": 254,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AIDGui.java",
+          "line": 199,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:51Z"
+    },
+    {
+      "file": "src/jade/src/jade/gui/AclGui.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 1319,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 1218,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 914,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 864,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 853,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 843,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 782,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 771,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 761,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 706,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 693,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 528,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 517,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 507,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 438,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 419,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 405,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 396,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 286,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 271,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:55Z"
+    },
+    {
+      "file": "src/jade/src/jade/gui/DFAgentDscDlg.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/DFAgentDscDlg.java",
+          "line": 390,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/DFAgentDscDlg.java",
+          "line": 329,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/DFAgentDscDlg.java",
+          "line": 208,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/DFAgentDscDlg.java",
+          "line": 205,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:55Z"
+    },
+    {
+      "file": "src/jade/src/jade/gui/ServiceDscDlg.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/ServiceDscDlg.java",
+          "line": 305,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/ServiceDscDlg.java",
+          "line": 217,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:56Z"
+    },
+    {
+      "file": "src/jade/src/jade/gui/StringDlg.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/StringDlg.java",
+          "line": 182,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/StringDlg.java",
+          "line": 131,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/StringDlg.java",
+          "line": 110,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:56Z"
+    },
+    {
+      "file": "src/jade/src/jade/gui/TimeChooser.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 298,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 292,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 288,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 283,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 277,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 255,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:58Z"
+    },
+    {
+      "file": "src/jade/src/jade/gui/UserPropertyGui.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/UserPropertyGui.java",
+          "line": 163,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/gui/UserPropertyGui.java",
+          "line": 133,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:58Z"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/BackEndStub.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/imtp/leap/BackEndStub.java",
+          "line": 170,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/imtp/leap/BackEndStub.java",
+          "line": 167,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:59Z"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+          "line": 516,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+          "line": 510,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+          "line": 229,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:59Z"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/JICP/BIBEDispatcher.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/imtp/leap/JICP/BIBEDispatcher.java",
+          "line": 219,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:59Z"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/LEAPIMTPManager.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/imtp/leap/LEAPIMTPManager.java",
+          "line": 177,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:00Z"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/MicroStub.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/imtp/leap/MicroStub.java",
+          "line": 76,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:00Z"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/http/HTTPFEDispatcher.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/imtp/leap/http/HTTPFEDispatcher.java",
+          "line": 756,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:00Z"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/http/HTTPHelper.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/imtp/leap/http/HTTPHelper.java",
+          "line": 33,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:01Z"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPHelper.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPHelper.java",
+          "line": 41,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:01Z"
+    },
+    {
+      "file": "src/jade/src/jade/mtp/http/HTTPSocketFactory.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/mtp/http/HTTPSocketFactory.java",
+          "line": 101,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/mtp/http/HTTPSocketFactory.java",
+          "line": 78,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:01Z"
+    },
+    {
+      "file": "src/jade/src/jade/mtp/http/MessageTransportProtocol.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/mtp/http/MessageTransportProtocol.java",
+          "line": 211,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:02Z"
+    },
+    {
+      "file": "src/jade/src/jade/mtp/iiop/MessageTransportProtocol.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/mtp/iiop/MessageTransportProtocol.java",
+          "line": 587,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/mtp/iiop/MessageTransportProtocol.java",
+          "line": 583,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "PENDING",
+      "updated_at": null
+    },
+    {
+      "file": "src/jade/src/jade/tools/SocketProxyAgent/Connection.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/SocketProxyAgent/Connection.java",
+          "line": 119,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:02Z"
+    },
+    {
+      "file": "src/jade/src/jade/tools/SocketProxyAgent/SocketProxyAgent.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/SocketProxyAgent/SocketProxyAgent.java",
+          "line": 113,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:03Z"
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLStatisticsFrame.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/gui/ACLStatisticsFrame.java",
+          "line": 265,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/gui/ACLStatisticsFrame.java",
+          "line": 261,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/gui/ACLStatisticsFrame.java",
+          "line": 257,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/gui/ACLStatisticsFrame.java",
+          "line": 253,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/gui/ACLStatisticsFrame.java",
+          "line": 249,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:04Z"
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 314,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 309,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 305,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 301,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 296,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 275,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:05Z"
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+          "line": 439,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:05Z"
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/gui/PopUpMouser.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/introspector/gui/PopUpMouser.java",
+          "line": 78,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:06Z"
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/gui/TablePopupMenuListener.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/introspector/gui/TablePopupMenuListener.java",
+          "line": 66,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/introspector/gui/TablePopupMenuListener.java",
+          "line": 63,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/introspector/gui/TablePopupMenuListener.java",
+          "line": 57,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:06Z"
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/gui/TreeAgentPopupMenu.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/introspector/gui/TreeAgentPopupMenu.java",
+          "line": 72,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/introspector/gui/TreeAgentPopupMenu.java",
+          "line": 69,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:07Z"
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/gui/TreePopupMenuListener.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/introspector/gui/TreePopupMenuListener.java",
+          "line": 53,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:07Z"
+    },
+    {
+      "file": "src/jade/src/jade/tools/logging/JavaLoggingLogManagerImpl.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/logging/JavaLoggingLogManagerImpl.java",
+          "line": 118,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:07Z"
+    },
+    {
+      "file": "src/jade/src/jade/tools/rma/PopupMouser.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/rma/PopupMouser.java",
+          "line": 78,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:08Z"
+    },
+    {
+      "file": "src/jade/src/jade/tools/rma/rma.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/rma/rma.java",
+          "line": 1013,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/rma/rma.java",
+          "line": 480,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:08Z"
+    },
+    {
+      "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+          "line": 877,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:08Z"
+    },
+    {
+      "file": "src/jade/src/jade/util/ClassFinder.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/ClassFinder.java",
+          "line": 277,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:09Z"
+    },
+    {
+      "file": "src/jade/src/jade/util/ExtendedProperties.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/ExtendedProperties.java",
+          "line": 482,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:09Z"
+    },
+    {
+      "file": "src/jade/src/jade/util/Logger.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 498,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 496,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 494,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 492,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 490,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 488,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 486,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 484,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 482,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 337,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 335,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 333,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 331,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 329,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 327,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 325,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 323,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        },
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 321,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:12Z"
+    },
+    {
+      "file": "src/jade/src/jade/util/leap/Properties.java",
+      "flags": [
+        {
+          "rule_id": "STRINGS_IN_SWITCH",
+          "file": "src/jade/src/jade/util/leap/Properties.java",
+          "line": 238,
+          "confidence": 1.0,
+          "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:37:12Z"
+    }
+  ]
+}

@@ -53,12 +53,33 @@ Apply ONE `rule_id` to ALL flagged files → verify compile + semantic gates →
     compatibility auditing for removed JDK modules/libraries (including CORBA/JAXB families)
     during BUILD_GATE_READY and report blockers/warnings in build audit artifacts.
 
+14. **Interactive Modernization Decision** — At `RULE_BATCH_LOOP`, the Agent MUST
+    read `04-scan-summary.json` and group flagged rules by severity. `HIGH`/`MEDIUM`
+    rules are Breaking Changes (mandatory — must be transformed via a Recipe Skill).
+    `LOW`/`INFO` rules are Modernization Opportunities (optional). The Agent
+    MUST ask the user in-chat: "Which modernization rules should be applied vs
+    deferred?" before generating `05-rule-queue.json`. Only user-acknowledged
+    rules may enter the rule queue. Rules the user chooses to defer MUST be
+    processed via `defer_rules.py` so flags persist as
+    `// JADE-MODERNIZATION-DEFERRED:<rule_id>` markers for future developers.
+
+15. **Zero-Trust Verification** — You are strictly forbidden from assuming that
+    a code transformation is "compilation-safe" or "semantically equivalent".
+    A successful build log containing `BUILD SUCCESSFUL` and an exit code of `0`
+    from the Dockerized compilation step are the ONLY acceptable proof of build
+    success. Runtime consumer tests (`07-runtime-verify.json`) MUST show `PASS`
+    for all consumers. If Docker, the build container, or any verification
+    infrastructure fails, you MUST halt and report the environmental failure to
+    the user. Committing, claiming DONE state, or marking todos as complete
+    without verified evidence is a critical violation. Evidence before assertions,
+    always.
+
 ## Skill Inventory
 
 | Type | Count | Examples |
 |------|-------|----------|
 | Core (`jade-core-*`) | 11 | orchestrator, change-collector, scanner, batch-processor, rule-dispatcher, verification, atomic-commit, retry-router, evaluator, tooling-scout, build-fixer |
-| Recipe (`jade-recipe-*`) | 0 (per-migration) | Generated dynamically by Skill Creator from manifest data. Registry starts empty. |
+| Recipe (`jade-recipe-*`) | 5 (per-migration) | dummy, noop, 1.5-1.6-arrays-copyof, 1.7-diamond-operator, 1.7-strings-in-switch. Version-specific transforms registered in `recipe-registry.json`. |
 | Utility (`jade-utility-*`) | 1 | consumer-onboarder — ingests ZIP archives of JADE projects into the `consumer-playground/` for runtime testing |
 
 ## Consumer Playground & Runtime Verification

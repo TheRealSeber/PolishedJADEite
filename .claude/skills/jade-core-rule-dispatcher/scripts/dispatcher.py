@@ -86,6 +86,33 @@ def load_rule(manifest_path: pathlib.Path, rule_id: str) -> Optional[Dict]:
     return None
 
 
+def _fail(
+    artifacts_dir: pathlib.Path,
+    task_id: str,
+    rule_id: str,
+    file_rel: str,
+    line: int,
+    message: str,
+) -> int:
+    """Record a failed result and return exit code 2."""
+    record_result(
+        artifacts_dir,
+        task_id,
+        rule_id,
+        file_rel,
+        "FAILED",
+        0,
+        "",
+        "",
+        "",
+        [message],
+        [],
+        line,
+        line,
+    )
+    return 2
+
+
 def load_registry() -> Dict:
     registry_path = pathlib.Path(__file__).parent.parent / "recipe-registry.json"
     return read_json(registry_path)
@@ -208,9 +235,11 @@ def main() -> int:
 
     file_rel = task.get("file", "")
     flags = task.get("flags", [])
-    flag = task.get("_flag", flags[0] if flags else {})
-    line_start = flag.get("line", 0)
-    line_end = line_start
+
+    # If a synthetic _flag was injected by load_task (single-flag routing),
+    # use that. Otherwise loop over all flags in the file entry.
+    if "_flag" in task:
+        flags = [task["_flag"]]
 
     if not file_rel:
         record_result(
@@ -332,40 +361,64 @@ def main() -> int:
 
     script_path = recipe_entry["script"]
 
-    print(
-        f"DISPATCH {args.rule_id} → {recipe_entry['skill']} ({file_rel}:{line_start})"
-    )
-    recipe_result = dispatch_recipe(script_path, str(file_path), line_start)
+    # Dispatch for every flag in this file entry
+    overall_status = "SKIPPED"
+    total_changes = 0
+    any_failure = False
 
-    status = recipe_result.get("status", "FAILED")
-    changes = recipe_result.get("changes", 0)
-    recipe_warnings = recipe_result.get("warnings", [])
-    recipe_errors = recipe_result.get("errors", [])
-    diff_summary = recipe_result.get("diff_summary", f"{changes} change(s)")
+    for fi, flag in enumerate(flags):
+        line_start = flag.get("line", 0)
+        per_flag_task_id = (
+            f"{args.task_id}-f{fi:03d}" if len(flags) > 1 else args.task_id
+        )
 
-    errors.extend(recipe_errors)
-    warnings.extend(recipe_warnings)
+        print(
+            f"DISPATCH {args.rule_id} \u2192 {recipe_entry['skill']} ({file_rel}:{line_start})"
+        )
+        recipe_result = dispatch_recipe(script_path, str(file_path), line_start)
 
-    result_path = record_result(
-        artifacts_dir,
-        args.task_id,
-        args.rule_id,
-        file_rel,
-        status,
-        1 if changes > 0 else 0,
-        recipe_entry["skill"],
-        diff_summary,
-        rule.get("verification_hint", ""),
-        errors,
-        warnings,
-        line_start,
-        line_end,
-    )
+        status = recipe_result.get("status", "FAILED")
+        changes = recipe_result.get("changes", 0)
+        recipe_warnings = recipe_result.get("warnings", [])
+        recipe_errors = recipe_result.get("errors", [])
+        diff_summary = recipe_result.get("diff_summary", f"{changes} change(s)")
 
-    print(f"{status} | {args.task_id} | {file_rel} | {diff_summary}")
-    print(f"Result written to {result_path}")
+        errors.extend(recipe_errors)
+        warnings.extend(recipe_warnings)
+        total_changes += changes
 
-    return 0 if status in ("FIXED", "NEEDS_REVIEW", "SKIPPED") else 2
+        if status == "FAILED":
+            any_failure = True
+            overall_status = "FAILED"
+        elif status == "FIXED":
+            overall_status = "FIXED"
+        elif status == "DEFERRED" and overall_status not in ("FIXED", "FAILED"):
+            overall_status = "DEFERRED"
+
+        record_result(
+            artifacts_dir,
+            per_flag_task_id,
+            args.rule_id,
+            file_rel,
+            status,
+            1 if changes > 0 else 0,
+            recipe_entry["skill"],
+            diff_summary,
+            rule.get("verification_hint", ""),
+            errors,
+            warnings,
+            line_start,
+            line_start,
+        )
+        print(f"{status} | {per_flag_task_id} | {file_rel} | {diff_summary}")
+
+    if len(flags) > 1:
+        print(
+            f"AGGREGATE | {args.task_id} | {file_rel} | "
+            f"{len(flags)} flag(s), {total_changes} change(s), {overall_status}"
+        )
+
+    return 0 if overall_status != "FAILED" else 2
 
 
 if __name__ == "__main__":

@@ -24,5 +24,15 @@
     "skill": "jade-recipe-1.5-1.6-navigable-set-map",
     "script": ".claude/skills/jade-recipe-noop/scripts/apply.py",
     "description": "TreeSet/TreeMap already implement NavigableSet/NavigableMap in Java 6 — informational only"
+  },
+  "DIAMOND_OPERATOR": {
+    "skill": "jade-recipe-1.7-diamond-operator",
+    "script": ".claude/skills/jade-recipe-1.7-diamond-operator/scripts/apply.py",
+    "description": "Replace explicit generic type arguments with diamond operator <>"
+  },
+  "STRINGS_IN_SWITCH": {
+    "skill": "jade-recipe-1.7-strings-in-switch",
+    "script": ".claude/skills/jade-recipe-1.7-strings-in-switch/scripts/apply.py",
+    "description": "Convert .equals() if-else chains to switch statements"
   }
 }

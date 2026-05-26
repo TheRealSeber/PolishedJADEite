@@ -102,10 +102,30 @@ def main() -> int:
         )
         return 0
 
+    stripped_line = target_line.strip()
+
     # Skip diamond inside this(...) or super(...) calls — Java 7 type inference
     # cannot resolve the target type in constructor delegation contexts.
-    stripped_line = target_line.strip()
-    if re.search(r"\b(?:this|super)\s*\(", stripped_line):
+    #
+    # Check both single-line (same line) and multi-line (the new expression
+    # appears as an argument to this/super several lines later).
+    in_constructor_delegation = bool(re.search(r"\b(?:this|super)\s*\(", stripped_line))
+    if not in_constructor_delegation:
+        paren_depth = 0
+        for back_idx in range(line_idx - 1, max(line_idx - 30, -1), -1):
+            back_line = lines[back_idx].strip()
+            if not back_line or back_line.startswith("//"):
+                continue
+            paren_depth += back_line.count(")") - back_line.count("(")
+            if re.search(r"\b(?:this|super)\s*\(", back_line):
+                in_constructor_delegation = True
+                break
+            if back_line.endswith(";") or back_line.endswith("{"):
+                break
+            if "}" in back_line and paren_depth >= 0:
+                break
+
+    if in_constructor_delegation:
         print(
             json.dumps(
                 {

@@ -148,6 +148,71 @@ def dispatch_recipe(script_path: str, file_path: str, line: int) -> Dict:
         }
 
 
+def update_batch_status(
+    artifacts_dir: pathlib.Path,
+    rule_id: str,
+    file_rel: str,
+    status: str,
+) -> None:
+    """Atomically update the batch file entry for *file_rel* to *status*.
+
+    Also refreshes ``05-rule-batch-status.json`` so the orchestrator
+    can track overall completion without external scripts.
+    """
+    batch_path = artifacts_dir / f"05-rule-batch-{rule_id}.json"
+    if not batch_path.exists():
+        return
+    try:
+        batch = json.loads(batch_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return
+
+    now = iso_now()
+    updated = False
+    for entry in batch.get("files", []):
+        if entry.get("file") == file_rel:
+            entry["status"] = status
+            entry["updated_at"] = now
+            updated = True
+            break
+
+    if not updated:
+        return
+
+    write_json_atomic(batch_path, batch)
+
+    files = batch.get("files", [])
+    total = len(files)
+    counts = {"DONE": 0, "FAILED": 0, "SKIPPED": 0}
+    for f in files:
+        s = f.get("status", "PENDING")
+        if s in counts:
+            counts[s] += 1
+
+    pending = total - counts["DONE"] - counts["FAILED"] - counts["SKIPPED"]
+    if counts["FAILED"] > 0:
+        batch_overall = "FAILED"
+    elif counts["DONE"] + counts["SKIPPED"] == total:
+        batch_overall = "DONE"
+    elif counts["DONE"] + counts["SKIPPED"] > 0 or pending > 0:
+        batch_overall = "IN_PROGRESS"
+    else:
+        batch_overall = "READY"
+
+    status_payload = {
+        "run_id": batch.get("run_id", artifacts_dir.name),
+        "rule_id": rule_id,
+        "total_files": total,
+        "completed": counts["DONE"],
+        "failed": counts["FAILED"],
+        "skipped": counts["SKIPPED"],
+        "pending": pending,
+        "status": batch_overall,
+        "updated_at": now,
+    }
+    write_json_atomic(artifacts_dir / "05-rule-batch-status.json", status_payload)
+
+
 def record_result(
     artifacts_dir: pathlib.Path,
     task_id: str,
@@ -418,6 +483,11 @@ def main() -> int:
             f"AGGREGATE | {args.task_id} | {file_rel} | "
             f"{len(flags)} flag(s), {total_changes} change(s), {overall_status}"
         )
+
+    batch_status = (
+        "DONE" if overall_status in ("FIXED", "SKIPPED", "DEFERRED") else "FAILED"
+    )
+    update_batch_status(artifacts_dir, args.rule_id, file_rel, batch_status)
 
     return 0 if overall_status != "FAILED" else 2
 

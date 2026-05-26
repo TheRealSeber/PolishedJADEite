@@ -63,12 +63,23 @@ Apply ONE `rule_id` to ALL flagged files → verify compile + semantic gates →
     processed via `defer_rules.py` so flags persist as
     `// JADE-MODERNIZATION-DEFERRED:<rule_id>` markers for future developers.
 
+15. **Zero-Trust Verification** — You are strictly forbidden from assuming that
+    a code transformation is "compilation-safe" or "semantically equivalent".
+    A successful build log containing `BUILD SUCCESSFUL` and an exit code of `0`
+    from the Dockerized compilation step are the ONLY acceptable proof of build
+    success. Runtime consumer tests (`07-runtime-verify.json`) MUST show `PASS`
+    for all consumers. If Docker, the build container, or any verification
+    infrastructure fails, you MUST halt and report the environmental failure to
+    the user. Committing, claiming DONE state, or marking todos as complete
+    without verified evidence is a critical violation. Evidence before assertions,
+    always.
+
 ## Skill Inventory
 
 | Type | Count | Examples |
 |------|-------|----------|
 | Core (`jade-core-*`) | 11 | orchestrator, change-collector, scanner, batch-processor, rule-dispatcher, verification, atomic-commit, retry-router, evaluator, tooling-scout, build-fixer |
-| Recipe (`jade-recipe-*`) | 0 (per-migration) | Generated dynamically by Skill Creator from manifest data. Registry starts empty. |
+| Recipe (`jade-recipe-*`) | 5 (per-migration) | dummy, noop, 1.5-1.6-arrays-copyof, 1.7-diamond-operator, 1.7-strings-in-switch. Version-specific transforms registered in `recipe-registry.json`. |
 | Utility (`jade-utility-*`) | 1 | consumer-onboarder — ingests ZIP archives of JADE projects into the `consumer-playground/` for runtime testing |
 
 ## Consumer Playground & Runtime Verification

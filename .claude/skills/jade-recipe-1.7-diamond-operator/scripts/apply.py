@@ -102,6 +102,25 @@ def main() -> int:
         )
         return 0
 
+    # Skip diamond inside this(...) or super(...) calls — Java 7 type inference
+    # cannot resolve the target type in constructor delegation contexts.
+    stripped_line = target_line.strip()
+    if re.search(r"\b(?:this|super)\s*\(", stripped_line):
+        print(
+            json.dumps(
+                {
+                    "status": "SKIPPED",
+                    "changes": 0,
+                    "warnings": [
+                        "Constructor delegation context (this/super) — type inference ambiguous in Java 7"
+                    ],
+                    "errors": [],
+                    "diff_summary": "Skipped: diamond in this()/super() call is ambiguous in Java 7",
+                }
+            )
+        )
+        return 0
+
     original = target_line.rstrip("\n")
     new_line, changes = _replace_diamond(target_line)
 

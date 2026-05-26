@@ -373,7 +373,7 @@ def main() -> int:
         )
 
         print(
-            f"DISPATCH {args.rule_id} \u2192 {recipe_entry['skill']} ({file_rel}:{line_start})"
+            f"DISPATCH {args.rule_id} -> {recipe_entry['skill']} ({file_rel}:{line_start})"
         )
         recipe_result = dispatch_recipe(script_path, str(file_path), line_start)
 
@@ -410,7 +410,8 @@ def main() -> int:
             line_start,
             line_start,
         )
-        print(f"{status} | {per_flag_task_id} | {file_rel} | {diff_summary}")
+        safe_summary = diff_summary.encode("ascii", errors="replace").decode("ascii")
+        print(f"{status} | {per_flag_task_id} | {file_rel} | {safe_summary}")
 
     if len(flags) > 1:
         print(

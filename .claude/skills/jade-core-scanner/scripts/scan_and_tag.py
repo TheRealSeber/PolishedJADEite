@@ -350,7 +350,8 @@ def scan_and_tag_file(
                         FlagEntry(
                             rule_id=rule.id,
                             file=rel_path,
-                            line=i + 1,  # 1-based line number
+                            line=(i + 1)
+                            + 1,  # 1-based: insertion position + 1-based offset
                             confidence=pattern.confidence,
                             reason=pattern.reason,
                         )

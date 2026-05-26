@@ -35,7 +35,7 @@ _FLAG_RE = re.compile(r"//\s*JADE-FLAG:STRINGS_IN_SWITCH.*")
 
 _JADE_COMMENT = "// JADE-FLAG:STRINGS_IN_SWITCH"
 _DEFER_PREFIX = "// JADE-MODERNIZATION-DEFERRED:STRINGS_IN_SWITCH"
-_DEFER_MSG = "(complex chain — manual review recommended)"
+_DEFER_MSG = "(complex chain -- manual review recommended)"
 
 
 # ---------------------------------------------------------------------------
@@ -231,8 +231,27 @@ def main() -> int:
         return 2
 
     # Idempotency: already resolved?
-    if _JADE_COMMENT not in lines[flag_idx]:
-        if "JADE-MODERNIZATION-DEFERRED:STRINGS_IN_SWITCH" in lines[flag_idx]:
+    # Search nearby lines (±10) for the flag comment since scanner may
+    # report match-line rather than flag-injection line
+    flag_found = False
+    actual_flag_idx = flag_idx
+    for offset in range(-10, 11):
+        ci = flag_idx + offset
+        if 0 <= ci < len(lines):
+            if _JADE_COMMENT in lines[ci]:
+                flag_found = True
+                actual_flag_idx = ci
+                break
+    if not flag_found:
+        # Check if any nearby line has MODERNIZATION-DEFERRED
+        deferred_found = False
+        for offset in range(-10, 11):
+            ci = flag_idx + offset
+            if 0 <= ci < len(lines):
+                if "JADE-MODERNIZATION-DEFERRED:STRINGS_IN_SWITCH" in lines[ci]:
+                    deferred_found = True
+                    break
+        if deferred_found:
             print(
                 json.dumps(
                     {
@@ -250,13 +269,15 @@ def main() -> int:
                     {
                         "status": "SKIPPED",
                         "changes": 0,
-                        "warnings": ["Flag already resolved"],
+                        "warnings": ["Flag already resolved or not found nearby"],
                         "errors": [],
                         "diff_summary": "Previously resolved",
                     }
                 )
             )
         return 0
+    # Update flag_idx to actual flag line
+    flag_idx = actual_flag_idx
 
     # Find the associated if-statement (the flag is on the line after the matched code)
     # Walk backward past flags and blanks to find it

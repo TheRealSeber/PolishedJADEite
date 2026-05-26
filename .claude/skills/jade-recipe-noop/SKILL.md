@@ -31,6 +31,7 @@ The dispatcher routes here when:
 
 ## Edge cases
 
-- Some manifest rules reference imaginary recipe skills (`jade-recipe-1.7-try-with-resources`).
-  These route through this fallback. The agent should interpret the manifest entry's
-  `fix_strategy` to understand what transform was intended.
+- Some manifest rules reference recipe skills that don't exist yet (e.g., an entry in
+  the manifest with a `fix_strategy` like `recipe:jade-recipe-X-Y-feature` but no
+  corresponding skill directory). These route through this fallback. The agent should
+  read the manifest entry to understand what transform was intended.

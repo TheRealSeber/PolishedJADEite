@@ -1,0 +1,68 @@
+[
+  {
+    "id": "DIAMOND_OPERATOR",
+    "name": "Java 7 diamond operator for generic type inference",
+    "description": "Java 7 allows replacing explicit type arguments in generic constructor calls with the diamond operator (<>). This simplifies code like new HashMap<String,String>() to new HashMap<>().",
+    "fix_strategy": "recipe:jade-recipe-1.7-diamond-operator",
+    "severity": "MEDIUM",
+    "category": "LANGUAGE_CHANGE",
+    "match_pattern": "\\bnew\\s+\\w+\\s*<[A-Za-z0-9_$<>\\s,?.]+>\\s*\\(",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "\\bnew\\s+\\w+\\s*<[A-Za-z0-9_$<>\\s,?.]+>\\s*\\(",
+        "target_extensions": [".java"],
+        "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context.",
+        "confidence": 1.0
+      }
+    ],
+    "evidence_ref": "oracle-java7-language::lines 18-19",
+    "evidence_hash": "74465a28639a10309a488b58691845fbc335841b64d48dd2fcf0e047ab0a9835",
+    "confidence": 1.0,
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors."
+  },
+  {
+    "id": "STRINGS_IN_SWITCH",
+    "name": "Java 7 strings in switch statements",
+    "description": "Java 7 allows using String objects in switch statements. This enables converting if-else chains based on equals() comparisons on a String variable into cleaner switch statements.",
+    "fix_strategy": "recipe:jade-recipe-1.7-strings-in-switch",
+    "severity": "MEDIUM",
+    "category": "LANGUAGE_CHANGE",
+    "match_pattern": "\\.equals\\s*\\(\\s*\"",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "\\.equals\\s*\\(\\s*\"",
+        "target_extensions": [".java"],
+        "reason": "Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance.",
+        "confidence": 1.0
+      }
+    ],
+    "evidence_ref": "oracle-java7-language::lines 16-17",
+    "evidence_hash": "74465a28639a10309a488b58691845fbc335841b64d48dd2fcf0e047ab0a9835",
+    "confidence": 1.0,
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes."
+  },
+  {
+    "id": "TRY_WITH_RESOURCES",
+    "name": "Java 7 try-with-resources for automatic resource management",
+    "description": "Java 7 introduced try-with-resources, which ensures automatic closing of resources (InputStream, OutputStream, Reader, Writer, Connection, etc.) that implement AutoCloseable or Closeable.",
+    "fix_strategy": "recipe:jade-recipe-noop",
+    "severity": "LOW",
+    "category": "LANGUAGE_CHANGE",
+    "match_pattern": "\\btry\\s*\\{",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "\\btry\\s*\\{",
+        "target_extensions": [".java"],
+        "reason": "Java 7 introduced try-with-resources statement for automatic resource management. Objects implementing java.lang.AutoCloseable or java.io.Closeable can be used as resources. This is a modernization opportunity to simplify resource cleanup.",
+        "confidence": 1.0
+      }
+    ],
+    "evidence_ref": "oracle-java7-language::lines 22-23",
+    "evidence_hash": "74465a28639a10309a488b58691845fbc335841b64d48dd2fcf0e047ab0a9835",
+    "confidence": 1.0,
+    "verification_hint": "Convert try-finally resource cleanup patterns to try-with-resources. This is an optional modernization — informational only."
+  }
+]

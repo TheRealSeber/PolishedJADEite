@@ -1,0 +1,29 @@
+{
+  "run_id": "jade-1.6-to-1.7",
+  "generated_at": "2026-05-26T14:32:56Z",
+  "workspace": "migration-runs/jade-1.6-to-1.7/workspace",
+  "total_files_scanned": 1015,
+  "total_new_flags": 2011,
+  "idempotent_skips": 0,
+  "elapsed_seconds": 1.84,
+  "by_rule": {
+    "TRY_WITH_RESOURCES": {
+      "name": "Java 7 try-with-resources for automatic resource management",
+      "severity": "LOW",
+      "count": 1832
+    },
+    "STRINGS_IN_SWITCH": {
+      "name": "Java 7 strings in switch statements",
+      "severity": "MEDIUM",
+      "count": 121
+    },
+    "DIAMOND_OPERATOR": {
+      "name": "Java 7 diamond operator for generic type inference",
+      "severity": "MEDIUM",
+      "count": 58
+    }
+  },
+  "by_confidence": {
+    "1.0": 2011
+  }
+}

@@ -1,0 +1,575 @@
+{
+  "rule_id": "DIAMOND_OPERATOR",
+  "batch_id": "batch-DIAMOND_OPERATOR-2026-05-26T14-35-33Z",
+  "created_at": "2026-05-26T14:35:33Z",
+  "total_files": 23,
+  "files": [
+    {
+      "file": "src/jade/src/jade/content/onto/BeanIntrospector.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/content/onto/BeanIntrospector.java",
+          "line": 53,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:20Z"
+    },
+    {
+      "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+          "line": 585,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+          "line": 389,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+          "line": 367,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+          "line": 216,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+          "line": 215,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+          "line": 214,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:21Z"
+    },
+    {
+      "file": "src/jade/src/jade/content/onto/ClassDiscover.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/content/onto/ClassDiscover.java",
+          "line": 107,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/content/onto/ClassDiscover.java",
+          "line": 55,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/content/onto/ClassDiscover.java",
+          "line": 54,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:22Z"
+    },
+    {
+      "file": "src/jade/src/jade/content/onto/Ontology.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/content/onto/Ontology.java",
+          "line": 1068,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:22Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/ExtendedMessageQueue.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/ExtendedMessageQueue.java",
+          "line": 144,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/ExtendedMessageQueue.java",
+          "line": 42,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:23Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/TemplateBasedMessageQueue.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/TemplateBasedMessageQueue.java",
+          "line": 126,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/TemplateBasedMessageQueue.java",
+          "line": 50,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:23Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/behaviours/OntologyServer.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/behaviours/OntologyServer.java",
+          "line": 380,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/behaviours/OntologyServer.java",
+          "line": 94,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/behaviours/OntologyServer.java",
+          "line": 92,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:24Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/DeliveryTracing.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/messaging/DeliveryTracing.java",
+          "line": 10,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:24Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/LocalJVMMessageRouter.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/messaging/LocalJVMMessageRouter.java",
+          "line": 25,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/messaging/LocalJVMMessageRouter.java",
+          "line": 13,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:25Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/MessageManager.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/messaging/MessageManager.java",
+          "line": 516,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:25Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/MomMessagingService.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/messaging/MomMessagingService.java",
+          "line": 39,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/messaging/MomMessagingService.java",
+          "line": 35,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:26Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/MultipleGenericMessage.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/messaging/MultipleGenericMessage.java",
+          "line": 11,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:26Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/PersistentDeliveryService.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/messaging/PersistentDeliveryService.java",
+          "line": 453,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:26Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/replication/AgentReplicationHandle.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/replication/AgentReplicationHandle.java",
+          "line": 38,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:27Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+          "line": 585,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+          "line": 256,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+          "line": 166,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+          "line": 85,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+          "line": 83,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+          "line": 81,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+          "line": 79,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:28Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/resource/SingletonResourceManagementHelper.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/resource/SingletonResourceManagementHelper.java",
+          "line": 43,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:28Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+          "line": 88,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+          "line": 87,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+          "line": 48,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+          "line": 46,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:29Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/sam/SAMInfo.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/sam/SAMInfo.java",
+          "line": 179,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/sam/SAMInfo.java",
+          "line": 163,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/sam/SAMInfo.java",
+          "line": 131,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/sam/SAMInfo.java",
+          "line": 56,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:29Z"
+    },
+    {
+      "file": "src/jade/src/jade/core/sam/SAMService.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 432,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 431,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 385,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 281,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 270,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 83,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 69,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 68,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:31Z"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 648,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 510,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 509,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        },
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 140,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:32Z"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPConnection.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPConnection.java",
+          "line": 49,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:32Z"
+    },
+    {
+      "file": "src/jade/src/jade/security/ThreadGroupHttpAuthenticator.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/security/ThreadGroupHttpAuthenticator.java",
+          "line": 40,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:32Z"
+    },
+    {
+      "file": "src/jade/src/jade/wrapper/gateway/DynamicJadeGateway.java",
+      "flags": [
+        {
+          "rule_id": "DIAMOND_OPERATOR",
+          "file": "src/jade/src/jade/wrapper/gateway/DynamicJadeGateway.java",
+          "line": 40,
+          "confidence": 1.0,
+          "reason": "Java 7 introduced type inference for generic instance creation (the diamond operator), allowing empty angle brackets <> to replace explicit type arguments when the compiler can infer them from context."
+        }
+      ],
+      "status": "DONE",
+      "updated_at": "2026-05-26T14:36:32Z"
+    }
+  ]
+}

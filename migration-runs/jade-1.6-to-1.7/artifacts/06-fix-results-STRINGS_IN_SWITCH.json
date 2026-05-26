@@ -1,0 +1,2318 @@
+[
+  {
+    "task_id": "STRINGS_IN_SWITCH-BootGUI-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/BootGUI.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 341-341",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:47Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-BootGUI-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/BootGUI.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 328-328",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously deferred — no action",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "Already deferred"
+    ],
+    "applied_at": "2026-05-26T14:36:47Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-BootGUI-f002",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/BootGUI.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 239-239",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "Already deferred",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:47Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-BootGUI-f003",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/BootGUI.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 172-172",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "Already deferred",
+      "No convertible chain detected",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:47Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-BootGUI-f004",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/BootGUI.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 128-128",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "Already deferred",
+      "No convertible chain detected",
+      "No convertible chain detected",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:48Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-SLFrameCodec-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 232-232",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:48Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-SLFrameCodec-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 223-223",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:48Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-SLFrameCodec-f002",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 214-214",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement",
+      "No convertible chain detected",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:48Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-SLFrameCodec-f003",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 211-211",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously deferred — no action",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement",
+      "No convertible chain detected",
+      "No convertible chain detected",
+      "Already deferred"
+    ],
+    "applied_at": "2026-05-26T14:36:48Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-SLFrameCodec-f004",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 167-167",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement",
+      "No convertible chain detected",
+      "No convertible chain detected",
+      "Already deferred",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:48Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-SimpleSLCodec-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/content/lang/sl/SimpleSLCodec.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 340-340",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:49Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-SimpleSLCodec-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/content/lang/sl/SimpleSLCodec.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 337-337",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:36:49Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-SimpleSLCodec-f002",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/content/lang/sl/SimpleSLCodec.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 200-200",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:49Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-SimpleSLCodec-f003",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/content/lang/sl/SimpleSLCodec.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 194-194",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:49Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AgentContainerImpl",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/core/AgentContainerImpl.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 473-473",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:49Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-PlatformManagerImpl",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/core/PlatformManagerImpl.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 212-212",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:50Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Specifier",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/core/Specifier.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 210-210",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:50Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-MessagingService",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 334-334",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:50Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-DBKB",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/domain/KBManagement/DBKB.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 176-176",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:51Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AIDGui-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AIDGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 254-254",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:51Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AIDGui-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AIDGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 199-199",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:51Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 1319-1319",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:36:52Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 1218-1218",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:36:52Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f002",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 914-914",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:36:52Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f003",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 864-864",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:52Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f004",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 853-853",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously deferred — no action",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred"
+    ],
+    "applied_at": "2026-05-26T14:36:52Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f005",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 843-843",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:36:52Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f006",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 782-782",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:52Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f007",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 771-771",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously deferred — no action",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred"
+    ],
+    "applied_at": "2026-05-26T14:36:53Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f008",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 761-761",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:36:53Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f009",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 706-706",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:53Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f010",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 693-693",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:36:53Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f011",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 528-528",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:53Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f012",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 517-517",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:53Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f013",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 507-507",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously deferred — no action",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Cannot locate associated if-statement",
+      "Already deferred"
+    ],
+    "applied_at": "2026-05-26T14:36:54Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f014",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 438-438",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:54Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f015",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 419-419",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:54Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f016",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 405-405",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:54Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f017",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 396-396",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously deferred — no action",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Already deferred"
+    ],
+    "applied_at": "2026-05-26T14:36:54Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f018",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 286-286",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:54Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-AclGui-f019",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/AclGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 271-271",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "No convertible chain detected",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:55Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-DFAgentDscDlg-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/DFAgentDscDlg.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 390-390",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:55Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-DFAgentDscDlg-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/DFAgentDscDlg.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 329-329",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:55Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-DFAgentDscDlg-f002",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/DFAgentDscDlg.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 208-208",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "No convertible chain detected",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:55Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-DFAgentDscDlg-f003",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/DFAgentDscDlg.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 205-205",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "No convertible chain detected",
+      "No convertible chain detected",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:55Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-ServiceDscDlg-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/ServiceDscDlg.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 305-305",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:56Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-ServiceDscDlg-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/ServiceDscDlg.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 217-217",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:56Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-StringDlg-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/StringDlg.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 182-182",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:56Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-StringDlg-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/StringDlg.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 131-131",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:56Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-StringDlg-f002",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/StringDlg.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 110-110",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "No convertible chain detected",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:56Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-TimeChooser-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/TimeChooser.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 298-298",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:57Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-TimeChooser-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/TimeChooser.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 292-292",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:57Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-TimeChooser-f002",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/TimeChooser.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 288-288",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:57Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-TimeChooser-f003",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/TimeChooser.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 283-283",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously deferred — no action",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Already deferred"
+    ],
+    "applied_at": "2026-05-26T14:36:57Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-TimeChooser-f004",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/TimeChooser.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 277-277",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously deferred — no action",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Already deferred"
+    ],
+    "applied_at": "2026-05-26T14:36:57Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-TimeChooser-f005",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/TimeChooser.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 255-255",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Already deferred",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:58Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-UserPropertyGui-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/UserPropertyGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 163-163",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:58Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-UserPropertyGui-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/gui/UserPropertyGui.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 133-133",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:58Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-BackEndStub-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/imtp/leap/BackEndStub.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 170-170",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:58Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-BackEndStub-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/imtp/leap/BackEndStub.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 167-167",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:58Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-CommandDispatcher-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 516-516",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:36:59Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-CommandDispatcher-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 510-510",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:36:59Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-CommandDispatcher-f002",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 229-229",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "Flag already resolved or not found nearby",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:59Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-BIBEDispatcher",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/imtp/leap/JICP/BIBEDispatcher.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 219-219",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:36:59Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-LEAPIMTPManager",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/imtp/leap/LEAPIMTPManager.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 177-177",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:37:00Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-MicroStub",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/imtp/leap/MicroStub.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 76-76",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:00Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-HTTPFEDispatcher",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/imtp/leap/http/HTTPFEDispatcher.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 756-756",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:00Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-HTTPHelper",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/imtp/leap/http/HTTPHelper.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 33-33",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:01Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-NIOHTTPHelper",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPHelper.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 41-41",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:01Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-HTTPSocketFactory-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/mtp/http/HTTPSocketFactory.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 101-101",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:01Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-HTTPSocketFactory-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/mtp/http/HTTPSocketFactory.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 78-78",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:01Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-MessageTransportProtocol",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/mtp/http/MessageTransportProtocol.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 211-211",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:02Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-MessageTransportProtocol",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/mtp/http/MessageTransportProtocol.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 211-211",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously deferred — no action",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Already deferred"
+    ],
+    "applied_at": "2026-05-26T14:37:02Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Connection",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/SocketProxyAgent/Connection.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 119-119",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:02Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-SocketProxyAgent",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/SocketProxyAgent/SocketProxyAgent.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 113-113",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:03Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-ACLStatisticsFrame-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/gui/ACLStatisticsFrame.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 265-265",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:37:03Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-ACLStatisticsFrame-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/gui/ACLStatisticsFrame.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 261-261",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:37:03Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-ACLStatisticsFrame-f002",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/gui/ACLStatisticsFrame.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 257-257",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "No convertible chain detected",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:37:03Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-ACLStatisticsFrame-f003",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/gui/ACLStatisticsFrame.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 253-253",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously deferred — no action",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "No convertible chain detected",
+      "No convertible chain detected",
+      "Already deferred"
+    ],
+    "applied_at": "2026-05-26T14:37:03Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-ACLStatisticsFrame-f004",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/gui/ACLStatisticsFrame.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 249-249",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously deferred — no action",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "No convertible chain detected",
+      "No convertible chain detected",
+      "Already deferred",
+      "Already deferred"
+    ],
+    "applied_at": "2026-05-26T14:37:04Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-ACLTimeChooserDialog-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 314-314",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:04Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-ACLTimeChooserDialog-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 309-309",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:04Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-ACLTimeChooserDialog-f002",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 305-305",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:04Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-ACLTimeChooserDialog-f003",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 301-301",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously deferred — no action",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Already deferred"
+    ],
+    "applied_at": "2026-05-26T14:37:05Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-ACLTimeChooserDialog-f004",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 296-296",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously deferred — no action",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Already deferred"
+    ],
+    "applied_at": "2026-05-26T14:37:05Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-ACLTimeChooserDialog-f005",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 275-275",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement",
+      "Already deferred",
+      "Already deferred",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:37:05Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-ACLTracePanel",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 439-439",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:05Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-PopUpMouser",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/introspector/gui/PopUpMouser.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 78-78",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:06Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-TablePopupMenuListener-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/introspector/gui/TablePopupMenuListener.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 66-66",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:37:06Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-TablePopupMenuListener-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/introspector/gui/TablePopupMenuListener.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 63-63",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:06Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-TablePopupMenuListener-f002",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/introspector/gui/TablePopupMenuListener.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 57-57",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously deferred — no action",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected",
+      "Cannot locate associated if-statement",
+      "Already deferred"
+    ],
+    "applied_at": "2026-05-26T14:37:06Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-TreeAgentPopupMenu-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/introspector/gui/TreeAgentPopupMenu.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 72-72",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:06Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-TreeAgentPopupMenu-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/introspector/gui/TreeAgentPopupMenu.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 69-69",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement",
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:07Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-TreePopupMenuListener",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/introspector/gui/TreePopupMenuListener.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 53-53",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:07Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-JavaLoggingLogManagerImpl",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/logging/JavaLoggingLogManagerImpl.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 118-118",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:07Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-PopupMouser",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/rma/PopupMouser.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 78-78",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:08Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-rma-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/rma/rma.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 1013-1013",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:08Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-rma-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/rma/rma.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 480-480",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:37:08Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-MMCanvas",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 877-877",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:08Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-ClassFinder",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/ClassFinder.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 277-277",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:09Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-ExtendedProperties",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/ExtendedProperties.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 482-482",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — single branch, no convertible chain",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "No convertible chain detected"
+    ],
+    "applied_at": "2026-05-26T14:37:09Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f000",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 498-498",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "sequential-if→switch(level): 9 cases (severe, warning, info, config, fine, finer, finest, all, off)",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:37:09Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f001",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 496-496",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:09Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f002",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 494-494",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:10Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f003",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 492-492",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:10Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f004",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 490-490",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:10Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f005",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 488-488",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:10Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f006",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 486-486",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:10Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f007",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 484-484",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:10Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f008",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 482-482",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:10Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f009",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 337-337",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "sequential-if→switch(level): 8 cases (warning, info, config, fine, finer, finest, all, off)",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:11Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f010",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 335-335",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:11Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f011",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 333-333",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "sequential-if→switch(level): 9 cases (severe, warning, info, config, fine, finer, finest, all, off)",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:11Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f012",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 331-331",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:11Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f013",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 329-329",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:11Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f014",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 327-327",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:11Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f015",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 325-325",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:12Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f016",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 323-323",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:12Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Logger-f017",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/Logger.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 321-321",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Previously resolved",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby",
+      "Flag already resolved or not found nearby"
+    ],
+    "applied_at": "2026-05-26T14:37:12Z"
+  },
+  {
+    "task_id": "STRINGS_IN_SWITCH-Properties",
+    "rule_id": "STRINGS_IN_SWITCH",
+    "file": "src/jade/src/jade/util/leap/Properties.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 238-238",
+    "match_context": "jade-recipe-1.7-strings-in-switch",
+    "diff_summary": "Deferred — cannot find if-statement for this flag",
+    "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+    "errors": [],
+    "warnings": [
+      "Cannot locate associated if-statement"
+    ],
+    "applied_at": "2026-05-26T14:37:12Z"
+  }
+]

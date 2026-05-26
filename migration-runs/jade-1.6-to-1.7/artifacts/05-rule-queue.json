@@ -1,0 +1,4 @@
+{
+  "run_id": "jade-1.6-to-1.7",
+  "rules": ["DIAMOND_OPERATOR", "STRINGS_IN_SWITCH"]
+}

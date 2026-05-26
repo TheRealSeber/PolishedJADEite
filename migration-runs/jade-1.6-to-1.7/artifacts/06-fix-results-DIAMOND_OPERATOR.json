@@ -1,0 +1,923 @@
+[
+  {
+    "task_id": "DIAMOND_OPERATOR-BeanIntrospector",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/content/onto/BeanIntrospector.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 53-53",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 53: accessors = new HashMap<SlotKey, SlotAccessData>(); -> accessors = new HashMap<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:20Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-BeanOntologyBuilder-f000",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 585-585",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No generic constructor call on target line",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:21Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-BeanOntologyBuilder-f001",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 389-389",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No generic constructor call on target line",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:21Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-BeanOntologyBuilder-f002",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 367-367",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 367: List<SlotKey> nonPositionedSAD = new ArrayList<SlotKey>(); -> List<SlotKey> nonPositionedSAD = new ArrayList<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:21Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-BeanOntologyBuilder-f003",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 216-216",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 216: List<Method> getters = new ArrayList<Method>(); -> List<Method> getters = new ArrayList<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:21Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-BeanOntologyBuilder-f004",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 215-215",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 215: Map<String, Method> setters = new HashMap<String, Method>(); -> Map<String, Method> setters = new HashMap<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:21Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-BeanOntologyBuilder-f005",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 214-214",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 214: Map<SlotKey, SlotAccessData> result = new TreeMap<SlotKey, SlotAccessD -> Map<SlotKey, SlotAccessData> result = new TreeMap<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:21Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-ClassDiscover-f000",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/content/onto/ClassDiscover.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 107-107",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 107: List<Class> classList = new ArrayList<Class>(); -> List<Class> classList = new ArrayList<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:22Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-ClassDiscover-f001",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/content/onto/ClassDiscover.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 55-55",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 55: ArrayList<File> directories = new ArrayList<File>(); -> ArrayList<File> directories = new ArrayList<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:22Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-ClassDiscover-f002",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/content/onto/ClassDiscover.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 54-54",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 54: List<Class> classes = new ArrayList<Class>(); -> List<Class> classes = new ArrayList<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:22Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-Ontology",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/content/onto/Ontology.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 1068-1068",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No generic constructor call on target line",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:22Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-ExtendedMessageQueue-f000",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/ExtendedMessageQueue.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 144-144",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 144: mm = new ArrayList<ACLMessage>(max > 0 ? max : 16); -> mm = new ArrayList<>(max > 0 ? max : 16);",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:23Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-ExtendedMessageQueue-f001",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/ExtendedMessageQueue.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 42-42",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 42: list = new LinkedList<ACLMessage>(); -> list = new LinkedList<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:23Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-TemplateBasedMessageQueue-f000",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/TemplateBasedMessageQueue.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 126-126",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 126: Map<MessageTemplate, LinkedList<ACLMessage>> tplListMap = new HashMap< -> Map<MessageTemplate, LinkedList<ACLMessage>> tplListMap = new HashMap<",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:23Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-TemplateBasedMessageQueue-f001",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/TemplateBasedMessageQueue.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 50-50",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 50: LinkedList<ACLMessage> l = new LinkedList<ACLMessage>(); -> LinkedList<ACLMessage> l = new LinkedList<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:23Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-OntologyServer-f000",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/behaviours/OntologyServer.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 380-380",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No generic constructor call on target line",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:24Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-OntologyServer-f001",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/behaviours/OntologyServer.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 94-94",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 94: private transient Map<String, Method> cachedMethods = new HashMap<Stri -> private transient Map<String, Method> cachedMethods = new HashMap<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:24Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-OntologyServer-f002",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/behaviours/OntologyServer.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 92-92",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 92: private Set<Integer> performativesRequiringReply = new HashSet<Integer -> private Set<Integer> performativesRequiringReply = new HashSet<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:24Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-DeliveryTracing",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/messaging/DeliveryTracing.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 10-10",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 10: private static final ThreadLocal<DeliveryTracing> tracing = new Thread -> private static final ThreadLocal<DeliveryTracing> tracing = new Thread",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:24Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-LocalJVMMessageRouter-f000",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/messaging/LocalJVMMessageRouter.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 25-25",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 25: private Map<String, MomMessagingService> localServices = new HashMap<S -> private Map<String, MomMessagingService> localServices = new HashMap<>",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:25Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-LocalJVMMessageRouter-f001",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/messaging/LocalJVMMessageRouter.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 13-13",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 13: private static Map<String, LocalJVMMessageRouter> localRouters = new H -> private static Map<String, LocalJVMMessageRouter> localRouters = new H",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:25Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-MessageManager",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/messaging/MessageManager.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 516-516",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No generic constructor call on target line",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:25Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-MomMessagingService-f000",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/messaging/MomMessagingService.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 39-39",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 39: private Map<String, DeliveryContext> ongoingDeliveries = new HashMap<S -> private Map<String, DeliveryContext> ongoingDeliveries = new HashMap<>",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:25Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-MomMessagingService-f001",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/messaging/MomMessagingService.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 35-35",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 35: private Map<AID, String> locationsCache = new Hashtable<AID, String>() -> private Map<AID, String> locationsCache = new Hashtable<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:26Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-MultipleGenericMessage",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/messaging/MultipleGenericMessage.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 11-11",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 11: private List<GenericMessage> messages = new ArrayList<GenericMessage>( -> private List<GenericMessage> messages = new ArrayList<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:26Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-PersistentDeliveryService",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/messaging/PersistentDeliveryService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 453-453",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No generic constructor call on target line",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:26Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-AgentReplicationHandle",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/replication/AgentReplicationHandle.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 38-38",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 38: static ThreadLocal<Boolean> replicatedCalls = new ThreadLocal<Boolean> -> static ThreadLocal<Boolean> replicatedCalls = new ThreadLocal<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:27Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-AgentReplicationService-f000",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 585-585",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No generic constructor call on target line",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:27Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-AgentReplicationService-f001",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 256-256",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No generic constructor call on target line",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:27Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-AgentReplicationService-f002",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 166-166",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No generic constructor call on target line",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:27Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-AgentReplicationService-f003",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 85-85",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 85: private Map<AID, List<ReplicaInfo>> pendingReplicaCreationRequests = n -> private Map<AID, List<ReplicaInfo>> pendingReplicaCreationRequests = n",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:27Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-AgentReplicationService-f004",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 83-83",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 83: private Map<AID, AID> replicaToVirtualMap = new Hashtable<AID, AID>(); -> private Map<AID, AID> replicaToVirtualMap = new Hashtable<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:27Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-AgentReplicationService-f005",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 81-81",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No diamond operator replacement possible",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "Pattern not matched on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:28Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-AgentReplicationService-f006",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 79-79",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 79: private Map<AID, GlobalReplicationInfo> globalReplications = new Hasht -> private Map<AID, GlobalReplicationInfo> globalReplications = new Hasht",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "Pattern not matched on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:28Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-SingletonResourceManagementHelper",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/resource/SingletonResourceManagementHelper.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 43-43",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 43: helpers = new ArrayList<ResourceManagementHelper>(); -> helpers = new ArrayList<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:28Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-DefaultSAMInfoHandlerImpl-f000",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 88-88",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 88: summaryFields = new ArrayList<String>(ff.length); -> summaryFields = new ArrayList<>(ff.length);",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:28Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-DefaultSAMInfoHandlerImpl-f001",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 87-87",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 87: summaryValues = new ArrayList<String>(ff.length); -> summaryValues = new ArrayList<>(ff.length);",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:28Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-DefaultSAMInfoHandlerImpl-f002",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 48-48",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 48: private Map<String, CounterInfo> counters = new HashMap<String, Counte -> private Map<String, CounterInfo> counters = new HashMap<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:29Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-DefaultSAMInfoHandlerImpl-f003",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 46-46",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 46: private Map<String, PrintStream> entityFiles = new HashMap<String, Pri -> private Map<String, PrintStream> entityFiles = new HashMap<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:29Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-SAMInfo-f000",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/sam/SAMInfo.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 179-179",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 179: Map<String, Long> result = new HashMap<String, Long>(aggregatedCounter -> Map<String, Long> result = new HashMap<>(aggregatedCounters.size());",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:29Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-SAMInfo-f001",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/sam/SAMInfo.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 163-163",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 163: Map<String, CounterAggregator> aggregatedCounters = new HashMap<String -> Map<String, CounterAggregator> aggregatedCounters = new HashMap<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:29Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-SAMInfo-f002",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/sam/SAMInfo.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 131-131",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 131: Map<String, AverageMeasure> aggregatedMeasures = new HashMap<String, A -> Map<String, AverageMeasure> aggregatedMeasures = new HashMap<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:29Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-SAMInfo-f003",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/sam/SAMInfo.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 56-56",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Skipped: diamond in this()/super() call is ambiguous in Java 7",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "Constructor delegation context (this/super) — type inference ambiguous in Java 7"
+    ],
+    "applied_at": "2026-05-26T14:36:29Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-SAMService-f000",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/sam/SAMService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 432-432",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No generic constructor call on target line",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:30Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-SAMService-f001",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/sam/SAMService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 431-431",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No generic constructor call on target line",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:30Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-SAMService-f002",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/sam/SAMService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 385-385",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No generic constructor call on target line",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:30Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-SAMService-f003",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/sam/SAMService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 281-281",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No generic constructor call on target line",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:30Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-SAMService-f004",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/sam/SAMService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 270-270",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No generic constructor call on target line",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:30Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-SAMService-f005",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/sam/SAMService.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 83-83",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 83: private List<MediatedMeasureProvider> providers = new ArrayList<Mediat -> private List<MediatedMeasureProvider> providers = new ArrayList<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:31Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-SAMService-f006",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/sam/SAMService.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 69-69",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 69: private List<CounterInfo> monitoredCounters = new ArrayList<CounterInf -> private List<CounterInfo> monitoredCounters = new ArrayList<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:31Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-SAMService-f007",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/core/sam/SAMService.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 68-68",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 68: private List<EntityInfo> monitoredEntities = new ArrayList<EntityInfo> -> private List<EntityInfo> monitoredEntities = new ArrayList<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:31Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-BEManagementService-f000",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 648-648",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No generic constructor call on target line",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:31Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-BEManagementService-f001",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 510-510",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No generic constructor call on target line",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:31Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-BEManagementService-f002",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 509-509",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "No generic constructor call on target line",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:31Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-BEManagementService-f003",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 140-140",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 140: private static final Map<String, Class> protocolManagers = new HashMap -> private static final Map<String, Class> protocolManagers = new HashMap",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line",
+      "No diamond-operator candidate on this line"
+    ],
+    "applied_at": "2026-05-26T14:36:32Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-NIOJICPConnection",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPConnection.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 49-49",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 49: transformers = new LinkedList<BufferTransformerInfo>(); -> transformers = new LinkedList<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:32Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-ThreadGroupHttpAuthenticator",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/security/ThreadGroupHttpAuthenticator.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 40-40",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 40: private static Map<String, PasswordAuthentication> passwordAuthenticat -> private static Map<String, PasswordAuthentication> passwordAuthenticat",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:32Z"
+  },
+  {
+    "task_id": "DIAMOND_OPERATOR-DynamicJadeGateway",
+    "rule_id": "DIAMOND_OPERATOR",
+    "file": "src/jade/src/jade/wrapper/gateway/DynamicJadeGateway.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 40-40",
+    "match_context": "jade-recipe-1.7-diamond-operator",
+    "diff_summary": "Line 40: private List<GatewayListener> listeners = new ArrayList<GatewayListene -> private List<GatewayListener> listeners = new ArrayList<>();",
+    "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-05-26T14:36:32Z"
+  }
+]

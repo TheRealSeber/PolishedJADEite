@@ -11,7 +11,7 @@ A **JADE Migration Skill Suite** — 11 agnostic core pipeline skills (`jade-cor
 The pipeline operates as a file-based state machine where artifacts on disk are the sole source of truth. Skills communicate through a shared `artifacts/` directory — no agent ever passes raw source code or large JSON in its prompt context.
 
 **Architecture:** `docs/architecture.md` — read before modifying the pipeline.  
-**Agent directives:** `AGENTS.md` — the constitution in 52 lines.
+**Agent directives:** `AGENTS.md` — the constitution in 106 lines.
 
 ---
 
@@ -20,7 +20,8 @@ The pipeline operates as a file-based state machine where artifacts on disk are 
 | Layer | Prefix | Contains | Example |
 |-------|--------|----------|---------|
 | **Core** | `jade-core-*` | Agnostic pipeline plumbing | orchestrator, scanner, dispatcher, verification |
-| **Recipe** | `jade-recipe-*` | Version-specific transforms | `jade-recipe-1.5-to-1.6-<rule-id>` |
+| **Recipe** | `jade-recipe-*` | Version-specific transforms | `jade-recipe-1.5-1.6-<rule-id>` |
+| **Utility** | `jade-utility-*` | Pipeline support tooling | `jade-utility-consumer-onboarder` |
 
 **The Dispatcher Pattern:** Core skills never contain transform logic. The `jade-core-rule-dispatcher` reads a rule from the manifest, looks up the matching recipe in `recipe-registry.json`, and invokes it as a subprocess. Adding a new migration means adding recipe skills — the core pipeline never changes.
 
@@ -31,7 +32,7 @@ The pipeline operates as a file-based state machine where artifacts on disk are 
 ## Pipeline Phases
 
 ```
-0 (optional) → 1 → 2 → 3 → 4 → 5 → 6 → 7 (batch loop) → 8 → 9
+0 (optional) → 1 → 2 → 3 → 4 → 5 → 6 → 7 (batch loop) → 8 → RUNTIME_VERIFY → 9
 ```
 
 | Phase | Skill | What happens |
@@ -45,6 +46,7 @@ The pipeline operates as a file-based state machine where artifacts on disk are 
 | 6 | `jade-core-scanner` | Injects `// JADE-FLAG:` markers, writes flag index |
 | 7 | batch loop | **Rule-by-Rule:** prepare → dispatch to recipe → verify → commit → next rule |
 | 8 | `jade-core-orchestrator` | Confirms all rules passed |
+| RUNTIME_VERIFY | `jade-core-verification` | Compiles & runs consumer projects in Docker |
 | 9 | `jade-core-evaluator` | Scores all skills, writes matrix |
 
 \*Phase 0 is optional — pipeline never requires `JadeDocumentation/`.
@@ -76,7 +78,7 @@ Every rule gets its own git commit. History is clean and revertible per rule.
 4. **Semantic verification** — compares normalized agent lifecycle/ACL/DF events, not raw text logs
 5. **Atomic per-rule commits** — safety gate rejects unrelated dirty files
 
-Full details: `AGENTS.md` (52 lines) and `docs/architecture.md` (448 lines).
+Full details: `AGENTS.md` (106 lines) and `docs/architecture.md` (545 lines).
 
 ---
 
@@ -108,7 +110,7 @@ Recipe skills are produced dynamically by the Skill Creator from manifest data. 
 
 ```
 PolishedJADEite/
-├── AGENTS.md                         # 52-line agent constitution
+├── AGENTS.md                         # 106-line agent constitution
 ├── README.md                         # This file
 ├── LICENSE                           # MIT
 ├── JADE-4.6.0/                       # Original JADE source — never modified
@@ -145,7 +147,13 @@ PolishedJADEite/
 ├── migration-runs/
 │   ├── jade-1.5-to-1.6/               # Target migration run (clean start)
 │   └── sample/                        # Harness artifacts for testing
-├── tests/                            # pytest suite (29 passed, 5 skipped)
+├── config/
+│   └── docker-images.json            # Centralized Docker image registry
+├── consumer-playground/              # Runtime verification consumer projects
+│   ├── hw-jade/                      # Hotel/flight booking multi-agent system
+│   └── version-check/                # Minimal agent: echo version and exit
+├── mock-sources/                     # Mock source documents for testing
+├── tests/                            # pytest suite (41 passed, 5 skipped)
 ├── benchmarks/                       # Evaluation cases and benchmark scripts
 ├── evals/                            # Skill evaluation harness
 └── report/                           # Project report
@@ -156,15 +164,17 @@ PolishedJADEite/
 ## Current State
 
 - **Core pipeline complete** — all 11 `jade-core-*` skills built, agnostic, validated
+- **1.6→1.7 migration completed** — 33 modernization changes (diamond operator, strings-in-switch)
+- **1.5→1.6 migration** — rules collected, tooling scouted, flag injection in progress
+- **Recipe skills exist** — `1.5-1.6-arrays-copyof`, `1.5-1.6-deque-retrofit`, `1.5-1.6-navigable-set-map`, `1.7-diamond-operator`, `1.7-strings-in-switch`, `noop`, `dummy`
+- **Consumer Playground** — runtime verification against real JADE consumer projects (`hw-jade`, `version-check`)
 - **Source governance enforced** — production mode restricts evidence to official allowlist only (Oracle/OpenJDK)
 - **Source catalog** — structured JSON registry for 8 migration paths with per-path source lists
-- **Dockerized build gates** — no host JDK or build tools required
+- **Dockerized build + runtime gates** — no host JDK or build tools required
 - **LLM-as-Extractor change collector** — `write_manifest.py` enforces 12+ schema validations per rule
 - **Core/Recipe split enforced** — dispatcher routes via `recipe-registry.json`
 - **Phase 0 optional** — `JadeDocumentation/` enriches verification for dynamic trace scenarios
-- **Test suite** — 29 passed, 5 skipped (ingestion policy, manifest gate, schema, idempotency, integration)
-- **Deferred:** Recipe skills for 1.5→1.6 (generated from manifest by Skill Creator)
-- **Deferred:** Full JADE 1.5→1.6 real migration execution
+- **Test suite** — 41 passed, 5 skipped
 
 ---
 

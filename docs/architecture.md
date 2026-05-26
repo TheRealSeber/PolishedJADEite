@@ -1,7 +1,7 @@
 # JADE Migration Pipeline — Architecture Constitution
 
-> **Version:** 1.0  
-> **Last updated:** 2026-05-22  
+> **Version:** 1.1  
+> **Last updated:** 2026-05-26  
 > **Status:** ACTIVE — all agents and skills MUST comply with constraints herein.
 
 ---
@@ -234,8 +234,8 @@ A recipe skill:
 - Exits 0 on success, non-zero on failure
 
 Examples (for a hypothetical 1.5→1.6 migration):
-- `jade-recipe-1.5-to-1.6-generics` — infers generics from `.add()`/`.put()` calls
-- `jade-recipe-1.5-to-1.6-loops` — converts safe indexed loops to for-each
+- `jade-recipe-1.5-1.6-generics` — infers generics from `.add()`/`.put()` calls
+- `jade-recipe-1.5-1.6-loops` — converts safe indexed loops to for-each
 
 ### The Dispatcher Pattern
 
@@ -244,9 +244,9 @@ Rule ID "EXAMPLE_RULE" arrives at jade-core-rule-dispatcher
     │
     ├─► LOAD task from 05-rule-batch-EXAMPLE_RULE.json
     ├─► LOAD rule from 01-breaking-changes-manifest.json
-    │       fix_strategy = "recipe:jade-recipe-1.5-to-1.6-example-rule"
-    ├─► LOOKUP recipe-registry.json:
-    │       "EXAMPLE_RULE" → ".claude/skills/jade-recipe-1.5-to-1.6-example-rule/scripts/apply.py"
+│       fix_strategy = "recipe:jade-recipe-1.5-1.6-example-rule"
+├─► LOOKUP recipe-registry.json:
+│       "EXAMPLE_RULE" → ".claude/skills/jade-recipe-1.5-1.6-example-rule/scripts/apply.py"
     ├─► DISPATCH subprocess:
     │       python apply.py --file workspace/src/Example.java --line 42
     ├─► CAPTURE recipe stdout → {"status": "FIXED", ...}
@@ -264,8 +264,8 @@ and updating `recipe-registry.json` — the core pipeline never changes.
 ```json
 {
   "EXAMPLE_RULE": {
-    "skill": "jade-recipe-1.5-to-1.6-example",
-    "script": ".claude/skills/jade-recipe-1.5-to-1.6-example/scripts/apply.py",
+    "skill": "jade-recipe-1.5-1.6-example",
+    "script": ".claude/skills/jade-recipe-1.5-1.6-example/scripts/apply.py",
     "description": "Apply a migration transform"
   }
 }
@@ -543,3 +543,24 @@ and produces zero new flags. The build fixer produces the same plan on re-run.
    transforms. Recipe skills contain zero pipeline logic.
 7. **Never squash rule commits.** One commit per verified rule.
 8. **Never assume `JadeDocumentation/` exists.** Phase 0 is optional.
+9. **Never mutate baseline source.** The orchestrator copies `baseline_path` →
+   `workspace_path` at INIT. All skills operate on the copy. `JADE-4.6.0/` is
+   read-only.
+10. **Never fake artifacts.** Every `artifacts/` file must be produced by the
+    Phase-appropriate script. Manually writing a file that "looks like" a pipeline
+    output to bypass a gate is forbidden.
+11. **Never exclude existing source.** The workspace MUST be a faithful copy of the
+    baseline. Adding exclusion patterns to build files to force compilation on an
+    incompatible JDK is forbidden.
+12. **Container agnosticism.** Never hardcode JDK versions or Docker images in consumer
+    test configs, recipes, or core scripts. Resolve container images from the central
+    registry (`config/docker-images.json`).
+13. **Java 11+ readiness.** Every migration targeting Java 11 or newer MUST run
+    dependency compatibility auditing for removed JDK modules/libraries (including
+    CORBA/JAXB families) during BUILD_GATE_READY.
+14. **Interactive modernization decision.** At `RULE_BATCH_LOOP`, the Agent MUST
+    ask the user which modernization rules to apply vs defer. Deferred rules persist
+    as `// JADE-MODERNIZATION-DEFERRED:<rule_id>` markers.
+15. **Zero-trust verification.** Building successfully in Docker (exit code 0,
+    `BUILD SUCCESSFUL` in log) and `PASS` in all runtime consumer tests are the ONLY
+    acceptable proof of correctness. Evidence before assertions, always.

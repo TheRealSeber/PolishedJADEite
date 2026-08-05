@@ -36,3 +36,6 @@ migration-runs/*/workspace/
 
 # Source policy test output artifacts (config JSONs are tracked)
 tests/fixtures/source-policy/artifacts/
+
+# Git worktrees (isolated workspaces)
+.worktrees/

@@ -8,30 +8,31 @@ import sys
 from typing import Dict, List
 
 SKILL_IDS = [
-    "jade-migration-orchestrator",
-    "jade-change-collector-strict",
-    "jade-tooling-scout",
-    "jade-build-system-fixer",
-    "jade-scanner",
-    "jade-rule-batch-processor",
-    "jade-rule-fixer",
-    "jade-verification-semantic",
-    "jade-atomic-rule-commit",
-    "jade-retry-router",
+    "jade-core-orchestrator",
+    "jade-core-change-collector",
+    "jade-core-tooling-scout",
+    "jade-core-build-fixer",
+    "jade-core-scanner",
+    "jade-core-batch-processor",
+    "jade-core-rule-dispatcher",
+    "jade-core-verification",
+    "jade-core-atomic-commit",
+    "jade-core-evaluator",
+    "jade-core-retry-router",
 ]
 
 _SKILL_ARTIFACT_MAP = {
-    "jade-scanner": ["04-flag-index.json", "04-scan-summary.json"],
-    "jade-rule-batch-processor": ["05-rule-batch-status.json"],
-    "jade-rule-fixer": [],
-    "jade-verification-semantic": [],
-    "jade-atomic-rule-commit": ["09-rule-commit-log.json"],
-    "jade-skill-matrix-evaluator": ["10-skill-matrix.json"],
-    "jade-build-system-fixer": ["03-build-audit.json"],
-    "jade-change-collector-strict": ["01-breaking-changes-manifest.json"],
-    "jade-tooling-scout": ["02-tooling-scout-report.json"],
-    "jade-migration-orchestrator": [],
-    "jade-retry-router": [],
+    "jade-core-scanner": ["04-flag-index.json", "04-scan-summary.json"],
+    "jade-core-batch-processor": ["05-rule-batch-status.json"],
+    "jade-core-rule-dispatcher": [],
+    "jade-core-verification": [],
+    "jade-core-atomic-commit": ["09-rule-commit-log.json"],
+    "jade-core-evaluator": ["10-skill-matrix.json"],
+    "jade-core-build-fixer": ["03-build-audit.json"],
+    "jade-core-change-collector": ["01-breaking-changes-manifest.json"],
+    "jade-core-tooling-scout": ["02-tooling-scout-report.json"],
+    "jade-core-orchestrator": [],
+    "jade-core-retry-router": [],
 }
 
 

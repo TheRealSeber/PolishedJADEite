@@ -8,7 +8,7 @@ description: >-
   Use after manifest is ready and before build gate verification.
 when_to_use: >-
   Use when the user says "scan workspace", "tag sources", "run scanner", "inject
-  flags", "jade-scanner", or after jade-migration-orchestrator reaches SCAN_READY.
+  flags", "jade-scanner", or after jade-core-orchestrator reaches SCAN_READY.
 arguments: [workspace_path, artifacts_path]
 argument-hint: "[workspace-dir] [artifacts-dir]"
 allowed-tools: Bash(python3 *)

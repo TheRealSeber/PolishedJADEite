@@ -45,7 +45,7 @@ batch is fully processed, verified, and committed (by the orchestrator).
 
 ## Required Input
 
-- `artifacts/04-flag-index.json` — produced by jade-phase0-scanner
+- `artifacts/04-flag-index.json` — produced by jade-core-scanner
 - `artifacts/05-rule-queue.json`   — produced by orchestrator (validates rule_id exists)
 - `rule_id` (CLI argument)
 

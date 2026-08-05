@@ -66,7 +66,7 @@ halts with `BUILD_GATE_FAILED`.
 ### Step 1: Run the audit script
 
 ```bash
-python .claude/skills/jade-build-system-fixer/scripts/build_audit.py \
+python .claude/skills/jade-core-build-fixer/scripts/build_audit.py \
   --config "migration-runs/<run_id>/artifacts/00-run-config.json"
 ```
 

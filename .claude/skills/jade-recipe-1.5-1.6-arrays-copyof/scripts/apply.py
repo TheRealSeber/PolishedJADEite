@@ -23,7 +23,7 @@ def main():
                 }
             )
         )
-        return 1
+        return 2
 
     lines = fp.read_text(encoding="utf-8").splitlines(True)
     if args.line < 1 or args.line > len(lines):
@@ -38,7 +38,7 @@ def main():
                 }
             )
         )
-        return 1
+        return 2
 
     line_idx = args.line - 1
     line = lines[line_idx]
@@ -86,15 +86,27 @@ def main():
 
     lines[line_idx] = new_line
 
-    # Add import if not present
+    # Inject import if Arrays.copyOf() is used
     content = "".join(lines)
-    if "java.util.Arrays" not in content and "System.arraycopy" not in content.replace(
-        "// NOTE: Consider", ""
-    ):
-        # Check if we need import
-        pass
+    if "java.util.Arrays" not in content and "java.util.Arrays.copyOf" in content:
+        import_line = "import java.util.Arrays;\n"
+        insert_idx = 0
+        in_imports = False
+        for i, li in enumerate(lines):
+            stripped = li.strip()
+            if stripped.startswith("package "):
+                insert_idx = i + 1
+            elif stripped.startswith("import "):
+                in_imports = True
+                insert_idx = i + 1
+            elif in_imports and not stripped.startswith("import "):
+                break
+        lines.insert(insert_idx, import_line)
+        content = "".join(lines)
 
-    fp.write_text(content, encoding="utf-8")
+    tmp = fp.with_name(fp.name + ".tmp.recipe")
+    tmp.write_text(content, encoding="utf-8")
+    tmp.replace(fp)
 
     diff = f"Line {args.line}: {original[:60]}... → {new_line.strip()[:60]}..."
     print(

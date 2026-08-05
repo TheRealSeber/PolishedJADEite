@@ -31,7 +31,14 @@ TRANSITIONS: Dict[str, Dict[str, str]] = {
         "SCRIPT_ERROR": "FAILED",
     },
     "BUILD_GATE_READY": {
+        "OK": "KNOWLEDGE_GRAPH_READY",
+        "ARTIFACT_MISSING": "FAILED",
+        "ARTIFACT_TAMPERED": "FAILED",
+        "SCRIPT_ERROR": "FAILED",
+    },
+    "KNOWLEDGE_GRAPH_READY": {
         "OK": "SCAN_READY",
+        "DEPENDENCY_MISSING": "SCAN_READY",
         "ARTIFACT_MISSING": "FAILED",
         "ARTIFACT_TAMPERED": "FAILED",
         "SCRIPT_ERROR": "FAILED",
@@ -64,6 +71,7 @@ REQUIRED_ARTIFACTS: Dict[str, List[str]] = {
     "MANIFEST_READY": ["01-breaking-changes-manifest.json"],
     "TOOLING_SCOUT_READY": ["02-tooling-scout-report.json"],
     "BUILD_GATE_READY": ["03-build-audit.json"],
+    "KNOWLEDGE_GRAPH_READY": ["03.5-knowledge-graph.json"],
     "SCAN_READY": ["04-flag-index.json"],
     "RUNTIME_VERIFY": ["07-runtime-verify.json"],
 }
@@ -91,6 +99,10 @@ ARTIFACT_CONTENT_RULES: Dict[str, Dict[str, Any]] = {
                 "docker": "available",
             }
         },
+    },
+    "03.5-knowledge-graph.json": {
+        "json_keys_required": ["nodes", "edges", "stats"],
+        "json_nonempty_dict": ["nodes", "edges", "stats"],
     },
     "04-flag-index.json": {
         "json_keys_required": ["flags", "total_flags", "total_files_scanned"],
@@ -135,6 +147,10 @@ SCRIPT_PHASES: Dict[str, Dict[str, Any]] = {
     "BUILD_GATE_READY": {
         "script": ".claude/skills/jade-core-build-fixer/scripts/build_audit.py",
         "args": ["--config", "_CONFIG_"],
+    },
+    "KNOWLEDGE_GRAPH_READY": {
+        "script": ".claude/skills/jade-core-knowledge-graph/scripts/build_graph.py",
+        "args": ["--workspace", "_WORKSPACE_", "--artifacts-dir", "_ARTIFACTS_"],
     },
     "SCAN_READY": {
         "script": ".claude/skills/jade-core-scanner/scripts/scan_and_tag.py",

@@ -2,6 +2,8 @@ import importlib.util
 import json
 import pathlib
 
+import pytest
+
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 CONSUMER = REPO_ROOT / "consumer-playground" / "jrba"
@@ -66,13 +68,14 @@ def test_jrba_consumer_has_no_binary_files():
     assert binaries == []
 
 
-def test_java_registry_resolves_java_21_without_changing_consumer_target():
+def test_java_registry_rejects_unsupported_target_without_java_21_image():
     runtime_verify = _load_runtime_verify()
     registry = json.loads((REPO_ROOT / "config/docker-images.json").read_text())
 
-    assert set(registry) == {"java-8", "java-11", "java-17", "java-21"}
+    assert set(registry) == {"java-8", "java-11", "java-17"}
     assert runtime_verify.resolve_docker_image("17", registry) == registry["java-17"]
-    assert runtime_verify.resolve_docker_image("21", registry) == registry["java-21"]
+    with pytest.raises(ValueError, match="unsupported"):
+        runtime_verify.resolve_docker_image("21", registry)
 
 
 def test_jrba_agent_has_ordered_markers_and_one_exit_call():

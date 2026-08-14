@@ -75,7 +75,7 @@ def java_major(version: str) -> int:
 
 def load_docker_image_registry(config_path: pathlib.Path) -> Dict[str, str]:
     payload = read_json(config_path)
-    required = {"java-8", "java-11", "java-17", "java-21"}
+    required = {"java-8", "java-11", "java-17"}
     missing = sorted(required - set(payload.keys()))
     if missing:
         raise ValueError(
@@ -86,8 +86,10 @@ def load_docker_image_registry(config_path: pathlib.Path) -> Dict[str, str]:
 
 def resolve_docker_image(target_version: str, registry: Dict[str, str]) -> str:
     major = java_major(target_version)
-    if major >= 21:
-        return registry["java-21"]
+    if major > 17:
+        raise ValueError(
+            f"Target Java {major} is unsupported; supported Docker images stop at Java 17"
+        )
     if major >= 17:
         return registry["java-17"]
     if major >= 11:
@@ -683,7 +685,13 @@ def main() -> int:
     results: List[Dict[str, Any]] = []
     for project_dir, cfg in consumers:
         cfg = dict(cfg)
-        cfg["docker_image"] = resolve_consumer_docker_image(cfg, run_cfg, registry)
+        try:
+            cfg["docker_image"] = resolve_consumer_docker_image(
+                cfg, run_cfg, registry
+            )
+        except ValueError as exc:
+            print(f"ERROR: invalid Docker image configuration: {exc}", file=sys.stderr)
+            return 3
         result = test_consumer(project_dir, workspace, cfg)
         results.append(result)
         status_icon = "PASS" if result["status"] == "PASS" else "FAIL"

@@ -54,6 +54,53 @@ class TestSchema:
         deps = kg.query_dependents("core/AID.java")
         assert sorted(deps) == ["core/Agent.java", "tools/Main.java"]
 
+    def test_transform_order_dependency(self):
+        kg = KnowledgeGraph()
+        kg.add_import_edge("a/FileA.java", "b/FileB.java")
+        rules = ["ruleA", "ruleB"]
+        rule_files = {"ruleA": ["a/FileA.java"], "ruleB": ["b/FileB.java"]}
+        order = kg.query_transform_order(rules, rule_files)
+        assert set(order) == set(rules)
+        assert order.index("ruleB") < order.index("ruleA")
+
+    def test_transform_order_independent_stable(self):
+        kg = KnowledgeGraph()
+        rules = ["ruleA", "ruleB", "ruleC"]
+        rule_files = {
+            "ruleA": ["a/FileA.java"],
+            "ruleB": ["b/FileB.java"],
+            "ruleC": ["c/FileC.java"],
+        }
+        order = kg.query_transform_order(rules, rule_files)
+        assert order == rules
+
+    def test_transform_order_cycle(self):
+        kg = KnowledgeGraph()
+        kg.add_import_edge("a/FileA.java", "b/FileB.java")
+        kg.add_import_edge("b/FileB.java", "a/FileA.java")
+        rules = ["ruleA", "ruleB"]
+        rule_files = {"ruleA": ["a/FileA.java"], "ruleB": ["b/FileB.java"]}
+        order = kg.query_transform_order(rules, rule_files)
+        assert set(order) == set(rules)
+        assert len(order) == 2
+
+    def test_transform_order_empty_rule_files(self):
+        kg = KnowledgeGraph()
+        kg.add_import_edge("a/FileA.java", "b/FileB.java")
+        rules = ["ruleA", "ruleB", "ruleC"]
+        order = kg.query_transform_order(rules, {})
+        assert set(order) == set(rules)
+        assert order == rules
+
+    def test_transform_order_rule_without_files(self):
+        kg = KnowledgeGraph()
+        kg.add_import_edge("a/FileA.java", "b/FileB.java")
+        rules = ["ruleA", "ruleB", "ruleC"]
+        rule_files = {"ruleA": ["a/FileA.java"], "ruleB": ["b/FileB.java"]}
+        order = kg.query_transform_order(rules, rule_files)
+        assert set(order) == set(rules)
+        assert order.index("ruleB") < order.index("ruleA")
+
     def test_roundtrip_save_load(self):
         kg = KnowledgeGraph()
         node = GraphNode(

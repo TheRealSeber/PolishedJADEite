@@ -177,8 +177,43 @@ class KnowledgeGraph:
         return sorted(covered)
 
     def query_transform_order(self, rules: list, rule_files: dict) -> list:
-        """Topologically sort rules. Placeholder: returns as-is for now."""
-        return rules
+        """Topologically sort rules so dependent transforms run first."""
+        if not rules:
+            return []
+
+        file_to_rule = {}
+        for rule in rules:
+            for f in rule_files.get(rule, []) or []:
+                if f not in file_to_rule:
+                    file_to_rule[f] = rule
+
+        deps = {rule: set() for rule in rules}
+        depended_by = {rule: set() for rule in rules}
+        for etype in ("imports", "extends", "implements", "calls", "type_refs"):
+            for e in self.edges.get(etype, []):
+                from_rule = file_to_rule.get(e.from_file)
+                to_rule = file_to_rule.get(e.to_file)
+                if from_rule and to_rule and from_rule != to_rule:
+                    deps[from_rule].add(to_rule)
+                    depended_by[to_rule].add(from_rule)
+
+        indegree = {rule: len(deps[rule]) for rule in rules}
+        ready = [rule for rule in rules if indegree[rule] == 0]
+        result = []
+
+        while ready:
+            rule = ready.pop(0)
+            result.append(rule)
+            for nxt in depended_by[rule]:
+                indegree[nxt] -= 1
+                if indegree[nxt] == 0:
+                    ready.append(nxt)
+                    ready.sort(key=rules.index)
+
+        seen = set(result)
+        remaining = [rule for rule in rules if rule not in seen]
+        result.extend(remaining)
+        return result
 
     def to_dict(self) -> dict:
         nodes_dict = {}

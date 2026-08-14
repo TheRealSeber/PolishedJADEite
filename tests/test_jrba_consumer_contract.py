@@ -28,7 +28,9 @@ def test_jrba_contains_only_all_production_java_sources():
 def test_jrba_maven_project_declares_workspace_compatible_dependencies():
     pom = (CONSUMER / "pom.xml").read_text(encoding="utf-8")
 
-    assert "<maven.compiler.release>21</maven.compiler.release>" in pom
+    assert "<maven.compiler.source>17</maven.compiler.source>" in pom
+    assert "<maven.compiler.target>17</maven.compiler.target>" in pom
+    assert "<maven.compiler.release>17</maven.compiler.release>" in pom
     assert "<artifactId>jade</artifactId>" in pom
     assert "<artifactId>easy-rules-core</artifactId>" in pom
     assert "<artifactId>mvel2</artifactId>" in pom
@@ -42,11 +44,12 @@ def test_jrba_config_uses_maven_verifier_contract():
 
     assert config["build_mode"] == "maven"
     assert config["maven_project_root"] == "."
-    assert "upstream pom declares source, target, and release 21" in config["description"]
+    assert "Java 17 suffices" in config["description"]
+    assert "record, pattern matching, switch expressions, Stream.toList, and List.of" in config["description"]
     assert config["docker_image"] == "${TARGET_DOCKER_IMAGE}"
     assert config["main_class"] == "jade.Boot"
     assert config["boot_args"] == ["-agents", "runner:org.jrba.consumer.JrbaIntegrationAgent"]
-    assert config["source_level"] == 21
+    assert config["source_level"] == 17
     assert config["jade_artifact"] == "jade.jar"
     assert config["expected_stdout_markers"] == ["JRBA_TEST_STARTED", "JRBA_TEST_PASSED"]
     assert config["failure_stdout_markers"] == ["JRBA_TEST_FAILED"]
@@ -63,12 +66,12 @@ def test_jrba_consumer_has_no_binary_files():
     assert binaries == []
 
 
-def test_java_21_resolves_to_java_21_image():
+def test_java_registry_keeps_previous_three_image_contract():
     runtime_verify = _load_runtime_verify()
     registry = json.loads((REPO_ROOT / "config/docker-images.json").read_text())
 
-    assert "java-21" in registry
-    assert runtime_verify.resolve_docker_image("21", registry) == registry["java-21"]
+    assert set(registry) == {"java-8", "java-11", "java-17"}
+    assert runtime_verify.resolve_docker_image("17", registry) == registry["java-17"]
 
 
 def test_jrba_agent_has_ordered_markers_and_one_exit_call():

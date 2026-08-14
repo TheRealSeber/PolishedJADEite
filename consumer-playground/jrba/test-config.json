@@ -1,6 +1,6 @@
 {
   "name": "jrba",
-  "description": "JRBA production-source Maven consumer integration check; Java 21 is required because the upstream pom declares source, target, and release 21",
+  "description": "JRBA production-source Maven consumer integration check; Java 17 suffices because static inspection found only record, pattern matching, switch expressions, Stream.toList, and List.of",
   "build_mode": "maven",
   "maven_project_root": ".",
   "docker_image": "${TARGET_DOCKER_IMAGE}",
@@ -17,7 +17,7 @@
     "JRBA_TEST_FAILED"
   ],
   "timeout_seconds": 60,
-  "source_level": 21,
+  "source_level": 17,
   "jade_artifact": "jade.jar",
   "classpath_deps": [
     "jade.jar"

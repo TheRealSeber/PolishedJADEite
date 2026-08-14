@@ -134,6 +134,9 @@ def validate_consumer_config(
     normalized = dict(cfg)
     errors: List[str] = []
 
+    if normalized.get("_config_error"):
+        errors.append(str(normalized["_config_error"]))
+
     build_mode = normalized.get("build_mode", "javac")
     if not isinstance(build_mode, str) or build_mode not in {"javac", "maven"}:
         errors.append("build_mode must be either 'javac' or 'maven'")
@@ -184,6 +187,13 @@ def discover_consumers() -> List[Tuple[pathlib.Path, Dict[str, Any]]]:
             continue
         try:
             cfg = read_json(config_path)
+            if not isinstance(cfg, dict):
+                cfg = {
+                    "name": candidate.name,
+                    "_config_error": (
+                        "invalid test-config.json: top-level value must be an object"
+                    ),
+                }
             consumers.append((candidate, cfg))
         except (json.JSONDecodeError, OSError) as exc:
             print(

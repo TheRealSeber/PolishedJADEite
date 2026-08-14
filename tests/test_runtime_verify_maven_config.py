@@ -1,4 +1,5 @@
 import importlib.util
+import json
 import pathlib
 
 
@@ -136,3 +137,29 @@ def test_config_rejects_unsafe_dependency_and_artifact_paths(tmp_path):
 
     assert any("classpath_deps" in error for error in errors)
     assert any("artifact_output_dir" in error for error in errors)
+
+
+def test_discovery_records_invalid_top_level_config_values(tmp_path):
+    mod = _load_module()
+    mod.PLAYGROUND_DIR = tmp_path / "consumer-playground"
+
+    for name, config in {
+        "null": None,
+        "list": [],
+        "string": "invalid",
+    }.items():
+        project_dir = mod.PLAYGROUND_DIR / name
+        project_dir.mkdir(parents=True)
+        (project_dir / "test-config.json").write_text(
+            json.dumps(config), encoding="utf-8"
+        )
+
+    discovered = mod.discover_consumers()
+
+    assert len(discovered) == 3
+    for project_dir, cfg in discovered:
+        assert cfg["name"] == project_dir.name
+        assert "invalid test-config.json" in cfg["_config_error"]
+        result = mod.test_consumer(project_dir, tmp_path / "workspace", cfg)
+        assert result["status"] == "FAIL"
+        assert "Invalid consumer configuration" in result["error"]

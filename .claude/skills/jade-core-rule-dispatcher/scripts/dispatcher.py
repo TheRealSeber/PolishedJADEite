@@ -18,6 +18,11 @@ import sys
 from typing import Any, Dict, List, Optional
 
 TMP_FILE_SUFFIX = ".tmp.dispatch"
+RECIPE_STATUSES = {"FIXED", "FAILED", "SKIPPED", "DEFERRED"}
+RECIPE_REGISTRY_PREFIX = pathlib.PurePosixPath(
+    ".claude/skills/java-migration-skill-registry"
+).parts
+RECIPE_BUCKETS = {"1.5-to-1.6", "1.7", "1.7-to-1.8", "shared"}
 
 
 def iso_now() -> str:
@@ -119,6 +124,8 @@ def load_registry() -> Any:
 
 
 def resolve_script_path(script_path: str) -> pathlib.Path:
+    if not isinstance(script_path, str):
+        raise ValueError("Recipe script path must be a string")
     path = pathlib.Path(script_path)
     repo_root = pathlib.Path(__file__).resolve().parents[4]
     resolved = path.resolve() if path.is_absolute() else (repo_root / path).resolve()
@@ -126,26 +133,78 @@ def resolve_script_path(script_path: str) -> pathlib.Path:
         resolved.relative_to(repo_root)
     except ValueError as exc:
         raise ValueError(f"Recipe script path outside repository: {script_path}") from exc
+    relative = pathlib.PurePosixPath(script_path)
+    if (
+        path.is_absolute()
+        or "\\" in script_path
+        or relative.parts[: len(RECIPE_REGISTRY_PREFIX)] != RECIPE_REGISTRY_PREFIX
+        or len(relative.parts) != len(RECIPE_REGISTRY_PREFIX) + 4
+        or relative.parts[-2:] != ("scripts", "apply.py")
+    ):
+        raise ValueError(
+            "Recipe script must be a canonical registry recipe script: "
+            f"{script_path}"
+        )
+    bucket, recipe_name = relative.parts[len(RECIPE_REGISTRY_PREFIX) : len(RECIPE_REGISTRY_PREFIX) + 2]
+    if (
+        bucket not in RECIPE_BUCKETS
+        or not bucket
+        or not recipe_name
+        or pathlib.PurePath(bucket).parts != (bucket,)
+        or pathlib.PurePath(recipe_name).parts != (recipe_name,)
+        or bucket in {".", ".."}
+        or recipe_name in {".", ".."}
+    ):
+        raise ValueError(f"Recipe script has unsafe registry path: {script_path}")
+    registry_root = repo_root / ".claude/skills/java-migration-skill-registry"
+    try:
+        resolved.relative_to(registry_root.resolve())
+    except ValueError as exc:
+        raise ValueError(f"Recipe script path outside registry: {script_path}") from exc
+    expected = registry_root / bucket / recipe_name / "scripts" / "apply.py"
+    if resolved != expected.resolve():
+        raise ValueError(f"Recipe script is not the canonical registry path: {script_path}")
     return resolved
+
+
+def _failed_recipe_result(message: str) -> Dict[str, Any]:
+    return {
+        "status": "FAILED",
+        "changes": 0,
+        "warnings": [],
+        "errors": [message],
+        "diff_summary": message,
+    }
+
+
+def _validate_recipe_result(result: Any) -> Dict[str, Any]:
+    if not isinstance(result, dict):
+        return _failed_recipe_result("Recipe returned non-object JSON")
+    status = result.get("status")
+    changes = result.get("changes")
+    warnings = result.get("warnings")
+    errors = result.get("errors")
+    diff_summary = result.get("diff_summary")
+    if status not in RECIPE_STATUSES:
+        return _failed_recipe_result(f"Recipe returned unknown status: {status!r}")
+    if not isinstance(changes, int) or isinstance(changes, bool) or changes < 0:
+        return _failed_recipe_result("Recipe result 'changes' must be a non-negative integer")
+    if not isinstance(warnings, list) or not all(isinstance(item, str) for item in warnings):
+        return _failed_recipe_result("Recipe result 'warnings' must be a list of strings")
+    if not isinstance(errors, list) or not all(isinstance(item, str) for item in errors):
+        return _failed_recipe_result("Recipe result 'errors' must be a list of strings")
+    if not isinstance(diff_summary, str):
+        return _failed_recipe_result("Recipe result 'diff_summary' must be a string")
+    return result
 
 
 def dispatch_recipe(script_path: str, file_path: str, line: int) -> Dict:
     try:
         resolved_script = resolve_script_path(script_path)
     except (TypeError, ValueError, OSError) as exc:
-        return {
-            "status": "FAILED",
-            "changes": 0,
-            "warnings": [],
-            "errors": [str(exc)],
-        }
+        return _failed_recipe_result(str(exc))
     if not resolved_script.is_file():
-        return {
-            "status": "FAILED",
-            "changes": 0,
-            "warnings": [],
-            "errors": [f"Recipe script not found: {script_path}"],
-        }
+        return _failed_recipe_result(f"Recipe script not found: {script_path}")
     cmd = [
         sys.executable,
         str(resolved_script),
@@ -157,38 +216,16 @@ def dispatch_recipe(script_path: str, file_path: str, line: int) -> Dict:
     try:
         result = subprocess.run(cmd, capture_output=True, text=True)
     except OSError as exc:
-        return {
-            "status": "FAILED",
-            "changes": 0,
-            "warnings": [],
-            "errors": [f"Failed to execute recipe: {exc}"],
-        }
+        return _failed_recipe_result(f"Failed to execute recipe: {exc}")
     if result.returncode != 0:
-        return {
-            "status": "FAILED",
-            "changes": 0,
-            "warnings": [],
-            "errors": [
-                result.stderr.strip() or f"Recipe exit code {result.returncode}"
-            ],
-        }
+        stderr = result.stderr.strip() if isinstance(result.stderr, str) else ""
+        return _failed_recipe_result(stderr or f"Recipe exit code {result.returncode}")
     try:
         recipe_result = json.loads(result.stdout.strip() or "{}")
     except (json.JSONDecodeError, TypeError):
-        return {
-            "status": "FAILED",
-            "changes": 0,
-            "warnings": [],
-            "errors": [f"Recipe returned non-JSON: {result.stdout[:200]}"],
-        }
-    if not isinstance(recipe_result, dict):
-        return {
-            "status": "FAILED",
-            "changes": 0,
-            "warnings": [],
-            "errors": ["Recipe returned non-object JSON"],
-        }
-    return recipe_result
+        stdout = result.stdout if isinstance(result.stdout, str) else repr(result.stdout)
+        return _failed_recipe_result(f"Recipe returned non-JSON: {stdout[:200]}")
+    return _validate_recipe_result(recipe_result)
 
 
 def update_batch_status(
@@ -315,7 +352,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         print(f"ERROR [ARTIFACTS_DIR_MISSING] {artifacts_dir}", file=sys.stderr)
         return 2
 
-    workspace_root = pathlib.Path(args.workspace_root)
+    workspace_root = pathlib.Path(args.workspace_root).resolve()
     errors: List[str] = []
     warnings: List[str] = []
 
@@ -367,7 +404,18 @@ def main(argv: Optional[List[str]] = None) -> int:
         )
         return 2
 
-    file_path = workspace_root / file_rel
+    try:
+        file_path = (workspace_root / file_rel).resolve()
+        file_path.relative_to(workspace_root)
+    except (TypeError, ValueError, OSError) as exc:
+        return _fail(
+            artifacts_dir,
+            args.task_id,
+            args.rule_id,
+            file_rel,
+            0,
+            f"File path outside workspace: {file_rel} ({exc})",
+        )
     if not file_path.exists():
         record_result(
             artifacts_dir,

@@ -23,7 +23,7 @@ The pipeline operates as a file-based state machine where artifacts on disk are 
 | **Recipe** | `java-migration-skill-registry/<bucket>/` | Version-specific transforms | `1.5-to-1.6/arrays-copyof` |
 | **Utility** | `jade-utility-*` | Pipeline support tooling | `jade-utility-consumer-onboarder` |
 
-**The Dispatcher Pattern:** Core skills never contain transform logic. The `jade-core-rule-dispatcher` reads a rule from the manifest, looks up the matching recipe in `recipe-registry.json`, and invokes it as a subprocess. Adding a new migration means adding recipe skills — the core pipeline never changes.
+**The Dispatcher Pattern:** Core skills never contain transform logic. The `jade-core-rule-dispatcher` reads a rule from the manifest, looks up the matching recipe in `recipe-registry.json`, and invokes it as a subprocess. Adding a new migration means adding registry recipe scripts — the core pipeline never changes.
 
 **Rule-by-Rule Sequential Batching:** One `rule_id` is applied to ALL flagged files before verification and git commit. The next rule only starts after the previous rule passes verification. Component-by-component migration is forbidden — it breaks cross-package contracts.
 
@@ -94,7 +94,7 @@ Full details: `AGENTS.md` (106 lines) and `docs/architecture.md` (545 lines).
 | `jade-core-build-fixer` | Build system audit + compiler flag updates |
 | `jade-core-scanner` | Regex flag injection + idempotent flag index |
 | `jade-core-batch-processor` | Per-rule file task lists from flag index |
-| `jade-core-rule-dispatcher` | Routes tasks to recipe skills via registry |
+| `jade-core-rule-dispatcher` | Routes tasks to registry recipe scripts |
 | `jade-core-verification` | Semantic trace normalization + outcome matching |
 | `jade-core-atomic-commit` | Per-rule git commit with safety gate |
 | `jade-core-retry-router` | Failure classification + bounded retry |

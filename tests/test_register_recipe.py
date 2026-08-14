@@ -335,6 +335,33 @@ def test_register_recipe_rejects_script_symlink_outside_registry(tmp_path):
         )
 
 
+def test_register_recipe_rejects_symlink_recipe_dir_before_idempotent_return(tmp_path):
+    module = load_module()
+    registry = tmp_path / "recipe-registry.json"
+    registry.write_text("{}\n", encoding="utf-8")
+    registry_root = tmp_path / "registry"
+    target = tmp_path / "target"
+    (target / "scripts").mkdir(parents=True)
+    (target / "SKILL.md").write_text("target\n", encoding="utf-8")
+    (target / "scripts" / "apply.py").write_text("", encoding="utf-8")
+    link = registry_root / "shared" / "recipe"
+    link.parent.mkdir(parents=True)
+    try:
+        link.symlink_to(target, target_is_directory=True)
+    except OSError:
+        pytest.skip("symlinks are unavailable")
+
+    with pytest.raises(ValueError, match="must not be a symlink"):
+        module.register_recipe(
+            registry_path=registry,
+            registry_root=registry_root,
+            recipe_name="recipe",
+            bucket="shared",
+            rule_id="RULE",
+            description="Recipe",
+        )
+
+
 def test_every_recipe_directory_has_one_registry_entry_with_canonical_script_layout():
     module = load_module()
     registry_path = SCRIPT.parents[2] / "jade-core-rule-dispatcher" / "recipe-registry.json"

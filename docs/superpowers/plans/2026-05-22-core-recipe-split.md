@@ -41,7 +41,7 @@
 - `docs/superpowers/plans/2026-05-21-jade-skill-suite-product-first.md` — update skill path references
 - `tests/test_idempotency.py` — update script paths
 - `tests/test_orchestrator_integration.py` — update script paths
-- `migration-runs/jade-1.5-to-1.6/artifacts/01-breaking-changes-manifest.json` — update `fix_strategy` to `"recipe:jade-recipe-java1.5-raw-types"` format
+- `migration-runs/jade-1.5-to-1.6/artifacts/01-breaking-changes-manifest.json` — update `fix_strategy` to `"recipe:1.5-to-1.6/raw-types"` format
 
 ---
 
@@ -92,12 +92,12 @@ The dispatcher handles the generic LOAD → MATCH → PLAN → RECORD workflow. 
 ```json
 {
   "RAW_TYPES": {
-    "skill": "jade-recipe-java1.5-raw-types",
+    "skill": "registry recipe: 1.5-to-1.6/raw-types",
     "script": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/raw-types/scripts/apply.py",
     "description": "Add generic type parameters to raw collections"
   },
   "ENHANCED_FOR": {
-    "skill": "jade-recipe-java1.5-enhanced-for",
+    "skill": "registry recipe: 1.5-to-1.6/enhanced-for",
     "script": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/enhanced-for/scripts/apply.py",
     "description": "Convert safe indexed for-loops to enhanced-for"
   }
@@ -142,7 +142,7 @@ git commit -m "feat(skills): add jade-core-rule-dispatcher with recipe dispatch"
 - Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/enhanced-for/SKILL.md`
 - Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/enhanced-for/scripts/apply.py`
 
-Extract `apply_raw_types_fix()` and its helpers (`infer_generic_type`, `_resolve_arg_type`, `_infer_collection_element_type`, `atomic_file_write`) into `jade-recipe-java1.5-raw-types/scripts/apply.py`. Same for `apply_enhanced_for_fix()` into `jade-recipe-java1.5-enhanced-for/scripts/apply.py`.
+Extract `apply_raw_types_fix()` and its helpers (`infer_generic_type`, `_resolve_arg_type`, `_infer_collection_element_type`, `atomic_file_write`) into `.claude/skills/java-migration-skill-registry/1.5-to-1.6/raw-types/scripts/apply.py`. Same for `apply_enhanced_for_fix()` into `.claude/skills/java-migration-skill-registry/1.5-to-1.6/enhanced-for/scripts/apply.py`.
 
 Each recipe `apply.py` is a standalone CLI script:
 ```
@@ -168,7 +168,7 @@ python -c "import py_compile; py_compile.compile('.claude/skills/java-migration-
 
 ```bash
 git add .claude/skills/java-migration-skill-registry/
-git commit -m "feat(recipes): add jade-recipe-java1.5-raw-types and enhanced-for scripts"
+git commit -m "feat(recipes): add 1.5-to-1.6 registry recipe scripts"
 ```
 
 ---
@@ -210,7 +210,7 @@ In `01-breaking-changes-manifest.json`, change:
 ```
 to:
 ```json
-"fix_strategy": "recipe:jade-recipe-java1.5-raw-types"
+"fix_strategy": "recipe:1.5-to-1.6/raw-types"
 ```
 
 - [ ] **Step 5: Run full test suite**
@@ -236,8 +236,8 @@ Tasks must run sequentially: 1 → 2 → 3 → 4. Each task ends with a commit.
 
 - [ ] 10 core skills renamed to `jade-core-*` prefix
 - [ ] `jade-core-rule-dispatcher` created with `recipe-registry.json` and `dispatcher.py`
-- [ ] `jade-recipe-java1.5-raw-types` created with `apply.py` (pure transform, CLI-driven)
-- [ ] `jade-recipe-java1.5-enhanced-for` created with `apply.py` (pure transform, CLI-driven)
+- [ ] `1.5-to-1.6/raw-types` registry recipe created with `scripts/apply.py` (pure transform, CLI-driven)
+- [ ] `1.5-to-1.6/enhanced-for` registry recipe created with `scripts/apply.py` (pure transform, CLI-driven)
 - [ ] `jade-rule-fixer` deleted
 - [ ] All cross-references updated (tests, docs, manifest)
 - [ ] Full test suite passes: 9 passed, 2 skipped

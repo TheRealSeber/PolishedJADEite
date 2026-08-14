@@ -163,6 +163,8 @@ def register_recipe(
         recipe_dir.resolve().relative_to(registry_root.resolve())
     except ValueError as exc:
         raise ValueError("recipe path outside registry") from exc
+    if recipe_dir.is_symlink():
+        raise ValueError(f"recipe directory must not be a symlink: {recipe_dir}")
     script = f"{REGISTRY_SCRIPT_PREFIX}/{bucket}/{recipe_name}/scripts/apply.py"
     entry = {"skill": recipe_name, "script": script, "description": description}
     existing_entry = registry.get(rule_id)
@@ -174,9 +176,6 @@ def register_recipe(
         raise FileExistsError(f"recipe already exists: {recipe_dir}")
     if existing_entry is not None and existing_entry != entry and not force:
         raise FileExistsError(f"rule already registered: {rule_id}")
-    if recipe_dir.is_symlink():
-        raise ValueError(f"recipe directory must not be a symlink: {recipe_dir}")
-
     recipe_dir.parent.mkdir(parents=True, exist_ok=True)
     staged_dir = _stage_recipe_files(recipe_dir, recipe_name, description, source_dir)
     backup_dir: pathlib.Path | None = None

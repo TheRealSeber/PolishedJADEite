@@ -52,11 +52,11 @@
 - Create: `.claude/skills/jade-core-rule-dispatcher/scripts/dispatcher.py`
 - Create: `.claude/skills/jade-core-rule-dispatcher/recipe-registry.json`
 
-- Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-java1.5-raw-types/SKILL.md`
-- Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-java1.5-raw-types/scripts/apply.py`
+- Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/raw-types/SKILL.md`
+- Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/raw-types/scripts/apply.py`
 
-- Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-java1.5-enhanced-for/SKILL.md`
-- Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-java1.5-enhanced-for/scripts/apply.py`
+- Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/enhanced-for/SKILL.md`
+- Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/enhanced-for/scripts/apply.py`
 
 - Create: `.claude/skills/jade-core-verification/SKILL.md`
 - Create: `.claude/skills/jade-core-verification/scripts/semantic_verify.py`

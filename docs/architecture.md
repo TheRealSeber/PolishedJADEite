@@ -247,7 +247,7 @@ Rule ID "EXAMPLE_RULE" arrives at jade-core-rule-dispatcher
     ├─► LOAD rule from 01-breaking-changes-manifest.json
 │       fix_strategy = "recipe:jade-recipe-1.5-1.6-example-rule"
 ├─► LOOKUP recipe-registry.json:
-│       "EXAMPLE_RULE" → ".claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-1.5-1.6-example-rule/scripts/apply.py"
+│       "EXAMPLE_RULE" → ".claude/skills/java-migration-skill-registry/1.5-to-1.6/example-rule/scripts/apply.py"
     ├─► DISPATCH subprocess:
     │       python apply.py --file workspace/src/Example.java --line 42
     ├─► CAPTURE recipe stdout → {"status": "FIXED", ...}
@@ -265,8 +265,8 @@ and updating `recipe-registry.json` — the core pipeline never changes.
 ```json
 {
   "EXAMPLE_RULE": {
-    "skill": "jade-recipe-1.5-1.6-example",
-    "script": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-1.5-1.6-example/scripts/apply.py",
+    "skill": "example-rule",
+    "script": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/example-rule/scripts/apply.py",
     "description": "Apply a migration transform"
   }
 }

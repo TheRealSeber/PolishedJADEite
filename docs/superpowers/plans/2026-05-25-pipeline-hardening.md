@@ -263,6 +263,9 @@ Add `"fallback"` entry to recipe-registry.json:
 }
 ```
 
+The script path above uses the canonical nested registry layout:
+`<bucket>/<recipe>/scripts/apply.py`.
+
 The key MUST be `"fallback"` (lowercase) with underscores if multi-word — matches the JSON key convention in the existing file.
 
 - [ ] **Step 2: Update dispatcher to fall back to fallback recipe**

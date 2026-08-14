@@ -85,6 +85,37 @@ def test_register_recipe_rejects_existing_recipe_without_force(tmp_path):
         )
 
 
+def test_register_recipe_rejects_duplicate_rule_when_recipe_directory_is_missing(tmp_path):
+    module = load_module()
+    registry = tmp_path / "recipe-registry.json"
+    registry.write_text(
+        json.dumps(
+            {
+                "RULE": {
+                    "skill": "existing",
+                    "script": ".claude/skills/java-migration-skill-registry/shared/existing/scripts/apply.py",
+                    "description": "Existing recipe",
+                }
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    registry_root = tmp_path / "registry"
+
+    with pytest.raises(FileExistsError, match="rule already registered: RULE"):
+        module.register_recipe(
+            registry_path=registry,
+            registry_root=registry_root,
+            recipe_name="new-recipe",
+            bucket="shared",
+            rule_id="RULE",
+            description="New recipe",
+        )
+
+    assert not (registry_root / "shared" / "new-recipe").exists()
+
+
 def test_register_recipe_is_idempotent(tmp_path):
     module = load_module()
     registry = tmp_path / "recipe-registry.json"
@@ -196,3 +227,24 @@ def test_recipe_registry_script_entries_resolve_to_files():
         relative_script = pathlib.Path(entry["script"])
         assert relative_script.parts[:3] == (".claude", "skills", "java-migration-skill-registry")
         assert (SCRIPT.parents[4] / relative_script).is_file(), rule_id
+
+
+def test_every_recipe_directory_has_one_registry_entry_with_canonical_script_layout():
+    module = load_module()
+    registry_path = SCRIPT.parents[2] / "jade-core-rule-dispatcher" / "recipe-registry.json"
+    registry_root = SCRIPT.parents[1]
+    data = json.loads(registry_path.read_text(encoding="utf-8"))
+    entries = [entry for rule_id, entry in data.items() if not rule_id.startswith("_")]
+
+    for bucket in module.BUCKETS:
+        bucket_dir = registry_root / bucket
+        for recipe_dir in bucket_dir.iterdir():
+            if not recipe_dir.is_dir():
+                continue
+            expected_script = (
+                f".claude/skills/java-migration-skill-registry/"
+                f"{bucket}/{recipe_dir.name}/scripts/apply.py"
+            )
+            matches = [entry for entry in entries if entry.get("script") == expected_script]
+            assert len(matches) == 1, f"expected one registry entry for {recipe_dir}"
+            assert (recipe_dir / "scripts" / "apply.py").is_file()

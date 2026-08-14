@@ -3,6 +3,7 @@
 import json
 import os
 import tempfile
+import hashlib
 from dataclasses import dataclass, field, asdict
 from typing import List, Dict, Optional
 
@@ -200,6 +201,7 @@ class KnowledgeGraph:
         return {
             "direct": len(direct), "transitive": len(transitive), "total": len(visited),
             "direct_files": sorted(direct), "transitive_files": sorted(transitive),
+            "files": sorted(visited),
             "paths": sorted(paths, key=lambda p: p["file"]),
         }
 
@@ -270,6 +272,10 @@ class KnowledgeGraph:
         result.extend(remaining)
         return {"order": result, "diagnostics": diagnostics}
 
+    def query_transform_order_with_diagnostics(self, rules: list, rule_files: dict) -> dict:
+        """Compatibility alias for callers using the explicit diagnostics name."""
+        return self.query_transform_order_result(rules, rule_files)
+
     def to_dict(self) -> dict:
         nodes_dict = {path: self.nodes[path].to_dict() for path in sorted(self.nodes)}
 
@@ -304,9 +310,12 @@ class KnowledgeGraph:
             source["java_files"] = source["java_file_count"]
         diagnostics = {bucket: sorted(values, key=lambda d: json.dumps(d, sort_keys=True))
                        for bucket, values in self.diagnostics.items()}
-        return {"schema_version": self.schema_version, "source": source,
+        result = {"schema_version": self.schema_version, "source": source,
                 "source_identity": self.source_identity, "diagnostics": diagnostics,
                 "nodes": nodes_dict, "edges": edges_dict, "stats": self.compute_stats()}
+        canonical = json.dumps(result, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+        result["content_hash"] = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+        return result
 
     @staticmethod
     def from_dict(d: dict):

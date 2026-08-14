@@ -69,6 +69,7 @@ class TestSchema:
         assert scope["direct"] == 1
         assert scope["transitive_files"] == ["a/A.java", "b/B.java"]
         assert scope["total"] == 3
+        assert scope["files"] == ["a/A.java", "b/B.java", "c/C.java"]
         assert scope["paths"][0]["reasons"] == ["imports", "imports"]
 
     def test_transform_order_dependency(self):
@@ -102,6 +103,7 @@ class TestSchema:
         assert len(order) == 2
         result = kg.query_transform_order_result(rules, rule_files)
         assert any(d["kind"] == "cycle" for d in result["diagnostics"])
+        assert kg.query_transform_order_with_diagnostics(rules, rule_files) == result
 
     def test_transform_order_empty_rule_files(self):
         kg = KnowledgeGraph()
@@ -142,6 +144,13 @@ class TestSchema:
             assert "nodes" in kg2.to_dict() and "edges" in kg2.to_dict() and "stats" in kg2.to_dict()
             assert kg2.to_dict()["source"] == {}
             assert set(kg2.to_dict()["diagnostics"]) >= {"parse_failures", "unresolved_types", "ambiguous_symbols"}
+
+    def test_content_hash_excludes_volatile_metadata(self):
+        kg = KnowledgeGraph(source={"workspace_root": "workspace", "java_files": 0})
+        first = kg.to_dict()
+        second = kg.to_dict()
+        assert first["content_hash"] == second["content_hash"]
+        assert "generated_at" not in first
 
 
 class TestTreeSitterQueries:
@@ -190,6 +199,13 @@ class TestTreeSitterQueries:
         assert "getValue" in method_names
         assert "computeLength" in method_names
 
+    def test_extract_method_type_references(self):
+        root, src = self._parse("SampleA.java")
+        methods = extract_methods(root, src, self.lang)
+        process = next(m for m in methods if m["name"] == "process")
+        assert process["return_type"] == "String"
+        assert process["parameters"][0]["type"] == "String"
+
     def test_extract_interface(self):
         root, src = self._parse("SampleInterface.java")
         classes = extract_class_info(root, src, self.lang)
@@ -233,6 +249,10 @@ class TestBuildGraph:
         edges = data["edges"]
         assert len(edges["extends"]) > 0
         assert len(edges["implements"]) > 0
+        assert len(edges["calls"]) > 0
+        assert any(edge["from_method"] == "process" for edge in edges["calls"])
+        assert any(edge["from"] == "WildcardConsumer.java" and edge["to"] == "SampleA.java"
+                   for edge in edges["calls"])
 
         if os.path.isdir(art_dir):
             shutil.rmtree(art_dir)
@@ -295,6 +315,28 @@ class TestBuildGraph:
         assert not kg.edges["imports"]
 
         assert any(item["symbol"] == "Same" for item in ambiguous)
+
+    def test_wildcard_duplicate_name_is_ambiguous(self, tmp_path):
+        (tmp_path / "One.java").write_text("package p; public class Same {}\n")
+        (tmp_path / "Two.java").write_text("package p; public class Same {}\n")
+        (tmp_path / "Use.java").write_text("package q; import p.*; public class Use {}\n")
+        parser, lang = get_parser()
+        nodes, diagnostics = parse_files(scan_workspace(str(tmp_path)), parser, lang, return_diagnostics=True)
+        kg = resolve_graph(nodes, diagnostics)
+        assert any(item["symbol"] == "p.Same" for item in kg.to_dict()["diagnostics"]["ambiguous_symbols"])
+        assert not kg.edges["imports"]
+
+    def test_method_parameter_and_return_type_edges(self, tmp_path):
+        (tmp_path / "Target.java").write_text("package p; public class Target {}\n")
+        (tmp_path / "Consumer.java").write_text(
+            "package q; import p.Target; public class Consumer { Target convert(Target input) { return input; } }\n"
+        )
+        parser, lang = get_parser()
+        nodes, diagnostics = parse_files(scan_workspace(str(tmp_path)), parser, lang, return_diagnostics=True)
+        kg = resolve_graph(nodes, diagnostics)
+        refs = [edge for edge in kg.edges["type_refs"] if edge.to_file == "Target.java"]
+        assert {edge.type_name for edge in refs} == {"Target"}
+        assert {edge.field for edge in refs} >= {"method:convert:return", "method:convert:parameter:input"}
 
     def test_transform_order_reports_three_way_ownership_ambiguity(self):
         kg = KnowledgeGraph()

@@ -288,9 +288,42 @@ def extract_calls(tree_root, source_bytes, lang):
                 call_info["object"] = val
             elif cap_name == "method_name":
                 call_info["method_name"] = val
+                call_info["caller_method"] = _enclosing_method_name(node, source_bytes)
         if call_info.get("method_name"):
             results.append(call_info)
     return results
+
+
+def extract_local_variables(tree_root, source_bytes, lang):
+    """Extract local variable names and declared types for receiver resolution."""
+    results = []
+    q = Query(lang, "(local_variable_declaration) @local")
+    for _, captures in QueryCursor(q).matches(tree_root):
+        node = captures["local"][0]
+        type_text = ""
+        for child in node.children:
+            if child.type in ("type_identifier", "generic_type", "array_type", "scoped_type_identifier"):
+                type_text = _child_text(child, source_bytes)
+                break
+        if not type_text:
+            continue
+        for child in node.children:
+            if child.type == "variable_declarator":
+                for grandchild in child.children:
+                    if grandchild.type == "identifier":
+                        results.append({"name": _child_text(grandchild, source_bytes), "type": type_text})
+    return results
+
+
+def _enclosing_method_name(node, source_bytes):
+    current = node.parent
+    while current is not None:
+        if current.type == "method_declaration":
+            for child in current.children:
+                if child.type == "identifier":
+                    return _child_text(child, source_bytes)
+        current = current.parent
+    return ""
 
 
 def _parse_exceptions(throws_text):

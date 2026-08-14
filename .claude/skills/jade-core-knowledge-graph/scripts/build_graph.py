@@ -24,6 +24,7 @@ from schema import (
 from tree_sitter_java_queries import (
     get_parser, parse_file, extract_class_info, extract_methods,
     extract_fields, extract_constructors, extract_calls, extract_imports, extract_package,
+    extract_local_variables,
 )
 
 
@@ -55,6 +56,7 @@ def parse_files(java_files: list, parser, lang, return_diagnostics=False):
             fields_raw = extract_fields(root, src, lang)
             ctors_raw = extract_constructors(root, src, lang)
             calls_raw = extract_calls(root, src, lang)
+            locals_raw = extract_local_variables(root, src, lang)
             imports = extract_imports(root, src, lang)
 
             node = None
@@ -80,6 +82,8 @@ def parse_files(java_files: list, parser, lang, return_diagnostics=False):
             nodes[rel] = {
                 "node": node,
                 "calls": calls_raw,
+                "locals": locals_raw,
+                "methods": methods_raw,
                 "imports": imports,
                 "fields": fields_raw,
                 "implements": node.implements,
@@ -94,7 +98,7 @@ def parse_files(java_files: list, parser, lang, return_diagnostics=False):
             nodes[rel] = {
                 "node": _create_partial_node(rel),
                 "calls": [], "imports": [],
-                "fields": [], "implements": [], "extends": "",
+                "fields": [], "locals": [], "methods": [], "implements": [], "extends": "",
             }
 
     for rel, err in parse_errors:
@@ -114,6 +118,10 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
     declarations = {}
     pkg_to_rels = {}
     for rel, data in nodes.items():
+        receiver_types = {field.get("name"): field.get("type") for field in data.get("fields", [])
+                          if isinstance(field, dict) and field.get("name")}
+        receiver_types.update({local.get("name"): local.get("type") for local in data.get("locals", [])
+                               if isinstance(local, dict) and local.get("name")})
         node = data["node"]
         pkg = node.package
         cls = node.class_name
@@ -170,6 +178,22 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
                     kg.add_type_ref_edge(rel, target_rel, field=fd.get("name", ""), type_name=ftype)
 
     for rel, data in nodes.items():
+        for method in data.get("methods", []):
+            if not isinstance(method, dict):
+                continue
+            method_name = method.get("name", "")
+            type_refs = [(method.get("return_type", ""), f"method:{method_name}:return")]
+            type_refs.extend((param.get("type", ""), f"method:{method_name}:parameter:{param.get('name', '')}")
+                             for param in method.get("parameters", []) if isinstance(param, dict))
+            type_refs.extend((exception, f"method:{method_name}:throws")
+                             for exception in method.get("exceptions", []))
+            for type_name, field_name in type_refs:
+                target_rel = _resolve_type(type_name, nodes, rel, fqn_to_rel, pkg_to_rels, kg,
+                                           ambiguous_fqns, ambiguous_short_names)
+                if target_rel and target_rel in nodes:
+                    kg.add_type_ref_edge(rel, target_rel, field=field_name, type_name=type_name)
+
+    for rel, data in nodes.items():
         node = data["node"]
         for call in data.get("calls", []):
             if not isinstance(call, dict):
@@ -180,10 +204,13 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
                 continue
             target_rel = None
             if obj:
-                target_rel = _resolve_type(obj, nodes, rel, fqn_to_rel, pkg_to_rels, kg, ambiguous_fqns,
+                receiver_type = receiver_types.get(obj, obj)
+                target_rel = _resolve_type(receiver_type, nodes, rel, fqn_to_rel, pkg_to_rels, kg, ambiguous_fqns,
                                            ambiguous_short_names, report_unresolved=False)
+            else:
+                target_rel = rel
             if target_rel and target_rel in nodes:
-                kg.add_call_edge(rel, "", target_rel, mname, call.get("line", 0))
+                kg.add_call_edge(rel, call.get("caller_method", ""), target_rel, mname, call.get("line", 0))
 
     return kg
 
@@ -280,7 +307,19 @@ def _resolve_import(imp: str, fqn_to_rel: dict, pkg_to_rels: dict, from_rel: str
         # A wildcard import creates one edge per declaration in that package.
         if not candidates and kg is not None:
             kg.add_diagnostic({"kind": "unresolved_import", "file": from_rel, "symbol": imp})
-        return candidates, "wildcard"
+        by_name = {}
+        for candidate in candidates:
+            name = nodes[candidate]["node"].class_name
+            by_name.setdefault(name, []).append(candidate)
+        resolved = []
+        for name, files in sorted(by_name.items()):
+            if len(files) > 1:
+                if kg is not None:
+                    kg.add_diagnostic({"kind": "ambiguous_symbol", "file": from_rel,
+                                       "symbol": f"{pkg}.{name}", "candidates": sorted(files)})
+            else:
+                resolved.extend(files)
+        return sorted(resolved), "wildcard"
     if imp in fqn_to_rel and fqn_to_rel[imp]:
         return [fqn_to_rel[imp]], "direct"
     if imp in (ambiguous_fqns or set()) and kg is not None:

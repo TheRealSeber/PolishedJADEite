@@ -66,12 +66,13 @@ def test_jrba_consumer_has_no_binary_files():
     assert binaries == []
 
 
-def test_java_registry_keeps_previous_three_image_contract():
+def test_java_registry_resolves_java_21_without_changing_consumer_target():
     runtime_verify = _load_runtime_verify()
     registry = json.loads((REPO_ROOT / "config/docker-images.json").read_text())
 
-    assert set(registry) == {"java-8", "java-11", "java-17"}
+    assert set(registry) == {"java-8", "java-11", "java-17", "java-21"}
     assert runtime_verify.resolve_docker_image("17", registry) == registry["java-17"]
+    assert runtime_verify.resolve_docker_image("21", registry) == registry["java-21"]
 
 
 def test_jrba_agent_has_ordered_markers_and_one_exit_call():

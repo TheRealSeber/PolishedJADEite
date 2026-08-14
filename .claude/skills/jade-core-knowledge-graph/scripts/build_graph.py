@@ -123,13 +123,16 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
         kg.add_node(node)
 
     ambiguous_fqns = set()
+    short_name_files = {}
     for fqn, files in declarations.items():
+        short_name_files.setdefault(fqn.rsplit(".", 1)[-1], []).extend(files)
         if len(files) == 1:
             fqn_to_rel[fqn] = files[0]
         else:
             ambiguous_fqns.add(fqn)
             kg.add_diagnostic({"kind": "ambiguous_declaration", "symbol": fqn,
                                "files": sorted(files)})
+    ambiguous_short_names = {name for name, files in short_name_files.items() if len(files) > 1}
 
     for rel, data in nodes.items():
         for imp in data.get("imports", []):
@@ -144,14 +147,16 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
             if isinstance(ext_val, list):
                 ext_val = ext_val[0] if ext_val else ""
             if ext_val:
-                target_rel = _resolve_type(ext_val, nodes, rel, fqn_to_rel, pkg_to_rels, kg, ambiguous_fqns)
+                target_rel = _resolve_type(ext_val, nodes, rel, fqn_to_rel, pkg_to_rels, kg,
+                                           ambiguous_fqns, ambiguous_short_names)
                 if target_rel and target_rel in nodes:
                     kg.add_extends_edge(rel, target_rel)
 
     for rel, data in nodes.items():
         for imp_iface in data.get("implements", []):
             if imp_iface:
-                target_rel = _resolve_type(imp_iface, nodes, rel, fqn_to_rel, pkg_to_rels, kg, ambiguous_fqns)
+                target_rel = _resolve_type(imp_iface, nodes, rel, fqn_to_rel, pkg_to_rels, kg,
+                                           ambiguous_fqns, ambiguous_short_names)
                 if target_rel and target_rel in nodes:
                     kg.add_implements_edge(rel, target_rel)
 
@@ -159,7 +164,8 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
         for fd in data.get("fields", []):
             if isinstance(fd, dict):
                 ftype = fd.get("type", "")
-                target_rel = _resolve_type(ftype, nodes, rel, fqn_to_rel, pkg_to_rels, kg, ambiguous_fqns)
+                target_rel = _resolve_type(ftype, nodes, rel, fqn_to_rel, pkg_to_rels, kg,
+                                           ambiguous_fqns, ambiguous_short_names)
                 if target_rel and target_rel in nodes:
                     kg.add_type_ref_edge(rel, target_rel, field=fd.get("name", ""), type_name=ftype)
 
@@ -175,7 +181,7 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
             target_rel = None
             if obj:
                 target_rel = _resolve_type(obj, nodes, rel, fqn_to_rel, pkg_to_rels, kg, ambiguous_fqns,
-                                           report_unresolved=False)
+                                           ambiguous_short_names, report_unresolved=False)
             if target_rel and target_rel in nodes:
                 kg.add_call_edge(rel, "", target_rel, mname, call.get("line", 0))
 
@@ -285,7 +291,7 @@ def _resolve_import(imp: str, fqn_to_rel: dict, pkg_to_rels: dict, from_rel: str
 
 
 def _resolve_type(type_name: str, nodes: dict, from_rel: str, fqn_to_rel: dict, pkg_to_rels: dict, kg=None,
-                  ambiguous_fqns=None, report_unresolved=True):
+                  ambiguous_fqns=None, ambiguous_short_names=None, report_unresolved=True):
     if not type_name:
         return None
     base_type = type_name.split("<", 1)[0].strip().replace("[]", "")
@@ -295,7 +301,9 @@ def _resolve_type(type_name: str, nodes: dict, from_rel: str, fqn_to_rel: dict, 
     candidate_fqn = f"{from_pkg}.{base_type}" if from_pkg else base_type
     if candidate_fqn in fqn_to_rel:
         return fqn_to_rel[candidate_fqn]
-    if candidate_fqn in (ambiguous_fqns or set()) or base_type in (ambiguous_fqns or set()):
+    if (candidate_fqn in (ambiguous_fqns or set()) or
+            base_type in (ambiguous_fqns or set()) or
+            base_type in (ambiguous_short_names or set())):
         if kg is not None:
             kg.add_diagnostic({"kind": "ambiguous_symbol", "file": from_rel,
                                "symbol": base_type,
@@ -372,6 +380,8 @@ def main():
     print("Stage 3/4: RESOLVE -- cross-referencing edges")
     kg = resolve_graph(nodes, diagnostics)
     kg.source = {
+        "workspace_root": os.path.abspath(args.workspace),
+        "java_files": len(java_files),
         "workspace": os.path.abspath(args.workspace),
         "java_file_count": len(java_files),
     }

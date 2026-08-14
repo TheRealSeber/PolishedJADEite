@@ -297,9 +297,14 @@ class KnowledgeGraph:
                      for e in sorted(elist, key=lambda x: (x.from_file, x.to_file, x.field, x.type_name))
                 ]
 
+        source = dict(self.source)
+        if "workspace_root" not in source and "workspace" in source:
+            source["workspace_root"] = source["workspace"]
+        if "java_files" not in source and "java_file_count" in source:
+            source["java_files"] = source["java_file_count"]
         diagnostics = {bucket: sorted(values, key=lambda d: json.dumps(d, sort_keys=True))
                        for bucket, values in self.diagnostics.items()}
-        return {"schema_version": self.schema_version, "source": self.source,
+        return {"schema_version": self.schema_version, "source": source,
                 "source_identity": self.source_identity, "diagnostics": diagnostics,
                 "nodes": nodes_dict, "edges": edges_dict, "stats": self.compute_stats()}
 

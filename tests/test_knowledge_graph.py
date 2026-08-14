@@ -277,6 +277,8 @@ class TestBuildGraph:
         kg.source = {"workspace": str(tmp_path), "java_file_count": 1}
         data = kg.to_dict()
         assert data["source"]["java_file_count"] == 1
+        assert data["source"]["workspace_root"] == str(tmp_path)
+        assert data["source"]["java_files"] == 1
         assert isinstance(data["diagnostics"], dict)
         assert any(item["kind"] == "unresolved_import" for item in data["diagnostics"]["unresolved_types"])
 
@@ -291,6 +293,8 @@ class TestBuildGraph:
         ambiguous = kg.to_dict()["diagnostics"]["ambiguous_symbols"]
         assert any(item["symbol"] == "p.Same" for item in ambiguous)
         assert not kg.edges["imports"]
+
+        assert any(item["symbol"] == "Same" for item in ambiguous)
 
     def test_transform_order_reports_three_way_ownership_ambiguity(self):
         kg = KnowledgeGraph()

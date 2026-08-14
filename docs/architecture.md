@@ -220,12 +220,13 @@ Utility skills support the pipeline but are not part of the core state machine.
 |---|-------|---------------|
 | 1 | `jade-utility-consumer-onboarder` | ZIP extraction + test-config.json generation for consumer playground |
 
-### Recipe Skills (`jade-recipe-*`)
+### Recipe Registry
 
-Recipe skills are **version-specific transform scripts** generated dynamically
-per-migration. They contain pure Java editing logic — no artifact I/O, no JSON
-parsing, no understanding of the pipeline. They are invoked as subprocesses by
-the dispatcher.
+Recipes are **version-specific transform scripts** stored under
+`.claude/skills/java-migration-skill-registry/<bucket>/<recipe>/`. They contain pure
+Java editing logic — no artifact I/O, no JSON parsing, no understanding of the
+pipeline. Nested `SKILL.md` files are documentation, not agent skills. Recipes are
+invoked as subprocesses by the dispatcher.
 
 A recipe skill:
 - Accepts `--file <path> --line <num>` via CLI
@@ -246,7 +247,7 @@ Rule ID "EXAMPLE_RULE" arrives at jade-core-rule-dispatcher
     ├─► LOAD rule from 01-breaking-changes-manifest.json
 │       fix_strategy = "recipe:jade-recipe-1.5-1.6-example-rule"
 ├─► LOOKUP recipe-registry.json:
-│       "EXAMPLE_RULE" → ".claude/skills/jade-recipe-1.5-1.6-example-rule/scripts/apply.py"
+│       "EXAMPLE_RULE" → ".claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-1.5-1.6-example-rule/scripts/apply.py"
     ├─► DISPATCH subprocess:
     │       python apply.py --file workspace/src/Example.java --line 42
     ├─► CAPTURE recipe stdout → {"status": "FIXED", ...}
@@ -265,14 +266,16 @@ and updating `recipe-registry.json` — the core pipeline never changes.
 {
   "EXAMPLE_RULE": {
     "skill": "jade-recipe-1.5-1.6-example",
-    "script": ".claude/skills/jade-recipe-1.5-1.6-example/scripts/apply.py",
+    "script": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-1.5-1.6-example/scripts/apply.py",
     "description": "Apply a migration transform"
   }
 }
 ```
 
-Recipes are generated per-migration by the Skill Creator from manifest data. The
-registry starts empty (`{}`) and is populated before the RULE_BATCH_LOOP phase.
+Recipes are created and registered by
+`.claude/skills/java-migration-skill-registry/scripts/register_recipe.py`. The helper
+creates recipe files, validates safe path segments, and atomically updates the
+registry. The registry is populated before the RULE_BATCH_LOOP phase.
 
 ### Consumer Playground & Runtime Verification
 

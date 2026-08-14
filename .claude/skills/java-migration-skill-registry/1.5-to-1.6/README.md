@@ -1,14 +1,14 @@
 # Skill Registry — Java 1.5 → 1.6
 
-This directory is populated by the **Skill-Creator agent** as it processes JADE modules.
-Hand-authored skills live in `.claude/skills/` — this registry holds auto-generated improvements.
+This bucket contains recipes for the Java 1.5 to 1.6 migration. Recipes are invoked
+as subprocesses through `jade-core-rule-dispatcher/recipe-registry.json`; nested
+`SKILL.md` files are documentation, not agent-discoverable skills.
 
 ## How it works
 
-1. Tester agent runs `mvn clean compile` on `JADE-4.6.0-java1.6/` and collects failure patterns
-2. Skill-Creator reads failure patterns → generates or improves a skill here
-3. Skill is benchmarked against `benchmarks/1.5-to-1.6/eval_cases.json`
-4. If pass rate improves, skill is committed here with a version bump
+1. Run `scripts/register_recipe.py` with `--bucket 1.5-to-1.6`
+2. Review the generated or copied `SKILL.md` and `scripts/apply.py`
+3. Verify the registry entry and recipe subprocess before committing
 
 ## Registry structure (once populated)
 
@@ -25,5 +25,5 @@ Hand-authored skills live in `.claude/skills/` — this registry holds auto-gene
 
 ## Current status
 
-Registry is empty — migration PoC is using hand-authored skills in `.claude/skills/`.
-Skill-Creator agent populates this directory as failures are encountered.
+Existing recipes are maintained in this bucket; new recipes must use the canonical
+registration helper.

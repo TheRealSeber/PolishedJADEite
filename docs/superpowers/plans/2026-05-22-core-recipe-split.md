@@ -16,10 +16,10 @@
 - `.claude/skills/jade-core-rule-dispatcher/SKILL.md`
 - `.claude/skills/jade-core-rule-dispatcher/scripts/dispatcher.py`
 - `.claude/skills/jade-core-rule-dispatcher/recipe-registry.json`
-- `.claude/skills/jade-recipe-java1.5-raw-types/SKILL.md`
-- `.claude/skills/jade-recipe-java1.5-raw-types/scripts/apply.py`
-- `.claude/skills/jade-recipe-java1.5-enhanced-for/SKILL.md`
-- `.claude/skills/jade-recipe-java1.5-enhanced-for/scripts/apply.py`
+- `.claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-java1.5-raw-types/SKILL.md`
+- `.claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-java1.5-raw-types/scripts/apply.py`
+- `.claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-java1.5-enhanced-for/SKILL.md`
+- `.claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-java1.5-enhanced-for/scripts/apply.py`
 
 ### Files to rename (10 `git mv`s)
 - `jade-migration-orchestrator` → `jade-core-orchestrator`
@@ -93,12 +93,12 @@ The dispatcher handles the generic LOAD → MATCH → PLAN → RECORD workflow. 
 {
   "RAW_TYPES": {
     "skill": "jade-recipe-java1.5-raw-types",
-    "script": ".claude/skills/jade-recipe-java1.5-raw-types/scripts/apply.py",
+    "script": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-java1.5-raw-types/scripts/apply.py",
     "description": "Add generic type parameters to raw collections"
   },
   "ENHANCED_FOR": {
     "skill": "jade-recipe-java1.5-enhanced-for",
-    "script": ".claude/skills/jade-recipe-java1.5-enhanced-for/scripts/apply.py",
+    "script": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-java1.5-enhanced-for/scripts/apply.py",
     "description": "Convert safe indexed for-loops to enhanced-for"
   }
 }
@@ -137,10 +137,10 @@ git commit -m "feat(skills): add jade-core-rule-dispatcher with recipe dispatch"
 ## Task 3: Create recipe skills from extracted transforms
 
 **Files:**
-- Create: `.claude/skills/jade-recipe-java1.5-raw-types/SKILL.md`
-- Create: `.claude/skills/jade-recipe-java1.5-raw-types/scripts/apply.py`
-- Create: `.claude/skills/jade-recipe-java1.5-enhanced-for/SKILL.md`
-- Create: `.claude/skills/jade-recipe-java1.5-enhanced-for/scripts/apply.py`
+- Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-java1.5-raw-types/SKILL.md`
+- Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-java1.5-raw-types/scripts/apply.py`
+- Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-java1.5-enhanced-for/SKILL.md`
+- Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-java1.5-enhanced-for/scripts/apply.py`
 
 Extract `apply_raw_types_fix()` and its helpers (`infer_generic_type`, `_resolve_arg_type`, `_infer_collection_element_type`, `atomic_file_write`) into `jade-recipe-java1.5-raw-types/scripts/apply.py`. Same for `apply_enhanced_for_fix()` into `jade-recipe-java1.5-enhanced-for/scripts/apply.py`.
 
@@ -160,14 +160,14 @@ Exit code 0 = success. Exit code 2 = failure.
 - [ ] **Step 4: Verify both recipes parse**
 
 ```bash
-python -c "import py_compile; py_compile.compile('.claude/skills/jade-recipe-java1.5-raw-types/scripts/apply.py', doraise=True); print('raw-types OK')"
-python -c "import py_compile; py_compile.compile('.claude/skills/jade-recipe-java1.5-enhanced-for/scripts/apply.py', doraise=True); print('enhanced-for OK')"
+python -c "import py_compile; py_compile.compile('.claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-java1.5-raw-types/scripts/apply.py', doraise=True); print('raw-types OK')"
+python -c "import py_compile; py_compile.compile('.claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-java1.5-enhanced-for/scripts/apply.py', doraise=True); print('enhanced-for OK')"
 ```
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add .claude/skills/jade-recipe-*
+git add .claude/skills/java-migration-skill-registry/
 git commit -m "feat(skills): add jade-recipe-java1.5-raw-types and enhanced-for recipe skills"
 ```
 

@@ -30,7 +30,7 @@ classes by name are deferred for manual review.
 ## Invocation
 
 ```
-python .claude/skills/jade-recipe-1.7-1.8-lambda-conversion/scripts/apply.py --file <path> --line <N>
+python .claude/skills/java-migration-skill-registry/1.7-to-1.8/lambda-conversion/scripts/apply.py --file <path> --line <N>
 ```
 
 ## Exit codes

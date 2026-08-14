@@ -1,37 +1,44 @@
 ---
 name: java-migration-skill-registry
 description: >-
-  Registry of auto-generated migration skills produced by the Skill-Creator agent.
-  Each subdirectory holds versioned skills for a specific version jump, benchmarked
-  against eval_cases.json before acceptance. Not a command — background knowledge only.
+  Canonical registry for version-specific JADE migration recipes. Recipes are nested
+  below migration buckets and are invoked only through recipe-registry.json. Not a
+  command — background knowledge only.
 user-invocable: false
 disable-model-invocation: true
 ---
 
 # Java Migration Skill Registry
 
-Auto-generated skills live here, organized by version jump.
-Hand-authored skills live in sibling directories under `.claude/skills/`.
+Recipes live here, organized by version jump. Nested recipes are not agent skills;
+the dispatcher invokes their `scripts/apply.py` entry point.
 
 ## Structure
 
 ```
 java-migration-skill-registry/
-└── 1.5-to-1.6/
-    ├── <skill-name>/
-    │   ├── SKILL.md          ← generated, versioned
-    │   ├── eval_cases.json   ← cases this skill is benchmarked against
-    │   └── v1/SKILL.md       ← previous versions
-    └── README.md
+├── 1.5-to-1.6/
+├── 1.7/
+├── 1.7-to-1.8/
+├── shared/
+└── scripts/register_recipe.py
 ```
 
-## How skills enter this registry
+## Registering a recipe
 
-1. Tester agent collects failure patterns from `JADE-4.6.0-java1.6/`
-2. Skill-Creator generates or improves a skill for the pattern
-3. Skill is benchmarked against `benchmarks/1.5-to-1.6/eval_cases.json`
-4. Pass rate must exceed the previous version's rate to be committed here
+Use the deterministic scaffold and registry updater:
+
+```text
+python .claude/skills/java-migration-skill-registry/scripts/register_recipe.py \
+  --recipe-name jade-recipe-example --bucket 1.7 --rule-id EXAMPLE_RULE \
+  --description "Apply the example transform"
+```
+
+The helper validates safe path segments, refuses duplicates unless `--force` is
+given, creates `SKILL.md` and `scripts/apply.py`, and atomically updates the
+dispatcher registry. Use `--source-dir` to copy an existing recipe's two files.
 
 ## Current status
 
-Registry is empty — PoC uses hand-authored skills in `.claude/skills/`.
+The registry contains the migrated hand-authored recipes and remains the source of
+truth for dispatcher script paths.

@@ -20,7 +20,7 @@ methods on application-level classes (e.g., `Timer.stop()`, `HTTPServer.stop()`,
 ## Invocation
 
 ```
-python .claude/skills/jade-recipe-1.7-1.8-thread-stop-removal/scripts/apply.py --file <path> --line <N>
+python .claude/skills/java-migration-skill-registry/1.7-to-1.8/thread-stop-removal/scripts/apply.py --file <path> --line <N>
 ```
 
 ## Exit codes

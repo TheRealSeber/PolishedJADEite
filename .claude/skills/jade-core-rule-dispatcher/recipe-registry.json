@@ -2,37 +2,47 @@
   "_comment_fallback": "fallback recipe used when no specific recipe is registered for a rule_id",
   "fallback": {
     "skill": "jade-recipe-noop",
-    "script": ".claude/skills/jade-recipe-noop/scripts/apply.py",
+    "script": ".claude/skills/java-migration-skill-registry/shared/noop/scripts/apply.py",
     "description": "Fallback NOOP — marks rule as SKIPPED when no specific recipe exists"
   },
   "DUMMY_TEST_RULE": {
     "skill": "jade-recipe-dummy",
-    "script": ".claude/skills/jade-recipe-dummy/scripts/apply.py",
+    "script": ".claude/skills/java-migration-skill-registry/shared/dummy/scripts/apply.py",
     "description": "E2E dummy recipe — appends // E2E TEST comment"
   },
   "ARRAYS_COPY_OF_UPGRADE": {
     "skill": "jade-recipe-1.5-1.6-arrays-copyof",
-    "script": ".claude/skills/jade-recipe-1.5-1.6-arrays-copyof/scripts/apply.py",
+    "script": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/arrays-copyof/scripts/apply.py",
     "description": "Replace System.arraycopy with Arrays.copyOf/copyOfRange"
   },
   "DEQUE_LINKEDLIST_RETROFIT": {
     "skill": "jade-recipe-1.5-1.6-deque-retrofit",
-    "script": ".claude/skills/jade-recipe-1.5-1.6-deque-retrofit/scripts/apply.py",
+    "script": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/deque-retrofit/scripts/apply.py",
     "description": "LinkedList already implements Deque in Java 6 — informational only"
   },
   "NAVIGABLE_SET_MAP": {
     "skill": "jade-recipe-1.5-1.6-navigable-set-map",
-    "script": ".claude/skills/jade-recipe-1.5-1.6-navigable-set-map/scripts/apply.py",
+    "script": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/navigable-set-map/scripts/apply.py",
     "description": "TreeSet/TreeMap already implement NavigableSet/NavigableMap in Java 6 — informational only"
   },
   "DIAMOND_OPERATOR": {
     "skill": "jade-recipe-1.7-diamond-operator",
-    "script": ".claude/skills/jade-recipe-1.7-diamond-operator/scripts/apply.py",
+    "script": ".claude/skills/java-migration-skill-registry/1.7/diamond-operator/scripts/apply.py",
     "description": "Replace explicit generic type arguments with diamond operator <>"
   },
   "STRINGS_IN_SWITCH": {
     "skill": "jade-recipe-1.7-strings-in-switch",
-    "script": ".claude/skills/jade-recipe-1.7-strings-in-switch/scripts/apply.py",
+    "script": ".claude/skills/java-migration-skill-registry/1.7/strings-in-switch/scripts/apply.py",
     "description": "Convert .equals() if-else chains to switch statements"
+  },
+  "LAMBDA_CONVERSION": {
+    "skill": "jade-recipe-1.7-1.8-lambda-conversion",
+    "script": ".claude/skills/java-migration-skill-registry/1.7-to-1.8/lambda-conversion/scripts/apply.py",
+    "description": "Convert supported anonymous SAM classes to lambda expressions"
+  },
+  "THREAD_STOP_DISABLED": {
+    "skill": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "script": ".claude/skills/java-migration-skill-registry/1.7-to-1.8/thread-stop-removal/scripts/apply.py",
+    "description": "Inspect deprecated Thread.stop usage and defer unsafe transforms"
   }
 }

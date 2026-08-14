@@ -258,7 +258,7 @@ Add `"fallback"` entry to recipe-registry.json:
 ```json
 "fallback": {
     "skill": "jade-recipe-noop",
-    "script": ".claude/skills/jade-recipe-noop/scripts/apply.py",
+    "script": ".claude/skills/java-migration-skill-registry/shared/jade-recipe-noop/scripts/apply.py",
     "description": "Fallback NOOP — marks rule as SKIPPED when no specific recipe exists"
 }
 ```

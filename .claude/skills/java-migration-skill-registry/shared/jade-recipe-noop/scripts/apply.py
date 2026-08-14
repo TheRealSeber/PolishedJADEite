@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """NOOP recipe — marks informational rules as SKIPPED (no source changes needed)."""
 
-import argparse, json, sys
+import argparse
+import json
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--file", required=True)
     parser.add_argument("--line", type=int, required=True)
-    args = parser.parse_args()
+    parser.parse_args()
 
     result = {
         "status": "SKIPPED",

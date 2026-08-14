@@ -50,7 +50,12 @@ def _write_json_atomic(path: pathlib.Path, payload: Dict) -> None:
         tmp.unlink(missing_ok=True)
 
 
-def _write_recipe_files(recipe_dir: pathlib.Path, recipe_name: str, description: str, source_dir: pathlib.Path | None) -> None:
+def _stage_recipe_files(
+    recipe_dir: pathlib.Path,
+    recipe_name: str,
+    description: str,
+    source_dir: pathlib.Path | None,
+) -> pathlib.Path:
     temp_dir = pathlib.Path(tempfile.mkdtemp(prefix=f".{recipe_name}.", dir=recipe_dir.parent))
     try:
         if source_dir is not None:
@@ -78,9 +83,7 @@ def _write_recipe_files(recipe_dir: pathlib.Path, recipe_name: str, description:
                 'print(json.dumps({"status": "SKIPPED", "changes": 0, "warnings": [], "errors": []}))\n',
                 encoding="utf-8",
             )
-        if recipe_dir.exists():
-            shutil.rmtree(recipe_dir)
-        os.replace(temp_dir, recipe_dir)
+        return temp_dir
     except Exception:
         shutil.rmtree(temp_dir, ignore_errors=True)
         raise
@@ -118,9 +121,26 @@ def register_recipe(
         raise FileExistsError(f"rule already registered: {rule_id}")
 
     recipe_dir.parent.mkdir(parents=True, exist_ok=True)
-    _write_recipe_files(recipe_dir, recipe_name, description, source_dir)
-    registry[rule_id] = entry
-    _write_json_atomic(registry_path, registry)
+    staged_dir = _stage_recipe_files(recipe_dir, recipe_name, description, source_dir)
+    backup_dir: pathlib.Path | None = None
+    try:
+        if recipe_dir.exists():
+            backup_dir = pathlib.Path(tempfile.mkdtemp(prefix=f".{recipe_name}.backup.", dir=recipe_dir.parent))
+            shutil.rmtree(backup_dir)
+            os.replace(recipe_dir, backup_dir)
+        os.replace(staged_dir, recipe_dir)
+        registry[rule_id] = entry
+        _write_json_atomic(registry_path, registry)
+    except Exception:
+        shutil.rmtree(staged_dir, ignore_errors=True)
+        if recipe_dir.exists():
+            shutil.rmtree(recipe_dir, ignore_errors=True)
+        if backup_dir is not None and backup_dir.exists():
+            os.replace(backup_dir, recipe_dir)
+        raise
+    else:
+        if backup_dir is not None:
+            shutil.rmtree(backup_dir)
     return "updated" if force and (recipe_dir.exists() or existing_entry is not None) else "created"
 
 

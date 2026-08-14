@@ -2,7 +2,7 @@
   "_comment_fallback": "fallback recipe used when no specific recipe is registered for a rule_id",
   "fallback": {
     "skill": "jade-recipe-noop",
-    "script": ".claude/skills/java-migration-skill-registry/shared/noop/scripts/apply.py",
+    "script": ".claude/skills/java-migration-skill-registry/shared/jade-recipe-noop/scripts/apply.py",
     "description": "Fallback NOOP — marks rule as SKIPPED when no specific recipe exists"
   },
   "DUMMY_TEST_RULE": {

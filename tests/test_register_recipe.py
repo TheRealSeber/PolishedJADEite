@@ -102,3 +102,97 @@ def test_register_recipe_is_idempotent(tmp_path):
     before = registry.read_bytes()
     assert module.register_recipe(**args) == "unchanged"
     assert registry.read_bytes() == before
+
+
+def test_register_recipe_force_replaces_recipe_and_registry(tmp_path):
+    module = load_module()
+    registry = tmp_path / "recipe-registry.json"
+    registry.write_text("{}\n", encoding="utf-8")
+    registry_root = tmp_path / "registry"
+    args = dict(
+        registry_path=registry,
+        registry_root=registry_root,
+        recipe_name="example",
+        bucket="shared",
+        rule_id="RULE",
+        description="Original recipe",
+    )
+
+    assert module.register_recipe(**args) == "created"
+    recipe_dir = registry_root / "shared" / "example"
+    (recipe_dir / "SKILL.md").write_text("old skill\n", encoding="utf-8")
+
+    args["description"] = "Updated recipe"
+    assert module.register_recipe(**args, force=True) == "updated"
+    assert (recipe_dir / "SKILL.md").read_text(encoding="utf-8").startswith("# example")
+    assert json.loads(registry.read_text(encoding="utf-8"))["RULE"]["description"] == "Updated recipe"
+
+
+def test_register_recipe_source_dir_copies_recipe_files(tmp_path):
+    module = load_module()
+    registry = tmp_path / "recipe-registry.json"
+    registry.write_text("{}\n", encoding="utf-8")
+    source_dir = tmp_path / "source"
+    (source_dir / "scripts").mkdir(parents=True)
+    (source_dir / "SKILL.md").write_text("source skill\n", encoding="utf-8")
+    (source_dir / "scripts" / "apply.py").write_text("source script\n", encoding="utf-8")
+
+    module.register_recipe(
+        registry_path=registry,
+        registry_root=tmp_path / "registry",
+        recipe_name="example",
+        bucket="shared",
+        rule_id="RULE",
+        description="Recipe",
+        source_dir=source_dir,
+    )
+
+    recipe_dir = tmp_path / "registry" / "shared" / "example"
+    assert (recipe_dir / "SKILL.md").read_text(encoding="utf-8") == "source skill\n"
+    assert (recipe_dir / "scripts" / "apply.py").read_text(encoding="utf-8") == "source script\n"
+
+
+def test_register_recipe_rolls_back_recipe_when_registry_write_fails(tmp_path, monkeypatch):
+    module = load_module()
+    registry = tmp_path / "recipe-registry.json"
+    registry.write_text("{}\n", encoding="utf-8")
+    registry_root = tmp_path / "registry"
+    args = dict(
+        registry_path=registry,
+        registry_root=registry_root,
+        recipe_name="example",
+        bucket="shared",
+        rule_id="RULE",
+        description="Original recipe",
+    )
+    module.register_recipe(**args)
+    recipe_dir = registry_root / "shared" / "example"
+    old_skill = "old skill\n"
+    (recipe_dir / "SKILL.md").write_text(old_skill, encoding="utf-8")
+    old_registry = registry.read_bytes()
+
+    def fail_registry_write(path, payload):
+        raise OSError("simulated registry failure")
+
+    monkeypatch.setattr(module, "_write_json_atomic", fail_registry_write)
+    updated_args = {**args, "description": "Updated recipe", "force": True}
+    with pytest.raises(OSError, match="simulated registry failure"):
+        module.register_recipe(**updated_args)
+
+    assert (recipe_dir / "SKILL.md").read_text(encoding="utf-8") == old_skill
+    assert registry.read_bytes() == old_registry
+
+
+def test_recipe_registry_script_entries_resolve_to_files():
+    module = load_module()
+    registry_path = SCRIPT.parents[2] / "jade-core-rule-dispatcher" / "recipe-registry.json"
+    registry_root = SCRIPT.parents[1]
+    data = json.loads(registry_path.read_text(encoding="utf-8"))
+
+    for rule_id, entry in data.items():
+        if rule_id.startswith("_"):
+            continue
+        assert isinstance(entry["script"], str)
+        relative_script = pathlib.Path(entry["script"])
+        assert relative_script.parts[:3] == (".claude", "skills", "java-migration-skill-registry")
+        assert (SCRIPT.parents[4] / relative_script).is_file(), rule_id

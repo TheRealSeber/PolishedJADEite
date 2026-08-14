@@ -263,6 +263,21 @@ def _write_fake_maven(path, *, exit_code=0, args_path=None):
     )
 
 
+def _write_fake_maven_sequence(path, invocations_path):
+    path.write_text(
+        "import pathlib, sys\n"
+        f"log = pathlib.Path({str(invocations_path)!r})\n"
+        "with log.open('a', encoding='utf-8') as stream:\n"
+        "    stream.write('\\n'.join(sys.argv[1:]) + '\\n---\\n')\n"
+        "if 'package' in sys.argv:\n"
+        "    pathlib.Path('target/classes').mkdir(parents=True, exist_ok=True)\n"
+        "    pathlib.Path('target/classes/Consumer.class').write_bytes(b'class')\n"
+        "    pathlib.Path('target/dependency').mkdir(parents=True, exist_ok=True)\n"
+        "    pathlib.Path('target/dependency/runtime.jar').write_bytes(b'jar')\n",
+        encoding="utf-8",
+    )
+
+
 def test_maven_runtime_lib_dir_cannot_escape_build_dir(tmp_path):
     mod = _load_module()
     consumer = tmp_path / "consumer"
@@ -389,8 +404,90 @@ def test_maven_build_stages_classes_and_runtime_jars(tmp_path, monkeypatch):
     assert "-B" in args
     assert "-ntp" in args
     assert "-Dmaven.repo.local=" in args
-    assert f"-Djade.artifact={jade.resolve()}" in args
+    assert f"-Djade.artifact={jade.resolve()}" not in args
     assert "dependency:copy-dependencies" in args
+
+
+def test_maven_build_installs_workspace_jade_before_package(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    project = consumer / "maven"
+    project.mkdir(parents=True)
+    (project / "pom.xml").write_text("<project/>", encoding="utf-8")
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    jade = workspace / "jade.jar"
+    jade.write_bytes(b"jade")
+    fake_maven = tmp_path / "mvn.py"
+    invocations = tmp_path / "maven-invocations.txt"
+    _write_fake_maven_sequence(fake_maven, invocations)
+
+    ok, output = mod.build_maven_consumer(
+        consumer,
+        workspace,
+        {
+            "maven_project_root": "maven",
+            "classpath_deps": ["jade.jar"],
+            "maven_executable": [sys.executable, str(fake_maven)],
+        },
+        tmp_path / "build",
+    )
+
+    assert ok, output
+    invocations_text = invocations.read_text(encoding="utf-8")
+    install, package = invocations_text.split("---\n")[:2]
+    assert "maven-install-plugin:3.1.2:install-file" in install
+    assert f"-Dfile={jade.resolve()}" in install
+    assert "-DgroupId=com.tilab.jade" in install
+    assert "-DartifactId=jade" in install
+    assert "-Dversion=4.6" in install
+    assert "package" in package
+    assert "-Dmaven.repo.local=" in package
+    assert "-Djade.artifact=" not in package
+
+
+def test_failure_stdout_markers_fail_even_when_expected_markers_and_rc_pass(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    project = tmp_path / "consumer"
+    project.mkdir()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    cfg = {
+        "name": "consumer",
+        "classpath_deps": [],
+        "expected_stdout_markers": ["PASS"],
+        "failure_stdout_markers": ["FAIL"],
+    }
+    monkeypatch.setattr(mod, "compile_consumer", lambda *args: (True, ""))
+    monkeypatch.setattr(mod, "run_in_docker", lambda *args: (0, "PASS FAIL", ""))
+
+    result = mod.test_consumer(project, workspace, cfg)
+
+    assert result["status"] == "FAIL"
+    assert "Configured failure markers" in result["error"]
+
+
+def test_singular_failure_stdout_marker_remains_supported(tmp_path, monkeypatch):
+    mod = _load_module()
+    project = tmp_path / "consumer"
+    project.mkdir()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    cfg = {
+        "name": "consumer",
+        "classpath_deps": [],
+        "expected_stdout_markers": ["PASS"],
+        "failure_stdout_marker": "FAIL",
+    }
+    monkeypatch.setattr(mod, "compile_consumer", lambda *args: (True, ""))
+    monkeypatch.setattr(mod, "run_in_docker", lambda *args: (0, "PASS FAIL", ""))
+
+    result = mod.test_consumer(project, workspace, cfg)
+
+    assert result["status"] == "FAIL"
+    assert "Configured failure markers" in result["error"]
 
 
 def test_maven_build_returns_actionable_failure(tmp_path, monkeypatch):
@@ -418,7 +515,7 @@ def test_maven_build_returns_actionable_failure(tmp_path, monkeypatch):
     )
 
     assert not ok
-    assert "Maven build failed (exit 7)" in output
+    assert "Maven JADE artifact install failed (exit 7)" in output
     assert "fake maven output" in output
 
 

@@ -330,11 +330,38 @@ def build_maven_consumer(
             isolated_project,
             ignore=shutil.ignore_patterns("target"),
         )
-        cmd = maven_cmd + [
-            "-B",
-            "-ntp",
-            f"-Dmaven.repo.local={repo}",
-            f"-Djade.artifact={jade_path}",
+        common_args = ["-B", "-ntp", f"-Dmaven.repo.local={repo}"]
+        install_cmd = maven_cmd + common_args + [
+            "org.apache.maven.plugins:maven-install-plugin:3.1.2:install-file",
+            f"-Dfile={jade_path}",
+            "-DgroupId=com.tilab.jade",
+            "-DartifactId=jade",
+            "-Dversion=4.6",
+            "-Dpackaging=jar",
+            "-DgeneratePom=true",
+        ]
+        try:
+            install_proc = subprocess.run(
+                install_cmd,
+                cwd=isolated_project,
+                capture_output=True,
+                text=True,
+                timeout=300,
+                env={**os.environ, "JAVA_TOOL_OPTIONS": ""},
+            )
+        except subprocess.TimeoutExpired:
+            return False, "Maven JADE artifact install timed out after 300s"
+        except OSError as exc:
+            return False, f"Failed to run Maven JADE artifact install: {exc}"
+
+        install_output = (install_proc.stdout + install_proc.stderr).strip()
+        if install_proc.returncode != 0:
+            return False, (
+                f"Maven JADE artifact install failed (exit {install_proc.returncode}):\n"
+                f"{install_output}"
+            )
+
+        cmd = maven_cmd + common_args + [
             "package",
             "dependency:copy-dependencies",
             "-DincludeScope=runtime",
@@ -354,7 +381,7 @@ def build_maven_consumer(
         except OSError as exc:
             return False, f"Failed to run Maven: {exc}"
 
-        output = (proc.stdout + proc.stderr).strip()
+        output = (install_output + "\n" + proc.stdout + proc.stderr).strip()
         if proc.returncode != 0:
             return False, f"Maven build failed (exit {proc.returncode}):\n{output}"
 
@@ -557,6 +584,31 @@ def test_consumer(
         if found_failures:
             result["status"] = "FAIL"
             result["error"] = f"Failure patterns detected: {found_failures}"
+            return result
+
+        configured_failure_markers = cfg.get("failure_stdout_markers", [])
+        if isinstance(configured_failure_markers, str):
+            configured_failure_markers = [configured_failure_markers]
+        elif not isinstance(configured_failure_markers, list):
+            configured_failure_markers = []
+        singular_marker = cfg.get("failure_stdout_marker")
+        if isinstance(singular_marker, str):
+            configured_failure_markers = [
+                *configured_failure_markers,
+                singular_marker,
+            ]
+        configured_failure_markers = [
+            marker for marker in configured_failure_markers if isinstance(marker, str)
+        ]
+        found_configured_failures = [
+            marker for marker in configured_failure_markers if marker in combined
+        ]
+        if found_configured_failures:
+            result["status"] = "FAIL"
+            result["error"] = (
+                "Configured failure markers detected: "
+                f"{found_configured_failures}"
+            )
             return result
 
         # Check expected markers

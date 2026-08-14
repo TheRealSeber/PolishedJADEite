@@ -32,7 +32,9 @@ def test_jrba_maven_project_declares_workspace_compatible_dependencies():
     assert "<artifactId>jade</artifactId>" in pom
     assert "<artifactId>easy-rules-core</artifactId>" in pom
     assert "<artifactId>mvel2</artifactId>" in pom
-    assert "${jade.artifact}" in pom
+    assert "<groupId>com.tilab.jade</groupId>" in pom
+    assert "<version>${jade.version}</version>" in pom
+    assert "systemPath" not in pom
 
 
 def test_jrba_config_uses_maven_verifier_contract():
@@ -40,13 +42,14 @@ def test_jrba_config_uses_maven_verifier_contract():
 
     assert config["build_mode"] == "maven"
     assert config["maven_project_root"] == "."
+    assert "upstream pom declares source, target, and release 21" in config["description"]
     assert config["docker_image"] == "${TARGET_DOCKER_IMAGE}"
     assert config["main_class"] == "jade.Boot"
     assert config["boot_args"] == ["-agents", "runner:org.jrba.consumer.JrbaIntegrationAgent"]
     assert config["source_level"] == 21
     assert config["jade_artifact"] == "jade.jar"
     assert config["expected_stdout_markers"] == ["JRBA_TEST_STARTED", "JRBA_TEST_PASSED"]
-    assert config["failure_stdout_marker"] == "JRBA_TEST_FAILED"
+    assert config["failure_stdout_markers"] == ["JRBA_TEST_FAILED"]
     assert config["timeout_seconds"] > 0
 
 
@@ -75,6 +78,10 @@ def test_jrba_agent_has_ordered_markers_and_one_exit_call():
     ).read_text(encoding="utf-8")
 
     assert "extends AbstractAgent" in agent
+    assert "super.setup()" in agent
+    assert "prepareStartingBehaviours" in agent
+    assert "doDelete()" in agent
+    assert "takeDown()" in agent
     assert agent.index("JRBA_TEST_STARTED") < agent.index("JRBA_TEST_PASSED")
     assert "JRBA_TEST_FAILED" in agent
     assert agent.count("System.exit(") == 1

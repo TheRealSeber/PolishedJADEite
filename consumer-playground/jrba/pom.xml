@@ -34,8 +34,6 @@
       <groupId>com.tilab.jade</groupId>
       <artifactId>jade</artifactId>
       <version>${jade.version}</version>
-      <scope>system</scope>
-      <systemPath>${jade.artifact}</systemPath>
     </dependency>
     <dependency>
       <groupId>org.jeasy</groupId>

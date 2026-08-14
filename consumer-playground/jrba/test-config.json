@@ -1,6 +1,6 @@
 {
   "name": "jrba",
-  "description": "JRBA production-source Maven consumer integration check",
+  "description": "JRBA production-source Maven consumer integration check; Java 21 is required because the upstream pom declares source, target, and release 21",
   "build_mode": "maven",
   "maven_project_root": ".",
   "docker_image": "${TARGET_DOCKER_IMAGE}",
@@ -13,7 +13,9 @@
     "JRBA_TEST_STARTED",
     "JRBA_TEST_PASSED"
   ],
-  "failure_stdout_marker": "JRBA_TEST_FAILED",
+  "failure_stdout_markers": [
+    "JRBA_TEST_FAILED"
+  ],
   "timeout_seconds": 60,
   "source_level": 21,
   "jade_artifact": "jade.jar",

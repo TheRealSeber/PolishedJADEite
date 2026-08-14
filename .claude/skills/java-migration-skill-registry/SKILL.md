@@ -30,7 +30,7 @@ Use the deterministic scaffold and registry updater:
 
 ```text
 python .claude/skills/java-migration-skill-registry/scripts/register_recipe.py \
-  --recipe-name jade-recipe-example --bucket 1.7 --rule-id EXAMPLE_RULE \
+  --recipe-name example --bucket 1.7 --rule-id EXAMPLE_RULE \
   --description "Apply the example transform"
 ```
 

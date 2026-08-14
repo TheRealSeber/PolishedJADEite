@@ -23,12 +23,13 @@ Use the deterministic helper instead of writing a recipe under `.claude/skills/`
 
 ```text
 python .claude/skills/java-migration-skill-registry/scripts/register_recipe.py \
-  --recipe-name jade-recipe-example --bucket 1.7 --rule-id EXAMPLE_RULE \
+  --recipe-name example --bucket 1.7 --rule-id EXAMPLE_RULE \
   --description "Apply the example transform"
 ```
 
 The helper creates minimal files or copies them from `--source-dir`, rejects unsafe
-path segments and duplicates without `--force`, validates the script and registry,
+path segments and duplicates without `--force`, validates registry entries, safe
+canonical script paths, and script existence,
 and atomically replaces the registry JSON. A second identical invocation is a
 successful no-op.
 

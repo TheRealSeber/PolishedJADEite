@@ -15,6 +15,7 @@ from typing import Dict
 
 BUCKETS = {"1.5-to-1.6", "1.7", "1.7-to-1.8", "shared"}
 REGISTRY_SCRIPT_PREFIX = ".claude/skills/java-migration-skill-registry"
+REQUIRED_ENTRY_FIELDS = ("skill", "script", "description")
 
 
 def _safe_segment(value: str, label: str) -> None:
@@ -25,13 +26,49 @@ def _safe_segment(value: str, label: str) -> None:
         raise ValueError(f"{label} must not contain path separators")
 
 
-def _read_registry(path: pathlib.Path) -> Dict:
+def _validate_registry(registry: Dict, registry_root: pathlib.Path) -> None:
+    prefix = pathlib.PurePosixPath(REGISTRY_SCRIPT_PREFIX).parts
+    for rule_id, entry in registry.items():
+        if isinstance(rule_id, str) and rule_id.startswith("_"):
+            continue
+        if not isinstance(rule_id, str) or not rule_id:
+            raise ValueError("invalid registry entry: rule_id must be a non-empty string")
+        if not isinstance(entry, dict):
+            raise ValueError(f"invalid registry entry {rule_id}: expected object")
+        missing = [field for field in REQUIRED_ENTRY_FIELDS if field not in entry]
+        if missing:
+            raise ValueError(
+                f"invalid registry entry {rule_id}: missing {', '.join(missing)}"
+            )
+        if any(
+            not isinstance(entry[field], str) or not entry[field].strip()
+            for field in REQUIRED_ENTRY_FIELDS
+        ):
+            raise ValueError(f"invalid registry entry {rule_id}: fields must be non-empty strings")
+
+        script = entry["script"]
+        script_path = pathlib.PurePosixPath(script)
+        if (
+            "\\" in script
+            or script_path.is_absolute()
+            or ".." in script_path.parts
+            or script_path.parts[: len(prefix)] != prefix
+            or len(script_path.parts) <= len(prefix)
+        ):
+            raise ValueError(f"invalid registry entry {rule_id}: unsafe script path")
+        resolved_script = registry_root.joinpath(*script_path.parts[len(prefix) :])
+        if not resolved_script.is_file():
+            raise ValueError(f"invalid registry entry {rule_id}: script does not exist")
+
+
+def _read_registry(path: pathlib.Path, registry_root: pathlib.Path) -> Dict:
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         raise ValueError(f"invalid registry: {path}: {exc}") from exc
     if not isinstance(payload, dict):
         raise ValueError("registry root must be a JSON object")
+    _validate_registry(payload, registry_root)
     return payload
 
 
@@ -107,7 +144,7 @@ def register_recipe(
     if not rule_id or not description:
         raise ValueError("rule-id and description are required")
 
-    registry = _read_registry(registry_path)
+    registry = _read_registry(registry_path, registry_root)
     recipe_dir = registry_root / bucket / recipe_name
     script = f"{REGISTRY_SCRIPT_PREFIX}/{bucket}/{recipe_name}/scripts/apply.py"
     entry = {"skill": recipe_name, "script": script, "description": description}
@@ -130,6 +167,7 @@ def register_recipe(
             os.replace(recipe_dir, backup_dir)
         os.replace(staged_dir, recipe_dir)
         registry[rule_id] = entry
+        _validate_registry(registry, registry_root)
         _write_json_atomic(registry_path, registry)
     except Exception:
         shutil.rmtree(staged_dir, ignore_errors=True)

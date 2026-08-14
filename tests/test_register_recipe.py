@@ -102,6 +102,9 @@ def test_register_recipe_rejects_duplicate_rule_when_recipe_directory_is_missing
         encoding="utf-8",
     )
     registry_root = tmp_path / "registry"
+    existing_script = registry_root / "shared" / "existing" / "scripts" / "apply.py"
+    existing_script.parent.mkdir(parents=True)
+    existing_script.write_text("", encoding="utf-8")
 
     with pytest.raises(FileExistsError, match="rule already registered: RULE"):
         module.register_recipe(
@@ -227,6 +230,31 @@ def test_recipe_registry_script_entries_resolve_to_files():
         relative_script = pathlib.Path(entry["script"])
         assert relative_script.parts[:3] == (".claude", "skills", "java-migration-skill-registry")
         assert (SCRIPT.parents[4] / relative_script).is_file(), rule_id
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {"RULE": {"skill": "recipe", "description": "missing script"}},
+        {"RULE": {"skill": "recipe", "script": "unsafe/apply.py", "description": "unsafe"}},
+        {"RULE": {"skill": "recipe", "script": ".claude/skills/java-migration-skill-registry/shared/missing/apply.py", "description": "missing"}},
+        {"RULE": {"skill": "recipe", "script": ".claude/skills/java-migration-skill-registry/shared/missing/scripts/apply.py", "description": "missing"}},
+    ],
+)
+def test_register_recipe_rejects_invalid_existing_registry_entries(tmp_path, payload):
+    module = load_module()
+    registry = tmp_path / "recipe-registry.json"
+    registry.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="invalid registry entry"):
+        module.register_recipe(
+            registry_path=registry,
+            registry_root=tmp_path / "registry",
+            recipe_name="example",
+            bucket="shared",
+            rule_id="NEW_RULE",
+            description="Recipe",
+        )
 
 
 def test_every_recipe_directory_has_one_registry_entry_with_canonical_script_layout():

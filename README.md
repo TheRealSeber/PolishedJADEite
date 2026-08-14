@@ -20,7 +20,7 @@ The pipeline operates as a file-based state machine where artifacts on disk are 
 | Layer | Prefix | Contains | Example |
 |-------|--------|----------|---------|
 | **Core** | `jade-core-*` | Agnostic pipeline plumbing | orchestrator, scanner, dispatcher, verification |
-| **Recipe** | `java-migration-skill-registry/<bucket>/` | Version-specific transforms | `1.5-to-1.6/jade-recipe-<rule-id>` |
+| **Recipe** | `java-migration-skill-registry/<bucket>/` | Version-specific transforms | `1.5-to-1.6/arrays-copyof` |
 | **Utility** | `jade-utility-*` | Pipeline support tooling | `jade-utility-consumer-onboarder` |
 
 **The Dispatcher Pattern:** Core skills never contain transform logic. The `jade-core-rule-dispatcher` reads a rule from the manifest, looks up the matching recipe in `recipe-registry.json`, and invokes it as a subprocess. Adding a new migration means adding recipe skills — the core pipeline never changes.
@@ -103,8 +103,8 @@ Full details: `AGENTS.md` (106 lines) and `docs/architecture.md` (545 lines).
 ### Recipes (registry-managed)
 
 Recipes are stored under `.claude/skills/java-migration-skill-registry/` in buckets
-`1.5-to-1.6`, `1.7`, `1.7-to-1.8`, and `shared`. Use
-`scripts/register_recipe.py` to scaffold and register a recipe. Each recipe is a
+`1.5-to-1.6`, `1.7`, `1.7-to-1.8`, and `shared`, with directory names such as
+`arrays-copyof` and `dummy`. Use `scripts/register_recipe.py` to scaffold and register a recipe. Each recipe is a
 standalone CLI script invoked by the dispatcher: `python apply.py --file <path> --line <num>`.
 
 ---

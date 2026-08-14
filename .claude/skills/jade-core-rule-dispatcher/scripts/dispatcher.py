@@ -118,10 +118,26 @@ def load_registry() -> Dict:
     return read_json(registry_path)
 
 
+def resolve_script_path(script_path: str) -> pathlib.Path:
+    path = pathlib.Path(script_path)
+    if path.is_absolute():
+        return path
+    repo_root = pathlib.Path(__file__).resolve().parents[4]
+    return repo_root / path
+
+
 def dispatch_recipe(script_path: str, file_path: str, line: int) -> Dict:
+    resolved_script = resolve_script_path(script_path)
+    if not resolved_script.is_file():
+        return {
+            "status": "FAILED",
+            "changes": 0,
+            "warnings": [],
+            "errors": [f"Recipe script not found: {script_path}"],
+        }
     cmd = [
         sys.executable,
-        script_path,
+        str(resolved_script),
         "--file",
         file_path,
         "--line",

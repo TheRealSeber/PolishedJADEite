@@ -92,16 +92,27 @@ def _run_query(lang, tree_root, query_str, group_by_node_type):
 
 
 def extract_imports(tree_root, source_bytes, lang):
-    """Extract import strings from parsed tree."""
-    q = Query(lang, IMPORT_QUERY)
-    cursor = QueryCursor(q)
-    matches = cursor.matches(tree_root)
+    """Extract import strings, including wildcard and static imports."""
     imports = []
-    for pattern_idx, captures in matches:
-        for cap_name, nodes in captures.items():
-            if cap_name == "import":
-                imports.append(source_bytes[nodes[0].start_byte:nodes[0].end_byte].decode("utf-8"))
-    return imports
+    for node in tree_root.children:
+        if node.type != "import_declaration":
+            continue
+        text = _child_text(node, source_bytes).strip()
+        text = text[len("import"):].strip().rstrip(";").strip()
+        if text.startswith("static "):
+            text = text[len("static "):].strip()
+        if text:
+            imports.append(text)
+    return sorted(imports)
+
+
+def extract_package(tree_root, source_bytes):
+    """Return the declared package, independent of the file's directory."""
+    for child in tree_root.children:
+        if child.type == "package_declaration":
+            text = _child_text(child, source_bytes)
+            return text[len("package"):].strip().rstrip(";").strip()
+    return ""
 
 
 def _child_text(child, source_bytes):

@@ -14,6 +14,7 @@ from tree_sitter_java_queries import (
     get_parser, parse_file, extract_class_info, extract_methods,
     extract_fields, extract_calls, extract_imports,
 )
+from build_graph import scan_workspace, parse_files, resolve_graph
 
 
 FIXTURES_DIR = os.path.join(os.path.dirname(__file__), "fixtures", "knowledge-graph")
@@ -54,6 +55,22 @@ class TestSchema:
         deps = kg.query_dependents("core/AID.java")
         assert sorted(deps) == ["core/Agent.java", "tools/Main.java"]
 
+    def test_query_dependents_inheritance(self):
+        kg = KnowledgeGraph()
+        kg.add_extends_edge("child/Child.java", "base/Base.java")
+        kg.add_implements_edge("impl/Impl.java", "base/Base.java")
+        assert kg.query_dependents("base/Base.java") == ["child/Child.java", "impl/Impl.java"]
+
+    def test_rule_scope_is_multi_hop_and_descriptive(self):
+        kg = KnowledgeGraph()
+        kg.add_import_edge("a/A.java", "b/B.java")
+        kg.add_import_edge("b/B.java", "c/C.java")
+        scope = kg.query_rule_scope(["c/C.java"])
+        assert scope["direct"] == 1
+        assert scope["transitive_files"] == ["a/A.java", "b/B.java"]
+        assert scope["total"] == 3
+        assert scope["paths"][0]["reasons"] == ["imports", "imports"]
+
     def test_transform_order_dependency(self):
         kg = KnowledgeGraph()
         kg.add_import_edge("a/FileA.java", "b/FileB.java")
@@ -83,6 +100,8 @@ class TestSchema:
         order = kg.query_transform_order(rules, rule_files)
         assert set(order) == set(rules)
         assert len(order) == 2
+        result = kg.query_transform_order_result(rules, rule_files)
+        assert any(d["kind"] == "cycle" for d in result["diagnostics"])
 
     def test_transform_order_empty_rule_files(self):
         kg = KnowledgeGraph()
@@ -119,6 +138,8 @@ class TestSchema:
             assert kg2.compute_stats()["total_edges"] == 1
             assert kg2.nodes["test/A.java"].class_name == "A"
             assert kg2.nodes["test/A.java"].methods[0].name == "foo"
+            assert kg2.to_dict()["schema_version"] == 2
+            assert "nodes" in kg2.to_dict() and "edges" in kg2.to_dict() and "stats" in kg2.to_dict()
 
 
 class TestTreeSitterQueries:
@@ -213,6 +234,44 @@ class TestBuildGraph:
 
         if os.path.isdir(art_dir):
             shutil.rmtree(art_dir)
+
+    def test_declaration_identity_and_wildcard_provenance(self, tmp_path):
+        source = tmp_path / "wrong" / "Consumer.java"
+        source.parent.mkdir()
+        source.write_text(
+            "package actual.pkg;\nimport actual.pkg.*;\npublic class Consumer { private Target target; }\n"
+        )
+        (tmp_path / "Target.java").write_text("package actual.pkg; public class Target {}\n")
+        parser, lang = get_parser()
+        files = scan_workspace(str(tmp_path))
+        nodes, diagnostics = parse_files(files, parser, lang, return_diagnostics=True)
+        kg = resolve_graph(nodes, diagnostics)
+        assert kg.nodes["wrong/Consumer.java"].package == "actual.pkg"
+        assert {e.to_file for e in kg.edges["imports"]} == {"Target.java"}
+        assert kg.edges["imports"][0].provenance == "wildcard"
+
+    def test_parse_diagnostics_are_partial(self, tmp_path):
+        (tmp_path / "Broken.java").write_text("public class Broken { void x( {\n")
+        parser, lang = get_parser()
+        nodes, diagnostics = parse_files(scan_workspace(str(tmp_path)), parser, lang, return_diagnostics=True)
+        kg = resolve_graph(nodes, diagnostics)
+        assert kg.diagnostics
+        assert any(d["kind"] == "parse_error" for d in kg.diagnostics)
+        artifact_dir = tmp_path / "artifacts"
+        result = __import__("subprocess").run(
+            [sys.executable, ".claude/skills/jade-core-knowledge-graph/scripts/build_graph.py",
+             "--workspace", str(tmp_path), "--artifacts-dir", str(artifact_dir)],
+            capture_output=True, text=True,
+        )
+        assert result.returncode == 1
+
+    def test_serialized_order_is_deterministic(self):
+        kg = KnowledgeGraph()
+        kg.add_node(GraphNode(path="z/Z.java", class_name="Z"))
+        kg.add_node(GraphNode(path="a/A.java", class_name="A"))
+        kg.add_import_edge("z/Z.java", "a/A.java")
+        assert list(kg.to_dict()["nodes"]) == ["a/A.java", "z/Z.java"]
+        assert kg.to_dict()["edges"]["imports"][0]["from"] == "z/Z.java"
 
 
 class TestQueryGraph:

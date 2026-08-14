@@ -2,6 +2,7 @@
 
 import json
 import os
+import tempfile
 from dataclasses import dataclass, field, asdict
 from typing import List, Dict, Optional
 
@@ -63,6 +64,7 @@ class GraphNode:
 
     @staticmethod
     def from_dict(d: dict):
+        d = dict(d)
         methods = [MethodInfo(**m) for m in d.pop("methods", [])]
         fields = [FieldInfo(**f) for f in d.pop("fields", [])]
         constructors = [ConstructorInfo(**c) for c in d.pop("constructors", [])]
@@ -73,6 +75,7 @@ class GraphNode:
 class ImportEdge:
     from_file: str
     to_file: str
+    provenance: str = "direct"
 
 
 @dataclass
@@ -107,7 +110,10 @@ class TypeRefEdge:
 class KnowledgeGraph:
     """Container for nodes and typed edges with query methods."""
 
-    def __init__(self):
+    def __init__(self, source_identity=None, diagnostics=None):
+        self.schema_version = 2
+        self.source_identity = source_identity or {}
+        self.diagnostics = list(diagnostics or [])
         self.nodes: Dict[str, GraphNode] = {}
         self.edges: Dict[str, list] = {
             "imports": [],
@@ -120,8 +126,8 @@ class KnowledgeGraph:
     def add_node(self, node: GraphNode):
         self.nodes[node.path] = node
 
-    def add_import_edge(self, from_file: str, to_file: str):
-        self.edges["imports"].append(ImportEdge(from_file, to_file))
+    def add_import_edge(self, from_file: str, to_file: str, provenance: str = "direct"):
+        self.edges["imports"].append(ImportEdge(from_file, to_file, provenance))
 
     def add_extends_edge(self, from_file: str, to_file: str):
         self.edges["extends"].append(ExtendsEdge(from_file, to_file))
@@ -136,17 +142,12 @@ class KnowledgeGraph:
         self.edges["type_refs"].append(TypeRefEdge(from_file, to_file, field, type_name))
 
     def query_dependents(self, target: str) -> list:
-        """All files that import or reference target."""
+        """All files that import or reference target, in stable order."""
         dependents = set()
-        for e in self.edges["imports"]:
-            if e.to_file == target:
-                dependents.add(e.from_file)
-        for e in self.edges["type_refs"]:
-            if e.to_file == target:
-                dependents.add(e.from_file)
-        for e in self.edges["calls"]:
-            if e.to_file == target:
-                dependents.add(e.from_file)
+        for etype in ("imports", "extends", "implements", "calls", "type_refs"):
+            for e in self.edges[etype]:
+                if e.to_file == target:
+                    dependents.add(e.from_file)
         return sorted(dependents)
 
     def query_call_sites(self, target: str, method_name: str) -> list:
@@ -158,14 +159,29 @@ class KnowledgeGraph:
         return results
 
     def query_rule_scope(self, flagged_files: list) -> dict:
-        """For a list of flagged files, compute direct + transitive scope."""
+        """Compute the complete reverse dependency closure with paths."""
         direct = set(flagged_files)
-        transitive = set()
-        for ff in flagged_files:
-            for dep in self.query_dependents(ff):
-                transitive.add(dep)
-        transitive -= direct
-        return {"direct": len(direct), "transitive": len(transitive), "total": len(direct | transitive)}
+        visited = set(direct)
+        queue = [(f, [f], []) for f in sorted(direct)]
+        paths = []
+        while queue:
+            target, path, reasons = queue.pop(0)
+            for etype in ("imports", "extends", "implements", "calls", "type_refs"):
+                edges = sorted(self.edges[etype], key=lambda e: (e.from_file, e.to_file))
+                for edge in edges:
+                    if edge.to_file != target or edge.from_file in visited:
+                        continue
+                    visited.add(edge.from_file)
+                    next_path = path + [edge.from_file]
+                    next_reasons = reasons + [etype]
+                    queue.append((edge.from_file, next_path, next_reasons))
+                    paths.append({"file": edge.from_file, "path": next_path, "reasons": next_reasons})
+        transitive = visited - direct
+        return {
+            "direct": len(direct), "transitive": len(transitive), "total": len(visited),
+            "direct_files": sorted(direct), "transitive_files": sorted(transitive),
+            "paths": sorted(paths, key=lambda p: p["file"]),
+        }
 
     def query_consumer_coverage(self, files: list, consumer_file_map: dict) -> list:
         """Which consumer projects cover these files."""
@@ -178,13 +194,22 @@ class KnowledgeGraph:
 
     def query_transform_order(self, rules: list, rule_files: dict) -> list:
         """Topologically sort rules so dependent transforms run first."""
+        return self.query_transform_order_result(rules, rule_files)["order"]
+
+    def query_transform_order_result(self, rules: list, rule_files: dict) -> dict:
+        """Return transform order plus ownership and cycle diagnostics."""
         if not rules:
-            return []
+            return {"order": [], "diagnostics": []}
 
         file_to_rule = {}
+        diagnostics = []
         for rule in rules:
-            for f in rule_files.get(rule, []) or []:
-                if f not in file_to_rule:
+            for f in sorted(set(rule_files.get(rule, []) or [])):
+                if f in file_to_rule and file_to_rule[f] != rule:
+                    diagnostics.append({"kind": "ambiguous_file_ownership", "file": f,
+                                        "rules": sorted([file_to_rule[f], rule])})
+                    file_to_rule[f] = None
+                elif f not in file_to_rule:
                     file_to_rule[f] = rule
 
         deps = {rule: set() for rule in rules}
@@ -204,7 +229,7 @@ class KnowledgeGraph:
         while ready:
             rule = ready.pop(0)
             result.append(rule)
-            for nxt in depended_by[rule]:
+            for nxt in sorted(depended_by[rule], key=rules.index):
                 indegree[nxt] -= 1
                 if indegree[nxt] == 0:
                     ready.append(nxt)
@@ -212,45 +237,51 @@ class KnowledgeGraph:
 
         seen = set(result)
         remaining = [rule for rule in rules if rule not in seen]
+        if remaining:
+            diagnostics.append({"kind": "cycle", "rules": remaining})
         result.extend(remaining)
-        return result
+        return {"order": result, "diagnostics": diagnostics}
 
     def to_dict(self) -> dict:
-        nodes_dict = {}
-        for path, node in self.nodes.items():
-            nodes_dict[path] = node.to_dict()
+        nodes_dict = {path: self.nodes[path].to_dict() for path in sorted(self.nodes)}
 
         edges_dict = {}
         for etype, elist in self.edges.items():
             if etype == "imports":
-                edges_dict[etype] = [{"from": e.from_file, "to": e.to_file} for e in elist]
+                edges_dict[etype] = [{"from": e.from_file, "to": e.to_file, "provenance": e.provenance}
+                                     for e in sorted(elist, key=lambda x: (x.from_file, x.to_file, x.provenance))]
             elif etype == "extends":
-                edges_dict[etype] = [{"from": e.from_file, "to": e.to_file} for e in elist]
+                edges_dict[etype] = [{"from": e.from_file, "to": e.to_file}
+                                     for e in sorted(elist, key=lambda x: (x.from_file, x.to_file))]
             elif etype == "implements":
-                edges_dict[etype] = [{"from": e.from_file, "to": e.to_file} for e in elist]
+                edges_dict[etype] = [{"from": e.from_file, "to": e.to_file}
+                                     for e in sorted(elist, key=lambda x: (x.from_file, x.to_file))]
             elif etype == "calls":
                 edges_dict[etype] = [
                     {"from": e.from_file, "from_method": e.from_method,
                      "to": e.to_file, "to_method": e.to_method, "line": e.line}
-                    for e in elist
+                     for e in sorted(elist, key=lambda x: (x.from_file, x.to_file, x.from_method, x.to_method, x.line))
                 ]
             elif etype == "type_refs":
                 edges_dict[etype] = [
                     {"from": e.from_file, "to": e.to_file,
                      "field": e.field, "type": e.type_name}
-                    for e in elist
+                     for e in sorted(elist, key=lambda x: (x.from_file, x.to_file, x.field, x.type_name))
                 ]
 
-        return {"nodes": nodes_dict, "edges": edges_dict}
+        return {"schema_version": self.schema_version, "source_identity": self.source_identity,
+                "diagnostics": sorted(self.diagnostics, key=lambda d: json.dumps(d, sort_keys=True)),
+                "nodes": nodes_dict, "edges": edges_dict, "stats": self.compute_stats()}
 
     @staticmethod
     def from_dict(d: dict):
-        kg = KnowledgeGraph()
+        kg = KnowledgeGraph(d.get("source_identity", {}), d.get("diagnostics", []))
+        kg.schema_version = d.get("schema_version", 1)
         for path, node_data in d.get("nodes", {}).items():
             kg.nodes[path] = GraphNode.from_dict(node_data)
         edges_data = d.get("edges", {})
         for e in edges_data.get("imports", []):
-            kg.add_import_edge(e["from"], e["to"])
+            kg.add_import_edge(e["from"], e["to"], e.get("provenance", "direct"))
         for e in edges_data.get("extends", []):
             kg.add_extends_edge(e["from"], e["to"])
         for e in edges_data.get("implements", []):
@@ -262,8 +293,18 @@ class KnowledgeGraph:
         return kg
 
     def save(self, filepath: str):
-        with open(filepath, "w", encoding="utf-8") as f:
-            json.dump(self.to_dict(), f, indent=2, ensure_ascii=False)
+        directory = os.path.dirname(os.path.abspath(filepath))
+        os.makedirs(directory, exist_ok=True)
+        fd, tmp = tempfile.mkstemp(prefix=".kg-", suffix=".tmp", dir=directory)
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8") as f:
+                json.dump(self.to_dict(), f, indent=2, ensure_ascii=False)
+                f.flush()
+                os.fsync(f.fileno())
+            os.replace(tmp, filepath)
+        finally:
+            if os.path.exists(tmp):
+                os.unlink(tmp)
 
     @staticmethod
     def load(filepath: str):

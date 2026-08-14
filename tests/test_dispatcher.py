@@ -1,6 +1,7 @@
 import importlib.util
 import json
 import pathlib
+import subprocess
 
 
 SCRIPT = pathlib.Path(__file__).parents[1] / ".claude/skills/jade-core-rule-dispatcher/scripts/dispatcher.py"
@@ -57,3 +58,88 @@ def test_dispatch_recipe_preserves_absolute_script_paths(tmp_path):
     result = module.dispatch_recipe(str(script), str(workspace_file), 1)
 
     assert result["status"] == "FIXED"
+
+
+def test_dispatch_recipe_rejects_script_outside_repo(tmp_path):
+    module = load_module()
+    result = module.dispatch_recipe(str(tmp_path / "apply.py"), str(tmp_path / "Example.java"), 1)
+    assert result["status"] == "FAILED"
+    assert "outside repository" in result["errors"][0]
+
+
+def test_dispatch_recipe_rejects_symlink_outside_repo(tmp_path):
+    module = load_module()
+    link = tmp_path / "apply.py"
+    outside = tmp_path.parent / "outside-apply.py"
+    outside.write_text("", encoding="utf-8")
+    try:
+        link.symlink_to(outside)
+    except OSError:
+        return
+    result = module.dispatch_recipe(str(link), str(tmp_path / "Example.java"), 1)
+    assert result["status"] == "FAILED"
+    assert "outside repository" in result["errors"][0]
+
+
+def test_dispatch_recipe_handles_oserror(tmp_path, monkeypatch):
+    module = load_module()
+    script = SCRIPT.parents[2] / "java-migration-skill-registry/shared/dummy/scripts/apply.py"
+    monkeypatch.setattr(subprocess, "run", lambda *args, **kwargs: (_ for _ in ()).throw(OSError("spawn failed")))
+    result = module.dispatch_recipe(str(script), str(tmp_path / "Example.java"), 1)
+    assert result["status"] == "FAILED"
+    assert "spawn failed" in result["errors"][0]
+
+
+def test_dispatch_recipe_rejects_non_object_json(tmp_path, monkeypatch):
+    module = load_module()
+    script = SCRIPT.parents[2] / "java-migration-skill-registry/shared/dummy/scripts/apply.py"
+    monkeypatch.setattr(subprocess, "run", lambda *args, **kwargs: subprocess.CompletedProcess(args[0], 0, "[]", ""))
+    result = module.dispatch_recipe(str(script), str(tmp_path / "Example.java"), 1)
+    assert result["status"] == "FAILED"
+    assert "non-object JSON" in result["errors"][0]
+
+
+def test_main_records_failure_for_malformed_registry(tmp_path, monkeypatch):
+    module = load_module()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    (artifacts / "05-rule-batch-RULE.json").write_text(
+        json.dumps({"files": [{"file": "Example.java", "flags": [{"rule_id": "RULE", "line": 1}]}]}),
+        encoding="utf-8",
+    )
+    (artifacts / "01-breaking-changes-manifest.json").write_text(
+        json.dumps({"rules": [{"id": "RULE", "fix_strategy": "recipe:test"}]}),
+        encoding="utf-8",
+    )
+    (tmp_path / "Example.java").write_text("class Example {}\n", encoding="utf-8")
+    monkeypatch.setattr(module, "load_registry", lambda: [])
+
+    assert module.main([
+        "--artifacts-dir", str(artifacts), "--rule-id", "RULE",
+        "--task-id", "RULE-0001", "--workspace-root", str(tmp_path),
+    ]) == 2
+    results = json.loads((artifacts / "06-fix-results-RULE.json").read_text(encoding="utf-8"))
+    assert results[-1]["status"] == "FAILED"
+
+
+def test_main_records_failure_for_entry_without_script(tmp_path, monkeypatch):
+    module = load_module()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    (artifacts / "05-rule-batch-RULE.json").write_text(
+        json.dumps({"files": [{"file": "Example.java", "flags": [{"rule_id": "RULE", "line": 1}]}]}),
+        encoding="utf-8",
+    )
+    (artifacts / "01-breaking-changes-manifest.json").write_text(
+        json.dumps({"rules": [{"id": "RULE", "fix_strategy": "recipe:test"}]}),
+        encoding="utf-8",
+    )
+    (tmp_path / "Example.java").write_text("class Example {}\n", encoding="utf-8")
+    monkeypatch.setattr(module, "load_registry", lambda: {"RULE": {"skill": "recipe"}})
+
+    assert module.main([
+        "--artifacts-dir", str(artifacts), "--rule-id", "RULE",
+        "--task-id", "RULE-0001", "--workspace-root", str(tmp_path),
+    ]) == 2
+    results = json.loads((artifacts / "06-fix-results-RULE.json").read_text(encoding="utf-8"))
+    assert results[-1]["status"] == "FAILED"

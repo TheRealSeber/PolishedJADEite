@@ -28,6 +28,7 @@ def _safe_segment(value: str, label: str) -> None:
 
 def _validate_registry(registry: Dict, registry_root: pathlib.Path) -> None:
     prefix = pathlib.PurePosixPath(REGISTRY_SCRIPT_PREFIX).parts
+    resolved_root = registry_root.resolve()
     for rule_id, entry in registry.items():
         if isinstance(rule_id, str) and rule_id.startswith("_"):
             continue
@@ -51,12 +52,24 @@ def _validate_registry(registry: Dict, registry_root: pathlib.Path) -> None:
         if (
             "\\" in script
             or script_path.is_absolute()
-            or ".." in script_path.parts
             or script_path.parts[: len(prefix)] != prefix
-            or len(script_path.parts) <= len(prefix)
+            or len(script_path.parts) != len(prefix) + 4
+            or script_path.parts[-2:] != ("scripts", "apply.py")
         ):
             raise ValueError(f"invalid registry entry {rule_id}: unsafe script path")
-        resolved_script = registry_root.joinpath(*script_path.parts[len(prefix) :])
+        bucket, recipe_name = script_path.parts[len(prefix) : len(prefix) + 2]
+        try:
+            _safe_segment(bucket, "bucket")
+            _safe_segment(recipe_name, "recipe-name")
+        except ValueError as exc:
+            raise ValueError(f"invalid registry entry {rule_id}: unsafe script path") from exc
+        if bucket not in BUCKETS:
+            raise ValueError(f"invalid registry entry {rule_id}: unknown bucket")
+        resolved_script = registry_root.joinpath(bucket, recipe_name, "scripts", "apply.py").resolve()
+        try:
+            resolved_script.relative_to(resolved_root)
+        except ValueError as exc:
+            raise ValueError(f"invalid registry entry {rule_id}: script outside registry") from exc
         if not resolved_script.is_file():
             raise ValueError(f"invalid registry entry {rule_id}: script does not exist")
 
@@ -146,9 +159,14 @@ def register_recipe(
 
     registry = _read_registry(registry_path, registry_root)
     recipe_dir = registry_root / bucket / recipe_name
+    try:
+        recipe_dir.resolve().relative_to(registry_root.resolve())
+    except ValueError as exc:
+        raise ValueError("recipe path outside registry") from exc
     script = f"{REGISTRY_SCRIPT_PREFIX}/{bucket}/{recipe_name}/scripts/apply.py"
     entry = {"skill": recipe_name, "script": script, "description": description}
     existing_entry = registry.get(rule_id)
+    was_existing = recipe_dir.exists() or recipe_dir.is_symlink() or existing_entry is not None
 
     if recipe_dir.exists() and not force:
         if existing_entry == entry and (recipe_dir / "SKILL.md").is_file() and (recipe_dir / "scripts" / "apply.py").is_file():
@@ -156,6 +174,8 @@ def register_recipe(
         raise FileExistsError(f"recipe already exists: {recipe_dir}")
     if existing_entry is not None and existing_entry != entry and not force:
         raise FileExistsError(f"rule already registered: {rule_id}")
+    if recipe_dir.is_symlink():
+        raise ValueError(f"recipe directory must not be a symlink: {recipe_dir}")
 
     recipe_dir.parent.mkdir(parents=True, exist_ok=True)
     staged_dir = _stage_recipe_files(recipe_dir, recipe_name, description, source_dir)
@@ -179,7 +199,7 @@ def register_recipe(
     else:
         if backup_dir is not None:
             shutil.rmtree(backup_dir)
-    return "updated" if force and (recipe_dir.exists() or existing_entry is not None) else "created"
+    return "updated" if was_existing else "created"
 
 
 def main(argv: list[str] | None = None) -> int:

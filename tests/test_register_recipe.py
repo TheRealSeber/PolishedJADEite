@@ -162,6 +162,22 @@ def test_register_recipe_force_replaces_recipe_and_registry(tmp_path):
     assert json.loads(registry.read_text(encoding="utf-8"))["RULE"]["description"] == "Updated recipe"
 
 
+def test_register_recipe_force_create_reports_created(tmp_path):
+    module = load_module()
+    registry = tmp_path / "recipe-registry.json"
+    registry.write_text("{}\n", encoding="utf-8")
+
+    assert module.register_recipe(
+        registry_path=registry,
+        registry_root=tmp_path / "registry",
+        recipe_name="example",
+        bucket="shared",
+        rule_id="RULE",
+        description="Recipe",
+        force=True,
+    ) == "created"
+
+
 def test_register_recipe_source_dir_copies_recipe_files(tmp_path):
     module = load_module()
     registry = tmp_path / "recipe-registry.json"
@@ -253,6 +269,68 @@ def test_register_recipe_rejects_invalid_existing_registry_entries(tmp_path, pay
             recipe_name="example",
             bucket="shared",
             rule_id="NEW_RULE",
+            description="Recipe",
+        )
+
+
+@pytest.mark.parametrize(
+    "script",
+    [
+        ".claude/skills/java-migration-skill-registry/shared/recipe/apply.py",
+        ".claude/skills/java-migration-skill-registry/shared/recipe/scripts/other.py",
+        ".claude/skills/java-migration-skill-registry/shared/recipe/scripts/apply.py/extra",
+        ".claude/skills/java-migration-skill-registry/shared/recipe/../other/scripts/apply.py",
+    ],
+)
+def test_register_recipe_rejects_noncanonical_script_paths(tmp_path, script):
+    module = load_module()
+    registry = tmp_path / "recipe-registry.json"
+    registry.write_text(
+        json.dumps({"RULE": {"skill": "recipe", "script": script, "description": "bad"}}),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="invalid registry entry"):
+        module.register_recipe(
+            registry_path=registry,
+            registry_root=tmp_path / "registry",
+            recipe_name="new",
+            bucket="shared",
+            rule_id="NEW",
+            description="Recipe",
+        )
+
+
+def test_register_recipe_rejects_script_symlink_outside_registry(tmp_path):
+    module = load_module()
+    registry_root = tmp_path / "registry"
+    script = registry_root / "shared" / "recipe" / "scripts" / "apply.py"
+    script.parent.mkdir(parents=True)
+    outside = tmp_path / "outside.py"
+    outside.write_text("", encoding="utf-8")
+    try:
+        script.symlink_to(outside)
+    except OSError:
+        pytest.skip("symlinks are unavailable")
+    registry = tmp_path / "recipe-registry.json"
+    registry.write_text(
+        json.dumps({
+            "RULE": {
+                "skill": "recipe",
+                "script": ".claude/skills/java-migration-skill-registry/shared/recipe/scripts/apply.py",
+                "description": "bad",
+            }
+        }),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="invalid registry entry"):
+        module.register_recipe(
+            registry_path=registry,
+            registry_root=registry_root,
+            recipe_name="new",
+            bucket="shared",
+            rule_id="NEW",
             description="Recipe",
         )
 

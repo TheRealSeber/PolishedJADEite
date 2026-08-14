@@ -1,9 +1,8 @@
-# Recipe Skill Architecture
+# Registry Recipe Architecture
 
 ## Canonical Layout
 
-Recipe implementations are not top-level agent skills. Store each recipe below one
-of these buckets:
+Registry recipe implementations are stored below one of these buckets:
 
 ```text
 .claude/skills/java-migration-skill-registry/
@@ -13,9 +12,9 @@ of these buckets:
 └── shared/<recipe>/
 ```
 
-Each recipe contains `SKILL.md` and `scripts/apply.py`. The dispatcher invokes only
+Each registry recipe contains `SKILL.md` and `scripts/apply.py`. The dispatcher invokes only
 the script path recorded in `.claude/skills/jade-core-rule-dispatcher/recipe-registry.json`;
-nested `SKILL.md` files document the transform but are not agent-discoverable skills.
+nested `SKILL.md` files document the transform and are not dispatcher entry points.
 
 ## Creating A Recipe
 

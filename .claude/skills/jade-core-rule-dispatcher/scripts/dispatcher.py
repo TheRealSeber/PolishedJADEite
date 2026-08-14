@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""jade-core-rule-dispatcher — routes rule tasks to recipe skills.
+"""jade-core-rule-dispatcher — routes rule tasks to registry recipes.
 
 Reads task from batch JSON, rule from manifest, looks up recipe script
 in recipe-registry.json, invokes recipe as subprocess, records result.
 
-Contains ZERO transform logic — all transforms live in recipe skills.
+Contains ZERO transform logic — all transforms live in registry recipe scripts.
 """
 
 from __future__ import annotations
@@ -113,21 +113,32 @@ def _fail(
     return 2
 
 
-def load_registry() -> Dict:
+def load_registry() -> Any:
     registry_path = pathlib.Path(__file__).parent.parent / "recipe-registry.json"
     return read_json(registry_path)
 
 
 def resolve_script_path(script_path: str) -> pathlib.Path:
     path = pathlib.Path(script_path)
-    if path.is_absolute():
-        return path
     repo_root = pathlib.Path(__file__).resolve().parents[4]
-    return repo_root / path
+    resolved = path.resolve() if path.is_absolute() else (repo_root / path).resolve()
+    try:
+        resolved.relative_to(repo_root)
+    except ValueError as exc:
+        raise ValueError(f"Recipe script path outside repository: {script_path}") from exc
+    return resolved
 
 
 def dispatch_recipe(script_path: str, file_path: str, line: int) -> Dict:
-    resolved_script = resolve_script_path(script_path)
+    try:
+        resolved_script = resolve_script_path(script_path)
+    except (TypeError, ValueError, OSError) as exc:
+        return {
+            "status": "FAILED",
+            "changes": 0,
+            "warnings": [],
+            "errors": [str(exc)],
+        }
     if not resolved_script.is_file():
         return {
             "status": "FAILED",
@@ -143,7 +154,15 @@ def dispatch_recipe(script_path: str, file_path: str, line: int) -> Dict:
         "--line",
         str(line),
     ]
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True)
+    except OSError as exc:
+        return {
+            "status": "FAILED",
+            "changes": 0,
+            "warnings": [],
+            "errors": [f"Failed to execute recipe: {exc}"],
+        }
     if result.returncode != 0:
         return {
             "status": "FAILED",
@@ -154,14 +173,22 @@ def dispatch_recipe(script_path: str, file_path: str, line: int) -> Dict:
             ],
         }
     try:
-        return json.loads(result.stdout.strip() or "{}")
-    except json.JSONDecodeError:
+        recipe_result = json.loads(result.stdout.strip() or "{}")
+    except (json.JSONDecodeError, TypeError):
         return {
             "status": "FAILED",
             "changes": 0,
             "warnings": [],
             "errors": [f"Recipe returned non-JSON: {result.stdout[:200]}"],
         }
+    if not isinstance(recipe_result, dict):
+        return {
+            "status": "FAILED",
+            "changes": 0,
+            "warnings": [],
+            "errors": ["Recipe returned non-object JSON"],
+        }
+    return recipe_result
 
 
 def update_batch_status(
@@ -273,15 +300,15 @@ def record_result(
     return aggregate_path
 
 
-def main() -> int:
+def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(
-        description="JADE Core Rule Dispatcher — routes rule tasks to recipe skills"
+        description="JADE Core Rule Dispatcher — routes rule tasks to registry recipes"
     )
     parser.add_argument("--artifacts-dir", required=True)
     parser.add_argument("--rule-id", required=True)
     parser.add_argument("--task-id", required=True)
     parser.add_argument("--workspace-root", default=".")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     artifacts_dir = pathlib.Path(args.artifacts_dir)
     if not artifacts_dir.is_dir():
@@ -399,6 +426,15 @@ def main() -> int:
         return 2
 
     registry = load_registry()
+    if not isinstance(registry, dict):
+        return _fail(
+            artifacts_dir,
+            args.task_id,
+            args.rule_id,
+            file_rel,
+            0,
+            "Recipe registry root must be a JSON object",
+        )
     if "_error" in registry:
         record_result(
             artifacts_dir,
@@ -440,7 +476,26 @@ def main() -> int:
         )
         return 2
 
-    script_path = recipe_entry["script"]
+    if not isinstance(recipe_entry, dict):
+        return _fail(
+            artifacts_dir,
+            args.task_id,
+            args.rule_id,
+            file_rel,
+            0,
+            "Recipe registry entry must be a JSON object",
+        )
+    script_path = recipe_entry.get("script")
+    if not isinstance(script_path, str) or not script_path.strip():
+        return _fail(
+            artifacts_dir,
+            args.task_id,
+            args.rule_id,
+            file_rel,
+            0,
+            "Recipe registry entry is missing a valid 'script'",
+        )
+    skill_name = recipe_entry.get("skill", "<unknown recipe>")
 
     # Dispatch for every flag in this file entry
     overall_status = "SKIPPED"
@@ -454,7 +509,7 @@ def main() -> int:
         )
 
         print(
-            f"DISPATCH {args.rule_id} -> {recipe_entry['skill']} ({file_rel}:{line_start})"
+            f"DISPATCH {args.rule_id} -> {skill_name} ({file_rel}:{line_start})"
         )
         recipe_result = dispatch_recipe(script_path, str(file_path), line_start)
 
@@ -483,7 +538,7 @@ def main() -> int:
             file_rel,
             status,
             1 if changes > 0 else 0,
-            recipe_entry["skill"],
+            skill_name,
             diff_summary,
             rule.get("verification_hint", ""),
             errors,

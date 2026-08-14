@@ -477,7 +477,7 @@ The pipeline has paused at the **rule batch processing** phase.
 
 **ANTI-BYPASS:** You are strictly forbidden from manually creating a batch
 artifact and marking it `DONE` or `NOOP` if flags exist for that rule.
-You must either (a) write a true Recipe Skill to transform the flagged
+You must either (a) write a true registry recipe script to transform the flagged
 code, or (b) use `defer_rules.py` to defer modernization flags and preserve
 them as `// JADE-MODERNIZATION-DEFERRED` markers for future developers.
 Failure to comply is a pipeline integrity violation.

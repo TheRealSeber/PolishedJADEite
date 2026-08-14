@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Decouple generic pipeline logic from version-specific transforms using a Core/Recipe split + Dispatcher pattern. Core skills stay agnostic across migrations; recipe skills contain only per-rule transform logic.
+**Goal:** Decouple generic pipeline logic from version-specific transforms using a Core/Recipe split + Dispatcher pattern. Core skills stay agnostic across migrations; registry recipe scripts contain only per-rule transform logic.
 
-**Architecture:** Prefix convention: `jade-core-*` for agnostic pipeline, `jade-recipe-*` for version-specific transforms. A `jade-core-rule-dispatcher` routes `rule_id` → recipe skill via a registry JSON. Recipes are pure transforms invoked by the dispatcher — they never touch artifact I/O.
+**Architecture:** Prefix convention: `jade-core-*` for agnostic pipeline, `jade-recipe-*` for version-specific transforms. A `jade-core-rule-dispatcher` routes `rule_id` → registry recipe via a registry JSON. Recipes are pure transforms invoked by the dispatcher — they never touch artifact I/O.
 
 **Tech Stack:** Python 3, Bash, Git.
 
@@ -85,7 +85,7 @@ git commit -m "refactor(skills): rename 10 core skills to jade-core-* prefix"
 - Create: `.claude/skills/jade-core-rule-dispatcher/scripts/dispatcher.py`
 - Create: `.claude/skills/jade-core-rule-dispatcher/recipe-registry.json`
 
-The dispatcher handles the generic LOAD → MATCH → PLAN → RECORD workflow. It contains zero transform logic. When a rule-specific transform is needed, it looks up `rule_id` in `recipe-registry.json`, finds the recipe skill script, and invokes it as a subprocess, capturing stdout as the result.
+The dispatcher handles the generic LOAD → MATCH → PLAN → RECORD workflow. It contains zero transform logic. When a rule-specific transform is needed, it looks up `rule_id` in `recipe-registry.json`, finds the registry recipe script, and invokes it as a subprocess, capturing stdout as the result.
 
 ### recipe-registry.json
 
@@ -113,7 +113,7 @@ Extract the generic workflow from `apply_rule_fix.py` (LOAD task, MATCH rule, RE
 Frontmatter:
 ```yaml
 name: jade-core-rule-dispatcher
-description: Routes rule tasks to recipe skills. Handles LOAD/MATCH/RECORD but delegates transforms to recipe scripts via recipe-registry.json.
+description: Routes rule tasks to registry recipes. Handles LOAD/MATCH/RECORD but delegates transforms to recipe scripts via recipe-registry.json.
 ```
 
 - [ ] **Step 1: Create recipe-registry.json**
@@ -134,7 +134,7 @@ git commit -m "feat(skills): add jade-core-rule-dispatcher with recipe dispatch"
 
 ---
 
-## Task 3: Create recipe skills from extracted transforms
+## Task 3: Create registry recipe scripts from extracted transforms
 
 **Files:**
 - Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/raw-types/SKILL.md`
@@ -168,7 +168,7 @@ python -c "import py_compile; py_compile.compile('.claude/skills/java-migration-
 
 ```bash
 git add .claude/skills/java-migration-skill-registry/
-git commit -m "feat(skills): add jade-recipe-java1.5-raw-types and enhanced-for recipe skills"
+git commit -m "feat(recipes): add jade-recipe-java1.5-raw-types and enhanced-for scripts"
 ```
 
 ---

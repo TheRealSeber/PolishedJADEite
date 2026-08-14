@@ -75,7 +75,7 @@ def java_major(version: str) -> int:
 
 def load_docker_image_registry(config_path: pathlib.Path) -> Dict[str, str]:
     payload = read_json(config_path)
-    required = {"java-8", "java-11", "java-17"}
+    required = {"java-8", "java-11", "java-17", "java-21"}
     missing = sorted(required - set(payload.keys()))
     if missing:
         raise ValueError(
@@ -86,6 +86,8 @@ def load_docker_image_registry(config_path: pathlib.Path) -> Dict[str, str]:
 
 def resolve_docker_image(target_version: str, registry: Dict[str, str]) -> str:
     major = java_major(target_version)
+    if major >= 21:
+        return registry["java-21"]
     if major >= 17:
         return registry["java-17"]
     if major >= 11:

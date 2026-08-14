@@ -1,0 +1,23 @@
+{
+  "name": "jrba",
+  "description": "JRBA production-source Maven consumer integration check",
+  "build_mode": "maven",
+  "maven_project_root": ".",
+  "docker_image": "${TARGET_DOCKER_IMAGE}",
+  "main_class": "jade.Boot",
+  "boot_args": [
+    "-agents",
+    "runner:org.jrba.consumer.JrbaIntegrationAgent"
+  ],
+  "expected_stdout_markers": [
+    "JRBA_TEST_STARTED",
+    "JRBA_TEST_PASSED"
+  ],
+  "failure_stdout_marker": "JRBA_TEST_FAILED",
+  "timeout_seconds": 60,
+  "source_level": 21,
+  "jade_artifact": "jade.jar",
+  "classpath_deps": [
+    "jade.jar"
+  ]
+}

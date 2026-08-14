@@ -1,5 +1,6 @@
 {
   "java-8": "frekele/ant:1.10.3-jdk8",
   "java-11": "maven:3.8-eclipse-temurin-11",
-  "java-17": "eclipse-temurin:17-jre"
+  "java-17": "eclipse-temurin:17-jre",
+  "java-21": "maven:3.9-eclipse-temurin-21"
 }

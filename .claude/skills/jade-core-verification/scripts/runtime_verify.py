@@ -195,7 +195,7 @@ def discover_consumers() -> List[Tuple[pathlib.Path, Dict[str, Any]]]:
                     ),
                 }
             consumers.append((candidate, cfg))
-        except (json.JSONDecodeError, OSError) as exc:
+        except (json.JSONDecodeError, UnicodeDecodeError, OSError) as exc:
             print(
                 f"WARNING: invalid {candidate.name}/test-config.json ({exc})",
                 file=sys.stderr,

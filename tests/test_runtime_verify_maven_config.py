@@ -192,3 +192,34 @@ def test_discovery_keeps_malformed_config_as_failed_consumer(tmp_path):
     )
     assert result["status"] == "FAIL"
     assert "Invalid consumer configuration" in result["error"]
+
+
+def test_discovery_records_invalid_utf8_as_failed_consumer(tmp_path):
+    mod = _load_module()
+    mod.PLAYGROUND_DIR = tmp_path / "consumer-playground"
+
+    invalid = mod.PLAYGROUND_DIR / "invalid-utf8"
+    invalid.mkdir(parents=True)
+    (invalid / "test-config.json").write_bytes(b'{"name": "\xff')
+
+    valid = mod.PLAYGROUND_DIR / "valid"
+    valid.mkdir(parents=True)
+    valid_config = {"name": "valid", "classpath_deps": []}
+    (valid / "test-config.json").write_text(
+        json.dumps(valid_config), encoding="utf-8"
+    )
+
+    discovered = mod.discover_consumers()
+    discovered_by_name = {project.name: cfg for project, cfg in discovered}
+
+    assert set(discovered_by_name) == {"invalid-utf8", "valid"}
+    assert discovered_by_name["valid"] == valid_config
+    assert "invalid test-config.json" in discovered_by_name["invalid-utf8"][
+        "_config_error"
+    ]
+
+    result = mod.test_consumer(
+        invalid, tmp_path / "workspace", discovered_by_name["invalid-utf8"]
+    )
+    assert result["status"] == "FAIL"
+    assert "Invalid consumer configuration" in result["error"]

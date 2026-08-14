@@ -140,6 +140,8 @@ class TestSchema:
             assert kg2.nodes["test/A.java"].methods[0].name == "foo"
             assert kg2.to_dict()["schema_version"] == 2
             assert "nodes" in kg2.to_dict() and "edges" in kg2.to_dict() and "stats" in kg2.to_dict()
+            assert kg2.to_dict()["source"] == {}
+            assert set(kg2.to_dict()["diagnostics"]) >= {"parse_failures", "unresolved_types", "ambiguous_symbols"}
 
 
 class TestTreeSitterQueries:
@@ -256,7 +258,7 @@ class TestBuildGraph:
         nodes, diagnostics = parse_files(scan_workspace(str(tmp_path)), parser, lang, return_diagnostics=True)
         kg = resolve_graph(nodes, diagnostics)
         assert kg.diagnostics
-        assert any(d["kind"] == "parse_error" for d in kg.diagnostics)
+        assert any(d["kind"] == "parse_error" for d in kg.diagnostics["parse_failures"])
         artifact_dir = tmp_path / "artifacts"
         result = __import__("subprocess").run(
             [sys.executable, ".claude/skills/jade-core-knowledge-graph/scripts/build_graph.py",
@@ -264,6 +266,39 @@ class TestBuildGraph:
             capture_output=True, text=True,
         )
         assert result.returncode == 1
+
+    def test_source_and_structured_diagnostics_contract(self, tmp_path):
+        (tmp_path / "Consumer.java").write_text(
+            "package p; import p.Missing; public class Consumer { private Missing value; }\n"
+        )
+        parser, lang = get_parser()
+        nodes, diagnostics = parse_files(scan_workspace(str(tmp_path)), parser, lang, return_diagnostics=True)
+        kg = resolve_graph(nodes, diagnostics)
+        kg.source = {"workspace": str(tmp_path), "java_file_count": 1}
+        data = kg.to_dict()
+        assert data["source"]["java_file_count"] == 1
+        assert isinstance(data["diagnostics"], dict)
+        assert any(item["kind"] == "unresolved_import" for item in data["diagnostics"]["unresolved_types"])
+
+    def test_duplicate_declarations_are_ambiguous_without_crashing(self, tmp_path):
+        (tmp_path / "One.java").write_text("package p; public class Same {}\n")
+        (tmp_path / "Two.java").write_text("package p; public class Same {}\n")
+        (tmp_path / "Three.java").write_text("package p; public class Same {}\n")
+        (tmp_path / "Use.java").write_text("package q; import p.Same; public class Use { Same same; }\n")
+        parser, lang = get_parser()
+        nodes, diagnostics = parse_files(scan_workspace(str(tmp_path)), parser, lang, return_diagnostics=True)
+        kg = resolve_graph(nodes, diagnostics)
+        ambiguous = kg.to_dict()["diagnostics"]["ambiguous_symbols"]
+        assert any(item["symbol"] == "p.Same" for item in ambiguous)
+        assert not kg.edges["imports"]
+
+    def test_transform_order_reports_three_way_ownership_ambiguity(self):
+        kg = KnowledgeGraph()
+        result = kg.query_transform_order_result(
+            ["a", "b", "c"], {"a": ["Shared.java"], "b": ["Shared.java"], "c": ["Shared.java"]}
+        )
+        assert result["order"] == ["a", "b", "c"]
+        assert result["diagnostics"][0]["kind"] == "ambiguous_file_ownership"
 
     def test_serialized_order_is_deterministic(self):
         kg = KnowledgeGraph()

@@ -111,24 +111,29 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
     kg = KnowledgeGraph(diagnostics=diagnostics)
 
     fqn_to_rel = {}
+    declarations = {}
     pkg_to_rels = {}
     for rel, data in nodes.items():
         node = data["node"]
         pkg = node.package
         cls = node.class_name
         fqn = f"{pkg}.{cls}" if pkg else cls
-        if fqn in fqn_to_rel:
-            kg.diagnostics.append({"kind": "ambiguous_declaration", "symbol": fqn,
-                                   "files": sorted([fqn_to_rel[fqn], rel])})
-            fqn_to_rel[fqn] = None
-        elif fqn not in fqn_to_rel:
-            fqn_to_rel[fqn] = rel
+        declarations.setdefault(fqn, []).append(rel)
         pkg_to_rels.setdefault(pkg, set()).add(rel)
         kg.add_node(node)
 
+    ambiguous_fqns = set()
+    for fqn, files in declarations.items():
+        if len(files) == 1:
+            fqn_to_rel[fqn] = files[0]
+        else:
+            ambiguous_fqns.add(fqn)
+            kg.add_diagnostic({"kind": "ambiguous_declaration", "symbol": fqn,
+                               "files": sorted(files)})
+
     for rel, data in nodes.items():
         for imp in data.get("imports", []):
-            target_rels, reason = _resolve_import(imp, fqn_to_rel, pkg_to_rels, rel, nodes, kg)
+            target_rels, reason = _resolve_import(imp, fqn_to_rel, pkg_to_rels, rel, nodes, kg, ambiguous_fqns)
             for target_rel in target_rels:
                 if target_rel != rel and target_rel in nodes:
                     kg.add_import_edge(rel, target_rel, reason)
@@ -139,14 +144,14 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
             if isinstance(ext_val, list):
                 ext_val = ext_val[0] if ext_val else ""
             if ext_val:
-                target_rel = _resolve_type(ext_val, nodes, rel, fqn_to_rel, pkg_to_rels, kg)
+                target_rel = _resolve_type(ext_val, nodes, rel, fqn_to_rel, pkg_to_rels, kg, ambiguous_fqns)
                 if target_rel and target_rel in nodes:
                     kg.add_extends_edge(rel, target_rel)
 
     for rel, data in nodes.items():
         for imp_iface in data.get("implements", []):
             if imp_iface:
-                target_rel = _resolve_type(imp_iface, nodes, rel, fqn_to_rel, pkg_to_rels, kg)
+                target_rel = _resolve_type(imp_iface, nodes, rel, fqn_to_rel, pkg_to_rels, kg, ambiguous_fqns)
                 if target_rel and target_rel in nodes:
                     kg.add_implements_edge(rel, target_rel)
 
@@ -154,7 +159,7 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
         for fd in data.get("fields", []):
             if isinstance(fd, dict):
                 ftype = fd.get("type", "")
-                target_rel = _resolve_type(ftype, nodes, rel, fqn_to_rel, pkg_to_rels, kg)
+                target_rel = _resolve_type(ftype, nodes, rel, fqn_to_rel, pkg_to_rels, kg, ambiguous_fqns)
                 if target_rel and target_rel in nodes:
                     kg.add_type_ref_edge(rel, target_rel, field=fd.get("name", ""), type_name=ftype)
 
@@ -169,7 +174,8 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
                 continue
             target_rel = None
             if obj:
-                target_rel = _resolve_type(obj, nodes, rel, fqn_to_rel, pkg_to_rels, kg)
+                target_rel = _resolve_type(obj, nodes, rel, fqn_to_rel, pkg_to_rels, kg, ambiguous_fqns,
+                                           report_unresolved=False)
             if target_rel and target_rel in nodes:
                 kg.add_call_edge(rel, "", target_rel, mname, call.get("line", 0))
 
@@ -260,38 +266,67 @@ def _create_partial_node(rel: str) -> GraphNode:
     )
 
 
-def _resolve_import(imp: str, fqn_to_rel: dict, pkg_to_rels: dict, from_rel: str, nodes: dict, kg=None):
+def _resolve_import(imp: str, fqn_to_rel: dict, pkg_to_rels: dict, from_rel: str, nodes: dict, kg=None,
+                    ambiguous_fqns=None):
     if imp.endswith(".*"):
         pkg = imp[:-2]
         candidates = sorted(pkg_to_rels.get(pkg, set()))
         # A wildcard import creates one edge per declaration in that package.
         if not candidates and kg is not None:
-            kg.diagnostics.append({"kind": "unresolved_import", "file": from_rel, "symbol": imp})
+            kg.add_diagnostic({"kind": "unresolved_import", "file": from_rel, "symbol": imp})
         return candidates, "wildcard"
     if imp in fqn_to_rel and fqn_to_rel[imp]:
         return [fqn_to_rel[imp]], "direct"
-    if imp in fqn_to_rel and kg is not None:
-        kg.diagnostics.append({"kind": "ambiguous_import", "file": from_rel, "symbol": imp})
+    if imp in (ambiguous_fqns or set()) and kg is not None:
+        kg.add_diagnostic({"kind": "ambiguous_import", "file": from_rel, "symbol": imp})
+    elif not _is_external_reference(imp, nodes.get(from_rel, {}).get("node")) and kg is not None:
+        kg.add_diagnostic({"kind": "unresolved_import", "file": from_rel, "symbol": imp})
     return [], "unresolved"
 
 
-def _resolve_type(type_name: str, nodes: dict, from_rel: str, fqn_to_rel: dict, pkg_to_rels: dict, kg=None):
+def _resolve_type(type_name: str, nodes: dict, from_rel: str, fqn_to_rel: dict, pkg_to_rels: dict, kg=None,
+                  ambiguous_fqns=None, report_unresolved=True):
     if not type_name:
         return None
-    if type_name in fqn_to_rel and fqn_to_rel[type_name]:
-        return fqn_to_rel[type_name]
+    base_type = type_name.split("<", 1)[0].strip().replace("[]", "")
+    if base_type in fqn_to_rel and fqn_to_rel[base_type]:
+        return fqn_to_rel[base_type]
     from_pkg = nodes[from_rel]["node"].package
-    candidate_fqn = f"{from_pkg}.{type_name}" if from_pkg else type_name
+    candidate_fqn = f"{from_pkg}.{base_type}" if from_pkg else base_type
     if candidate_fqn in fqn_to_rel:
         return fqn_to_rel[candidate_fqn]
+    if candidate_fqn in (ambiguous_fqns or set()) or base_type in (ambiguous_fqns or set()):
+        if kg is not None:
+            kg.add_diagnostic({"kind": "ambiguous_symbol", "file": from_rel,
+                               "symbol": base_type,
+                               "candidates": sorted(_declaration_candidates(base_type, ambiguous_fqns, nodes))})
+        return None
     candidates = sorted(rel for fqn, rel in fqn_to_rel.items()
-                        if rel and fqn.endswith("." + type_name))
+                        if rel and fqn.endswith("." + base_type))
     if len(candidates) == 1:
         return candidates[0]
     if len(candidates) > 1 and kg is not None:
-        kg.diagnostics.append({"kind": "ambiguous_symbol", "file": from_rel,
-                               "symbol": type_name, "candidates": candidates})
+        kg.add_diagnostic({"kind": "ambiguous_symbol", "file": from_rel,
+                           "symbol": base_type, "candidates": candidates})
+    elif report_unresolved and not candidates and kg is not None and not _is_external_reference(base_type, nodes[from_rel]["node"]):
+        kg.add_diagnostic({"kind": "unresolved_type", "file": from_rel, "symbol": base_type})
     return None
+
+
+def _declaration_candidates(type_name, ambiguous_fqns, nodes):
+    return [rel for rel, data in nodes.items()
+            if data["node"].class_name == type_name or
+            f"{data['node'].package}.{data['node'].class_name}" == type_name]
+
+
+def _is_external_reference(name, node):
+    if name.startswith(("java.", "javax.")):
+        return True
+    if name in {"String", "Object", "Class", "Integer", "Long", "Boolean", "Exception", "RuntimeException"}:
+        return True
+    imports = getattr(node, "imports", []) if node else []
+    return any(imp.startswith(("java.", "javax.")) and
+               (imp.endswith("." + name) or imp.endswith(".*")) for imp in imports)
 
 
 def _find_parse_issue(root):
@@ -336,10 +371,11 @@ def main():
 
     print("Stage 3/4: RESOLVE -- cross-referencing edges")
     kg = resolve_graph(nodes, diagnostics)
-    kg.source_identity = {
+    kg.source = {
         "workspace": os.path.abspath(args.workspace),
-        "file_count": len(java_files),
+        "java_file_count": len(java_files),
     }
+    kg.source_identity = kg.source.copy()
     stats = kg.compute_stats()
     print(f"  Nodes: {stats['total_files']}, Edges: {stats['total_edges']}")
 
@@ -349,7 +385,7 @@ def main():
     elapsed = time.time() - t0
     print(f"Done in {elapsed:.1f}s")
 
-    has_errors = bool(kg.diagnostics)
+    has_errors = any(kg.diagnostics.values())
     sys.exit(1 if has_errors else 0)
 
 

@@ -110,10 +110,14 @@ class TypeRefEdge:
 class KnowledgeGraph:
     """Container for nodes and typed edges with query methods."""
 
-    def __init__(self, source_identity=None, diagnostics=None):
+    def __init__(self, source_identity=None, diagnostics=None, source=None):
         self.schema_version = 2
         self.source_identity = source_identity or {}
-        self.diagnostics = list(diagnostics or [])
+        self.source = source or {}
+        self.diagnostics = {"parse_failures": [], "unresolved_types": [],
+                            "ambiguous_symbols": [], "other": []}
+        for diagnostic in diagnostics or []:
+            self.add_diagnostic(diagnostic)
         self.nodes: Dict[str, GraphNode] = {}
         self.edges: Dict[str, list] = {
             "imports": [],
@@ -140,6 +144,22 @@ class KnowledgeGraph:
 
     def add_type_ref_edge(self, from_file: str, to_file: str, field: str = "", type_name: str = ""):
         self.edges["type_refs"].append(TypeRefEdge(from_file, to_file, field, type_name))
+
+    def add_diagnostic(self, diagnostic):
+        """Normalize legacy diagnostic records into the stable artifact shape."""
+        if not isinstance(diagnostic, dict):
+            self.diagnostics["other"].append({"message": str(diagnostic)})
+            return
+        kind = diagnostic.get("kind", "")
+        if kind in ("parse_error", "parse_failure"):
+            bucket = "parse_failures"
+        elif kind in ("unresolved_import", "unresolved_type"):
+            bucket = "unresolved_types"
+        elif kind in ("ambiguous_import", "ambiguous_symbol", "ambiguous_declaration"):
+            bucket = "ambiguous_symbols"
+        else:
+            bucket = "other"
+        self.diagnostics[bucket].append(dict(diagnostic))
 
     def query_dependents(self, target: str) -> list:
         """All files that import or reference target, in stable order."""
@@ -202,15 +222,23 @@ class KnowledgeGraph:
             return {"order": [], "diagnostics": []}
 
         file_to_rule = {}
+        ownership_conflicts = {}
         diagnostics = []
         for rule in rules:
             for f in sorted(set(rule_files.get(rule, []) or [])):
                 if f in file_to_rule and file_to_rule[f] != rule:
-                    diagnostics.append({"kind": "ambiguous_file_ownership", "file": f,
-                                        "rules": sorted([file_to_rule[f], rule])})
+                    prior = file_to_rule[f]
+                    rules_for_file = ownership_conflicts.setdefault(f, set())
+                    if prior is not None:
+                        rules_for_file.add(prior)
+                    rules_for_file.add(rule)
                     file_to_rule[f] = None
                 elif f not in file_to_rule:
                     file_to_rule[f] = rule
+
+        for f, owners in ownership_conflicts.items():
+            diagnostics.append({"kind": "ambiguous_file_ownership", "file": f,
+                                "rules": sorted(owners)})
 
         deps = {rule: set() for rule in rules}
         depended_by = {rule: set() for rule in rules}
@@ -269,13 +297,20 @@ class KnowledgeGraph:
                      for e in sorted(elist, key=lambda x: (x.from_file, x.to_file, x.field, x.type_name))
                 ]
 
-        return {"schema_version": self.schema_version, "source_identity": self.source_identity,
-                "diagnostics": sorted(self.diagnostics, key=lambda d: json.dumps(d, sort_keys=True)),
+        diagnostics = {bucket: sorted(values, key=lambda d: json.dumps(d, sort_keys=True))
+                       for bucket, values in self.diagnostics.items()}
+        return {"schema_version": self.schema_version, "source": self.source,
+                "source_identity": self.source_identity, "diagnostics": diagnostics,
                 "nodes": nodes_dict, "edges": edges_dict, "stats": self.compute_stats()}
 
     @staticmethod
     def from_dict(d: dict):
-        kg = KnowledgeGraph(d.get("source_identity", {}), d.get("diagnostics", []))
+        raw_diagnostics = d.get("diagnostics", {})
+        if isinstance(raw_diagnostics, dict):
+            legacy_diagnostics = [item for values in raw_diagnostics.values() for item in values]
+        else:
+            legacy_diagnostics = raw_diagnostics
+        kg = KnowledgeGraph(d.get("source_identity", {}), legacy_diagnostics, d.get("source", {}))
         kg.schema_version = d.get("schema_version", 1)
         for path, node_data in d.get("nodes", {}).items():
             kg.nodes[path] = GraphNode.from_dict(node_data)

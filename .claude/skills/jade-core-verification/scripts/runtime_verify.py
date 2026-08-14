@@ -313,8 +313,21 @@ def build_maven_consumer(
         return False, f"jade_artifact does not exist: {jade_artifact}"
 
     build_dir.mkdir(parents=True, exist_ok=True)
+    runtime_lib_dir = cfg.get("maven_runtime_lib_dir", "lib")
+    path_error = _safe_relative_path(
+        build_dir, runtime_lib_dir, "maven_runtime_lib_dir"
+    )
+    if path_error:
+        return False, path_error
+
     maven_cmd = _maven_command(cfg)
     with tempfile.TemporaryDirectory(prefix="jade-maven-repo-") as repo:
+        isolated_project = pathlib.Path(repo) / "consumer"
+        shutil.copytree(
+            project_root,
+            isolated_project,
+            ignore=shutil.ignore_patterns("target"),
+        )
         cmd = maven_cmd + [
             "-B",
             "-ntp",
@@ -328,7 +341,7 @@ def build_maven_consumer(
         try:
             proc = subprocess.run(
                 cmd,
-                cwd=project_root,
+                cwd=isolated_project,
                 capture_output=True,
                 text=True,
                 timeout=300,
@@ -343,13 +356,12 @@ def build_maven_consumer(
         if proc.returncode != 0:
             return False, f"Maven build failed (exit {proc.returncode}):\n{output}"
 
-        classes = project_root / "target" / "classes"
-        dependencies = project_root / "target" / "dependency"
+        classes = isolated_project / "target" / "classes"
+        dependencies = isolated_project / "target" / "dependency"
         if not classes.is_dir():
             return False, f"Maven build produced no compiled output: {classes}"
         shutil.copytree(classes, build_dir, dirs_exist_ok=True)
         if dependencies.is_dir():
-            runtime_lib_dir = cfg.get("maven_runtime_lib_dir", "lib")
             shutil.copytree(
                 dependencies,
                 build_dir / runtime_lib_dir,
@@ -362,7 +374,15 @@ def build_maven_consumer(
 def consumer_classpath(cfg: Dict[str, Any]) -> List[str]:
     """Return the container classpath for either consumer build mode."""
     classpath = ["/playground"]
-    classpath.extend(f"/ws/{dep}" for dep in cfg.get("classpath_deps", []))
+    dependencies = list(cfg.get("classpath_deps", []))
+    jade_artifact = cfg.get("jade_artifact")
+    if (
+        cfg.get("build_mode") == "maven"
+        and jade_artifact
+        and jade_artifact not in dependencies
+    ):
+        dependencies.append(jade_artifact)
+    classpath.extend(f"/ws/{dep}" for dep in dependencies)
     if cfg.get("build_mode") == "maven":
         runtime_dir = cfg.get("maven_runtime_lib_dir", "lib")
         classpath.append(f"/playground/{runtime_dir}/*")
@@ -517,6 +537,11 @@ def test_consumer(
         if rc == -1:
             result["status"] = "FAIL"
             result["error"] = "Container timed out"
+            return result
+
+        if rc != 0:
+            result["status"] = "FAIL"
+            result["error"] = f"Container exited with code {rc}"
             return result
 
         # Check for failure patterns FIRST (reverse assertion)

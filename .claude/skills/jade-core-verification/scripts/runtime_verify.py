@@ -154,6 +154,22 @@ def validate_consumer_config(
             if error:
                 errors.append(error)
 
+        if "jade_artifact" in normalized:
+            error = _safe_relative_path(
+                workspace, normalized["jade_artifact"], "jade_artifact"
+            )
+            if error:
+                errors.append(error)
+
+        if "maven_runtime_lib_dir" in normalized:
+            error = _safe_relative_path(
+                project_dir,
+                normalized["maven_runtime_lib_dir"],
+                "maven_runtime_lib_dir",
+            )
+            if error:
+                errors.append(error)
+
     classpath_deps = normalized.get("classpath_deps", [])
     if not isinstance(classpath_deps, list):
         errors.append("classpath_deps must be a list of relative paths")
@@ -267,6 +283,92 @@ def compile_consumer(
         return False, f"Failed to run javac: {exc}"
 
 
+def _maven_command(cfg: Dict[str, Any]) -> List[str]:
+    configured = cfg.get("maven_executable")
+    if isinstance(configured, list) and configured and all(
+        isinstance(part, str) for part in configured
+    ):
+        return list(configured)
+    maven = shutil.which("mvn") or "mvn"
+    return [maven]
+
+
+def build_maven_consumer(
+    project_dir: pathlib.Path,
+    workspace: pathlib.Path,
+    cfg: Dict[str, Any],
+    build_dir: pathlib.Path,
+) -> Tuple[bool, str]:
+    """Build a Maven consumer and stage its classes and runtime jars."""
+    project_root = project_dir / cfg["maven_project_root"]
+    jade_artifact = cfg.get("jade_artifact")
+    if jade_artifact is None:
+        deps = cfg.get("classpath_deps", [])
+        jade_artifact = deps[0] if deps else None
+    path_error = _safe_relative_path(workspace, jade_artifact, "jade_artifact")
+    if path_error:
+        return False, path_error
+    jade_path = (workspace / jade_artifact).resolve()
+    if not jade_path.is_file():
+        return False, f"jade_artifact does not exist: {jade_artifact}"
+
+    build_dir.mkdir(parents=True, exist_ok=True)
+    maven_cmd = _maven_command(cfg)
+    with tempfile.TemporaryDirectory(prefix="jade-maven-repo-") as repo:
+        cmd = maven_cmd + [
+            "-B",
+            "-ntp",
+            f"-Dmaven.repo.local={repo}",
+            f"-Djade.artifact={jade_path}",
+            "package",
+            "dependency:copy-dependencies",
+            "-DincludeScope=runtime",
+            "-DoutputDirectory=target/dependency",
+        ]
+        try:
+            proc = subprocess.run(
+                cmd,
+                cwd=project_root,
+                capture_output=True,
+                text=True,
+                timeout=300,
+                env={**os.environ, "JAVA_TOOL_OPTIONS": ""},
+            )
+        except subprocess.TimeoutExpired:
+            return False, "Maven build timed out after 300s"
+        except OSError as exc:
+            return False, f"Failed to run Maven: {exc}"
+
+        output = (proc.stdout + proc.stderr).strip()
+        if proc.returncode != 0:
+            return False, f"Maven build failed (exit {proc.returncode}):\n{output}"
+
+        classes = project_root / "target" / "classes"
+        dependencies = project_root / "target" / "dependency"
+        if not classes.is_dir():
+            return False, f"Maven build produced no compiled output: {classes}"
+        shutil.copytree(classes, build_dir, dirs_exist_ok=True)
+        if dependencies.is_dir():
+            runtime_lib_dir = cfg.get("maven_runtime_lib_dir", "lib")
+            shutil.copytree(
+                dependencies,
+                build_dir / runtime_lib_dir,
+                dirs_exist_ok=True,
+            )
+
+    return True, output
+
+
+def consumer_classpath(cfg: Dict[str, Any]) -> List[str]:
+    """Return the container classpath for either consumer build mode."""
+    classpath = ["/playground"]
+    classpath.extend(f"/ws/{dep}" for dep in cfg.get("classpath_deps", []))
+    if cfg.get("build_mode") == "maven":
+        runtime_dir = cfg.get("maven_runtime_lib_dir", "lib")
+        classpath.append(f"/playground/{runtime_dir}/*")
+    return classpath
+
+
 def run_in_docker(
     workspace: pathlib.Path,
     build_dir: pathlib.Path,
@@ -278,10 +380,7 @@ def run_in_docker(
     timeout = cfg.get("timeout_seconds", 60) + TIMEOUT_BUFFER
 
     # Build container classpath
-    cp_parts: List[str] = ["/playground"]
-    for dep in cfg.get("classpath_deps", []):
-        cp_parts.append(f"/ws/{dep}")
-    classpath = ":".join(cp_parts)
+    classpath = ":".join(consumer_classpath(cfg))
 
     # Normalize paths for Docker on Windows: drive letter + forward slashes
     def _docker_path(p: pathlib.Path) -> str:
@@ -381,12 +480,6 @@ def test_consumer(
         result["duration_seconds"] = round(time.monotonic() - t0, 1)
         return result
 
-    if cfg["build_mode"] == "maven":
-        result["status"] = "FAIL"
-        result["error"] = "Maven build mode is not implemented yet"
-        result["duration_seconds"] = round(time.monotonic() - t0, 1)
-        return result
-
     # Check deps
     missing = verify_deps(workspace, cfg)
     if missing:
@@ -398,7 +491,12 @@ def test_consumer(
     # Compile
     with tempfile.TemporaryDirectory(prefix=f"jade-rt-{name}-") as tmp:
         build_dir = pathlib.Path(tmp)
-        ok, output = compile_consumer(project_dir, workspace, cfg, build_dir)
+        if cfg["build_mode"] == "maven":
+            ok, output = build_maven_consumer(
+                project_dir, workspace, cfg, build_dir
+            )
+        else:
+            ok, output = compile_consumer(project_dir, workspace, cfg, build_dir)
         if not ok:
             result["status"] = "FAIL"
             result["error"] = "Compilation failed"

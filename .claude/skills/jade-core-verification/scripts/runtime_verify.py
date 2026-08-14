@@ -102,6 +102,70 @@ def resolve_consumer_docker_image(
     return configured
 
 
+def _safe_relative_path(
+    root: pathlib.Path, raw_path: Any, field: str, *, require_exists: bool = False
+) -> Optional[str]:
+    """Return an error when a configured path escapes its owning root."""
+    if not isinstance(raw_path, str) or not raw_path.strip():
+        return f"{field} must be a non-empty relative path"
+
+    candidate = pathlib.Path(raw_path)
+    if candidate.is_absolute():
+        return f"{field} must be relative to {root}"
+
+    root_resolved = root.resolve()
+    candidate_resolved = (root_resolved / candidate).resolve()
+    try:
+        candidate_resolved.relative_to(root_resolved)
+    except ValueError:
+        return f"{field} must remain inside the consumer/workspace root ({root})"
+
+    if require_exists and not candidate_resolved.is_dir():
+        return f"{field} does not name an existing directory: {raw_path}"
+    return None
+
+
+def validate_consumer_config(
+    project_dir: pathlib.Path,
+    cfg: Dict[str, Any],
+    workspace: pathlib.Path,
+) -> Tuple[Dict[str, Any], List[str]]:
+    """Normalize and validate consumer build configuration without building it."""
+    normalized = dict(cfg)
+    errors: List[str] = []
+
+    build_mode = normalized.get("build_mode", "javac")
+    if build_mode not in {"javac", "maven"}:
+        errors.append("build_mode must be either 'javac' or 'maven'")
+    else:
+        normalized["build_mode"] = build_mode
+
+    if build_mode == "maven":
+        project_root = normalized.get("maven_project_root")
+        if project_root is None:
+            errors.append("maven_project_root is required when build_mode is 'maven'")
+        else:
+            error = _safe_relative_path(
+                project_dir, project_root, "maven_project_root", require_exists=True
+            )
+            if error:
+                errors.append(error)
+
+    for dependency in normalized.get("classpath_deps", []):
+        error = _safe_relative_path(workspace, dependency, "classpath_deps")
+        if error:
+            errors.append(error)
+
+    if "artifact_output_dir" in normalized:
+        error = _safe_relative_path(
+            project_dir, normalized["artifact_output_dir"], "artifact_output_dir"
+        )
+        if error:
+            errors.append(error)
+
+    return normalized, errors
+
+
 def discover_consumers() -> List[Tuple[pathlib.Path, Dict[str, Any]]]:
     """Find all consumer projects with valid test-config.json."""
     consumers: List[Tuple[pathlib.Path, Dict[str, Any]]] = []
@@ -272,7 +336,8 @@ def test_consumer(
     cfg: Dict[str, Any],
 ) -> Dict[str, Any]:
     """Run one consumer test. Returns result dict."""
-    name = cfg["name"]
+    cfg, config_errors = validate_consumer_config(project_dir, cfg, workspace)
+    name = cfg.get("name", project_dir.name)
     result: Dict[str, Any] = {
         "project": name,
         "status": "PENDING",
@@ -285,6 +350,18 @@ def test_consumer(
     t0 = time.monotonic()
 
     print(f"\n=== Consumer: {name} ===")
+
+    if config_errors:
+        result["status"] = "FAIL"
+        result["error"] = "Invalid consumer configuration: " + "; ".join(config_errors)
+        result["duration_seconds"] = round(time.monotonic() - t0, 1)
+        return result
+
+    if cfg["build_mode"] == "maven":
+        result["status"] = "FAIL"
+        result["error"] = "Maven build mode is not implemented yet"
+        result["duration_seconds"] = round(time.monotonic() - t0, 1)
+        return result
 
     # Check deps
     missing = verify_deps(workspace, cfg)

@@ -225,13 +225,13 @@ Utility skills support the pipeline but are not part of the core state machine.
 Recipes are **version-specific transform scripts** stored under
 `.claude/skills/java-migration-skill-registry/<bucket>/<recipe>/`. They contain pure
 Java editing logic — no artifact I/O, no JSON parsing, no understanding of the
-pipeline. Nested `SKILL.md` files are documentation, not agent skills. Recipes are
+pipeline. Nested `SKILL.md` files document registry recipes; they are not top-level agent skills. Recipes are
 invoked as subprocesses by the dispatcher.
 
 A registry recipe script:
 - Accepts `--file <path> --line <num>` via CLI
 - Reads the target file, applies its transform, writes atomically
-- Prints a single JSON line to stdout: `{"status": "FIXED|FAILED|SKIPPED", "changes": N, ...}`
+- Prints a single JSON line to stdout: `{"status": "FIXED|FAILED|SKIPPED|DEFERRED", "changes": N, "warnings": [], "errors": [], "diff_summary": "..."}`
 - Exits 0 on success, non-zero on failure
 
 Examples (for a hypothetical 1.5→1.6 migration):

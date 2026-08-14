@@ -177,6 +177,29 @@ def test_dispatch_recipe_rejects_noncanonical_script_without_running(tmp_path, m
     assert "canonical registry recipe script" in result["errors"][0]
 
 
+def test_resolve_script_path_rejects_registry_symlink(tmp_path, monkeypatch):
+    module = load_module()
+    repo_root = tmp_path / "repo"
+    dispatcher_path = repo_root / ".claude" / "skills" / "jade-core-rule-dispatcher" / "scripts" / "dispatcher.py"
+    dispatcher_path.parent.mkdir(parents=True)
+    dispatcher_path.write_text("", encoding="utf-8")
+    recipe_root = repo_root / ".claude" / "skills" / "java-migration-skill-registry"
+    script = recipe_root / "shared" / "recipe" / "scripts" / "apply.py"
+    script.parent.mkdir(parents=True)
+    target = recipe_root / "shared" / "other.py"
+    target.write_text("", encoding="utf-8")
+    try:
+        script.symlink_to(target)
+    except OSError:
+        pytest.skip("symlinks are unavailable")
+    monkeypatch.setattr(module, "__file__", str(dispatcher_path))
+
+    with pytest.raises(ValueError, match="must not be a symlink"):
+        module.resolve_script_path(
+            ".claude/skills/java-migration-skill-registry/shared/recipe/scripts/apply.py"
+        )
+
+
 @pytest.mark.parametrize(
     "payload, message",
     [

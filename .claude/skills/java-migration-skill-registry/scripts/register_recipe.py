@@ -66,6 +66,9 @@ def _validate_registry(registry: Dict, registry_root: pathlib.Path) -> None:
         if bucket not in BUCKETS:
             raise ValueError(f"invalid registry entry {rule_id}: unknown bucket")
         resolved_script = registry_root.joinpath(bucket, recipe_name, "scripts", "apply.py").resolve()
+        script_on_disk = registry_root / bucket / recipe_name / "scripts" / "apply.py"
+        if script_on_disk.is_symlink():
+            raise ValueError(f"invalid registry entry {rule_id}: script must not be a symlink")
         try:
             resolved_script.relative_to(resolved_root)
         except ValueError as exc:
@@ -130,7 +133,7 @@ def _stage_recipe_files(
                 'parser.add_argument("--file", required=True)\n'
                 'parser.add_argument("--line", required=True, type=int)\n'
                 "parser.parse_args()\n"
-                'print(json.dumps({"status": "SKIPPED", "changes": 0, "warnings": [], "errors": []}))\n',
+                'print(json.dumps({"status": "SKIPPED", "changes": 0, "warnings": [], "errors": [], "diff_summary": "No source changes required"}))\n',
                 encoding="utf-8",
             )
         return temp_dir
@@ -163,8 +166,11 @@ def register_recipe(
         recipe_dir.resolve().relative_to(registry_root.resolve())
     except ValueError as exc:
         raise ValueError("recipe path outside registry") from exc
-    if recipe_dir.is_symlink():
-        raise ValueError(f"recipe directory must not be a symlink: {recipe_dir}")
+    if recipe_dir.is_symlink() or (recipe_dir.exists() and not recipe_dir.is_dir()):
+        raise ValueError(f"recipe directory must be a directory and must not be a symlink: {recipe_dir}")
+    existing_script = recipe_dir / "scripts" / "apply.py"
+    if existing_script.is_symlink():
+        raise ValueError(f"recipe script must not be a symlink: {existing_script}")
     script = f"{REGISTRY_SCRIPT_PREFIX}/{bucket}/{recipe_name}/scripts/apply.py"
     entry = {"skill": recipe_name, "script": script, "description": description}
     existing_entry = registry.get(rule_id)

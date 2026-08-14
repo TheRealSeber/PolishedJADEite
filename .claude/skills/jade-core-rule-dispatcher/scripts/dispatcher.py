@@ -145,6 +145,9 @@ def resolve_script_path(script_path: str) -> pathlib.Path:
             "Recipe script must be a canonical registry recipe script: "
             f"{script_path}"
         )
+    script_on_disk = repo_root / pathlib.Path(script_path)
+    if script_on_disk.is_symlink():
+        raise ValueError(f"Recipe script must not be a symlink: {script_path}")
     bucket, recipe_name = relative.parts[len(RECIPE_REGISTRY_PREFIX) : len(RECIPE_REGISTRY_PREFIX) + 2]
     if (
         bucket not in RECIPE_BUCKETS

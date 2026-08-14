@@ -1,6 +1,7 @@
 import importlib.util
 import json
 import pathlib
+import subprocess
 import sys
 
 import pytest
@@ -38,6 +39,46 @@ def test_register_recipe_scaffolds_and_updates_registry(tmp_path):
     data = json.loads(registry.read_text(encoding="utf-8"))
     assert data["EXAMPLE_RULE"]["skill"] == "example"
     assert data["EXAMPLE_RULE"]["script"] == ".claude/skills/java-migration-skill-registry/shared/example/scripts/apply.py"
+
+
+def test_register_recipe_scaffold_apply_emits_dispatcher_contract(tmp_path):
+    module = load_module()
+    registry = tmp_path / "recipe-registry.json"
+    registry.write_text("{}\n", encoding="utf-8")
+    module.register_recipe(
+        registry_path=registry,
+        registry_root=tmp_path / "registry",
+        recipe_name="example",
+        bucket="shared",
+        rule_id="EXAMPLE_RULE",
+        description="Example recipe",
+    )
+    source = tmp_path / "Example.java"
+    source.write_text("class Example {}\n", encoding="utf-8")
+
+    completed = subprocess.run(
+        [
+            sys.executable,
+            str(tmp_path / "registry" / "shared" / "example" / "scripts" / "apply.py"),
+            "--file",
+            str(source),
+            "--line",
+            "1",
+        ],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+
+    assert completed.returncode == 0
+    payload = json.loads(completed.stdout)
+    assert payload == {
+        "status": "SKIPPED",
+        "changes": 0,
+        "warnings": [],
+        "errors": [],
+        "diff_summary": "No source changes required",
+    }
 
 
 @pytest.mark.parametrize(
@@ -178,6 +219,43 @@ def test_register_recipe_force_create_reports_created(tmp_path):
     ) == "created"
 
 
+@pytest.mark.parametrize("target_kind", ["file", "symlink"])
+def test_register_recipe_force_rejects_non_directory_target_without_mutation(tmp_path, target_kind):
+    module = load_module()
+    registry = tmp_path / "recipe-registry.json"
+    registry.write_text("{}\n", encoding="utf-8")
+    registry_root = tmp_path / "registry"
+    target = registry_root / "shared" / "example"
+    target.parent.mkdir(parents=True)
+    if target_kind == "file":
+        target.write_text("keep\n", encoding="utf-8")
+    else:
+        destination = tmp_path / "destination"
+        destination.mkdir()
+        try:
+            target.symlink_to(destination, target_is_directory=True)
+        except OSError:
+            pytest.skip("symlinks are unavailable")
+    before_registry = registry.read_bytes()
+
+    with pytest.raises(ValueError, match="must be a directory"):
+        module.register_recipe(
+            registry_path=registry,
+            registry_root=registry_root,
+            recipe_name="example",
+            bucket="shared",
+            rule_id="RULE",
+            description="Recipe",
+            force=True,
+        )
+
+    assert registry.read_bytes() == before_registry
+    if target_kind == "symlink":
+        assert target.is_symlink()
+    else:
+        assert target.read_text(encoding="utf-8") == "keep\n"
+
+
 def test_register_recipe_source_dir_copies_recipe_files(tmp_path):
     module = load_module()
     registry = tmp_path / "recipe-registry.json"
@@ -310,6 +388,40 @@ def test_register_recipe_rejects_script_symlink_outside_registry(tmp_path):
     outside.write_text("", encoding="utf-8")
     try:
         script.symlink_to(outside)
+    except OSError:
+        pytest.skip("symlinks are unavailable")
+    registry = tmp_path / "recipe-registry.json"
+    registry.write_text(
+        json.dumps({
+            "RULE": {
+                "skill": "recipe",
+                "script": ".claude/skills/java-migration-skill-registry/shared/recipe/scripts/apply.py",
+                "description": "bad",
+            }
+        }),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="invalid registry entry"):
+        module.register_recipe(
+            registry_path=registry,
+            registry_root=registry_root,
+            recipe_name="new",
+            bucket="shared",
+            rule_id="NEW",
+            description="Recipe",
+        )
+
+
+def test_register_recipe_rejects_script_symlink_inside_registry(tmp_path):
+    module = load_module()
+    registry_root = tmp_path / "registry"
+    script = registry_root / "shared" / "recipe" / "scripts" / "apply.py"
+    script.parent.mkdir(parents=True)
+    target = registry_root / "shared" / "other.py"
+    target.write_text("", encoding="utf-8")
+    try:
+        script.symlink_to(target)
     except OSError:
         pytest.skip("symlinks are unavailable")
     registry = tmp_path / "recipe-registry.json"

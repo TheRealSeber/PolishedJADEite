@@ -135,7 +135,7 @@ def validate_consumer_config(
     errors: List[str] = []
 
     build_mode = normalized.get("build_mode", "javac")
-    if build_mode not in {"javac", "maven"}:
+    if not isinstance(build_mode, str) or build_mode not in {"javac", "maven"}:
         errors.append("build_mode must be either 'javac' or 'maven'")
     else:
         normalized["build_mode"] = build_mode
@@ -151,7 +151,12 @@ def validate_consumer_config(
             if error:
                 errors.append(error)
 
-    for dependency in normalized.get("classpath_deps", []):
+    classpath_deps = normalized.get("classpath_deps", [])
+    if not isinstance(classpath_deps, list):
+        errors.append("classpath_deps must be a list of relative paths")
+        classpath_deps = []
+
+    for dependency in classpath_deps:
         error = _safe_relative_path(workspace, dependency, "classpath_deps")
         if error:
             errors.append(error)

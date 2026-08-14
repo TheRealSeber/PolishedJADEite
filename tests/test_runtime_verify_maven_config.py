@@ -78,6 +78,48 @@ def test_config_defaults_to_backward_compatible_javac_mode(tmp_path):
     assert "maven_project_root" not in normalized
 
 
+def test_config_rejects_non_string_build_mode(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+
+    _, errors = mod.validate_consumer_config(
+        consumer,
+        {"build_mode": []},
+        tmp_path / "workspace",
+    )
+
+    assert any("build_mode" in error for error in errors)
+
+
+def test_config_rejects_null_classpath_deps(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+
+    _, errors = mod.validate_consumer_config(
+        consumer,
+        {"classpath_deps": None},
+        tmp_path / "workspace",
+    )
+
+    assert any("classpath_deps" in error for error in errors)
+
+
+def test_config_rejects_string_classpath_deps(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+
+    _, errors = mod.validate_consumer_config(
+        consumer,
+        {"classpath_deps": "jade.jar"},
+        tmp_path / "workspace",
+    )
+
+    assert any("classpath_deps" in error for error in errors)
+
+
 def test_config_rejects_unsafe_dependency_and_artifact_paths(tmp_path):
     mod = _load_module()
     consumer = tmp_path / "consumer"

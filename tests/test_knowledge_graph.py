@@ -338,6 +338,17 @@ class TestBuildGraph:
         assert {edge.type_name for edge in refs} == {"Target"}
         assert {edge.field for edge in refs} >= {"method:convert:return", "method:convert:parameter:input"}
 
+    def test_earlier_file_field_receiver_resolves_to_target(self, tmp_path):
+        (tmp_path / "Consumer.java").write_text(
+            "package q; import p.Target; public class Consumer { Target target; void run() { target.get(); } }\n"
+        )
+        (tmp_path / "Target.java").write_text("package p; public class Target { String get() { return \"x\"; } }\n")
+        parser, lang = get_parser()
+        nodes, diagnostics = parse_files(scan_workspace(str(tmp_path)), parser, lang, return_diagnostics=True)
+        kg = resolve_graph(nodes, diagnostics)
+        assert any(edge.from_file == "Consumer.java" and edge.to_file == "Target.java"
+                   and edge.to_method == "get" for edge in kg.edges["calls"])
+
     def test_transform_order_reports_three_way_ownership_ambiguity(self):
         kg = KnowledgeGraph()
         result = kg.query_transform_order_result(

@@ -1,3 +1,11 @@
+---
+name: jade-core-knowledge-graph
+description: >-
+  Core skill that builds a Java Knowledge Graph from `.java` sources using
+  tree-sitter-java, enabling impact analysis, rule ordering, and consumer test
+  selection in the JADE migration pipeline.
+---
+
 # jade-core-knowledge-graph
 
 Universal Java source analyzer that builds a Knowledge Graph from `.java` files using tree-sitter-java. Produces `03.5-knowledge-graph.json` consumed by downstream pipeline phases for impact analysis, semantic verification, rule ordering, and consumer test selection.

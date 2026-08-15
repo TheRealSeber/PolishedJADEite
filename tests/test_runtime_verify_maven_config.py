@@ -186,7 +186,11 @@ def test_invalid_runtime_version_writes_failed_consumer_artifact(tmp_path, monke
         )
     ]
     monkeypatch.setattr(mod.shutil, "which", lambda name: "docker")
-    monkeypatch.setattr(mod.subprocess, "run", lambda *args, **kwargs: None)
+    monkeypatch.setattr(
+        mod.subprocess,
+        "run",
+        lambda *args, **kwargs: type("Ok", (), {"returncode": 0})(),
+    )
     monkeypatch.setattr(
         sys,
         "argv",
@@ -207,6 +211,86 @@ def test_invalid_runtime_version_writes_failed_consumer_artifact(tmp_path, monke
     assert output["failed"] == 1
     assert output["results"][0]["status"] == "FAIL"
     assert "runtime_java_version" in output["results"][0]["error"]
+
+
+def test_docker_info_nonzero_is_environment_failure_before_consumers(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    config = tmp_path / "run-config.json"
+    config.write_text(json.dumps({"run_id": "docker-failure"}), encoding="utf-8")
+    registry_path = tmp_path / "docker-images.json"
+    registry_path.write_text(
+        json.dumps({"java-8": "java8", "java-11": "java11", "java-17": "java17"}),
+        encoding="utf-8",
+    )
+    mod.DOCKER_IMAGE_CONFIG_PATH = registry_path
+    mod.discover_consumers = lambda: (_ for _ in ()).throw(
+        AssertionError("consumer discovery must not run")
+    )
+    monkeypatch.setattr(mod.shutil, "which", lambda name: "docker")
+
+    class FailedDockerInfo:
+        returncode = 7
+
+    monkeypatch.setattr(mod.subprocess, "run", lambda *args, **kwargs: FailedDockerInfo())
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "runtime_verify.py",
+            "--workspace",
+            str(workspace),
+            "--artifacts",
+            str(artifacts),
+            "--config",
+            str(config),
+        ],
+    )
+
+    assert mod.main() == 3
+    assert not (artifacts / "07-runtime-verify.json").exists()
+
+
+def test_no_valid_consumers_writes_failed_diagnostic_artifact(tmp_path, monkeypatch):
+    mod = _load_module()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    config = tmp_path / "run-config.json"
+    config.write_text(json.dumps({"run_id": "no-consumers"}), encoding="utf-8")
+    registry_path = tmp_path / "docker-images.json"
+    registry_path.write_text(
+        json.dumps({"java-8": "java8", "java-11": "java11", "java-17": "java17"}),
+        encoding="utf-8",
+    )
+    mod.DOCKER_IMAGE_CONFIG_PATH = registry_path
+    mod.discover_consumers = lambda: []
+    monkeypatch.setattr(mod.shutil, "which", lambda name: "docker")
+    monkeypatch.setattr(mod.subprocess, "run", lambda *args, **kwargs: type("Ok", (), {"returncode": 0})())
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "runtime_verify.py",
+            "--workspace",
+            str(workspace),
+            "--artifacts",
+            str(artifacts),
+            "--config",
+            str(config),
+        ],
+    )
+
+    assert mod.main() == 2
+    output = json.loads((artifacts / "07-runtime-verify.json").read_text())
+    assert output["overall_pass"] is False
+    assert output["error"] == "No valid consumer configs discovered"
 
 
 def test_consumer_result_records_runtime_and_maven_metadata(tmp_path, monkeypatch):

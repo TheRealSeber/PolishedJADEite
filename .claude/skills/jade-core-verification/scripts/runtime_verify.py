@@ -740,9 +740,17 @@ def main() -> int:
         return 3
     # Check daemon is reachable
     try:
-        subprocess.run(["docker", "info"], capture_output=True, timeout=10, check=False)
+        docker_info = subprocess.run(
+            ["docker", "info"], capture_output=True, timeout=10, check=False
+        )
     except (subprocess.TimeoutExpired, OSError):
         print("ERROR: docker daemon not running or unreachable", file=sys.stderr)
+        return 3
+    if docker_info.returncode != 0:
+        print(
+            f"ERROR: docker info failed with exit code {docker_info.returncode}",
+            file=sys.stderr,
+        )
         return 3
 
     # Discover consumers
@@ -751,15 +759,16 @@ def main() -> int:
         result = {
             "run_id": run_id,
             "generated_at": iso_now(),
-            "overall_pass": True,
+            "overall_pass": False,
             "total_consumers": 0,
             "passed": 0,
-            "failed": 0,
+            "failed": 1,
             "results": [],
+            "error": "No valid consumer configs discovered",
         }
         write_json(artifacts / "07-runtime-verify.json", result)
-        print("No consumer projects found — pass")
-        return 0
+        print("ERROR: No valid consumer configs discovered", file=sys.stderr)
+        return 2
 
     # Test each consumer
     results: List[Dict[str, Any]] = []

@@ -134,6 +134,11 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
                                if isinstance(param, dict) and param.get("name")})
         for local in data.get("locals", []):
             if isinstance(local, dict) and local.get("name"):
+                if not local.get("method") or not local.get("method_start"):
+                    kg.add_diagnostic({"kind": "unsupported_receiver_scope", "file": rel,
+                                       "scope": "initializer_or_block", "receiver": local["name"],
+                                       "line": local.get("line", 0)})
+                    continue
                 receiver_types_by_scope.setdefault((rel, local.get("method_start", 0)), dict(field_receiver_types))[
                     local["name"]
                 ] = local.get("type")
@@ -239,7 +244,13 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
                 continue
             target_rel = None
             if obj:
-                receiver_types = receiver_types_by_scope.get((rel, call.get("caller_method_start", 0)), {})
+                caller_method_start = call.get("caller_method_start", 0)
+                if not call.get("caller_method") or not caller_method_start:
+                    kg.add_diagnostic({"kind": "unsupported_receiver_scope", "file": rel,
+                                       "scope": "initializer_or_block", "receiver": obj,
+                                       "method": mname, "line": call.get("line", 0)})
+                    continue
+                receiver_types = receiver_types_by_scope.get((rel, caller_method_start), {})
                 receiver_type = receiver_types.get(obj, obj)
                 target_rel = _resolve_type(receiver_type, nodes, rel, fqn_to_rel, pkg_to_rels, kg, ambiguous_fqns,
                                            ambiguous_short_names, report_unresolved=False)

@@ -62,6 +62,27 @@ class TestSchema:
         kg.add_implements_edge("impl/Impl.java", "base/Base.java")
         assert kg.query_dependents("base/Base.java") == ["child/Child.java", "impl/Impl.java"]
 
+    def test_call_sites_are_sorted_independently_of_edge_insertion_order(self):
+        edges = [
+            ("z/Z.java", "zeta", 30),
+            ("a/A.java", "alpha", 20),
+            ("a/A.java", "alpha", 10),
+        ]
+        first = KnowledgeGraph()
+        second = KnowledgeGraph()
+        for edge in edges:
+            first.add_call_edge(edge[0], edge[1], "target/Target.java", "run", edge[2])
+        for edge in reversed(edges):
+            second.add_call_edge(edge[0], edge[1], "target/Target.java", "run", edge[2])
+
+        expected = [
+            {"file": "a/A.java", "line": 10, "caller_method": "alpha"},
+            {"file": "a/A.java", "line": 20, "caller_method": "alpha"},
+            {"file": "z/Z.java", "line": 30, "caller_method": "zeta"},
+        ]
+        assert first.query_call_sites("target/Target.java", "run") == expected
+        assert second.query_call_sites("target/Target.java", "run") == expected
+
     def test_rule_scope_is_multi_hop_and_descriptive(self):
         kg = KnowledgeGraph()
         kg.add_import_edge("a/A.java", "b/B.java")
@@ -448,6 +469,21 @@ class TestBuildGraph:
         assert {(edge.to_file, edge.to_method) for edge in calls} == {
             ("P.java", "get"), ("Q.java", "get")
         }
+
+    def test_initializer_receiver_scopes_do_not_leak_and_are_diagnosed(self, tmp_path):
+        (tmp_path / "P.java").write_text("package p; public class P { void get() {} }\n")
+        (tmp_path / "Q.java").write_text("package q; public class Q { void get() {} }\n")
+        (tmp_path / "Consumer.java").write_text(
+            "package consumer; import p.P; import q.Q; public class Consumer {"
+            " { P receiver; receiver.get(); } { Q receiver; receiver.get(); } }\n"
+        )
+        parser, lang = get_parser()
+        nodes, diagnostics = parse_files(scan_workspace(str(tmp_path)), parser, lang, return_diagnostics=True)
+        kg = resolve_graph(nodes, diagnostics)
+        calls = [edge for edge in kg.edges["calls"] if edge.from_file == "Consumer.java"]
+        assert not any(edge.to_file in {"P.java", "Q.java"} and edge.to_method == "get" for edge in calls)
+        assert any(item.get("kind") == "unsupported_receiver_scope"
+                   for item in kg.to_dict()["diagnostics"]["other"])
 
     def test_unresolved_receiver_call_is_structured_diagnostic(self, tmp_path):
         (tmp_path / "Consumer.java").write_text(

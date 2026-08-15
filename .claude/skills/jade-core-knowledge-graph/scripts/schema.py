@@ -195,7 +195,7 @@ class KnowledgeGraph:
         for e in self.edges["calls"]:
             if e.to_file == target and e.to_method == method_name:
                 results.append({"file": e.from_file, "line": e.line, "caller_method": e.from_method})
-        return results
+        return sorted(results, key=lambda result: (result["file"], result["line"], result["caller_method"]))
 
     def query_rule_scope(self, flagged_files: list) -> dict:
         """Compute the complete reverse dependency closure with paths."""

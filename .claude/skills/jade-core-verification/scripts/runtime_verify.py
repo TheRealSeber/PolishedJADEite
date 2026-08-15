@@ -28,7 +28,6 @@ from typing import Any, Dict, List, Optional, Tuple
 PLAYGROUND_DIR = pathlib.Path("consumer-playground")
 TIMEOUT_BUFFER = 15  # extra seconds beyond test-config timeout for docker pull etc.
 MAVEN_DEPENDENCY_PLUGIN_VERSION = "3.6.1"
-SUPPORTED_RUNTIME_JAVA_VERSIONS = {8, 11, 17}
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[4]
 DOCKER_IMAGE_CONFIG_PATH = REPO_ROOT / "config" / "docker-images.json"
 
@@ -86,18 +85,29 @@ def load_docker_image_registry(config_path: pathlib.Path) -> Dict[str, str]:
     return {str(k): str(v) for k, v in payload.items()}
 
 
-def parse_runtime_java_version(raw_version: Any) -> int:
+def _registry_java_versions(registry: Dict[str, str]) -> set[int]:
+    versions = set()
+    for key in registry:
+        prefix, _, suffix = str(key).partition("java-")
+        if not prefix and suffix.isdigit() and int(suffix) > 0:
+            versions.add(int(suffix))
+    return versions
+
+
+def parse_runtime_java_version(
+    raw_version: Any, registry: Optional[Dict[str, str]] = None
+) -> int:
     if isinstance(raw_version, bool):
-        raise ValueError("runtime_java_version must be numeric Java 8, 11, or 17")
+        raise ValueError("runtime_java_version must be a numeric Java version")
     if isinstance(raw_version, int):
         major = raw_version
     elif isinstance(raw_version, str) and raw_version.strip().isdigit():
         major = int(raw_version.strip())
     else:
-        raise ValueError("runtime_java_version must be numeric Java 8, 11, or 17")
-    if major not in SUPPORTED_RUNTIME_JAVA_VERSIONS:
+        raise ValueError("runtime_java_version must be a numeric Java version")
+    if registry is not None and major not in _registry_java_versions(registry):
         raise ValueError(
-            f"runtime_java_version {major} is unsupported; use Java 8, 11, or 17"
+            f"runtime_java_version {major} is unsupported by the Docker registry"
         )
     return major
 
@@ -113,9 +123,12 @@ def resolve_docker_image(target_version: str, registry: Dict[str, str]) -> str:
             f"Target Java version is invalid or unsupported: {target_version}"
         )
     if major > 17:
-        raise ValueError(
-            f"Target Java {major} is unsupported; supported Docker images stop at Java 17"
-        )
+        image_key = f"java-{major}"
+        if image_key not in registry:
+            raise ValueError(
+                f"Target Java {major} is unsupported; registry has no {image_key} image"
+            )
+        return registry[image_key]
     if major >= 17:
         return registry["java-17"]
     if major >= 11:
@@ -128,7 +141,7 @@ def resolve_consumer_docker_image(
 ) -> str:
     if "runtime_java_version" in consumer_cfg:
         runtime_version = parse_runtime_java_version(
-            consumer_cfg["runtime_java_version"]
+            consumer_cfg["runtime_java_version"], registry
         )
     else:
         runtime_version = str(run_cfg.get("target_version", ""))
@@ -165,6 +178,7 @@ def validate_consumer_config(
     project_dir: pathlib.Path,
     cfg: Dict[str, Any],
     workspace: pathlib.Path,
+    registry: Optional[Dict[str, str]] = None,
 ) -> Tuple[Dict[str, Any], List[str]]:
     """Normalize and validate consumer build configuration without building it."""
     normalized = dict(cfg)
@@ -215,7 +229,7 @@ def validate_consumer_config(
     if "runtime_java_version" in normalized:
         try:
             normalized["runtime_java_version"] = parse_runtime_java_version(
-                normalized["runtime_java_version"]
+                normalized["runtime_java_version"], registry
             )
         except ValueError as exc:
             errors.append(str(exc))
@@ -549,9 +563,12 @@ def test_consumer(
     project_dir: pathlib.Path,
     workspace: pathlib.Path,
     cfg: Dict[str, Any],
+    registry: Optional[Dict[str, str]] = None,
 ) -> Dict[str, Any]:
     """Run one consumer test. Returns result dict."""
-    cfg, config_errors = validate_consumer_config(project_dir, cfg, workspace)
+    cfg, config_errors = validate_consumer_config(
+        project_dir, cfg, workspace, registry
+    )
     name = cfg.get("name", project_dir.name)
     result: Dict[str, Any] = {
         "project": name,
@@ -735,9 +752,24 @@ def main() -> int:
                 cfg, run_cfg, registry
             )
         except ValueError as exc:
-            print(f"ERROR: invalid Docker image configuration: {exc}", file=sys.stderr)
-            return 3
-        result = test_consumer(project_dir, workspace, cfg)
+            result = {
+                "project": cfg.get("name", project_dir.name),
+                "status": "FAIL",
+                "duration_seconds": 0.0,
+                "jade_booted": False,
+                "stdout_snippet": "",
+                "error": f"Invalid consumer configuration: {exc}",
+                "docker_image": None,
+                "runtime_java_version": cfg.get("runtime_java_version"),
+            }
+            if cfg.get("build_mode") == "maven":
+                result[
+                    "maven_dependency_plugin_version"
+                ] = MAVEN_DEPENDENCY_PLUGIN_VERSION
+            results.append(result)
+            print(f"  [FAIL] {result['project']} (0.0s)")
+            continue
+        result = test_consumer(project_dir, workspace, cfg, registry)
         results.append(result)
         status_icon = "PASS" if result["status"] == "PASS" else "FAIL"
         print(f"  [{status_icon}] {result['project']} ({result['duration_seconds']}s)")

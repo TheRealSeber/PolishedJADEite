@@ -391,9 +391,12 @@ def resolve_docker_image(target_version: str, registry: Dict[str, str]) -> str:
             f"Target Java version is invalid or unsupported: {target_version}"
         )
     if major > 17:
-        raise ValueError(
-            f"Target Java {major} is unsupported; supported Docker images stop at Java 17"
-        )
+        image_key = f"java-{major}"
+        if image_key not in registry:
+            raise ValueError(
+                f"Target Java {major} is unsupported; registry has no {image_key} image"
+            )
+        return registry[image_key]
     if major >= 17:
         return registry["java-17"]
     if major >= 11:

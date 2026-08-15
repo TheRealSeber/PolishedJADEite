@@ -57,12 +57,14 @@ def test_runtime_java_version_rejects_invalid_values(tmp_path):
     mod = _load_module()
     consumer = tmp_path / "consumer"
     consumer.mkdir()
+    registry = {"java-8": "java8", "java-11": "java11", "java-17": "java17"}
 
     for value in (None, "", "17.0", 21, [], True):
         _, errors = mod.validate_consumer_config(
             consumer,
             {"runtime_java_version": value},
             tmp_path / "workspace",
+            registry,
         )
         assert any("runtime_java_version" in error for error in errors)
 
@@ -80,6 +82,78 @@ def test_runtime_java_version_overrides_jade_target_for_image_resolution():
         {"target_version": "1.7"},
         registry,
     ) == "java17"
+
+
+def test_runtime_java_version_support_comes_from_registry_keys():
+    mod = _load_module()
+    registry = {
+        "java-8": "java8",
+        "java-11": "java11",
+        "java-17": "java17",
+        "java-19": "java19",
+    }
+
+    assert mod.resolve_consumer_docker_image(
+        {"docker_image": "${TARGET_DOCKER_IMAGE}", "runtime_java_version": 19},
+        {"target_version": "1.7"},
+        registry,
+    ) == "java19"
+
+
+def test_invalid_runtime_version_writes_failed_consumer_artifact(tmp_path, monkeypatch):
+    mod = _load_module()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    config = tmp_path / "run-config.json"
+    config.write_text(json.dumps({"run_id": "test"}), encoding="utf-8")
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+    registry_path = tmp_path / "docker-images.json"
+    registry_path.write_text(
+        json.dumps(
+            {
+                "java-8": "java8",
+                "java-11": "java11",
+                "java-17": "java17",
+            }
+        ),
+        encoding="utf-8",
+    )
+    mod.DOCKER_IMAGE_CONFIG_PATH = registry_path
+    mod.discover_consumers = lambda: [
+        (
+            consumer,
+            {
+                "name": "invalid-runtime",
+                "docker_image": "${TARGET_DOCKER_IMAGE}",
+                "runtime_java_version": 21,
+            },
+        )
+    ]
+    monkeypatch.setattr(mod.shutil, "which", lambda name: "docker")
+    monkeypatch.setattr(mod.subprocess, "run", lambda *args, **kwargs: None)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "runtime_verify.py",
+            "--workspace",
+            str(workspace),
+            "--artifacts",
+            str(artifacts),
+            "--config",
+            str(config),
+        ],
+    )
+
+    assert mod.main() == 2
+    output = json.loads((artifacts / "07-runtime-verify.json").read_text())
+    assert output["overall_pass"] is False
+    assert output["failed"] == 1
+    assert output["results"][0]["status"] == "FAIL"
+    assert "runtime_java_version" in output["results"][0]["error"]
 
 
 def test_consumer_result_records_runtime_and_maven_metadata(tmp_path, monkeypatch):

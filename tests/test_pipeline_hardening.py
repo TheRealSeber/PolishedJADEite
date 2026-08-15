@@ -38,6 +38,9 @@ def test_build_audit_resolves_registry_image_for_target_java():
         with pytest.raises(ValueError, match="invalid or unsupported"):
             mod.resolve_docker_image(invalid_version, registry)
 
+    registry["java-19"] = "maven:3.9-eclipse-temurin-19"
+    assert mod.resolve_docker_image("19", registry) == "maven:3.9-eclipse-temurin-19"
+
 
 def test_build_audit_flags_java11_removed_dependencies_as_blocker():
     mod = _load_module(BUILD_AUDIT_PATH, "build_audit_dependency_test")

@@ -499,7 +499,7 @@ def run_in_docker(
     cfg: Dict[str, Any],
 ) -> Tuple[int, str, str]:
     """Run consumer in Docker. Returns (exit_code, stdout, stderr)."""
-    docker_image = cfg["docker_image"]
+    docker_image = cfg.get("_resolved_docker_image", cfg["docker_image"])
     main_class = cfg["main_class"]
     timeout = cfg.get("timeout_seconds", 60) + TIMEOUT_BUFFER
 
@@ -595,7 +595,9 @@ def test_consumer(
         "jade_booted": False,
         "stdout_snippet": "",
         "error": None,
-        "docker_image": cfg.get("docker_image"),
+        "docker_image": cfg.get(
+            "_resolved_docker_image", cfg.get("docker_image")
+        ),
         "runtime_java_version": cfg.get("runtime_java_version"),
     }
     if cfg.get("build_mode") == "maven":
@@ -775,7 +777,7 @@ def main() -> int:
     for project_dir, cfg in consumers:
         cfg = dict(cfg)
         try:
-            cfg["docker_image"] = resolve_consumer_docker_image(
+            cfg["_resolved_docker_image"] = resolve_consumer_docker_image(
                 cfg, run_cfg, registry
             )
         except ValueError as exc:

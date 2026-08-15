@@ -256,6 +256,76 @@ def test_docker_info_nonzero_is_environment_failure_before_consumers(
     assert not (artifacts / "07-runtime-verify.json").exists()
 
 
+def test_placeholder_consumer_reaches_runtime_with_resolved_image(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    config = tmp_path / "run-config.json"
+    config.write_text(json.dumps({"run_id": "placeholder"}), encoding="utf-8")
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+    registry_path = tmp_path / "docker-images.json"
+    registry_path.write_text(
+        json.dumps({"java-8": "java8", "java-11": "java11", "java-17": "java17"}),
+        encoding="utf-8",
+    )
+    mod.DOCKER_IMAGE_CONFIG_PATH = registry_path
+    declared_configs = []
+    runtime_configs = []
+    mod.discover_consumers = lambda: [
+        (
+            consumer,
+            {
+                "name": "placeholder-consumer",
+                "docker_image": "${TARGET_DOCKER_IMAGE}",
+                "runtime_java_version": 17,
+                "expected_stdout_markers": ["PASS"],
+            },
+        )
+    ]
+    monkeypatch.setattr(mod.shutil, "which", lambda name: "docker")
+    monkeypatch.setattr(
+        mod.subprocess,
+        "run",
+        lambda *args, **kwargs: type("Ok", (), {"returncode": 0})(),
+    )
+
+    def fake_compile(*args):
+        declared_configs.append(args[2]["docker_image"])
+        return True, ""
+
+    def fake_run(*args):
+        runtime_configs.append(args[2]["_resolved_docker_image"])
+        return 0, "PASS", ""
+
+    monkeypatch.setattr(mod, "compile_consumer", fake_compile)
+    monkeypatch.setattr(mod, "run_in_docker", fake_run)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "runtime_verify.py",
+            "--workspace",
+            str(workspace),
+            "--artifacts",
+            str(artifacts),
+            "--config",
+            str(config),
+        ],
+    )
+
+    assert mod.main() == 0
+    output = json.loads((artifacts / "07-runtime-verify.json").read_text())
+    assert output["overall_pass"] is True
+    assert declared_configs == ["${TARGET_DOCKER_IMAGE}"]
+    assert runtime_configs == ["java17"]
+    assert output["results"][0]["docker_image"] == "java17"
+
+
 def test_no_valid_consumers_writes_failed_diagnostic_artifact(tmp_path, monkeypatch):
     mod = _load_module()
     workspace = tmp_path / "workspace"

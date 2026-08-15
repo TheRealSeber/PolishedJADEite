@@ -110,7 +110,7 @@ def test_main_rejects_workspace_traversal_without_dispatch(tmp_path, monkeypatch
     artifacts = tmp_path / "artifacts"
     artifacts.mkdir()
     (artifacts / "05-rule-batch-RULE.json").write_text(
-        json.dumps({"files": [{"file": file_rel, "flags": [{"rule_id": "RULE", "line": 1}]}]}),
+        json.dumps({"files": [{"file": file_rel, "flags": [{"rule_id": "RULE", "file": file_rel, "line": 1}]}]}),
         encoding="utf-8",
     )
     (artifacts / "01-breaking-changes-manifest.json").write_text(
@@ -408,3 +408,72 @@ def test_main_records_failure_for_malformed_manifest_rules(tmp_path, rules):
     ]) == 2
     results = json.loads((artifacts / "06-fix-results-RULE.json").read_text(encoding="utf-8"))
     assert results[-1]["status"] == "FAILED"
+
+
+@pytest.mark.parametrize(
+    "flag, task_id",
+    [
+        ({"file": "Example.java", "line": 1}, "-Example"),
+        ({"rule_id": "RULE", "line": 1}, "RULE-"),
+        ({"rule_id": "RULE", "file": "Example.java"}, "RULE-Example"),
+        ({"rule_id": "", "file": "Example.java", "line": 1}, "-Example"),
+        ({"rule_id": "RULE", "file": "", "line": 1}, "RULE-"),
+        ({"rule_id": "RULE", "file": "Example.java", "line": 0}, "RULE-Example"),
+        ({"rule_id": "OTHER", "file": "Example.java", "line": 1}, "OTHER-Example"),
+    ],
+)
+def test_main_rejects_invalid_flag_before_dispatch(tmp_path, monkeypatch, flag, task_id):
+    module = load_module()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    (artifacts / "05-rule-batch-RULE.json").write_text(
+        json.dumps({"files": [{"file": "Example.java", "flags": [flag]}]}),
+        encoding="utf-8",
+    )
+    (artifacts / "01-breaking-changes-manifest.json").write_text(
+        json.dumps({"rules": [{"id": "RULE", "fix_strategy": "recipe:test"}]}),
+        encoding="utf-8",
+    )
+    (tmp_path / "Example.java").write_text("class Example {}\n", encoding="utf-8")
+    monkeypatch.setattr(module, "load_registry", lambda: {"RULE": {"script": "unused"}})
+    monkeypatch.setattr(module, "dispatch_recipe", lambda *args: pytest.fail("recipe must not run"))
+
+    assert module.main([
+        "--artifacts-dir", str(artifacts), "--rule-id", "RULE",
+        "--task-id=" + task_id, "--workspace-root", str(tmp_path),
+    ]) == 2
+    results = json.loads((artifacts / "06-fix-results-RULE.json").read_text(encoding="utf-8"))
+    assert results[-1]["status"] == "FAILED"
+
+
+def test_main_dispatches_flag_with_required_fields(tmp_path, monkeypatch):
+    module = load_module()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    (artifacts / "05-rule-batch-RULE.json").write_text(
+        json.dumps({"files": [{
+            "file": "Example.java",
+            "flags": [{"rule_id": "RULE", "file": "Example.java", "line": 1}],
+        }]}),
+        encoding="utf-8",
+    )
+    (artifacts / "01-breaking-changes-manifest.json").write_text(
+        json.dumps({"rules": [{"id": "RULE", "fix_strategy": "recipe:test"}]}),
+        encoding="utf-8",
+    )
+    (tmp_path / "Example.java").write_text("class Example {}\n", encoding="utf-8")
+    monkeypatch.setattr(module, "load_registry", lambda: {"RULE": {"skill": "recipe", "script": "unused"}})
+    calls = []
+    monkeypatch.setattr(
+        module,
+        "dispatch_recipe",
+        lambda *args: (calls.append(args) or {
+            "status": "SKIPPED", "changes": 0, "warnings": [], "errors": [], "diff_summary": "ok",
+        }),
+    )
+
+    assert module.main([
+        "--artifacts-dir", str(artifacts), "--rule-id", "RULE",
+        "--task-id", "RULE-Example", "--workspace-root", str(tmp_path),
+    ]) == 0
+    assert calls == [("unused", str(tmp_path / "Example.java"), 1)]

@@ -98,6 +98,25 @@ def load_task(batch_path: pathlib.Path, task_id: str) -> Optional[Dict]:
     return None
 
 
+def validate_flag(flag: Dict[str, Any], expected_rule_id: str) -> Optional[str]:
+    """Return a routing error for an incomplete or mismatched flag."""
+    for field in ("rule_id", "file", "line"):
+        if field not in flag:
+            return f"Flag missing required field '{field}'"
+    if not isinstance(flag["rule_id"], str) or not flag["rule_id"].strip():
+        return "Flag 'rule_id' must be a non-empty string"
+    if not isinstance(flag["file"], str) or not flag["file"].strip():
+        return "Flag 'file' must be a non-empty string"
+    if not isinstance(flag["line"], int) or isinstance(flag["line"], bool) or flag["line"] < 1:
+        return "Flag 'line' must be an integer >= 1"
+    if flag["rule_id"] != expected_rule_id:
+        return (
+            f"Flag rule_id {flag['rule_id']!r} does not match requested rule_id "
+            f"{expected_rule_id!r}"
+        )
+    return None
+
+
 def load_rule(manifest_path: pathlib.Path, rule_id: str) -> Optional[Dict]:
     if not manifest_path.exists():
         return None
@@ -419,6 +438,26 @@ def main(argv: Optional[List[str]] = None) -> int:
     # use that. Otherwise loop over all flags in the file entry.
     if "_flag" in task:
         flags = [task["_flag"]]
+
+    for flag in flags:
+        flag_error = validate_flag(flag, args.rule_id)
+        if flag_error:
+            record_result(
+                artifacts_dir,
+                args.task_id,
+                args.rule_id,
+                task.get("file", ""),
+                "FAILED",
+                0,
+                "",
+                "",
+                "",
+                [flag_error],
+                [],
+                0,
+                0,
+            )
+            return 2
 
     if not file_rel:
         record_result(

@@ -125,6 +125,11 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
                           if isinstance(field, dict) and field.get("name")}
         receiver_types.update({local.get("name"): local.get("type") for local in data.get("locals", [])
                                if isinstance(local, dict) and local.get("name")})
+        for method in data.get("methods", []):
+            if isinstance(method, dict):
+                receiver_types.update({param.get("name"): param.get("type")
+                                       for param in method.get("parameters", [])
+                                       if isinstance(param, dict) and param.get("name")})
         receiver_types_by_file[rel] = receiver_types
         node = data["node"]
         pkg = node.package
@@ -362,6 +367,17 @@ def _resolve_type(type_name: str, nodes: dict, from_rel: str, fqn_to_rel: dict, 
     base_type = type_name.split("<", 1)[0].strip().replace("[]", "")
     if base_type in fqn_to_rel and fqn_to_rel[base_type]:
         return fqn_to_rel[base_type]
+    explicit_import = next((imp for imp in nodes[from_rel].get("imports", [])
+                            if not imp.endswith(".*") and imp.rsplit(".", 1)[-1] == base_type), None)
+    if explicit_import:
+        if explicit_import in fqn_to_rel and fqn_to_rel[explicit_import]:
+            return fqn_to_rel[explicit_import]
+        if explicit_import in (ambiguous_fqns or set()):
+            if kg is not None:
+                kg.add_diagnostic({"kind": "ambiguous_symbol", "file": from_rel,
+                                   "symbol": base_type,
+                                   "candidates": sorted(_declaration_candidates(explicit_import, ambiguous_fqns, nodes))})
+            return None
     from_pkg = nodes[from_rel]["node"].package
     candidate_fqn = f"{from_pkg}.{base_type}" if from_pkg else base_type
     if candidate_fqn in fqn_to_rel:

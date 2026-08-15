@@ -370,6 +370,26 @@ class TestBuildGraph:
         assert {edge.type_name for edge in refs} == {"Target"}
         assert {edge.field for edge in refs} >= {"method:convert:return", "method:convert:parameter:input"}
 
+    def test_explicit_import_wins_over_same_name_from_other_package(self, tmp_path):
+        (tmp_path / "P.java").write_text("package p; public class Target { String get() { return \"p\"; } }\n")
+        (tmp_path / "Q.java").write_text("package q; public class Target { String get() { return \"q\"; } }\n")
+        (tmp_path / "Consumer.java").write_text(
+            "package consumer; import p.Target; "
+            "public class Consumer { Target field; "
+            "Target convert(Target input) { input.get(); return input; } }\n"
+        )
+        parser, lang = get_parser()
+        nodes, diagnostics = parse_files(scan_workspace(str(tmp_path)), parser, lang, return_diagnostics=True)
+        kg = resolve_graph(nodes, diagnostics)
+
+        type_refs = [edge for edge in kg.edges["type_refs"] if edge.from_file == "Consumer.java"]
+        assert type_refs
+        assert {edge.to_file for edge in type_refs} == {"P.java"}
+        assert any(edge.to_file == "P.java" and edge.to_method == "get"
+                   for edge in kg.edges["calls"])
+        assert not any(item.get("file") == "Consumer.java" and item.get("symbol") == "Target"
+                       for item in kg.to_dict()["diagnostics"]["ambiguous_symbols"])
+
     def test_earlier_file_field_receiver_resolves_to_target(self, tmp_path):
         (tmp_path / "Consumer.java").write_text(
             "package q; import p.Target; public class Consumer { Target target; void run() { target.get(); } }\n"

@@ -241,10 +241,11 @@ class TestBuildGraph:
             data = json.load(f)
 
         nodes = data["nodes"]
-        assert len(nodes) == 4
+        assert len(nodes) == 8
         assert "SampleA.java" in nodes
         assert nodes["SampleA.java"]["kind"] == "class"
         assert nodes["SampleInterface.java"]["kind"] == "interface"
+        assert nodes["PackageMismatch.java"]["package"] == "declared.package"
 
         edges = data["edges"]
         assert len(edges["extends"]) > 0
@@ -273,12 +274,15 @@ class TestBuildGraph:
         assert kg.edges["imports"][0].provenance == "wildcard"
 
     def test_parse_diagnostics_are_partial(self, tmp_path):
-        (tmp_path / "Broken.java").write_text("public class Broken { void x( {\n")
+        (tmp_path / "Broken.java").write_text("public class Broken {\n    void x( {\n")
         parser, lang = get_parser()
         nodes, diagnostics = parse_files(scan_workspace(str(tmp_path)), parser, lang, return_diagnostics=True)
         kg = resolve_graph(nodes, diagnostics)
         assert kg.diagnostics
-        assert any(d["kind"] == "parse_error" for d in kg.diagnostics["parse_failures"])
+        failures = [d for d in kg.diagnostics["parse_failures"] if d["kind"] == "parse_error"]
+        assert failures
+        assert all(isinstance(d["line"], int) and d["line"] >= 1 for d in failures)
+        assert all(isinstance(d["column"], int) and d["column"] >= 1 for d in failures)
         artifact_dir = tmp_path / "artifacts"
         result = __import__("subprocess").run(
             [sys.executable, ".claude/skills/jade-core-knowledge-graph/scripts/build_graph.py",
@@ -325,6 +329,34 @@ class TestBuildGraph:
         kg = resolve_graph(nodes, diagnostics)
         assert any(item["symbol"] == "p.Same" for item in kg.to_dict()["diagnostics"]["ambiguous_symbols"])
         assert not kg.edges["imports"]
+
+    def test_wildcard_import_collision_across_packages_is_ambiguous(self, tmp_path):
+        (tmp_path / "P.java").write_text("package p; public class Same {}\n")
+        (tmp_path / "Q.java").write_text("package q; public class Same {}\n")
+        (tmp_path / "Use.java").write_text(
+            "package use; import p.*; import q.*; public class Use { Same same; }\n"
+        )
+        parser, lang = get_parser()
+        nodes, diagnostics = parse_files(scan_workspace(str(tmp_path)), parser, lang, return_diagnostics=True)
+        kg = resolve_graph(nodes, diagnostics)
+        ambiguous = kg.to_dict()["diagnostics"]["ambiguous_symbols"]
+        assert any(item["symbol"] == "Same" and
+                   set(item["candidates"]) == {"P.java", "Q.java"} for item in ambiguous)
+        assert not kg.edges["imports"]
+        assert not kg.edges["type_refs"]
+
+    def test_fixture_package_declaration_resolves_independently_of_path(self):
+        parser, lang = get_parser()
+        nodes, _ = parse_files(scan_workspace(FIXTURES_DIR), parser, lang, return_diagnostics=True)
+        assert nodes["PackageMismatch.java"]["node"].package == "declared.package"
+
+    def test_fixture_multi_hop_scope_uses_resolved_type_edges(self):
+        parser, lang = get_parser()
+        nodes, diagnostics = parse_files(scan_workspace(FIXTURES_DIR), parser, lang, return_diagnostics=True)
+        kg = resolve_graph(nodes, diagnostics)
+        scope = kg.query_rule_scope(["MultiHopC.java"])
+        assert scope["files"] == ["MultiHopA.java", "MultiHopB.java", "MultiHopC.java"]
+        assert scope["transitive_files"] == ["MultiHopA.java", "MultiHopB.java"]
 
     def test_method_parameter_and_return_type_edges(self, tmp_path):
         (tmp_path / "Target.java").write_text("package p; public class Target {}\n")

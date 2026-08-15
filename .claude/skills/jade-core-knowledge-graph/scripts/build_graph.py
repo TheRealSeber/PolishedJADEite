@@ -75,7 +75,7 @@ def parse_files(java_files: list, parser, lang, return_diagnostics=False):
                     imports=imports,
                 )
             else:
-                parse_errors.append((rel, "no class/interface found"))
+                parse_errors.append((rel, "no class/interface found", 1, 1))
                 node = _create_partial_node(rel)
                 node.imports = imports
 
@@ -91,22 +91,24 @@ def parse_files(java_files: list, parser, lang, return_diagnostics=False):
                 "package": node.package,
             }
             if parse_issue:
-                parse_errors.append((rel, parse_issue))
+                message, line, column = parse_issue
+                parse_errors.append((rel, message, line, column))
 
         except Exception as e:
-            parse_errors.append((rel, str(e)))
+            parse_errors.append((rel, str(e), 1, 1))
             nodes[rel] = {
                 "node": _create_partial_node(rel),
                 "calls": [], "imports": [],
                 "fields": [], "locals": [], "methods": [], "implements": [], "extends": "",
             }
 
-    for rel, err in parse_errors:
+    for rel, err, _, _ in parse_errors:
         print(f"WARNING: parse issue in {rel}: {err}", file=sys.stderr)
 
     if return_diagnostics:
-        return nodes, [{"kind": "parse_error", "file": rel, "message": err}
-                       for rel, err in sorted(parse_errors)]
+        return nodes, [{"kind": "parse_error", "file": rel, "message": err,
+                        "line": line, "column": column}
+                       for rel, err, line, column in sorted(parse_errors)]
     return nodes
 
 
@@ -144,9 +146,28 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
                                "files": sorted(files)})
     ambiguous_short_names = {name for name, files in short_name_files.items() if len(files) > 1}
 
+    wildcard_ambiguities = {}
+    for rel, data in nodes.items():
+        exports = {}
+        for imp in data.get("imports", []):
+            if not imp.endswith(".*"):
+                continue
+            pkg = imp[:-2]
+            for candidate in sorted(pkg_to_rels.get(pkg, set())):
+                name = nodes[candidate]["node"].class_name
+                exports.setdefault(name, []).append((pkg, candidate))
+        for name, entries in exports.items():
+            if len({pkg for pkg, _ in entries}) > 1:
+                candidates = sorted(candidate for _, candidate in entries)
+                wildcard_ambiguities.setdefault(rel, set()).add(name)
+                kg.add_diagnostic({"kind": "ambiguous_symbol", "file": rel,
+                                   "symbol": name, "candidates": candidates})
+
     for rel, data in nodes.items():
         for imp in data.get("imports", []):
-            target_rels, reason = _resolve_import(imp, fqn_to_rel, pkg_to_rels, rel, nodes, kg, ambiguous_fqns)
+            target_rels, reason = _resolve_import(
+                imp, fqn_to_rel, pkg_to_rels, rel, nodes, kg, ambiguous_fqns,
+                wildcard_ambiguities.get(rel, set()))
             for target_rel in target_rels:
                 if target_rel != rel and target_rel in nodes:
                     kg.add_import_edge(rel, target_rel, reason)
@@ -303,7 +324,7 @@ def _create_partial_node(rel: str) -> GraphNode:
 
 
 def _resolve_import(imp: str, fqn_to_rel: dict, pkg_to_rels: dict, from_rel: str, nodes: dict, kg=None,
-                    ambiguous_fqns=None):
+                    ambiguous_fqns=None, ambiguous_wildcards=None):
     if imp.endswith(".*"):
         pkg = imp[:-2]
         candidates = sorted(pkg_to_rels.get(pkg, set()))
@@ -316,6 +337,8 @@ def _resolve_import(imp: str, fqn_to_rel: dict, pkg_to_rels: dict, from_rel: str
             by_name.setdefault(name, []).append(candidate)
         resolved = []
         for name, files in sorted(by_name.items()):
+            if name in (ambiguous_wildcards or set()):
+                continue
             if len(files) > 1:
                 if kg is not None:
                     kg.add_diagnostic({"kind": "ambiguous_symbol", "file": from_rel,
@@ -380,14 +403,16 @@ def _is_external_reference(name, node):
 
 
 def _find_parse_issue(root):
-    if root.has_error:
-        return "tree-sitter reported parse errors"
     stack = [root]
     while stack:
         node = stack.pop()
         if node.type == "ERROR" or node.is_missing:
-            return "tree-sitter error node found"
+            return ("tree-sitter error node found", node.start_point[0] + 1,
+                    node.start_point[1] + 1)
         stack.extend(node.children)
+    if root.has_error:
+        return ("tree-sitter reported parse errors", root.start_point[0] + 1,
+                root.start_point[1] + 1)
     return None
 
 

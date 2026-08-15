@@ -274,7 +274,6 @@ def serialize_graph(kg: KnowledgeGraph, artifacts_dir: str, run_id: str):
     stats = kg.compute_stats()
     output = {
         "run_id": run_id,
-        "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "stats": stats,
         **kg.to_dict(),
     }

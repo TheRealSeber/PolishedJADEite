@@ -296,6 +296,28 @@ class TestBuildGraph:
         if os.path.isdir(art_dir):
             shutil.rmtree(art_dir)
 
+    def test_identical_fixture_builds_have_identical_artifact_bytes(self, tmp_path):
+        import subprocess
+
+        artifact_paths = []
+        for index in range(2):
+            artifact_dir = tmp_path / f"artifacts-{index}"
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    ".claude/skills/jade-core-knowledge-graph/scripts/build_graph.py",
+                    "--workspace", FIXTURES_DIR,
+                    "--artifacts-dir", str(artifact_dir),
+                ],
+                capture_output=True, text=True,
+            )
+            assert result.returncode in (0, 1)
+            artifact_paths.append(artifact_dir / "03.5-knowledge-graph.json")
+            if index == 0:
+                time.sleep(1.1)
+
+        assert artifact_paths[0].read_bytes() == artifact_paths[1].read_bytes()
+
     def test_declaration_identity_and_wildcard_provenance(self, tmp_path):
         source = tmp_path / "wrong" / "Consumer.java"
         source.parent.mkdir()

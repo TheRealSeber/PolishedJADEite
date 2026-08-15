@@ -168,6 +168,7 @@ def extract_methods(tree_root, source_bytes, lang):
         for cap_name, nodes in captures.items():
             node = nodes[0]
             method = {
+                "start_byte": node.start_byte,
                 "line_start": node.start_point[0] + 1,
                 "line_end": node.end_point[0] + 1,
                 "modifiers": [],
@@ -288,7 +289,9 @@ def extract_calls(tree_root, source_bytes, lang):
                 call_info["object"] = val
             elif cap_name == "method_name":
                 call_info["method_name"] = val
-                call_info["caller_method"] = _enclosing_method_name(node, source_bytes)
+                caller_name, caller_start = _enclosing_method_identity(node, source_bytes)
+                call_info["caller_method"] = caller_name
+                call_info["caller_method_start"] = caller_start
         if call_info.get("method_name"):
             results.append(call_info)
     return results
@@ -311,20 +314,21 @@ def extract_local_variables(tree_root, source_bytes, lang):
             if child.type == "variable_declarator":
                 for grandchild in child.children:
                     if grandchild.type == "identifier":
+                        method_name, method_start = _enclosing_method_identity(node, source_bytes)
                         results.append({"name": _child_text(grandchild, source_bytes), "type": type_text,
-                                        "method": _enclosing_method_name(node, source_bytes)})
+                                        "method": method_name, "method_start": method_start})
     return results
 
 
-def _enclosing_method_name(node, source_bytes):
+def _enclosing_method_identity(node, source_bytes):
     current = node.parent
     while current is not None:
         if current.type == "method_declaration":
             for child in current.children:
                 if child.type == "identifier":
-                    return _child_text(child, source_bytes)
+                    return _child_text(child, source_bytes), current.start_byte
         current = current.parent
-    return ""
+    return "", 0
 
 
 def _parse_exceptions(throws_text):

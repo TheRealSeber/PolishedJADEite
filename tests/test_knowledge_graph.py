@@ -5,6 +5,7 @@ import os
 import shutil
 import sys
 import tempfile
+import time
 import pytest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".claude", "skills", "jade-core-knowledge-graph", "scripts"))
@@ -74,15 +75,18 @@ class TestSchema:
 
     def test_rule_scope_uses_cached_reverse_adjacency_for_large_graph(self):
         kg = KnowledgeGraph()
-        size = 1200
+        size = 20000
         for index in range(size):
-            kg.add_import_edge(f"F{index:04d}.java", f"F{index + 1:04d}.java")
+            kg.add_import_edge(f"F{index:04d}.java", "Target.java")
 
-        scope = kg.query_rule_scope([f"F{size:04d}.java"])
-        assert scope["files"] == [f"F{index:04d}.java" for index in range(size + 1)]
-        assert len(kg._reverse_adjacency["imports"]) == size
+        started = time.perf_counter()
+        scope = kg.query_rule_scope(["Target.java"])
+        elapsed = time.perf_counter() - started
+        assert scope["files"] == sorted(["Target.java"] + [f"F{index:04d}.java" for index in range(size)])
+        assert elapsed < 1.0
+        assert len(kg._reverse_adjacency["imports"]["Target.java"]) == size
         reverse_index = kg._reverse_adjacency
-        assert kg.query_rule_scope([f"F{size:04d}.java"]) == scope
+        assert kg.query_rule_scope(["Target.java"]) == scope
         assert kg._reverse_adjacency is reverse_index
 
     def test_transform_order_dependency(self):
@@ -427,6 +431,22 @@ class TestBuildGraph:
         calls = [edge for edge in kg.edges["calls"] if edge.from_file == "Consumer.java"]
         assert {(edge.from_method, edge.to_file, edge.to_method) for edge in calls} == {
             ("one", "P.java", "get"), ("two", "Q.java", "get")
+        }
+
+    def test_receiver_types_are_scoped_to_overloaded_method_declarations(self, tmp_path):
+        (tmp_path / "P.java").write_text("package p; public class P { void get() {} }\n")
+        (tmp_path / "Q.java").write_text("package q; public class Q { void get() {} }\n")
+        (tmp_path / "Consumer.java").write_text(
+            "package consumer; import p.P; import q.Q; public class Consumer {"
+            " void run(P receiver) { receiver.get(); }"
+            " void run(Q receiver) { receiver.get(); } }\n"
+        )
+        parser, lang = get_parser()
+        nodes, diagnostics = parse_files(scan_workspace(str(tmp_path)), parser, lang, return_diagnostics=True)
+        kg = resolve_graph(nodes, diagnostics)
+        calls = [edge for edge in kg.edges["calls"] if edge.from_file == "Consumer.java"]
+        assert {(edge.to_file, edge.to_method) for edge in calls} == {
+            ("P.java", "get"), ("Q.java", "get")
         }
 
     def test_unresolved_receiver_call_is_structured_diagnostic(self, tmp_path):

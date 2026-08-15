@@ -127,17 +127,17 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
         }
         for method in data.get("methods", []):
             if isinstance(method, dict):
-                method_name = method.get("name", "")
-                scoped = receiver_types_by_scope.setdefault((rel, method_name), dict(field_receiver_types))
+                method_scope = method.get("start_byte", 0)
+                scoped = receiver_types_by_scope.setdefault((rel, method_scope), dict(field_receiver_types))
                 scoped.update({param.get("name"): param.get("type")
                                for param in method.get("parameters", [])
                                if isinstance(param, dict) and param.get("name")})
         for local in data.get("locals", []):
             if isinstance(local, dict) and local.get("name"):
-                receiver_types_by_scope.setdefault((rel, local.get("method", "")), dict(field_receiver_types))[
+                receiver_types_by_scope.setdefault((rel, local.get("method_start", 0)), dict(field_receiver_types))[
                     local["name"]
                 ] = local.get("type")
-        receiver_types_by_scope.setdefault((rel, ""), field_receiver_types)
+        receiver_types_by_scope.setdefault((rel, 0), field_receiver_types)
         node = data["node"]
         pkg = node.package
         cls = node.class_name
@@ -239,7 +239,7 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
                 continue
             target_rel = None
             if obj:
-                receiver_types = receiver_types_by_scope.get((rel, call.get("caller_method", "")), {})
+                receiver_types = receiver_types_by_scope.get((rel, call.get("caller_method_start", 0)), {})
                 receiver_type = receiver_types.get(obj, obj)
                 target_rel = _resolve_type(receiver_type, nodes, rel, fqn_to_rel, pkg_to_rels, kg, ambiguous_fqns,
                                            ambiguous_short_names, report_unresolved=False)

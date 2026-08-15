@@ -4,6 +4,7 @@ import json
 import os
 import tempfile
 import hashlib
+from collections import deque
 from dataclasses import dataclass, field, asdict
 from typing import List, Dict, Optional
 
@@ -200,11 +201,11 @@ class KnowledgeGraph:
         """Compute the complete reverse dependency closure with paths."""
         direct = set(flagged_files)
         visited = set(direct)
-        queue = [(f, [f], []) for f in sorted(direct)]
+        queue = deque((f, [f], []) for f in sorted(direct))
         paths = []
         reverse_adjacency = self._get_reverse_adjacency()
         while queue:
-            target, path, reasons = queue.pop(0)
+            target, path, reasons = queue.popleft()
             for etype in ("imports", "extends", "implements", "calls", "type_refs"):
                 for edge in reverse_adjacency[etype].get(target, []):
                     if edge.from_file in visited:

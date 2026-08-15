@@ -85,7 +85,15 @@ def load_docker_image_registry(config_path: pathlib.Path) -> Dict[str, str]:
 
 
 def resolve_docker_image(target_version: str, registry: Dict[str, str]) -> str:
+    if not isinstance(target_version, str) or not target_version.strip():
+        raise ValueError(
+            "Target Java version is invalid or unsupported: value is missing"
+        )
     major = java_major(target_version)
+    if major <= 0:
+        raise ValueError(
+            f"Target Java version is invalid or unsupported: {target_version}"
+        )
     if major > 17:
         raise ValueError(
             f"Target Java {major} is unsupported; supported Docker images stop at Java 17"

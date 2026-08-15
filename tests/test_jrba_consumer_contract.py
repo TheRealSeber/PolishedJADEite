@@ -80,6 +80,9 @@ def test_java_registry_rejects_unsupported_target_without_java_21_image():
     assert runtime_verify.resolve_docker_image("17", registry) == registry["java-17"]
     with pytest.raises(ValueError, match="unsupported"):
         runtime_verify.resolve_docker_image("21", registry)
+    for invalid_version in ("", "not-a-version"):
+        with pytest.raises(ValueError, match="invalid or unsupported"):
+            runtime_verify.resolve_docker_image(invalid_version, registry)
 
 
 def test_jrba_agent_has_ordered_markers_and_one_exit_call():
@@ -93,15 +96,23 @@ def test_jrba_agent_has_ordered_markers_and_one_exit_call():
     assert "prepareStartingBehaviours" in agent
     assert "ListenForControllerObjects" in agent
     assert "RulesController" in agent
+    assert "AgentBasicRule" in agent
+    assert "super(null)" in agent
+    assert "initializeRuleDescription" in agent
+    assert "evaluateRule" in agent
+    assert "executeRule" in agent
     assert "RuleSetRest" in agent
     assert "RuleSetFacts" in agent
     assert "RuleSet" in agent
     assert "rulesController.fire" in agent
+    assert "JRBA_SMOKE_RULE" in agent
+    assert "ruleExecuted" in agent
     assert "JRBA_BEHAVIOR_EXECUTED" in agent
     assert "doDelete()" in agent
     assert "takeDown()" in agent
     assert agent.index("JRBA_TEST_STARTED") < agent.index("JRBA_TEST_PASSED")
     assert agent.index("rulesController.fire") < agent.index("JRBA_BEHAVIOR_EXECUTED")
+    assert agent.index("!smokeRule.ruleExecuted") < agent.index("JRBA_BEHAVIOR_EXECUTED")
     assert agent.index("JRBA_BEHAVIOR_EXECUTED") < agent.index("JRBA_TEST_PASSED")
     assert "JRBA_TEST_FAILED" in agent
     assert agent.count("System.exit(") == 1

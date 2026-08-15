@@ -34,6 +34,9 @@ def test_build_audit_resolves_registry_image_for_target_java():
     assert mod.resolve_docker_image("17", registry) == "eclipse-temurin:17-jre"
     with pytest.raises(ValueError, match="unsupported"):
         mod.resolve_docker_image("21", registry)
+    for invalid_version in ("", "not-a-version"):
+        with pytest.raises(ValueError, match="invalid or unsupported"):
+            mod.resolve_docker_image(invalid_version, registry)
 
 
 def test_build_audit_flags_java11_removed_dependencies_as_blocker():

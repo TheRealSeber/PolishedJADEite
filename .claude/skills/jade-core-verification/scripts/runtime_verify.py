@@ -20,6 +20,7 @@ import subprocess
 import sys
 import tempfile
 import time
+import xml.etree.ElementTree as ET
 from typing import Any, Dict, List, Optional, Tuple
 
 # ------------------------------------------------------------------
@@ -28,6 +29,10 @@ from typing import Any, Dict, List, Optional, Tuple
 PLAYGROUND_DIR = pathlib.Path("consumer-playground")
 TIMEOUT_BUFFER = 15  # extra seconds beyond test-config timeout for docker pull etc.
 MAVEN_DEPENDENCY_PLUGIN_VERSION = "3.6.1"
+ALLOWED_MAVEN_PLUGINS = {
+    ("org.apache.maven.plugins", "maven-compiler-plugin"),
+    ("org.apache.maven.plugins", "maven-dependency-plugin"),
+}
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[4]
 DOCKER_IMAGE_CONFIG_PATH = REPO_ROOT / "config" / "docker-images.json"
 
@@ -185,6 +190,59 @@ def _safe_relative_path(
     return None
 
 
+def _xml_local_name(tag: str) -> str:
+    return tag.rsplit("}", 1)[-1]
+
+
+def validate_maven_pom(project_root: pathlib.Path) -> Optional[str]:
+    pom_path = project_root / "pom.xml"
+    if not pom_path.is_file():
+        return f"Maven POM not found: {pom_path}"
+    try:
+        root = ET.parse(pom_path).getroot()
+    except (ET.ParseError, OSError) as exc:
+        return f"Maven POM cannot be parsed: {exc}"
+
+    for build in [child for child in root if _xml_local_name(child.tag) == "build"]:
+        if any(_xml_local_name(node.tag) == "extension" for node in build.iter()):
+            return "Maven build extensions are not allowed"
+        for node in build.iter():
+            if _xml_local_name(node.tag) == "extensions" and (
+                (node.text or "").strip().lower() == "true"
+            ):
+                return "Maven build extensions are not allowed"
+        for plugin in [node for node in build.iter() if _xml_local_name(node.tag) == "plugin"]:
+            group_id = next(
+                (
+                    (child.text or "").strip()
+                    for child in plugin
+                    if _xml_local_name(child.tag) == "groupId"
+                ),
+                "org.apache.maven.plugins",
+            )
+            artifact_id = next(
+                (
+                    (child.text or "").strip()
+                    for child in plugin
+                    if _xml_local_name(child.tag) == "artifactId"
+                ),
+                "",
+            )
+            if (group_id, artifact_id) not in ALLOWED_MAVEN_PLUGINS:
+                return f"Maven plugin {group_id}:{artifact_id} is not allowlisted"
+
+    for profile in [node for node in root.iter() if _xml_local_name(node.tag) == "profile"]:
+        if any(_xml_local_name(node.tag) in {"plugin", "extension"} for node in profile.iter()):
+            return "Maven profiles with build plugins or extensions are not allowed"
+        if any(
+            _xml_local_name(node.tag) == "extensions"
+            and (node.text or "").strip().lower() == "true"
+            for node in profile.iter()
+        ):
+            return "Maven profiles with build plugins or extensions are not allowed"
+    return None
+
+
 def validate_consumer_config(
     project_dir: pathlib.Path,
     cfg: Dict[str, Any],
@@ -251,6 +309,19 @@ def validate_consumer_config(
             )
         except ValueError as exc:
             errors.append(str(exc))
+
+    if "expected_stdout_markers" in normalized:
+        markers = normalized["expected_stdout_markers"]
+        if (
+            not isinstance(markers, list)
+            or not markers
+            or any(
+                not isinstance(marker, str) or not marker.strip() for marker in markers
+            )
+        ):
+            errors.append(
+                "expected_stdout_markers must be a non-empty list of non-empty strings"
+            )
 
     classpath_deps = normalized.get("classpath_deps", [])
     if not isinstance(classpath_deps, list):
@@ -397,7 +468,6 @@ def build_maven_consumer(
     if path_error:
         return False, path_error
 
-    maven_cmd = _maven_command()
     with tempfile.TemporaryDirectory(prefix="jade-maven-repo-") as repo:
         isolated_project = pathlib.Path(repo) / "consumer"
         shutil.copytree(
@@ -405,6 +475,10 @@ def build_maven_consumer(
             isolated_project,
             ignore=shutil.ignore_patterns("target"),
         )
+        pom_error = validate_maven_pom(isolated_project)
+        if pom_error:
+            return False, f"Maven POM rejected: {pom_error}"
+        maven_cmd = _maven_command()
         common_args = ["-B", "-ntp", f"-Dmaven.repo.local={repo}"]
         install_cmd = maven_cmd + common_args + [
             "org.apache.maven.plugins:maven-install-plugin:3.1.2:install-file",
@@ -499,7 +573,7 @@ def run_in_docker(
     cfg: Dict[str, Any],
 ) -> Tuple[int, str, str]:
     """Run consumer in Docker. Returns (exit_code, stdout, stderr)."""
-    docker_image = cfg.get("_resolved_docker_image", cfg["docker_image"])
+    docker_image = cfg.get("_resolved_docker_image") or cfg.get("docker_image")
     main_class = cfg["main_class"]
     timeout = cfg.get("timeout_seconds", 60) + TIMEOUT_BUFFER
 

@@ -128,6 +128,109 @@ def test_hardcoded_consumer_docker_image_is_rejected(tmp_path):
         )
 
 
+def test_internal_resolved_image_works_without_declared_image(tmp_path, monkeypatch):
+    mod = _load_module()
+    project = tmp_path / "consumer"
+    project.mkdir()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    cfg = {
+        "name": "internal-image",
+        "_resolved_docker_image": "java17",
+        "expected_stdout_markers": ["PASS"],
+        "classpath_deps": [],
+    }
+    monkeypatch.setattr(mod, "compile_consumer", lambda *args: (True, ""))
+    monkeypatch.setattr(mod, "run_in_docker", lambda *args: (0, "PASS", ""))
+
+    result = mod.test_consumer(project, workspace, cfg)
+
+    assert result["status"] == "PASS"
+    assert result["docker_image"] == "java17"
+
+
+def test_run_in_docker_uses_internal_image_without_declared_image(tmp_path, monkeypatch):
+    mod = _load_module()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    build_dir = tmp_path / "build"
+    build_dir.mkdir()
+    monkeypatch.setattr(
+        mod.subprocess,
+        "run",
+        lambda *args, **kwargs: type("Ok", (), {"returncode": 0})(),
+    )
+
+    exit_code, stdout, stderr = mod.run_in_docker(
+        workspace,
+        build_dir,
+        {"_resolved_docker_image": "java17", "main_class": "jade.Boot"},
+    )
+
+    assert exit_code == 0
+    assert stdout == ""
+    assert stderr == ""
+
+
+def test_expected_stdout_markers_must_be_nonempty_strings(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+
+    for markers in (None, [], [""], ["PASS", 3], "PASS"):
+        _, errors = mod.validate_consumer_config(
+            consumer,
+            {"expected_stdout_markers": markers},
+            tmp_path / "workspace",
+        )
+        assert any("expected_stdout_markers" in error for error in errors)
+
+
+def test_maven_pom_rejects_unallowlisted_plugin(tmp_path, monkeypatch):
+    mod = _load_module()
+    project = tmp_path / "consumer"
+    project.mkdir()
+    (project / "pom.xml").write_text(
+        """<project xmlns="http://maven.apache.org/POM/4.0.0">
+          <modelVersion>4.0.0</modelVersion>
+          <build><plugins><plugin>
+            <groupId>com.attacker</groupId><artifactId>host-exec</artifactId>
+          </plugin></plugins></build>
+        </project>""",
+        encoding="utf-8",
+    )
+
+    error = mod.validate_maven_pom(project)
+
+    assert error is not None
+    assert "not allowlisted" in error
+
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    (workspace / "jade.jar").write_bytes(b"jade")
+    monkeypatch.setattr(
+        mod,
+        "_maven_command",
+        lambda: (_ for _ in ()).throw(AssertionError("Maven must not run")),
+    )
+    ok, output = mod.build_maven_consumer(
+        project,
+        workspace,
+        {"maven_project_root": ".", "jade_artifact": "jade.jar"},
+        tmp_path / "build",
+    )
+    assert not ok
+    assert "not allowlisted" in output
+
+
+def test_jrba_consumer_pom_uses_only_allowlisted_build_plugins():
+    mod = _load_module()
+
+    assert mod.validate_maven_pom(
+        REPO_ROOT / "consumer-playground" / "jrba"
+    ) is None
+
+
 def test_tracked_consumers_use_central_image_placeholder():
     for relative_path in (
         "consumer-playground/hw-jade/test-config.json",

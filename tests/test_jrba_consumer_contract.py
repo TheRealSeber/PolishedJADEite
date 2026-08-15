@@ -97,6 +97,9 @@ def test_jrba_agent_has_ordered_markers_and_one_exit_call():
     assert "prepareStartingBehaviours" in agent
     assert "ListenForControllerObjects" in agent
     assert "RulesController" in agent
+    assert "setRulesController" in agent
+    assert "getRulesController" in agent
+    assert "SmokeRulesController" in agent
     assert "AgentBasicRule" in agent
     assert "super(null)" in agent
     assert "initializeRuleDescription" in agent

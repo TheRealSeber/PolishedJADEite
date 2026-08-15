@@ -48,11 +48,16 @@ batch is fully processed, verified, and committed (by the orchestrator).
 - `artifacts/04-flag-index.json` — produced by jade-core-scanner
 - `artifacts/05-rule-queue.json`   — produced by orchestrator (validates rule_id exists)
 - `rule_id` (CLI argument)
+- `artifacts/03.5-knowledge-graph.json` — optional; adds impact context only
 
 ## Produced Artifacts
 
 - `artifacts/05-rule-batch-{rule_id}.json` — per-file task list with statuses
 - `artifacts/05-rule-batch-status.json`     — aggregate completion tracker
+
+The `files` list remains limited to files directly flagged for the requested rule.
+When graph metadata is available, `impact_only` records sorted dependent files and
+their graph paths/reasons. Impact-only files never change `total_files` or dispatch.
 
 ## Script
 

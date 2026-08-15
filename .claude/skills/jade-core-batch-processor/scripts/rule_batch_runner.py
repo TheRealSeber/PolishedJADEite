@@ -18,7 +18,8 @@ import datetime as dt
 import json
 import pathlib
 import sys
-from typing import Any, Dict, List
+import importlib.util
+from typing import Any, Dict, List, Optional
 
 # ---------------------------------------------------------------------------
 # Status constants
@@ -50,6 +51,17 @@ def write_json(path: pathlib.Path, payload: Dict[str, Any]) -> None:
     with tmp.open("w", encoding="utf-8") as fh:
         json.dump(payload, fh, indent=2)
     tmp.replace(path)
+
+
+def _graph_helpers():
+    """Reuse the scanner's optional graph loader without adding a pipeline dependency."""
+    scanner = pathlib.Path(__file__).parents[3] / "skills" / "jade-core-scanner" / "scripts" / "scan_and_tag.py"
+    spec = importlib.util.spec_from_file_location("jade_scanner_graph", scanner)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Cannot load graph helper: {scanner}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def die(code: str, message: str) -> int:
@@ -119,7 +131,7 @@ def build_file_task_list(
 
     # Group by file
     by_file: Dict[str, List[Dict[str, Any]]] = {}
-    for entry in matched:
+    for entry in sorted(matched, key=lambda f: (f.get("file", ""), f.get("line", 0), json.dumps(f, sort_keys=True))):
         filepath = entry.get("file", "")
         by_file.setdefault(filepath, []).append(entry)
 
@@ -137,10 +149,40 @@ def build_file_task_list(
     return file_tasks
 
 
+def build_impact_only_list(rule_id: str, flag_index: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Collect graph dependents while keeping them out of transformation tasks."""
+    direct_files = {
+        flag.get("file") for flag in flag_index.get("flags", [])
+        if isinstance(flag, dict) and flag.get("rule_id") == rule_id and flag.get("file")
+    }
+    impact: Dict[str, Dict[str, Any]] = {}
+    for flag in flag_index.get("flags", []):
+        if not isinstance(flag, dict) or flag.get("rule_id") != rule_id:
+            continue
+        graph = flag.get("graph", {})
+        for path in graph.get("paths", []) if isinstance(graph, dict) else []:
+            if not isinstance(path, dict) or not path.get("file") or path["file"] in direct_files:
+                continue
+            item = impact.setdefault(path["file"], {"file": path["file"], "reasons": set(), "paths": []})
+            item["reasons"].update(path.get("reasons", []))
+            item["paths"].append({"path": path.get("path", []), "reasons": path.get("reasons", [])})
+
+    result = []
+    for filepath in sorted(impact):
+        item = impact[filepath]
+        result.append({
+            "file": filepath,
+            "reasons": sorted(item["reasons"]),
+            "paths": sorted(item["paths"], key=lambda p: (p["path"], p["reasons"])),
+        })
+    return result
+
+
 def write_batch_artifact(
     artifacts: pathlib.Path,
     rule_id: str,
     file_tasks: List[Dict[str, Any]],
+    impact_only: Optional[List[Dict[str, Any]]] = None,
 ) -> pathlib.Path:
     payload = {
         "rule_id": rule_id,
@@ -148,6 +190,7 @@ def write_batch_artifact(
         "created_at": iso_now(),
         "total_files": len(file_tasks),
         "files": file_tasks,
+        "impact_only": impact_only or [],
     }
     path = artifacts / f"05-rule-batch-{rule_id}.json"
     write_json(path, payload)
@@ -211,12 +254,23 @@ def cmd_prepare(artifacts: pathlib.Path, rule_id: str, run_id: str) -> int:
         )
 
     file_tasks = build_file_task_list(rule_id, flag_index)
+    try:
+        graph_helpers = _graph_helpers()
+        graph, graph_diagnostics = graph_helpers.load_knowledge_graph(artifacts)
+        if graph is not None and not flag_index.get("graph"):
+            for flag in flag_index.get("flags", []):
+                if isinstance(flag, dict):
+                    flag["graph"] = graph_helpers.graph_metadata_for_flag(flag, graph, graph_diagnostics)
+        impact_only = build_impact_only_list(rule_id, flag_index)
+    except Exception as exc:
+        print(f"WARNING: graph impact metadata unavailable: {exc}")
+        impact_only = []
     if not file_tasks:
         print(f"No files flagged for rule_id={rule_id}. Marking batch as DONE.")
         # Still produce artifacts so the orchestrator can proceed
         file_tasks = []  # empty, explicit
 
-    batch_path = write_batch_artifact(artifacts, rule_id, file_tasks)
+    batch_path = write_batch_artifact(artifacts, rule_id, file_tasks, impact_only)
     status_path = write_batch_status(artifacts, rule_id, run_id, file_tasks)
 
     print(f"PREPARED rule_id={rule_id} — {len(file_tasks)} file(s)")

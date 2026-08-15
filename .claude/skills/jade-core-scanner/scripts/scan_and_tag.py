@@ -19,6 +19,7 @@ import pathlib
 import re
 import sys
 import time
+from collections import deque
 from typing import Any, Dict, List, Optional, Set, Tuple
 
 # ---------------------------------------------------------------------------
@@ -104,6 +105,113 @@ def write_json_atomic(path: pathlib.Path, payload: Dict[str, Any]) -> None:
     with tmp.open("w", encoding="utf-8") as fh:
         json.dump(payload, fh, indent=2, ensure_ascii=False)
     tmp.replace(path)
+
+
+def load_knowledge_graph(artifacts: pathlib.Path) -> Tuple[Optional[Dict[str, Any]], List[Dict[str, Any]]]:
+    """Load the optional graph without making it a scanner prerequisite."""
+    path = artifacts / "03.5-knowledge-graph.json"
+    if not path.exists():
+        return None, [{"kind": "graph_unavailable", "message": f"Missing graph artifact: {path.name}"}]
+    try:
+        graph = read_json(path)
+    except Exception as exc:
+        return None, [{"kind": "graph_invalid", "message": f"Could not read graph: {exc}"}]
+    if not isinstance(graph, dict) or not isinstance(graph.get("nodes"), dict) or not isinstance(graph.get("edges"), dict):
+        return None, [{"kind": "graph_invalid", "message": "Graph must contain object 'nodes' and 'edges'"}]
+    source_identity = graph.get("source_identity", {})
+    if not isinstance(source_identity, dict):
+        return None, [{"kind": "graph_invalid", "message": "Graph 'source_identity' must be an object"}]
+    for edge_type in ("imports", "extends", "implements", "calls", "type_refs"):
+        if edge_type in graph["edges"] and not isinstance(graph["edges"][edge_type], list):
+            return None, [{"kind": "graph_invalid", "message": f"Graph edge list '{edge_type}' must be a list"}]
+    confidence = graph.get("confidence", source_identity.get("confidence"))
+    if isinstance(confidence, (int, float)) and confidence < 0.7:
+        return None, [{"kind": "graph_low_confidence", "confidence": confidence}]
+    return graph, []
+
+
+def _graph_paths(graph: Dict[str, Any], target: str) -> Dict[str, Any]:
+    """Return reverse dependency paths for one flagged file, deterministically."""
+    reverse: Dict[str, List[Tuple[str, str]]] = {}
+    for edge_type in ("imports", "extends", "implements", "calls", "type_refs"):
+        edges = graph.get("edges", {}).get(edge_type, [])
+        if not isinstance(edges, list):
+            continue
+        for edge in edges:
+            if not isinstance(edge, dict):
+                continue
+            source = edge.get("from", edge.get("from_file"))
+            destination = edge.get("to", edge.get("to_file"))
+            if source and destination:
+                reverse.setdefault(destination, []).append((source, edge_type))
+    for values in reverse.values():
+        values.sort()
+
+    visited = {target}
+    queue = deque([(target, [target], [])])
+    paths: List[Dict[str, Any]] = []
+    while queue:
+        current, path, reasons = queue.popleft()
+        for source, relation in reverse.get(current, []):
+            if source in visited:
+                continue
+            visited.add(source)
+            next_path = path + [source]
+            next_reasons = reasons + [relation]
+            paths.append({"file": source, "path": next_path, "reasons": next_reasons})
+            queue.append((source, next_path, next_reasons))
+    return {"direct": sorted({p["file"] for p in paths if len(p["path"]) == 2}),
+            "transitive": sorted({p["file"] for p in paths if len(p["path"]) > 2}),
+            "paths": sorted(paths, key=lambda p: (p["file"], p["path"], p["reasons"]))}
+
+
+def graph_metadata_for_flag(flag: Dict[str, Any], graph: Optional[Dict[str, Any]],
+                            graph_diagnostics: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Build additive graph context for a scanner flag."""
+    metadata: Dict[str, Any] = {
+        "node_exists": False,
+        "declaration": None,
+        "direct_impact_files": [],
+        "transitive_impact_files": [],
+        "paths": [],
+        "diagnostics": sorted(graph_diagnostics, key=lambda d: json.dumps(d, sort_keys=True)),
+        "source_identity": (graph or {}).get("source_identity", {}),
+    }
+    if graph is None:
+        return metadata
+    node = graph.get("nodes", {}).get(flag.get("file"))
+    if not isinstance(node, dict):
+        metadata["diagnostics"].append({"kind": "graph_node_missing", "file": flag.get("file")})
+        metadata["diagnostics"].sort(key=lambda d: json.dumps(d, sort_keys=True))
+        return metadata
+    metadata["node_exists"] = True
+    declaration = {key: node[key] for key in ("path", "package", "class_name", "kind") if key in node}
+    line = flag.get("line", 0) if isinstance(flag.get("line", 0), int) else 0
+    methods = [m for m in node.get("methods", []) if isinstance(m, dict)] if isinstance(node.get("methods", []), list) else []
+    method = next((m for m in methods if isinstance(m.get("line_start", 0), int) and isinstance(m.get("line_end", 0), int)
+                   and m.get("line_start", 0) <= line <= m.get("line_end", 0)), None)
+    if method:
+        declaration["method"] = method
+    metadata["declaration"] = declaration
+    metadata["class"] = node.get("class_name")
+    metadata["method"] = method
+    scope = _graph_paths(graph, flag.get("file", ""))
+    metadata["direct_impact_files"] = scope["direct"]
+    metadata["transitive_impact_files"] = scope["transitive"]
+    metadata["paths"] = scope["paths"]
+    return metadata
+
+
+def enrich_flags_with_graph(flags: List[Dict[str, Any]], artifacts: pathlib.Path) -> Dict[str, Any]:
+    """Enrich flag dictionaries and return batch-level graph diagnostics."""
+    graph, diagnostics = load_knowledge_graph(artifacts)
+    for flag in flags:
+        flag["graph"] = graph_metadata_for_flag(flag, graph, diagnostics)
+    return {
+        "status": "available" if graph is not None else "unavailable",
+        "source_identity": (graph or {}).get("source_identity", {}),
+        "diagnostics": sorted(diagnostics, key=lambda d: json.dumps(d, sort_keys=True)),
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -602,6 +710,7 @@ def main() -> int:
     flag_index = build_flag_index(
         run_id, str(args.workspace), all_flags, total_files_scanned=len(candidates)
     )
+    flag_index["graph"] = enrich_flags_with_graph(flag_index["flags"], artifacts)
     write_json_atomic(artifacts / "04-flag-index.json", flag_index)
 
     summary = build_scan_summary(

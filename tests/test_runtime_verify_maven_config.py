@@ -42,15 +42,39 @@ def test_runtime_java_version_uses_numeric_supported_value(tmp_path):
     mod = _load_module()
     consumer = tmp_path / "consumer"
     consumer.mkdir()
+    registry = {"java-8": "java8", "java-11": "java11", "java-17": "java17"}
 
     normalized, errors = mod.validate_consumer_config(
         consumer,
         {"runtime_java_version": 17},
         tmp_path / "workspace",
+        registry,
     )
 
     assert errors == []
     assert normalized["runtime_java_version"] == 17
+
+
+def test_runtime_java_version_requires_registry_when_parsed_directly():
+    mod = _load_module()
+
+    with pytest.raises(ValueError, match="requires a loaded Docker registry"):
+        mod.parse_runtime_java_version(17)
+
+    consumer = pathlib.Path("consumer")
+    _, errors = mod.validate_consumer_config(
+        consumer,
+        {"runtime_java_version": 17},
+        pathlib.Path("workspace"),
+    )
+    assert any("requires a loaded Docker registry" in error for error in errors)
+
+    registry = {"java-8": "java8", "java-11": "java11", "java-17": "java17"}
+    assert [mod.parse_runtime_java_version(value, registry) for value in (8, 11, 17)] == [
+        8,
+        11,
+        17,
+    ]
 
 
 def test_runtime_java_version_rejects_invalid_values(tmp_path):
@@ -174,7 +198,12 @@ def test_consumer_result_records_runtime_and_maven_metadata(tmp_path, monkeypatc
     monkeypatch.setattr(mod, "build_maven_consumer", lambda *args: (True, ""))
     monkeypatch.setattr(mod, "run_in_docker", lambda *args: (0, "PASS", ""))
 
-    result = mod.test_consumer(project, workspace, cfg)
+    result = mod.test_consumer(
+        project,
+        workspace,
+        cfg,
+        {"java-8": "java8", "java-11": "java11", "java-17": "java17"},
+    )
 
     assert result["status"] == "PASS"
     assert result["docker_image"] == "eclipse-temurin:17-jre"

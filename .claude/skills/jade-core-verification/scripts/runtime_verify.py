@@ -97,6 +97,10 @@ def _registry_java_versions(registry: Dict[str, str]) -> set[int]:
 def parse_runtime_java_version(
     raw_version: Any, registry: Optional[Dict[str, str]] = None
 ) -> int:
+    if registry is None:
+        raise ValueError(
+            "runtime_java_version validation requires a loaded Docker registry"
+        )
     if isinstance(raw_version, bool):
         raise ValueError("runtime_java_version must be a numeric Java version")
     if isinstance(raw_version, int):

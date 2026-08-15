@@ -26,6 +26,7 @@ from typing import Any, Dict, List, Optional
 # ---------------------------------------------------------------------------
 FILE_STATUSES = {"PENDING", "IN_PROGRESS", "DONE", "SKIPPED", "FAILED"}
 BATCH_STATUSES = {"READY", "IN_PROGRESS", "DONE", "FAILED"}
+GRAPH_ARTIFACT = "03.5-knowledge-graph.json"
 
 
 # ---------------------------------------------------------------------------
@@ -163,7 +164,11 @@ def build_impact_only_list(rule_id: str, flag_index: Dict[str, Any]) -> List[Dic
         for path in graph.get("paths", []) if isinstance(graph, dict) else []:
             if not isinstance(path, dict) or not path.get("file") or path["file"] in direct_files:
                 continue
-            item = impact.setdefault(path["file"], {"file": path["file"], "reasons": set(), "paths": []})
+            item = impact.setdefault(path["file"], {
+                "file": path["file"], "reasons": set(), "paths": [],
+                "source_artifact": GRAPH_ARTIFACT,
+                "source_identity": graph.get("source_identity", {}),
+            })
             item["reasons"].update(path.get("reasons", []))
             item["paths"].append({"path": path.get("path", []), "reasons": path.get("reasons", [])})
 
@@ -172,6 +177,8 @@ def build_impact_only_list(rule_id: str, flag_index: Dict[str, Any]) -> List[Dic
         item = impact[filepath]
         result.append({
             "file": filepath,
+            "source_artifact": item["source_artifact"],
+            "source_identity": item["source_identity"],
             "reasons": sorted(item["reasons"]),
             "paths": sorted(item["paths"], key=lambda p: (p["path"], p["reasons"])),
         })
@@ -183,6 +190,7 @@ def write_batch_artifact(
     rule_id: str,
     file_tasks: List[Dict[str, Any]],
     impact_only: Optional[List[Dict[str, Any]]] = None,
+    graph_metadata: Optional[Dict[str, Any]] = None,
 ) -> pathlib.Path:
     payload = {
         "rule_id": rule_id,
@@ -191,6 +199,12 @@ def write_batch_artifact(
         "total_files": len(file_tasks),
         "files": file_tasks,
         "impact_only": impact_only or [],
+        "graph": graph_metadata or {
+            "status": "unavailable",
+            "source_artifact": GRAPH_ARTIFACT,
+            "source_identity": {},
+            "diagnostics": [{"kind": "graph_unavailable"}],
+        },
     }
     path = artifacts / f"05-rule-batch-{rule_id}.json"
     write_json(path, payload)
@@ -256,21 +270,21 @@ def cmd_prepare(artifacts: pathlib.Path, rule_id: str, run_id: str) -> int:
     file_tasks = build_file_task_list(rule_id, flag_index)
     try:
         graph_helpers = _graph_helpers()
-        graph, graph_diagnostics = graph_helpers.load_knowledge_graph(artifacts)
-        if graph is not None and not flag_index.get("graph"):
-            for flag in flag_index.get("flags", []):
-                if isinstance(flag, dict):
-                    flag["graph"] = graph_helpers.graph_metadata_for_flag(flag, graph, graph_diagnostics)
+        graph_metadata = graph_helpers.enrich_flags_with_graph(flag_index.get("flags", []), artifacts)
         impact_only = build_impact_only_list(rule_id, flag_index)
     except Exception as exc:
-        print(f"WARNING: graph impact metadata unavailable: {exc}")
+        print(f"WARNING [GRAPH] graph impact metadata unavailable: {exc}", file=sys.stderr)
         impact_only = []
+        graph_metadata = {
+            "status": "unavailable", "source_artifact": GRAPH_ARTIFACT,
+            "source_identity": {}, "diagnostics": [{"kind": "graph_invalid", "message": str(exc)}],
+        }
     if not file_tasks:
         print(f"No files flagged for rule_id={rule_id}. Marking batch as DONE.")
         # Still produce artifacts so the orchestrator can proceed
         file_tasks = []  # empty, explicit
 
-    batch_path = write_batch_artifact(artifacts, rule_id, file_tasks, impact_only)
+    batch_path = write_batch_artifact(artifacts, rule_id, file_tasks, impact_only, graph_metadata)
     status_path = write_batch_status(artifacts, rule_id, run_id, file_tasks)
 
     print(f"PREPARED rule_id={rule_id} — {len(file_tasks)} file(s)")

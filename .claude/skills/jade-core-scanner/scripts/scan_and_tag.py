@@ -42,6 +42,8 @@ trailing space if the comment style requires it before newline.
 """
 
 _DEFAULT_COMMENT = ("# ", "")
+_GRAPH_ARTIFACT = "03.5-knowledge-graph.json"
+_GRAPH_DIAGNOSTIC_BUCKETS = ("parse_failures", "unresolved_types", "ambiguous_symbols", "other")
 
 
 def _comment_syntax(ext: str) -> Tuple[str, str]:
@@ -109,7 +111,7 @@ def write_json_atomic(path: pathlib.Path, payload: Dict[str, Any]) -> None:
 
 def load_knowledge_graph(artifacts: pathlib.Path) -> Tuple[Optional[Dict[str, Any]], List[Dict[str, Any]]]:
     """Load the optional graph without making it a scanner prerequisite."""
-    path = artifacts / "03.5-knowledge-graph.json"
+    path = artifacts / _GRAPH_ARTIFACT
     if not path.exists():
         return None, [{"kind": "graph_unavailable", "message": f"Missing graph artifact: {path.name}"}]
     try:
@@ -128,6 +130,22 @@ def load_knowledge_graph(artifacts: pathlib.Path) -> Tuple[Optional[Dict[str, An
     if isinstance(confidence, (int, float)) and confidence < 0.7:
         return None, [{"kind": "graph_low_confidence", "confidence": confidence}]
     return graph, []
+
+
+def _artifact_diagnostics(graph: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+    raw = (graph or {}).get("diagnostics", {})
+    if not isinstance(raw, dict):
+        return {"counts": {}, "details": {}}
+    details = {
+        bucket: [item for item in raw.get(bucket, []) if isinstance(item, dict)]
+        for bucket in _GRAPH_DIAGNOSTIC_BUCKETS
+    }
+    return {"counts": {bucket: len(details[bucket]) for bucket in _GRAPH_DIAGNOSTIC_BUCKETS},
+            "details": details}
+
+
+def _graph_warning(diagnostic: Dict[str, Any]) -> None:
+    print(f"WARNING [GRAPH] {json.dumps(diagnostic, sort_keys=True)}", file=sys.stderr)
 
 
 def _graph_paths(graph: Dict[str, Any], target: str) -> Dict[str, Any]:
@@ -169,6 +187,7 @@ def graph_metadata_for_flag(flag: Dict[str, Any], graph: Optional[Dict[str, Any]
                             graph_diagnostics: List[Dict[str, Any]]) -> Dict[str, Any]:
     """Build additive graph context for a scanner flag."""
     metadata: Dict[str, Any] = {
+        "source_artifact": _GRAPH_ARTIFACT,
         "node_exists": False,
         "declaration": None,
         "direct_impact_files": [],
@@ -176,7 +195,14 @@ def graph_metadata_for_flag(flag: Dict[str, Any], graph: Optional[Dict[str, Any]
         "paths": [],
         "diagnostics": sorted(graph_diagnostics, key=lambda d: json.dumps(d, sort_keys=True)),
         "source_identity": (graph or {}).get("source_identity", {}),
+        "artifact_diagnostics": _artifact_diagnostics(graph),
     }
+    if any(metadata["artifact_diagnostics"]["counts"].values()):
+        metadata["diagnostics"].append({
+            "kind": "graph_artifact_diagnostics",
+            "counts": metadata["artifact_diagnostics"]["counts"],
+        })
+        metadata["diagnostics"].sort(key=lambda d: json.dumps(d, sort_keys=True))
     if graph is None:
         return metadata
     node = graph.get("nodes", {}).get(flag.get("file"))
@@ -205,11 +231,19 @@ def graph_metadata_for_flag(flag: Dict[str, Any], graph: Optional[Dict[str, Any]
 def enrich_flags_with_graph(flags: List[Dict[str, Any]], artifacts: pathlib.Path) -> Dict[str, Any]:
     """Enrich flag dictionaries and return batch-level graph diagnostics."""
     graph, diagnostics = load_knowledge_graph(artifacts)
+    for diagnostic in diagnostics:
+        _graph_warning(diagnostic)
+    artifact_diagnostics = _artifact_diagnostics(graph)
+    if any(artifact_diagnostics["counts"].values()):
+        _graph_warning({"kind": "graph_artifact_diagnostics",
+                        "counts": artifact_diagnostics["counts"]})
     for flag in flags:
         flag["graph"] = graph_metadata_for_flag(flag, graph, diagnostics)
     return {
         "status": "available" if graph is not None else "unavailable",
+        "source_artifact": _GRAPH_ARTIFACT,
         "source_identity": (graph or {}).get("source_identity", {}),
+        "artifact_diagnostics": artifact_diagnostics,
         "diagnostics": sorted(diagnostics, key=lambda d: json.dumps(d, sort_keys=True)),
     }
 

@@ -37,3 +37,40 @@ def test_batch_artifact_keeps_impact_only_additive(tmp_path):
     assert payload["total_files"] == 1
     assert [item["file"] for item in payload["files"]] == ["A.java"]
     assert payload["impact_only"][0]["file"] == "B.java"
+
+
+def test_cmd_prepare_real_path_separates_impact_and_dispatch_input(tmp_path, capsys):
+    batch = load_batch()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    graph = {
+        "source_identity": {"workspace": "fixture"},
+        "nodes": {"A.java": {"path": "A.java", "class_name": "A"}, "B.java": {"path": "B.java", "class_name": "B"}},
+        "edges": {"imports": [{"from": "B.java", "to": "A.java"}], "extends": [], "implements": [], "calls": [], "type_refs": []},
+    }
+    (artifacts / "03.5-knowledge-graph.json").write_text(json.dumps(graph), encoding="utf-8")
+    (artifacts / "04-flag-index.json").write_text(json.dumps({"flags": [{
+        "rule_id": "RULE", "file": "A.java", "line": 1, "confidence": "HIGH", "reason": "test"
+    }]}), encoding="utf-8")
+    (artifacts / "05-rule-queue.json").write_text(json.dumps({"rules": ["RULE"]}), encoding="utf-8")
+
+    assert batch.cmd_prepare(artifacts, "RULE", "run-1") == 0
+    payload = json.loads((artifacts / "05-rule-batch-RULE.json").read_text(encoding="utf-8"))
+    assert [entry["file"] for entry in payload["files"]] == ["A.java"]
+    assert [entry["file"] for entry in payload["impact_only"]] == ["B.java"]
+    assert payload["total_files"] == 1
+    assert payload["graph"]["source_artifact"] == "03.5-knowledge-graph.json"
+    assert payload["impact_only"][0]["source_artifact"] == "03.5-knowledge-graph.json"
+    assert payload["impact_only"][0]["source_identity"]["workspace"] == "fixture"
+    assert batch.cmd_update(artifacts, "RULE", "run-1", "B.java", "DONE") == 2
+    assert "FILE_NOT_IN_BATCH" in capsys.readouterr().err
+
+
+def test_batch_missing_graph_warns_without_changing_direct_tasks(tmp_path, capsys):
+    batch = load_batch()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    (artifacts / "04-flag-index.json").write_text(json.dumps({"flags": [{"rule_id": "RULE", "file": "A.java", "line": 1}]}), encoding="utf-8")
+    (artifacts / "05-rule-queue.json").write_text(json.dumps({"rules": ["RULE"]}), encoding="utf-8")
+    assert batch.cmd_prepare(artifacts, "RULE", "run-1") == 0
+    assert "graph_unavailable" in capsys.readouterr().err

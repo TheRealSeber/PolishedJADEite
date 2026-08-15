@@ -57,7 +57,9 @@ batch is fully processed, verified, and committed (by the orchestrator).
 
 The `files` list remains limited to files directly flagged for the requested rule.
 When graph metadata is available, `impact_only` records sorted dependent files and
-their graph paths/reasons. Impact-only files never change `total_files` or dispatch.
+their graph paths/reasons, source artifact, and source identity. Graph diagnostics
+are retained as additive metadata and warnings; they never change direct task
+selection. Impact-only files never change `total_files` or dispatch.
 
 ## Script
 

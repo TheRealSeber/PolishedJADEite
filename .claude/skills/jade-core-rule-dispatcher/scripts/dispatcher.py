@@ -117,6 +117,11 @@ def validate_flag(flag: Dict[str, Any], expected_rule_id: str) -> Optional[str]:
     return None
 
 
+def normalize_file_path(file_path: str) -> str:
+    """Use the repository's canonical forward-slash form for relative files."""
+    return file_path.replace("\\", "/")
+
+
 def load_rule(manifest_path: pathlib.Path, rule_id: str) -> Optional[Dict]:
     if not manifest_path.exists():
         return None
@@ -456,6 +461,26 @@ def main(argv: Optional[List[str]] = None) -> int:
                 [],
                 0,
                 0,
+            )
+            return 2
+        if normalize_file_path(flag["file"]) != normalize_file_path(file_rel):
+            record_result(
+                artifacts_dir,
+                args.task_id,
+                args.rule_id,
+                file_rel,
+                "FAILED",
+                0,
+                "",
+                "",
+                "",
+                [
+                    f"Flag file {flag['file']!r} does not match task file "
+                    f"{file_rel!r}"
+                ],
+                [],
+                flag["line"],
+                flag["line"],
             )
             return 2
 

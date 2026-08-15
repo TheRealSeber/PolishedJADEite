@@ -477,3 +477,31 @@ def test_main_dispatches_flag_with_required_fields(tmp_path, monkeypatch):
         "--task-id", "RULE-Example", "--workspace-root", str(tmp_path),
     ]) == 0
     assert calls == [("unused", str(tmp_path / "Example.java"), 1)]
+
+
+def test_main_rejects_flag_file_mismatch_before_dispatch(tmp_path, monkeypatch):
+    module = load_module()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    (artifacts / "05-rule-batch-RULE.json").write_text(
+        json.dumps({"files": [{
+            "file": "Example.java",
+            "flags": [{"rule_id": "RULE", "file": "Other.java", "line": 1}],
+        }]}),
+        encoding="utf-8",
+    )
+    (artifacts / "01-breaking-changes-manifest.json").write_text(
+        json.dumps({"rules": [{"id": "RULE", "fix_strategy": "recipe:test"}]}),
+        encoding="utf-8",
+    )
+    (tmp_path / "Example.java").write_text("class Example {}\n", encoding="utf-8")
+    monkeypatch.setattr(module, "load_registry", lambda: {"RULE": {"script": "unused"}})
+    monkeypatch.setattr(module, "dispatch_recipe", lambda *args: pytest.fail("recipe must not run"))
+
+    assert module.main([
+        "--artifacts-dir", str(artifacts), "--rule-id", "RULE",
+        "--task-id", "RULE-Other", "--workspace-root", str(tmp_path),
+    ]) == 2
+    results = json.loads((artifacts / "06-fix-results-RULE.json").read_text(encoding="utf-8"))
+    assert results[-1]["status"] == "FAILED"
+    assert "does not match task file" in results[-1]["errors"][0]

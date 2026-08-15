@@ -188,6 +188,31 @@ def test_run_in_docker_uses_internal_image_without_declared_image(tmp_path, monk
     assert stderr == ""
 
 
+def test_run_in_docker_mounts_workspace_read_only(tmp_path, monkeypatch):
+    mod = _load_module()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    build_dir = tmp_path / "build"
+    build_dir.mkdir()
+    captured = {}
+
+    def fake_run(command, **kwargs):
+        captured["command"] = command
+        return type("Ok", (), {"returncode": 0})()
+
+    monkeypatch.setattr(mod.subprocess, "run", fake_run)
+
+    mod.run_in_docker(
+        workspace,
+        build_dir,
+        {"_resolved_docker_image": "java17", "main_class": "jade.Boot"},
+    )
+
+    workspace_path = str(workspace.resolve()).replace("\\", "/")
+    workspace_path = workspace_path[0].lower() + workspace_path[1:]
+    assert f"{workspace_path}:/ws:ro" in captured["command"]
+
+
 def test_expected_stdout_markers_must_be_nonempty_strings(tmp_path):
     mod = _load_module()
     consumer = tmp_path / "consumer"
@@ -591,6 +616,49 @@ def test_no_valid_consumers_writes_failed_diagnostic_artifact(tmp_path, monkeypa
     output = json.loads((artifacts / "07-runtime-verify.json").read_text())
     assert output["overall_pass"] is False
     assert output["error"] == "No valid consumer configs discovered"
+
+
+def test_non_object_run_config_returns_controlled_environment_failure(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    registry_path = tmp_path / "docker-images.json"
+    registry_path.write_text(
+        json.dumps({"java-8": "java8", "java-11": "java11", "java-17": "java17"}),
+        encoding="utf-8",
+    )
+    mod.DOCKER_IMAGE_CONFIG_PATH = registry_path
+    monkeypatch.setattr(mod, "discover_consumers", lambda: [])
+
+    for index, payload in enumerate((None, [], "invalid")):
+        config = tmp_path / f"run-config-{index}.json"
+        config.write_text(json.dumps(payload), encoding="utf-8")
+        monkeypatch.setattr(mod.shutil, "which", lambda name: "docker")
+        monkeypatch.setattr(
+            mod.subprocess,
+            "run",
+            lambda *args, **kwargs: type("Ok", (), {"returncode": 0})(),
+        )
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            [
+                "runtime_verify.py",
+                "--workspace",
+                str(workspace),
+                "--artifacts",
+                str(artifacts),
+                "--config",
+                str(config),
+            ],
+        )
+
+        assert mod.main() == 3
+        assert not (artifacts / "07-runtime-verify.json").exists()
 
 
 def test_consumer_result_records_runtime_and_maven_metadata(tmp_path, monkeypatch):
@@ -1034,6 +1102,7 @@ def test_maven_build_stages_classes_and_runtime_jars(tmp_path, monkeypatch):
     assert "-B" in args
     assert "-ntp" in args
     assert "-Dmaven.repo.local=" in args
+    assert "-Dmaven.compiler.proc=none" in args
     assert f"-Djade.artifact={jade.resolve()}" not in args
     assert "org.apache.maven.plugins:maven-dependency-plugin:3.6.1:copy-dependencies" in args
 

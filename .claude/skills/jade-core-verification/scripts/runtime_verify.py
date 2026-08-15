@@ -300,8 +300,12 @@ def validate_maven_pom(project_root: pathlib.Path) -> Optional[str]:
                 forbidden = {
                     "fork",
                     "executable",
+                    "compilerArgs",
+                    "compilerArgument",
+                    "compilerArguments",
                     "annotationProcessorPaths",
                     "annotationProcessorPath",
+                    "proc",
                 }
                 if any(_xml_local_name(node.tag) in forbidden for node in plugin.iter()):
                     return "Maven compiler execution controls are not allowed"
@@ -586,7 +590,12 @@ def build_maven_consumer(
             ignore=shutil.ignore_patterns("target"),
         )
         maven_cmd = _maven_command()
-        common_args = ["-B", "-ntp", f"-Dmaven.repo.local={repo}"]
+        common_args = [
+            "-B",
+            "-ntp",
+            f"-Dmaven.repo.local={repo}",
+            "-Dmaven.compiler.proc=none",
+        ]
         install_cmd = maven_cmd + common_args + [
             "org.apache.maven.plugins:maven-install-plugin:3.1.2:install-file",
             f"-Dfile={jade_path}",
@@ -705,7 +714,7 @@ def run_in_docker(
         "run",
         "--rm",
         "-v",
-        f"{ws_docker}:/ws",
+        f"{ws_docker}:/ws:ro",
         "-v",
         f"{bd_docker}:/playground",
         "-w",
@@ -913,6 +922,9 @@ def main() -> int:
         run_cfg = read_json(pathlib.Path(args.config))
     except (json.JSONDecodeError, OSError) as exc:
         print(f"ERROR: cannot read config: {exc}", file=sys.stderr)
+        return 3
+    if not isinstance(run_cfg, dict):
+        print("ERROR: run config must be a JSON object", file=sys.stderr)
         return 3
 
     run_id = run_cfg.get("run_id", "unknown")

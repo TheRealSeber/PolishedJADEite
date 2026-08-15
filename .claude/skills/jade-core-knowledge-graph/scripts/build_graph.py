@@ -119,18 +119,25 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
     fqn_to_rel = {}
     declarations = {}
     pkg_to_rels = {}
-    receiver_types_by_file = {}
+    receiver_types_by_scope = {}
     for rel, data in nodes.items():
-        receiver_types = {field.get("name"): field.get("type") for field in data.get("fields", [])
-                          if isinstance(field, dict) and field.get("name")}
-        receiver_types.update({local.get("name"): local.get("type") for local in data.get("locals", [])
-                               if isinstance(local, dict) and local.get("name")})
+        field_receiver_types = {
+            field.get("name"): field.get("type") for field in data.get("fields", [])
+            if isinstance(field, dict) and field.get("name")
+        }
         for method in data.get("methods", []):
             if isinstance(method, dict):
-                receiver_types.update({param.get("name"): param.get("type")
-                                       for param in method.get("parameters", [])
-                                       if isinstance(param, dict) and param.get("name")})
-        receiver_types_by_file[rel] = receiver_types
+                method_name = method.get("name", "")
+                scoped = receiver_types_by_scope.setdefault((rel, method_name), dict(field_receiver_types))
+                scoped.update({param.get("name"): param.get("type")
+                               for param in method.get("parameters", [])
+                               if isinstance(param, dict) and param.get("name")})
+        for local in data.get("locals", []):
+            if isinstance(local, dict) and local.get("name"):
+                receiver_types_by_scope.setdefault((rel, local.get("method", "")), dict(field_receiver_types))[
+                    local["name"]
+                ] = local.get("type")
+        receiver_types_by_scope.setdefault((rel, ""), field_receiver_types)
         node = data["node"]
         pkg = node.package
         cls = node.class_name
@@ -222,7 +229,6 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
                     kg.add_type_ref_edge(rel, target_rel, field=field_name, type_name=type_name)
 
     for rel, data in nodes.items():
-        receiver_types = receiver_types_by_file.get(rel, {})
         node = data["node"]
         for call in data.get("calls", []):
             if not isinstance(call, dict):
@@ -233,9 +239,14 @@ def resolve_graph(nodes: dict, diagnostics=None) -> KnowledgeGraph:
                 continue
             target_rel = None
             if obj:
+                receiver_types = receiver_types_by_scope.get((rel, call.get("caller_method", "")), {})
                 receiver_type = receiver_types.get(obj, obj)
                 target_rel = _resolve_type(receiver_type, nodes, rel, fqn_to_rel, pkg_to_rels, kg, ambiguous_fqns,
                                            ambiguous_short_names, report_unresolved=False)
+                if target_rel is None:
+                    kg.add_diagnostic({"kind": "unresolved_receiver_call", "file": rel,
+                                       "line": call.get("line", 0), "receiver": obj,
+                                       "method": mname, "caller_method": call.get("caller_method", "")})
             else:
                 target_rel = rel
             if target_rel and target_rel in nodes:

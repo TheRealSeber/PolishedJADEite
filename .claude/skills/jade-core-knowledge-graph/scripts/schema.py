@@ -127,24 +127,41 @@ class KnowledgeGraph:
             "calls": [],
             "type_refs": [],
         }
+        self._reverse_adjacency = None
 
     def add_node(self, node: GraphNode):
         self.nodes[node.path] = node
 
     def add_import_edge(self, from_file: str, to_file: str, provenance: str = "direct"):
         self.edges["imports"].append(ImportEdge(from_file, to_file, provenance))
+        self._reverse_adjacency = None
 
     def add_extends_edge(self, from_file: str, to_file: str):
         self.edges["extends"].append(ExtendsEdge(from_file, to_file))
+        self._reverse_adjacency = None
 
     def add_implements_edge(self, from_file: str, to_file: str):
         self.edges["implements"].append(ImplementsEdge(from_file, to_file))
+        self._reverse_adjacency = None
 
     def add_call_edge(self, from_file: str, from_method: str, to_file: str, to_method: str, line: int = 0):
         self.edges["calls"].append(CallEdge(from_file, from_method, to_file, to_method, line))
+        self._reverse_adjacency = None
 
     def add_type_ref_edge(self, from_file: str, to_file: str, field: str = "", type_name: str = ""):
         self.edges["type_refs"].append(TypeRefEdge(from_file, to_file, field, type_name))
+        self._reverse_adjacency = None
+
+    def _get_reverse_adjacency(self):
+        if self._reverse_adjacency is None:
+            index = {etype: {} for etype in self.edges}
+            for etype, edges in self.edges.items():
+                for edge in edges:
+                    index[etype].setdefault(edge.to_file, []).append(edge)
+                for target in index[etype]:
+                    index[etype][target].sort(key=lambda e: (e.from_file, e.to_file))
+            self._reverse_adjacency = index
+        return self._reverse_adjacency
 
     def add_diagnostic(self, diagnostic):
         """Normalize legacy diagnostic records into the stable artifact shape."""
@@ -185,12 +202,12 @@ class KnowledgeGraph:
         visited = set(direct)
         queue = [(f, [f], []) for f in sorted(direct)]
         paths = []
+        reverse_adjacency = self._get_reverse_adjacency()
         while queue:
             target, path, reasons = queue.pop(0)
             for etype in ("imports", "extends", "implements", "calls", "type_refs"):
-                edges = sorted(self.edges[etype], key=lambda e: (e.from_file, e.to_file))
-                for edge in edges:
-                    if edge.to_file != target or edge.from_file in visited:
+                for edge in reverse_adjacency[etype].get(target, []):
+                    if edge.from_file in visited:
                         continue
                     visited.add(edge.from_file)
                     next_path = path + [edge.from_file]

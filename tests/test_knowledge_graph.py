@@ -72,6 +72,19 @@ class TestSchema:
         assert scope["files"] == ["a/A.java", "b/B.java", "c/C.java"]
         assert scope["paths"][0]["reasons"] == ["imports", "imports"]
 
+    def test_rule_scope_uses_cached_reverse_adjacency_for_large_graph(self):
+        kg = KnowledgeGraph()
+        size = 1200
+        for index in range(size):
+            kg.add_import_edge(f"F{index:04d}.java", f"F{index + 1:04d}.java")
+
+        scope = kg.query_rule_scope([f"F{size:04d}.java"])
+        assert scope["files"] == [f"F{index:04d}.java" for index in range(size + 1)]
+        assert len(kg._reverse_adjacency["imports"]) == size
+        reverse_index = kg._reverse_adjacency
+        assert kg.query_rule_scope([f"F{size:04d}.java"]) == scope
+        assert kg._reverse_adjacency is reverse_index
+
     def test_transform_order_dependency(self):
         kg = KnowledgeGraph()
         kg.add_import_edge("a/FileA.java", "b/FileB.java")
@@ -400,6 +413,34 @@ class TestBuildGraph:
         kg = resolve_graph(nodes, diagnostics)
         assert any(edge.from_file == "Consumer.java" and edge.to_file == "Target.java"
                    and edge.to_method == "get" for edge in kg.edges["calls"])
+
+    def test_receiver_types_are_scoped_to_the_calling_method(self, tmp_path):
+        (tmp_path / "P.java").write_text("package p; public class P { void get() {} }\n")
+        (tmp_path / "Q.java").write_text("package q; public class Q { void get() {} }\n")
+        (tmp_path / "Consumer.java").write_text(
+            "package consumer; import p.P; import q.Q; public class Consumer {"
+            " void one() { P p; p.get(); } void two() { Q p; p.get(); } }\n"
+        )
+        parser, lang = get_parser()
+        nodes, diagnostics = parse_files(scan_workspace(str(tmp_path)), parser, lang, return_diagnostics=True)
+        kg = resolve_graph(nodes, diagnostics)
+        calls = [edge for edge in kg.edges["calls"] if edge.from_file == "Consumer.java"]
+        assert {(edge.from_method, edge.to_file, edge.to_method) for edge in calls} == {
+            ("one", "P.java", "get"), ("two", "Q.java", "get")
+        }
+
+    def test_unresolved_receiver_call_is_structured_diagnostic(self, tmp_path):
+        (tmp_path / "Consumer.java").write_text(
+            "public class Consumer { void run() { Missing receiver; receiver.get(); } }\n"
+        )
+        parser, lang = get_parser()
+        nodes, diagnostics = parse_files(scan_workspace(str(tmp_path)), parser, lang, return_diagnostics=True)
+        kg = resolve_graph(nodes, diagnostics)
+        unresolved = [item for item in kg.to_dict()["diagnostics"]["other"]
+                      if item.get("kind") == "unresolved_receiver_call"]
+        assert unresolved == [{"kind": "unresolved_receiver_call", "file": "Consumer.java",
+                              "line": 1, "receiver": "receiver", "method": "get",
+                              "caller_method": "run"}]
 
     def test_transform_order_reports_three_way_ownership_ambiguity(self):
         kg = KnowledgeGraph()

@@ -311,7 +311,8 @@ def extract_local_variables(tree_root, source_bytes, lang):
             if child.type == "variable_declarator":
                 for grandchild in child.children:
                     if grandchild.type == "identifier":
-                        results.append({"name": _child_text(grandchild, source_bytes), "type": type_text})
+                        results.append({"name": _child_text(grandchild, source_bytes), "type": type_text,
+                                        "method": _enclosing_method_name(node, source_bytes)})
     return results
 
 

@@ -73,6 +73,14 @@ def load_task(batch_path: pathlib.Path, task_id: str) -> Optional[Dict]:
     return None
 
 
+def validate_flag_line(flag: Dict) -> tuple[bool, str]:
+    """Validate the source line before it reaches a recipe subprocess."""
+    line = flag.get("line")
+    if isinstance(line, bool) or not isinstance(line, int) or line < 1:
+        return False, "Flag 'line' must be an integer >= 1"
+    return True, ""
+
+
 def load_rule(manifest_path: pathlib.Path, rule_id: str) -> Optional[Dict]:
     if not manifest_path.exists():
         return None
@@ -343,6 +351,30 @@ def main() -> int:
         )
         return 2
 
+    for fi, flag in enumerate(flags):
+        valid, validation_error = validate_flag_line(flag)
+        if not valid:
+            per_flag_task_id = (
+                f"{args.task_id}-f{fi:03d}" if len(flags) > 1 else args.task_id
+            )
+            record_result(
+                artifacts_dir,
+                per_flag_task_id,
+                args.rule_id,
+                file_rel,
+                "FAILED",
+                0,
+                "",
+                "",
+                "",
+                [validation_error],
+                [],
+                0,
+                0,
+            )
+            update_batch_status(artifacts_dir, args.rule_id, file_rel, "FAILED")
+            return 2
+
     rule = load_rule(manifest_path, args.rule_id)
     if rule is None:
         record_result(
@@ -432,7 +464,7 @@ def main() -> int:
     any_failure = False
 
     for fi, flag in enumerate(flags):
-        line_start = flag.get("line", 0)
+        line_start = flag["line"]
         per_flag_task_id = (
             f"{args.task_id}-f{fi:03d}" if len(flags) > 1 else args.task_id
         )

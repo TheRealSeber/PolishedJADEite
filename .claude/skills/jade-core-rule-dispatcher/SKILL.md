@@ -37,7 +37,7 @@ the result.
 
 ## Produced output
 
-- `artifacts/06-fix-result-{task-id}.json` — per-task fix record
+- `artifacts/06-fix-results-{rule_id}.json` — aggregate array of per-flag fix records
 
 ## Recipe invocation contract
 
@@ -48,8 +48,12 @@ python <recipe-script> --file <path> --line <num>
 
 Recipe scripts MUST:
 - Exit 0 on success, non-zero on failure
-- Print a single JSON line to stdout: `{"status": "FIXED|FAILED|SKIPPED|NOOP", "changes": N, "warnings": [...], "errors": [...], "diff_summary": "..."}`
+- Print a single JSON line to stdout: `{"status": "FIXED|FAILED|SKIPPED|DEFERRED", "changes": N, "warnings": [...], "errors": [...], "diff_summary": "..."}`
 - Handle file I/O internally (read, transform, atomic write)
+
+The dispatcher records each result with `task_id`, `rule_id`, `file`, `status`,
+`match_count`, `match_region`, `match_context`, `diff_summary`,
+`verification_hint`, `errors`, `warnings`, and `applied_at`.
 
 ## Fix strategy format
 

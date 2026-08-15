@@ -29,7 +29,14 @@ def test_maven_config_accepts_project_root_inside_consumer(tmp_path):
 
     normalized, errors = mod.validate_consumer_config(
         consumer,
-        {"build_mode": "maven", "maven_project_root": "jrba"},
+        {
+            "build_mode": "maven",
+            "maven_project_root": "jrba",
+            "expected_stdout_markers": ["PASS"],
+            "main_class": "jade.Boot",
+            "boot_args": [],
+            "timeout_seconds": 30,
+        },
         tmp_path / "workspace",
     )
 
@@ -46,7 +53,13 @@ def test_runtime_java_version_uses_numeric_supported_value(tmp_path):
 
     normalized, errors = mod.validate_consumer_config(
         consumer,
-        {"runtime_java_version": 17},
+        {
+            "runtime_java_version": 17,
+            "expected_stdout_markers": ["PASS"],
+            "main_class": "jade.Boot",
+            "boot_args": [],
+            "timeout_seconds": 30,
+        },
         tmp_path / "workspace",
         registry,
     )
@@ -139,6 +152,9 @@ def test_internal_resolved_image_works_without_declared_image(tmp_path, monkeypa
         "_resolved_docker_image": "java17",
         "expected_stdout_markers": ["PASS"],
         "classpath_deps": [],
+        "main_class": "jade.Boot",
+        "boot_args": [],
+        "timeout_seconds": 30,
     }
     monkeypatch.setattr(mod, "compile_consumer", lambda *args: (True, ""))
     monkeypatch.setattr(mod, "run_in_docker", lambda *args: (0, "PASS", ""))
@@ -184,6 +200,58 @@ def test_expected_stdout_markers_must_be_nonempty_strings(tmp_path):
             tmp_path / "workspace",
         )
         assert any("expected_stdout_markers" in error for error in errors)
+
+
+def test_consumer_runtime_fields_are_required_and_typed(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+    base = {
+        "expected_stdout_markers": ["PASS"],
+        "main_class": "jade.Boot",
+        "boot_args": [],
+        "timeout_seconds": 30,
+    }
+
+    for field, value in (
+        ("main_class", ""),
+        ("boot_args", ["ok", 3]),
+        ("timeout_seconds", 0),
+        ("timeout_seconds", True),
+    ):
+        config = dict(base)
+        config[field] = value
+        _, errors = mod.validate_consumer_config(
+            consumer, config, tmp_path / "workspace"
+        )
+        assert any(field in error for error in errors)
+
+
+def test_maven_rejects_dot_mvn_metadata_before_copy(tmp_path, monkeypatch):
+    mod = _load_module()
+    project = tmp_path / "consumer"
+    project.mkdir()
+    (project / "pom.xml").write_text("<project/>", encoding="utf-8")
+    (project / ".mvn").mkdir()
+    (project / ".mvn" / "maven.config").write_text("-Dunsafe=true", encoding="utf-8")
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    (workspace / "jade.jar").write_bytes(b"jade")
+    monkeypatch.setattr(
+        mod,
+        "_maven_command",
+        lambda: (_ for _ in ()).throw(AssertionError("Maven must not run")),
+    )
+
+    ok, output = mod.build_maven_consumer(
+        project,
+        workspace,
+        {"maven_project_root": ".", "jade_artifact": "jade.jar"},
+        tmp_path / "build",
+    )
+
+    assert not ok
+    assert ".mvn" in output
 
 
 def test_maven_pom_rejects_unallowlisted_plugin(tmp_path, monkeypatch):
@@ -387,6 +455,9 @@ def test_placeholder_consumer_reaches_runtime_with_resolved_image(
                 "docker_image": "${TARGET_DOCKER_IMAGE}",
                 "runtime_java_version": 17,
                 "expected_stdout_markers": ["PASS"],
+                "main_class": "jade.Boot",
+                "boot_args": [],
+                "timeout_seconds": 30,
             },
         )
     ]
@@ -427,6 +498,11 @@ def test_placeholder_consumer_reaches_runtime_with_resolved_image(
     assert declared_configs == ["${TARGET_DOCKER_IMAGE}"]
     assert runtime_configs == ["java17"]
     assert output["results"][0]["docker_image"] == "java17"
+    assert output["results"][0]["declared_docker_image"] == "${TARGET_DOCKER_IMAGE}"
+    assert output["results"][0]["resolved_docker_image"] == "java17"
+    assert output["results"][0]["docker_image_resolution_source"] == "central-registry"
+    assert output["results"][0]["docker_image_registry_key"] == "java-17"
+    assert output["results"][0]["runtime_java_version"] == 17
 
 
 def test_no_valid_consumers_writes_failed_diagnostic_artifact(tmp_path, monkeypatch):
@@ -480,6 +556,9 @@ def test_consumer_result_records_runtime_and_maven_metadata(tmp_path, monkeypatc
         "docker_image": "${TARGET_DOCKER_IMAGE}",
         "classpath_deps": [],
         "expected_stdout_markers": ["PASS"],
+        "main_class": "jade.Boot",
+        "boot_args": [],
+        "timeout_seconds": 30,
     }
     monkeypatch.setattr(mod, "build_maven_consumer", lambda *args: (True, ""))
     monkeypatch.setattr(mod, "run_in_docker", lambda *args: (0, "PASS", ""))
@@ -493,6 +572,8 @@ def test_consumer_result_records_runtime_and_maven_metadata(tmp_path, monkeypatc
 
     assert result["status"] == "PASS"
     assert result["docker_image"] == "${TARGET_DOCKER_IMAGE}"
+    assert result["declared_docker_image"] == "${TARGET_DOCKER_IMAGE}"
+    assert result["resolved_docker_image"] is None
     assert result["runtime_java_version"] == 17
     assert result["maven_dependency_plugin_version"] == "3.6.1"
 
@@ -532,7 +613,13 @@ def test_config_defaults_to_backward_compatible_javac_mode(tmp_path):
 
     normalized, errors = mod.validate_consumer_config(
         consumer,
-        {"name": "legacy"},
+            {
+                "name": "legacy",
+                "expected_stdout_markers": ["PASS"],
+                "main_class": "jade.Boot",
+                "boot_args": [],
+                "timeout_seconds": 30,
+            },
         tmp_path / "workspace",
     )
 
@@ -839,6 +926,9 @@ def test_nonzero_docker_exit_fails_even_when_markers_exist(tmp_path, monkeypatch
         "name": "consumer",
         "classpath_deps": [],
         "expected_stdout_markers": ["PASS"],
+        "main_class": "jade.Boot",
+        "boot_args": [],
+        "timeout_seconds": 30,
     }
     monkeypatch.setattr(mod, "compile_consumer", lambda *args: (True, ""))
     monkeypatch.setattr(
@@ -939,6 +1029,9 @@ def test_failure_stdout_markers_fail_even_when_expected_markers_and_rc_pass(
         "classpath_deps": [],
         "expected_stdout_markers": ["PASS"],
         "failure_stdout_markers": ["FAIL"],
+        "main_class": "jade.Boot",
+        "boot_args": [],
+        "timeout_seconds": 30,
     }
     monkeypatch.setattr(mod, "compile_consumer", lambda *args: (True, ""))
     monkeypatch.setattr(mod, "run_in_docker", lambda *args: (0, "PASS FAIL", ""))
@@ -960,6 +1053,9 @@ def test_singular_failure_stdout_marker_remains_supported(tmp_path, monkeypatch)
         "classpath_deps": [],
         "expected_stdout_markers": ["PASS"],
         "failure_stdout_marker": "FAIL",
+        "main_class": "jade.Boot",
+        "boot_args": [],
+        "timeout_seconds": 30,
     }
     monkeypatch.setattr(mod, "compile_consumer", lambda *args: (True, ""))
     monkeypatch.setattr(mod, "run_in_docker", lambda *args: (0, "PASS FAIL", ""))

@@ -145,6 +145,23 @@ def resolve_docker_image(target_version: str, registry: Dict[str, str]) -> str:
     return registry["java-8"]
 
 
+def registry_key_for_runtime_version(
+    runtime_version: Any, registry: Dict[str, str]
+) -> str:
+    major = java_major(str(runtime_version))
+    if major >= 18:
+        key = f"java-{major}"
+    elif major >= 17:
+        key = "java-17"
+    elif major >= 11:
+        key = "java-11"
+    else:
+        key = "java-8"
+    if key not in registry:
+        raise ValueError(f"Docker registry key is unavailable: {key}")
+    return key
+
+
 def resolve_consumer_docker_image(
     consumer_cfg: Dict[str, Any], run_cfg: Dict[str, Any], registry: Dict[str, str]
 ) -> str:
@@ -195,6 +212,8 @@ def _xml_local_name(tag: str) -> str:
 
 
 def validate_maven_pom(project_root: pathlib.Path) -> Optional[str]:
+    if (project_root / ".mvn").exists():
+        return "Maven .mvn metadata directory is not allowed"
     pom_path = project_root / "pom.xml"
     if not pom_path.is_file():
         return f"Maven POM not found: {pom_path}"
@@ -310,6 +329,22 @@ def validate_consumer_config(
         except ValueError as exc:
             errors.append(str(exc))
 
+    main_class = normalized.get("main_class")
+    if not isinstance(main_class, str) or not main_class.strip():
+        errors.append("main_class must be a non-empty string")
+    boot_args = normalized.get("boot_args")
+    if not isinstance(boot_args, list) or not all(
+        isinstance(arg, str) for arg in boot_args
+    ):
+        errors.append("boot_args must be a list of strings")
+    timeout_seconds = normalized.get("timeout_seconds")
+    if (
+        isinstance(timeout_seconds, bool)
+        or not isinstance(timeout_seconds, (int, float))
+        or timeout_seconds <= 0
+    ):
+        errors.append("timeout_seconds must be a positive number")
+
     if "expected_stdout_markers" in normalized:
         markers = normalized["expected_stdout_markers"]
         if (
@@ -322,6 +357,8 @@ def validate_consumer_config(
             errors.append(
                 "expected_stdout_markers must be a non-empty list of non-empty strings"
             )
+    else:
+        errors.append("expected_stdout_markers is required")
 
     classpath_deps = normalized.get("classpath_deps", [])
     if not isinstance(classpath_deps, list):
@@ -468,6 +505,10 @@ def build_maven_consumer(
     if path_error:
         return False, path_error
 
+    pom_error = validate_maven_pom(project_root)
+    if pom_error:
+        return False, f"Maven POM rejected: {pom_error}"
+
     with tempfile.TemporaryDirectory(prefix="jade-maven-repo-") as repo:
         isolated_project = pathlib.Path(repo) / "consumer"
         shutil.copytree(
@@ -475,9 +516,6 @@ def build_maven_consumer(
             isolated_project,
             ignore=shutil.ignore_patterns("target"),
         )
-        pom_error = validate_maven_pom(isolated_project)
-        if pom_error:
-            return False, f"Maven POM rejected: {pom_error}"
         maven_cmd = _maven_command()
         common_args = ["-B", "-ntp", f"-Dmaven.repo.local={repo}"]
         install_cmd = maven_cmd + common_args + [
@@ -662,6 +700,8 @@ def test_consumer(
         project_dir, cfg, workspace, registry
     )
     name = cfg.get("name", project_dir.name)
+    declared_image = cfg.get("docker_image")
+    resolved_image = cfg.get("_resolved_docker_image")
     result: Dict[str, Any] = {
         "project": name,
         "status": "PENDING",
@@ -669,9 +709,13 @@ def test_consumer(
         "jade_booted": False,
         "stdout_snippet": "",
         "error": None,
-        "docker_image": cfg.get(
-            "_resolved_docker_image", cfg.get("docker_image")
+        "docker_image": resolved_image or declared_image,
+        "declared_docker_image": declared_image,
+        "resolved_docker_image": resolved_image,
+        "docker_image_resolution_source": cfg.get(
+            "_docker_image_resolution_source"
         ),
+        "docker_image_registry_key": cfg.get("_docker_image_registry_key"),
         "runtime_java_version": cfg.get("runtime_java_version"),
     }
     if cfg.get("build_mode") == "maven":
@@ -854,6 +898,13 @@ def main() -> int:
             cfg["_resolved_docker_image"] = resolve_consumer_docker_image(
                 cfg, run_cfg, registry
             )
+            runtime_version = cfg.get(
+                "runtime_java_version", run_cfg.get("target_version")
+            )
+            cfg["_docker_image_resolution_source"] = "central-registry"
+            cfg["_docker_image_registry_key"] = registry_key_for_runtime_version(
+                runtime_version, registry
+            )
         except ValueError as exc:
             result = {
                 "project": cfg.get("name", project_dir.name),
@@ -863,6 +914,10 @@ def main() -> int:
                 "stdout_snippet": "",
                 "error": f"Invalid consumer configuration: {exc}",
                 "docker_image": None,
+                "declared_docker_image": cfg.get("docker_image"),
+                "resolved_docker_image": None,
+                "docker_image_resolution_source": None,
+                "docker_image_registry_key": None,
                 "runtime_java_version": cfg.get("runtime_java_version"),
             }
             if cfg.get("build_mode") == "maven":
@@ -872,7 +927,29 @@ def main() -> int:
             results.append(result)
             print(f"  [FAIL] {result['project']} (0.0s)")
             continue
-        result = test_consumer(project_dir, workspace, cfg, registry)
+        try:
+            result = test_consumer(project_dir, workspace, cfg, registry)
+        except Exception as exc:
+            result = {
+                "project": cfg.get("name", project_dir.name),
+                "status": "FAIL",
+                "duration_seconds": 0.0,
+                "jade_booted": False,
+                "stdout_snippet": "",
+                "error": f"Consumer verification setup failed: {exc}",
+                "docker_image": cfg.get("_resolved_docker_image"),
+                "declared_docker_image": cfg.get("docker_image"),
+                "resolved_docker_image": cfg.get("_resolved_docker_image"),
+                "docker_image_resolution_source": cfg.get(
+                    "_docker_image_resolution_source"
+                ),
+                "docker_image_registry_key": cfg.get("_docker_image_registry_key"),
+                "runtime_java_version": cfg.get("runtime_java_version"),
+            }
+            if cfg.get("build_mode") == "maven":
+                result[
+                    "maven_dependency_plugin_version"
+                ] = MAVEN_DEPENDENCY_PLUGIN_VERSION
         results.append(result)
         status_icon = "PASS" if result["status"] == "PASS" else "FAIL"
         print(f"  [{status_icon}] {result['project']} ({result['duration_seconds']}s)")

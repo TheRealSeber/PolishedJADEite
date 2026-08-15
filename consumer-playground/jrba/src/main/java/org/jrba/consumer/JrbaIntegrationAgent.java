@@ -4,12 +4,9 @@ import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_TYPE;
 
 import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.Behaviour;
-import jade.core.Agent;
 import java.util.List;
 import org.jrba.agentmodel.behaviour.ListenForControllerObjects;
 import org.jrba.agentmodel.domain.AbstractAgent;
-import org.jrba.agentmodel.domain.node.AgentNode;
-import org.jrba.agentmodel.domain.props.AgentProps;
 import org.jrba.rulesengine.RulesController;
 import org.jrba.rulesengine.rule.AgentBasicRule;
 import org.jrba.rulesengine.rule.AgentRuleDescription;
@@ -22,13 +19,8 @@ public final class JrbaIntegrationAgent extends AbstractAgent {
 
     @Override
     protected void setup() {
-        setRulesController(new SmokeRulesController());
+        setRulesController(new RulesController<>());
         super.setup();
-    }
-
-    @Override
-    protected void runInitialBehavioursForRuleSet() {
-        // The smoke controller intentionally has no external rule-set bootstrap.
     }
 
     @Override
@@ -71,18 +63,6 @@ public final class JrbaIntegrationAgent extends AbstractAgent {
     protected void runStartingBehaviours() {
         addBehaviour(new ListenForControllerObjects(
                 this, prepareStartingBehaviours(), getObjectsNumber()));
-    }
-
-    @SuppressWarnings("rawtypes")
-    private static final class SmokeRulesController extends RulesController {
-        @Override
-        public void setAgent(
-                Agent agent, AgentProps agentProps, AgentNode agentNode, String baseRuleSet) {
-            this.agent = agent;
-            this.agentProps = agentProps;
-            this.agentNode = agentNode;
-            this.baseRuleSet = baseRuleSet;
-        }
     }
 
     private static final class SmokeRule extends AgentBasicRule {

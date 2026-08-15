@@ -108,6 +108,35 @@ def test_runtime_java_version_overrides_jade_target_for_image_resolution():
     ) == "java17"
 
 
+def test_hardcoded_consumer_docker_image_is_rejected(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+
+    _, errors = mod.validate_consumer_config(
+        consumer,
+        {"docker_image": "eclipse-temurin:17-jre"},
+        tmp_path / "workspace",
+    )
+
+    assert any("docker_image" in error for error in errors)
+    with pytest.raises(ValueError, match="docker_image"):
+        mod.resolve_consumer_docker_image(
+            {"docker_image": "eclipse-temurin:17-jre"},
+            {"target_version": "1.7"},
+            {"java-8": "java8", "java-11": "java11", "java-17": "java17"},
+        )
+
+
+def test_tracked_consumers_use_central_image_placeholder():
+    for relative_path in (
+        "consumer-playground/hw-jade/test-config.json",
+        "consumer-playground/version-check/test-config.json",
+    ):
+        config = json.loads((REPO_ROOT / relative_path).read_text(encoding="utf-8"))
+        assert config["docker_image"] == "${TARGET_DOCKER_IMAGE}"
+
+
 def test_runtime_java_version_support_comes_from_registry_keys():
     mod = _load_module()
     registry = {
@@ -191,7 +220,7 @@ def test_consumer_result_records_runtime_and_maven_metadata(tmp_path, monkeypatc
         "build_mode": "maven",
         "maven_project_root": "maven",
         "runtime_java_version": 17,
-        "docker_image": "eclipse-temurin:17-jre",
+        "docker_image": "${TARGET_DOCKER_IMAGE}",
         "classpath_deps": [],
         "expected_stdout_markers": ["PASS"],
     }
@@ -206,7 +235,7 @@ def test_consumer_result_records_runtime_and_maven_metadata(tmp_path, monkeypatc
     )
 
     assert result["status"] == "PASS"
-    assert result["docker_image"] == "eclipse-temurin:17-jre"
+    assert result["docker_image"] == "${TARGET_DOCKER_IMAGE}"
     assert result["runtime_java_version"] == 17
     assert result["maven_dependency_plugin_version"] == "3.6.1"
 

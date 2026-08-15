@@ -149,10 +149,17 @@ def resolve_consumer_docker_image(
         )
     else:
         runtime_version = str(run_cfg.get("target_version", ""))
-    configured = str(consumer_cfg.get("docker_image", "")).strip()
-    if configured == "${TARGET_DOCKER_IMAGE}" or not configured:
-        return resolve_docker_image(str(runtime_version), registry)
-    return configured
+    configured = consumer_cfg.get("docker_image", "")
+    if configured is None or not isinstance(configured, str):
+        raise ValueError(
+            "docker_image must be ${TARGET_DOCKER_IMAGE} or omitted"
+        )
+    configured = configured.strip()
+    if configured and configured != "${TARGET_DOCKER_IMAGE}":
+        raise ValueError(
+            "docker_image must be ${TARGET_DOCKER_IMAGE} or omitted"
+        )
+    return resolve_docker_image(str(runtime_version), registry)
 
 
 def _safe_relative_path(
@@ -193,6 +200,13 @@ def validate_consumer_config(
             "maven_executable is not supported; the verifier selects Maven"
         )
         normalized.pop("maven_executable", None)
+
+    if "docker_image" in normalized:
+        configured_image = normalized["docker_image"]
+        if configured_image is None or not isinstance(configured_image, str):
+            errors.append("docker_image must be ${TARGET_DOCKER_IMAGE} or omitted")
+        elif configured_image.strip() not in {"", "${TARGET_DOCKER_IMAGE}"}:
+            errors.append("docker_image must be ${TARGET_DOCKER_IMAGE} or omitted")
 
     if normalized.get("_config_error"):
         errors.append(str(normalized["_config_error"]))

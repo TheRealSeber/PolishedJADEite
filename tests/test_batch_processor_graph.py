@@ -58,6 +58,8 @@ def test_cmd_prepare_real_path_separates_impact_and_dispatch_input(tmp_path, cap
     payload = json.loads((artifacts / "05-rule-batch-RULE.json").read_text(encoding="utf-8"))
     assert [entry["file"] for entry in payload["files"]] == ["A.java"]
     assert [entry["file"] for entry in payload["impact_only"]] == ["B.java"]
+    assert payload["files"][0]["transform_scope"] == "DIRECT"
+    assert payload["impact_only"][0]["transform_scope"] == "IMPACT_ONLY"
     assert payload["total_files"] == 1
     assert payload["graph"]["source_artifact"] == "03.5-knowledge-graph.json"
     assert payload["impact_only"][0]["source_artifact"] == "03.5-knowledge-graph.json"

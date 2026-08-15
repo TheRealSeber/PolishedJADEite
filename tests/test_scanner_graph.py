@@ -71,6 +71,7 @@ def test_valid_graph_enriches_flags(tmp_path):
     assert flag["graph"]["node_exists"] is True
     assert flag["graph"]["class"] == "A"
     assert flag["graph"]["direct_impact_files"] == ["B.java"]
+    assert flag["graph"]["impact_files"] == ["B.java"]
     assert index["graph"]["source_identity"]["workspace"] == "fixture"
     assert flag["graph"]["source_artifact"] == "03.5-knowledge-graph.json"
 

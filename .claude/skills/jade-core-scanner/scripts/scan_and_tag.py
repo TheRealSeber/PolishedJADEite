@@ -192,6 +192,7 @@ def graph_metadata_for_flag(flag: Dict[str, Any], graph: Optional[Dict[str, Any]
         "declaration": None,
         "direct_impact_files": [],
         "transitive_impact_files": [],
+        "impact_files": [],
         "paths": [],
         "diagnostics": sorted(graph_diagnostics, key=lambda d: json.dumps(d, sort_keys=True)),
         "source_identity": (graph or {}).get("source_identity", {}),
@@ -224,6 +225,7 @@ def graph_metadata_for_flag(flag: Dict[str, Any], graph: Optional[Dict[str, Any]
     scope = _graph_paths(graph, flag.get("file", ""))
     metadata["direct_impact_files"] = scope["direct"]
     metadata["transitive_impact_files"] = scope["transitive"]
+    metadata["impact_files"] = sorted(scope["direct"] + scope["transitive"])
     metadata["paths"] = scope["paths"]
     return metadata
 

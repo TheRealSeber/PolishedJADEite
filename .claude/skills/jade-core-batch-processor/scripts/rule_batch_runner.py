@@ -142,6 +142,7 @@ def build_file_task_list(
             {
                 "file": filepath,
                 "flags": entries,
+                "transform_scope": "DIRECT",
                 "status": "PENDING",
                 "updated_at": None,
             }
@@ -179,6 +180,7 @@ def build_impact_only_list(rule_id: str, flag_index: Dict[str, Any]) -> List[Dic
             "file": filepath,
             "source_artifact": item["source_artifact"],
             "source_identity": item["source_identity"],
+            "transform_scope": "IMPACT_ONLY",
             "reasons": sorted(item["reasons"]),
             "paths": sorted(item["paths"], key=lambda p: (p["path"], p["reasons"])),
         })
@@ -192,6 +194,10 @@ def write_batch_artifact(
     impact_only: Optional[List[Dict[str, Any]]] = None,
     graph_metadata: Optional[Dict[str, Any]] = None,
 ) -> pathlib.Path:
+    for task in file_tasks:
+        task["transform_scope"] = "DIRECT"
+    for item in impact_only or []:
+        item["transform_scope"] = "IMPACT_ONLY"
     payload = {
         "rule_id": rule_id,
         "batch_id": f"batch-{rule_id}-{iso_now().replace(':', '-')}",

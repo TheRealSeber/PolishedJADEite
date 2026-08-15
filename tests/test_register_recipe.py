@@ -358,6 +358,8 @@ def test_register_recipe_rejects_invalid_existing_registry_entries(tmp_path, pay
         ".claude/skills/java-migration-skill-registry/shared/recipe/scripts/other.py",
         ".claude/skills/java-migration-skill-registry/shared/recipe/scripts/apply.py/extra",
         ".claude/skills/java-migration-skill-registry/shared/recipe/../other/scripts/apply.py",
+        "./.claude/skills/java-migration-skill-registry/shared/recipe/scripts/apply.py",
+        ".claude//skills/java-migration-skill-registry/shared/recipe/scripts/apply.py",
     ],
 )
 def test_register_recipe_rejects_noncanonical_script_paths(tmp_path, script):

@@ -177,6 +177,21 @@ def test_dispatch_recipe_rejects_noncanonical_script_without_running(tmp_path, m
     assert "canonical registry recipe script" in result["errors"][0]
 
 
+@pytest.mark.parametrize(
+    "script",
+    [
+        "./.claude/skills/java-migration-skill-registry/shared/dummy/scripts/apply.py",
+        ".claude//skills/java-migration-skill-registry/shared/dummy/scripts/apply.py",
+    ],
+)
+def test_dispatch_recipe_rejects_noncanonical_registry_script_without_running(tmp_path, monkeypatch, script):
+    module = load_module()
+    monkeypatch.setattr(subprocess, "run", lambda *args, **kwargs: pytest.fail("recipe must not run"))
+    result = module.dispatch_recipe(script, str(tmp_path / "Example.java"), 1)
+    assert result["status"] == "FAILED"
+    assert "canonical registry recipe script" in result["errors"][0]
+
+
 def test_resolve_script_path_rejects_registry_symlink(tmp_path, monkeypatch):
     module = load_module()
     repo_root = tmp_path / "repo"
@@ -276,6 +291,120 @@ def test_main_records_failure_for_entry_without_script(tmp_path, monkeypatch):
     assert module.main([
         "--artifacts-dir", str(artifacts), "--rule-id", "RULE",
         "--task-id", "RULE-0001", "--workspace-root", str(tmp_path),
+    ]) == 2
+    results = json.loads((artifacts / "06-fix-results-RULE.json").read_text(encoding="utf-8"))
+    assert results[-1]["status"] == "FAILED"
+
+
+@pytest.mark.parametrize("payload", [[], None, "scalar", 42])
+def test_main_records_failure_for_malformed_batch_root(tmp_path, payload):
+    module = load_module()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    (artifacts / "05-rule-batch-RULE.json").write_text(json.dumps(payload), encoding="utf-8")
+
+    assert module.main([
+        "--artifacts-dir", str(artifacts), "--rule-id", "RULE",
+        "--task-id", "RULE-0001", "--workspace-root", str(tmp_path),
+    ]) == 2
+    results = json.loads((artifacts / "06-fix-results-RULE.json").read_text(encoding="utf-8"))
+    assert results[-1]["status"] == "FAILED"
+
+
+@pytest.mark.parametrize("files", [None, {}, [None], ["bad"]])
+def test_main_records_failure_for_malformed_batch_files(tmp_path, files):
+    module = load_module()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    (artifacts / "05-rule-batch-RULE.json").write_text(json.dumps({"files": files}), encoding="utf-8")
+
+    assert module.main([
+        "--artifacts-dir", str(artifacts), "--rule-id", "RULE",
+        "--task-id", "RULE-0001", "--workspace-root", str(tmp_path),
+    ]) == 2
+    results = json.loads((artifacts / "06-fix-results-RULE.json").read_text(encoding="utf-8"))
+    assert results[-1]["status"] == "FAILED"
+
+
+@pytest.mark.parametrize(
+    "flag",
+    [{"rule_id": "RULE", "file": None, "line": 1},
+     {"rule_id": "RULE", "file": "Example.java", "line": "1"}],
+)
+def test_main_records_failure_for_malformed_batch_flag(tmp_path, flag):
+    module = load_module()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    (artifacts / "05-rule-batch-RULE.json").write_text(
+        json.dumps({"files": [{"file": "Example.java", "flags": [flag]}]}),
+        encoding="utf-8",
+    )
+
+    assert module.main([
+        "--artifacts-dir", str(artifacts), "--rule-id", "RULE",
+        "--task-id", "RULE-0001", "--workspace-root", str(tmp_path),
+    ]) == 2
+    results = json.loads((artifacts / "06-fix-results-RULE.json").read_text(encoding="utf-8"))
+    assert results[-1]["status"] == "FAILED"
+
+
+@pytest.mark.parametrize("payload", [[], None, "scalar", 42])
+def test_main_records_failure_for_malformed_manifest_root(tmp_path, payload):
+    module = load_module()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    (artifacts / "05-rule-batch-RULE.json").write_text(
+        json.dumps({"files": [{"file": "Example.java", "flags": [{"rule_id": "RULE", "line": 1}]}]}),
+        encoding="utf-8",
+    )
+    (artifacts / "01-breaking-changes-manifest.json").write_text(json.dumps(payload), encoding="utf-8")
+    (tmp_path / "Example.java").write_text("class Example {}\n", encoding="utf-8")
+
+    assert module.main([
+        "--artifacts-dir", str(artifacts), "--rule-id", "RULE",
+        "--task-id", "RULE-0000", "--workspace-root", str(tmp_path),
+    ]) == 2
+    results = json.loads((artifacts / "06-fix-results-RULE.json").read_text(encoding="utf-8"))
+    assert results[-1]["status"] == "FAILED"
+
+
+def test_main_records_failure_for_malformed_rule_fix_strategy(tmp_path):
+    module = load_module()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    (artifacts / "05-rule-batch-RULE.json").write_text(
+        json.dumps({"files": [{"file": "Example.java", "flags": [{"rule_id": "RULE", "line": 1}]}]}),
+        encoding="utf-8",
+    )
+    (artifacts / "01-breaking-changes-manifest.json").write_text(
+        json.dumps({"rules": [{"id": "RULE", "fix_strategy": None}]}),
+        encoding="utf-8",
+    )
+    (tmp_path / "Example.java").write_text("class Example {}\n", encoding="utf-8")
+
+    assert module.main([
+        "--artifacts-dir", str(artifacts), "--rule-id", "RULE",
+        "--task-id", "RULE-0000", "--workspace-root", str(tmp_path),
+    ]) == 2
+    results = json.loads((artifacts / "06-fix-results-RULE.json").read_text(encoding="utf-8"))
+    assert results[-1]["status"] == "FAILED"
+
+
+@pytest.mark.parametrize("rules", [None, {}, [None], ["bad"]])
+def test_main_records_failure_for_malformed_manifest_rules(tmp_path, rules):
+    module = load_module()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    (artifacts / "05-rule-batch-RULE.json").write_text(
+        json.dumps({"files": [{"file": "Example.java", "flags": [{"rule_id": "RULE", "line": 1}]}]}),
+        encoding="utf-8",
+    )
+    (artifacts / "01-breaking-changes-manifest.json").write_text(json.dumps({"rules": rules}), encoding="utf-8")
+    (tmp_path / "Example.java").write_text("class Example {}\n", encoding="utf-8")
+
+    assert module.main([
+        "--artifacts-dir", str(artifacts), "--rule-id", "RULE",
+        "--task-id", "RULE-0000", "--workspace-root", str(tmp_path),
     ]) == 2
     results = json.loads((artifacts / "06-fix-results-RULE.json").read_text(encoding="utf-8"))
     assert results[-1]["status"] == "FAILED"

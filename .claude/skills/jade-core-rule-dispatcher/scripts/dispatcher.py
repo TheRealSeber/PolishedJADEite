@@ -34,12 +34,15 @@ def iso_now() -> str:
     )
 
 
-def read_json(path: pathlib.Path) -> Dict:
+def read_json(path: pathlib.Path) -> Dict[str, Any]:
     try:
         with path.open("r", encoding="utf-8") as f:
-            return json.load(f)
+            payload = json.load(f)
     except (json.JSONDecodeError, OSError) as exc:
         return {"_error": str(exc)}
+    if not isinstance(payload, dict):
+        return {"_error": "JSON root must be an object"}
+    return payload
 
 
 def write_json_atomic(path: pathlib.Path, payload: Any) -> None:
@@ -56,13 +59,30 @@ def load_task(batch_path: pathlib.Path, task_id: str) -> Optional[Dict]:
     batch = read_json(batch_path)
     if "_error" in batch:
         return None
-    tasks: List[Dict] = batch.get("files", [])
+    tasks = batch.get("files", [])
+    if not isinstance(tasks, list) or not all(isinstance(task, dict) for task in tasks):
+        return None
     for task in tasks:
+        if "file" in task and not isinstance(task["file"], str):
+            return None
+        flags = task.get("flags", [])
+        if not isinstance(flags, list) or not all(isinstance(flag, dict) for flag in flags):
+            return None
+        if any(
+            ("rule_id" in flag and not isinstance(flag["rule_id"], str))
+            or ("file" in flag and not isinstance(flag["file"], str))
+            or (
+                "line" in flag
+                and (not isinstance(flag["line"], int) or isinstance(flag["line"], bool))
+            )
+            for flag in flags
+        ):
+            return None
         tids = [
             f.get("rule_id", "")
             + "-"
             + f.get("file", "").split("/")[-1].replace(".java", "")
-            for f in task.get("flags", [])
+            for f in flags
         ]
         if task_id in tids:
             return task
@@ -84,7 +104,9 @@ def load_rule(manifest_path: pathlib.Path, rule_id: str) -> Optional[Dict]:
     manifest = read_json(manifest_path)
     if "_error" in manifest:
         return None
-    rules: List[Dict] = manifest.get("rules", [])
+    rules = manifest.get("rules", [])
+    if not isinstance(rules, list) or not all(isinstance(rule, dict) for rule in rules):
+        return None
     for rule in rules:
         if rule.get("id") == rule_id:
             return rule
@@ -159,6 +181,15 @@ def resolve_script_path(script_path: str) -> pathlib.Path:
         or recipe_name in {".", ".."}
     ):
         raise ValueError(f"Recipe script has unsafe registry path: {script_path}")
+    expected = (
+        f"{RECIPE_REGISTRY_PREFIX[0]}/{RECIPE_REGISTRY_PREFIX[1]}/"
+        f"{RECIPE_REGISTRY_PREFIX[2]}/{bucket}/{recipe_name}/scripts/apply.py"
+    )
+    if script_path != expected:
+        raise ValueError(
+            "Recipe script must be a canonical registry recipe script: "
+            f"{script_path}"
+        )
     registry_root = repo_root / ".claude/skills/java-migration-skill-registry"
     try:
         resolved.relative_to(registry_root.resolve())
@@ -458,7 +489,7 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     fix_strategy = rule.get("fix_strategy", "")
 
-    if not fix_strategy.startswith("recipe:"):
+    if not isinstance(fix_strategy, str) or not fix_strategy.startswith("recipe:"):
         record_result(
             artifacts_dir,
             args.task_id,

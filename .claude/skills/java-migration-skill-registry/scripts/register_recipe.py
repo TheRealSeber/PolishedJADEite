@@ -65,6 +65,11 @@ def _validate_registry(registry: Dict, registry_root: pathlib.Path) -> None:
             raise ValueError(f"invalid registry entry {rule_id}: unsafe script path") from exc
         if bucket not in BUCKETS:
             raise ValueError(f"invalid registry entry {rule_id}: unknown bucket")
+        expected_script = (
+            f"{REGISTRY_SCRIPT_PREFIX}/{bucket}/{recipe_name}/scripts/apply.py"
+        )
+        if script != expected_script:
+            raise ValueError(f"invalid registry entry {rule_id}: unsafe script path")
         resolved_script = registry_root.joinpath(bucket, recipe_name, "scripts", "apply.py").resolve()
         script_on_disk = registry_root / bucket / recipe_name / "scripts" / "apply.py"
         if script_on_disk.is_symlink():

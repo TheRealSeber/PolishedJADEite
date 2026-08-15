@@ -231,7 +231,12 @@ def test_maven_rejects_dot_mvn_metadata_before_copy(tmp_path, monkeypatch):
     mod = _load_module()
     project = tmp_path / "consumer"
     project.mkdir()
-    (project / "pom.xml").write_text("<project/>", encoding="utf-8")
+    (project / "pom.xml").write_text(
+        "<project><dependencies><dependency><groupId>com.tilab.jade</groupId>"
+        "<artifactId>jade</artifactId><version>4.6</version></dependency>"
+        "</dependencies></project>",
+        encoding="utf-8",
+    )
     (project / ".mvn").mkdir()
     (project / ".mvn" / "maven.config").write_text("-Dunsafe=true", encoding="utf-8")
     workspace = tmp_path / "workspace"
@@ -261,6 +266,8 @@ def test_maven_pom_rejects_unallowlisted_plugin(tmp_path, monkeypatch):
     (project / "pom.xml").write_text(
         """<project xmlns="http://maven.apache.org/POM/4.0.0">
           <modelVersion>4.0.0</modelVersion>
+          <dependencies><dependency><groupId>com.tilab.jade</groupId>
+          <artifactId>jade</artifactId><version>4.6</version></dependency></dependencies>
           <build><plugins><plugin>
             <groupId>com.attacker</groupId><artifactId>host-exec</artifactId>
           </plugin></plugins></build>
@@ -297,6 +304,50 @@ def test_jrba_consumer_pom_uses_only_allowlisted_build_plugins():
     assert mod.validate_maven_pom(
         REPO_ROOT / "consumer-playground" / "jrba"
     ) is None
+
+
+def test_maven_rejects_nested_pom_and_ja_de_dependency_mismatch(tmp_path):
+    mod = _load_module()
+    project = tmp_path / "consumer"
+    nested = project / "module"
+    nested.mkdir(parents=True)
+    valid_pom = """<project>
+      <dependencies><dependency><groupId>com.tilab.jade</groupId>
+      <artifactId>jade</artifactId><version>4.6</version></dependency></dependencies>
+    </project>"""
+    (project / "pom.xml").write_text(valid_pom, encoding="utf-8")
+    (nested / "pom.xml").write_text(
+        """<project><parent><groupId>evil</groupId><artifactId>parent</artifactId>
+        <version>1</version></parent><dependencies><dependency>
+        <groupId>com.tilab.jade</groupId><artifactId>jade</artifactId>
+        <version>4.5</version></dependency></dependencies></project>""",
+        encoding="utf-8",
+    )
+
+    error = mod.validate_maven_project(project)
+
+    assert error is not None
+    assert "parent" in error or "4.6" in error
+
+
+def test_maven_rejects_system_dependencies_and_compiler_execution_controls(tmp_path):
+    mod = _load_module()
+    project = tmp_path / "consumer"
+    project.mkdir()
+    (project / "pom.xml").write_text(
+        """<project><dependencies><dependency><groupId>com.tilab.jade</groupId>
+        <artifactId>jade</artifactId><version>4.6</version><scope>system</scope>
+        <systemPath>${project.basedir}/unsafe.jar</systemPath></dependency></dependencies>
+        <build><plugins><plugin><artifactId>maven-compiler-plugin</artifactId>
+        <configuration><fork>true</fork></configuration></plugin></plugins></build>
+        </project>""",
+        encoding="utf-8",
+    )
+
+    error = mod.validate_maven_pom(project)
+
+    assert error is not None
+    assert "system" in error or "fork" in error
 
 
 def test_tracked_consumers_use_central_image_placeholder():
@@ -890,7 +941,12 @@ def test_maven_does_not_stage_stale_target_files(tmp_path, monkeypatch):
     (project / "target/classes/Stale.class").write_bytes(b"stale")
     (project / "target/dependency").mkdir(parents=True)
     (project / "target/dependency/stale.jar").write_bytes(b"stale")
-    (project / "pom.xml").write_text("<project/>", encoding="utf-8")
+    (project / "pom.xml").write_text(
+        "<project><dependencies><dependency><groupId>com.tilab.jade</groupId>"
+        "<artifactId>jade</artifactId><version>4.6</version></dependency>"
+        "</dependencies></project>",
+        encoding="utf-8",
+    )
     workspace = tmp_path / "workspace"
     workspace.mkdir()
     (workspace / "jade.jar").write_bytes(b"jade")
@@ -946,7 +1002,12 @@ def test_maven_build_stages_classes_and_runtime_jars(tmp_path, monkeypatch):
     consumer = tmp_path / "consumer"
     project = consumer / "maven"
     project.mkdir(parents=True)
-    (project / "pom.xml").write_text("<project/>", encoding="utf-8")
+    (project / "pom.xml").write_text(
+        "<project><dependencies><dependency><groupId>com.tilab.jade</groupId>"
+        "<artifactId>jade</artifactId><version>4.6</version></dependency>"
+        "</dependencies></project>",
+        encoding="utf-8",
+    )
     workspace = tmp_path / "workspace"
     workspace.mkdir()
     jade = workspace / "jade.jar"
@@ -982,7 +1043,12 @@ def test_maven_build_installs_workspace_jade_before_package(tmp_path):
     consumer = tmp_path / "consumer"
     project = consumer / "maven"
     project.mkdir(parents=True)
-    (project / "pom.xml").write_text("<project/>", encoding="utf-8")
+    (project / "pom.xml").write_text(
+        "<project><dependencies><dependency><groupId>com.tilab.jade</groupId>"
+        "<artifactId>jade</artifactId><version>4.6</version></dependency>"
+        "</dependencies></project>",
+        encoding="utf-8",
+    )
     workspace = tmp_path / "workspace"
     workspace.mkdir()
     jade = workspace / "jade.jar"
@@ -1071,7 +1137,12 @@ def test_maven_build_returns_actionable_failure(tmp_path, monkeypatch):
     consumer = tmp_path / "consumer"
     project = consumer / "maven"
     project.mkdir(parents=True)
-    (project / "pom.xml").write_text("<project/>", encoding="utf-8")
+    (project / "pom.xml").write_text(
+        "<project><dependencies><dependency><groupId>com.tilab.jade</groupId>"
+        "<artifactId>jade</artifactId><version>4.6</version></dependency>"
+        "</dependencies></project>",
+        encoding="utf-8",
+    )
     workspace = tmp_path / "workspace"
     workspace.mkdir()
     (workspace / "jade.jar").write_bytes(b"jade")

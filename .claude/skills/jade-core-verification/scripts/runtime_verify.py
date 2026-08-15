@@ -222,6 +222,53 @@ def validate_maven_pom(project_root: pathlib.Path) -> Optional[str]:
     except (ET.ParseError, OSError) as exc:
         return f"Maven POM cannot be parsed: {exc}"
 
+    for node in root.iter():
+        if _xml_local_name(node.tag) in {
+            "parent",
+            "modules",
+            "repositories",
+            "pluginRepositories",
+        }:
+            return f"Maven POM element {_xml_local_name(node.tag)} is not allowed"
+        if _xml_local_name(node.tag) == "systemPath":
+            return "Maven systemPath dependencies are not allowed"
+        if _xml_local_name(node.tag) == "scope" and (
+            (node.text or "").strip() == "system"
+        ):
+            return "Maven system dependencies are not allowed"
+
+    properties = {}
+    for node in root:
+        if _xml_local_name(node.tag) == "properties":
+            properties = {
+                _xml_local_name(child.tag): (child.text or "").strip()
+                for child in node
+            }
+    jade_dependencies = []
+    for dependencies in root:
+        if _xml_local_name(dependencies.tag) != "dependencies":
+            continue
+        for dependency in dependencies:
+            if _xml_local_name(dependency.tag) != "dependency":
+                continue
+            values = {
+                _xml_local_name(child.tag): (child.text or "").strip()
+                for child in dependency
+            }
+            if (
+                values.get("groupId") == "com.tilab.jade"
+                and values.get("artifactId") == "jade"
+            ):
+                jade_dependencies.append(values.get("version"))
+    resolved_jade_versions = [
+        properties.get(version[2:-1], version)
+        if isinstance(version, str) and version.startswith("${") and version.endswith("}")
+        else version
+        for version in jade_dependencies
+    ]
+    if resolved_jade_versions != ["4.6"]:
+        return "Maven POM must declare exactly com.tilab.jade:jade:4.6"
+
     for build in [child for child in root if _xml_local_name(child.tag) == "build"]:
         if any(_xml_local_name(node.tag) == "extension" for node in build.iter()):
             return "Maven build extensions are not allowed"
@@ -249,6 +296,15 @@ def validate_maven_pom(project_root: pathlib.Path) -> Optional[str]:
             )
             if (group_id, artifact_id) not in ALLOWED_MAVEN_PLUGINS:
                 return f"Maven plugin {group_id}:{artifact_id} is not allowlisted"
+            if artifact_id == "maven-compiler-plugin":
+                forbidden = {
+                    "fork",
+                    "executable",
+                    "annotationProcessorPaths",
+                    "annotationProcessorPath",
+                }
+                if any(_xml_local_name(node.tag) in forbidden for node in plugin.iter()):
+                    return "Maven compiler execution controls are not allowed"
 
     for profile in [node for node in root.iter() if _xml_local_name(node.tag) == "profile"]:
         if any(_xml_local_name(node.tag) in {"plugin", "extension"} for node in profile.iter()):
@@ -259,6 +315,19 @@ def validate_maven_pom(project_root: pathlib.Path) -> Optional[str]:
             for node in profile.iter()
         ):
             return "Maven profiles with build plugins or extensions are not allowed"
+    return None
+
+
+def validate_maven_project(project_root: pathlib.Path) -> Optional[str]:
+    for metadata in project_root.rglob(".mvn"):
+        return "Maven .mvn metadata directory is not allowed"
+    pom_paths = sorted(project_root.rglob("pom.xml"))
+    if not pom_paths:
+        return f"Maven POM not found: {project_root / 'pom.xml'}"
+    for pom_path in pom_paths:
+        error = validate_maven_pom(pom_path.parent)
+        if error:
+            return f"{pom_path}: {error}"
     return None
 
 
@@ -505,7 +574,7 @@ def build_maven_consumer(
     if path_error:
         return False, path_error
 
-    pom_error = validate_maven_pom(project_root)
+    pom_error = validate_maven_project(project_root)
     if pom_error:
         return False, f"Maven POM rejected: {pom_error}"
 

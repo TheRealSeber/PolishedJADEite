@@ -11,6 +11,7 @@
   ],
   "expected_stdout_markers": [
     "JRBA_TEST_STARTED",
+    "JRBA_BEHAVIOR_EXECUTED",
     "JRBA_TEST_PASSED"
   ],
   "failure_stdout_markers": [

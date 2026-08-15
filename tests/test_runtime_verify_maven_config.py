@@ -3,6 +3,8 @@ import json
 import pathlib
 import sys
 
+import pytest
+
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 RUNTIME_VERIFY_PATH = (
@@ -160,6 +162,25 @@ def test_maven_config_rejects_unsafe_artifact_and_runtime_paths(tmp_path):
     assert any("maven_runtime_lib_dir" in error for error in errors)
 
 
+def test_maven_config_rejects_consumer_maven_executable(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    (consumer / "maven").mkdir(parents=True)
+
+    normalized, errors = mod.validate_consumer_config(
+        consumer,
+        {
+            "build_mode": "maven",
+            "maven_project_root": "maven",
+            "maven_executable": ["arbitrary-host-command"],
+        },
+        tmp_path / "workspace",
+    )
+
+    assert any("maven_executable" in error for error in errors)
+    assert "maven_executable" not in normalized
+
+
 def test_discovery_records_invalid_top_level_config_values(tmp_path):
     mod = _load_module()
     mod.PLAYGROUND_DIR = tmp_path / "consumer-playground"
@@ -315,7 +336,7 @@ def test_explicit_jade_artifact_is_present_in_runtime_classpath():
     assert "/ws/artifacts/jade.jar" in classpath
 
 
-def test_maven_does_not_stage_stale_target_files(tmp_path):
+def test_maven_does_not_stage_stale_target_files(tmp_path, monkeypatch):
     mod = _load_module()
     consumer = tmp_path / "consumer"
     project = consumer / "maven"
@@ -330,6 +351,7 @@ def test_maven_does_not_stage_stale_target_files(tmp_path):
     fake_maven = tmp_path / "mvn.py"
     _write_fake_maven(fake_maven, args_path=project / "maven-args.txt")
     build_dir = tmp_path / "build"
+    monkeypatch.setattr(mod, "_maven_command", lambda: [sys.executable, str(fake_maven)])
 
     ok, output = mod.build_maven_consumer(
         consumer,
@@ -337,7 +359,6 @@ def test_maven_does_not_stage_stale_target_files(tmp_path):
         {
             "maven_project_root": "maven",
             "classpath_deps": ["jade.jar"],
-            "maven_executable": [sys.executable, str(fake_maven)],
         },
         build_dir,
     )
@@ -384,7 +405,7 @@ def test_maven_build_stages_classes_and_runtime_jars(tmp_path, monkeypatch):
     fake_maven = tmp_path / "mvn.py"
     _write_fake_maven(fake_maven, args_path=project / "maven-args.txt")
     build_dir = tmp_path / "build"
-    monkeypatch.setattr(mod.shutil, "which", lambda name: sys.executable if name == "mvn" else None)
+    monkeypatch.setattr(mod, "_maven_command", lambda: [sys.executable, str(fake_maven)])
 
     ok, output = mod.build_maven_consumer(
         consumer,
@@ -392,7 +413,6 @@ def test_maven_build_stages_classes_and_runtime_jars(tmp_path, monkeypatch):
         {
             "maven_project_root": "maven",
             "classpath_deps": ["jade.jar"],
-            "maven_executable": [sys.executable, str(fake_maven)],
         },
         build_dir,
     )
@@ -421,6 +441,8 @@ def test_maven_build_installs_workspace_jade_before_package(tmp_path):
     fake_maven = tmp_path / "mvn.py"
     invocations = tmp_path / "maven-invocations.txt"
     _write_fake_maven_sequence(fake_maven, invocations)
+    mod = _load_module()
+    mod._maven_command = lambda: [sys.executable, str(fake_maven)]
 
     ok, output = mod.build_maven_consumer(
         consumer,
@@ -428,7 +450,6 @@ def test_maven_build_installs_workspace_jade_before_package(tmp_path):
         {
             "maven_project_root": "maven",
             "classpath_deps": ["jade.jar"],
-            "maven_executable": [sys.executable, str(fake_maven)],
         },
         tmp_path / "build",
     )
@@ -501,7 +522,7 @@ def test_maven_build_returns_actionable_failure(tmp_path, monkeypatch):
     (workspace / "jade.jar").write_bytes(b"jade")
     fake_maven = tmp_path / "mvn.py"
     _write_fake_maven(fake_maven, exit_code=7)
-    monkeypatch.setattr(mod.shutil, "which", lambda name: sys.executable if name == "mvn" else None)
+    monkeypatch.setattr(mod, "_maven_command", lambda: [sys.executable, str(fake_maven)])
 
     ok, output = mod.build_maven_consumer(
         consumer,
@@ -509,7 +530,6 @@ def test_maven_build_returns_actionable_failure(tmp_path, monkeypatch):
         {
             "maven_project_root": "maven",
             "classpath_deps": ["jade.jar"],
-            "maven_executable": [sys.executable, str(fake_maven)],
         },
         tmp_path / "build",
     )

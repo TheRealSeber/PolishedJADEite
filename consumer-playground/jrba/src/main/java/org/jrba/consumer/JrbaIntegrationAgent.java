@@ -3,6 +3,7 @@ package org.jrba.consumer;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.Behaviour;
 import java.util.List;
+import org.jrba.agentmodel.behaviour.ListenForControllerObjects;
 import org.jrba.agentmodel.domain.AbstractAgent;
 
 /** Minimal runtime probe for the JRBA-to-JADE integration boundary. */
@@ -20,6 +21,7 @@ public final class JrbaIntegrationAgent extends AbstractAgent {
             public void action() {
                 System.out.println("JRBA_TEST_STARTED");
                 try {
+                    System.out.println("JRBA_BEHAVIOR_EXECUTED");
                     if (getObjectsNumber() != 0 || !"DEFAULT_RULE_SET".equals(getDefaultRuleSet())) {
                         throw new IllegalStateException("Unexpected JRBA defaults");
                     }
@@ -32,6 +34,12 @@ public final class JrbaIntegrationAgent extends AbstractAgent {
                 }
             }
         });
+    }
+
+    @Override
+    protected void runStartingBehaviours() {
+        addBehaviour(new ListenForControllerObjects(
+                this, prepareStartingBehaviours(), getObjectsNumber()));
     }
 
     private int exitCode;

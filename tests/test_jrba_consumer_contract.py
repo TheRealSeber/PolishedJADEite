@@ -53,7 +53,11 @@ def test_jrba_config_uses_maven_verifier_contract():
     assert config["boot_args"] == ["-agents", "runner:org.jrba.consumer.JrbaIntegrationAgent"]
     assert config["source_level"] == 17
     assert config["jade_artifact"] == "jade.jar"
-    assert config["expected_stdout_markers"] == ["JRBA_TEST_STARTED", "JRBA_TEST_PASSED"]
+    assert config["expected_stdout_markers"] == [
+        "JRBA_TEST_STARTED",
+        "JRBA_BEHAVIOR_EXECUTED",
+        "JRBA_TEST_PASSED",
+    ]
     assert config["failure_stdout_markers"] == ["JRBA_TEST_FAILED"]
     assert config["timeout_seconds"] > 0
 
@@ -87,6 +91,8 @@ def test_jrba_agent_has_ordered_markers_and_one_exit_call():
     assert "extends AbstractAgent" in agent
     assert "super.setup()" in agent
     assert "prepareStartingBehaviours" in agent
+    assert "ListenForControllerObjects" in agent
+    assert "JRBA_BEHAVIOR_EXECUTED" in agent
     assert "doDelete()" in agent
     assert "takeDown()" in agent
     assert agent.index("JRBA_TEST_STARTED") < agent.index("JRBA_TEST_PASSED")

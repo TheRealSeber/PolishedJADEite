@@ -138,6 +138,12 @@ def validate_consumer_config(
     normalized = dict(cfg)
     errors: List[str] = []
 
+    if "maven_executable" in normalized:
+        errors.append(
+            "maven_executable is not supported; the verifier selects Maven"
+        )
+        normalized.pop("maven_executable", None)
+
     if normalized.get("_config_error"):
         errors.append(str(normalized["_config_error"]))
 
@@ -287,12 +293,7 @@ def compile_consumer(
         return False, f"Failed to run javac: {exc}"
 
 
-def _maven_command(cfg: Dict[str, Any]) -> List[str]:
-    configured = cfg.get("maven_executable")
-    if isinstance(configured, list) and configured and all(
-        isinstance(part, str) for part in configured
-    ):
-        return list(configured)
+def _maven_command() -> List[str]:
     maven = shutil.which("mvn") or "mvn"
     return [maven]
 
@@ -324,7 +325,7 @@ def build_maven_consumer(
     if path_error:
         return False, path_error
 
-    maven_cmd = _maven_command(cfg)
+    maven_cmd = _maven_command()
     with tempfile.TemporaryDirectory(prefix="jade-maven-repo-") as repo:
         isolated_project = pathlib.Path(repo) / "consumer"
         shutil.copytree(

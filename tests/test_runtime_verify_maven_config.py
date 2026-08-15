@@ -425,7 +425,7 @@ def test_maven_build_stages_classes_and_runtime_jars(tmp_path, monkeypatch):
     assert "-ntp" in args
     assert "-Dmaven.repo.local=" in args
     assert f"-Djade.artifact={jade.resolve()}" not in args
-    assert "dependency:copy-dependencies" in args
+    assert "org.apache.maven.plugins:maven-dependency-plugin:3.6.1:copy-dependencies" in args
 
 
 def test_maven_build_installs_workspace_jade_before_package(tmp_path):

@@ -92,9 +92,16 @@ def test_jrba_agent_has_ordered_markers_and_one_exit_call():
     assert "super.setup()" in agent
     assert "prepareStartingBehaviours" in agent
     assert "ListenForControllerObjects" in agent
+    assert "RulesController" in agent
+    assert "RuleSetRest" in agent
+    assert "RuleSetFacts" in agent
+    assert "RuleSet" in agent
+    assert "rulesController.fire" in agent
     assert "JRBA_BEHAVIOR_EXECUTED" in agent
     assert "doDelete()" in agent
     assert "takeDown()" in agent
     assert agent.index("JRBA_TEST_STARTED") < agent.index("JRBA_TEST_PASSED")
+    assert agent.index("rulesController.fire") < agent.index("JRBA_BEHAVIOR_EXECUTED")
+    assert agent.index("JRBA_BEHAVIOR_EXECUTED") < agent.index("JRBA_TEST_PASSED")
     assert "JRBA_TEST_FAILED" in agent
     assert agent.count("System.exit(") == 1

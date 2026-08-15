@@ -366,7 +366,7 @@ def build_maven_consumer(
 
         cmd = maven_cmd + common_args + [
             "package",
-            "dependency:copy-dependencies",
+            "org.apache.maven.plugins:maven-dependency-plugin:3.6.1:copy-dependencies",
             "-DincludeScope=runtime",
             "-DoutputDirectory=target/dependency",
         ]

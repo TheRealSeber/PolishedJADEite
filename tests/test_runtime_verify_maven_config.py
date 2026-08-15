@@ -38,6 +38,76 @@ def test_maven_config_accepts_project_root_inside_consumer(tmp_path):
     assert normalized["maven_project_root"] == "jrba"
 
 
+def test_runtime_java_version_uses_numeric_supported_value(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+
+    normalized, errors = mod.validate_consumer_config(
+        consumer,
+        {"runtime_java_version": 17},
+        tmp_path / "workspace",
+    )
+
+    assert errors == []
+    assert normalized["runtime_java_version"] == 17
+
+
+def test_runtime_java_version_rejects_invalid_values(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+
+    for value in (None, "", "17.0", 21, [], True):
+        _, errors = mod.validate_consumer_config(
+            consumer,
+            {"runtime_java_version": value},
+            tmp_path / "workspace",
+        )
+        assert any("runtime_java_version" in error for error in errors)
+
+
+def test_runtime_java_version_overrides_jade_target_for_image_resolution():
+    mod = _load_module()
+    registry = {
+        "java-8": "java8",
+        "java-11": "java11",
+        "java-17": "java17",
+    }
+
+    assert mod.resolve_consumer_docker_image(
+        {"docker_image": "${TARGET_DOCKER_IMAGE}", "runtime_java_version": 17},
+        {"target_version": "1.7"},
+        registry,
+    ) == "java17"
+
+
+def test_consumer_result_records_runtime_and_maven_metadata(tmp_path, monkeypatch):
+    mod = _load_module()
+    project = tmp_path / "consumer"
+    (project / "maven").mkdir(parents=True)
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    cfg = {
+        "name": "consumer",
+        "build_mode": "maven",
+        "maven_project_root": "maven",
+        "runtime_java_version": 17,
+        "docker_image": "eclipse-temurin:17-jre",
+        "classpath_deps": [],
+        "expected_stdout_markers": ["PASS"],
+    }
+    monkeypatch.setattr(mod, "build_maven_consumer", lambda *args: (True, ""))
+    monkeypatch.setattr(mod, "run_in_docker", lambda *args: (0, "PASS", ""))
+
+    result = mod.test_consumer(project, workspace, cfg)
+
+    assert result["status"] == "PASS"
+    assert result["docker_image"] == "eclipse-temurin:17-jre"
+    assert result["runtime_java_version"] == 17
+    assert result["maven_dependency_plugin_version"] == "3.6.1"
+
+
 def test_maven_config_rejects_missing_project_root(tmp_path):
     mod = _load_module()
     consumer = tmp_path / "consumer"

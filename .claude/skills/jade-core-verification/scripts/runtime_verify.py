@@ -27,6 +27,8 @@ from typing import Any, Dict, List, Optional, Tuple
 # ------------------------------------------------------------------
 PLAYGROUND_DIR = pathlib.Path("consumer-playground")
 TIMEOUT_BUFFER = 15  # extra seconds beyond test-config timeout for docker pull etc.
+MAVEN_DEPENDENCY_PLUGIN_VERSION = "3.6.1"
+SUPPORTED_RUNTIME_JAVA_VERSIONS = {8, 11, 17}
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[4]
 DOCKER_IMAGE_CONFIG_PATH = REPO_ROOT / "config" / "docker-images.json"
 
@@ -84,6 +86,22 @@ def load_docker_image_registry(config_path: pathlib.Path) -> Dict[str, str]:
     return {str(k): str(v) for k, v in payload.items()}
 
 
+def parse_runtime_java_version(raw_version: Any) -> int:
+    if isinstance(raw_version, bool):
+        raise ValueError("runtime_java_version must be numeric Java 8, 11, or 17")
+    if isinstance(raw_version, int):
+        major = raw_version
+    elif isinstance(raw_version, str) and raw_version.strip().isdigit():
+        major = int(raw_version.strip())
+    else:
+        raise ValueError("runtime_java_version must be numeric Java 8, 11, or 17")
+    if major not in SUPPORTED_RUNTIME_JAVA_VERSIONS:
+        raise ValueError(
+            f"runtime_java_version {major} is unsupported; use Java 8, 11, or 17"
+        )
+    return major
+
+
 def resolve_docker_image(target_version: str, registry: Dict[str, str]) -> str:
     if not isinstance(target_version, str) or not target_version.strip():
         raise ValueError(
@@ -108,9 +126,15 @@ def resolve_docker_image(target_version: str, registry: Dict[str, str]) -> str:
 def resolve_consumer_docker_image(
     consumer_cfg: Dict[str, Any], run_cfg: Dict[str, Any], registry: Dict[str, str]
 ) -> str:
+    if "runtime_java_version" in consumer_cfg:
+        runtime_version = parse_runtime_java_version(
+            consumer_cfg["runtime_java_version"]
+        )
+    else:
+        runtime_version = str(run_cfg.get("target_version", ""))
     configured = str(consumer_cfg.get("docker_image", "")).strip()
     if configured == "${TARGET_DOCKER_IMAGE}" or not configured:
-        return resolve_docker_image(str(run_cfg.get("target_version", "")), registry)
+        return resolve_docker_image(str(runtime_version), registry)
     return configured
 
 
@@ -187,6 +211,14 @@ def validate_consumer_config(
             )
             if error:
                 errors.append(error)
+
+    if "runtime_java_version" in normalized:
+        try:
+            normalized["runtime_java_version"] = parse_runtime_java_version(
+                normalized["runtime_java_version"]
+            )
+        except ValueError as exc:
+            errors.append(str(exc))
 
     classpath_deps = normalized.get("classpath_deps", [])
     if not isinstance(classpath_deps, list):
@@ -374,7 +406,7 @@ def build_maven_consumer(
 
         cmd = maven_cmd + common_args + [
             "package",
-            "org.apache.maven.plugins:maven-dependency-plugin:3.6.1:copy-dependencies",
+            f"org.apache.maven.plugins:maven-dependency-plugin:{MAVEN_DEPENDENCY_PLUGIN_VERSION}:copy-dependencies",
             "-DincludeScope=runtime",
             "-DoutputDirectory=target/dependency",
         ]
@@ -528,7 +560,11 @@ def test_consumer(
         "jade_booted": False,
         "stdout_snippet": "",
         "error": None,
+        "docker_image": cfg.get("docker_image"),
+        "runtime_java_version": cfg.get("runtime_java_version"),
     }
+    if cfg.get("build_mode") == "maven":
+        result["maven_dependency_plugin_version"] = MAVEN_DEPENDENCY_PLUGIN_VERSION
 
     t0 = time.monotonic()
 

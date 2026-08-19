@@ -1,7 +1,7 @@
 {
   "name": "version-check",
   "description": "Verify JADE boots and reports Java runtime version",
-  "docker_image": "eclipse-temurin:17-jre",
+  "docker_image": "${TARGET_DOCKER_IMAGE}",
   "main_class": "jade.Boot",
   "source_level": "8",
   "boot_args": ["-agents", "check:VersionCheckAgent"],

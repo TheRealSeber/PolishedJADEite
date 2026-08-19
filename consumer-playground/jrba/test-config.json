@@ -1,0 +1,27 @@
+{
+  "name": "jrba",
+  "description": "JRBA production-source Maven consumer integration check; Java 17 suffices because static inspection found only record, pattern matching, switch expressions, Stream.toList, and List.of",
+  "build_mode": "maven",
+  "maven_project_root": ".",
+  "docker_image": "${TARGET_DOCKER_IMAGE}",
+  "main_class": "jade.Boot",
+  "boot_args": [
+    "-agents",
+    "runner:org.jrba.consumer.JrbaIntegrationAgent"
+  ],
+  "expected_stdout_markers": [
+    "JRBA_TEST_STARTED",
+    "JRBA_BEHAVIOR_EXECUTED",
+    "JRBA_TEST_PASSED"
+  ],
+  "failure_stdout_markers": [
+    "JRBA_TEST_FAILED"
+  ],
+  "timeout_seconds": 60,
+  "source_level": 17,
+  "runtime_java_version": 17,
+  "jade_artifact": "jade.jar",
+  "classpath_deps": [
+    "jade.jar"
+  ]
+}

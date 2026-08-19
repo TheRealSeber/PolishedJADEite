@@ -1,7 +1,7 @@
 {
   "name": "hw-jade",
   "description": "Full ensemble integration test: 4 hotels, 3 flights, 2 travel agencies, 1 customer running FIPA ContractNet negotiation",
-  "docker_image": "eclipse-temurin:17-jre",
+  "docker_image": "${TARGET_DOCKER_IMAGE}",
   "main_class": "jade.Boot",
   "boot_args": [
     "-agents",

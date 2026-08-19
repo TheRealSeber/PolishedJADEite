@@ -381,7 +381,22 @@ def load_docker_image_registry(config_path: pathlib.Path) -> Dict[str, str]:
 
 
 def resolve_docker_image(target_version: str, registry: Dict[str, str]) -> str:
+    if not isinstance(target_version, str) or not target_version.strip():
+        raise ValueError(
+            "Target Java version is invalid or unsupported: value is missing"
+        )
     major = java_major(target_version)
+    if major <= 0:
+        raise ValueError(
+            f"Target Java version is invalid or unsupported: {target_version}"
+        )
+    if major > 17:
+        image_key = f"java-{major}"
+        if image_key not in registry:
+            raise ValueError(
+                f"Target Java {major} is unsupported; registry has no {image_key} image"
+            )
+        return registry[image_key]
     if major >= 17:
         return registry["java-17"]
     if major >= 11:
@@ -809,7 +824,11 @@ def main() -> int:
         print(f"ERROR [DOCKER_IMAGE_CONFIG_INVALID] {exc}", file=sys.stderr)
         return 2
 
-    resolved_docker_image = resolve_docker_image(target_version, docker_registry)
+    try:
+        resolved_docker_image = resolve_docker_image(target_version, docker_registry)
+    except ValueError as exc:
+        print(f"ERROR [DOCKER_IMAGE_UNSUPPORTED] {exc}", file=sys.stderr)
+        return 2
 
     # Docker prerequisite
     if not _docker_available():

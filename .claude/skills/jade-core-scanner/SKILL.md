@@ -28,18 +28,19 @@ once per matched location. Write a flag index and a human-readable scan summary.
 - **Idempotent.** Re-running on already-tagged sources must not create duplicate flags.
 - **No prompt payload handoff.** Scanner writes artifacts to disk; never dump source contents into context.
 - **Atomic file writes.** Only touching files that contain a new match; using temp-file + rename.
-- **Deterministic.** Same manifest + same workspace → same output every time (except timestamps).
+- **Deterministic.** Same manifest + same workspace + same graph → byte-identical output every time (no volatile timestamps).
 
 ## Required inputs
 
 - `{artifacts}/01-breaking-changes-manifest.json`
 - `{artifacts}/02-linter-findings.json` (optional — merged with manifest rules if present)
+- `{artifacts}/03.5-knowledge-graph.json` (optional — enriches each flag with advisory graph impact metadata when present and valid)
 - `{workspace}` — directory tree of source files to scan (e.g., `migration-runs/sample/workspace`)
 
 ## Produced outputs
 
-- `{artifacts}/04-flag-index.json` — every injected flag with file/line/rule/confidence
-- `{artifacts}/04-scan-summary.json` — per-rule counts, total files touched, elapsed time
+- `{artifacts}/04-flag-index.json` — every injected flag with file/line/rule/confidence, plus additive `graph` impact metadata when a valid graph is available
+- `{artifacts}/04-scan-summary.json` — per-rule and per-confidence counts, total files touched
 - Tagged source files under `{workspace}` (modified in-place; only files with new matches)
 
 ---
@@ -161,16 +162,23 @@ Pattern types supported: `regex`. Each `target_extensions` entry must include th
 ```json
 {
   "run_id": "sample-run",
-  "generated_at": "2026-05-21T22:00:00Z",
   "workspace": "migration-runs/sample/workspace",
   "total_flags": 42,
+  "total_files_scanned": 847,
   "flags": [
     {
       "rule_id": "RAW_TYPES",
       "file": "workspace/jade/core/Agent.java",
       "line": 142,
       "confidence": "HIGH",
-      "reason": "Raw collection instantiation (HashMap)"
+      "reason": "Raw collection instantiation (HashMap)",
+      "graph": {
+        "source_artifact": "03.5-knowledge-graph.json",
+        "node_exists": true,
+        "declaration": "jade.core.Agent",
+        "impact_files": ["jade/core/Container.java"],
+        "artifact_diagnostics": {"parse_failures": 0, "unresolved_types": 0, "ambiguous_symbols": 0}
+      }
     }
   ]
 }
@@ -183,12 +191,10 @@ Pattern types supported: `regex`. Each `target_extensions` entry must include th
 ```json
 {
   "run_id": "sample-run",
-  "generated_at": "2026-05-21T22:00:00Z",
   "workspace": "migration-runs/sample/workspace",
   "total_files_scanned": 847,
   "total_new_flags": 42,
   "idempotent_skips": 0,
-  "elapsed_seconds": 2.3,
   "by_rule": {
     "RAW_TYPES": {
       "name": "Raw Types to Generics",

@@ -15,10 +15,12 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import hashlib
+import importlib.util
 import json
+import os
 import pathlib
 import sys
-import importlib.util
 from typing import Any, Dict, List, Optional
 
 # ---------------------------------------------------------------------------
@@ -51,11 +53,17 @@ def write_json(path: pathlib.Path, payload: Dict[str, Any]) -> None:
     tmp = path.with_suffix(path.suffix + ".tmp")
     with tmp.open("w", encoding="utf-8") as fh:
         json.dump(payload, fh, indent=2)
+        fh.flush()
+        os.fsync(fh.fileno())
     tmp.replace(path)
 
 
+def _stable_id(rule_id: str, payload: Any) -> str:
+    content = json.dumps({"rule_id": rule_id, "input": payload}, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(content.encode("utf-8")).hexdigest()[:16]
+
+
 def _graph_helpers():
-    """Reuse the scanner's optional graph loader without adding a pipeline dependency."""
     scanner = pathlib.Path(__file__).parents[3] / "skills" / "jade-core-scanner" / "scripts" / "scan_and_tag.py"
     spec = importlib.util.spec_from_file_location("jade_scanner_graph", scanner)
     if spec is None or spec.loader is None:
@@ -142,7 +150,6 @@ def build_file_task_list(
             {
                 "file": filepath,
                 "flags": entries,
-                "transform_scope": "DIRECT",
                 "status": "PENDING",
                 "updated_at": None,
             }
@@ -152,39 +159,47 @@ def build_file_task_list(
 
 
 def build_impact_only_list(rule_id: str, flag_index: Dict[str, Any]) -> List[Dict[str, Any]]:
-    """Collect graph dependents while keeping them out of transformation tasks."""
-    direct_files = {
-        flag.get("file") for flag in flag_index.get("flags", [])
-        if isinstance(flag, dict) and flag.get("rule_id") == rule_id and flag.get("file")
-    }
+    """Collect graph dependents without adding them to dispatch tasks."""
+    direct_files = {flag.get("file") for flag in flag_index.get("flags", [])
+                    if isinstance(flag, dict) and flag.get("rule_id") == rule_id and flag.get("file")}
     impact: Dict[str, Dict[str, Any]] = {}
     for flag in flag_index.get("flags", []):
         if not isinstance(flag, dict) or flag.get("rule_id") != rule_id:
             continue
         graph = flag.get("graph", {})
-        for path in graph.get("paths", []) if isinstance(graph, dict) else []:
-            if not isinstance(path, dict) or not path.get("file") or path["file"] in direct_files:
+        if not isinstance(graph, dict):
+            continue
+        canonical = graph.get("impact_files")
+        if not isinstance(canonical, list):
+            print(
+                f"WARNING [GRAPH] missing canonical impact_files for {flag.get('file', '<unknown>')}; "
+                "impact-only scope left empty",
+                file=sys.stderr,
+            )
+            continue
+        candidates = canonical
+        paths = graph.get("paths", []) if isinstance(graph.get("paths", []), list) else []
+        paths_by_file: Dict[str, List[Dict[str, Any]]] = {}
+        for path in paths:
+            if isinstance(path, dict) and path.get("file"):
+                paths_by_file.setdefault(path["file"], []).append(path)
+        for candidate in candidates:
+            filepath = candidate.get("file") if isinstance(candidate, dict) else candidate
+            if not filepath or filepath in direct_files:
                 continue
-            item = impact.setdefault(path["file"], {
-                "file": path["file"], "reasons": set(), "paths": [],
-                "source_artifact": GRAPH_ARTIFACT,
-                "source_identity": graph.get("source_identity", {}),
-            })
-            item["reasons"].update(path.get("reasons", []))
-            item["paths"].append({"path": path.get("path", []), "reasons": path.get("reasons", [])})
+            item = impact.setdefault(filepath, {"file": filepath, "reasons": set(), "paths": [],
+                                                "source_artifact": GRAPH_ARTIFACT,
+                                                "source_identity": graph.get("source_identity", {})})
+            for path in paths_by_file.get(filepath, []):
+                reasons = path.get("reasons", []) if isinstance(path.get("reasons", []), list) else []
+                item["reasons"].update(reasons)
+                item["paths"].append({"path": path.get("path", []), "reasons": reasons})
 
-    result = []
-    for filepath in sorted(impact):
-        item = impact[filepath]
-        result.append({
-            "file": filepath,
-            "source_artifact": item["source_artifact"],
-            "source_identity": item["source_identity"],
-            "transform_scope": "IMPACT_ONLY",
-            "reasons": sorted(item["reasons"]),
-            "paths": sorted(item["paths"], key=lambda p: (p["path"], p["reasons"])),
-        })
-    return result
+    return [{"file": filepath, "source_artifact": item["source_artifact"],
+             "source_identity": item["source_identity"], "transform_scope": "IMPACT_ONLY",
+             "reasons": sorted(item["reasons"]),
+             "paths": sorted(item["paths"], key=lambda p: (p["path"], p["reasons"]))}
+            for filepath, item in sorted(impact.items())]
 
 
 def write_batch_artifact(
@@ -198,19 +213,16 @@ def write_batch_artifact(
         task["transform_scope"] = "DIRECT"
     for item in impact_only or []:
         item["transform_scope"] = "IMPACT_ONLY"
+    stable = _stable_id(rule_id, {"files": file_tasks, "impact_only": impact_only or [], "graph": graph_metadata or {}})
     payload = {
         "rule_id": rule_id,
-        "batch_id": f"batch-{rule_id}-{iso_now().replace(':', '-')}",
-        "created_at": iso_now(),
+        "batch_id": f"batch-{rule_id}-{stable}",
+        "created_at": f"content-sha256:{stable}",
         "total_files": len(file_tasks),
         "files": file_tasks,
         "impact_only": impact_only or [],
-        "graph": graph_metadata or {
-            "status": "unavailable",
-            "source_artifact": GRAPH_ARTIFACT,
-            "source_identity": {},
-            "diagnostics": [{"kind": "graph_unavailable"}],
-        },
+        "graph": graph_metadata or {"status": "unavailable", "source_artifact": GRAPH_ARTIFACT,
+                                     "source_identity": {}, "diagnostics": [{"kind": "graph_unavailable"}]},
     }
     path = artifacts / f"05-rule-batch-{rule_id}.json"
     write_json(path, payload)
@@ -250,7 +262,7 @@ def write_batch_status(
         "skipped": counts["SKIPPED"],
         "pending": pending,
         "status": batch_status,
-        "updated_at": iso_now(),
+        "updated_at": f"content-sha256:{_stable_id(rule_id, {'run_id': run_id, 'files': file_tasks})}",
     }
     path = artifacts / "05-rule-batch-status.json"
     write_json(path, payload)
@@ -280,11 +292,9 @@ def cmd_prepare(artifacts: pathlib.Path, rule_id: str, run_id: str) -> int:
         impact_only = build_impact_only_list(rule_id, flag_index)
     except Exception as exc:
         print(f"WARNING [GRAPH] graph impact metadata unavailable: {exc}", file=sys.stderr)
+        graph_metadata = {"status": "unavailable", "source_artifact": GRAPH_ARTIFACT,
+                          "source_identity": {}, "diagnostics": [{"kind": "graph_invalid", "message": str(exc)}]}
         impact_only = []
-        graph_metadata = {
-            "status": "unavailable", "source_artifact": GRAPH_ARTIFACT,
-            "source_identity": {}, "diagnostics": [{"kind": "graph_invalid", "message": str(exc)}],
-        }
     if not file_tasks:
         print(f"No files flagged for rule_id={rule_id}. Marking batch as DONE.")
         # Still produce artifacts so the orchestrator can proceed
@@ -381,7 +391,8 @@ def main() -> int:
         description="JADE Rule Batch Processor — one rule_id at a time"
     )
     parser.add_argument(
-        "--artifacts",
+        "--artifacts", "--artifacts-dir",
+        dest="artifacts",
         default="artifacts",
         help="Path to artifacts directory",
     )

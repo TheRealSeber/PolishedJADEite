@@ -102,7 +102,7 @@ def test_jrba_agent_has_ordered_markers_and_one_exit_call():
     assert "new RulesController<>()" in agent
     assert "SmokeRulesController" not in agent
     assert "AgentBasicRule" in agent
-    assert "super(null)" in agent
+    assert "super((RulesController) null)" in agent
     assert "initializeRuleDescription" in agent
     assert "evaluateRule" in agent
     assert "executeRule" in agent

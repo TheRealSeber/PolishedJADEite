@@ -1,37 +1,71 @@
 ---
 name: java-migration-skill-registry
 description: >-
-  Registry of auto-generated migration skills produced by the Skill-Creator agent.
-  Each subdirectory holds versioned skills for a specific version jump, benchmarked
-  against eval_cases.json before acceptance. Not a command — background knowledge only.
+  Registry of version-scoped migration recipes (jade-recipe-*) and auto-generated
+  migration skills produced by the Skill-Creator agent. Each subdirectory holds
+  versioned skills/recipes for a specific version jump. Recipes here are transform
+  scripts + docs, NOT first-class agent skills — they are nested below the
+  skills/*/SKILL.md discovery depth and are invoked only by jade-core-rule-dispatcher
+  via recipe-registry.json. Not a command — background knowledge only.
 user-invocable: false
 disable-model-invocation: true
 ---
 
 # Java Migration Skill Registry
 
-Auto-generated skills live here, organized by version jump.
-Hand-authored skills live in sibling directories under `.claude/skills/`.
+Version-scoped migration recipes and auto-generated skills live here, organized by
+version jump. Hand-authored pipeline (core) skills live in sibling directories under
+`.claude/skills/`.
+
+## What lives here
+
+Two kinds of content share this registry:
+
+1. **Recipes (`jade-recipe-*`)** — deterministic transform scripts + their docs.
+   They are invoked as subprocesses by `jade-core-rule-dispatcher` (never as skills).
+   Nested below the version-jump directory, so they are NOT auto-discovered into the
+   agent skill inventory (OpenCode only discovers `skills/*/SKILL.md`, one level deep).
+2. **Auto-generated skills** — improvements produced by the Skill-Creator agent,
+   benchmarked against `eval_cases.json` before acceptance.
 
 ## Structure
 
 ```
 java-migration-skill-registry/
-└── 1.5-to-1.6/
-    ├── <skill-name>/
-    │   ├── SKILL.md          ← generated, versioned
-    │   ├── eval_cases.json   ← cases this skill is benchmarked against
-    │   └── v1/SKILL.md       ← previous versions
-    └── README.md
+├── 1.5-to-1.6/          ← Java 1.5 → 1.6 recipes
+│   ├── jade-recipe-1.5-1.6-arrays-copyof/
+│   │   ├── SKILL.md          ← docs + agent-fallback instructions
+│   │   └── scripts/apply.py  ← deterministic transform
+│   ├── ...
+│   └── README.md
+├── 1.7/                ← Java 1.7 recipes
+├── 1.7-to-1.8/         ← Java 1.7 → 1.8 recipes
+├── shared/             ← version-agnostic pipeline recipes (noop fallback, dummy E2E)
+└── SKILL.md            ← this file
 ```
+
+Each recipe directory keeps its `SKILL.md` (human/agent docs) and `scripts/apply.py`.
+The `SKILL.md` filename is retained for readability and consistency; because recipes
+sit two levels under `.claude/skills/`, they are outside OpenCode's
+`skills/*/SKILL.md` discovery pattern and never enter the agent's skill list.
+
+## How recipes are wired
+
+`jade-core-rule-dispatcher/recipe-registry.json` maps `rule_id` to the recipe script
+path (relative to repo root). The dispatcher runs
+`python <script> --file <path> --line <N>` as a subprocess — it never loads the
+`SKILL.md`. The `SKILL.md` only matters for humans and for subagents that need
+fallback instructions when a deterministic transform defers a case.
 
 ## How skills enter this registry
 
-1. Tester agent collects failure patterns from `JADE-4.6.0-java1.6/`
+1. Tester agent collects failure patterns from a migrated workspace
 2. Skill-Creator generates or improves a skill for the pattern
-3. Skill is benchmarked against `benchmarks/1.5-to-1.6/eval_cases.json`
+3. Skill is benchmarked against `benchmarks/<version>/eval_cases.json`
 4. Pass rate must exceed the previous version's rate to be committed here
 
 ## Current status
 
-Registry is empty — PoC uses hand-authored skills in `.claude/skills/`.
+The 1.5→1.6, 1.7, and 1.7→1.8 recipes are hand-authored and live here. The
+`shared/` bucket holds the version-agnostic `noop` fallback and `dummy` E2E recipes.
+No auto-generated (Skill-Creator) skills have been committed yet.

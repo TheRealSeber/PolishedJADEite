@@ -220,14 +220,21 @@ Utility skills support the pipeline but are not part of the core state machine.
 |---|-------|---------------|
 | 1 | `jade-utility-consumer-onboarder` | ZIP extraction + test-config.json generation for consumer playground |
 
-### Recipe Skills (`jade-recipe-*`)
+### Recipe Scripts (`jade-recipe-*`)
 
-Recipe skills are **version-specific transform scripts** generated dynamically
+Recipes are **version-specific transform scripts** (plus docs) generated dynamically
 per-migration. They contain pure Java editing logic — no artifact I/O, no JSON
 parsing, no understanding of the pipeline. They are invoked as subprocesses by
 the dispatcher.
 
-A recipe skill:
+> **Recipes are not agent skills.** They live under
+> `.claude/skills/java-migration-skill-registry/<version-jump>/<recipe>/` — two levels
+> below `.claude/skills/`, so they fall outside OpenCode's `skills/*/SKILL.md`
+> discovery pattern and never enter the agent skill inventory. Each recipe keeps a
+> `SKILL.md` purely as human/agent-fallback documentation; the dispatcher only ever
+> reads the `script` path from `recipe-registry.json` and runs `apply.py`.
+
+A recipe:
 - Accepts `--file <path> --line <num>` via CLI
 - Reads the target file, applies its transform, writes atomically
 - Prints a single JSON line to stdout: `{"status": "FIXED|FAILED|SKIPPED", "changes": N, ...}`
@@ -246,7 +253,7 @@ Rule ID "EXAMPLE_RULE" arrives at jade-core-rule-dispatcher
     ├─► LOAD rule from 01-breaking-changes-manifest.json
 │       fix_strategy = "recipe:jade-recipe-1.5-1.6-example-rule"
 ├─► LOOKUP recipe-registry.json:
-│       "EXAMPLE_RULE" → ".claude/skills/jade-recipe-1.5-1.6-example-rule/scripts/apply.py"
+│       "EXAMPLE_RULE" → ".claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-1.5-1.6-example-rule/scripts/apply.py"
     ├─► DISPATCH subprocess:
     │       python apply.py --file workspace/src/Example.java --line 42
     ├─► CAPTURE recipe stdout → {"status": "FIXED", ...}
@@ -254,8 +261,8 @@ Rule ID "EXAMPLE_RULE" arrives at jade-core-rule-dispatcher
 ```
 
 The dispatcher contains **zero transform logic**. It never compiles a regex against
-Java source. Adding a new migration (e.g., Java 8→11) means adding new recipe skills
-and updating `recipe-registry.json` — the core pipeline never changes.
+Java source. Adding a new migration (e.g., Java 8→11) means adding new recipe scripts
+under the registry and updating `recipe-registry.json` — the core pipeline never changes.
 
 ### Recipe Registry
 
@@ -265,7 +272,7 @@ and updating `recipe-registry.json` — the core pipeline never changes.
 {
   "EXAMPLE_RULE": {
     "skill": "jade-recipe-1.5-1.6-example",
-    "script": ".claude/skills/jade-recipe-1.5-1.6-example/scripts/apply.py",
+    "script": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-1.5-1.6-example/scripts/apply.py",
     "description": "Apply a migration transform"
   }
 }

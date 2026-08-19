@@ -1,29 +1,13 @@
-# Skill Registry — Java 1.5 → 1.6
+# Recipes — Java 1.5 → 1.6
 
-This directory is populated by the **Skill-Creator agent** as it processes JADE modules.
-Hand-authored skills live in `.claude/skills/` — this registry holds auto-generated improvements.
+Transform recipes for the Java 1.5 → 1.6 migration. Invoked by
+`jade-core-rule-dispatcher` via `recipe-registry.json` (mapped by `rule_id`).
 
-## How it works
+| rule_id | Recipe | Effect |
+|---------|--------|--------|
+| `ARRAYS_COPY_OF_UPGRADE` | `jade-recipe-1.5-1.6-arrays-copyof` | `System.arraycopy` → `Arrays.copyOf`/`copyOfRange` |
+| `DEQUE_LINKEDLIST_RETROFIT` | `jade-recipe-1.5-1.6-deque-retrofit` | Informational — `LinkedList` already implements `Deque` |
+| `NAVIGABLE_SET_MAP` | `jade-recipe-1.5-1.6-navigable-set-map` | Informational — `TreeSet`/`TreeMap` already implement `Navigable*` |
 
-1. Tester agent runs `mvn clean compile` on `JADE-4.6.0-java1.6/` and collects failure patterns
-2. Skill-Creator reads failure patterns → generates or improves a skill here
-3. Skill is benchmarked against `benchmarks/1.5-to-1.6/eval_cases.json`
-4. If pass rate improves, skill is committed here with a version bump
-
-## Registry structure (once populated)
-
-```
-1.5-to-1.6/
-├── raw-types-generics/
-│   ├── SKILL.md           ← auto-generated, versioned
-│   ├── eval_cases.json    ← cases this skill is benchmarked against
-│   └── v1/SKILL.md        ← previous versions
-├── enhanced-for-loops/
-│   └── ...
-└── README.md              ← this file
-```
-
-## Current status
-
-Registry is empty — migration PoC is using hand-authored skills in `.claude/skills/`.
-Skill-Creator agent populates this directory as failures are encountered.
+Each recipe dir contains `SKILL.md` (docs + agent-fallback) and
+`scripts/apply.py` (deterministic transform, `--file` / `--line`).

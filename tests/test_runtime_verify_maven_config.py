@@ -1102,7 +1102,7 @@ def test_maven_build_stages_classes_and_runtime_jars(tmp_path, monkeypatch):
     assert "-B" in args
     assert "-ntp" in args
     assert "-Dmaven.repo.local=" in args
-    assert "-Dmaven.compiler.proc=none" in args
+    assert "-Dmaven.compiler.proc=none" not in args
     assert f"-Djade.artifact={jade.resolve()}" not in args
     assert "org.apache.maven.plugins:maven-dependency-plugin:3.6.1:copy-dependencies" in args
 

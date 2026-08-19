@@ -69,7 +69,7 @@ public final class JrbaIntegrationAgent extends AbstractAgent {
         private boolean ruleExecuted;
 
         private SmokeRule() {
-            super(null);
+            super((RulesController) null);
         }
 
         @Override

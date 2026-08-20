@@ -631,25 +631,31 @@ def compute_queue_graph_metadata(
         if not isinstance(fi, dict):
             fi = {}
         flags = fi.get("flags", []) if isinstance(fi.get("flags", []), list) else []
-        for rule in rules:
-            files = sorted(
-                {
-                    f.get("file")
-                    for f in flags
-                    if isinstance(f, dict)
-                    and f.get("rule_id") == rule
-                    and f.get("file")
-                }
+        try:
+            for rule in rules:
+                files = sorted(
+                    {
+                        f.get("file")
+                        for f in flags
+                        if isinstance(f, dict)
+                        and f.get("rule_id") == rule
+                        and f.get("file")
+                    }
+                )
+                rule_files[rule] = files
+                meta["direct_counts"][rule] = len(files)
+                impacted: set = set()
+                for f in flags:
+                    if isinstance(f, dict) and f.get("rule_id") == rule:
+                        gf = f.get("graph")
+                        if isinstance(gf, dict) and isinstance(gf.get("impact_files"), list):
+                            impacted.update(i for i in gf["impact_files"] if isinstance(i, str))
+                meta["impact_counts"][rule] = len(impacted)
+        except Exception as exc:
+            meta["diagnostics"].append(
+                {"kind": "flag_index_error", "message": str(exc)}
             )
-            rule_files[rule] = files
-            meta["direct_counts"][rule] = len(files)
-            impacted: set = set()
-            for f in flags:
-                if isinstance(f, dict) and f.get("rule_id") == rule:
-                    gf = f.get("graph")
-                    if isinstance(gf, dict) and isinstance(gf.get("impact_files"), list):
-                        impacted.update(i for i in gf["impact_files"] if isinstance(i, str))
-            meta["impact_counts"][rule] = len(impacted)
+            return meta
 
     kg = _load_knowledge_graph(artifacts)
     if kg is None:

@@ -144,12 +144,15 @@ def graph_context_for_flag(flag: Dict[str, Any]) -> Dict[str, Any]:
     impact_files = graph.get("impact_files", [])
     if not isinstance(impact_files, list):
         impact_files = []
+    diagnostics = graph.get("diagnostics", [])
+    if not isinstance(diagnostics, list):
+        diagnostics = []
     return {
         "status": graph.get("status", "available"),
         "source_artifact": graph.get("source_artifact"),
         "target_node": graph.get("declaration"),
         "impact_files": impact_files,
-        "diagnostics": graph.get("diagnostics", []),
+        "diagnostics": diagnostics,
     }
 
 

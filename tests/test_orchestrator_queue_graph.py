@@ -158,6 +158,31 @@ def test_approved_only_order_from_graph(tmp_path):
     assert meta["cycles"] == []
 
 
+def test_crashy_flag_index_degrades_to_diagnostics_and_pipeline_continues(tmp_path):
+    orch = load_orchestrator()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    queue_path = artifacts / "05-rule-queue.json"
+    queue_path.write_text(json.dumps({"run_id": "r", "rules": ["R1"]}), encoding="utf-8")
+    write_flag_index(
+        artifacts,
+        [
+            {"rule_id": "R1", "file": "A.java", "line": 1},
+            {"rule_id": "R1", "file": {"path": "B.java"}, "line": 2},
+        ],
+    )
+    updated = orch.attach_queue_graph_metadata(artifacts)
+    assert updated is not None
+    assert updated["rules"] == ["R1"]
+    assert any(
+        d.get("kind") == "flag_index_error"
+        for d in updated["graph_metadata"]["diagnostics"]
+    )
+    on_disk = json.loads(queue_path.read_text(encoding="utf-8"))
+    assert on_disk["rules"] == ["R1"]
+    assert on_disk["graph_metadata"]["suggested_order"] == ["R1"]
+
+
 def test_approved_only_excludes_non_queued_rules(tmp_path):
     orch = load_orchestrator()
     artifacts = tmp_path / "artifacts"

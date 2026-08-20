@@ -165,6 +165,24 @@ def test_malformed_impact_files_normalized_to_empty_list(tmp_path, monkeypatch):
     assert results[0]["graph_context"]["impact_files"] == []
 
 
+def test_malformed_diagnostics_normalized_to_empty_list(tmp_path, monkeypatch):
+    dispatcher = load_dispatcher()
+    flags = [
+        {
+            "rule_id": RULE_ID,
+            "file": FILE_REL,
+            "line": 5,
+            "graph": {"status": "unavailable", "diagnostics": "boom-msg"},
+        }
+    ]
+    rc, results, captured = run_cli(tmp_path, dispatcher, flags, monkeypatch)
+    assert rc == 0
+    r = results[0]
+    assert r["status"] == "FIXED"
+    assert r["graph_context"]["diagnostics"] == []
+    assert r["warnings"] == []
+
+
 def test_record_result_backward_compatible_without_graph_context(tmp_path):
     dispatcher = load_dispatcher()
     artifacts = tmp_path / "artifacts"

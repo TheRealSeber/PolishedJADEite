@@ -118,6 +118,41 @@ def load_registry() -> Dict:
     return read_json(registry_path)
 
 
+def graph_context_for_flag(flag: Dict[str, Any]) -> Dict[str, Any]:
+    """Extract additive advisory graph context from a flag entry.
+
+    The flag's ``graph`` metadata (produced by the scanner / batch
+    processor) is copied verbatim — source artifact, target node,
+    impact files and diagnostics.  Never contains raw graph source and
+    is never passed to recipe subprocesses.
+    """
+    graph = flag.get("graph")
+    if "graph" not in flag or graph is None:
+        return {
+            "status": "unavailable",
+            "diagnostics": [
+                {"kind": "graph_unavailable", "message": "flag carries no graph metadata"}
+            ],
+        }
+    if not isinstance(graph, dict):
+        return {
+            "status": "unavailable",
+            "diagnostics": [
+                {"kind": "graph_malformed", "message": "flag graph metadata is malformed"}
+            ],
+        }
+    impact_files = graph.get("impact_files", [])
+    if not isinstance(impact_files, list):
+        impact_files = []
+    return {
+        "status": graph.get("status", "available"),
+        "source_artifact": graph.get("source_artifact"),
+        "target_node": graph.get("declaration"),
+        "impact_files": impact_files,
+        "diagnostics": graph.get("diagnostics", []),
+    }
+
+
 def dispatch_recipe(script_path: str, file_path: str, line: int) -> Dict:
     cmd = [
         sys.executable,
@@ -227,6 +262,7 @@ def record_result(
     warnings: List[str],
     line_start: int,
     line_end: int,
+    graph_context: Optional[Dict[str, Any]] = None,
 ) -> pathlib.Path:
     result = {
         "task_id": task_id,
@@ -242,6 +278,8 @@ def record_result(
         "warnings": warnings,
         "applied_at": iso_now(),
     }
+    if graph_context is not None:
+        result["graph_context"] = graph_context
 
     # Aggregate: one file per rule_id, append to array
     aggregate_path = artifacts_dir / f"06-fix-results-{rule_id}.json"
@@ -460,6 +498,10 @@ def main() -> int:
         elif status == "DEFERRED" and overall_status not in ("FIXED", "FAILED"):
             overall_status = "DEFERRED"
 
+        graph_context = graph_context_for_flag(flag)
+        if graph_context.get("status") == "unavailable":
+            warnings.extend(graph_context.get("diagnostics", []))
+
         record_result(
             artifacts_dir,
             per_flag_task_id,
@@ -474,6 +516,7 @@ def main() -> int:
             warnings,
             line_start,
             line_start,
+            graph_context,
         )
         safe_summary = diff_summary.encode("ascii", errors="replace").decode("ascii")
         print(f"{status} | {per_flag_task_id} | {file_rel} | {safe_summary}")

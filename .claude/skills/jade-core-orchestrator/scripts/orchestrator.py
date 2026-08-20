@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import hashlib
+import importlib.util
 import json
 import os
 import pathlib
@@ -567,6 +568,138 @@ def check_gate_artifacts(phase: str, artifacts: pathlib.Path, state: Dict) -> st
     return "OK"
 
 
+def _load_knowledge_graph(artifacts: pathlib.Path) -> Optional[Any]:
+    """Load a KnowledgeGraph object from the 03.5 artifact.
+
+    Returns None when the schema module or graph artifact is unavailable
+    or unreadable — the caller treats this as advisory-only.
+    """
+    schema_path = (
+        pathlib.Path(__file__).parents[2]
+        / "jade-core-knowledge-graph"
+        / "scripts"
+        / "schema.py"
+    )
+    if not schema_path.exists():
+        return None
+    spec = importlib.util.spec_from_file_location("jade_kg_schema", schema_path)
+    if spec is None or spec.loader is None:
+        return None
+    module = importlib.util.module_from_spec(spec)
+    try:
+        spec.loader.exec_module(module)
+    except Exception:
+        return None
+    graph_path = artifacts / "03.5-knowledge-graph.json"
+    if not graph_path.exists():
+        return None
+    try:
+        return module.KnowledgeGraph.load(str(graph_path))
+    except Exception:
+        return None
+
+
+def compute_queue_graph_metadata(
+    artifacts: pathlib.Path, rules: List[str]
+) -> Dict[str, Any]:
+    """Compute additive, advisory graph metadata for the approved rule queue.
+
+    Only ever derived from the *approved* ``rules`` list — it never inserts
+    or reorders them.  ``suggested_order`` is advisory transform-order
+    guidance from the knowledge graph; ``rules`` itself is left untouched.
+    """
+    meta: Dict[str, Any] = {
+        "status": "empty" if not rules else "computed",
+        "source_artifact": "03.5-knowledge-graph.json",
+        "suggested_order": list(rules),
+        "direct_counts": {},
+        "impact_counts": {},
+        "cycles": [],
+        "ordering_reasons": [],
+        "diagnostics": [],
+    }
+    if not rules:
+        return meta
+
+    rule_files: Dict[str, List[str]] = {}
+    flag_index_path = artifacts / "04-flag-index.json"
+    if flag_index_path.exists():
+        try:
+            fi = read_json(flag_index_path)
+        except (json.JSONDecodeError, OSError):
+            fi = {}
+        if not isinstance(fi, dict):
+            fi = {}
+        flags = fi.get("flags", []) if isinstance(fi.get("flags", []), list) else []
+        for rule in rules:
+            files = sorted(
+                {
+                    f.get("file")
+                    for f in flags
+                    if isinstance(f, dict)
+                    and f.get("rule_id") == rule
+                    and f.get("file")
+                }
+            )
+            rule_files[rule] = files
+            meta["direct_counts"][rule] = len(files)
+            impacted: set = set()
+            for f in flags:
+                if isinstance(f, dict) and f.get("rule_id") == rule:
+                    gf = f.get("graph")
+                    if isinstance(gf, dict) and isinstance(gf.get("impact_files"), list):
+                        impacted.update(i for i in gf["impact_files"] if isinstance(i, str))
+            meta["impact_counts"][rule] = len(impacted)
+
+    kg = _load_knowledge_graph(artifacts)
+    if kg is None:
+        meta["diagnostics"].append({"kind": "graph_unavailable"})
+        return meta
+
+    try:
+        result = kg.query_transform_order_with_diagnostics(rules, rule_files)
+    except Exception as exc:
+        meta["diagnostics"].append(
+            {"kind": "transform_order_error", "message": str(exc)}
+        )
+        return meta
+
+    meta["suggested_order"] = list(result.get("order", rules))
+    for d in result.get("diagnostics", []):
+        if d.get("kind") == "cycle":
+            meta["cycles"].append(d.get("rules", []))
+        meta["diagnostics"].append(d)
+    meta["ordering_reasons"] = [
+        {"rule": rule, "reason": "advisory dependency order — dependent transforms first"}
+        for rule in meta["suggested_order"]
+    ]
+    return meta
+
+
+def attach_queue_graph_metadata(artifacts: pathlib.Path) -> Optional[Dict[str, Any]]:
+    """Additively attach ``graph_metadata`` to 05-rule-queue.json.
+
+    Returns the updated queue, or None if the queue is absent/unreadable.
+    ``rules`` is never reordered or extended — only user-approved rules are
+    ever present and remain exactly as produced by the agent.
+    """
+    queue_path = artifacts / "05-rule-queue.json"
+    if not queue_path.exists():
+        return None
+    try:
+        queue = read_json(queue_path)
+    except (json.JSONDecodeError, OSError):
+        return None
+    if not isinstance(queue, dict):
+        return None
+    rules = queue.get("rules", [])
+    if not isinstance(rules, list):
+        return None
+    queue["graph_metadata"] = compute_queue_graph_metadata(artifacts, rules)
+    write_json(queue_path, queue)
+    return queue
+
+
 def process_rule_batch(
     cfg: Dict,
     artifacts: pathlib.Path,
@@ -603,7 +736,10 @@ def process_rule_batch(
         )
         return "ARTIFACT_MISSING"
 
+    attach_queue_graph_metadata(artifacts)
     queue = read_json(queue_path)
+    if not isinstance(queue, dict):
+        return "ARTIFACT_MISSING"
     rules: List[str] = queue.get("rules", [])
     if not isinstance(rules, list) or not rules:
         return "NO_MORE_RULES"
@@ -966,7 +1102,13 @@ def main() -> int:
                     if fi.get("total_flags", 0) == 0:
                         write_json(
                             artifacts / "05-rule-queue.json",
-                            {"run_id": state.get("run_id", ""), "rules": []},
+                            {
+                                "run_id": state.get("run_id", ""),
+                                "rules": [],
+                                "graph_metadata": compute_queue_graph_metadata(
+                                    artifacts, []
+                                ),
+                            },
                         )
                         # Fall through to process_rule_batch → NO_MORE_RULES →
                         outcome = process_rule_batch(

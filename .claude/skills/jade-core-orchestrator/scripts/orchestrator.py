@@ -61,8 +61,12 @@ TRANSITIONS: Dict[str, Dict[str, str]] = {
     "RULE_ESCALATE": {"OK": "RULE_BATCH_LOOP"},
     "VERIFIED": {"OK": "RUNTIME_VERIFY"},
     "RUNTIME_VERIFY": {"OK": "DONE", "VERIFY_FAIL": "FAILED", "SCRIPT_ERROR": "FAILED"},
-    "AWAITING_AGENT": {"OK": "RESUME"},
 }
+
+# AWAITING_AGENT is a terminal pause state. Entering it is table-driven
+# (RULE_BATCH_LOOP --AWAIT_AGENT--> AWAITING_AGENT); resuming is handled by
+# dedicated code that reads state.awaiting_phase and jumps straight to the
+# target phase, bypassing the transition table.
 
 TERMINAL_STATES = {"DONE", "FAILED", "AWAITING_SOURCE_INPUT", "AWAITING_AGENT"}
 

@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Decouple generic pipeline logic from version-specific transforms using a Core/Recipe split + Dispatcher pattern. Core skills stay agnostic across migrations; recipe skills contain only per-rule transform logic.
+**Goal:** Decouple generic pipeline logic from version-specific transforms using a Core/Recipe split + Dispatcher pattern. Core skills stay agnostic across migrations; registry recipe scripts contain only per-rule transform logic.
 
-**Architecture:** Prefix convention: `jade-core-*` for agnostic pipeline, `jade-recipe-*` for version-specific transforms. A `jade-core-rule-dispatcher` routes `rule_id` → recipe skill via a registry JSON. Recipes are pure transforms invoked by the dispatcher — they never touch artifact I/O.
+**Architecture:** Prefix convention: `jade-core-*` for agnostic pipeline, `jade-recipe-*` for version-specific transforms. A `jade-core-rule-dispatcher` routes `rule_id` → registry recipe via a registry JSON. Recipes are pure transforms invoked by the dispatcher — they never touch artifact I/O.
 
 **Tech Stack:** Python 3, Bash, Git.
 
@@ -16,10 +16,10 @@
 - `.claude/skills/jade-core-rule-dispatcher/SKILL.md`
 - `.claude/skills/jade-core-rule-dispatcher/scripts/dispatcher.py`
 - `.claude/skills/jade-core-rule-dispatcher/recipe-registry.json`
-- `.claude/skills/jade-recipe-java1.5-raw-types/SKILL.md`
-- `.claude/skills/jade-recipe-java1.5-raw-types/scripts/apply.py`
-- `.claude/skills/jade-recipe-java1.5-enhanced-for/SKILL.md`
-- `.claude/skills/jade-recipe-java1.5-enhanced-for/scripts/apply.py`
+- `.claude/skills/java-migration-skill-registry/1.5-to-1.6/raw-types/SKILL.md`
+- `.claude/skills/java-migration-skill-registry/1.5-to-1.6/raw-types/scripts/apply.py`
+- `.claude/skills/java-migration-skill-registry/1.5-to-1.6/enhanced-for/SKILL.md`
+- `.claude/skills/java-migration-skill-registry/1.5-to-1.6/enhanced-for/scripts/apply.py`
 
 ### Files to rename (10 `git mv`s)
 - `jade-migration-orchestrator` → `jade-core-orchestrator`
@@ -41,7 +41,7 @@
 - `docs/superpowers/plans/2026-05-21-jade-skill-suite-product-first.md` — update skill path references
 - `tests/test_idempotency.py` — update script paths
 - `tests/test_orchestrator_integration.py` — update script paths
-- `migration-runs/jade-1.5-to-1.6/artifacts/01-breaking-changes-manifest.json` — update `fix_strategy` to `"recipe:jade-recipe-java1.5-raw-types"` format
+- `migration-runs/jade-1.5-to-1.6/artifacts/01-breaking-changes-manifest.json` — update `fix_strategy` to `"recipe:1.5-to-1.6/raw-types"` format
 
 ---
 
@@ -85,20 +85,20 @@ git commit -m "refactor(skills): rename 10 core skills to jade-core-* prefix"
 - Create: `.claude/skills/jade-core-rule-dispatcher/scripts/dispatcher.py`
 - Create: `.claude/skills/jade-core-rule-dispatcher/recipe-registry.json`
 
-The dispatcher handles the generic LOAD → MATCH → PLAN → RECORD workflow. It contains zero transform logic. When a rule-specific transform is needed, it looks up `rule_id` in `recipe-registry.json`, finds the recipe skill script, and invokes it as a subprocess, capturing stdout as the result.
+The dispatcher handles the generic LOAD → MATCH → PLAN → RECORD workflow. It contains zero transform logic. When a rule-specific transform is needed, it looks up `rule_id` in `recipe-registry.json`, finds the registry recipe script, and invokes it as a subprocess, capturing stdout as the result.
 
 ### recipe-registry.json
 
 ```json
 {
   "RAW_TYPES": {
-    "skill": "jade-recipe-java1.5-raw-types",
-    "script": ".claude/skills/jade-recipe-java1.5-raw-types/scripts/apply.py",
+    "skill": "registry recipe: 1.5-to-1.6/raw-types",
+    "script": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/raw-types/scripts/apply.py",
     "description": "Add generic type parameters to raw collections"
   },
   "ENHANCED_FOR": {
-    "skill": "jade-recipe-java1.5-enhanced-for",
-    "script": ".claude/skills/jade-recipe-java1.5-enhanced-for/scripts/apply.py",
+    "skill": "registry recipe: 1.5-to-1.6/enhanced-for",
+    "script": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/enhanced-for/scripts/apply.py",
     "description": "Convert safe indexed for-loops to enhanced-for"
   }
 }
@@ -113,7 +113,7 @@ Extract the generic workflow from `apply_rule_fix.py` (LOAD task, MATCH rule, RE
 Frontmatter:
 ```yaml
 name: jade-core-rule-dispatcher
-description: Routes rule tasks to recipe skills. Handles LOAD/MATCH/RECORD but delegates transforms to recipe scripts via recipe-registry.json.
+description: Routes rule tasks to registry recipes. Handles LOAD/MATCH/RECORD but delegates transforms to recipe scripts via recipe-registry.json.
 ```
 
 - [ ] **Step 1: Create recipe-registry.json**
@@ -134,15 +134,15 @@ git commit -m "feat(skills): add jade-core-rule-dispatcher with recipe dispatch"
 
 ---
 
-## Task 3: Create recipe skills from extracted transforms
+## Task 3: Create registry recipe scripts from extracted transforms
 
 **Files:**
-- Create: `.claude/skills/jade-recipe-java1.5-raw-types/SKILL.md`
-- Create: `.claude/skills/jade-recipe-java1.5-raw-types/scripts/apply.py`
-- Create: `.claude/skills/jade-recipe-java1.5-enhanced-for/SKILL.md`
-- Create: `.claude/skills/jade-recipe-java1.5-enhanced-for/scripts/apply.py`
+- Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/raw-types/SKILL.md`
+- Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/raw-types/scripts/apply.py`
+- Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/enhanced-for/SKILL.md`
+- Create: `.claude/skills/java-migration-skill-registry/1.5-to-1.6/enhanced-for/scripts/apply.py`
 
-Extract `apply_raw_types_fix()` and its helpers (`infer_generic_type`, `_resolve_arg_type`, `_infer_collection_element_type`, `atomic_file_write`) into `jade-recipe-java1.5-raw-types/scripts/apply.py`. Same for `apply_enhanced_for_fix()` into `jade-recipe-java1.5-enhanced-for/scripts/apply.py`.
+Extract `apply_raw_types_fix()` and its helpers (`infer_generic_type`, `_resolve_arg_type`, `_infer_collection_element_type`, `atomic_file_write`) into `.claude/skills/java-migration-skill-registry/1.5-to-1.6/raw-types/scripts/apply.py`. Same for `apply_enhanced_for_fix()` into `.claude/skills/java-migration-skill-registry/1.5-to-1.6/enhanced-for/scripts/apply.py`.
 
 Each recipe `apply.py` is a standalone CLI script:
 ```
@@ -160,15 +160,15 @@ Exit code 0 = success. Exit code 2 = failure.
 - [ ] **Step 4: Verify both recipes parse**
 
 ```bash
-python -c "import py_compile; py_compile.compile('.claude/skills/jade-recipe-java1.5-raw-types/scripts/apply.py', doraise=True); print('raw-types OK')"
-python -c "import py_compile; py_compile.compile('.claude/skills/jade-recipe-java1.5-enhanced-for/scripts/apply.py', doraise=True); print('enhanced-for OK')"
+python -c "import py_compile; py_compile.compile('.claude/skills/java-migration-skill-registry/1.5-to-1.6/raw-types/scripts/apply.py', doraise=True); print('raw-types OK')"
+python -c "import py_compile; py_compile.compile('.claude/skills/java-migration-skill-registry/1.5-to-1.6/enhanced-for/scripts/apply.py', doraise=True); print('enhanced-for OK')"
 ```
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add .claude/skills/jade-recipe-*
-git commit -m "feat(skills): add jade-recipe-java1.5-raw-types and enhanced-for recipe skills"
+git add .claude/skills/java-migration-skill-registry/
+git commit -m "feat(recipes): add 1.5-to-1.6 registry recipe scripts"
 ```
 
 ---
@@ -210,7 +210,7 @@ In `01-breaking-changes-manifest.json`, change:
 ```
 to:
 ```json
-"fix_strategy": "recipe:jade-recipe-java1.5-raw-types"
+"fix_strategy": "recipe:1.5-to-1.6/raw-types"
 ```
 
 - [ ] **Step 5: Run full test suite**
@@ -236,8 +236,8 @@ Tasks must run sequentially: 1 → 2 → 3 → 4. Each task ends with a commit.
 
 - [ ] 10 core skills renamed to `jade-core-*` prefix
 - [ ] `jade-core-rule-dispatcher` created with `recipe-registry.json` and `dispatcher.py`
-- [ ] `jade-recipe-java1.5-raw-types` created with `apply.py` (pure transform, CLI-driven)
-- [ ] `jade-recipe-java1.5-enhanced-for` created with `apply.py` (pure transform, CLI-driven)
+- [ ] `1.5-to-1.6/raw-types` registry recipe created with `scripts/apply.py` (pure transform, CLI-driven)
+- [ ] `1.5-to-1.6/enhanced-for` registry recipe created with `scripts/apply.py` (pure transform, CLI-driven)
 - [ ] `jade-rule-fixer` deleted
 - [ ] All cross-references updated (tests, docs, manifest)
 - [ ] Full test suite passes: 9 passed, 2 skipped

@@ -6,7 +6,7 @@
 
 ## What This Is
 
-A **JADE Migration Skill Suite** — 11 agnostic core pipeline skills (`jade-core-*`) plus per-migration recipe skills (`jade-recipe-*`) that migrate legacy Java codebases through sequential version jumps. The JADE 1.5→1.6 migration is the validation harness; the skill suite is the product.
+A **JADE Migration Skill Suite** — 11 agnostic core pipeline skills (`jade-core-*`) plus versioned recipes in the canonical Java migration registry. The JADE 1.5→1.6 migration is the validation harness; the skill suite is the product.
 
 The pipeline operates as a file-based state machine where artifacts on disk are the sole source of truth. Skills communicate through a shared `artifacts/` directory — no agent ever passes raw source code or large JSON in its prompt context.
 
@@ -20,10 +20,10 @@ The pipeline operates as a file-based state machine where artifacts on disk are 
 | Layer | Prefix | Contains | Example |
 |-------|--------|----------|---------|
 | **Core** | `jade-core-*` | Agnostic pipeline plumbing | orchestrator, scanner, dispatcher, verification |
-| **Recipe** | `jade-recipe-*` | Version-specific transforms | `jade-recipe-1.5-1.6-<rule-id>` |
+| **Recipe** | `java-migration-skill-registry/<bucket>/` | Version-specific transforms | `1.5-to-1.6/arrays-copyof` |
 | **Utility** | `jade-utility-*` | Pipeline support tooling | `jade-utility-consumer-onboarder` |
 
-**The Dispatcher Pattern:** Core skills never contain transform logic. The `jade-core-rule-dispatcher` reads a rule from the manifest, looks up the matching recipe in `recipe-registry.json`, and invokes it as a subprocess. Adding a new migration means adding recipe skills — the core pipeline never changes.
+**The Dispatcher Pattern:** Core skills never contain transform logic. The `jade-core-rule-dispatcher` reads a rule from the manifest, looks up the matching recipe in `recipe-registry.json`, and invokes it as a subprocess. Adding a new migration means adding registry recipe scripts — the core pipeline never changes.
 
 **Rule-by-Rule Sequential Batching:** One `rule_id` is applied to ALL flagged files before verification and git commit. The next rule only starts after the previous rule passes verification. Component-by-component migration is forbidden — it breaks cross-package contracts.
 
@@ -94,15 +94,18 @@ Full details: `AGENTS.md` (106 lines) and `docs/architecture.md` (545 lines).
 | `jade-core-build-fixer` | Build system audit + compiler flag updates |
 | `jade-core-scanner` | Regex flag injection + idempotent flag index |
 | `jade-core-batch-processor` | Per-rule file task lists from flag index |
-| `jade-core-rule-dispatcher` | Routes tasks to recipe skills via registry |
+| `jade-core-rule-dispatcher` | Routes tasks to registry recipe scripts |
 | `jade-core-verification` | Semantic trace normalization + outcome matching |
 | `jade-core-atomic-commit` | Per-rule git commit with safety gate |
 | `jade-core-retry-router` | Failure classification + bounded retry |
 | `jade-core-evaluator` | Skill matrix scoring from run artifacts |
 
-### Recipes (generated per-migration)
+### Recipes (registry-managed)
 
-Recipe skills are produced dynamically by the Skill Creator from manifest data. The `recipe-registry.json` starts empty (`{}`) and is populated before Phase 7. Each recipe is a standalone CLI script invoked by the dispatcher: `python apply.py --file <path> --line <num>`.
+Recipes are stored under `.claude/skills/java-migration-skill-registry/` in buckets
+`1.5-to-1.6`, `1.7`, `1.7-to-1.8`, and `shared`, with directory names such as
+`arrays-copyof` and `dummy`. Use `scripts/register_recipe.py` to scaffold and register a recipe. Each recipe is a
+standalone CLI script invoked by the dispatcher: `python apply.py --file <path> --line <num>`.
 
 ---
 
@@ -131,7 +134,7 @@ PolishedJADEite/
 │   ├── jade-core-evaluator/          # Skill matrix scoring
 │   ├── codebase-analysis/            # Static analysis (Phase 0)
 │   ├── java-modernization/           # Generic Java modernization
-│   └── java-migration-skill-registry/ # Auto-generated skill registry
+│   └── java-migration-skill-registry/ # Canonical recipe registry + scaffold helper
 ├── docs/
 │   ├── architecture.md               # Full pipeline constitution
 │   ├── sources/

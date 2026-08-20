@@ -6,7 +6,7 @@
 
 ## 1. Purpose
 
-A universal, codebase-agnostic Java source analyzer that builds a Knowledge Graph (KG) from `.java` files using `tree-sitter-java`. The KG artifact is consumed by downstream pipeline phases for impact analysis, semantic verification, rule ordering, consumer test selection, and recipe skill auto-generation.
+A universal, codebase-agnostic Java source analyzer that builds a Knowledge Graph (KG) from `.java` files using `tree-sitter-java`. The KG artifact is consumed by downstream pipeline phases for impact analysis, semantic verification, rule ordering, consumer test selection, and registry recipe script auto-generation.
 
 ## 2. Pipeline Integration
 

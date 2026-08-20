@@ -1,7 +1,7 @@
 ---
 name: jade-core-rule-dispatcher
 description: >-
-  Routes rule tasks to recipe skills via recipe-registry.json. Handles
+  Routes rule tasks to registry recipes via recipe-registry.json. Handles
   LOAD/MATCH/RECORD workflow but delegates all transform logic to recipe
   subprocesses. Contains ZERO version-specific or rule-specific transform code.
   Accepts one task at a time from the rule batch.
@@ -17,14 +17,14 @@ allowed-tools: Bash(python *) Read Write
 
 ## Objective
 
-Route a single rule task to the correct recipe skill. The dispatcher contains **zero
+Route a single rule task to the correct registry recipe. The dispatcher contains **zero
 transform logic** — its only job is to load the task, find the matching recipe
 in `recipe-registry.json`, invoke the recipe script as a subprocess, and record
 the result.
 
 ## Core constraints
 
-1. **Never modify source files directly** — only recipe scripts touch source.
+1. **Never modify source files directly** — only registry recipe scripts touch source.
 2. **Never contain regex or AST transform logic** — all transforms live in recipes.
 3. **One execution = one file + one rule_id.**
 4. All artifact writes use tmp-file + atomic rename.
@@ -37,7 +37,7 @@ the result.
 
 ## Produced output
 
-- `artifacts/06-fix-results-{rule_id}.json` — aggregate array of per-flag fix records
+- `artifacts/06-fix-results-{rule_id}.json` — aggregate array of fix records (per-flag)
 
 ## Recipe invocation contract
 
@@ -46,7 +46,7 @@ The dispatcher invokes recipe scripts as:
 python <recipe-script> --file <path> --line <num>
 ```
 
-Recipe scripts MUST:
+Registry recipe scripts MUST:
 - Exit 0 on success, non-zero on failure
 - Print a single JSON line to stdout: `{"status": "FIXED|FAILED|SKIPPED|DEFERRED", "changes": N, "warnings": [...], "errors": [...], "diff_summary": "..."}`
 - Handle file I/O internally (read, transform, atomic write)

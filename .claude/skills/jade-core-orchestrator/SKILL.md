@@ -83,7 +83,7 @@ Batching — each rule is applied to ALL files before verification and commit.
 At `RULE_BATCH_LOOP`, the Agent MUST NOT manually create a batch artifact
 and mark it `DONE` or `NOOP` if flagged files exist for that rule.
 Acceptable resolution paths:
-1. **Transform** — Write a Recipe Skill (`jade-recipe-*`) that actually applies
+1. **Transform** — Write a registry recipe script (`jade-recipe-*`) that actually applies
    the change, then dispatch it via the rule dispatcher.
 2. **Defer** — Use `defer_rules.py` to rewrite `// JADE-FLAG:<rule_id>` to
    `// JADE-MODERNIZATION-DEFERRED:<rule_id> <reason>`. This preserves the

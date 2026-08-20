@@ -206,7 +206,7 @@ plumbing.
 | 4 | `jade-core-build-fixer` | Build system audit + Dockerized compilation |
 | 5 | `jade-core-scanner` | Regex tag injection + idempotent flag index |
 | 6 | `jade-core-batch-processor` | Per-rule file task list from flag index |
-| 7 | `jade-core-rule-dispatcher` | Routes tasks to recipe skills via `recipe-registry.json` |
+| 7 | `jade-core-rule-dispatcher` | Routes tasks to registry recipes via `recipe-registry.json` |
 | 8 | `jade-core-verification` | Semantic trace normalization + outcome matching |
 | 9 | `jade-core-atomic-commit` | Per-rule git commit with safety gate |
 | 10 | `jade-core-retry-router` | Failure classification + bounded retry/requeue |
@@ -237,12 +237,12 @@ the dispatcher.
 A recipe:
 - Accepts `--file <path> --line <num>` via CLI
 - Reads the target file, applies its transform, writes atomically
-- Prints a single JSON line to stdout: `{"status": "FIXED|FAILED|SKIPPED", "changes": N, ...}`
+- Prints a single JSON line to stdout: `{"status": "FIXED|FAILED|SKIPPED|DEFERRED", "changes": N, "warnings": [], "errors": [], "diff_summary": "..."}`
 - Exits 0 on success, non-zero on failure
 
 Examples (for a hypothetical 1.5→1.6 migration):
-- `jade-recipe-1.5-1.6-generics` — infers generics from `.add()`/`.put()` calls
-- `jade-recipe-1.5-1.6-loops` — converts safe indexed loops to for-each
+- `jade-recipe-1.5-1.6-generics` — registry recipe script that infers generics from `.add()`/`.put()` calls
+- `jade-recipe-1.5-1.6-loops` — registry recipe script that converts safe indexed loops to for-each
 
 ### The Dispatcher Pattern
 
@@ -266,7 +266,7 @@ under the registry and updating `recipe-registry.json` — the core pipeline nev
 
 ### Recipe Registry
 
-`jade-core-rule-dispatcher/recipe-registry.json` maps `rule_id` to recipe script:
+`jade-core-rule-dispatcher/recipe-registry.json` maps `rule_id` to a registry recipe script:
 
 ```json
 {
@@ -278,8 +278,10 @@ under the registry and updating `recipe-registry.json` — the core pipeline nev
 }
 ```
 
-Recipes are generated per-migration by the Skill Creator from manifest data. The
-registry starts empty (`{}`) and is populated before the RULE_BATCH_LOOP phase.
+Recipes are created and registered by
+`.claude/skills/java-migration-skill-registry/scripts/register_recipe.py`. The helper
+creates recipe files, validates safe path segments, and atomically updates the
+registry. The registry is populated before the RULE_BATCH_LOOP phase.
 
 ### Consumer Playground & Runtime Verification
 
@@ -421,7 +423,7 @@ PHASE 0 (optional)           PHASE 1                 PHASE 2
                                │     ║  │ jade-core-rule-         │  ║
                                │     ║  │ dispatcher              │  ║
                                │     ║  │       │                 │  ║
-                               │     ║  │       └─► recipe skill  │  ║
+                                │     ║  │       └─► registry recipe │  ║
                                │     ║  │                         │  ║
                                │     ║  │ → 06-fix-result-{id}   │  ║
                                │     ║  └───────────┬─────────────┘  ║

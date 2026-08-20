@@ -38,11 +38,11 @@
   "LAMBDA_CONVERSION": {
     "skill": "jade-recipe-1.7-1.8-lambda-conversion",
     "script": ".claude/skills/java-migration-skill-registry/1.7-to-1.8/jade-recipe-1.7-1.8-lambda-conversion/scripts/apply.py",
-    "description": "Convert anonymous SAM inner classes to Java 8 lambda expressions"
+    "description": "Convert supported anonymous SAM classes to lambda expressions"
   },
   "THREAD_STOP_DISABLED": {
     "skill": "jade-recipe-1.7-1.8-thread-stop-removal",
     "script": ".claude/skills/java-migration-skill-registry/1.7-to-1.8/jade-recipe-1.7-1.8-thread-stop-removal/scripts/apply.py",
-    "description": "Inspect .stop() calls — defer if not Thread.stop(Throwable)"
+    "description": "Inspect deprecated Thread.stop usage and defer unsafe transforms"
   }
 }

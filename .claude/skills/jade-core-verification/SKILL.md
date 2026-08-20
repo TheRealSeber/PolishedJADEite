@@ -23,7 +23,9 @@ disable-model-invocation: true
 Confirm that the migrated JADE build produces the **same semantic outcomes** as the
 baseline build — not that the raw log text is identical. Noise such as timestamps,
 thread IDs, memory addresses, and platform-specific container names is stripped
-before comparison.
+before comparison. When a knowledge graph is available before and after a rule
+batch, a structural graph diff (`07-graph-diff.json`) is recorded as
+**supplementary evidence** — it never replaces the semantic gate.
 
 ## Semantic Verification Model
 
@@ -203,6 +205,42 @@ Produces:
 - `artifacts/07-semantic-diff.json`
 - `artifacts/07-metrics.json`
 
+### Step 5b: Optional graph-diff evidence (supplementary)
+
+When the knowledge graph is rebuilt at batch boundaries (`03.5-knowledge-graph.json`),
+pass the before-batch and after-batch graphs to semantic verification:
+
+```bash
+python scripts/semantic_verify.py \
+  --baseline artifacts/07-semantic-trace-baseline.json \
+  --migrated artifacts/07-semantic-trace-migrated.json \
+  --tolerance tolerance_config.json \
+  --artifacts-dir artifacts/ \
+  --graph-before artifacts/03.5-knowledge-graph.before.json \
+  --graph-after artifacts/03.5-knowledge-graph.json
+```
+
+When `--graph-before`/`--graph-after` are supplied, the verifier runs the
+deterministic `graph_diff.py` diff and records it as **additive evidence**:
+
+- Produces `artifacts/07-graph-diff.json`
+- Adds a `graph_evidence` section to `artifacts/07-semantic-diff.json` and a
+  `graph_diff` section to `artifacts/07-metrics.json`
+
+The diff report is versioned (`graph_diff_version: 1`), contains no timestamps,
+and is byte-deterministic for identical inputs. It compares:
+- nodes by path with a declaration signature (line numbers excluded)
+- edges as canonical `(from, to, type)` tuples
+- changed-node `impact_paths` derived from the graph's reverse dependency edges
+
+**Graph evidence is supplementary only.** It may expand diagnostics and
+verification scope, but it can NEVER convert a failed build, semantic gate, or
+runtime test into success. The semantic `overall_pass` and the exit code are
+computed purely from the trace layers. If a graph is missing or malformed, the
+verifier records an additive warning (`graph_file_not_found`,
+`graph_parse_error`, `missing_graph_input`, or `graph_diff_unavailable`) and
+continues the existing semantic gate unchanged.
+
 ### Step 6: Interpret results
 
 Read `artifacts/07-semantic-diff.json` and `artifacts/07-metrics.json`.
@@ -350,6 +388,8 @@ The normalizer (`normalize_trace.py`) applies these transformations:
 - `artifacts/07-semantic-trace-baseline.json` and `artifacts/07-semantic-trace-migrated.json` exist
 - `artifacts/07-semantic-diff.json` exists with `overall_pass` result
 - `artifacts/07-metrics.json` exists with all metric fields populated
+- When `--graph-before`/`--graph-after` are supplied, `artifacts/07-graph-diff.json`
+  records the additive graph diff (or a skip/malformed warning) — supplementary only
 - If `overall_pass` is `false`, `artifacts/failure-summary.json` is written with code `VERIFICATION_FAILED`
 
 ## runtime_verify.py — Consumer Playground Runtime Tests

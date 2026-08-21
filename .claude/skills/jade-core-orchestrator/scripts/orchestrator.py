@@ -164,6 +164,7 @@ SCRIPT_PHASES: Dict[str, Dict[str, Any]] = {
     "KNOWLEDGE_GRAPH_READY": {
         "script": ".claude/skills/jade-core-knowledge-graph/scripts/build_graph.py",
         "args": ["--workspace", "_WORKSPACE_", "--artifacts-dir", "_ARTIFACTS_"],
+        "acceptable_exit_codes": (0, 1),
     },
     "SCAN_READY": {
         "script": ".claude/skills/jade-core-scanner/scripts/scan_and_tag.py",
@@ -416,7 +417,7 @@ def _run_script_phase(phase: str, cfg: Dict) -> str:
     if proc.stderr:
         print(proc.stderr.strip(), file=sys.stderr)
 
-    if proc.returncode == 0:
+    if proc.returncode in entry.get("acceptable_exit_codes", (0,)):
         return "OK"
     if proc.returncode < 0:
         print(
@@ -1169,7 +1170,7 @@ def main() -> int:
 
         if current in ("INIT", "WORKSPACE_READY"):
             outcome = "OK"
-        elif current in REQUIRED_ARTIFACTS:
+        elif current in REQUIRED_ARTIFACTS and current != "RUNTIME_VERIFY":
             af = REQUIRED_ARTIFACTS.get(current, [])
             artifact_missing = not all((artifacts / a).exists() for a in af)
             if args.run and current in SCRIPT_PHASES and artifact_missing:

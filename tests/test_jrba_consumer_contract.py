@@ -53,7 +53,8 @@ def test_jrba_config_uses_maven_verifier_contract():
     assert config["boot_args"] == ["-agents", "runner:org.jrba.consumer.JrbaIntegrationAgent"]
     assert config["source_level"] == 17
     assert config["runtime_java_version"] == 17
-    assert config["jade_artifact"] == "jade.jar"
+    assert config["jade_artifact"] == "src/jade/lib/jade.jar"
+    assert config["classpath_deps"] == ["src/jade/lib/jade.jar"]
     assert config["expected_stdout_markers"] == [
         "JRBA_TEST_STARTED",
         "JRBA_BEHAVIOR_EXECUTED",

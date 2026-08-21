@@ -1,7 +1,8 @@
 {
   "name": "restaurant-recommendation",
   "description": "Restaurant recommendation via FIPA ContractNet: 2 restaurants (Italian) register in DF, BookingAgent sends CFP for Pasta max 75.0, cheapest wins",
-  "docker_image": "eclipse-temurin:17-jre",
+  "docker_image": "${TARGET_DOCKER_IMAGE}",
+  "source_level": "8",
   "main_class": "jade.Boot",
   "boot_args": [
     "-agents",

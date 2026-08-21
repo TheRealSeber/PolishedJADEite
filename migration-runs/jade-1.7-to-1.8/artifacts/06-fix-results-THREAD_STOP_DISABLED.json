@@ -1,0 +1,391 @@
+[
+  {
+    "task_id": "THREAD_STOP_DISABLED-0000",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "src/jade/src/jade/core/AgentContainerImpl.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 688-688",
+    "match_context": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "diff_summary": "No actionable code found",
+    "verification_hint": "Search for Thread.stop() and .stop(Throwable) usage; if found, replace with interrupt() or cooperative shutdown mechanisms.",
+    "errors": [],
+    "warnings": [
+      "No .stop() call found in associated code line"
+    ],
+    "applied_at": "2026-05-26T17:21:16Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-0001",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 261-261",
+    "match_context": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "diff_summary": "No actionable code found",
+    "verification_hint": "Search for Thread.stop() and .stop(Throwable) usage; if found, replace with interrupt() or cooperative shutdown mechanisms.",
+    "errors": [],
+    "warnings": [
+      "No .stop() call found in associated code line"
+    ],
+    "applied_at": "2026-05-26T17:21:17Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-0002",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 253-253",
+    "match_context": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "diff_summary": "No actionable code found",
+    "verification_hint": "Search for Thread.stop() and .stop(Throwable) usage; if found, replace with interrupt() or cooperative shutdown mechanisms.",
+    "errors": [],
+    "warnings": [
+      "No .stop() call found in associated code line"
+    ],
+    "applied_at": "2026-05-26T17:21:17Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-0003",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "",
+    "status": "FAILED",
+    "match_count": 0,
+    "match_region": "lines 0-0",
+    "match_context": "",
+    "diff_summary": "",
+    "verification_hint": "",
+    "errors": [
+      "Task THREAD_STOP_DISABLED-0003 not found"
+    ],
+    "warnings": [],
+    "applied_at": "2026-05-26T17:21:17Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-0004",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "",
+    "status": "FAILED",
+    "match_count": 0,
+    "match_region": "lines 0-0",
+    "match_context": "",
+    "diff_summary": "",
+    "verification_hint": "",
+    "errors": [
+      "Task THREAD_STOP_DISABLED-0004 not found"
+    ],
+    "warnings": [],
+    "applied_at": "2026-05-26T17:21:17Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-0005",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "",
+    "status": "FAILED",
+    "match_count": 0,
+    "match_region": "lines 0-0",
+    "match_context": "",
+    "diff_summary": "",
+    "verification_hint": "",
+    "errors": [
+      "Task THREAD_STOP_DISABLED-0005 not found"
+    ],
+    "warnings": [],
+    "applied_at": "2026-05-26T17:21:18Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-0006",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "",
+    "status": "FAILED",
+    "match_count": 0,
+    "match_region": "lines 0-0",
+    "match_context": "",
+    "diff_summary": "",
+    "verification_hint": "",
+    "errors": [
+      "Task THREAD_STOP_DISABLED-0006 not found"
+    ],
+    "warnings": [],
+    "applied_at": "2026-05-26T17:21:18Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-0007",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "",
+    "status": "FAILED",
+    "match_count": 0,
+    "match_region": "lines 0-0",
+    "match_context": "",
+    "diff_summary": "",
+    "verification_hint": "",
+    "errors": [
+      "Task THREAD_STOP_DISABLED-0007 not found"
+    ],
+    "warnings": [],
+    "applied_at": "2026-05-26T17:21:18Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-0008",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "",
+    "status": "FAILED",
+    "match_count": 0,
+    "match_region": "lines 0-0",
+    "match_context": "",
+    "diff_summary": "",
+    "verification_hint": "",
+    "errors": [
+      "Task THREAD_STOP_DISABLED-0008 not found"
+    ],
+    "warnings": [],
+    "applied_at": "2026-05-26T17:21:18Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-0009",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "",
+    "status": "FAILED",
+    "match_count": 0,
+    "match_region": "lines 0-0",
+    "match_context": "",
+    "diff_summary": "",
+    "verification_hint": "",
+    "errors": [
+      "Task THREAD_STOP_DISABLED-0009 not found"
+    ],
+    "warnings": [],
+    "applied_at": "2026-05-26T17:21:18Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-AgentContainerImpl",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "src/jade/src/jade/core/AgentContainerImpl.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 688-688",
+    "match_context": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "diff_summary": "No actionable code found",
+    "verification_hint": "Search for Thread.stop() and .stop(Throwable) usage; if found, replace with interrupt() or cooperative shutdown mechanisms.",
+    "errors": [],
+    "warnings": [
+      "No .stop() call found in associated code line"
+    ],
+    "applied_at": "2026-05-26T17:22:36Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-FrontEndContainer",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "src/jade/src/jade/core/FrontEndContainer.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 447-447",
+    "match_context": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "diff_summary": "No actionable code found",
+    "verification_hint": "Search for Thread.stop() and .stop(Throwable) usage; if found, replace with interrupt() or cooperative shutdown mechanisms.",
+    "errors": [],
+    "warnings": [
+      "No .stop() call found in associated code line"
+    ],
+    "applied_at": "2026-05-26T17:22:36Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-Runtime",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "src/jade/src/jade/core/Runtime.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 290-290",
+    "match_context": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "diff_summary": "No actionable code found",
+    "verification_hint": "Search for Thread.stop() and .stop(Throwable) usage; if found, replace with interrupt() or cooperative shutdown mechanisms.",
+    "errors": [],
+    "warnings": [
+      "No .stop() call found in associated code line"
+    ],
+    "applied_at": "2026-05-26T17:22:37Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-PersistentDeliveryManager",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "src/jade/src/jade/core/messaging/PersistentDeliveryManager.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 290-290",
+    "match_context": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "diff_summary": "No actionable code found",
+    "verification_hint": "Search for Thread.stop() and .stop(Throwable) usage; if found, replace with interrupt() or cooperative shutdown mechanisms.",
+    "errors": [],
+    "warnings": [
+      "No .stop() call found in associated code line"
+    ],
+    "applied_at": "2026-05-26T17:22:37Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-UDPMonitorServer",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "src/jade/src/jade/core/nodeMonitoring/UDPMonitorServer.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 405-405",
+    "match_context": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "diff_summary": "No actionable code found",
+    "verification_hint": "Search for Thread.stop() and .stop(Throwable) usage; if found, replace with interrupt() or cooperative shutdown mechanisms.",
+    "errors": [],
+    "warnings": [
+      "No .stop() call found in associated code line"
+    ],
+    "applied_at": "2026-05-26T17:22:37Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-UDPNodeMonitoringService-f000",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 379-379",
+    "match_context": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "diff_summary": "No actionable code found",
+    "verification_hint": "Search for Thread.stop() and .stop(Throwable) usage; if found, replace with interrupt() or cooperative shutdown mechanisms.",
+    "errors": [],
+    "warnings": [
+      "No .stop() call found in associated code line"
+    ],
+    "applied_at": "2026-05-26T17:22:38Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-UDPNodeMonitoringService-f001",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 261-261",
+    "match_context": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "diff_summary": "No actionable code found",
+    "verification_hint": "Search for Thread.stop() and .stop(Throwable) usage; if found, replace with interrupt() or cooperative shutdown mechanisms.",
+    "errors": [],
+    "warnings": [
+      "No .stop() call found in associated code line",
+      "No .stop() call found in associated code line"
+    ],
+    "applied_at": "2026-05-26T17:22:38Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-UDPNodeMonitoringService-f002",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 253-253",
+    "match_context": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "diff_summary": "No actionable code found",
+    "verification_hint": "Search for Thread.stop() and .stop(Throwable) usage; if found, replace with interrupt() or cooperative shutdown mechanisms.",
+    "errors": [],
+    "warnings": [
+      "No .stop() call found in associated code line",
+      "No .stop() call found in associated code line",
+      "No .stop() call found in associated code line"
+    ],
+    "applied_at": "2026-05-26T17:22:38Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-MainReplicationService",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "src/jade/src/jade/core/replication/MainReplicationService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 389-389",
+    "match_context": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "diff_summary": "No actionable code found",
+    "verification_hint": "Search for Thread.stop() and .stop(Throwable) usage; if found, replace with interrupt() or cooperative shutdown mechanisms.",
+    "errors": [],
+    "warnings": [
+      "No .stop() call found in associated code line"
+    ],
+    "applied_at": "2026-05-26T17:22:38Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-BEManagementService-f000",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 736-736",
+    "match_context": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "diff_summary": "No actionable code found",
+    "verification_hint": "Search for Thread.stop() and .stop(Throwable) usage; if found, replace with interrupt() or cooperative shutdown mechanisms.",
+    "errors": [],
+    "warnings": [
+      "No .stop() call found in associated code line"
+    ],
+    "applied_at": "2026-05-26T17:22:39Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-BEManagementService-f001",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 701-701",
+    "match_context": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "diff_summary": "No actionable code found",
+    "verification_hint": "Search for Thread.stop() and .stop(Throwable) usage; if found, replace with interrupt() or cooperative shutdown mechanisms.",
+    "errors": [],
+    "warnings": [
+      "No .stop() call found in associated code line",
+      "No .stop() call found in associated code line"
+    ],
+    "applied_at": "2026-05-26T17:22:39Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-DFAppletCommunicator",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 99-99",
+    "match_context": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "diff_summary": "No actionable code found",
+    "verification_hint": "Search for Thread.stop() and .stop(Throwable) usage; if found, replace with interrupt() or cooperative shutdown mechanisms.",
+    "errors": [],
+    "warnings": [
+      "No .stop() call found in associated code line"
+    ],
+    "applied_at": "2026-05-26T17:22:39Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-ACLTextArea-f000",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "src/jade/src/jade/tools/gui/ACLTextArea.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 2951-2951",
+    "match_context": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "diff_summary": "No actionable code found",
+    "verification_hint": "Search for Thread.stop() and .stop(Throwable) usage; if found, replace with interrupt() or cooperative shutdown mechanisms.",
+    "errors": [],
+    "warnings": [
+      "No .stop() call found in associated code line"
+    ],
+    "applied_at": "2026-05-26T17:22:40Z"
+  },
+  {
+    "task_id": "THREAD_STOP_DISABLED-ACLTextArea-f001",
+    "rule_id": "THREAD_STOP_DISABLED",
+    "file": "src/jade/src/jade/tools/gui/ACLTextArea.java",
+    "status": "SKIPPED",
+    "match_count": 0,
+    "match_region": "lines 1511-1511",
+    "match_context": "jade-recipe-1.7-1.8-thread-stop-removal",
+    "diff_summary": "No actionable code found",
+    "verification_hint": "Search for Thread.stop() and .stop(Throwable) usage; if found, replace with interrupt() or cooperative shutdown mechanisms.",
+    "errors": [],
+    "warnings": [
+      "No .stop() call found in associated code line",
+      "No .stop() call found in associated code line"
+    ],
+    "applied_at": "2026-05-26T17:22:40Z"
+  }
+]

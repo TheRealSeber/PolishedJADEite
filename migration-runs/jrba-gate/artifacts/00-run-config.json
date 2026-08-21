@@ -1,0 +1,8 @@
+{
+  "run_id": "jrba-gate",
+  "baseline_path": "migration-runs/jrba-gate/workspace",
+  "workspace_path": "migration-runs/jrba-gate/workspace",
+  "artifacts_path": "migration-runs/jrba-gate/artifacts",
+  "source_version": "1.6",
+  "target_version": "17"
+}

@@ -1,0 +1,25 @@
+{
+  "run_id": "jrba-gate",
+  "generated_at": "2026-08-19T18:29:49Z",
+  "overall_pass": true,
+  "total_consumers": 1,
+  "passed": 1,
+  "failed": 0,
+  "results": [
+    {
+      "project": "jrba",
+      "status": "PASS",
+      "duration_seconds": 62.1,
+      "jade_booted": true,
+      "stdout_snippet": "JRBA_TEST_STARTED\nJRBA_BEHAVIOR_EXECUTED\nJRBA_TEST_PASSED\n\nAug 19, 2026 6:29:44 PM jade.core.Runtime beginContainer\nINFO: ----------------------------------\n    This is JADE 4.6.0  - revision UNKNOWN of UNKNOWN\n    downloaded in Open Source, under LGPL restrictions,\n    at http://jade.tilab.com/\n----------------------------------------\nAug 19, 2026 6:29:44 PM jade.imtp.leap.LEAPIMTPManager initialize\nINFO: Listening for intra-platform commands on address:\n- jicp://172.17.0.2:1099\n\nAug 19, 2026 6:29:45 PM jade.core.BaseService init\nINFO: Service jade.core.management.AgentManagement initialized\nAug 19, 2026 6:29:45 PM jade.core.BaseService init\nINFO: Service jade.core.messaging.Messaging initialized\nAug 19, 2026 6:29:45 PM jade.core.BaseService init\nINFO: Service jade.core.resource.ResourceManagement initialized\nAug 19, 2026 6:29:45 PM jade.core.BaseService init\nINFO: Service jade.core.mobility.AgentMobility initialized\nAug 19, 2026 6:29:45 PM jade.core.BaseService init\nINFO: Service jade.core.event.Notification initialized\nAug 19, 2026 6:29:45 PM jade.mtp.http.HTTPServer <init>\nINFO: HTTP-MTP Using XML parser com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser\nAug 19, 2026 6:29:45 PM jade.core.messaging.MessagingService boot\nINFO: MTP addresses:\nhttp://feb2f4c01347:7778/acc\nAug 19, 2026 6:29:48 PM jade.core.AgentContainerImpl joinPlatform\nINFO: --------------------------------------\nAgent container Main-Container@172.17.0.2 is ready.\n--------------------------------------------\n",
+      "error": null,
+      "docker_image": "eclipse-temurin:17-jre",
+      "declared_docker_image": "${TARGET_DOCKER_IMAGE}",
+      "resolved_docker_image": "eclipse-temurin:17-jre",
+      "docker_image_resolution_source": "central-registry",
+      "docker_image_registry_key": "java-17",
+      "runtime_java_version": 17,
+      "maven_dependency_plugin_version": "3.6.1"
+    }
+  ]
+}

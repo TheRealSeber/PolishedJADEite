@@ -11,6 +11,20 @@ from collections import Counter, defaultdict
 from dataclasses import asdict, dataclass, field
 from typing import Any, Dict, List, Optional, Set, Tuple
 
+_SCRIPT_DIR = pathlib.Path(__file__).resolve().parent
+if str(_SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(_SCRIPT_DIR))
+
+try:
+    from graph_diff import GRAPH_DIFF_VERSION as _GRAPH_DIFF_VERSION
+    from graph_diff import compute_diff as _compute_graph_diff
+
+    _GRAPH_DIFF_AVAILABLE = True
+except Exception:  # pragma: no cover - degrade gracefully when the module is absent
+    _GRAPH_DIFF_VERSION = 1
+    _compute_graph_diff = None
+    _GRAPH_DIFF_AVAILABLE = False
+
 # ---------------------------------------------------------------------------
 # Event model
 # ---------------------------------------------------------------------------
@@ -546,6 +560,106 @@ def _partition_events(
     return lifecycle, acl, df_ams
 
 
+def _record_graph_evidence(
+    graph_before: Optional[pathlib.Path],
+    graph_after: Optional[pathlib.Path],
+    artifacts_dir: pathlib.Path,
+) -> Optional[Dict[str, Any]]:
+    """Record additive graph-diff evidence; never affects the semantic gate.
+
+    Writes ``artifacts/07-graph-diff.json`` and returns a summary dict.
+    Missing or malformed graphs produce additive warnings and leave the
+    semantic gate unchanged.
+    """
+    report_path = artifacts_dir / "07-graph-diff.json"
+
+    def _summary(
+        status: str, warnings: List[Dict[str, Any]], diff: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        summary: Dict[str, Any] = {
+            "status": status,
+            "warnings": warnings,
+            "artifact": str(report_path),
+            "changed_nodes": 0,
+            "added_edges": 0,
+            "removed_edges": 0,
+        }
+        if diff:
+            summary["changed_nodes"] = len(diff.get("changed_nodes", []))
+            summary["added_edges"] = len(diff.get("added_edges", []))
+            summary["removed_edges"] = len(diff.get("removed_edges", []))
+        return summary
+
+    if graph_before is None or graph_after is None:
+        warnings = [
+            {
+                "kind": "missing_graph_input",
+                "message": "both --graph-before and --graph-after are required for graph diff evidence",
+            }
+        ]
+        _write_json_atomic(
+            report_path,
+            {
+                "graph_diff_version": _GRAPH_DIFF_VERSION,
+                "status": "skipped",
+                "warnings": warnings,
+            },
+        )
+        return _summary("skipped", warnings)
+
+    missing = [str(p) for p in (graph_before, graph_after) if not p.exists()]
+    if missing:
+        warnings = [{"kind": "graph_file_not_found", "files": missing}]
+        _write_json_atomic(
+            report_path,
+            {
+                "graph_diff_version": _GRAPH_DIFF_VERSION,
+                "status": "skipped",
+                "warnings": warnings,
+            },
+        )
+        return _summary("skipped", warnings)
+
+    if not _GRAPH_DIFF_AVAILABLE or _compute_graph_diff is None:
+        warnings = [
+            {
+                "kind": "graph_diff_unavailable",
+                "message": "graph_diff module could not be imported",
+            }
+        ]
+        _write_json_atomic(
+            report_path,
+            {
+                "graph_diff_version": _GRAPH_DIFF_VERSION,
+                "status": "skipped",
+                "warnings": warnings,
+            },
+        )
+        return _summary("skipped", warnings)
+
+    try:
+        with graph_before.open("r", encoding="utf-8") as f:
+            before_graph = json.load(f)
+        with graph_after.open("r", encoding="utf-8") as f:
+            after_graph = json.load(f)
+        diff = _compute_graph_diff(before_graph, after_graph)
+    except Exception as exc:
+        warnings = [{"kind": "graph_parse_error", "message": str(exc)}]
+        _write_json_atomic(
+            report_path,
+            {
+                "graph_diff_version": _GRAPH_DIFF_VERSION,
+                "status": "malformed",
+                "warnings": warnings,
+            },
+        )
+        return _summary("malformed", warnings)
+
+    diff["status"] = "computed"
+    _write_json_atomic(report_path, diff)
+    return _summary("computed", diff.get("warnings", []), diff)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Semantic verification of JADE migration traces"
@@ -574,6 +688,19 @@ def main() -> int:
         type=pathlib.Path,
         help="Directory to write output artifacts",
     )
+    parser.add_argument(
+        "--graph-before",
+        default=None,
+        type=pathlib.Path,
+        help="Optional before-batch knowledge graph artifact (03.5-knowledge-graph.json) "
+        "for additive graph-diff evidence",
+    )
+    parser.add_argument(
+        "--graph-after",
+        default=None,
+        type=pathlib.Path,
+        help="Optional after-batch knowledge graph artifact for additive graph-diff evidence",
+    )
     args = parser.parse_args()
 
     if not args.baseline.exists():
@@ -600,6 +727,12 @@ def main() -> int:
     df_ams_diff = _compare_layer(bd, md, "df_ams", tolerance)
 
     overall_pass = lifecycle_diff.pass_ and acl_diff.pass_ and df_ams_diff.pass_
+
+    graph_evidence = None
+    if args.graph_before is not None or args.graph_after is not None:
+        graph_evidence = _record_graph_evidence(
+            args.graph_before, args.graph_after, args.artifacts_dir
+        )
 
     diff_payload = {
         "timestamp": _iso_now(),
@@ -635,6 +768,23 @@ def main() -> int:
         "df_ams_outcome_pass": df_ams_diff.pass_,
     }
 
+    if graph_evidence is not None:
+        diff_payload["graph_evidence"] = {
+            "status": graph_evidence["status"],
+            "warnings": graph_evidence["warnings"],
+            "artifact": graph_evidence["artifact"],
+            "changed_nodes": graph_evidence["changed_nodes"],
+            "added_edges": graph_evidence["added_edges"],
+            "removed_edges": graph_evidence["removed_edges"],
+        }
+        metrics_payload["graph_diff"] = {
+            "status": graph_evidence["status"],
+            "warning_count": len(graph_evidence["warnings"]),
+            "changed_nodes": graph_evidence["changed_nodes"],
+            "added_edges": graph_evidence["added_edges"],
+            "removed_edges": graph_evidence["removed_edges"],
+        }
+
     _write_json_atomic(args.artifacts_dir / "07-semantic-diff.json", diff_payload)
     _write_json_atomic(args.artifacts_dir / "07-metrics.json", metrics_payload)
 
@@ -651,6 +801,12 @@ def main() -> int:
         f"  DF/AMS:    {'PASS' if df_ams_diff.pass_ else 'FAIL'} "
         f"({df_ams_diff.matched_count} match, {df_ams_diff.tolerated_count} tolerated)"
     )
+
+    if graph_evidence is not None:
+        print(
+            f"Graph evidence: {graph_evidence['status']} "
+            f"({len(graph_evidence['warnings'])} warnings) -- additive only, gate unchanged"
+        )
 
     if not overall_pass:
         _write_json_atomic(

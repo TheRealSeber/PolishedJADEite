@@ -92,16 +92,27 @@ def _run_query(lang, tree_root, query_str, group_by_node_type):
 
 
 def extract_imports(tree_root, source_bytes, lang):
-    """Extract import strings from parsed tree."""
-    q = Query(lang, IMPORT_QUERY)
-    cursor = QueryCursor(q)
-    matches = cursor.matches(tree_root)
+    """Extract import strings, including wildcard and static imports."""
     imports = []
-    for pattern_idx, captures in matches:
-        for cap_name, nodes in captures.items():
-            if cap_name == "import":
-                imports.append(source_bytes[nodes[0].start_byte:nodes[0].end_byte].decode("utf-8"))
-    return imports
+    for node in tree_root.children:
+        if node.type != "import_declaration":
+            continue
+        text = _child_text(node, source_bytes).strip()
+        text = text[len("import"):].strip().rstrip(";").strip()
+        if text.startswith("static "):
+            text = text[len("static "):].strip()
+        if text:
+            imports.append(text)
+    return sorted(imports)
+
+
+def extract_package(tree_root, source_bytes):
+    """Return the declared package, independent of the file's directory."""
+    for child in tree_root.children:
+        if child.type == "package_declaration":
+            text = _child_text(child, source_bytes)
+            return text[len("package"):].strip().rstrip(";").strip()
+    return ""
 
 
 def _child_text(child, source_bytes):
@@ -157,6 +168,7 @@ def extract_methods(tree_root, source_bytes, lang):
         for cap_name, nodes in captures.items():
             node = nodes[0]
             method = {
+                "start_byte": node.start_byte,
                 "line_start": node.start_point[0] + 1,
                 "line_end": node.end_point[0] + 1,
                 "modifiers": [],
@@ -277,9 +289,46 @@ def extract_calls(tree_root, source_bytes, lang):
                 call_info["object"] = val
             elif cap_name == "method_name":
                 call_info["method_name"] = val
+                caller_name, caller_start = _enclosing_method_identity(node, source_bytes)
+                call_info["caller_method"] = caller_name
+                call_info["caller_method_start"] = caller_start
         if call_info.get("method_name"):
             results.append(call_info)
     return results
+
+
+def extract_local_variables(tree_root, source_bytes, lang):
+    """Extract local variable names and declared types for receiver resolution."""
+    results = []
+    q = Query(lang, "(local_variable_declaration) @local")
+    for _, captures in QueryCursor(q).matches(tree_root):
+        node = captures["local"][0]
+        type_text = ""
+        for child in node.children:
+            if child.type in ("type_identifier", "generic_type", "array_type", "scoped_type_identifier"):
+                type_text = _child_text(child, source_bytes)
+                break
+        if not type_text:
+            continue
+        for child in node.children:
+            if child.type == "variable_declarator":
+                for grandchild in child.children:
+                    if grandchild.type == "identifier":
+                        method_name, method_start = _enclosing_method_identity(node, source_bytes)
+                        results.append({"name": _child_text(grandchild, source_bytes), "type": type_text,
+                                        "method": method_name, "method_start": method_start})
+    return results
+
+
+def _enclosing_method_identity(node, source_bytes):
+    current = node.parent
+    while current is not None:
+        if current.type == "method_declaration":
+            for child in current.children:
+                if child.type == "identifier":
+                    return _child_text(child, source_bytes), current.start_byte
+        current = current.parent
+    return "", 0
 
 
 def _parse_exceptions(throws_text):

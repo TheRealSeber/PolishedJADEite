@@ -1,10 +1,10 @@
-#!/usr/bin/env python3
-"""jade-core-rule-dispatcher — routes rule tasks to registry recipes.
+﻿#!/usr/bin/env python3
+"""jade-core-rule-dispatcher â€” routes rule tasks to registry recipes.
 
 Reads task from batch JSON, rule from manifest, looks up recipe script
 in recipe-registry.json, invokes recipe as subprocess, records result.
 
-Contains ZERO transform logic — all transforms live in registry recipe scripts.
+Contains ZERO transform logic â€” all transforms live in registry recipe scripts.
 """
 
 from __future__ import annotations
@@ -256,6 +256,44 @@ def _validate_recipe_result(result: Any) -> Dict[str, Any]:
     return result
 
 
+def graph_context_for_flag(flag: Dict[str, Any]) -> Dict[str, Any]:
+    """Extract additive advisory graph context from a flag entry.
+
+    The flag's ``graph`` metadata (produced by the scanner / batch
+    processor) is copied verbatim â€” source artifact, target node,
+    impact files and diagnostics.  Never contains raw graph source and
+    is never passed to recipe subprocesses.
+    """
+    graph = flag.get("graph")
+    if "graph" not in flag or graph is None:
+        return {
+            "status": "unavailable",
+            "diagnostics": [
+                {"kind": "graph_unavailable", "message": "flag carries no graph metadata"}
+            ],
+        }
+    if not isinstance(graph, dict):
+        return {
+            "status": "unavailable",
+            "diagnostics": [
+                {"kind": "graph_malformed", "message": "flag graph metadata is malformed"}
+            ],
+        }
+    impact_files = graph.get("impact_files", [])
+    if not isinstance(impact_files, list):
+        impact_files = []
+    diagnostics = graph.get("diagnostics", [])
+    if not isinstance(diagnostics, list):
+        diagnostics = []
+    return {
+        "status": graph.get("status", "available"),
+        "source_artifact": graph.get("source_artifact"),
+        "target_node": graph.get("declaration"),
+        "impact_files": impact_files,
+        "diagnostics": diagnostics,
+    }
+
+
 def dispatch_recipe(script_path: str, file_path: str, line: int) -> Dict:
     try:
         resolved_script = resolve_script_path(script_path)
@@ -365,6 +403,7 @@ def record_result(
     warnings: List[str],
     line_start: int,
     line_end: int,
+    graph_context: Optional[Dict[str, Any]] = None,
 ) -> pathlib.Path:
     result = {
         "task_id": task_id,
@@ -380,6 +419,8 @@ def record_result(
         "warnings": warnings,
         "applied_at": iso_now(),
     }
+    if graph_context is not None:
+        result["graph_context"] = graph_context
 
     # Aggregate: one file per rule_id, append to array
     aggregate_path = artifacts_dir / f"06-fix-results-{rule_id}.json"
@@ -397,7 +438,7 @@ def record_result(
 
 def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(
-        description="JADE Core Rule Dispatcher — routes rule tasks to registry recipes"
+        description="JADE Core Rule Dispatcher â€” routes rule tasks to registry recipes"
     )
     parser.add_argument("--artifacts-dir", required=True)
     parser.add_argument("--rule-id", required=True)
@@ -677,6 +718,10 @@ def main(argv: Optional[List[str]] = None) -> int:
         elif status == "DEFERRED" and overall_status not in ("FIXED", "FAILED"):
             overall_status = "DEFERRED"
 
+        graph_context = graph_context_for_flag(flag)
+        if graph_context.get("status") == "unavailable":
+            warnings.extend(graph_context.get("diagnostics", []))
+
         record_result(
             artifacts_dir,
             per_flag_task_id,
@@ -691,6 +736,7 @@ def main(argv: Optional[List[str]] = None) -> int:
             warnings,
             line_start,
             line_start,
+            graph_context,
         )
         safe_summary = diff_summary.encode("ascii", errors="replace").decode("ascii")
         print(f"{status} | {per_flag_task_id} | {file_rel} | {safe_summary}")

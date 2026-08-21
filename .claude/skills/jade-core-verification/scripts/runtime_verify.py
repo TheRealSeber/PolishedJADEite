@@ -713,6 +713,10 @@ def build_maven_consumer(
             "-B",
             "-ntp",
             f"-Dmaven.repo.local={repo}",
+            # JDK 23+ disables implicit annotation processing (JEP 486 in
+            # JDK 25); Lombok and Immutables processors must be enabled
+            # explicitly or consumers fail to compile on modern host JDKs.
+            "-Dmaven.compiler.proc=full",
         ]
         install_cmd = maven_cmd + common_args + [
             "org.apache.maven.plugins:maven-install-plugin:3.1.2:install-file",

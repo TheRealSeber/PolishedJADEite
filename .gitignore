@@ -39,3 +39,11 @@ tests/fixtures/source-policy/artifacts/
 
 # Git worktrees (isolated workspaces)
 .worktrees/
+
+# Local tool state
+.superpowers/
+
+# Consumer build/runtime output (never commit compiled classes or JADE runtime dumps)
+consumer-playground/*/build/
+consumer-playground/**/APDescription.txt
+consumer-playground/**/MTPs-Main-Container.txt

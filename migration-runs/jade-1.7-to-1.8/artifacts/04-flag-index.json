@@ -1,0 +1,1675 @@
+{
+  "run_id": "jade-1.7-to-1.8",
+  "generated_at": "2026-05-26T17:15:59Z",
+  "workspace": "migration-runs/jade-1.7-to-1.8/workspace",
+  "total_flags": 238,
+  "total_files_scanned": 1017,
+  "flags": [
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/BootGUI.java",
+      "line": 346,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/BootGUI.java",
+      "line": 332,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/BootGUI.java",
+      "line": 240,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/BootGUI.java",
+      "line": 170,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/BootGUI.java",
+      "line": 160,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/BootGUI.java",
+      "line": 124,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/MicroBoot.java",
+      "line": 68,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/Agent.java",
+      "line": 1055,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "THREAD_STOP_DISABLED",
+      "file": "src/jade/src/jade/core/AgentContainerImpl.java",
+      "line": 688,
+      "confidence": 0.8,
+      "reason": "Broad scan for any .stop() calls that may invoke the now-disabled Thread.stop() or related deprecated thread termination methods."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/BackEndContainer.java",
+      "line": 746,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/BackEndContainer.java",
+      "line": 382,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "THREAD_STOP_DISABLED",
+      "file": "src/jade/src/jade/core/FrontEndContainer.java",
+      "line": 447,
+      "confidence": 0.8,
+      "reason": "Broad scan for any .stop() calls that may invoke the now-disabled Thread.stop() or related deprecated thread termination methods."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/FullResourceManager.java",
+      "line": 97,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/JVM.java",
+      "line": 45,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/JVM.java",
+      "line": 33,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/MicroRuntime.java",
+      "line": 389,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/PlatformManagerImpl.java",
+      "line": 982,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/Runtime.java",
+      "line": 273,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/Runtime.java",
+      "line": 181,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "THREAD_STOP_DISABLED",
+      "file": "src/jade/src/jade/core/Runtime.java",
+      "line": 290,
+      "confidence": 0.8,
+      "reason": "Broad scan for any .stop() calls that may invoke the now-disabled Thread.stop() or related deprecated thread termination methods."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/behaviours/OntologyServer.java",
+      "line": 213,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/behaviours/WrapperBehaviour.java",
+      "line": 37,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/event/NotificationService.java",
+      "line": 574,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/faultRecovery/FaultRecoveryService.java",
+      "line": 527,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/faultRecovery/FaultRecoveryService.java",
+      "line": 256,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+      "line": 212,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+      "line": 204,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+      "line": 91,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+      "line": 80,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+      "line": 125,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+      "line": 113,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/messaging/MessageManager.java",
+      "line": 238,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "line": 574,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "line": 479,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "line": 473,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "line": 467,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "line": 461,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "line": 455,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "line": 449,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "line": 427,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "line": 420,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "line": 410,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/messaging/MomMessagingService.java",
+      "line": 236,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/messaging/MomMessagingService.java",
+      "line": 82,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "THREAD_STOP_DISABLED",
+      "file": "src/jade/src/jade/core/messaging/PersistentDeliveryManager.java",
+      "line": 290,
+      "confidence": 0.8,
+      "reason": "Broad scan for any .stop() calls that may invoke the now-disabled Thread.stop() or related deprecated thread termination methods."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/messaging/PersistentDeliveryService.java",
+      "line": 437,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/messaging/TopicManagementFEService.java",
+      "line": 49,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/nodeMonitoring/UDPMonitorServer.java",
+      "line": 501,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "THREAD_STOP_DISABLED",
+      "file": "src/jade/src/jade/core/nodeMonitoring/UDPMonitorServer.java",
+      "line": 405,
+      "confidence": 0.8,
+      "reason": "Broad scan for any .stop() calls that may invoke the now-disabled Thread.stop() or related deprecated thread termination methods."
+    },
+    {
+      "rule_id": "THREAD_STOP_DISABLED",
+      "file": "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringService.java",
+      "line": 379,
+      "confidence": 0.85,
+      "reason": "Replace deprecated Thread.stop(Throwable) calls with safer alternatives like Thread.interrupt() or cooperative shutdown mechanisms using volatile boolean flags."
+    },
+    {
+      "rule_id": "THREAD_STOP_DISABLED",
+      "file": "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringService.java",
+      "line": 261,
+      "confidence": 0.85,
+      "reason": "Replace deprecated Thread.stop(Throwable) calls with safer alternatives like Thread.interrupt() or cooperative shutdown mechanisms using volatile boolean flags."
+    },
+    {
+      "rule_id": "THREAD_STOP_DISABLED",
+      "file": "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringService.java",
+      "line": 253,
+      "confidence": 0.8,
+      "reason": "Broad scan for any .stop() calls that may invoke the now-disabled Thread.stop() or related deprecated thread termination methods."
+    },
+    {
+      "rule_id": "THREAD_STOP_DISABLED",
+      "file": "src/jade/src/jade/core/replication/MainReplicationService.java",
+      "line": 389,
+      "confidence": 0.8,
+      "reason": "Broad scan for any .stop() calls that may invoke the now-disabled Thread.stop() or related deprecated thread termination methods."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/sam/Poller.java",
+      "line": 181,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/sam/SAMService.java",
+      "line": 497,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/sam/SAMService.java",
+      "line": 303,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/sam/SAMService.java",
+      "line": 177,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/sam/SAMService.java",
+      "line": 164,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/sam/SAMService.java",
+      "line": 150,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/core/sam/SAMService.java",
+      "line": 97,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/domain/ams.java",
+      "line": 1018,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/domain/ams.java",
+      "line": 1002,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/domain/ams.java",
+      "line": 990,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/domain/ams.java",
+      "line": 978,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/domain/ams.java",
+      "line": 966,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/domain/ams.java",
+      "line": 449,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/domain/ams.java",
+      "line": 410,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/domain/ams.java",
+      "line": 288,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/domain/ams.java",
+      "line": 227,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/domain/df.java",
+      "line": 643,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/domain/df.java",
+      "line": 641,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/domain/df.java",
+      "line": 582,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/gui/AboutJadeAction.java",
+      "line": 95,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/gui/AclGui.java",
+      "line": 929,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/gui/AclGui.java",
+      "line": 700,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/gui/AclGui.java",
+      "line": 265,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/gui/AIDGui.java",
+      "line": 251,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/gui/ClassSelectionDialog.java",
+      "line": 387,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/gui/DFAgentDscDlg.java",
+      "line": 199,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/gui/TreeHelp.java",
+      "line": 95,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/gui/TreeHelp.java",
+      "line": 80,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+      "line": 781,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/MicroStub.java",
+      "line": 308,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/MicroStub.java",
+      "line": 168,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/MicroStub.java",
+      "line": 133,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/http/HTTPBEDispatcher.java",
+      "line": 517,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/http/HTTPBEDispatcher.java",
+      "line": 199,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/http/HTTPClientConnection.java",
+      "line": 85,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/http/HTTPPeer.java",
+      "line": 65,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/http/HTTPSPeer.java",
+      "line": 23,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/JICP/BIBEDispatcher.java",
+      "line": 550,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/JICP/BIBEDispatcher.java",
+      "line": 257,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/JICP/BIFEDispatcher.java",
+      "line": 963,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/JICP/FrontEndDispatcher.java",
+      "line": 948,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/JICP/FrontEndDispatcher.java",
+      "line": 939,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/JICP/JICPConnection.java",
+      "line": 188,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/JICP/JICPPeer.java",
+      "line": 160,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/JICP/JICPSPeer.java",
+      "line": 96,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "line": 1670,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "line": 449,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "line": 441,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "line": 431,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "line": 423,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "line": 415,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "line": 407,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "line": 399,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "line": 391,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "line": 379,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "line": 367,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "line": 357,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "line": 347,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "line": 278,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "THREAD_STOP_DISABLED",
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "line": 736,
+      "confidence": 0.8,
+      "reason": "Broad scan for any .stop() calls that may invoke the now-disabled Thread.stop() or related deprecated thread termination methods."
+    },
+    {
+      "rule_id": "THREAD_STOP_DISABLED",
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "line": 701,
+      "confidence": 0.8,
+      "reason": "Broad scan for any .stop() calls that may invoke the now-disabled Thread.stop() or related deprecated thread termination methods."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOBEDispatcher.java",
+      "line": 326,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPBEDispatcher.java",
+      "line": 592,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPBEDispatcher.java",
+      "line": 576,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPPeer.java",
+      "line": 26,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPSPeer.java",
+      "line": 22,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPPeer.java",
+      "line": 27,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPSPeer.java",
+      "line": 25,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/nio/StuckSimulator.java",
+      "line": 12,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/sms/PhoneBasedSMSManager.java",
+      "line": 79,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/imtp/leap/sms/SMSManagerGui.java",
+      "line": 64,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/proto/SSResponderDispatcher.java",
+      "line": 42,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/ToolAgent.java",
+      "line": 222,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/ToolNotifier.java",
+      "line": 102,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/ToolNotifier.java",
+      "line": 91,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "THREAD_STOP_DISABLED",
+      "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+      "line": 99,
+      "confidence": 0.8,
+      "reason": "Broad scan for any .stop() calls that may invoke the now-disabled Thread.stop() or related deprecated thread termination methods."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgent.java",
+      "line": 113,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "THREAD_STOP_DISABLED",
+      "file": "src/jade/src/jade/tools/gui/ACLTextArea.java",
+      "line": 2951,
+      "confidence": 0.8,
+      "reason": "Broad scan for any .stop() calls that may invoke the now-disabled Thread.stop() or related deprecated thread termination methods."
+    },
+    {
+      "rule_id": "THREAD_STOP_DISABLED",
+      "file": "src/jade/src/jade/tools/gui/ACLTextArea.java",
+      "line": 1511,
+      "confidence": 0.8,
+      "reason": "Broad scan for any .stop() calls that may invoke the now-disabled Thread.stop() or related deprecated thread termination methods."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+      "line": 373,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+      "line": 359,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "line": 545,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "line": 533,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "line": 521,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "line": 509,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "line": 484,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "line": 473,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "line": 462,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "line": 455,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "line": 224,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "line": 205,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "line": 186,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "line": 177,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "line": 160,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "line": 153,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/gui/AboutBoxAction.java",
+      "line": 75,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/gui/IntrospectorGUI.java",
+      "line": 335,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/gui/IntrospectorGUI.java",
+      "line": 322,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/gui/IntrospectorGUI.java",
+      "line": 312,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/gui/IntrospectorGUI.java",
+      "line": 299,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/gui/IntrospectorGUI.java",
+      "line": 285,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/introspector/gui/IntrospectorGUI.java",
+      "line": 112,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/logging/LogHelperAgent.java",
+      "line": 186,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/logging/LogHelperAgent.java",
+      "line": 184,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/logging/LogManagerAgent.java",
+      "line": 69,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/logging/LogManagerAgent.java",
+      "line": 59,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/logging/LogManagerAgent.java",
+      "line": 43,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/logging/LogManagerAgent.java",
+      "line": 37,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/logging/LogManagerAgent.java",
+      "line": 35,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java",
+      "line": 262,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java",
+      "line": 196,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java",
+      "line": 187,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java",
+      "line": 178,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java",
+      "line": 169,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java",
+      "line": 142,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "line": 354,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "line": 337,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "line": 326,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "line": 309,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "line": 296,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "line": 280,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "line": 263,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "line": 253,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "line": 241,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "line": 229,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "line": 217,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "line": 205,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "line": 188,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "line": 174,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "line": 159,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "line": 149,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "line": 136,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/ManageMTPsDialog.java",
+      "line": 195,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/ManageMTPsDialog.java",
+      "line": 183,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/ManageMTPsDialog.java",
+      "line": 159,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/rma.java",
+      "line": 320,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/rma.java",
+      "line": 310,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/rma.java",
+      "line": 301,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/rma.java",
+      "line": 291,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/rma.java",
+      "line": 281,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/rma.java",
+      "line": 271,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/rma.java",
+      "line": 261,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/rma.java",
+      "line": 251,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/rma.java",
+      "line": 241,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/rma.java",
+      "line": 228,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/rma.java",
+      "line": 212,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/rma.java",
+      "line": 203,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/rma.java",
+      "line": 185,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/rma.java",
+      "line": 178,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/TablePanel.java",
+      "line": 106,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/rma/TablePanel.java",
+      "line": 92,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/sniffer/AboutBoxAction.java",
+      "line": 71,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/sniffer/MainWindow.java",
+      "line": 397,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/sniffer/MainWindow.java",
+      "line": 370,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/sniffer/MainWindow.java",
+      "line": 347,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/sniffer/MainWindow.java",
+      "line": 322,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/sniffer/MainWindow.java",
+      "line": 189,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/sniffer/MainWindow.java",
+      "line": 140,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+      "line": 990,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+      "line": 961,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
+      "line": 421,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
+      "line": 409,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
+      "line": 385,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
+      "line": 376,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
+      "line": 359,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
+      "line": 351,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/util/ClassFinder.java",
+      "line": 213,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/util/ClassFinder.java",
+      "line": 207,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/util/ClassFinder.java",
+      "line": 198,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/util/ClassFinder.java",
+      "line": 189,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/util/ExtendedProperties.java",
+      "line": 162,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/util/PrintStreamSplitter.java",
+      "line": 49,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/util/leap/ArrayList.java",
+      "line": 143,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/util/leap/HashMap.java",
+      "line": 257,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/util/leap/HashMap.java",
+      "line": 223,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/util/leap/HashMap.java",
+      "line": 177,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/util/leap/HashMap.java",
+      "line": 143,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/util/leap/HashSet.java",
+      "line": 40,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/util/leap/LinkedList.java",
+      "line": 129,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/util/leap/SortedSetImpl.java",
+      "line": 74,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/wrapper/PlatformControllerImpl.java",
+      "line": 46,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/wrapper/gateway/DynamicJadeGateway.java",
+      "line": 295,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/wrapper/gateway/DynamicJadeGateway.java",
+      "line": 273,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/wrapper/gateway/GatewayAgent.java",
+      "line": 84,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    },
+    {
+      "rule_id": "LAMBDA_CONVERSION",
+      "file": "src/jade/src/jade/wrapper/gateway/SplitJadeGateway.java",
+      "line": 29,
+      "confidence": 0.95,
+      "reason": "Convert anonymous inner classes implementing SAM interfaces (Runnable, Callable, ActionListener, etc.) to Java 8 lambda expressions."
+    }
+  ]
+}

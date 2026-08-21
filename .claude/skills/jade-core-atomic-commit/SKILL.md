@@ -5,7 +5,7 @@ description: >-
   conventional-commit message format. Logs the commit SHA to artifacts/09-rule-commit-log.json
   so the orchestrator can verify the rule was committed before moving to the next rule.
 when_to_use: >-
-  Invoked automatically by jade-migration-orchestrator after every rule passes verification.
+  Invoked automatically by jade-core-orchestrator after every rule passes verification.
   May also be used standalone when the user says "commit rule X", "atomic commit", or
   "commit this migration rule".
 arguments: [rule_id, batch_artifact, short_description]

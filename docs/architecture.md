@@ -1,7 +1,7 @@
 # JADE Migration Pipeline — Architecture Constitution
 
-> **Version:** 1.0  
-> **Last updated:** 2026-05-22  
+> **Version:** 1.1  
+> **Last updated:** 2026-05-26  
 > **Status:** ACTIVE — all agents and skills MUST comply with constraints herein.
 
 ---
@@ -206,7 +206,7 @@ plumbing.
 | 4 | `jade-core-build-fixer` | Build system audit + Dockerized compilation |
 | 5 | `jade-core-scanner` | Regex tag injection + idempotent flag index |
 | 6 | `jade-core-batch-processor` | Per-rule file task list from flag index |
-| 7 | `jade-core-rule-dispatcher` | Routes tasks to recipe skills via `recipe-registry.json` |
+| 7 | `jade-core-rule-dispatcher` | Routes tasks to registry recipes via `recipe-registry.json` |
 | 8 | `jade-core-verification` | Semantic trace normalization + outcome matching |
 | 9 | `jade-core-atomic-commit` | Per-rule git commit with safety gate |
 | 10 | `jade-core-retry-router` | Failure classification + bounded retry/requeue |
@@ -220,22 +220,29 @@ Utility skills support the pipeline but are not part of the core state machine.
 |---|-------|---------------|
 | 1 | `jade-utility-consumer-onboarder` | ZIP extraction + test-config.json generation for consumer playground |
 
-### Recipe Skills (`jade-recipe-*`)
+### Recipe Scripts (`jade-recipe-*`)
 
-Recipe skills are **version-specific transform scripts** generated dynamically
+Recipes are **version-specific transform scripts** (plus docs) generated dynamically
 per-migration. They contain pure Java editing logic — no artifact I/O, no JSON
 parsing, no understanding of the pipeline. They are invoked as subprocesses by
 the dispatcher.
 
-A recipe skill:
+> **Recipes are not agent skills.** They live under
+> `.claude/skills/java-migration-skill-registry/<version-jump>/<recipe>/` — two levels
+> below `.claude/skills/`, so they fall outside OpenCode's `skills/*/SKILL.md`
+> discovery pattern and never enter the agent skill inventory. Each recipe keeps a
+> `SKILL.md` purely as human/agent-fallback documentation; the dispatcher only ever
+> reads the `script` path from `recipe-registry.json` and runs `apply.py`.
+
+A recipe:
 - Accepts `--file <path> --line <num>` via CLI
 - Reads the target file, applies its transform, writes atomically
-- Prints a single JSON line to stdout: `{"status": "FIXED|FAILED|SKIPPED", "changes": N, ...}`
+- Prints a single JSON line to stdout: `{"status": "FIXED|FAILED|SKIPPED|DEFERRED", "changes": N, "warnings": [], "errors": [], "diff_summary": "..."}`
 - Exits 0 on success, non-zero on failure
 
 Examples (for a hypothetical 1.5→1.6 migration):
-- `jade-recipe-1.5-to-1.6-generics` — infers generics from `.add()`/`.put()` calls
-- `jade-recipe-1.5-to-1.6-loops` — converts safe indexed loops to for-each
+- `jade-recipe-1.5-1.6-generics` — registry recipe script that infers generics from `.add()`/`.put()` calls
+- `jade-recipe-1.5-1.6-loops` — registry recipe script that converts safe indexed loops to for-each
 
 ### The Dispatcher Pattern
 
@@ -244,9 +251,9 @@ Rule ID "EXAMPLE_RULE" arrives at jade-core-rule-dispatcher
     │
     ├─► LOAD task from 05-rule-batch-EXAMPLE_RULE.json
     ├─► LOAD rule from 01-breaking-changes-manifest.json
-    │       fix_strategy = "recipe:jade-recipe-1.5-to-1.6-example-rule"
-    ├─► LOOKUP recipe-registry.json:
-    │       "EXAMPLE_RULE" → ".claude/skills/jade-recipe-1.5-to-1.6-example-rule/scripts/apply.py"
+│       fix_strategy = "recipe:jade-recipe-1.5-1.6-example-rule"
+├─► LOOKUP recipe-registry.json:
+│       "EXAMPLE_RULE" → ".claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-1.5-1.6-example-rule/scripts/apply.py"
     ├─► DISPATCH subprocess:
     │       python apply.py --file workspace/src/Example.java --line 42
     ├─► CAPTURE recipe stdout → {"status": "FIXED", ...}
@@ -254,25 +261,27 @@ Rule ID "EXAMPLE_RULE" arrives at jade-core-rule-dispatcher
 ```
 
 The dispatcher contains **zero transform logic**. It never compiles a regex against
-Java source. Adding a new migration (e.g., Java 8→11) means adding new recipe skills
-and updating `recipe-registry.json` — the core pipeline never changes.
+Java source. Adding a new migration (e.g., Java 8→11) means adding new recipe scripts
+under the registry and updating `recipe-registry.json` — the core pipeline never changes.
 
 ### Recipe Registry
 
-`jade-core-rule-dispatcher/recipe-registry.json` maps `rule_id` to recipe script:
+`jade-core-rule-dispatcher/recipe-registry.json` maps `rule_id` to a registry recipe script:
 
 ```json
 {
   "EXAMPLE_RULE": {
-    "skill": "jade-recipe-1.5-to-1.6-example",
-    "script": ".claude/skills/jade-recipe-1.5-to-1.6-example/scripts/apply.py",
+    "skill": "jade-recipe-1.5-1.6-example",
+    "script": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-1.5-1.6-example/scripts/apply.py",
     "description": "Apply a migration transform"
   }
 }
 ```
 
-Recipes are generated per-migration by the Skill Creator from manifest data. The
-registry starts empty (`{}`) and is populated before the RULE_BATCH_LOOP phase.
+Recipes are created and registered by
+`.claude/skills/java-migration-skill-registry/scripts/register_recipe.py`. The helper
+creates recipe files, validates safe path segments, and atomically updates the
+registry. The registry is populated before the RULE_BATCH_LOOP phase.
 
 ### Consumer Playground & Runtime Verification
 
@@ -414,7 +423,7 @@ PHASE 0 (optional)           PHASE 1                 PHASE 2
                                │     ║  │ jade-core-rule-         │  ║
                                │     ║  │ dispatcher              │  ║
                                │     ║  │       │                 │  ║
-                               │     ║  │       └─► recipe skill  │  ║
+                                │     ║  │       └─► registry recipe │  ║
                                │     ║  │                         │  ║
                                │     ║  │ → 06-fix-result-{id}   │  ║
                                │     ║  └───────────┬─────────────┘  ║
@@ -543,3 +552,24 @@ and produces zero new flags. The build fixer produces the same plan on re-run.
    transforms. Recipe skills contain zero pipeline logic.
 7. **Never squash rule commits.** One commit per verified rule.
 8. **Never assume `JadeDocumentation/` exists.** Phase 0 is optional.
+9. **Never mutate baseline source.** The orchestrator copies `baseline_path` →
+   `workspace_path` at INIT. All skills operate on the copy. `JADE-4.6.0/` is
+   read-only.
+10. **Never fake artifacts.** Every `artifacts/` file must be produced by the
+    Phase-appropriate script. Manually writing a file that "looks like" a pipeline
+    output to bypass a gate is forbidden.
+11. **Never exclude existing source.** The workspace MUST be a faithful copy of the
+    baseline. Adding exclusion patterns to build files to force compilation on an
+    incompatible JDK is forbidden.
+12. **Container agnosticism.** Never hardcode JDK versions or Docker images in consumer
+    test configs, recipes, or core scripts. Resolve container images from the central
+    registry (`config/docker-images.json`).
+13. **Java 11+ readiness.** Every migration targeting Java 11 or newer MUST run
+    dependency compatibility auditing for removed JDK modules/libraries (including
+    CORBA/JAXB families) during BUILD_GATE_READY.
+14. **Interactive modernization decision.** At `RULE_BATCH_LOOP`, the Agent MUST
+    ask the user which modernization rules to apply vs defer. Deferred rules persist
+    as `// JADE-MODERNIZATION-DEFERRED:<rule_id>` markers.
+15. **Zero-trust verification.** Building successfully in Docker (exit code 0,
+    `BUILD SUCCESSFUL` in log) and `PASS` in all runtime consumer tests are the ONLY
+    acceptable proof of correctness. Evidence before assertions, always.

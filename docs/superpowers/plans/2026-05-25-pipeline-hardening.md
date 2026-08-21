@@ -258,10 +258,13 @@ Add `"fallback"` entry to recipe-registry.json:
 ```json
 "fallback": {
     "skill": "jade-recipe-noop",
-    "script": ".claude/skills/jade-recipe-noop/scripts/apply.py",
+    "script": ".claude/skills/java-migration-skill-registry/shared/jade-recipe-noop/scripts/apply.py",
     "description": "Fallback NOOP — marks rule as SKIPPED when no specific recipe exists"
 }
 ```
+
+The script path above uses the canonical nested registry layout:
+`<bucket>/<recipe>/scripts/apply.py`.
 
 The key MUST be `"fallback"` (lowercase) with underscores if multi-word — matches the JSON key convention in the existing file.
 

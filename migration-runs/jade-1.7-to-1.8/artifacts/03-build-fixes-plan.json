@@ -1,0 +1,77 @@
+{
+  "run_id": "jade-1.7-to-1.8",
+  "build_system": "ant",
+  "target_version": "1.8",
+  "fixes": [
+    {
+      "type": "compiler_source",
+      "applied": true,
+      "detail": "Updated source to 1.8 (1 occurrence(s))"
+    },
+    {
+      "type": "compiler_target",
+      "applied": true,
+      "detail": "Updated target to 1.8 (1 occurrence(s))"
+    },
+    {
+      "type": "javacc_jdkversion",
+      "applied": true,
+      "detail": "Updated jdkversion to 1.8 (3 occurrence(s))"
+    },
+    {
+      "type": "javacc_jdkversion",
+      "applied": true,
+      "detail": "Updated jdkversion to 1.8 (3 occurrence(s))"
+    },
+    {
+      "type": "javacc_jdkversion",
+      "applied": true,
+      "detail": "Updated jdkversion to 1.8 (3 occurrence(s))"
+    }
+  ],
+  "analysis_summary": {
+    "compiler_targets": [
+      {
+        "current_source": "1.7",
+        "current_target": "1.7",
+        "needs_update": true,
+        "new_source": "1.8",
+        "new_target": "1.8"
+      }
+    ],
+    "javacc_targets": [
+      {
+        "jdkversion": "1.7",
+        "needs_update": true,
+        "new_jdkversion": "1.8"
+      },
+      {
+        "jdkversion": "1.7",
+        "needs_update": true,
+        "new_jdkversion": "1.8"
+      },
+      {
+        "jdkversion": "1.7",
+        "needs_update": true,
+        "new_jdkversion": "1.8"
+      }
+    ],
+    "dependencies": [
+      {
+        "group": "commons-codec",
+        "artifact": "commons-codec",
+        "version": "1.3"
+      }
+    ],
+    "dependency_compatibility": {
+      "build_system": "ant",
+      "target_version": "1.8",
+      "risk_level": "NONE",
+      "blockers": [],
+      "warnings": [],
+      "upgrade_candidates": []
+    },
+    "issues": []
+  },
+  "updated_at": "2026-05-26T17:15:55Z"
+}

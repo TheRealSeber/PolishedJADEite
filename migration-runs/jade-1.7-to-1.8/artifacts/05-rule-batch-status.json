@@ -1,0 +1,11 @@
+{
+  "run_id": "artifacts",
+  "rule_id": "LAMBDA_CONVERSION",
+  "total_files": 84,
+  "completed": 82,
+  "failed": 0,
+  "skipped": 0,
+  "pending": 2,
+  "status": "IN_PROGRESS",
+  "updated_at": "2026-05-26T17:23:34Z"
+}

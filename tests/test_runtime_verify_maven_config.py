@@ -1,0 +1,1245 @@
+import importlib.util
+import json
+import pathlib
+import sys
+
+import pytest
+
+
+REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
+RUNTIME_VERIFY_PATH = (
+    REPO_ROOT / ".claude/skills/jade-core-verification/scripts/runtime_verify.py"
+)
+
+
+def _load_module():
+    spec = importlib.util.spec_from_file_location(
+        "runtime_verify_maven_config_test", RUNTIME_VERIFY_PATH
+    )
+    module = importlib.util.module_from_spec(spec)
+    assert spec and spec.loader
+    spec.loader.exec_module(module)
+    return module
+
+
+def test_maven_config_accepts_project_root_inside_consumer(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    (consumer / "jrba").mkdir(parents=True)
+
+    normalized, errors = mod.validate_consumer_config(
+        consumer,
+        {
+            "build_mode": "maven",
+            "maven_project_root": "jrba",
+            "expected_stdout_markers": ["PASS"],
+            "main_class": "jade.Boot",
+            "boot_args": [],
+            "timeout_seconds": 30,
+        },
+        tmp_path / "workspace",
+    )
+
+    assert errors == []
+    assert normalized["build_mode"] == "maven"
+    assert normalized["maven_project_root"] == "jrba"
+
+
+def test_runtime_java_version_uses_numeric_supported_value(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+    registry = {"java-8": "java8", "java-11": "java11", "java-17": "java17"}
+
+    normalized, errors = mod.validate_consumer_config(
+        consumer,
+        {
+            "runtime_java_version": 17,
+            "expected_stdout_markers": ["PASS"],
+            "main_class": "jade.Boot",
+            "boot_args": [],
+            "timeout_seconds": 30,
+        },
+        tmp_path / "workspace",
+        registry,
+    )
+
+    assert errors == []
+    assert normalized["runtime_java_version"] == 17
+
+
+def test_runtime_java_version_requires_registry_when_parsed_directly():
+    mod = _load_module()
+
+    with pytest.raises(ValueError, match="requires a loaded Docker registry"):
+        mod.parse_runtime_java_version(17)
+
+    consumer = pathlib.Path("consumer")
+    _, errors = mod.validate_consumer_config(
+        consumer,
+        {"runtime_java_version": 17},
+        pathlib.Path("workspace"),
+    )
+    assert any("requires a loaded Docker registry" in error for error in errors)
+
+    registry = {"java-8": "java8", "java-11": "java11", "java-17": "java17"}
+    assert [mod.parse_runtime_java_version(value, registry) for value in (8, 11, 17)] == [
+        8,
+        11,
+        17,
+    ]
+
+
+def test_runtime_java_version_rejects_invalid_values(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+    registry = {"java-8": "java8", "java-11": "java11", "java-17": "java17"}
+
+    for value in (None, "", "17.0", 21, [], True):
+        _, errors = mod.validate_consumer_config(
+            consumer,
+            {"runtime_java_version": value},
+            tmp_path / "workspace",
+            registry,
+        )
+        assert any("runtime_java_version" in error for error in errors)
+
+
+def test_runtime_java_version_overrides_jade_target_for_image_resolution():
+    mod = _load_module()
+    registry = {
+        "java-8": "java8",
+        "java-11": "java11",
+        "java-17": "java17",
+    }
+
+    assert mod.resolve_consumer_docker_image(
+        {"docker_image": "${TARGET_DOCKER_IMAGE}", "runtime_java_version": 17},
+        {"target_version": "1.7"},
+        registry,
+    ) == "java17"
+
+
+def test_hardcoded_consumer_docker_image_is_rejected(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+
+    _, errors = mod.validate_consumer_config(
+        consumer,
+        {"docker_image": "eclipse-temurin:17-jre"},
+        tmp_path / "workspace",
+    )
+
+    assert any("docker_image" in error for error in errors)
+    with pytest.raises(ValueError, match="docker_image"):
+        mod.resolve_consumer_docker_image(
+            {"docker_image": "eclipse-temurin:17-jre"},
+            {"target_version": "1.7"},
+            {"java-8": "java8", "java-11": "java11", "java-17": "java17"},
+        )
+
+
+def test_internal_resolved_image_works_without_declared_image(tmp_path, monkeypatch):
+    mod = _load_module()
+    project = tmp_path / "consumer"
+    project.mkdir()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    cfg = {
+        "name": "internal-image",
+        "_resolved_docker_image": "java17",
+        "expected_stdout_markers": ["PASS"],
+        "classpath_deps": [],
+        "main_class": "jade.Boot",
+        "boot_args": [],
+        "timeout_seconds": 30,
+    }
+    monkeypatch.setattr(mod, "compile_consumer", lambda *args: (True, ""))
+    monkeypatch.setattr(mod, "run_in_docker", lambda *args: (0, "PASS", ""))
+
+    result = mod.test_consumer(project, workspace, cfg)
+
+    assert result["status"] == "PASS"
+    assert result["docker_image"] == "java17"
+
+
+def test_run_in_docker_uses_internal_image_without_declared_image(tmp_path, monkeypatch):
+    mod = _load_module()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    build_dir = tmp_path / "build"
+    build_dir.mkdir()
+    monkeypatch.setattr(
+        mod.subprocess,
+        "run",
+        lambda *args, **kwargs: type("Ok", (), {"returncode": 0})(),
+    )
+
+    exit_code, stdout, stderr = mod.run_in_docker(
+        workspace,
+        build_dir,
+        {"_resolved_docker_image": "java17", "main_class": "jade.Boot"},
+    )
+
+    assert exit_code == 0
+    assert stdout == ""
+    assert stderr == ""
+
+
+def test_run_in_docker_mounts_workspace_read_only(tmp_path, monkeypatch):
+    mod = _load_module()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    build_dir = tmp_path / "build"
+    build_dir.mkdir()
+    captured = {}
+
+    def fake_run(command, **kwargs):
+        captured["command"] = command
+        return type("Ok", (), {"returncode": 0})()
+
+    monkeypatch.setattr(mod.subprocess, "run", fake_run)
+
+    mod.run_in_docker(
+        workspace,
+        build_dir,
+        {"_resolved_docker_image": "java17", "main_class": "jade.Boot"},
+    )
+
+    workspace_path = str(workspace.resolve()).replace("\\", "/")
+    workspace_path = workspace_path[0].lower() + workspace_path[1:]
+    assert f"{workspace_path}:/ws:ro" in captured["command"]
+
+
+def test_expected_stdout_markers_must_be_nonempty_strings(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+
+    for markers in (None, [], [""], ["PASS", 3], "PASS"):
+        _, errors = mod.validate_consumer_config(
+            consumer,
+            {"expected_stdout_markers": markers},
+            tmp_path / "workspace",
+        )
+        assert any("expected_stdout_markers" in error for error in errors)
+
+
+def test_consumer_runtime_fields_are_required_and_typed(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+    base = {
+        "expected_stdout_markers": ["PASS"],
+        "main_class": "jade.Boot",
+        "boot_args": [],
+        "timeout_seconds": 30,
+    }
+
+    for field, value in (
+        ("main_class", ""),
+        ("boot_args", ["ok", 3]),
+        ("timeout_seconds", 0),
+        ("timeout_seconds", True),
+    ):
+        config = dict(base)
+        config[field] = value
+        _, errors = mod.validate_consumer_config(
+            consumer, config, tmp_path / "workspace"
+        )
+        assert any(field in error for error in errors)
+
+
+def test_maven_rejects_dot_mvn_metadata_before_copy(tmp_path, monkeypatch):
+    mod = _load_module()
+    project = tmp_path / "consumer"
+    project.mkdir()
+    (project / "pom.xml").write_text(
+        "<project><dependencies><dependency><groupId>com.tilab.jade</groupId>"
+        "<artifactId>jade</artifactId><version>4.6</version></dependency>"
+        "</dependencies></project>",
+        encoding="utf-8",
+    )
+    (project / ".mvn").mkdir()
+    (project / ".mvn" / "maven.config").write_text("-Dunsafe=true", encoding="utf-8")
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    (workspace / "jade.jar").write_bytes(b"jade")
+    monkeypatch.setattr(
+        mod,
+        "_maven_command",
+        lambda: (_ for _ in ()).throw(AssertionError("Maven must not run")),
+    )
+
+    ok, output = mod.build_maven_consumer(
+        project,
+        workspace,
+        {"maven_project_root": ".", "jade_artifact": "jade.jar"},
+        tmp_path / "build",
+    )
+
+    assert not ok
+    assert ".mvn" in output
+
+
+def test_maven_pom_rejects_unallowlisted_plugin(tmp_path, monkeypatch):
+    mod = _load_module()
+    project = tmp_path / "consumer"
+    project.mkdir()
+    (project / "pom.xml").write_text(
+        """<project xmlns="http://maven.apache.org/POM/4.0.0">
+          <modelVersion>4.0.0</modelVersion>
+          <dependencies><dependency><groupId>com.tilab.jade</groupId>
+          <artifactId>jade</artifactId><version>4.6</version></dependency></dependencies>
+          <build><plugins><plugin>
+            <groupId>com.attacker</groupId><artifactId>host-exec</artifactId>
+          </plugin></plugins></build>
+        </project>""",
+        encoding="utf-8",
+    )
+
+    error = mod.validate_maven_pom(project)
+
+    assert error is not None
+    assert "not allowlisted" in error
+
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    (workspace / "jade.jar").write_bytes(b"jade")
+    monkeypatch.setattr(
+        mod,
+        "_maven_command",
+        lambda: (_ for _ in ()).throw(AssertionError("Maven must not run")),
+    )
+    ok, output = mod.build_maven_consumer(
+        project,
+        workspace,
+        {"maven_project_root": ".", "jade_artifact": "jade.jar"},
+        tmp_path / "build",
+    )
+    assert not ok
+    assert "not allowlisted" in output
+
+
+def test_jrba_consumer_pom_uses_only_allowlisted_build_plugins():
+    mod = _load_module()
+
+    assert mod.validate_maven_pom(
+        REPO_ROOT / "consumer-playground" / "jrba"
+    ) is None
+
+
+def test_maven_rejects_nested_pom_and_ja_de_dependency_mismatch(tmp_path):
+    mod = _load_module()
+    project = tmp_path / "consumer"
+    nested = project / "module"
+    nested.mkdir(parents=True)
+    valid_pom = """<project>
+      <dependencies><dependency><groupId>com.tilab.jade</groupId>
+      <artifactId>jade</artifactId><version>4.6</version></dependency></dependencies>
+    </project>"""
+    (project / "pom.xml").write_text(valid_pom, encoding="utf-8")
+    (nested / "pom.xml").write_text(
+        """<project><parent><groupId>evil</groupId><artifactId>parent</artifactId>
+        <version>1</version></parent><dependencies><dependency>
+        <groupId>com.tilab.jade</groupId><artifactId>jade</artifactId>
+        <version>4.5</version></dependency></dependencies></project>""",
+        encoding="utf-8",
+    )
+
+    error = mod.validate_maven_project(project)
+
+    assert error is not None
+    assert "parent" in error or "4.6" in error
+
+
+def test_maven_rejects_system_dependencies_and_compiler_execution_controls(tmp_path):
+    mod = _load_module()
+    project = tmp_path / "consumer"
+    project.mkdir()
+    (project / "pom.xml").write_text(
+        """<project><dependencies><dependency><groupId>com.tilab.jade</groupId>
+        <artifactId>jade</artifactId><version>4.6</version><scope>system</scope>
+        <systemPath>${project.basedir}/unsafe.jar</systemPath></dependency></dependencies>
+        <build><plugins><plugin><artifactId>maven-compiler-plugin</artifactId>
+        <configuration><fork>true</fork></configuration></plugin></plugins></build>
+        </project>""",
+        encoding="utf-8",
+    )
+
+    error = mod.validate_maven_pom(project)
+
+    assert error is not None
+    assert "system" in error or "fork" in error
+
+
+def test_tracked_consumers_use_central_image_placeholder():
+    for relative_path in (
+        "consumer-playground/hw-jade/test-config.json",
+        "consumer-playground/version-check/test-config.json",
+    ):
+        config = json.loads((REPO_ROOT / relative_path).read_text(encoding="utf-8"))
+        assert config["docker_image"] == "${TARGET_DOCKER_IMAGE}"
+
+
+def test_runtime_java_version_support_comes_from_registry_keys():
+    mod = _load_module()
+    registry = {
+        "java-8": "java8",
+        "java-11": "java11",
+        "java-17": "java17",
+        "java-19": "java19",
+    }
+
+    assert mod.resolve_consumer_docker_image(
+        {"docker_image": "${TARGET_DOCKER_IMAGE}", "runtime_java_version": 19},
+        {"target_version": "1.7"},
+        registry,
+    ) == "java19"
+
+
+def test_invalid_runtime_version_writes_failed_consumer_artifact(tmp_path, monkeypatch):
+    mod = _load_module()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    config = tmp_path / "run-config.json"
+    config.write_text(json.dumps({"run_id": "test"}), encoding="utf-8")
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+    registry_path = tmp_path / "docker-images.json"
+    registry_path.write_text(
+        json.dumps(
+            {
+                "java-8": "java8",
+                "java-11": "java11",
+                "java-17": "java17",
+            }
+        ),
+        encoding="utf-8",
+    )
+    mod.DOCKER_IMAGE_CONFIG_PATH = registry_path
+    mod.discover_consumers = lambda: [
+        (
+            consumer,
+            {
+                "name": "invalid-runtime",
+                "docker_image": "${TARGET_DOCKER_IMAGE}",
+                "runtime_java_version": 21,
+            },
+        )
+    ]
+    monkeypatch.setattr(mod.shutil, "which", lambda name: "docker")
+    monkeypatch.setattr(
+        mod.subprocess,
+        "run",
+        lambda *args, **kwargs: type("Ok", (), {"returncode": 0})(),
+    )
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "runtime_verify.py",
+            "--workspace",
+            str(workspace),
+            "--artifacts",
+            str(artifacts),
+            "--config",
+            str(config),
+        ],
+    )
+
+    assert mod.main() == 2
+    output = json.loads((artifacts / "07-runtime-verify.json").read_text())
+    assert output["overall_pass"] is False
+    assert output["failed"] == 1
+    assert output["results"][0]["status"] == "FAIL"
+    assert "runtime_java_version" in output["results"][0]["error"]
+
+
+def test_docker_info_nonzero_is_environment_failure_before_consumers(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    config = tmp_path / "run-config.json"
+    config.write_text(json.dumps({"run_id": "docker-failure"}), encoding="utf-8")
+    registry_path = tmp_path / "docker-images.json"
+    registry_path.write_text(
+        json.dumps({"java-8": "java8", "java-11": "java11", "java-17": "java17"}),
+        encoding="utf-8",
+    )
+    mod.DOCKER_IMAGE_CONFIG_PATH = registry_path
+    mod.discover_consumers = lambda: (_ for _ in ()).throw(
+        AssertionError("consumer discovery must not run")
+    )
+    monkeypatch.setattr(mod.shutil, "which", lambda name: "docker")
+
+    class FailedDockerInfo:
+        returncode = 7
+
+    monkeypatch.setattr(mod.subprocess, "run", lambda *args, **kwargs: FailedDockerInfo())
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "runtime_verify.py",
+            "--workspace",
+            str(workspace),
+            "--artifacts",
+            str(artifacts),
+            "--config",
+            str(config),
+        ],
+    )
+
+    assert mod.main() == 3
+    assert not (artifacts / "07-runtime-verify.json").exists()
+
+
+def test_placeholder_consumer_reaches_runtime_with_resolved_image(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    config = tmp_path / "run-config.json"
+    config.write_text(json.dumps({"run_id": "placeholder"}), encoding="utf-8")
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+    registry_path = tmp_path / "docker-images.json"
+    registry_path.write_text(
+        json.dumps({"java-8": "java8", "java-11": "java11", "java-17": "java17"}),
+        encoding="utf-8",
+    )
+    mod.DOCKER_IMAGE_CONFIG_PATH = registry_path
+    declared_configs = []
+    runtime_configs = []
+    mod.discover_consumers = lambda: [
+        (
+            consumer,
+            {
+                "name": "placeholder-consumer",
+                "docker_image": "${TARGET_DOCKER_IMAGE}",
+                "runtime_java_version": 17,
+                "expected_stdout_markers": ["PASS"],
+                "main_class": "jade.Boot",
+                "boot_args": [],
+                "timeout_seconds": 30,
+            },
+        )
+    ]
+    monkeypatch.setattr(mod.shutil, "which", lambda name: "docker")
+    monkeypatch.setattr(
+        mod.subprocess,
+        "run",
+        lambda *args, **kwargs: type("Ok", (), {"returncode": 0})(),
+    )
+
+    def fake_compile(*args):
+        declared_configs.append(args[2]["docker_image"])
+        return True, ""
+
+    def fake_run(*args):
+        runtime_configs.append(args[2]["_resolved_docker_image"])
+        return 0, "PASS", ""
+
+    monkeypatch.setattr(mod, "compile_consumer", fake_compile)
+    monkeypatch.setattr(mod, "run_in_docker", fake_run)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "runtime_verify.py",
+            "--workspace",
+            str(workspace),
+            "--artifacts",
+            str(artifacts),
+            "--config",
+            str(config),
+        ],
+    )
+
+    assert mod.main() == 0
+    output = json.loads((artifacts / "07-runtime-verify.json").read_text())
+    assert output["overall_pass"] is True
+    assert declared_configs == ["${TARGET_DOCKER_IMAGE}"]
+    assert runtime_configs == ["java17"]
+    assert output["results"][0]["docker_image"] == "java17"
+    assert output["results"][0]["declared_docker_image"] == "${TARGET_DOCKER_IMAGE}"
+    assert output["results"][0]["resolved_docker_image"] == "java17"
+    assert output["results"][0]["docker_image_resolution_source"] == "central-registry"
+    assert output["results"][0]["docker_image_registry_key"] == "java-17"
+    assert output["results"][0]["runtime_java_version"] == 17
+
+
+def test_no_valid_consumers_writes_failed_diagnostic_artifact(tmp_path, monkeypatch):
+    mod = _load_module()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    config = tmp_path / "run-config.json"
+    config.write_text(json.dumps({"run_id": "no-consumers"}), encoding="utf-8")
+    registry_path = tmp_path / "docker-images.json"
+    registry_path.write_text(
+        json.dumps({"java-8": "java8", "java-11": "java11", "java-17": "java17"}),
+        encoding="utf-8",
+    )
+    mod.DOCKER_IMAGE_CONFIG_PATH = registry_path
+    mod.discover_consumers = lambda: []
+    monkeypatch.setattr(mod.shutil, "which", lambda name: "docker")
+    monkeypatch.setattr(mod.subprocess, "run", lambda *args, **kwargs: type("Ok", (), {"returncode": 0})())
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "runtime_verify.py",
+            "--workspace",
+            str(workspace),
+            "--artifacts",
+            str(artifacts),
+            "--config",
+            str(config),
+        ],
+    )
+
+    assert mod.main() == 2
+    output = json.loads((artifacts / "07-runtime-verify.json").read_text())
+    assert output["overall_pass"] is False
+    assert output["error"] == "No valid consumer configs discovered"
+
+
+def test_non_object_run_config_returns_controlled_environment_failure(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    artifacts = tmp_path / "artifacts"
+    artifacts.mkdir()
+    registry_path = tmp_path / "docker-images.json"
+    registry_path.write_text(
+        json.dumps({"java-8": "java8", "java-11": "java11", "java-17": "java17"}),
+        encoding="utf-8",
+    )
+    mod.DOCKER_IMAGE_CONFIG_PATH = registry_path
+    monkeypatch.setattr(mod, "discover_consumers", lambda: [])
+
+    for index, payload in enumerate((None, [], "invalid")):
+        config = tmp_path / f"run-config-{index}.json"
+        config.write_text(json.dumps(payload), encoding="utf-8")
+        monkeypatch.setattr(mod.shutil, "which", lambda name: "docker")
+        monkeypatch.setattr(
+            mod.subprocess,
+            "run",
+            lambda *args, **kwargs: type("Ok", (), {"returncode": 0})(),
+        )
+        monkeypatch.setattr(
+            sys,
+            "argv",
+            [
+                "runtime_verify.py",
+                "--workspace",
+                str(workspace),
+                "--artifacts",
+                str(artifacts),
+                "--config",
+                str(config),
+            ],
+        )
+
+        assert mod.main() == 3
+        assert not (artifacts / "07-runtime-verify.json").exists()
+
+
+def test_consumer_result_records_runtime_and_maven_metadata(tmp_path, monkeypatch):
+    mod = _load_module()
+    project = tmp_path / "consumer"
+    (project / "maven").mkdir(parents=True)
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    cfg = {
+        "name": "consumer",
+        "build_mode": "maven",
+        "maven_project_root": "maven",
+        "runtime_java_version": 17,
+        "docker_image": "${TARGET_DOCKER_IMAGE}",
+        "classpath_deps": [],
+        "expected_stdout_markers": ["PASS"],
+        "main_class": "jade.Boot",
+        "boot_args": [],
+        "timeout_seconds": 30,
+    }
+    monkeypatch.setattr(mod, "build_maven_consumer", lambda *args: (True, ""))
+    monkeypatch.setattr(mod, "run_in_docker", lambda *args: (0, "PASS", ""))
+
+    result = mod.test_consumer(
+        project,
+        workspace,
+        cfg,
+        {"java-8": "java8", "java-11": "java11", "java-17": "java17"},
+    )
+
+    assert result["status"] == "PASS"
+    assert result["docker_image"] == "${TARGET_DOCKER_IMAGE}"
+    assert result["declared_docker_image"] == "${TARGET_DOCKER_IMAGE}"
+    assert result["resolved_docker_image"] is None
+    assert result["runtime_java_version"] == 17
+    assert result["maven_dependency_plugin_version"] == "3.6.1"
+
+
+def test_maven_config_rejects_missing_project_root(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+
+    _, errors = mod.validate_consumer_config(
+        consumer,
+        {"build_mode": "maven"},
+        tmp_path / "workspace",
+    )
+
+    assert any("maven_project_root" in error for error in errors)
+
+
+def test_maven_config_rejects_project_root_outside_consumer(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+
+    _, errors = mod.validate_consumer_config(
+        consumer,
+        {"build_mode": "maven", "maven_project_root": "../outside"},
+        tmp_path / "workspace",
+    )
+
+    assert any("inside the consumer" in error for error in errors)
+
+
+def test_config_defaults_to_backward_compatible_javac_mode(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+
+    normalized, errors = mod.validate_consumer_config(
+        consumer,
+            {
+                "name": "legacy",
+                "expected_stdout_markers": ["PASS"],
+                "main_class": "jade.Boot",
+                "boot_args": [],
+                "timeout_seconds": 30,
+            },
+        tmp_path / "workspace",
+    )
+
+    assert errors == []
+    assert normalized["build_mode"] == "javac"
+    assert "maven_project_root" not in normalized
+
+
+def test_config_rejects_non_string_build_mode(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+
+    _, errors = mod.validate_consumer_config(
+        consumer,
+        {"build_mode": []},
+        tmp_path / "workspace",
+    )
+
+    assert any("build_mode" in error for error in errors)
+
+
+def test_config_rejects_null_classpath_deps(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+
+    _, errors = mod.validate_consumer_config(
+        consumer,
+        {"classpath_deps": None},
+        tmp_path / "workspace",
+    )
+
+    assert any("classpath_deps" in error for error in errors)
+
+
+def test_config_rejects_string_classpath_deps(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+
+    _, errors = mod.validate_consumer_config(
+        consumer,
+        {"classpath_deps": "jade.jar"},
+        tmp_path / "workspace",
+    )
+
+    assert any("classpath_deps" in error for error in errors)
+
+
+def test_config_rejects_unsafe_dependency_and_artifact_paths(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    consumer.mkdir()
+
+    _, errors = mod.validate_consumer_config(
+        consumer,
+        {
+            "classpath_deps": ["../outside.jar"],
+            "artifact_output_dir": "../outside-output",
+        },
+        tmp_path / "workspace",
+    )
+
+    assert any("classpath_deps" in error for error in errors)
+    assert any("artifact_output_dir" in error for error in errors)
+
+
+def test_maven_config_rejects_unsafe_artifact_and_runtime_paths(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    (consumer / "maven").mkdir(parents=True)
+
+    _, errors = mod.validate_consumer_config(
+        consumer,
+        {
+            "build_mode": "maven",
+            "maven_project_root": "maven",
+            "jade_artifact": "../outside.jar",
+            "maven_runtime_lib_dir": "../outside-libs",
+        },
+        tmp_path / "workspace",
+    )
+
+    assert any("jade_artifact" in error for error in errors)
+    assert any("maven_runtime_lib_dir" in error for error in errors)
+
+
+def test_maven_config_rejects_consumer_maven_executable(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    (consumer / "maven").mkdir(parents=True)
+
+    normalized, errors = mod.validate_consumer_config(
+        consumer,
+        {
+            "build_mode": "maven",
+            "maven_project_root": "maven",
+            "maven_executable": ["arbitrary-host-command"],
+        },
+        tmp_path / "workspace",
+    )
+
+    assert any("maven_executable" in error for error in errors)
+    assert "maven_executable" not in normalized
+
+
+def test_discovery_records_invalid_top_level_config_values(tmp_path):
+    mod = _load_module()
+    mod.PLAYGROUND_DIR = tmp_path / "consumer-playground"
+
+    for name, config in {
+        "null": None,
+        "list": [],
+        "string": "invalid",
+    }.items():
+        project_dir = mod.PLAYGROUND_DIR / name
+        project_dir.mkdir(parents=True)
+        (project_dir / "test-config.json").write_text(
+            json.dumps(config), encoding="utf-8"
+        )
+
+    discovered = mod.discover_consumers()
+
+    assert len(discovered) == 3
+    for project_dir, cfg in discovered:
+        assert cfg["name"] == project_dir.name
+        assert "invalid test-config.json" in cfg["_config_error"]
+        result = mod.test_consumer(project_dir, tmp_path / "workspace", cfg)
+        assert result["status"] == "FAIL"
+        assert "Invalid consumer configuration" in result["error"]
+
+
+def test_discovery_keeps_malformed_config_as_failed_consumer(tmp_path):
+    mod = _load_module()
+    mod.PLAYGROUND_DIR = tmp_path / "consumer-playground"
+
+    malformed = mod.PLAYGROUND_DIR / "malformed"
+    malformed.mkdir(parents=True)
+    (malformed / "test-config.json").write_text('{"name":', encoding="utf-8")
+
+    valid = mod.PLAYGROUND_DIR / "valid"
+    valid.mkdir(parents=True)
+    valid_config = {"name": "valid", "classpath_deps": []}
+    (valid / "test-config.json").write_text(
+        json.dumps(valid_config), encoding="utf-8"
+    )
+
+    discovered = mod.discover_consumers()
+    discovered_by_name = {project.name: cfg for project, cfg in discovered}
+
+    assert set(discovered_by_name) == {"malformed", "valid"}
+    assert discovered_by_name["valid"] == valid_config
+    assert "invalid test-config.json" in discovered_by_name["malformed"]["_config_error"]
+
+    result = mod.test_consumer(
+        malformed, tmp_path / "workspace", discovered_by_name["malformed"]
+    )
+    assert result["status"] == "FAIL"
+    assert "Invalid consumer configuration" in result["error"]
+
+
+def test_discovery_records_invalid_utf8_as_failed_consumer(tmp_path):
+    mod = _load_module()
+    mod.PLAYGROUND_DIR = tmp_path / "consumer-playground"
+
+    invalid = mod.PLAYGROUND_DIR / "invalid-utf8"
+    invalid.mkdir(parents=True)
+    (invalid / "test-config.json").write_bytes(b'{"name": "\xff')
+
+    valid = mod.PLAYGROUND_DIR / "valid"
+    valid.mkdir(parents=True)
+    valid_config = {"name": "valid", "classpath_deps": []}
+    (valid / "test-config.json").write_text(
+        json.dumps(valid_config), encoding="utf-8"
+    )
+
+    discovered = mod.discover_consumers()
+    discovered_by_name = {project.name: cfg for project, cfg in discovered}
+
+    assert set(discovered_by_name) == {"invalid-utf8", "valid"}
+    assert discovered_by_name["valid"] == valid_config
+    assert "invalid test-config.json" in discovered_by_name["invalid-utf8"][
+        "_config_error"
+    ]
+
+    result = mod.test_consumer(
+        invalid, tmp_path / "workspace", discovered_by_name["invalid-utf8"]
+    )
+    assert result["status"] == "FAIL"
+    assert "Invalid consumer configuration" in result["error"]
+
+
+def _write_fake_maven(path, *, exit_code=0, args_path=None):
+    args_target = str(args_path or pathlib.Path("maven-args.txt"))
+    path.write_text(
+        "import pathlib, sys\n"
+        f"args = pathlib.Path({args_target!r})\n"
+        "args.write_text('\\n'.join(sys.argv[1:]), encoding='utf-8')\n"
+        "if " + str(exit_code) + " == 0:\n"
+        "    pathlib.Path('target/classes').mkdir(parents=True, exist_ok=True)\n"
+        "    pathlib.Path('target/classes/Consumer.class').write_bytes(b'class')\n"
+        "    pathlib.Path('target/dependency').mkdir(parents=True, exist_ok=True)\n"
+        "    pathlib.Path('target/dependency/runtime.jar').write_bytes(b'jar')\n"
+        "print('fake maven output', file=sys.stderr)\n"
+        "sys.exit(" + str(exit_code) + ")\n",
+        encoding="utf-8",
+    )
+
+
+def _write_fake_maven_sequence(path, invocations_path):
+    path.write_text(
+        "import pathlib, sys\n"
+        f"log = pathlib.Path({str(invocations_path)!r})\n"
+        "with log.open('a', encoding='utf-8') as stream:\n"
+        "    stream.write('\\n'.join(sys.argv[1:]) + '\\n---\\n')\n"
+        "if 'package' in sys.argv:\n"
+        "    pathlib.Path('target/classes').mkdir(parents=True, exist_ok=True)\n"
+        "    pathlib.Path('target/classes/Consumer.class').write_bytes(b'class')\n"
+        "    pathlib.Path('target/dependency').mkdir(parents=True, exist_ok=True)\n"
+        "    pathlib.Path('target/dependency/runtime.jar').write_bytes(b'jar')\n",
+        encoding="utf-8",
+    )
+
+
+def test_maven_runtime_lib_dir_cannot_escape_build_dir(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    (consumer / "maven").mkdir(parents=True)
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    (workspace / "jade.jar").write_bytes(b"jade")
+
+    ok, output = mod.build_maven_consumer(
+        consumer,
+        workspace,
+        {
+            "maven_project_root": "maven",
+            "classpath_deps": ["jade.jar"],
+            "maven_runtime_lib_dir": "../escape",
+        },
+        tmp_path / "build",
+    )
+
+    assert not ok
+    assert "maven_runtime_lib_dir" in output
+
+
+def test_explicit_jade_artifact_is_present_in_runtime_classpath():
+    mod = _load_module()
+
+    classpath = mod.consumer_classpath(
+        {
+            "build_mode": "maven",
+            "jade_artifact": "artifacts/jade.jar",
+            "classpath_deps": [],
+        }
+    )
+
+    assert "/ws/artifacts/jade.jar" in classpath
+
+
+def test_maven_does_not_stage_stale_target_files(tmp_path, monkeypatch):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    project = consumer / "maven"
+    (project / "target/classes").mkdir(parents=True)
+    (project / "target/classes/Stale.class").write_bytes(b"stale")
+    (project / "target/dependency").mkdir(parents=True)
+    (project / "target/dependency/stale.jar").write_bytes(b"stale")
+    (project / "pom.xml").write_text(
+        "<project><dependencies><dependency><groupId>com.tilab.jade</groupId>"
+        "<artifactId>jade</artifactId><version>4.6</version></dependency>"
+        "</dependencies></project>",
+        encoding="utf-8",
+    )
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    (workspace / "jade.jar").write_bytes(b"jade")
+    fake_maven = tmp_path / "mvn.py"
+    _write_fake_maven(fake_maven, args_path=project / "maven-args.txt")
+    build_dir = tmp_path / "build"
+    monkeypatch.setattr(mod, "_maven_command", lambda: [sys.executable, str(fake_maven)])
+
+    ok, output = mod.build_maven_consumer(
+        consumer,
+        workspace,
+        {
+            "maven_project_root": "maven",
+            "classpath_deps": ["jade.jar"],
+        },
+        build_dir,
+    )
+
+    assert ok, output
+    assert not (build_dir / "Stale.class").exists()
+    assert not (build_dir / "lib" / "stale.jar").exists()
+    assert (project / "target/classes/Stale.class").exists()
+    assert (project / "target/dependency/stale.jar").exists()
+
+
+def test_nonzero_docker_exit_fails_even_when_markers_exist(tmp_path, monkeypatch):
+    mod = _load_module()
+    project = tmp_path / "consumer"
+    project.mkdir()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    cfg = {
+        "name": "consumer",
+        "classpath_deps": [],
+        "expected_stdout_markers": ["PASS"],
+        "main_class": "jade.Boot",
+        "boot_args": [],
+        "timeout_seconds": 30,
+    }
+    monkeypatch.setattr(mod, "compile_consumer", lambda *args: (True, ""))
+    monkeypatch.setattr(
+        mod, "run_in_docker", lambda *args: (1, "PASS", "")
+    )
+
+    result = mod.test_consumer(project, workspace, cfg)
+
+    assert result["status"] == "FAIL"
+    assert "exited with code" in result["error"]
+
+
+def test_maven_build_stages_classes_and_runtime_jars(tmp_path, monkeypatch):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    project = consumer / "maven"
+    project.mkdir(parents=True)
+    (project / "pom.xml").write_text(
+        "<project><dependencies><dependency><groupId>com.tilab.jade</groupId>"
+        "<artifactId>jade</artifactId><version>4.6</version></dependency>"
+        "</dependencies></project>",
+        encoding="utf-8",
+    )
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    jade = workspace / "jade.jar"
+    jade.write_bytes(b"jade")
+    fake_maven = tmp_path / "mvn.py"
+    _write_fake_maven(fake_maven, args_path=project / "maven-args.txt")
+    build_dir = tmp_path / "build"
+    monkeypatch.setattr(mod, "_maven_command", lambda: [sys.executable, str(fake_maven)])
+
+    ok, output = mod.build_maven_consumer(
+        consumer,
+        workspace,
+        {
+            "maven_project_root": "maven",
+            "classpath_deps": ["jade.jar"],
+        },
+        build_dir,
+    )
+
+    assert ok, output
+    assert (build_dir / "Consumer.class").read_bytes() == b"class"
+    assert (build_dir / "lib" / "runtime.jar").read_bytes() == b"jar"
+    args = (project / "maven-args.txt").read_text(encoding="utf-8")
+    assert "-B" in args
+    assert "-ntp" in args
+    assert "-Dmaven.repo.local=" in args
+    assert "-Dmaven.compiler.proc=none" not in args
+    assert f"-Djade.artifact={jade.resolve()}" not in args
+    assert "org.apache.maven.plugins:maven-dependency-plugin:3.6.1:copy-dependencies" in args
+
+
+def test_maven_build_installs_workspace_jade_before_package(tmp_path):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    project = consumer / "maven"
+    project.mkdir(parents=True)
+    (project / "pom.xml").write_text(
+        "<project><dependencies><dependency><groupId>com.tilab.jade</groupId>"
+        "<artifactId>jade</artifactId><version>4.6</version></dependency>"
+        "</dependencies></project>",
+        encoding="utf-8",
+    )
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    jade = workspace / "jade.jar"
+    jade.write_bytes(b"jade")
+    fake_maven = tmp_path / "mvn.py"
+    invocations = tmp_path / "maven-invocations.txt"
+    _write_fake_maven_sequence(fake_maven, invocations)
+    mod = _load_module()
+    mod._maven_command = lambda: [sys.executable, str(fake_maven)]
+
+    ok, output = mod.build_maven_consumer(
+        consumer,
+        workspace,
+        {
+            "maven_project_root": "maven",
+            "classpath_deps": ["jade.jar"],
+        },
+        tmp_path / "build",
+    )
+
+    assert ok, output
+    invocations_text = invocations.read_text(encoding="utf-8")
+    install, package = invocations_text.split("---\n")[:2]
+    assert "maven-install-plugin:3.1.2:install-file" in install
+    assert f"-Dfile={jade.resolve()}" in install
+    assert "-DgroupId=com.tilab.jade" in install
+    assert "-DartifactId=jade" in install
+    assert "-Dversion=4.6" in install
+    assert "package" in package
+    assert "-Dmaven.repo.local=" in package
+    assert "-Djade.artifact=" not in package
+
+
+def test_failure_stdout_markers_fail_even_when_expected_markers_and_rc_pass(
+    tmp_path, monkeypatch
+):
+    mod = _load_module()
+    project = tmp_path / "consumer"
+    project.mkdir()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    cfg = {
+        "name": "consumer",
+        "classpath_deps": [],
+        "expected_stdout_markers": ["PASS"],
+        "failure_stdout_markers": ["FAIL"],
+        "main_class": "jade.Boot",
+        "boot_args": [],
+        "timeout_seconds": 30,
+    }
+    monkeypatch.setattr(mod, "compile_consumer", lambda *args: (True, ""))
+    monkeypatch.setattr(mod, "run_in_docker", lambda *args: (0, "PASS FAIL", ""))
+
+    result = mod.test_consumer(project, workspace, cfg)
+
+    assert result["status"] == "FAIL"
+    assert "Configured failure markers" in result["error"]
+
+
+def test_singular_failure_stdout_marker_remains_supported(tmp_path, monkeypatch):
+    mod = _load_module()
+    project = tmp_path / "consumer"
+    project.mkdir()
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    cfg = {
+        "name": "consumer",
+        "classpath_deps": [],
+        "expected_stdout_markers": ["PASS"],
+        "failure_stdout_marker": "FAIL",
+        "main_class": "jade.Boot",
+        "boot_args": [],
+        "timeout_seconds": 30,
+    }
+    monkeypatch.setattr(mod, "compile_consumer", lambda *args: (True, ""))
+    monkeypatch.setattr(mod, "run_in_docker", lambda *args: (0, "PASS FAIL", ""))
+
+    result = mod.test_consumer(project, workspace, cfg)
+
+    assert result["status"] == "FAIL"
+    assert "Configured failure markers" in result["error"]
+
+
+def test_maven_build_returns_actionable_failure(tmp_path, monkeypatch):
+    mod = _load_module()
+    consumer = tmp_path / "consumer"
+    project = consumer / "maven"
+    project.mkdir(parents=True)
+    (project / "pom.xml").write_text(
+        "<project><dependencies><dependency><groupId>com.tilab.jade</groupId>"
+        "<artifactId>jade</artifactId><version>4.6</version></dependency>"
+        "</dependencies></project>",
+        encoding="utf-8",
+    )
+    workspace = tmp_path / "workspace"
+    workspace.mkdir()
+    (workspace / "jade.jar").write_bytes(b"jade")
+    fake_maven = tmp_path / "mvn.py"
+    _write_fake_maven(fake_maven, exit_code=7)
+    monkeypatch.setattr(mod, "_maven_command", lambda: [sys.executable, str(fake_maven)])
+
+    ok, output = mod.build_maven_consumer(
+        consumer,
+        workspace,
+        {
+            "maven_project_root": "maven",
+            "classpath_deps": ["jade.jar"],
+        },
+        tmp_path / "build",
+    )
+
+    assert not ok
+    assert "Maven JADE artifact install failed (exit 7)" in output
+    assert "fake maven output" in output
+
+
+def test_maven_runtime_classpath_includes_staged_dependency_dir(tmp_path):
+    mod = _load_module()
+    cfg = {
+        "build_mode": "maven",
+        "classpath_deps": ["lib/jade.jar"],
+        "maven_runtime_lib_dir": "lib",
+    }
+
+    assert mod.consumer_classpath(cfg) == ["/playground", "/ws/lib/jade.jar", "/playground/lib/*"]

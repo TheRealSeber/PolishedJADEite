@@ -41,7 +41,7 @@ After line 54 (end of constraint #13), insert two newlines then constraint #14 t
 ```markdown
 14. **Interactive Modernization Decision** — At `RULE_BATCH_LOOP`, the Agent MUST
     read `04-scan-summary.json` and group flagged rules by severity. `HIGH`/`MEDIUM`
-    rules are Breaking Changes (mandatory — must be transformed via a Recipe Skill).
+    rules are Breaking Changes (mandatory — must be transformed via a registry recipe script).
     `LOW`/`INFO` rules are Modernization Opportunities (optional). The Agent
     MUST ask the user in-chat: "Which modernization rules should be applied vs
     deferred?" before generating `05-rule-queue.json`. Only user-acknowledged
@@ -370,7 +370,7 @@ New:
 
 **ANTI-BYPASS:** You are strictly forbidden from manually creating a batch
 artifact and marking it `DONE` or `NOOP` if flags exist for that rule.
-You must either (a) write a true Recipe Skill to transform the flagged
+You must either (a) write a true registry recipe script to transform the flagged
 code, or (b) use `defer_rules.py` to defer modernization flags and preserve
 them as `// JADE-MODERNIZATION-DEFERRED` markers for future developers.
 Failure to comply is a pipeline integrity violation.
@@ -422,7 +422,7 @@ In `.claude/skills/jade-core-orchestrator/SKILL.md`, after the "Rule application
 At `RULE_BATCH_LOOP`, the Agent MUST NOT manually create a batch artifact
 and mark it `DONE` or `NOOP` if flagged files exist for that rule.
 Acceptable resolution paths:
-1. **Transform** — Write a Recipe Skill (`jade-recipe-*`) that actually applies
+1. **Transform** — Write a registry recipe script (`jade-recipe-*`) that actually applies
    the change, then dispatch it via the rule dispatcher.
 2. **Defer** — Use `defer_rules.py` to rewrite `// JADE-FLAG:<rule_id>` to
    `// JADE-MODERNIZATION-DEFERRED:<rule_id> <reason>`. This preserves the

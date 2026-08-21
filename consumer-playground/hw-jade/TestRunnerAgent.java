@@ -100,7 +100,11 @@ public class TestRunnerAgent extends Agent {
 
         // Wait for full FIPA ContractNet negotiation to complete
         // (CFP → proposals → selection → payment → confirmation)
-        Thread.sleep(15000);
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
 
         System.out.println("[TestRunner] Scenario complete. Shutting down.");
         System.exit(0);

@@ -1,6 +1,8 @@
 import importlib.util
 import pathlib
 
+import pytest
+
 
 REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 BUILD_AUDIT_PATH = (
@@ -30,6 +32,14 @@ def test_build_audit_resolves_registry_image_for_target_java():
     assert mod.resolve_docker_image("1.6", registry) == "frekele/ant:1.10.3-jdk8"
     assert mod.resolve_docker_image("11", registry) == "maven:3.8-eclipse-temurin-11"
     assert mod.resolve_docker_image("17", registry) == "eclipse-temurin:17-jre"
+    with pytest.raises(ValueError, match="unsupported"):
+        mod.resolve_docker_image("21", registry)
+    for invalid_version in ("", "not-a-version"):
+        with pytest.raises(ValueError, match="invalid or unsupported"):
+            mod.resolve_docker_image(invalid_version, registry)
+
+    registry["java-19"] = "maven:3.9-eclipse-temurin-19"
+    assert mod.resolve_docker_image("19", registry) == "maven:3.9-eclipse-temurin-19"
 
 
 def test_build_audit_flags_java11_removed_dependencies_as_blocker():
@@ -89,3 +99,7 @@ def test_runtime_verify_resolves_placeholder_from_registry_and_target():
 
     resolved = mod.resolve_consumer_docker_image(consumer_cfg, run_cfg, registry)
     assert resolved == "eclipse-temurin:17-jre"
+
+    run_cfg["target_version"] = "21"
+    with pytest.raises(ValueError, match="unsupported"):
+        mod.resolve_consumer_docker_image(consumer_cfg, run_cfg, registry)

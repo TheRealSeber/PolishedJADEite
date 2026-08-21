@@ -1,6 +1,6 @@
 # JADE Migration Pipeline
 
-> **Stack:** `jade-core-*` (agnostic plumbing) + `jade-recipe-*` (version-specific transforms).
+> **Stack:** `jade-core-*` (agnostic plumbing) + `jade-recipe-*` (version-specific transforms, nested registry recipes stored under `java-migration-skill-registry/<version-jump>/` — not agent skills).
 > **Handoff:** File-based artifacts under `artifacts/`. Skills communicate via disk, never prompt context.
 > **Ordering:** Rule-by-Rule Sequential Batching — ONE rule applied to ALL files, then verify, then commit.
 > **Full constitution:** `docs/architecture.md` — read it before creating core skills, modifying the dispatcher, or altering phase flow.
@@ -79,7 +79,7 @@ Apply ONE `rule_id` to ALL flagged files → verify compile + semantic gates →
 | Type | Count | Examples |
 |------|-------|----------|
 | Core (`jade-core-*`) | 11 | orchestrator, change-collector, scanner, batch-processor, rule-dispatcher, verification, atomic-commit, retry-router, evaluator, tooling-scout, build-fixer |
-| Recipe (`jade-recipe-*`) | 5 (per-migration) | dummy, noop, 1.5-1.6-arrays-copyof, 1.7-diamond-operator, 1.7-strings-in-switch. Version-specific transforms registered in `recipe-registry.json`. |
+| Recipe (`jade-recipe-*`) | 9 (per-migration) | Version-specific transforms + version-agnostic `dummy`/`noop`, stored under `.claude/skills/java-migration-skill-registry/{1.5-to-1.6,1.7,1.7-to-1.8,shared}/`. Registered by `rule_id` in `recipe-registry.json`; invoked as subprocesses by the dispatcher — NOT agent skills. |
 | Utility (`jade-utility-*`) | 1 | consumer-onboarder — ingests ZIP archives of JADE projects into the `consumer-playground/` for runtime testing |
 
 ## Consumer Playground & Runtime Verification
@@ -104,3 +104,7 @@ Consumer projects are managed via `jade-utility-consumer-onboarder`.
 ```
 
 Artifact prefixes: `00-run`, `01-manifest`, `02-tooling`, `03-build`, `04-flag`, `05-batch`, `06-fix`, `07-verify`, `08-retry`, `09-commit`, `10-eval`.
+
+## Commit Convention
+
+Use **Conventional Commits** format (`feat:`, `fix:`, `chore:`, `docs:`, `refactor:`, `test:`). Keep commits small and scoped — one logical change per commit. Never include `Co-authored-by:` trailers.

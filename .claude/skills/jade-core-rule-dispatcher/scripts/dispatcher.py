@@ -1,10 +1,10 @@
-#!/usr/bin/env python3
-"""jade-core-rule-dispatcher — routes rule tasks to recipe skills.
+﻿#!/usr/bin/env python3
+"""jade-core-rule-dispatcher â€” routes rule tasks to registry recipes.
 
 Reads task from batch JSON, rule from manifest, looks up recipe script
 in recipe-registry.json, invokes recipe as subprocess, records result.
 
-Contains ZERO transform logic — all transforms live in recipe skills.
+Contains ZERO transform logic â€” all transforms live in registry recipe scripts.
 """
 
 from __future__ import annotations
@@ -18,6 +18,11 @@ import sys
 from typing import Any, Dict, List, Optional
 
 TMP_FILE_SUFFIX = ".tmp.dispatch"
+RECIPE_STATUSES = {"FIXED", "FAILED", "SKIPPED", "DEFERRED"}
+RECIPE_REGISTRY_PREFIX = pathlib.PurePosixPath(
+    ".claude/skills/java-migration-skill-registry"
+).parts
+RECIPE_BUCKETS = {"1.5-to-1.6", "1.7", "1.7-to-1.8", "shared"}
 
 
 def iso_now() -> str:
@@ -29,12 +34,15 @@ def iso_now() -> str:
     )
 
 
-def read_json(path: pathlib.Path) -> Dict:
+def read_json(path: pathlib.Path) -> Dict[str, Any]:
     try:
         with path.open("r", encoding="utf-8") as f:
-            return json.load(f)
+            payload = json.load(f)
     except (json.JSONDecodeError, OSError) as exc:
         return {"_error": str(exc)}
+    if not isinstance(payload, dict):
+        return {"_error": "JSON root must be an object"}
+    return payload
 
 
 def write_json_atomic(path: pathlib.Path, payload: Any) -> None:
@@ -51,13 +59,30 @@ def load_task(batch_path: pathlib.Path, task_id: str) -> Optional[Dict]:
     batch = read_json(batch_path)
     if "_error" in batch:
         return None
-    tasks: List[Dict] = batch.get("files", [])
+    tasks = batch.get("files", [])
+    if not isinstance(tasks, list) or not all(isinstance(task, dict) for task in tasks):
+        return None
     for task in tasks:
+        if "file" in task and not isinstance(task["file"], str):
+            return None
+        flags = task.get("flags", [])
+        if not isinstance(flags, list) or not all(isinstance(flag, dict) for flag in flags):
+            return None
+        if any(
+            ("rule_id" in flag and not isinstance(flag["rule_id"], str))
+            or ("file" in flag and not isinstance(flag["file"], str))
+            or (
+                "line" in flag
+                and (not isinstance(flag["line"], int) or isinstance(flag["line"], bool))
+            )
+            for flag in flags
+        ):
+            return None
         tids = [
             f.get("rule_id", "")
             + "-"
             + f.get("file", "").split("/")[-1].replace(".java", "")
-            for f in task.get("flags", [])
+            for f in flags
         ]
         if task_id in tids:
             return task
@@ -73,13 +98,39 @@ def load_task(batch_path: pathlib.Path, task_id: str) -> Optional[Dict]:
     return None
 
 
+def validate_flag(flag: Dict[str, Any], expected_rule_id: str) -> Optional[str]:
+    """Return a routing error for an incomplete or mismatched flag."""
+    for field in ("rule_id", "file", "line"):
+        if field not in flag:
+            return f"Flag missing required field '{field}'"
+    if not isinstance(flag["rule_id"], str) or not flag["rule_id"].strip():
+        return "Flag 'rule_id' must be a non-empty string"
+    if not isinstance(flag["file"], str) or not flag["file"].strip():
+        return "Flag 'file' must be a non-empty string"
+    if not isinstance(flag["line"], int) or isinstance(flag["line"], bool) or flag["line"] < 1:
+        return "Flag 'line' must be an integer >= 1"
+    if flag["rule_id"] != expected_rule_id:
+        return (
+            f"Flag rule_id {flag['rule_id']!r} does not match requested rule_id "
+            f"{expected_rule_id!r}"
+        )
+    return None
+
+
+def normalize_file_path(file_path: str) -> str:
+    """Use the repository's canonical forward-slash form for relative files."""
+    return file_path.replace("\\", "/")
+
+
 def load_rule(manifest_path: pathlib.Path, rule_id: str) -> Optional[Dict]:
     if not manifest_path.exists():
         return None
     manifest = read_json(manifest_path)
     if "_error" in manifest:
         return None
-    rules: List[Dict] = manifest.get("rules", [])
+    rules = manifest.get("rules", [])
+    if not isinstance(rules, list) or not all(isinstance(rule, dict) for rule in rules):
+        return None
     for rule in rules:
         if rule.get("id") == rule_id:
             return rule
@@ -113,39 +164,164 @@ def _fail(
     return 2
 
 
-def load_registry() -> Dict:
+def load_registry() -> Any:
     registry_path = pathlib.Path(__file__).parent.parent / "recipe-registry.json"
     return read_json(registry_path)
 
 
+def resolve_script_path(script_path: str) -> pathlib.Path:
+    if not isinstance(script_path, str):
+        raise ValueError("Recipe script path must be a string")
+    path = pathlib.Path(script_path)
+    repo_root = pathlib.Path(__file__).resolve().parents[4]
+    resolved = path.resolve() if path.is_absolute() else (repo_root / path).resolve()
+    try:
+        resolved.relative_to(repo_root)
+    except ValueError as exc:
+        raise ValueError(f"Recipe script path outside repository: {script_path}") from exc
+    relative = pathlib.PurePosixPath(script_path)
+    if (
+        path.is_absolute()
+        or "\\" in script_path
+        or relative.parts[: len(RECIPE_REGISTRY_PREFIX)] != RECIPE_REGISTRY_PREFIX
+        or len(relative.parts) != len(RECIPE_REGISTRY_PREFIX) + 4
+        or relative.parts[-2:] != ("scripts", "apply.py")
+    ):
+        raise ValueError(
+            "Recipe script must be a canonical registry recipe script: "
+            f"{script_path}"
+        )
+    script_on_disk = repo_root / pathlib.Path(script_path)
+    if script_on_disk.is_symlink():
+        raise ValueError(f"Recipe script must not be a symlink: {script_path}")
+    bucket, recipe_name = relative.parts[len(RECIPE_REGISTRY_PREFIX) : len(RECIPE_REGISTRY_PREFIX) + 2]
+    if (
+        bucket not in RECIPE_BUCKETS
+        or not bucket
+        or not recipe_name
+        or pathlib.PurePath(bucket).parts != (bucket,)
+        or pathlib.PurePath(recipe_name).parts != (recipe_name,)
+        or bucket in {".", ".."}
+        or recipe_name in {".", ".."}
+    ):
+        raise ValueError(f"Recipe script has unsafe registry path: {script_path}")
+    expected = (
+        f"{RECIPE_REGISTRY_PREFIX[0]}/{RECIPE_REGISTRY_PREFIX[1]}/"
+        f"{RECIPE_REGISTRY_PREFIX[2]}/{bucket}/{recipe_name}/scripts/apply.py"
+    )
+    if script_path != expected:
+        raise ValueError(
+            "Recipe script must be a canonical registry recipe script: "
+            f"{script_path}"
+        )
+    registry_root = repo_root / ".claude/skills/java-migration-skill-registry"
+    try:
+        resolved.relative_to(registry_root.resolve())
+    except ValueError as exc:
+        raise ValueError(f"Recipe script path outside registry: {script_path}") from exc
+    expected = registry_root / bucket / recipe_name / "scripts" / "apply.py"
+    if resolved != expected.resolve():
+        raise ValueError(f"Recipe script is not the canonical registry path: {script_path}")
+    return resolved
+
+
+def _failed_recipe_result(message: str) -> Dict[str, Any]:
+    return {
+        "status": "FAILED",
+        "changes": 0,
+        "warnings": [],
+        "errors": [message],
+        "diff_summary": message,
+    }
+
+
+def _validate_recipe_result(result: Any) -> Dict[str, Any]:
+    if not isinstance(result, dict):
+        return _failed_recipe_result("Recipe returned non-object JSON")
+    status = result.get("status")
+    changes = result.get("changes")
+    warnings = result.get("warnings")
+    errors = result.get("errors")
+    diff_summary = result.get("diff_summary")
+    if status not in RECIPE_STATUSES:
+        return _failed_recipe_result(f"Recipe returned unknown status: {status!r}")
+    if not isinstance(changes, int) or isinstance(changes, bool) or changes < 0:
+        return _failed_recipe_result("Recipe result 'changes' must be a non-negative integer")
+    if not isinstance(warnings, list) or not all(isinstance(item, str) for item in warnings):
+        return _failed_recipe_result("Recipe result 'warnings' must be a list of strings")
+    if not isinstance(errors, list) or not all(isinstance(item, str) for item in errors):
+        return _failed_recipe_result("Recipe result 'errors' must be a list of strings")
+    if not isinstance(diff_summary, str):
+        return _failed_recipe_result("Recipe result 'diff_summary' must be a string")
+    return result
+
+
+def graph_context_for_flag(flag: Dict[str, Any]) -> Dict[str, Any]:
+    """Extract additive advisory graph context from a flag entry.
+
+    The flag's ``graph`` metadata (produced by the scanner / batch
+    processor) is copied verbatim â€” source artifact, target node,
+    impact files and diagnostics.  Never contains raw graph source and
+    is never passed to recipe subprocesses.
+    """
+    graph = flag.get("graph")
+    if "graph" not in flag or graph is None:
+        return {
+            "status": "unavailable",
+            "diagnostics": [
+                {"kind": "graph_unavailable", "message": "flag carries no graph metadata"}
+            ],
+        }
+    if not isinstance(graph, dict):
+        return {
+            "status": "unavailable",
+            "diagnostics": [
+                {"kind": "graph_malformed", "message": "flag graph metadata is malformed"}
+            ],
+        }
+    impact_files = graph.get("impact_files", [])
+    if not isinstance(impact_files, list):
+        impact_files = []
+    diagnostics = graph.get("diagnostics", [])
+    if not isinstance(diagnostics, list):
+        diagnostics = []
+    return {
+        "status": graph.get("status", "available"),
+        "source_artifact": graph.get("source_artifact"),
+        "target_node": graph.get("declaration"),
+        "impact_files": impact_files,
+        "diagnostics": diagnostics,
+    }
+
+
 def dispatch_recipe(script_path: str, file_path: str, line: int) -> Dict:
+    try:
+        resolved_script = resolve_script_path(script_path)
+    except (TypeError, ValueError, OSError) as exc:
+        return _failed_recipe_result(str(exc))
+    if not resolved_script.is_file():
+        return _failed_recipe_result(f"Recipe script not found: {script_path}")
     cmd = [
         sys.executable,
-        script_path,
+        str(resolved_script),
         "--file",
         file_path,
         "--line",
         str(line),
     ]
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        return {
-            "status": "FAILED",
-            "changes": 0,
-            "warnings": [],
-            "errors": [
-                result.stderr.strip() or f"Recipe exit code {result.returncode}"
-            ],
-        }
     try:
-        return json.loads(result.stdout.strip() or "{}")
-    except json.JSONDecodeError:
-        return {
-            "status": "FAILED",
-            "changes": 0,
-            "warnings": [],
-            "errors": [f"Recipe returned non-JSON: {result.stdout[:200]}"],
-        }
+        result = subprocess.run(cmd, capture_output=True, text=True)
+    except OSError as exc:
+        return _failed_recipe_result(f"Failed to execute recipe: {exc}")
+    if result.returncode != 0:
+        stderr = result.stderr.strip() if isinstance(result.stderr, str) else ""
+        return _failed_recipe_result(stderr or f"Recipe exit code {result.returncode}")
+    try:
+        recipe_result = json.loads(result.stdout.strip() or "{}")
+    except (json.JSONDecodeError, TypeError):
+        stdout = result.stdout if isinstance(result.stdout, str) else repr(result.stdout)
+        return _failed_recipe_result(f"Recipe returned non-JSON: {stdout[:200]}")
+    return _validate_recipe_result(recipe_result)
 
 
 def update_batch_status(
@@ -227,6 +403,7 @@ def record_result(
     warnings: List[str],
     line_start: int,
     line_end: int,
+    graph_context: Optional[Dict[str, Any]] = None,
 ) -> pathlib.Path:
     result = {
         "task_id": task_id,
@@ -242,6 +419,8 @@ def record_result(
         "warnings": warnings,
         "applied_at": iso_now(),
     }
+    if graph_context is not None:
+        result["graph_context"] = graph_context
 
     # Aggregate: one file per rule_id, append to array
     aggregate_path = artifacts_dir / f"06-fix-results-{rule_id}.json"
@@ -257,22 +436,22 @@ def record_result(
     return aggregate_path
 
 
-def main() -> int:
+def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(
-        description="JADE Core Rule Dispatcher — routes rule tasks to recipe skills"
+        description="JADE Core Rule Dispatcher â€” routes rule tasks to registry recipes"
     )
     parser.add_argument("--artifacts-dir", required=True)
     parser.add_argument("--rule-id", required=True)
     parser.add_argument("--task-id", required=True)
     parser.add_argument("--workspace-root", default=".")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     artifacts_dir = pathlib.Path(args.artifacts_dir)
     if not artifacts_dir.is_dir():
         print(f"ERROR [ARTIFACTS_DIR_MISSING] {artifacts_dir}", file=sys.stderr)
         return 2
 
-    workspace_root = pathlib.Path(args.workspace_root)
+    workspace_root = pathlib.Path(args.workspace_root).resolve()
     errors: List[str] = []
     warnings: List[str] = []
 
@@ -306,6 +485,46 @@ def main() -> int:
     if "_flag" in task:
         flags = [task["_flag"]]
 
+    for flag in flags:
+        flag_error = validate_flag(flag, args.rule_id)
+        if flag_error:
+            record_result(
+                artifacts_dir,
+                args.task_id,
+                args.rule_id,
+                task.get("file", ""),
+                "FAILED",
+                0,
+                "",
+                "",
+                "",
+                [flag_error],
+                [],
+                0,
+                0,
+            )
+            return 2
+        if normalize_file_path(flag["file"]) != normalize_file_path(file_rel):
+            record_result(
+                artifacts_dir,
+                args.task_id,
+                args.rule_id,
+                file_rel,
+                "FAILED",
+                0,
+                "",
+                "",
+                "",
+                [
+                    f"Flag file {flag['file']!r} does not match task file "
+                    f"{file_rel!r}"
+                ],
+                [],
+                flag["line"],
+                flag["line"],
+            )
+            return 2
+
     if not file_rel:
         record_result(
             artifacts_dir,
@@ -324,7 +543,18 @@ def main() -> int:
         )
         return 2
 
-    file_path = workspace_root / file_rel
+    try:
+        file_path = (workspace_root / file_rel).resolve()
+        file_path.relative_to(workspace_root)
+    except (TypeError, ValueError, OSError) as exc:
+        return _fail(
+            artifacts_dir,
+            args.task_id,
+            args.rule_id,
+            file_rel,
+            0,
+            f"File path outside workspace: {file_rel} ({exc})",
+        )
     if not file_path.exists():
         record_result(
             artifacts_dir,
@@ -364,7 +594,7 @@ def main() -> int:
 
     fix_strategy = rule.get("fix_strategy", "")
 
-    if not fix_strategy.startswith("recipe:"):
+    if not isinstance(fix_strategy, str) or not fix_strategy.startswith("recipe:"):
         record_result(
             artifacts_dir,
             args.task_id,
@@ -383,6 +613,15 @@ def main() -> int:
         return 2
 
     registry = load_registry()
+    if not isinstance(registry, dict):
+        return _fail(
+            artifacts_dir,
+            args.task_id,
+            args.rule_id,
+            file_rel,
+            0,
+            "Recipe registry root must be a JSON object",
+        )
     if "_error" in registry:
         record_result(
             artifacts_dir,
@@ -424,7 +663,26 @@ def main() -> int:
         )
         return 2
 
-    script_path = recipe_entry["script"]
+    if not isinstance(recipe_entry, dict):
+        return _fail(
+            artifacts_dir,
+            args.task_id,
+            args.rule_id,
+            file_rel,
+            0,
+            "Recipe registry entry must be a JSON object",
+        )
+    script_path = recipe_entry.get("script")
+    if not isinstance(script_path, str) or not script_path.strip():
+        return _fail(
+            artifacts_dir,
+            args.task_id,
+            args.rule_id,
+            file_rel,
+            0,
+            "Recipe registry entry is missing a valid 'script'",
+        )
+    skill_name = recipe_entry.get("skill", "<unknown recipe>")
 
     # Dispatch for every flag in this file entry
     overall_status = "SKIPPED"
@@ -432,13 +690,13 @@ def main() -> int:
     any_failure = False
 
     for fi, flag in enumerate(flags):
-        line_start = flag.get("line", 0)
+        line_start = flag["line"]
         per_flag_task_id = (
             f"{args.task_id}-f{fi:03d}" if len(flags) > 1 else args.task_id
         )
 
         print(
-            f"DISPATCH {args.rule_id} -> {recipe_entry['skill']} ({file_rel}:{line_start})"
+            f"DISPATCH {args.rule_id} -> {skill_name} ({file_rel}:{line_start})"
         )
         recipe_result = dispatch_recipe(script_path, str(file_path), line_start)
 
@@ -460,6 +718,10 @@ def main() -> int:
         elif status == "DEFERRED" and overall_status not in ("FIXED", "FAILED"):
             overall_status = "DEFERRED"
 
+        graph_context = graph_context_for_flag(flag)
+        if graph_context.get("status") == "unavailable":
+            warnings.extend(graph_context.get("diagnostics", []))
+
         record_result(
             artifacts_dir,
             per_flag_task_id,
@@ -467,13 +729,14 @@ def main() -> int:
             file_rel,
             status,
             1 if changes > 0 else 0,
-            recipe_entry["skill"],
+            skill_name,
             diff_summary,
             rule.get("verification_hint", ""),
             errors,
             warnings,
             line_start,
             line_start,
+            graph_context,
         )
         safe_summary = diff_summary.encode("ascii", errors="replace").decode("ascii")
         print(f"{status} | {per_flag_task_id} | {file_rel} | {safe_summary}")

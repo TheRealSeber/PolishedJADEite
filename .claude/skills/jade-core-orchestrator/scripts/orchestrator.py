@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import hashlib
+import importlib.util
 import json
 import os
 import pathlib
@@ -31,7 +32,14 @@ TRANSITIONS: Dict[str, Dict[str, str]] = {
         "SCRIPT_ERROR": "FAILED",
     },
     "BUILD_GATE_READY": {
+        "OK": "KNOWLEDGE_GRAPH_READY",
+        "ARTIFACT_MISSING": "FAILED",
+        "ARTIFACT_TAMPERED": "FAILED",
+        "SCRIPT_ERROR": "FAILED",
+    },
+    "KNOWLEDGE_GRAPH_READY": {
         "OK": "SCAN_READY",
+        "DEPENDENCY_MISSING": "SCAN_READY",
         "ARTIFACT_MISSING": "FAILED",
         "ARTIFACT_TAMPERED": "FAILED",
         "SCRIPT_ERROR": "FAILED",
@@ -54,8 +62,12 @@ TRANSITIONS: Dict[str, Dict[str, str]] = {
     "RULE_ESCALATE": {"OK": "RULE_BATCH_LOOP"},
     "VERIFIED": {"OK": "RUNTIME_VERIFY"},
     "RUNTIME_VERIFY": {"OK": "DONE", "VERIFY_FAIL": "FAILED", "SCRIPT_ERROR": "FAILED"},
-    "AWAITING_AGENT": {"OK": "RESUME"},
 }
+
+# AWAITING_AGENT is a terminal pause state. Entering it is table-driven
+# (RULE_BATCH_LOOP --AWAIT_AGENT--> AWAITING_AGENT); resuming is handled by
+# dedicated code that reads state.awaiting_phase and jumps straight to the
+# target phase, bypassing the transition table.
 
 TERMINAL_STATES = {"DONE", "FAILED", "AWAITING_SOURCE_INPUT", "AWAITING_AGENT"}
 
@@ -64,6 +76,7 @@ REQUIRED_ARTIFACTS: Dict[str, List[str]] = {
     "MANIFEST_READY": ["01-breaking-changes-manifest.json"],
     "TOOLING_SCOUT_READY": ["02-tooling-scout-report.json"],
     "BUILD_GATE_READY": ["03-build-audit.json"],
+    "KNOWLEDGE_GRAPH_READY": ["03.5-knowledge-graph.json"],
     "SCAN_READY": ["04-flag-index.json"],
     "RUNTIME_VERIFY": ["07-runtime-verify.json"],
 }
@@ -91,6 +104,10 @@ ARTIFACT_CONTENT_RULES: Dict[str, Dict[str, Any]] = {
                 "docker": "available",
             }
         },
+    },
+    "03.5-knowledge-graph.json": {
+        "json_keys_required": ["nodes", "edges", "stats"],
+        "json_nonempty_dict": ["nodes", "edges", "stats"],
     },
     "04-flag-index.json": {
         "json_keys_required": ["flags", "total_flags", "total_files_scanned"],
@@ -122,10 +139,18 @@ BUILD_LOG_VALIDATION = {
 }
 """07-build.log must contain BOTH required substrings to pass."""
 
-MUTABLE_ARTIFACTS = {"07-build.log"}
+MUTABLE_ARTIFACTS = {"07-build.log", "03.5-knowledge-graph.json"}
 """Artifacts that may legitimately change across rule iterations.
-For these, hash is updated after each successful verification instead
-of being treated as tamper-evident immutable records."""
+
+- ``07-build.log``: rewritten per rule during verification.
+- ``03.5-knowledge-graph.json``: rebuilt at batch boundaries when
+  ``rebuild_graph_per_batch`` is enabled in the run config.
+
+The knowledge graph is advisory by design, so tamper-evidence is not
+enforced on it: any change is silently accepted and its hash refreshed.
+Structural validity (non-empty nodes/edges/stats) is still enforced at the
+KNOWLEDGE_GRAPH_READY gate.
+"""
 
 SCRIPT_PHASES: Dict[str, Dict[str, Any]] = {
     "TOOLING_SCOUT_READY": {
@@ -135,6 +160,10 @@ SCRIPT_PHASES: Dict[str, Dict[str, Any]] = {
     "BUILD_GATE_READY": {
         "script": ".claude/skills/jade-core-build-fixer/scripts/build_audit.py",
         "args": ["--config", "_CONFIG_"],
+    },
+    "KNOWLEDGE_GRAPH_READY": {
+        "script": ".claude/skills/jade-core-knowledge-graph/scripts/build_graph.py",
+        "args": ["--workspace", "_WORKSPACE_", "--artifacts-dir", "_ARTIFACTS_"],
     },
     "SCAN_READY": {
         "script": ".claude/skills/jade-core-scanner/scripts/scan_and_tag.py",
@@ -461,7 +490,7 @@ The pipeline has paused at the **rule batch processing** phase.
 
 **ANTI-BYPASS:** You are strictly forbidden from manually creating a batch
 artifact and marking it `DONE` or `NOOP` if flags exist for that rule.
-You must either (a) write a true Recipe Skill to transform the flagged
+You must either (a) write a true registry recipe script to transform the flagged
 code, or (b) use `defer_rules.py` to defer modernization flags and preserve
 them as `// JADE-MODERNIZATION-DEFERRED` markers for future developers.
 Failure to comply is a pipeline integrity violation.
@@ -548,7 +577,217 @@ def check_gate_artifacts(phase: str, artifacts: pathlib.Path, state: Dict) -> st
                 f"Artifact {af} was modified after gate approval (stored={stored[:12]}..., current={current[:12]}...)",
             )
             return "ARTIFACT_TAMPERED"
+    if phase == "KNOWLEDGE_GRAPH_READY":
+        state["graph"] = record_graph_freshness(artifacts)
     return "OK"
+
+
+def _load_knowledge_graph(artifacts: pathlib.Path) -> Optional[Any]:
+    """Load a KnowledgeGraph object from the 03.5 artifact.
+
+    Returns None when the schema module or graph artifact is unavailable
+    or unreadable — the caller treats this as advisory-only.
+    """
+    schema_path = (
+        pathlib.Path(__file__).parents[2]
+        / "jade-core-knowledge-graph"
+        / "scripts"
+        / "schema.py"
+    )
+    if not schema_path.exists():
+        return None
+    spec = importlib.util.spec_from_file_location("jade_kg_schema", schema_path)
+    if spec is None or spec.loader is None:
+        return None
+    module = importlib.util.module_from_spec(spec)
+    try:
+        spec.loader.exec_module(module)
+    except Exception:
+        return None
+    graph_path = artifacts / "03.5-knowledge-graph.json"
+    if not graph_path.exists():
+        return None
+    try:
+        return module.KnowledgeGraph.load(str(graph_path))
+    except Exception:
+        return None
+
+
+def record_graph_freshness(artifacts: pathlib.Path) -> Optional[Dict[str, Any]]:
+    """Record the 03.5 graph artifact's identity/freshness for run state.
+
+    Returns None when the artifact is missing or unreadable; the caller
+    stores that value (None) directly under ``state["graph"]``.
+    """
+    graph_path = artifacts / "03.5-knowledge-graph.json"
+    if not graph_path.exists():
+        return None
+    try:
+        data = read_json(graph_path)
+    except (json.JSONDecodeError, OSError):
+        return None
+    source = data.get("source")
+    source = source if isinstance(source, dict) else {}
+    return {
+        "schema_version": data.get("schema_version"),
+        "content_hash": data.get("content_hash"),
+        "java_files": source.get("java_files"),
+        "source_identity": data.get("source_identity"),
+        "diagnostics": data.get("diagnostics"),
+    }
+
+
+def rebuild_knowledge_graph(
+    workspace: pathlib.Path,
+    artifacts: pathlib.Path,
+    cfg: Dict[str, Any],
+) -> bool:
+    """Rebuild ``03.5-knowledge-graph.json`` at a batch boundary.
+
+    Advisory and opt-in: only runs when ``cfg.rebuild_graph_per_batch`` is
+    truthy. A failed rebuild logs a warning and leaves the previous graph in
+    place (stale graph is safer than a missing one). Returns True when a
+    rebuild was not requested or succeeded.
+    """
+    if not cfg.get("rebuild_graph_per_batch", False):
+        return True
+    script = (
+        pathlib.Path(__file__).parents[2]
+        / "jade-core-knowledge-graph"
+        / "scripts"
+        / "build_graph.py"
+    )
+    if not script.exists():
+        print(f"WARNING [GRAPH_REBUILD_FAILED] missing script: {script}", file=sys.stderr)
+        return False
+    cmd = [
+        sys.executable,
+        str(script),
+        "--workspace",
+        str(workspace),
+        "--artifacts-dir",
+        str(artifacts),
+    ]
+    try:
+        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+    except (subprocess.TimeoutExpired, OSError) as exc:
+        print(f"WARNING [GRAPH_REBUILD_FAILED] {exc}", file=sys.stderr)
+        return False
+    if proc.returncode not in (0, 1):
+        print(
+            f"WARNING [GRAPH_REBUILD_FAILED] exit {proc.returncode}: "
+            f"{proc.stderr.strip()[:500]}",
+            file=sys.stderr,
+        )
+        return False
+    return True
+
+
+def compute_queue_graph_metadata(
+    artifacts: pathlib.Path, rules: List[str]
+) -> Dict[str, Any]:
+    """Compute additive, advisory graph metadata for the approved rule queue.
+
+    Only ever derived from the *approved* ``rules`` list — it never inserts
+    or reorders them.  ``suggested_order`` is advisory transform-order
+    guidance from the knowledge graph; ``rules`` itself is left untouched.
+    """
+    meta: Dict[str, Any] = {
+        "status": "empty" if not rules else "computed",
+        "source_artifact": "03.5-knowledge-graph.json",
+        "suggested_order": list(rules),
+        "direct_counts": {},
+        "impact_counts": {},
+        "cycles": [],
+        "ordering_reasons": [],
+        "diagnostics": [],
+    }
+    if not rules:
+        return meta
+
+    rule_files: Dict[str, List[str]] = {}
+    flag_index_path = artifacts / "04-flag-index.json"
+    if flag_index_path.exists():
+        try:
+            fi = read_json(flag_index_path)
+        except (json.JSONDecodeError, OSError):
+            fi = {}
+        if not isinstance(fi, dict):
+            fi = {}
+        flags = fi.get("flags", []) if isinstance(fi.get("flags", []), list) else []
+        try:
+            for rule in rules:
+                files = sorted(
+                    {
+                        f.get("file")
+                        for f in flags
+                        if isinstance(f, dict)
+                        and f.get("rule_id") == rule
+                        and f.get("file")
+                    }
+                )
+                rule_files[rule] = files
+                meta["direct_counts"][rule] = len(files)
+                impacted: set = set()
+                for f in flags:
+                    if isinstance(f, dict) and f.get("rule_id") == rule:
+                        gf = f.get("graph")
+                        if isinstance(gf, dict) and isinstance(gf.get("impact_files"), list):
+                            impacted.update(i for i in gf["impact_files"] if isinstance(i, str))
+                meta["impact_counts"][rule] = len(impacted)
+        except Exception as exc:
+            meta["diagnostics"].append(
+                {"kind": "flag_index_error", "message": str(exc)}
+            )
+            return meta
+
+    kg = _load_knowledge_graph(artifacts)
+    if kg is None:
+        meta["diagnostics"].append({"kind": "graph_unavailable"})
+        return meta
+
+    try:
+        result = kg.query_transform_order_with_diagnostics(rules, rule_files)
+    except Exception as exc:
+        meta["diagnostics"].append(
+            {"kind": "transform_order_error", "message": str(exc)}
+        )
+        return meta
+
+    meta["suggested_order"] = list(result.get("order", rules))
+    for d in result.get("diagnostics", []):
+        if d.get("kind") == "cycle":
+            meta["cycles"].append(d.get("rules", []))
+        meta["diagnostics"].append(d)
+    meta["ordering_reasons"] = [
+        {"rule": rule, "reason": "advisory dependency order — dependent transforms first"}
+        for rule in meta["suggested_order"]
+    ]
+    return meta
+
+
+def attach_queue_graph_metadata(artifacts: pathlib.Path) -> Optional[Dict[str, Any]]:
+    """Additively attach ``graph_metadata`` to 05-rule-queue.json.
+
+    Returns the updated queue, or None if the queue is absent/unreadable.
+    ``rules`` is never reordered or extended — only user-approved rules are
+    ever present and remain exactly as produced by the agent.
+    """
+    queue_path = artifacts / "05-rule-queue.json"
+    if not queue_path.exists():
+        return None
+    try:
+        queue = read_json(queue_path)
+    except (json.JSONDecodeError, OSError):
+        return None
+    if not isinstance(queue, dict):
+        return None
+    rules = queue.get("rules", [])
+    if not isinstance(rules, list):
+        return None
+    queue["graph_metadata"] = compute_queue_graph_metadata(artifacts, rules)
+    write_json(queue_path, queue)
+    return queue
 
 
 def process_rule_batch(
@@ -587,7 +826,15 @@ def process_rule_batch(
         )
         return "ARTIFACT_MISSING"
 
+    if cfg.get("rebuild_graph_per_batch", False):
+        workspace = pathlib.Path(str(cfg.get("workspace_path", "workspace")))
+        if rebuild_knowledge_graph(workspace, artifacts, cfg):
+            state["graph"] = record_graph_freshness(artifacts)
+
+    attach_queue_graph_metadata(artifacts)
     queue = read_json(queue_path)
+    if not isinstance(queue, dict):
+        return "ARTIFACT_MISSING"
     rules: List[str] = queue.get("rules", [])
     if not isinstance(rules, list) or not rules:
         return "NO_MORE_RULES"
@@ -950,7 +1197,13 @@ def main() -> int:
                     if fi.get("total_flags", 0) == 0:
                         write_json(
                             artifacts / "05-rule-queue.json",
-                            {"run_id": state.get("run_id", ""), "rules": []},
+                            {
+                                "run_id": state.get("run_id", ""),
+                                "rules": [],
+                                "graph_metadata": compute_queue_graph_metadata(
+                                    artifacts, []
+                                ),
+                            },
                         )
                         # Fall through to process_rule_batch → NO_MORE_RULES →
                         outcome = process_rule_batch(

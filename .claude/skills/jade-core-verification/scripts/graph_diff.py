@@ -20,10 +20,18 @@ import json
 import os
 import sys
 import tempfile
+from collections import deque
 
 GRAPH_DIFF_VERSION = 1
 
 EDGE_TYPES = ("imports", "extends", "implements", "calls", "type_refs")
+
+# Impact-path derivation is bounded so a large batch cannot produce a
+# quadratic report (observed: 97 changed nodes -> ~94k paths / 40MB). A
+# per-node cap plus a global cap keeps output deterministic and bounded;
+# truncation is reported explicitly via impact_path_truncated.
+MAX_IMPACT_PATHS_PER_NODE = 100
+MAX_IMPACT_PATHS_TOTAL = 5000
 
 # Line metadata is volatile across rebuilds (comment/code insertions shift lines
 # without changing declarations); exclude it from the change-detection signature.
@@ -80,7 +88,12 @@ def _edge_tuples(graph: dict):
                 continue
             frm = e.get("from")
             to = e.get("to")
-            if frm and to:
+            if (
+                isinstance(frm, str)
+                and isinstance(to, str)
+                and frm
+                and to
+            ):
                 result.add((frm, to, etype))
     return result
 
@@ -100,42 +113,60 @@ def _reverse_adjacency(graph: dict) -> dict:
         return index
     for etype in EDGE_TYPES:
         for e in edges.get(etype, []):
-            if isinstance(e, dict) and e.get("from") and e.get("to"):
+            if (
+                isinstance(e, dict)
+                and isinstance(e.get("from"), str)
+                and isinstance(e.get("to"), str)
+                and e.get("from")
+                and e.get("to")
+            ):
                 index.setdefault(e["to"], []).append((e["from"], etype))
     for target in index:
         index[target].sort()
     return index
 
 
-def _impact_paths(changed_nodes, graph: dict, seen: set) -> list:
-    """Sorted explanation paths from each changed node to its transitive dependents.
+def _impact_paths(changed_nodes, graph: dict):
+    """Sorted explanation paths from each changed node to its dependents.
 
     Mirrors the KnowledgeGraph.query_rule_scope path shape: each entry is
     {"file", "path", "reasons"} where path[0] is the changed node and reasons
-    name the edge types traversed. Sorted by file/path/reasons for determinism.
+    name the edge types traversed. Bounded by MAX_IMPACT_PATHS_PER_NODE per
+    changed node and MAX_IMPACT_PATHS_TOTAL overall. Returns
+    (paths, truncated_nodes) where truncated_nodes are the changed nodes whose
+    dependent exploration was cut short.
     """
     reverse = _reverse_adjacency(graph)
     paths = []
+    truncated_nodes = set()
     for target in sorted(changed_nodes):
-        queue = [(target, [target], [])]
+        node_count = 0
+        queue = deque([(target, [target], [])])
         visited = {target}
-        while queue:
-            node, path, reasons = queue.pop(0)
+        while queue and len(paths) < MAX_IMPACT_PATHS_TOTAL:
+            node, path, reasons = queue.popleft()
             for dependent, etype in reverse.get(node, []):
                 if dependent in visited:
                     continue
-                visited.add(dependent)
-                next_path = path + [dependent]
-                next_reasons = reasons + [etype]
-                key = (dependent, tuple(next_path), tuple(next_reasons))
-                if key in seen:
+                if (
+                    node_count >= MAX_IMPACT_PATHS_PER_NODE
+                    or len(paths) >= MAX_IMPACT_PATHS_TOTAL
+                ):
+                    truncated_nodes.add(target)
                     continue
-                seen.add(key)
+                visited.add(dependent)
+                node_count += 1
                 paths.append(
-                    {"file": dependent, "path": next_path, "reasons": next_reasons}
+                    {
+                        "file": dependent,
+                        "path": path + [dependent],
+                        "reasons": reasons + [etype],
+                    }
                 )
-                queue.append((dependent, next_path, next_reasons))
-    return paths
+                queue.append(
+                    (dependent, path + [dependent], reasons + [etype])
+                )
+    return paths, sorted(truncated_nodes)
 
 
 def compute_diff(before_graph: dict, after_graph: dict) -> dict:
@@ -186,14 +217,19 @@ def compute_diff(before_graph: dict, after_graph: dict) -> dict:
 
     seen_paths = set()
     impact_paths = []
-    if changed_nodes or removed_nodes:
-        present_after = [p for p in changed_nodes if p in after_nodes]
-        impact_paths.extend(_impact_paths(present_after, after_graph, seen_paths))
-        present_before = [p for p in removed_nodes if p in before_nodes]
-        impact_paths.extend(_impact_paths(present_before, before_graph, seen_paths))
+    truncated_nodes = []
+    if changed_nodes:
+        paths, truncated = _impact_paths(changed_nodes, after_graph)
+        impact_paths.extend(paths)
+        truncated_nodes.extend(truncated)
+    if removed_nodes:
+        paths, truncated = _impact_paths(removed_nodes, before_graph)
+        impact_paths.extend(paths)
+        truncated_nodes.extend(truncated)
     impact_paths = sorted(
         impact_paths, key=lambda p: (p["file"], p["path"], p["reasons"])
     )
+    truncated_nodes = sorted(set(truncated_nodes))
 
     return {
         "graph_diff_version": GRAPH_DIFF_VERSION,
@@ -205,6 +241,9 @@ def compute_diff(before_graph: dict, after_graph: dict) -> dict:
         "removed_edges": removed_edges,
         "changed_nodes": changed_nodes,
         "impact_paths": impact_paths,
+        "impact_path_count": len(impact_paths),
+        "impact_path_truncated": bool(truncated_nodes),
+        "impact_path_truncated_nodes": truncated_nodes,
         "warnings": warnings,
     }
 
@@ -257,7 +296,11 @@ def main(argv=None) -> int:
         print(f"ERROR [GRAPH_MALFORMED] {exc}", file=sys.stderr)
         return 2
 
-    report = compute_diff(before, after)
+    try:
+        report = compute_diff(before, after)
+    except (ValueError, TypeError) as exc:
+        print(f"ERROR [GRAPH_DIFF_ERROR] {exc}", file=sys.stderr)
+        return 2
 
     try:
         _write_json_atomic(args.output, report)

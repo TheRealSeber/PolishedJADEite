@@ -643,7 +643,7 @@ def _record_graph_evidence(
         with graph_after.open("r", encoding="utf-8") as f:
             after_graph = json.load(f)
         diff = _compute_graph_diff(before_graph, after_graph)
-    except (json.JSONDecodeError, ValueError, OSError) as exc:
+    except Exception as exc:
         warnings = [{"kind": "graph_parse_error", "message": str(exc)}]
         _write_json_atomic(
             report_path,

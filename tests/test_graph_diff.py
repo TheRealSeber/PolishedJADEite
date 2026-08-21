@@ -67,7 +67,8 @@ def test_report_schema_and_no_timestamps():
     assert set(report) == {
         "graph_diff_version", "before_identity", "after_identity",
         "added_nodes", "removed_nodes", "added_edges", "removed_edges",
-        "changed_nodes", "impact_paths", "warnings",
+        "changed_nodes", "impact_paths", "impact_path_count",
+        "impact_path_truncated", "impact_path_truncated_nodes", "warnings",
     }
     assert report["graph_diff_version"] == 1
     assert "timestamp" not in report
@@ -268,3 +269,65 @@ def test_cli_output_is_byte_deterministic(tmp_path):
     assert run_cli(before, after, out1).returncode == 0
     assert run_cli(before, after, out2).returncode == 0
     assert out1.read_bytes() == out2.read_bytes()
+
+
+def test_malformed_mixed_type_edges_do_not_crash():
+    gd = load_graph_diff()
+    before = graph({"A.java": node("A.java")})
+    after = graph(
+        {"A.java": node("A.java"), "B.java": node("B.java")},
+        edges={
+            "imports": [
+                {"from": "A.java", "to": 42},
+                {"from": 7, "to": "B.java"},
+                {"from": None, "to": "B.java"},
+            ]
+        },
+    )
+    report = gd.compute_diff(before, after)
+    assert isinstance(report, dict)
+    assert report["added_edges"] == []
+    assert report["impact_path_count"] == 0
+    assert report["impact_path_truncated"] is False
+
+
+def test_impact_paths_bounded_and_truncated():
+    gd = load_graph_diff()
+    dependents = [f"D{i}.java" for i in range(150)]
+    nodes_before = {"ROOT.java": node("ROOT.java")}
+    nodes_before.update({d: node(d) for d in dependents})
+    nodes_after = {
+        "ROOT.java": node("ROOT.java", methods=[{"name": "foo", "return_type": "void"}])
+    }
+    nodes_after.update({d: node(d) for d in dependents})
+    edges = {"imports": [{"from": d, "to": "ROOT.java"} for d in dependents]}
+    report = gd.compute_diff(graph(nodes_before), graph(nodes_after, edges=edges))
+    assert report["changed_nodes"] == ["ROOT.java"]
+    assert report["impact_path_count"] == gd.MAX_IMPACT_PATHS_PER_NODE
+    assert report["impact_path_count"] <= gd.MAX_IMPACT_PATHS_TOTAL
+    assert report["impact_path_truncated"] is True
+    assert report["impact_path_truncated_nodes"] == ["ROOT.java"]
+
+
+def test_removed_node_impact_paths():
+    gd = load_graph_diff()
+    before = graph(
+        {
+            "ROOT.java": node("ROOT.java"),
+            "C.java": node("C.java"),
+            "D.java": node("D.java"),
+        },
+        edges={
+            "imports": [
+                {"from": "C.java", "to": "ROOT.java"},
+                {"from": "D.java", "to": "C.java"},
+            ]
+        },
+    )
+    after = graph({"C.java": node("C.java")})
+    report = gd.compute_diff(before, after)
+    assert report["removed_nodes"] == ["D.java", "ROOT.java"]
+    assert any(
+        p["file"] == "C.java" and p["path"][0] == "ROOT.java"
+        for p in report["impact_paths"]
+    )

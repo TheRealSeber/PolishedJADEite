@@ -229,9 +229,12 @@ deterministic `graph_diff.py` diff and records it as **additive evidence**:
 
 The diff report is versioned (`graph_diff_version: 1`), contains no timestamps,
 and is byte-deterministic for identical inputs. It compares:
-- nodes by path with a declaration signature (line numbers excluded)
+- nodes by path with a declaration + import signature (volatile line numbers excluded)
 - edges as canonical `(from, to, type)` tuples
-- changed-node `impact_paths` derived from the graph's reverse dependency edges
+- changed-node `impact_paths` derived from the graph's reverse dependency edges,
+  bounded by `MAX_IMPACT_PATHS_PER_NODE` and `MAX_IMPACT_PATHS_TOTAL`; when the
+  bound is hit the report sets `impact_path_truncated` and lists the affected
+  changed nodes
 
 **Graph evidence is supplementary only.** It may expand diagnostics and
 verification scope, but it can NEVER convert a failed build, semantic gate, or

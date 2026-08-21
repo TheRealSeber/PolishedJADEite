@@ -199,3 +199,70 @@ def test_semantic_failure_without_graph_still_fails(tmp_path):
     assert result.returncode == 2
     assert not (artifacts / "07-graph-diff.json").exists()
     assert (artifacts / "failure-summary.json").exists()
+
+
+def test_malformed_edges_never_flip_passing_gate(tmp_path):
+    before_graph = graph({"A.java": node("A.java")})
+    after_graph = graph(
+        {"A.java": node("A.java"), "B.java": node("B.java")},
+        edges={"imports": [{"from": "A.java", "to": 42}]},
+    )
+    result, artifacts = run_semantic(
+        tmp_path, BASELINE_EVENTS, BASELINE_EVENTS, before_graph, after_graph
+    )
+    assert result.returncode == 0, result.stderr
+    assert (artifacts / "07-graph-diff.json").exists()
+    semantic = json.loads((artifacts / "07-semantic-diff.json").read_text(encoding="utf-8"))
+    assert semantic["overall_pass"] is True
+
+
+def test_single_sided_graph_input_records_missing_input(tmp_path):
+    before_graph = graph({"A.java": node("A.java")})
+    result, artifacts = run_semantic(
+        tmp_path, BASELINE_EVENTS, BASELINE_EVENTS,
+        before_graph=before_graph, after_graph=None,
+    )
+    assert result.returncode == 0, result.stderr
+    diff = json.loads((artifacts / "07-graph-diff.json").read_text(encoding="utf-8"))
+    assert diff["status"] == "skipped"
+    assert any(w["kind"] == "missing_graph_input" for w in diff["warnings"])
+
+
+def test_graph_warnings_on_passing_gate_still_exit_0(tmp_path):
+    before_graph = graph({"A.java": node("A.java")}, source_identity={"workspace": "a"})
+    after_graph = graph({"A.java": node("A.java")}, source_identity={"workspace": "b"})
+    result, artifacts = run_semantic(
+        tmp_path, BASELINE_EVENTS, BASELINE_EVENTS, before_graph, after_graph
+    )
+    assert result.returncode == 0, result.stderr
+    diff = json.loads((artifacts / "07-graph-diff.json").read_text(encoding="utf-8"))
+    assert any(w["kind"] == "identity_mismatch" for w in diff["warnings"])
+    semantic = json.loads((artifacts / "07-semantic-diff.json").read_text(encoding="utf-8"))
+    assert semantic["overall_pass"] is True
+    assert semantic["graph_evidence"]["warnings"]
+
+
+def test_graph_diff_unavailable_records_warning(tmp_path):
+    import importlib.util
+
+    module_name = "semantic_verify_unavailable"
+    spec = importlib.util.spec_from_file_location(module_name, SCRIPT)
+    mod = importlib.util.module_from_spec(spec)
+    assert spec and spec.loader
+    sys.modules[module_name] = mod
+    spec.loader.exec_module(mod)
+
+    artifacts = tmp_path / "artifacts"
+    before = tmp_path / "before.json"
+    after = tmp_path / "after.json"
+    write_json(before, graph({"A.java": node("A.java")}))
+    write_json(after, graph({"A.java": node("A.java")}))
+
+    mod._GRAPH_DIFF_AVAILABLE = False
+    mod._compute_graph_diff = None
+    summary = mod._record_graph_evidence(before, after, artifacts)
+    assert summary["status"] == "skipped"
+
+    diff = json.loads((artifacts / "07-graph-diff.json").read_text(encoding="utf-8"))
+    assert diff["status"] == "skipped"
+    assert any(w["kind"] == "graph_diff_unavailable" for w in diff["warnings"])

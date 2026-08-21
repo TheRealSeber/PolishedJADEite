@@ -135,10 +135,17 @@ BUILD_LOG_VALIDATION = {
 }
 """07-build.log must contain BOTH required substrings to pass."""
 
-MUTABLE_ARTIFACTS = {"07-build.log"}
+MUTABLE_ARTIFACTS = {"07-build.log", "03.5-knowledge-graph.json"}
 """Artifacts that may legitimately change across rule iterations.
-For these, hash is updated after each successful verification instead
-of being treated as tamper-evident immutable records."""
+
+- ``07-build.log``: rewritten per rule during verification.
+- ``03.5-knowledge-graph.json``: rebuilt at batch boundaries when
+  ``rebuild_graph_per_batch`` is enabled in the run config.
+
+For these, the hash is updated after each successful verification instead
+of being treated as tamper-evident immutable records. A graph that is NOT
+rebuilt keeps its recorded hash and remains tamper-evident between rebuilds.
+"""
 
 SCRIPT_PHASES: Dict[str, Dict[str, Any]] = {
     "TOOLING_SCOUT_READY": {
@@ -565,6 +572,8 @@ def check_gate_artifacts(phase: str, artifacts: pathlib.Path, state: Dict) -> st
                 f"Artifact {af} was modified after gate approval (stored={stored[:12]}..., current={current[:12]}...)",
             )
             return "ARTIFACT_TAMPERED"
+    if phase == "KNOWLEDGE_GRAPH_READY":
+        state["graph"] = record_graph_freshness(artifacts)
     return "OK"
 
 
@@ -597,6 +606,77 @@ def _load_knowledge_graph(artifacts: pathlib.Path) -> Optional[Any]:
         return module.KnowledgeGraph.load(str(graph_path))
     except Exception:
         return None
+
+
+def record_graph_freshness(artifacts: pathlib.Path) -> Optional[Dict[str, Any]]:
+    """Record the 03.5 graph artifact's identity/freshness for run state.
+
+    Returns None when the artifact is missing or unreadable — the caller
+    stores that as an explicit ``graph_unavailable`` marker rather than
+    treating the gate as passed.
+    """
+    graph_path = artifacts / "03.5-knowledge-graph.json"
+    if not graph_path.exists():
+        return None
+    try:
+        data = read_json(graph_path)
+    except (json.JSONDecodeError, OSError):
+        return None
+    source = data.get("source")
+    source = source if isinstance(source, dict) else {}
+    return {
+        "schema_version": data.get("schema_version"),
+        "content_hash": data.get("content_hash"),
+        "java_files": source.get("java_files"),
+        "source_identity": data.get("source_identity"),
+        "diagnostics": data.get("diagnostics"),
+    }
+
+
+def rebuild_knowledge_graph(
+    workspace: pathlib.Path,
+    artifacts: pathlib.Path,
+    cfg: Dict[str, Any],
+) -> bool:
+    """Rebuild ``03.5-knowledge-graph.json`` at a batch boundary.
+
+    Advisory and opt-in: only runs when ``cfg.rebuild_graph_per_batch`` is
+    truthy. A failed rebuild logs a warning and leaves the previous graph in
+    place (stale graph is safer than a missing one). Returns True when a
+    rebuild was not requested or succeeded.
+    """
+    if not cfg.get("rebuild_graph_per_batch", False):
+        return True
+    script = (
+        pathlib.Path(__file__).parents[2]
+        / "jade-core-knowledge-graph"
+        / "scripts"
+        / "build_graph.py"
+    )
+    if not script.exists():
+        print(f"WARNING [GRAPH_REBUILD_FAILED] missing script: {script}", file=sys.stderr)
+        return False
+    cmd = [
+        sys.executable,
+        str(script),
+        "--workspace",
+        str(workspace),
+        "--artifacts-dir",
+        str(artifacts),
+    ]
+    try:
+        proc = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+    except (subprocess.TimeoutExpired, OSError) as exc:
+        print(f"WARNING [GRAPH_REBUILD_FAILED] {exc}", file=sys.stderr)
+        return False
+    if proc.returncode not in (0, 1):
+        print(
+            f"WARNING [GRAPH_REBUILD_FAILED] exit {proc.returncode}: "
+            f"{proc.stderr.strip()[:500]}",
+            file=sys.stderr,
+        )
+        return False
+    return True
 
 
 def compute_queue_graph_metadata(
@@ -741,6 +821,11 @@ def process_rule_batch(
             "ERROR [MISSING_RULE_QUEUE] 05-rule-queue.json not found", file=sys.stderr
         )
         return "ARTIFACT_MISSING"
+
+    if cfg.get("rebuild_graph_per_batch", False):
+        workspace = pathlib.Path(str(cfg.get("workspace_path", "workspace")))
+        if rebuild_knowledge_graph(workspace, artifacts, cfg):
+            state["graph"] = record_graph_freshness(artifacts)
 
     attach_queue_graph_metadata(artifacts)
     queue = read_json(queue_path)

@@ -15,6 +15,7 @@ import datetime as dt
 import json
 import os
 import pathlib
+import re
 import shutil
 import subprocess
 import sys
@@ -122,6 +123,113 @@ def discover_consumers() -> List[Tuple[pathlib.Path, Dict[str, Any]]]:
                 file=sys.stderr,
             )
     return consumers
+
+
+JADE_IMPORT_RE = re.compile(
+    r"^\s*import\s+(?:static\s+)?jade\.([\w.]+?)\s*;", re.MULTILINE
+)
+
+
+def collect_consumer_jade_fqns(project_dir: pathlib.Path) -> List[str]:
+    """Extract sorted JADE FQNs imported by a consumer project's Java sources."""
+    fqns: set = set()
+    for java_file in sorted(project_dir.glob("**/*.java")):
+        try:
+            text = java_file.read_text(encoding="utf-8", errors="ignore")
+        except OSError:
+            continue
+        for match in JADE_IMPORT_RE.finditer(text):
+            fqns.add("jade." + match.group(1))
+    return sorted(fqns)
+
+
+def map_jade_fqns_to_node_paths(
+    fqns: List[str], graph_nodes: Dict[str, Any]
+) -> List[str]:
+    """Map consumer JADE FQNs to workspace-relative graph node paths."""
+    paths: set = set()
+    for fqn in fqns:
+        for path, node in graph_nodes.items():
+            if not isinstance(node, dict):
+                continue
+            pkg = node.get("package", "")
+            cls = node.get("class_name", "")
+            if f"{pkg}.{cls}" == fqn:
+                paths.add(path)
+                break
+    return sorted(paths)
+
+
+def build_consumer_map(
+    consumers: List[Tuple[pathlib.Path, Dict[str, Any]]],
+    graph_nodes: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Dict[str, Any]]:
+    """Build a deterministic consumer -> JADE-usage map.
+
+    ``node_paths`` are populated only when a graph is available; otherwise
+    they stay empty and the map remains advisory.
+    """
+    graph_nodes = graph_nodes if isinstance(graph_nodes, dict) else {}
+    result: Dict[str, Dict[str, Any]] = {}
+    for project_dir, cfg in consumers:
+        name = str(cfg.get("name", project_dir.name))
+        fqns = collect_consumer_jade_fqns(project_dir)
+        result[name] = {
+            "jade_fqns": fqns,
+            "node_paths": map_jade_fqns_to_node_paths(fqns, graph_nodes),
+        }
+    return result
+
+
+def load_graph_nodes(artifacts: pathlib.Path) -> Optional[Dict[str, Any]]:
+    """Load the 03.5 graph's node map, or None when missing/malformed."""
+    graph_path = artifacts / "03.5-knowledge-graph.json"
+    if not graph_path.exists():
+        return None
+    try:
+        data = read_json(graph_path)
+    except (json.JSONDecodeError, OSError):
+        return None
+    nodes = data.get("nodes")
+    return nodes if isinstance(nodes, dict) else None
+
+
+def load_impacted_nodes(artifacts: pathlib.Path) -> List[str]:
+    """Changed/removed nodes from a 07-graph-diff.json, or [] when absent."""
+    diff_path = artifacts / "07-graph-diff.json"
+    if not diff_path.exists():
+        return []
+    try:
+        diff = read_json(diff_path)
+    except (json.JSONDecodeError, OSError):
+        return []
+    nodes = set(diff.get("changed_nodes", [])) | set(diff.get("removed_nodes", []))
+    return sorted(n for n in nodes if isinstance(n, str))
+
+
+def order_consumers_by_impact(
+    consumers: List[Tuple[pathlib.Path, Dict[str, Any]]],
+    consumer_map: Dict[str, Dict[str, Any]],
+    impacted_nodes: List[str],
+    graph_nodes: Optional[Dict[str, Any]] = None,
+) -> Tuple[List[Tuple[pathlib.Path, Dict[str, Any]]], Dict[str, Any]]:
+    """Order impacted consumers first; every consumer remains in the run.
+
+    Advisory only: if no impacted nodes or no usable graph, the original
+    order is preserved and coverage metadata is empty.
+    """
+    if not impacted_nodes or not isinstance(graph_nodes, dict):
+        return consumers, {}
+    impacted = set(impacted_nodes)
+    impacted_consumers = []
+    for name, meta in consumer_map.items():
+        if set(meta.get("node_paths", [])) & impacted:
+            impacted_consumers.append(name)
+    impacted_set = set(impacted_consumers)
+    ordered = [c for c in consumers if str(c[1].get("name", c[0].name)) in impacted_set] + [
+        c for c in consumers if str(c[1].get("name", c[0].name)) not in impacted_set
+    ]
+    return ordered, {"impacted_consumers": sorted(impacted_consumers)}
 
 
 def verify_deps(workspace: pathlib.Path, cfg: Dict[str, Any]) -> List[str]:
@@ -396,10 +504,21 @@ def main() -> int:
             "passed": 0,
             "failed": 0,
             "results": [],
+            "consumer_coverage": {},
         }
         write_json(artifacts / "07-runtime-verify.json", result)
         print("No consumer projects found — pass")
         return 0
+
+    # Advisory graph-backed consumer map + impacted-first ordering.
+    # Every consumer still runs; the final gate stays overall_pass.
+    graph_nodes = load_graph_nodes(artifacts)
+    consumer_map = build_consumer_map(consumers, graph_nodes)
+    write_json(artifacts / "consumer-map.json", consumer_map)
+    impacted_nodes = load_impacted_nodes(artifacts)
+    consumers, consumer_coverage = order_consumers_by_impact(
+        consumers, consumer_map, impacted_nodes, graph_nodes
+    )
 
     # Test each consumer
     results: List[Dict[str, Any]] = []
@@ -421,6 +540,7 @@ def main() -> int:
         "total_consumers": len(results),
         "passed": passed,
         "failed": failed,
+        "consumer_coverage": consumer_coverage,
         "results": results,
     }
     write_json(artifacts / "07-runtime-verify.json", output)

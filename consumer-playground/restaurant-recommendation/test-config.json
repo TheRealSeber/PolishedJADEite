@@ -1,0 +1,24 @@
+{
+  "name": "restaurant-recommendation",
+  "description": "Restaurant recommendation via FIPA ContractNet: 2 restaurants (Italian) register in DF, BookingAgent sends CFP for Pasta max 75.0, cheapest wins",
+  "docker_image": "eclipse-temurin:17-jre",
+  "main_class": "jade.Boot",
+  "boot_args": [
+    "-agents",
+    "runner:restaurant.TestRunnerAgent"
+  ],
+  "expected_stdout_markers": [
+    "RESTAURANT_DF: ItalianRestaurant1 registered",
+    "RESTAURANT_DF: ItalianRestaurant2 registered",
+    "BOOKING_ORDER: received Pasta",
+    "BOOKING_DF_FOUND: 2 restaurants",
+    "RESTAURANT_PROPOSAL: ItalianRestaurant1",
+    "BOOKING_SELECT: ItalianRestaurant1 Pasta=50.0",
+    "RESTAURANT_TEST_PASSED"
+  ],
+  "timeout_seconds": 60,
+  "classpath_deps": [
+    "src/jade/lib/jade.jar",
+    "src/jade/lib/commons-codec/commons-codec-1.3.jar"
+  ]
+}

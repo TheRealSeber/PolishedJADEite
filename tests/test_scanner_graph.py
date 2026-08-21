@@ -45,6 +45,52 @@ def test_missing_graph_node_warns_and_preserves_flag(tmp_path, capsys):
     assert "graph_node_missing" in capsys.readouterr().err
 
 
+def test_rescan_reconstructs_index_from_existing_flags(tmp_path):
+    """A re-scan over already-tagged sources must rebuild a complete flag
+    index (idempotent) instead of reporting zero flags — this is what
+    happens when a previous scan was interrupted before writing its index."""
+    workspace = tmp_path / "workspace"
+    artifacts = tmp_path / "artifacts"
+    workspace.mkdir()
+    artifacts.mkdir()
+    (workspace / "A.java").write_text(
+        "class A {\n  Object x = (foo.bar) null;\n}\n",
+        encoding="utf-8",
+    )
+    manifest = {"rules": [{"id": "CAST", "patterns": [
+        {"pattern": r"\(\s*\w+\.\w+\s*\)", "target_extensions": [".java"]}
+    ]}]}
+    (artifacts / "01-breaking-changes-manifest.json").write_text(
+        json.dumps(manifest), encoding="utf-8"
+    )
+
+    scanner = load_scanner()
+    old_argv = sys.argv
+    try:
+        sys.argv = ["scan", "--workspace", str(workspace), "--artifacts", str(artifacts)]
+        assert scanner.main() == 0
+        first = json.loads((artifacts / "04-flag-index.json").read_text(encoding="utf-8"))
+        first_count = first["total_flags"]
+        assert first_count == 1
+
+        # Simulate an interrupted scan: flags are injected in sources but the
+        # index artifact is lost.
+        (artifacts / "04-flag-index.json").unlink()
+        (artifacts / "04-scan-summary.json").unlink()
+
+        assert scanner.main() == 0
+        second = json.loads((artifacts / "04-flag-index.json").read_text(encoding="utf-8"))
+        summary = json.loads((artifacts / "04-scan-summary.json").read_text(encoding="utf-8"))
+    finally:
+        sys.argv = old_argv
+
+    assert second["total_flags"] == first_count, (
+        f"Re-scan must reconstruct {first_count} flags, got {second['total_flags']}"
+    )
+    assert summary["total_new_flags"] == 0
+    assert summary["idempotent_skips"] >= first_count
+
+
 def test_graph_diagnostic_buckets_are_visible_and_flags_continue(tmp_path, capsys):
     scanner = load_scanner()
     graph = {

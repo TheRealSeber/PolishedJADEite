@@ -128,13 +128,16 @@ def _graph_warning(diagnostic: Dict[str, Any]) -> None:
     print(f"WARNING [GRAPH] {json.dumps(diagnostic, sort_keys=True)}", file=sys.stderr)
 
 
-def _artifact_diagnostics(graph: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+def _artifact_diagnostics(graph: Optional[Dict[str, Any]], *, with_details: bool = True) -> Dict[str, Any]:
     raw = (graph or {}).get("diagnostics", {})
     if not isinstance(raw, dict):
         raw = {}
     details = {bucket: [item for item in raw.get(bucket, []) if isinstance(item, dict)]
                for bucket in _GRAPH_DIAGNOSTIC_BUCKETS}
-    return {"counts": {bucket: len(items) for bucket, items in details.items()}, "details": details}
+    result: Dict[str, Any] = {"counts": {bucket: len(items) for bucket, items in details.items()}}
+    if with_details:
+        result["details"] = details
+    return result
 
 
 def _bucket_diagnostics(graph: Optional[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -185,12 +188,21 @@ def _graph_paths(graph: Dict[str, Any], target: str) -> Dict[str, Any]:
 
 def graph_metadata_for_flag(flag: Dict[str, Any], graph: Optional[Dict[str, Any]],
                             graph_diagnostics: List[Dict[str, Any]]) -> Dict[str, Any]:
+    # Per-flag diagnostics are scoped to this flag's file. Copying the whole
+    # graph diagnostics list into every flag would explode artifact size.
+    file_diagnostics = [
+        d for d in graph_diagnostics
+        if (isinstance(d, dict)
+            and isinstance(d.get("detail"), dict)
+            and d["detail"].get("file") == flag.get("file"))
+        or (isinstance(d, dict) and d.get("kind") in ("graph_unavailable", "graph_invalid"))
+    ]
     metadata: Dict[str, Any] = {
         "source_artifact": _GRAPH_ARTIFACT, "node_exists": False,
         "declaration": None, "direct_impact_files": [], "transitive_impact_files": [],
-        "impact_files": [], "paths": [], "diagnostics": list(graph_diagnostics),
+        "impact_files": [], "paths": [], "diagnostics": file_diagnostics,
         "source_identity": (graph or {}).get("source_identity", {}),
-        "artifact_diagnostics": _artifact_diagnostics(graph),
+        "artifact_diagnostics": _artifact_diagnostics(graph, with_details=False),
     }
     if graph is None:
         return metadata
@@ -489,18 +501,21 @@ def scan_and_tag_file(
     file_path: pathlib.Path,
     rules: List[RuleDef],
     workspace: pathlib.Path,
-) -> List[FlagEntry]:
-    """Scan a single file, inject flags, return list of NEW flags.
+) -> Tuple[List[FlagEntry], List[FlagEntry]]:
+    """Scan a single file, inject flags, return (NEW flags, EXISTING flags).
 
-    If no new flags are injected the file is left untouched (no write).
+    Existing flags are reconstructed from already-injected ``JADE-FLAG:``
+    markers so that a re-scan (or a scan resumed after an interrupted run)
+    rebuilds a complete flag index instead of reporting zero flags.
     """
     try:
         with file_path.open("r", encoding="utf-8", errors="replace") as fh:
             lines = fh.readlines()
     except Exception:
-        return []
+        return [], []
 
     new_flags: List[FlagEntry] = []
+    existing_flags: List[FlagEntry] = []
     modified = False
     rel_path = str(file_path.relative_to(workspace)).replace("\\", "/")
     ext = file_path.suffix
@@ -513,6 +528,8 @@ def scan_and_tag_file(
 
             compiled = pattern.compiled
             comment_prefixes = _comment_skip_prefixes(ext)
+            flag_re = _flag_pattern_for_ext(ext)
+            target = f"JADE-FLAG:{rule.id}"
             # Iterate backwards so insertions do not shift subsequent indices.
             for i in range(len(lines) - 1, -1, -1):
                 line = lines[i]
@@ -521,6 +538,25 @@ def scan_and_tag_file(
                     continue
                 if compiled.search(line):
                     if _flag_exists(lines, i, rule.id, ext):
+                        for offset in range(1, 51):
+                            idx = i + offset
+                            if idx >= len(lines):
+                                break
+                            flag_line = lines[idx].strip()
+                            if flag_re.match(flag_line):
+                                if target in flag_line:
+                                    existing_flags.append(
+                                        FlagEntry(
+                                            rule_id=rule.id,
+                                            file=rel_path,
+                                            line=idx + 1,
+                                            confidence=pattern.confidence,
+                                            reason=pattern.reason,
+                                        )
+                                    )
+                                break
+                            if flag_line:
+                                break
                         continue
                     flag_line = _format_flag_line(
                         rule.id, pattern.reason, pattern.confidence, ext
@@ -551,7 +587,7 @@ def scan_and_tag_file(
             os.fsync(fh.fileno())
         tmp.replace(file_path)
 
-    return new_flags
+    return new_flags, existing_flags
 
 
 # ---------------------------------------------------------------------------
@@ -709,22 +745,23 @@ def main() -> int:
     candidates = collect_candidate_files(workspace, all_extensions)
 
     all_flags: List[FlagEntry] = []
+    existing_flags_all: List[FlagEntry] = []
     for fp in candidates:
-        flags = scan_and_tag_file(fp, all_rules, workspace)
+        flags, existing = scan_and_tag_file(fp, all_rules, workspace)
         all_flags.extend(flags)
+        existing_flags_all.extend(existing)
 
     elapsed = time.monotonic() - t0
 
-    # Idempotent skips are impossible to know precisely without a second
-    # pass.  We report 0 here; a second run that produces zero new flags
-    # confirms idempotency.
-    idempotent_skips = 0
+    # Reconstructed flags from already-injected markers (idempotent skip).
+    idempotent_skips = len(existing_flags_all)
 
     # ------------------------------------------------------------------
     # Write artifacts
     # ------------------------------------------------------------------
+    index_flags = all_flags + existing_flags_all
     flag_index = build_flag_index(
-        run_id, str(args.workspace), all_flags, total_files_scanned=len(candidates)
+        run_id, str(args.workspace), index_flags, total_files_scanned=len(candidates)
     )
     flag_index["graph"] = enrich_flags_with_graph(flag_index["flags"], artifacts)
     write_json_atomic(artifacts / "04-flag-index.json", flag_index)

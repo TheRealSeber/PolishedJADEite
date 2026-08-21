@@ -143,21 +143,32 @@ def collect_consumer_jade_fqns(project_dir: pathlib.Path) -> List[str]:
     return sorted(fqns)
 
 
+def _fqn_index(graph_nodes: Dict[str, Any]) -> Dict[str, str]:
+    """Map ``pkg.Class`` FQN -> node path for the given graph nodes."""
+    index: Dict[str, str] = {}
+    for path, node in graph_nodes.items():
+        if not isinstance(node, dict):
+            continue
+        pkg = node.get("package", "")
+        cls = node.get("class_name", "")
+        if pkg and cls:
+            index.setdefault(f"{pkg}.{cls}", path)
+    return index
+
+
 def map_jade_fqns_to_node_paths(
     fqns: List[str], graph_nodes: Dict[str, Any]
 ) -> List[str]:
     """Map consumer JADE FQNs to workspace-relative graph node paths."""
-    paths: set = set()
-    for fqn in fqns:
-        for path, node in graph_nodes.items():
-            if not isinstance(node, dict):
-                continue
-            pkg = node.get("package", "")
-            cls = node.get("class_name", "")
-            if f"{pkg}.{cls}" == fqn:
-                paths.add(path)
-                break
+    if not fqns or not isinstance(graph_nodes, dict):
+        return []
+    index = _fqn_index(graph_nodes)
+    paths = {index[fqn] for fqn in fqns if fqn in index}
     return sorted(paths)
+
+
+def _consumer_name(project_dir: pathlib.Path, cfg: Dict[str, Any]) -> str:
+    return str(cfg.get("name", project_dir.name))
 
 
 def build_consumer_map(
@@ -172,7 +183,7 @@ def build_consumer_map(
     graph_nodes = graph_nodes if isinstance(graph_nodes, dict) else {}
     result: Dict[str, Dict[str, Any]] = {}
     for project_dir, cfg in consumers:
-        name = str(cfg.get("name", project_dir.name))
+        name = _consumer_name(project_dir, cfg)
         fqns = collect_consumer_jade_fqns(project_dir)
         result[name] = {
             "jade_fqns": fqns,
@@ -226,9 +237,9 @@ def order_consumers_by_impact(
         if set(meta.get("node_paths", [])) & impacted:
             impacted_consumers.append(name)
     impacted_set = set(impacted_consumers)
-    ordered = [c for c in consumers if str(c[1].get("name", c[0].name)) in impacted_set] + [
-        c for c in consumers if str(c[1].get("name", c[0].name)) not in impacted_set
-    ]
+    ordered = [
+        c for c in consumers if _consumer_name(c[0], c[1]) in impacted_set
+    ] + [c for c in consumers if _consumer_name(c[0], c[1]) not in impacted_set]
     return ordered, {"impacted_consumers": sorted(impacted_consumers)}
 
 

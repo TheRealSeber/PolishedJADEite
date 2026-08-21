@@ -142,9 +142,10 @@ MUTABLE_ARTIFACTS = {"07-build.log", "03.5-knowledge-graph.json"}
 - ``03.5-knowledge-graph.json``: rebuilt at batch boundaries when
   ``rebuild_graph_per_batch`` is enabled in the run config.
 
-For these, the hash is updated after each successful verification instead
-of being treated as tamper-evident immutable records. A graph that is NOT
-rebuilt keeps its recorded hash and remains tamper-evident between rebuilds.
+The knowledge graph is advisory by design, so tamper-evidence is not
+enforced on it: any change is silently accepted and its hash refreshed.
+Structural validity (non-empty nodes/edges/stats) is still enforced at the
+KNOWLEDGE_GRAPH_READY gate.
 """
 
 SCRIPT_PHASES: Dict[str, Dict[str, Any]] = {
@@ -611,9 +612,8 @@ def _load_knowledge_graph(artifacts: pathlib.Path) -> Optional[Any]:
 def record_graph_freshness(artifacts: pathlib.Path) -> Optional[Dict[str, Any]]:
     """Record the 03.5 graph artifact's identity/freshness for run state.
 
-    Returns None when the artifact is missing or unreadable — the caller
-    stores that as an explicit ``graph_unavailable`` marker rather than
-    treating the gate as passed.
+    Returns None when the artifact is missing or unreadable; the caller
+    stores that value (None) directly under ``state["graph"]``.
     """
     graph_path = artifacts / "03.5-knowledge-graph.json"
     if not graph_path.exists():

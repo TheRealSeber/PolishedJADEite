@@ -331,3 +331,25 @@ def test_removed_node_impact_paths():
         p["file"] == "C.java" and p["path"][0] == "ROOT.java"
         for p in report["impact_paths"]
     )
+
+
+def test_global_cap_boundary_marks_truncated():
+    gd = load_graph_diff()
+    nodes_before = {}
+    nodes_after = {}
+    edges = {"imports": []}
+    for i in range(51):
+        target = f"T{i}.java"
+        nodes_before[target] = node(target)
+        nodes_after[target] = node(
+            target, methods=[{"name": "foo", "return_type": "void"}]
+        )
+        for d in range(100):
+            dep = f"T{i}_D{d}.java"
+            nodes_before[dep] = node(dep)
+            nodes_after[dep] = node(dep)
+            edges["imports"].append({"from": dep, "to": target})
+    report = gd.compute_diff(graph(nodes_before), graph(nodes_after, edges=edges))
+    assert report["impact_path_count"] == gd.MAX_IMPACT_PATHS_TOTAL
+    assert report["impact_path_truncated"] is True
+    assert report["impact_path_truncated_nodes"]

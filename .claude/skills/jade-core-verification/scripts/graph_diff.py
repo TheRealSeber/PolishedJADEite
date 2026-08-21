@@ -143,17 +143,21 @@ def _impact_paths(changed_nodes, graph: dict):
         node_count = 0
         queue = deque([(target, [target], [])])
         visited = {target}
-        while queue and len(paths) < MAX_IMPACT_PATHS_TOTAL:
+        truncated = False
+        while queue:
+            if len(paths) >= MAX_IMPACT_PATHS_TOTAL:
+                truncated = True
+                break
             node, path, reasons = queue.popleft()
             for dependent, etype in reverse.get(node, []):
                 if dependent in visited:
                     continue
-                if (
-                    node_count >= MAX_IMPACT_PATHS_PER_NODE
-                    or len(paths) >= MAX_IMPACT_PATHS_TOTAL
-                ):
-                    truncated_nodes.add(target)
+                if node_count >= MAX_IMPACT_PATHS_PER_NODE:
+                    truncated = True
                     continue
+                if len(paths) >= MAX_IMPACT_PATHS_TOTAL:
+                    truncated = True
+                    break
                 visited.add(dependent)
                 node_count += 1
                 paths.append(
@@ -166,6 +170,8 @@ def _impact_paths(changed_nodes, graph: dict):
                 queue.append(
                     (dependent, path + [dependent], reasons + [etype])
                 )
+        if truncated:
+            truncated_nodes.add(target)
     return paths, sorted(truncated_nodes)
 
 
@@ -215,7 +221,6 @@ def compute_diff(before_graph: dict, after_graph: dict) -> dict:
                 }
             )
 
-    seen_paths = set()
     impact_paths = []
     truncated_nodes = []
     if changed_nodes:

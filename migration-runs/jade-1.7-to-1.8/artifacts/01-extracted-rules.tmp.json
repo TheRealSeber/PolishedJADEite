@@ -1,0 +1,90 @@
+[
+  {
+    "id": "LAMBDA_CONVERSION",
+    "name": "Convert anonymous SAM classes to lambda expressions",
+    "description": "Java SE 8 adds lambda expressions, method references, and enhanced type inference. Anonymous inner classes implementing a single abstract method (SAM) interface can be replaced with lambda expressions, reducing boilerplate and enabling internal iteration idioms. Per JEP 126, lambda expressions are expressions with concise syntax to represent the desired operation, in lieu of one or more explicit loops.",
+    "fix_strategy": "recipe:jade-recipe-1.7-1.8-LAMBDA_CONVERSION",
+    "severity": "LOW",
+    "category": "LANGUAGE_CHANGE",
+    "match_pattern": "new\\s+\\w+(?:\\.\\w+)*\\([^)]*\\)\\s*\\{\\s*(?:@Override\\s+)?public\\s+[^}]*\\}",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "new\\s+\\w+(?:\\.\\w+)*\\([^)]*\\)\\s*\\{\\s*(?:@Override\\s+)?public\\s+",
+        "target_extensions": [".java"],
+        "reason": "Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126.",
+        "confidence": 0.8
+      }
+    ],
+    "evidence_ref": "jep126-lambda-extension::lines 2-4, 64-69",
+    "evidence_hash": "eaefd3848fa8f8a2434ce491ac43a13fb442cc5657153411b846f5549567bc3c",
+    "confidence": 0.8,
+    "verification_hint": "Compile with Java 8 javac; verify anonymous SAM classes were replaced with lambdas and behavior is unchanged."
+  },
+  {
+    "id": "THREAD_STOP_DISABLED",
+    "name": "Thread.stop(Throwable) disabled in Java 8",
+    "description": "Thread.stop(Throwable) has been disabled in Java SE 8 — the method now throws UnsupportedOperationException. The Thread.stop method has been deprecated since release 1.2. Code calling Thread.stop(Throwable) must be reviewed and the deprecated API eliminated.",
+    "fix_strategy": "recipe:jade-recipe-1.7-1.8-THREAD_STOP_DISABLED",
+    "severity": "MEDIUM",
+    "category": "API_REMOVAL",
+    "match_pattern": "\\.stop\\s*\\(",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "\\.stop\\s*\\(",
+        "target_extensions": [".java"],
+        "reason": "Thread.stop(Throwable) is disabled in Java SE 8 and throws UnsupportedOperationException.",
+        "confidence": 0.9
+      }
+    ],
+    "evidence_ref": "oracle-java8-compatibility::lines 414-419",
+    "evidence_hash": "015ce7bb34b72bf80b349191e0afe3d43e60490d520481a04d5a90f85cb432e8",
+    "confidence": 0.9,
+    "verification_hint": "Verify no Thread.stop(Throwable) calls remain; JADE's custom .stop() methods are false positives."
+  },
+  {
+    "id": "PERMGEN_FLAGS_REMOVED",
+    "name": "PermSize/MaxPermSize command-line flags removed",
+    "description": "Java SE 8 removes the permanent generation (JEP 122). Command-line flags PermSize and MaxPermSize are removed and ignored; if used a warning is emitted for each. JEP 122 states command line flags relating to the permanent generation will become obsolete. Startup scripts must drop these flags.",
+    "fix_strategy": "recipe:jade-recipe-1.7-1.8-PERMGEN_FLAGS_REMOVED",
+    "severity": "INFO",
+    "category": "BEHAVIOR_CHANGE",
+    "match_pattern": "PermSize|MaxPermSize|-XX:Perm",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "PermSize|MaxPermSize|-XX:Perm",
+        "target_extensions": [".sh", ".bat", ".properties", ".xml"],
+        "reason": "Java SE 8 removed the permanent generation; PermSize/MaxPermSize flags are ignored with a warning.",
+        "confidence": 0.9
+      }
+    ],
+    "evidence_ref": "oracle-java8-compatibility::lines 180-188",
+    "evidence_hash": "015ce7bb34b72bf80b349191e0afe3d43e60490d520481a04d5a90f85cb432e8",
+    "confidence": 0.9,
+    "verification_hint": "Verify no PermSize/MaxPermSize flags remain in scripts or build files."
+  },
+  {
+    "id": "COLLECTION_REMOVEALL_RETAINALL_NPE",
+    "name": "Collection.removeAll/retainAll throw NullPointerException on null parameter",
+    "description": "In previous releases, some implementations of Collection.removeAll(Collection) and retainAll(Collection) would silently ignore a null parameter if the collection itself was empty. As of Java SE 8, collections will consistently throw a NullPointerException if null is provided as a parameter.",
+    "fix_strategy": "recipe:jade-recipe-1.7-1.8-COLLECTION_REMOVEALL_RETAINALL_NPE",
+    "severity": "LOW",
+    "category": "BEHAVIOR_CHANGE",
+    "match_pattern": "\\.(?:removeAll|retainAll)\\s*\\(\\s*null\\s*\\)",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "\\.(?:removeAll|retainAll)\\s*\\(\\s*null\\s*\\)",
+        "target_extensions": [".java"],
+        "reason": "Collection.removeAll/retainAll now throw NullPointerException if null is provided as a parameter.",
+        "confidence": 0.9
+      }
+    ],
+    "evidence_ref": "oracle-java8-compatibility::lines 230-237",
+    "evidence_hash": "015ce7bb34b72bf80b349191e0afe3d43e60490d520481a04d5a90f85cb432e8",
+    "confidence": 0.9,
+    "verification_hint": "Verify no removeAll/retainAll calls pass null to a potentially non-empty collection."
+  }
+]

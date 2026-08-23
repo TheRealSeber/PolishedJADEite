@@ -1,0 +1,8 @@
+{
+  "rule_id": "LAMBDA_CONVERSION",
+  "reason": "No anonymous SAM classes matched the conversion pattern in JADE workspace; deferred as modernization opportunity",
+  "files_modified": 0,
+  "flags_rewritten": 0,
+  "files": [],
+  "deferred_at": "2026-08-23T17:17:02Z"
+}

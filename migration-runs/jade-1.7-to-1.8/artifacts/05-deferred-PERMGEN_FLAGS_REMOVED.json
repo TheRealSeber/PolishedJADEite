@@ -1,0 +1,8 @@
+{
+  "rule_id": "PERMGEN_FLAGS_REMOVED",
+  "reason": "No PermSize/MaxPermSize flags present in build scripts; deferred as informational",
+  "files_modified": 0,
+  "flags_rewritten": 0,
+  "files": [],
+  "deferred_at": "2026-08-23T17:17:03Z"
+}

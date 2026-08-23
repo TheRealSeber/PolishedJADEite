@@ -1,0 +1,46 @@
+{
+  "run_id": "jade-1.7-to-1.8",
+  "build_system": "ant",
+  "target_version": "1.8",
+  "fixes": [],
+  "analysis_summary": {
+    "compiler_targets": [
+      {
+        "current_source": "1.8",
+        "current_target": "1.8",
+        "needs_update": false
+      }
+    ],
+    "javacc_targets": [
+      {
+        "jdkversion": "1.8",
+        "needs_update": false
+      },
+      {
+        "jdkversion": "1.8",
+        "needs_update": false
+      },
+      {
+        "jdkversion": "1.8",
+        "needs_update": false
+      }
+    ],
+    "dependencies": [
+      {
+        "group": "commons-codec",
+        "artifact": "commons-codec",
+        "version": "1.3"
+      }
+    ],
+    "dependency_compatibility": {
+      "build_system": "ant",
+      "target_version": "1.8",
+      "risk_level": "NONE",
+      "blockers": [],
+      "warnings": [],
+      "upgrade_candidates": []
+    },
+    "issues": []
+  },
+  "updated_at": "2026-08-23T17:31:28Z"
+}

@@ -1,0 +1,84 @@
+{
+  "run_id": "jade-1.7-to-1.8",
+  "generated_at": "2026-08-23T17:13:52Z",
+  "source_version": "1.7",
+  "target_version": "1.8",
+  "citation": "Extracted from 3 source(s): oracle-java8-compatibility, jep126-lambda-extension, jep122-permgen-removal",
+  "rules": [
+    {
+      "id": "LAMBDA_CONVERSION",
+      "name": "Convert anonymous SAM classes to lambda expressions",
+      "description": "Java SE 8 adds lambda expressions, method references, and enhanced type inference. Anonymous inner classes implementing a single abstract method (SAM) interface can be replaced with lambda expressions, reducing boilerplate and enabling internal iteration idioms.",
+      "fix_strategy": "recipe:jade-recipe-1.7-1.8-LAMBDA_CONVERSION",
+      "severity": "LOW",
+      "category": "LANGUAGE_CHANGE",
+      "match_pattern": "new\\s+\\w+(?:\\.\\w+)*\\([^)]*\\)\\s*\\{\\s*(?:@Override\\s+)?public\\s+[^}]*\\}",
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "new\\s+\\w+(?:\\.\\w+)*\\([^)]*\\)\\s*\\{\\s*(?:@Override\\s+)?public\\s+",
+          "target_extensions": [
+            ".java"
+          ],
+          "reason": "Anonymous classes with a single method can be converted to lambda expressions (SAM conversion).",
+          "confidence": 0.75
+        }
+      ],
+      "evidence_ref": "jep126-lambda-extension::lines 2-4, 64-69",
+      "evidence_hash": "eaefd3848fa8f8a2434ce491ac43a13fb442cc5657153411b846f5549567bc3c",
+      "confidence": 0.8,
+      "verification_hint": "Compile with Java 8 javac; verify anonymous SAM classes were replaced with lambdas and behavior is unchanged."
+    },
+    {
+      "id": "THREAD_STOP_DISABLED",
+      "name": "Thread.stop(Throwable) disabled in Java 8",
+      "description": "Thread.stop(Throwable) has been disabled in Java SE 8 \u2014 the method throws UnsupportedOperationException. Code calling Thread.stop() must be reviewed and the deprecated API eliminated.",
+      "fix_strategy": "recipe:jade-recipe-1.7-1.8-THREAD_STOP_DISABLED",
+      "severity": "MEDIUM",
+      "category": "API_REMOVAL",
+      "match_pattern": "\\.stop\\s*\\(",
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "\\.stop\\s*\\(",
+          "target_extensions": [
+            ".java"
+          ],
+          "reason": "Thread.stop(Throwable) is disabled in Java SE 8 and throws UnsupportedOperationException.",
+          "confidence": 0.9
+        }
+      ],
+      "evidence_ref": "oracle-java8-compatibility::lines 415-419",
+      "evidence_hash": "42a669e4d16c6b8da9048b4009f721469813574554b2a9797d6fed31fca60f64",
+      "confidence": 0.9,
+      "verification_hint": "Verify no Thread.stop(Throwable) calls remain; JADE's custom .stop() methods are false positives."
+    },
+    {
+      "id": "PERMGEN_FLAGS_REMOVED",
+      "name": "PermSize/MaxPermSize command-line flags removed",
+      "description": "Java SE 8 removes the permanent generation. Command-line flags PermSize and MaxPermSize are removed and ignored; if used a warning is emitted for each. Startup scripts must drop these flags.",
+      "fix_strategy": "recipe:jade-recipe-1.7-1.8-PERMGEN_FLAGS_REMOVED",
+      "severity": "INFO",
+      "category": "BEHAVIOR_CHANGE",
+      "match_pattern": "PermSize|MaxPermSize|-XX:Perm",
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "PermSize|MaxPermSize|-XX:Perm",
+          "target_extensions": [
+            ".sh",
+            ".bat",
+            ".properties",
+            ".xml"
+          ],
+          "reason": "Java SE 8 removed the permanent generation; PermSize/MaxPermSize flags are ignored.",
+          "confidence": 0.95
+        }
+      ],
+      "evidence_ref": "oracle-java8-compatibility::line 182",
+      "evidence_hash": "42a669e4d16c6b8da9048b4009f721469813574554b2a9797d6fed31fca60f64",
+      "confidence": 0.9,
+      "verification_hint": "Verify no PermSize/MaxPermSize flags remain in scripts or build files."
+    }
+  ]
+}

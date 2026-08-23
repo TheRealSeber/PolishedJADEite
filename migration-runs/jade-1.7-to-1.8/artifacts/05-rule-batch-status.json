@@ -1,0 +1,11 @@
+{
+  "run_id": "artifacts",
+  "rule_id": "THREAD_STOP_DISABLED",
+  "total_files": 10,
+  "completed": 10,
+  "failed": 0,
+  "skipped": 0,
+  "pending": 0,
+  "status": "DONE",
+  "updated_at": "2026-08-23T17:19:53Z"
+}

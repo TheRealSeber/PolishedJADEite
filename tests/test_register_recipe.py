@@ -238,7 +238,10 @@ def test_register_recipe_force_rejects_non_directory_target_without_mutation(tmp
             pytest.skip("symlinks are unavailable")
     before_registry = registry.read_bytes()
 
-    with pytest.raises(ValueError, match="must be a directory"):
+    expected = (
+        "must be a directory" if target_kind == "file" else "must not be a symlink"
+    )
+    with pytest.raises(ValueError, match=expected):
         module.register_recipe(
             registry_path=registry,
             registry_root=registry_root,

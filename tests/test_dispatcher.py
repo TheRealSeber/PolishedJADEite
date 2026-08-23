@@ -166,7 +166,7 @@ def test_main_rejects_workspace_symlink_escape_without_dispatch(tmp_path, monkey
     artifacts = tmp_path / "artifacts"
     artifacts.mkdir()
     (artifacts / "05-rule-batch-RULE.json").write_text(
-        json.dumps({"files": [{"file": "linked.java", "flags": [{"rule_id": "RULE", "line": 1}]}]}),
+        json.dumps({"files": [{"file": "linked.java", "flags": [{"rule_id": "RULE", "file": "linked.java", "line": 1}]}]}),
         encoding="utf-8",
     )
     (artifacts / "01-breaking-changes-manifest.json").write_text(

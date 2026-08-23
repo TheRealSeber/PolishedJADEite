@@ -167,12 +167,14 @@ def register_recipe(
 
     registry = _read_registry(registry_path, registry_root)
     recipe_dir = registry_root / bucket / recipe_name
+    if recipe_dir.is_symlink():
+        raise ValueError(f"recipe directory must not be a symlink: {recipe_dir}")
     try:
         recipe_dir.resolve().relative_to(registry_root.resolve())
     except ValueError as exc:
         raise ValueError("recipe path outside registry") from exc
-    if recipe_dir.is_symlink() or (recipe_dir.exists() and not recipe_dir.is_dir()):
-        raise ValueError(f"recipe directory must be a directory and must not be a symlink: {recipe_dir}")
+    if recipe_dir.exists() and not recipe_dir.is_dir():
+        raise ValueError(f"recipe directory must be a directory: {recipe_dir}")
     existing_script = recipe_dir / "scripts" / "apply.py"
     if existing_script.is_symlink():
         raise ValueError(f"recipe script must not be a symlink: {existing_script}")

@@ -44,19 +44,13 @@ def main():
 
     line_idx = args.line - 1
 
-    # Scan for flag marker
+    # Locate the JADE-FLAG marker near the requested line.
     found_flag = False
     flag_comment_line = line_idx
-    actual_code_line = -1
     for i in range(line_idx, min(line_idx + 5, len(lines))):
-        li = lines[i]
-        if FLAG_MARKER in li or DEFERRED_MARKER in li:
+        if FLAG_MARKER in lines[i] or DEFERRED_MARKER in lines[i]:
             found_flag = True
             flag_comment_line = i
-            continue
-        stripped = li.strip()
-        if found_flag and stripped and not stripped.startswith("//"):
-            actual_code_line = i
             break
 
     if not found_flag:
@@ -69,6 +63,19 @@ def main():
         }
         print(json.dumps(result))
         return 0
+
+    # The scanner injects the flag comment on the line immediately AFTER the
+    # matching code line, so the associated code lives ABOVE the marker.
+    # Scan backward from the flag comment, skipping comments and other flags.
+    actual_code_line = -1
+    for i in range(flag_comment_line - 1, -1, -1):
+        stripped = lines[i].strip()
+        if not stripped:
+            continue
+        if stripped.startswith("//") or "JADE-FLAG:" in stripped or "JADE-MODERNIZATION-DEFERRED:" in stripped:
+            continue
+        actual_code_line = i
+        break
 
     if actual_code_line < 0:
         result = {
@@ -89,7 +96,7 @@ def main():
 
     if is_thread_stop:
         old_lines = "".join(lines)
-        comment = f"// JADE-MODERNIZATION-DEFERRED:THREAD_STOP_DISABLED Thread.stop() was disabled in Java 8 — manual review required\n"
+        comment = f"// JADE-MODERNIZATION-DEFERRED:THREAD_STOP_DISABLED Thread.stop() was disabled in Java 8 - manual review required\n"
         lines[flag_comment_line] = comment
         new_lines = "".join(lines)
         diff = f"Line {args.line}: Thread.stop() flagged for manual review (call disabled in Java 8)"
@@ -99,7 +106,7 @@ def main():
         result = {
             "status": "FIXED",
             "changes": 1,
-            "warnings": ["Thread.stop() found — manual review needed for replacement"],
+            "warnings": ["Thread.stop() found - manual review needed for replacement"],
             "errors": [],
             "diff_summary": diff,
         }
@@ -108,7 +115,7 @@ def main():
 
     if has_stop_call:
         old_lines = "".join(lines)
-        comment = f"// JADE-MODERNIZATION-DEFERRED:THREAD_STOP_DISABLED Custom .stop() call — not Thread.stop(); no change needed\n"
+        comment = f"// JADE-MODERNIZATION-DEFERRED:THREAD_STOP_DISABLED Custom .stop() call - not Thread.stop(); no change needed\n"
         lines[flag_comment_line] = comment
         new_lines = "".join(lines)
         diff = f"Line {args.line}: .stop() call is not Thread.stop(Throwable) — informational only"

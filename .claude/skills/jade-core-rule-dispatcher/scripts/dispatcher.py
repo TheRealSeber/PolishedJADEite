@@ -22,7 +22,7 @@ RECIPE_STATUSES = {"FIXED", "FAILED", "SKIPPED", "DEFERRED"}
 RECIPE_REGISTRY_PREFIX = pathlib.PurePosixPath(
     ".claude/skills/java-migration-skill-registry"
 ).parts
-RECIPE_BUCKETS = {"1.5-to-1.6", "1.7", "1.7-to-1.8", "shared"}
+RECIPE_BUCKETS = {"1.5-to-1.6", "1.7", "shared"}
 
 
 def iso_now() -> str:

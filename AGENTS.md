@@ -79,7 +79,7 @@ Apply ONE `rule_id` to ALL flagged files → verify compile + semantic gates →
 | Type | Count | Examples |
 |------|-------|----------|
 | Core (`jade-core-*`) | 11 | orchestrator, change-collector, scanner, batch-processor, rule-dispatcher, verification, atomic-commit, retry-router, evaluator, tooling-scout, build-fixer |
-| Recipe (`jade-recipe-*`) | 9 (per-migration) | Version-specific transforms + version-agnostic `dummy`/`noop`, stored under `.claude/skills/java-migration-skill-registry/{1.5-to-1.6,1.7,1.7-to-1.8,shared}/`. Registered by `rule_id` in `recipe-registry.json`; invoked as subprocesses by the dispatcher — NOT agent skills. |
+| Recipe (`jade-recipe-*`) | 7 (per-migration) | Version-specific transforms + version-agnostic `dummy`/`noop`, stored under `.claude/skills/java-migration-skill-registry/{1.5-to-1.6,1.7,shared}/`. Registered by `rule_id` in `recipe-registry.json`; invoked as subprocesses by the dispatcher — NOT agent skills. |
 | Utility (`jade-utility-*`) | 1 | consumer-onboarder — ingests ZIP archives of JADE projects into the `consumer-playground/` for runtime testing |
 
 ## Consumer Playground & Runtime Verification

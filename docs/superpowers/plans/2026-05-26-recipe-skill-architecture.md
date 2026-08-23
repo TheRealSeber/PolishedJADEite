@@ -8,7 +8,6 @@ Registry recipe implementations are stored below one of these buckets:
 .claude/skills/java-migration-skill-registry/
 ├── 1.5-to-1.6/<recipe>/
 ├── 1.7/<recipe>/
-├── 1.7-to-1.8/<recipe>/
 └── shared/<recipe>/
 ```
 

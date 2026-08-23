@@ -34,15 +34,5 @@
     "skill": "jade-recipe-1.7-strings-in-switch",
     "script": ".claude/skills/java-migration-skill-registry/1.7/jade-recipe-1.7-strings-in-switch/scripts/apply.py",
     "description": "Convert .equals() if-else chains to switch statements"
-  },
-  "LAMBDA_CONVERSION": {
-    "skill": "jade-recipe-1.7-1.8-lambda-conversion",
-    "script": ".claude/skills/java-migration-skill-registry/1.7-to-1.8/jade-recipe-1.7-1.8-lambda-conversion/scripts/apply.py",
-    "description": "Convert supported anonymous SAM classes to lambda expressions"
-  },
-  "THREAD_STOP_DISABLED": {
-    "skill": "jade-recipe-1.7-1.8-thread-stop-removal",
-    "script": ".claude/skills/java-migration-skill-registry/1.7-to-1.8/jade-recipe-1.7-1.8-thread-stop-removal/scripts/apply.py",
-    "description": "Inspect deprecated Thread.stop usage and defer unsafe transforms"
   }
 }

@@ -39,7 +39,6 @@ java-migration-skill-registry/
 │   ├── ...
 │   └── README.md
 ├── 1.7/                ← Java 1.7 recipes
-├── 1.7-to-1.8/         ← Java 1.7 → 1.8 recipes
 ├── shared/             ← version-agnostic pipeline recipes (noop fallback, dummy E2E)
 ├── scripts/register_recipe.py   ← canonical recipe scaffold + registry updater
 └── SKILL.md            ← this file
@@ -81,7 +80,7 @@ dispatcher registry. Use `--source-dir` to copy an existing recipe's two files.
 
 ## Current status
 
-The 1.5→1.6, 1.7, and 1.7→1.8 recipes are hand-authored and live here. The
+The 1.5→1.6 and 1.7 recipes are hand-authored and live here. The
 `shared/` bucket holds the version-agnostic `noop` fallback and `dummy` E2E recipes.
 No auto-generated (Skill-Creator) skills have been committed yet. The registry
 remains the source of truth for dispatcher script paths.

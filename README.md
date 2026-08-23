@@ -103,7 +103,7 @@ Full details: `AGENTS.md` (106 lines) and `docs/architecture.md` (545 lines).
 ### Recipes (registry-managed)
 
 Recipes are stored under `.claude/skills/java-migration-skill-registry/` in buckets
-`1.5-to-1.6`, `1.7`, `1.7-to-1.8`, and `shared`, with directory names such as
+`1.5-to-1.6`, `1.7`, and `shared`, with directory names such as
 `arrays-copyof` and `dummy`. Use `scripts/register_recipe.py` to scaffold and register a recipe. Each recipe is a
 standalone CLI script invoked by the dispatcher: `python apply.py --file <path> --line <num>`.
 

@@ -17,7 +17,7 @@ def test_source_catalog_and_path_files_validate_against_schema():
     validate(instance=catalog, schema=schema)
 
     assert catalog["document_type"] == "migration_source_catalog"
-    assert len(catalog["paths"]) == 8
+    assert len(catalog["paths"]) == 7
 
     for entry in catalog["paths"]:
         rel_path = pathlib.Path(entry["file"])

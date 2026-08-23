@@ -1,0 +1,19 @@
+{
+  "run_id": "fixture-run",
+  "generated_at": "2026-01-01T00:00:00Z",
+  "workspace": "tests/fixtures/workspace",
+  "total_files_scanned": 1,
+  "total_new_flags": 1,
+  "idempotent_skips": 0,
+  "elapsed_seconds": 0.01,
+  "by_rule": {
+    "STRICTER_CAST_CHECKING": {
+      "name": "Java 6 enforces stricter cast checking per JLS",
+      "severity": "LOW",
+      "count": 1
+    }
+  },
+  "by_confidence": {
+    "0.8": 1
+  }
+}

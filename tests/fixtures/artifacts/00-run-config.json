@@ -1,0 +1,8 @@
+{
+  "run_id": "fixture-run",
+  "baseline_path": "tests/fixtures/workspace",
+  "workspace_path": "tests/fixtures/workspace",
+  "artifacts_path": "tests/fixtures/artifacts",
+  "source_version": "1.5",
+  "target_version": "1.6"
+}

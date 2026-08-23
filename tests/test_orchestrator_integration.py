@@ -15,8 +15,8 @@ ORCH_SCRIPT = pathlib.Path(
 )
 
 
-def test_orchestrator_completes_on_sample_run(artifacts_dir):
-    config_path = artifacts_dir / "00-run-config.json"
+def test_orchestrator_completes_on_sample_run(sample_artifacts_dir):
+    config_path = sample_artifacts_dir / "00-run-config.json"
     if not config_path.exists():
         pytest.skip(f"{config_path} not found")
     result = subprocess.run(
@@ -29,7 +29,7 @@ def test_orchestrator_completes_on_sample_run(artifacts_dir):
     )
 
     state = json.loads(
-        (artifacts_dir / "00-run-state.json").read_text(encoding="utf-8")
+        (sample_artifacts_dir / "00-run-state.json").read_text(encoding="utf-8")
     )
     assert state["state"] in {
         "DONE",
@@ -57,8 +57,8 @@ def test_orchestrator_handles_missing_config():
     )
 
 
-def test_orchestrator_produces_phase_history(artifacts_dir):
-    history_path = artifacts_dir / "phase-history.log.jsonl"
+def test_orchestrator_produces_phase_history(sample_artifacts_dir):
+    history_path = sample_artifacts_dir / "phase-history.log.jsonl"
     if not history_path.exists():
         pytest.skip(f"{history_path} not found (orchestrator hasn't run yet)")
 
@@ -77,8 +77,8 @@ def test_orchestrator_produces_phase_history(artifacts_dir):
         assert "artifacts" in entry
 
 
-def test_orchestrator_produces_progress_md(artifacts_dir):
-    progress_path = artifacts_dir / "PROGRESS.md"
+def test_orchestrator_produces_progress_md(sample_artifacts_dir):
+    progress_path = sample_artifacts_dir / "PROGRESS.md"
     if not progress_path.exists():
         pytest.skip(f"{progress_path} not found (orchestrator hasn't run yet)")
 

@@ -1,0 +1,16 @@
+{
+  "run_id": "fixture-run",
+  "generated_at": "2026-01-01T00:00:00Z",
+  "workspace": "tests/fixtures/workspace",
+  "total_flags": 1,
+  "total_files_scanned": 1,
+  "flags": [
+    {
+      "rule_id": "STRICTER_CAST_CHECKING",
+      "file": "src/Sample.java",
+      "line": 3,
+      "confidence": 0.8,
+      "reason": "Complex casts should be reviewed"
+    }
+  ]
+}

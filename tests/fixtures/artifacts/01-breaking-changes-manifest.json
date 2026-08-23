@@ -1,0 +1,33 @@
+{
+  "run_id": "fixture-run",
+  "generated_at": "2026-01-01T00:00:00Z",
+  "source_version": "1.5",
+  "target_version": "1.6",
+  "citation": "Fixture artifacts for contract tests",
+  "rules": [
+    {
+      "id": "STRICTER_CAST_CHECKING",
+      "name": "Java 6 enforces stricter cast checking per JLS",
+      "description": "Java SE 6 casts adhere more closely to JLS.",
+      "fix_strategy": "recipe:jade-recipe-1.5-to-1.6-STRICTER_CAST_CHECKING",
+      "severity": "LOW",
+      "category": "LANGUAGE_CHANGE",
+      "match_pattern": "\\(\\s*\\w+\\.\\w+\\s*\\)",
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "\\(\\s*\\w+\\.\\w+\\s*\\)",
+          "target_extensions": [
+            ".java"
+          ],
+          "reason": "Complex casts should be reviewed",
+          "confidence": 0.8
+        }
+      ],
+      "evidence_ref": "fixture::lines 1-2",
+      "evidence_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "confidence": 0.85,
+      "verification_hint": "Compile and check"
+    }
+  ]
+}

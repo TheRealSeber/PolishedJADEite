@@ -1,16 +1,35 @@
 {
   "name": "jrba",
-  "description": "JRBA production-source Maven consumer integration check; Java 17 suffices because static inspection found only record, pattern matching, switch expressions, Stream.toList, and List.of",
+  "description": "JRBA production-source Maven consumer integration check: S1 facts-driven rule, S2 priority-ordered rules, S3 multi-rule-set routing, S4 JADE interop (ACLMessage fact + DF register/search); Java 17",
   "build_mode": "maven",
   "maven_project_root": ".",
   "docker_image": "${TARGET_DOCKER_IMAGE}",
   "main_class": "jade.Boot",
   "boot_args": [
     "-agents",
-    "runner:org.jrba.consumer.JrbaIntegrationAgent"
+    "runner:org.jrba.consumer.JrbaScenariosAgent"
   ],
   "expected_stdout_markers": [
     "JRBA_TEST_STARTED",
+    "JRBA_S1_STARTED",
+    "JRBA_S1_RULE_SKIPPED",
+    "JRBA_S1_RULE_EXECUTED",
+    "JRBA_S1_PASSED",
+    "JRBA_S2_STARTED",
+    "JRBA_S2_ALL_EXECUTED",
+    "JRBA_S2_ORDER_OK",
+    "JRBA_S2_PASSED",
+    "JRBA_S3_STARTED",
+    "JRBA_S3_RS0",
+    "JRBA_S3_RS1",
+    "JRBA_S3_ISOLATED",
+    "JRBA_S3_MISSING_RS_HANDLED",
+    "JRBA_S3_PASSED",
+    "JRBA_S4_STARTED",
+    "JRBA_S4_MESSAGE_OK",
+    "JRBA_S4_DF_REGISTERED",
+    "JRBA_S4_DF_FOUND",
+    "JRBA_S4_PASSED",
     "JRBA_BEHAVIOR_EXECUTED",
     "JRBA_TEST_PASSED"
   ],

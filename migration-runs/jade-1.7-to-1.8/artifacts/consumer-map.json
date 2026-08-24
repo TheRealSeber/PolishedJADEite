@@ -105,7 +105,9 @@
       "jade.domain.FIPAException",
       "jade.lang.acl.ACLMessage",
       "jade.lang.acl.MessageTemplate",
+      "jade.proto.AchieveREResponder",
       "jade.proto.ContractNetInitiator",
+      "jade.proto.SubscriptionInitiator",
       "jade.wrapper.AgentController"
     ],
     "node_paths": [
@@ -119,7 +121,9 @@
       "src/jade/src/jade/domain/FIPAException.java",
       "src/jade/src/jade/lang/acl/ACLMessage.java",
       "src/jade/src/jade/lang/acl/MessageTemplate.java",
+      "src/jade/src/jade/proto/AchieveREResponder.java",
       "src/jade/src/jade/proto/ContractNetInitiator.java",
+      "src/jade/src/jade/proto/SubscriptionInitiator.java",
       "src/jade/src/jade/wrapper/AgentController.java"
     ]
   },

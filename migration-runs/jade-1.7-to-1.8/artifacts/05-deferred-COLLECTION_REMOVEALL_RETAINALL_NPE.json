@@ -1,0 +1,8 @@
+{
+  "rule_id": "COLLECTION_REMOVEALL_RETAINALL_NPE",
+  "reason": "User deferred all modernization opportunities; 0 flags detected in scan.",
+  "files_modified": 0,
+  "flags_rewritten": 0,
+  "files": [],
+  "deferred_at": "2026-08-23T20:33:55Z"
+}

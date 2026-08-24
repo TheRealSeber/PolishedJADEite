@@ -16,6 +16,7 @@ public class RestaurantAgent extends Agent {
     private String cuisine;
     private Map<String, Double> menu;
     private Map<String, Object> additionalInfo;
+    private boolean respondsToCfp = true;
 
     @Override
     protected void setup() {
@@ -23,11 +24,16 @@ public class RestaurantAgent extends Agent {
         this.cuisine = (String) args[0];
         this.menu = (Map<String, Double>) args[1];
         this.additionalInfo = (Map<String, Object>) args[2];
+        if (args.length > 3) {
+            this.respondsToCfp = Boolean.TRUE.equals(args[3]);
+        }
 
         registerInDF();
         System.out.println("RESTAURANT_DF: " + getLocalName() + " registered with cuisine=" + cuisine);
 
-        addBehaviour(new HandleCFPBehaviour());
+        if (respondsToCfp) {
+            addBehaviour(new HandleCFPBehaviour());
+        }
     }
 
     private void registerInDF() {
@@ -40,7 +46,7 @@ public class RestaurantAgent extends Agent {
         try {
             DFService.register(this, dfd);
         } catch (FIPAException e) {
-            System.err.println("DF registration failed: " + e.getMessage());
+            System.err.println("DF_REGISTRATION_FAILED");
         }
     }
 
@@ -66,16 +72,23 @@ public class RestaurantAgent extends Agent {
 
             try {
                 ClientOrder order = (ClientOrder) msg.getContentObject();
+                String reason = null;
                 if (!cuisine.equalsIgnoreCase(order.getCuisine())) {
-                    sendRefuse(msg);
-                    return;
+                    reason = "wrongCuisine";
+                } else {
+                    Double price = menu.get(order.getDish());
+                    if (price == null) {
+                        reason = "dishUnavailable";
+                    } else if (price > order.getMaxPrice()) {
+                        reason = "overBudget";
+                    }
                 }
-                Double price = menu.get(order.getDish());
-                if (price == null || price > order.getMaxPrice()) {
-                    sendRefuse(msg);
+                if (reason != null) {
+                    sendRefuse(msg, order, reason);
                     return;
                 }
 
+                Double price = menu.get(order.getDish());
                 RestaurantData data = new RestaurantData(getLocalName(), menu, additionalInfo);
                 ACLMessage reply = msg.createReply();
                 reply.setPerformative(ACLMessage.PROPOSE);
@@ -84,14 +97,16 @@ public class RestaurantAgent extends Agent {
                 System.out.println("RESTAURANT_PROPOSAL: " + getLocalName()
                         + " -> " + order.getDish() + "=" + price);
             } catch (Exception e) {
-                sendRefuse(msg);
+                sendRefuse(msg, null, "malformed");
             }
         }
 
-        private void sendRefuse(ACLMessage msg) {
+        private void sendRefuse(ACLMessage msg, ClientOrder order, String reason) {
             ACLMessage reply = msg.createReply();
             reply.setPerformative(ACLMessage.REFUSE);
             send(reply);
+            String orderTag = order != null ? order.getOrderId() : "UNKNOWN";
+            System.out.println("BOOKING_REFUSE: " + orderTag + " " + reason + " from " + getLocalName());
         }
     }
 }

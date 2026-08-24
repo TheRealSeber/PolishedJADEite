@@ -1,6 +1,6 @@
 {
   "name": "restaurant-recommendation",
-  "description": "Restaurant recommendation via FIPA ContractNet: 2 restaurants (Italian) register in DF, BookingAgent sends CFP for Pasta max 75.0, cheapest wins",
+  "description": "Expanded restaurant recommendation via FIPA ContractNet: 5 restaurants (Italian x2, Chinese, Japanese, slow non-responsive), 4 orders including negative cases (all-refuse, budget), delivery + loyalty AchieveRE, DF subscribe",
   "docker_image": "${TARGET_DOCKER_IMAGE}",
   "source_level": "8",
   "main_class": "jade.Boot",
@@ -11,13 +11,24 @@
   "expected_stdout_markers": [
     "RESTAURANT_DF: ItalianRestaurant1 registered",
     "RESTAURANT_DF: ItalianRestaurant2 registered",
-    "BOOKING_ORDER: received Pasta",
-    "BOOKING_DF_FOUND: 2 restaurants",
-    "RESTAURANT_PROPOSAL: ItalianRestaurant1",
-    "BOOKING_SELECT: ItalianRestaurant1 Pasta=50.0",
+    "RESTAURANT_DF: ChineseRestaurant registered",
+    "RESTAURANT_DF: JapaneseRestaurant registered",
+    "TEST_RUNNER_GATE: 5 restaurants registered",
+    "BOOKING_ORDER: O1 received Pasta",
+    "BOOKING_DF_FOUND: O1 restaurants=5",
+    "BOOKING_SELECT: O1 -> ItalianRestaurant1 Pasta=50.0",
+    "BOOKING_VERIFY: O1 cheapest=ItalianRestaurant1 OK",
+    "BOOKING_SELECT: O2 -> ItalianRestaurant2 Ravioli=80.0",
+    "BOOKING_VERIFY: O2 cheapest=ItalianRestaurant2 OK",
+    "BOOKING_NO_VIABLE_OFFERS: O3",
+    "BOOKING_SELECT: O4 -> JapaneseRestaurant Sushi=55.0",
+    "BOOKING_VERIFY: O4 cheapest=JapaneseRestaurant OK",
+    "DELIVERY_QUOTE: O1 fee=10.0",
+    "LOYALTY_POINTS: O1 5",
+    "DELIVERY_DF_SUBSCRIBE: active",
     "RESTAURANT_TEST_PASSED"
   ],
-  "timeout_seconds": 60,
+  "timeout_seconds": 90,
   "classpath_deps": [
     "src/jade/lib/jade.jar",
     "src/jade/lib/commons-codec/commons-codec-1.3.jar"

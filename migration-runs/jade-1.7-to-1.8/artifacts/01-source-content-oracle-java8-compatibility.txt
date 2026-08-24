@@ -1,0 +1,631 @@
+Compatibility Guide for JDK 8
+Skip to content
+Accessibility Policy
+Menu
+QUICK LINKS
+Cloud
+Database
+Java
+AI
+SUGGESTED LINKS
+SUGGESTED SEARCHES
+Country
+Back
+Cloud Account
+Sign in to Cloud
+Sign Up for Free Cloud Tier
+Oracle Account
+Sign-In
+Create an Account
+Help
+Sign Out
+Java
+Technical Details
+Java SE
+Compatibility Guide for JDK 8
+For more information, visit:
+JDK Release Notes
+JDK 8 Release Notes
+Compatibility Guide for JDK 8
+Compatibility is a complex issue. This document discusses three types of potential incompatibilities relating to a release of the Java platform:
+Source: Source compatibility concerns translating Java source code into class files including whether or not code still compiles at all.
+Binary: Binary compatibility is defined in The Java Language Specification as: 'A change to a type is binary compatible with (equivalently, does not break binary compatibility with) pre-existing binaries if pre-existing binaries that previously linked without error will continue to link without error.'
+Behavioral: Behavioral compatibility includes the semantics of the code that is executed at runtime.
+For more information, see  Kinds of Compatibility , a section in the  OpenJDK Developer's Guide .
+"Binary Compatibility"
+"Source Compatibility"
+"Behavioral Compatibility"
+"Java Class Files"
+"Incompatibilities between Java SE 8 and Java SE 7"
+"Incompatibilities between JDK 8 and JDK 7"
+"Features Removed from Java SE 8"
+"Features Removed from JDK 8"
+"Deprecated APIs"
+The following compatibility documents track incompatibility between adjacent Java versions. For example, this compatibility page reports only Java SE 8 incompatibilities with Java SE 7, and not with previous versions. To examine Java SE 8 incompatibilities with earlier Java versions, you must trace incompatibilities through the listed files, in order.
+Java SE 7 and JDK 7 Compatibility
+JDK 6 Compatibility
+Incompatibilities in J2SE 5.0 (since 1.4.2)
+Binary Compatibility
+Java SE 8 is binary-compatible with Java SE 7 except for the incompatibilities listed below. Except for the noted incompatibilities, class files built with the Java SE 7 compiler will run correctly in Java SE 8. Class files built with the Java SE 8 compiler will not run on earlier releases of Java SE.
+Source Compatibility
+Java SE 8 includes new language features and platform APIs. If these are used in a source file, that source file cannot be compiled on an earlier version of the Java platform.
+In general, the source compatibility policy is to avoid introducing source code incompatibilities. However, implementation of some Java SE 8 features required changes that could cause code that compiled with Java SE 7 to fail to compile with Java SE 8. See  Incompatibilities between Java SE 8 and Java SE 7  and  Incompatibilities between JDK 8 and JDK 7  for information.
+Deprecated APIs are interfaces that are supported only for compatibility with previous releases. The  javac  compiler generates a warning message whenever one of these is used, unless the  -nowarn  command-line option is used. It is recommended that programs be modified to eliminate the use of deprecated APIs.
+Some APIs in the  sun.*  packages have changed. These APIs are not intended for use by developers. Developers importing from  sun.*  packages do so at their own risk. For more details, see  Why Developers Should Not Write Programs That Call 'sun' Packages .
+For a list of deprecated APIs, see  Deprecated APIs .
+Behavioral Compatibility
+In its simplest form, behavioral compatibility means that with the same inputs a program performs the same (or an equivalent) operation under different versions of libraries or the platform. There are aspects of the platform's behavior that are intentionally unspecified and the underlying implementation may change in a platform release. For this reason, it is recommended that code is written in such a way so that it does not depend on unspecified behavior: In this scenario, the problem is not an incompatibility in the platform, is it a bug in the code.
+Java Class Files
+The Java class file format has been updated for the Java SE 8 release.
+The class file version for Java SE 8 is 52.0 as per the JVM Specification. Version 52.0 class files produced by a Java SE 8 compiler cannot be used in earlier releases of Java SE.
+The following document has information on changes to the Java Language Specification (JLS) and the Java VM Specification (JVMS).
+JSR 337: Java SE 8 Release Contents
+Scripting
+The Rhino javascript engine has been replaced with the Nashorn javascript engine. See the   Rhino to Nashorn  migration page.
+Incompatibilities between Java SE 8 and Java SE 7
+Java SE 8 is strongly compatible with previous versions of the Java platform. Almost all existing programs should run on Java SE 8 without modification. However, there are some minor potential incompatibilities in the JRE and JDK that involve rare circumstances and "corner cases" that are documented here for completeness.
+This section describes Java SE 8 incompatibilities in the Java Language, the JVM, or the Java SE API.
+Note that some APIs have been deprecated in this release and some features have been removed entirely. While these are incompatibilities, they have been called out in separate lists. For more information, see  Deprecated APIs  and  Features Removed from JDK 8 .
+A Maintenance Release of Java SE 8 was performed in March 2015. Incompatibilities arising out of this release are marked accordingly.
+Area: JVM
+Java SE 8 Maintenance Release
+Synopsis
+Default methods in interfaces do not cause eager interface initialization
+Description
+The presence of method bodies in interfaces (due to default methods and static methods) means that interfaces may have to be initialized prior to their static fields being accessed. The Java SE 8 Editions of the Java Language Specification and JVM Specification did not account for this, with the result that JDK 8 exhibited unspecified behavior. (During class initialization, any superinterface declaring or inheriting a default method was eagerly initialized). The correct behavior is to initialize an interface eagerly if it declares a default method, and otherwise lazily when its static field is accessed or its static method is invoked (whether by an invoke* bytecode, or via method handle invocation, or via Core Reflection).
+Nature of Incompatibility
+behavioral
+Bug
+8043188
+Area: JVM
+Java SE 8 Maintenance Release
+Synopsis
+Support default and static interface methods in JDWP
+Description
+Java SE 8 Language Specification has introduced static and default methods for interfaces. Since the JDWP APIs were not extended to reflect this addition, it was not possible for debuggers to invoke these methods.
+The JDWP specification has now been updated to allow such invocations. In JDWP, a new command  "InvokeMethod"  is added to the  "InterfaceType"  command set. The JDWP version is increased to 8.
+Nature of Incompatibility
+behavioral
+RFE
+8042123
+Area: JVM
+Synopsis
+Verification of the  invokespecial  instruction has been tightened when the instruction refers to an instance initialization method (" <init> ").
+Nature of incompatibility
+behavioral
+Area: JVM
+Synopsis
+In Java SE 8 and above, the Java Virtual Machine considers the  ACC_SUPER  flag to be set in every class file, regardless of the actual value of the flag in the class file and the version of the class file. The  ACC_SUPER  flag affects the behavior of  invokespecial  instructions.
+Nature of Incompatibility
+behavioral
+Area: java /  classes_text
+Synopsis
+When formatting date-time values using  DateFormat  and  SimpleDateFormat , context sensitive month names are supported for languages that have the formatting and standalone forms of month names. For example, the preferred month name for January in the Czech language is  ledna in the formatting form, while it is  leden in the standalone form. The  getMonthNames  and  getShortMonthNames  methods of  DateFormatSymbols  return month names in the formatting form for those languages. Note that the month names returned by  DateFormatSymbols  were in the standalone form until Java SE 7. You can specify the formatting and/or standalone forms with the  Calendar.getDisplayName  and  Calendar.getDisplayNames  methods. Refer to the API documentation for details.
+Nature of Incompatibility
+behavioral
+RFE
+7079560
+Area: Core Libs /  javax.lang.model
+Synopsis
+In Java SE 8, the value returned from  javax.lang.model.type.TypeVariable.getUpperBound  for  TypeVariables  with multiple bounds is different from the return value in earlier releases. An instance of the newly introduced  IntersectionType  is now returned, while originally an instance of  DeclaredType  was returned. This may cause a change in behavior of existing implementations of  javax.lang.model.util.TypeVisitor : before, the  visitDeclared  method was invoked for the return value of  TypeVariable.getUpperBound  for type variables with multiple bounds, now  visitIntersection  is invoked. The difference can also observed by calling  getKind()  of the returned value.
+Nature of Incompatibility
+behavioral
+RFE
+6557966
+Area: Core Libs /  java.lang.reflect
+Synopsis
+The  java.lang.reflect.Proxy  class that implements non-public interface will be non-public, final, and not abstract. Prior to Java SE 8, the proxy class was public, final and not abstract.
+Nature of Incompatibility
+source
+Description
+If existing code is using  Proxy.getProxyClass  and the  Constructor.newInstance  method to create a proxy instance, it will fail with  IllegalAccessException  if the caller is not in the same runtime package as the non-public proxy interface. For such code, it requires a source change to either (1) call  Constructor.setAccessible  to set the accessible flag to true, or (2) use the  Proxy.newProxyInstance  convenience method.
+The new  permission ReflectPermission("newProxyInPackage.{package name}")  permission may need to granted if existing code attempts to create a proxy to implement a non-public interface from a different runtime package.
+Area: Core Libs /  java.lang.reflect
+Synopsis
+The  java.lang.reflect.Proxy(InvocationHandler h)  constructor now throws a  NullPointerException  if the given  InvocationHandler  parameter is null.
+Nature of Incompatibility
+behavioral
+Description
+Existing code that constructs a dynamic proxy instance with a null argument will now get  NullPointerException . Such usage is expected to rarely exist since a null proxy instance has no use and will throw a  NullPointerException  when its method is invoked anyway.
+RFE
+4487672
+Area: Core Libs /  java.math
+Synopsis
+Prior to Java SE 8, when  BigDecimal.stripTrailingZeros  was called on a value numerically equal to zero, it would return that value. Now the method instead returns the constant  BigDecimal.ZERO .
+Nature of Incompatibility
+behavioral
+RFE
+6480539
+Area: Core Libs /  java.net
+Synopsis
+In previous releases, the  HttpURLConnection  Digest Authentication implementation incorrectly quoted some values in the WWW-Authenticate Response Header. In the Java SE 8 release, these values are no longer quoted. This is in strict conformance with the RFC 2617, HTTP Authentication: Basic and Digest Access Authentication.
+Certain versions of some server implementations are known to expect the values to be quoted. HTTP requests to these servers might no longer successfully authenticate. Other server implementations that previously failed to authenticate because the values were quoted, might now successfully authenticate.
+Nature of Incompatibility
+behavioral
+RFE
+8010505
+Area: Core Libs /  java.net
+Synopsis
+The default socket permissions assigned to all code including untrusted code have been changed in this release. Previously, all code was able to bind any socket type to any port number greater than or equal to 1024. It is still possible to bind sockets to the ephemeral port range on each system. The exact range of ephemeral ports varies from one operating system to another, but it is typically in the high range (such as from 49152 to 65535). The new restriction is that binding sockets outside of the ephemeral range now requires an explicit permission in the system security policy. Most applications using client tcp sockets and a security manager will not see any problem, as these typically bind to ephemeral ports anyway. Applications using datagram sockets or server tcp sockets (and a security manager) may encounter security exceptions where none were seen before. If this occurs, users should review whether the port number being requested is expected, and if this is the case, a socket permission grant can be added to the local security policy, to resolve the issue.
+Nature of Incompatibility
+behavioral
+Area: Core Libs /  java.net
+Synopsis
+Prior to Java SE 8, the  java.net.DatagramPacket  constructors that accept a  java.net.SocketAddress  argument declared that a  java.net.SocketException  can be thrown. However, that exception was never thrown by those constructors. In the Java SE 8 release, these constructors do not declare that a  java.net.SocketException  can be thrown. If you have existing code that explicitly catches  SocketException  or its superclass  java.io.IOException , remove the catch block for the exception before compiling with Java SE 8.
+Nature of Incompatibility
+source
+RFE
+8022126
+Area: Core Libs /  java.util.i18n
+Synopsis
+The mechanism to select a  LocaleServiceProvider  has changed.  LocaleServiceProvider  implementations are now able to determine whether the given  Locale  can be supported by overriding the  LocaleServiceProvider.isSupportedLocale  method. However, overriding this method for strict locale extensions checking may involve some compatibility problems with existing applications if locale service providers are migrating from JDK 7. Refer to the descriptions of the  LocaleServiceProvider  class and its  isSupportedLocale  method for more details.
+Nature of Incompatibility
+behavioral
+RFE
+7168528
+Area: Client Libs /  java.awt
+Synopsis
+Prior to the Java SE 8 release, a manual check was required to ensure that keystrokes were of type  AWTKeyStroke . This check has been replaced by a generic check in the  Component.setFocusTraversalKeys()  and  KeyboardFocusManager.setDefaultFocusTraversalKeys()  methods. A  ClassCastException  is now thrown if any  Object  is not of type  AWTKeyStroke .
+Nature of Incompatibility
+behavioral
+RFE
+7146237
+Area: Security Libs /  javax.net.ssl
+Synopsis
+In Oracle's JSSE provider, a new system property,  jdk.tls.rejectClientInitiatedRenegotiation , is defined to reject client initialized renegotiation in server side. If the system property is set to  true , the server side does not accept client initialized renegotiation, and fails with a fatal  handshake_failure  alert if the receiving client initialized the renegotiation request.
+Nature of Incompatibility
+behavioral
+RFE
+7188658
+Area: HotSpot / gc
+Synopsis
+The command line flags  PermSize  and  MaxPermSize  have been removed and are ignored. If used on the command line a warning will be emitted for each.
+Copy
+Java HotSpot(TM) Server VM warning: ignoring option PermSize=32m; support
+was removed in 8.0
+Java HotSpot(TM) Server VM warning: ignoring option MaxPermSize=128m; support
+was removed in 8.0
+Nature of Incompatibility
+source
+RFE
+6965548
+Incompatibilities between JDK 8 and JDK 7
+This section describes JDK 8 Incompatibilities in  javac , in HotSpot, or in Java SE API.
+Note that some APIs have been deprecated in this release and some features have been removed entirely. While these are incompatibilities, they have been called out in separate lists. For more information, see  Deprecated APIs  and  Features Removed from JDK 8 .
+Area: JVM
+Synopsis
+Support default and static interface methods in JDI
+Description
+Java SE 8 Language Specification has introduced static and default methods for interfaces. Both JDI specification and implementation have now been updated to allow such invocations. In JDI, the  "com.sun.jdi.InterfaceType"  class now contains an additional method  "Value invokeMethod(ThreadReference thread, Method method, List<? extends Value> arguments, int options)" .
+Nature of Incompatibility
+behavioral
+RFE
+8042123
+Area: Core Libs /  java.lang
+Synopsis
+The steps used to determine the user's home directory on Windows have changed to follow the Microsoft recommended approach. This change might be observable on older editions of Windows or where registry settings or environment variables are set to other directories.
+Nature of Incompatibility
+behavioral
+RFE
+6519127
+Area: Core Libs /  java.lang.reflect
+Synopsis
+Default methods affect the result of  Class.getMethod  and  Class.getMethods
+Nature of Incompatibility
+behavioral
+Description
+The javadoc for the  Class.getMethod  and  Class.getMethods   refer to the definition of inheritance in the Java Language  Specification. Java SE 8 changed these rules in order to support default  methods and reduce the number of redundant methods inherited from  superinterfaces (see JLS 8, 8.4.8). For example, say a class has two  superinterfaces, I and J, each of which declare  "int length();" .  Generally, we consider both methods to be members of the class; but if J  also extends I, then as of Java SE 8, the class only inherits one  method:  J.length() .
+Class.getMethod  and  Class.getMethods   were not updated with the 8 release to match the new inheritance  definition (both may return non-inherited superinterface methods).  Typically, the distinction is of no consequence; and for compatibility,  it is preferred that the identity and number of returned methods match  Java SE 7 as closely as possible. However, when the overriding method  ("J.length", above)  is a default method, it is important to filter out other overridden methods  ("I.length" above) .
+Starting  with JDK 8u20, the implementation has been changed to perform this filtering step when the overrider is a default method.
+RFE
+8029674
+Area: Core Libs /  java.text
+Synopsis
+When using the  NumberFormat  and  DecimalFormat  classes, the rounding behavior of previous versions of the JDK was wrong in some corner cases. This wrong behaviour happened when calling the  format()  method with a value that was very close to a tie, where the rounding position specified by the pattern of the  NumberFormat  or  DecimalFormat  instance was exactly sitting at the position of the tie. In that case, the wrong double rounding or erroneous non-rounding behavior occurred.
+As an example, when using the default recommended  NumberFormatFormat  API form:  NumberFormat nf = java.text.NumberFormat.getInstance()  followed by  nf.format(0.8055d) , the value  0.8055d  is recorded in the computer as  0.80549999999999999378275106209912337362766265869140625  since this value cannot be represented exactly in the binary format. Here, the default rounding rule is "half-even", and the result of calling  format()  in JDK 7 is a wrong output of " 0.806 ", while the correct result is " 0.805 ", since the value recorded in memory by the computer is "below" the tie.
+This new behavior is also implemented for all rounding positions that might be defined by any pattern chosen by the programmer (non default patterns).
+Nature of Incompatibility
+behavioral
+RFE
+7131459
+Area: Core Libs /  java.util.collections
+Synopsis
+In previous releases, some implementations of  Collection.removeAll(Collection)  and  retainAll(Collection)  would silently ignore a null parameter if the collection itself was empty. As of this release, collections will consistently throw a  NullPointerException  if null is provided as a parameter.
+Nature of Incompatibility
+behavioral
+RFE
+8021591
+Area: Core Services /  java.management
+Synopsis
+The requirement for the Management Interfaces being public, which is stated in the specification, is now being enforced.
+Non-public interfaces are not allowed to expose the management functionality. All the  MBean  and  MXBean  interfaces must be public.
+The system property  jdk.jmx.mbeans.allowNonPublic  is used to revert to the old behavior allowing non-public management interfaces. This property is considered to be transitional and will be removed in the subsequent releases.
+Nature of Incompatibility
+behavioral
+Area: Client Libs /  java.awt
+Synopsis
+The  java.awt.Component.setFocusTraversalKeys()  method may throw  ClassCastException  (instead of  IllegalArgumentException ) if any  Object  in the keystrokes is not an  AWTKeyStroke .
+Nature of Incompatibility
+behavioral
+Area: Security Libs /  java.security
+Synopsis
+com.sun.media.sound  has been added to list of restricted packages in JDK 8. Applications running under a SecurityManager will not be able to access classes in this package hierarchy unless granted explicit permission. The  com.sun.media.sound  package is an internal, unsupported package and is not meant to be used by external applications.
+Nature of Incompatibility:
+source
+RFE
+8019830
+Area: Other Libs / corba
+Synopsis
+The JDK internal package  com.sun.corba.se  and sub-packages have been added to the restricted package list and cannot be used directly when running with a security manager.
+Nature of Incompatibility
+behavioral
+RFE
+8021257
+Area: Tools /  javac
+Synopsis
+Type inference has been improved in Java SE 8. Perhaps the most important improvement in this area is the support for target typing. This means that when a method call is nested inside another method call, the inner method call can use the corresponding formal parameter type of the outer method call as its target type. This enhancement is aimed at removing annoying asymmetries between method contexts and assignment contexts, and is crucial to allow lambda expressions and method references to be used freely in client code.
+One consequence of making type inference more powerful through target-typing, is that methods that were previously not applicable, will now suddenly become applicable, potentially leading to incompatibilities. Consider the following example:
+Copy
+class Test {
+static void m(Object o) { System.out.println("one"); }
+static void m(String[] o) { System.out.println("two"); }
+static Z g() { return null; }
+public static void main(String[] args) {
+m(g()); //prints 'two' - used to print 'one'
+}
+}
+In Java SE 7, because of the lack of target typing, the inferred return type of a nested call g() was simply Object. This meant that javac only saw an applicable method - namely m(Object). Thanks to target-typing introduced in Java SE 8, javac can now leave the result of g() open (e.g. as an inference variable T) and match both methods. Then, since m(String[]) is a more specific declaration than m(Object), m(String[]) will be selected as the overload resolution result, resulting in a potentially incompatible behavior.
+This is a known behavior of Java SE 8 and easy to workaround by using the following idiom:
+m((Object)getT()); //will produce JDK 7 behavior
+Nature of Incompatibility
+behavioral
+Area: Tools /  javac
+Synopsis
+The type rules for binary comparisons in the Java Language Specification (JLS) Section 15.21 will now be correctly enforced by  javac . Since the JDK 5 release,  javac  has accepted some programs with Object-primitive comparisons that are incorrectly typed according to JLS 15.21. These comparisons will now be correctly identified as type errors.
+Nature of Incompatibility
+behavioral
+RFE
+8013357
+Area: Tools /  javac
+Synopsis
+As of this release, parameter and method annotations are copied to synthetic bridge methods.This fix implies that now for programs like:
+Copy
+@Target(value = {ElementType.PARAMETER})
+@Retention(RetentionPolicy.RUNTIME)
+@interface ParamAnnotation {}
+@Target(value = {ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@interface MethodAnnotation {}
+abstract class T<A,B> {
+B m(A a){return null;}
+}
+class CovariantReturnType extends T<Integer, Integer> {
+@MethodAnnotation
+Integer m(@ParamAnnotation Integer i) {
+return i;
+}
+public class VisibilityChange extends CovariantReturnType {}
+}
+Each generated bridge method will have all the annotations of the method it redirects to. Parameter annotations will also be copied. This change in the behavior may impact some annotations processor or in general any application that use the annotations.
+Nature of Incompatibility
+behavioral
+RFE
+6695379
+Area: Tools /  javac
+Synopsis
+Recognition of the undocumented target values " 1.4.1 ", " 1.4.2 " and " jsr14 " have been removed from  javac . The " 1.4.1 " and " 1.4.2 " targets used more up-to-date code generation idioms than " 1.4 ". The combination of options " -source 1.4 -target 1.5 " will use those newer idioms, but also output a more recent class file format. The " jsr14 " option was a transitional private option for when generics were first being added to the platform. Now generics should be compiled with a target of 1.5 or higher.
+Nature of Incompatibility
+behavioral
+RFE
+8010179
+Area: Tools /  javac
+Synopsis
+The following code which compiled, with warnings, in JDK 7 will not compile in JDK 8:
+Copy
+import java.util.List;
+class SampleClass {
+static class Baz<T> {
+public static List<Baz<Object>> sampleMethod(Baz<Object> param) {
+return null;
+}
+}
+private static void bar(Baz arg) {
+Baz element = Baz.sampleMethod(arg).get(0);
+}
+}
+Compiling this code in JDK 8 produces the following error:
+Copy
+SampleClass.java:12: error:incompatible types: Object cannot be converted to Baz
+Baz element = Baz.sampleMethod(arg).get(0);
+Note: SampleClass.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 error
+In this example, a raw type is being passed to the  sampleMethod(Baz<Object>)  method which is applicable by subtyping (see the JLS, Java SE 7 Edition, section 15.12.2.2). An unchecked conversion is necessary for the method to be applicable, so its return type is erased (see the JLS, Java SE 7 Edition, section 15.12.2.6). In this case the return type of  sampleMethod(Baz<Object>)  is  java.util.List  instead of  java.util.List<Baz<Object>>  and thus the return type of  get(int)  is  Object , which is not assignment-compatible with  Baz .
+For more information, see the  related email exchange on java.net .
+Nature of Incompatibility
+source
+RFE
+7144506
+Area: Tools /  javac
+Synopsis
+Definite assignment analysis applies to final field access using 'this'
+Description
+Traditionally, the Java language prohibited access to a blank final field that is definitely unassigned, but only when the field is accessed via a simple name such as 'x'. In Java SE 7, the rules were tightened to further prohibit access when the field is accessed via 'this.x'. (See https://bugs.openjdk.java.net/browse/JDK-7004835.) Any program that is legal under the old rules but illegal under the new rules is unsafe, since it would necessarily access a blank final field that is not definitely assigned.
+Starting with JDK 8u20, the  javac  compiler has been updated to implement the Java SE 7 rules.
+Nature of Incompatibility
+source
+bug
+8039026
+Area: Tools /  javac
+Synopsis
+Interfaces need to be present when compiling against their implementations
+Description
+When compiling a class against another class implementing an interface which is defined in yet another class file, such class file (where interface is defined) must be available in the class path used by  javac  during compilation. This is a new requirement as of JDK 8 - a failure to do so will result in a compilation error.
+Example:
+Copy
+Client.java:
+import p1.A;
+class Client {
+void test() {
+new A.m();
+}
+}
+p1/A.java:
+package p1;
+public class A implements I {
+public void m() { }
+}
+p1/I.java:
+package p1;
+public interface I {
+void m();
+}
+If neither p1/I.java nor p1/I.class are available when compiling Client.java, the following error will be displayed:
+Copy
+Client.java: error: cannot access I
+new A().m();
+^
+class file for p1.I not found
+Nature of Incompatibility
+behavioral
+Area: XML / JAXP
+Synopsis
+The Xalan Extension functions in JAXP have been changed so that, when a  SecurityManager  is present, the default implementation will always be used. This change affects the  NodeSet  created by DOM Document. Before the change, the DOM implementation was located through the DOM factory lookup process. With this change, when running with a  SecurityManager , the lookup process is skipped and the default DOM implementation is used.
+This change only affects those applications that use a 3rd party DOM implementation. In general, the  NodeSet  structure is expected to be compatible with that of the JDK default implementation.
+Nature of Incompatibility
+behavioral
+Area: XML / JAXP
+Synopsis
+JDK 8 ships with JAXP 1.6 and so includes specification updates that mandate the use of  java.util.ServiceLoader  for finding service providers. Service providers across JAXP will now be located consistently following the process as defined in  java.util.ServiceLoader . The changes may result in some subtle differences from implementations of JDK 7 where the provider-configuration file may have been located differently, for example, by using a different  getXXX  method of the  ClassLoader  than  ServiceLoader .
+Applications that implement their own  Classloaders  shall therefore make sure that the  ClassLoaders '  getXXX  methods are implemented consistently so as to maintain compatibility.
+The StAX API, JSR 173, defined  newInstance  and  newFactory  methods with a  factoryId  as a parameter. Since there was no constraint on what the value could be in the StAX specification, it implied it could be any arbitrary string. With JDK 8 specification change, in the context of JAXP, the value of  factoryId  must be the name of the base service class if it is intended to represent the name of the service configuration file, that is, if it is not the name of a System Property.
+Nature of Incompatibility
+behavioral
+RFE
+8005954
+Area: XML / JAXP
+Synopsis
+The  ClassLoader  parameter is no longer ignored in  javax.xml.stream factories .
+The  javax.xml.stream  package contains factory classes ( XMLEventFactory ,  XMLOutputFactory ,  XMLInputFactory ) which define  newFactory  methods that take two parameters: a  factoryId  and a  ClassLoader . In JDK 7, the second parameter ( ClassLoader ) was ignored by the factories when looking up and instantiating the services. This is no longer the case in JDK 8. Refer to the Java API documentation of those methods for more details.
+Nature of Incompatibility
+behavioral
+RFE
+8005954
+Features Removed from Java SE 8
+Area: API /  java.lang
+Synopsis
+Thread.stop(Throwable)  has been disabled
+Description
+The  Thread.stop  method has been deprecated since release 1.2. This method now throws an  UnsupportedOperationException .
+Area: Core Libs /  java.net
+Synopsis
+Removal of ftp from the list of required protocol handlers
+Description
+ftp  is a legacy protocol that has long been superseded by more secure protocols for file transfer ( sftp  for example). The  ftp  protocol has been dropped from the list of protocol handlers that are guaranteed to be present. It does not actually remove the protocol handler - applications that use this protocol will continue to work, but its presence is no longer required.
+RFE
+8000941
+Area: Security Libs /  java.security
+Synopsis
+The key length is an important security parameter to determine the strength of public-key based cryptographic algorithms. RSA keys less than 1024 bits are considered breakable.
+In this update, certificates are blocked if they contain RSA keys of less than 1024 bits in length. This restriction is applied via the Java Security property,  jdk.certpath.disabledAlgorithms . This impacts providers that adhere to this security property, for example, the Sun provider and the SunJSSE provider. The security property,  jdk.certpath.disabledAlgorithms , also covers the use of the static keys (the key in X.509 certificate) used in TLS.
+With this key size restriction, those who use X.509 certificates based on RSA keys less than 1024 bits will encounter compatibility issues with certification path building and validation. This key size restriction also impacts JDK components that validate X.509 certificates, for example signed JAR verification, SSL/TLS transportation, and HTTPS connections.
+In order to avoid the compatibility issue, users who use X.509 certificates with RSA keys less than 1024 bits are recommended to update their certificates with stronger keys. As a workaround, at their own risk, users can adjust the key size restriction security property ( jdk.certpath.disabledAlgorithms ) to permit smaller key sizes.
+Nature of Incompatibility
+behavioral
+Features Removed from JDK 8
+Area: Install
+Synopsis
+Builds with automatic update turned off are no longer provided.
+Description
+To disable the automatic updating of the JRE, disable automatic updates and set the  deployment.expiration.check.enabled  property to  false  in the deployment configuration properties file. To disable automatic updates, remove the check from Check for Updates Automatically in the  Update  tab of the Java Control Panel. See  Deployment Configuration File and Properties  for information about the  deployment.expiration.check.enabled property.
+Area: Install / Solaris
+Synopsis
+Class Data Sharing file no longer created
+Description
+Previously, the Solaris SVID package installer created the Class Data Sharing file. In JDK 8, 32-bit Solaris is no longer supported, so the Class Data Sharing file is not created by default. To manually create the Class Data Sharing, execute the command:
+$JAVA_HOME/bin/java -Xshare:dump
+When the command completes, the Class Data Sharing file is located at  $JAVA_HOME/jre/lib/server/{amd64,sparcv9}/classes.jsa .
+RFE
+8023498
+Area: Deployment / Plugin
+Synopsis
+Removal of the classic Java Plug-in.
+Description
+The old Java Plug-in (the version available prior to Java SE 6 Update 10) has been removed from this release.
+RFE
+7076143
+Area: Deployment / Plugin
+Synopsis
+Removal of Java Quick Starter
+Description
+The Java Quick Starter (JQS) service has been removed from this release.
+RFE
+8004321
+Area: Deployment / Plugin
+Synopsis
+Removal of Active-X Bridge
+Description
+The Active-X Bridge has been removed from this release.
+RFE
+8004321
+Area: Core Libs /  sun.jdbc.odbc
+Synopsis
+Removal of the JDBC-ODBC Bridge
+Description
+Starting with JDK 8, the JDBC-ODBC Bridge is no longer included with the JDK. The JDBC-ODBC Bridge has always been considered transitional and a non-supported product that was only provided with select JDK bundles and not included with the JRE. Instead, use a JDBC driver provided by the vendor of the database or a commercial JDBC Driver instead of the JDBC-ODBC Bridge.
+RFE
+7176225
+Area: Tools /  apt
+Synopsis
+Removal of  apt  Tool
+Description
+The  apt  tool and its associated API contained in the package  com.sun.mirror  have been removed in this release. Use the options available in the  javac  tool and the APIs contained in the packages  javax.annotation.processing  and  javax.lang.model  to process annotations.
+RFE
+7041249
+Area: Tools /  java
+Synopsis
+Removal of 32-bit Solaris
+Description
+The 32-bit implementation of Java for the Solaris operating system has been removed from this release. The  $JAVA_HOME/bin  and  $JAVA_HOME/jre/bin  directories now contain the 64-bit binaries. For transitional purposes, the ISA (Instruction Specific Architecture) directories  $JAVA_HOME/bin/{sparcv9,amd64}  and  $JAVA_HOME/jre/{sparcv9,amd64}  contain symbolic links that point to the binaries. These ISA directories will be removed in JDK9.
+The install packages SUNWj8rt, SUNWj8dev and SUNWj8dmo, which previously contained 32-bit binaries, now contain the 64-bit binaries. The install packages SUNWj8rtx, SUNWj8dvx and SUNWj8dmx have been removed.
+The 64-bit binaries do not contain deployment tools such as Java Web Start and Java Plug-in, therefore desktop integration is no longer required.
+Note that 64-bit Solaris binaries cannot load JNI libraries that are compiled and linked for 32-bit Solaris. Therefore any JNI library created for 32-bit Solaris needs to be re-compiled for 64-bit Solaris.
+RFE
+8023288
+Deprecated APIs
+Area: Core Libs /  java.lang:class_loading
+Deprecated Feature
+The  endorsed-standards override mechanism  allows implementations of newer versions of standards maintained outside of the Java Community Process, or of standalone APIs that are part of the Java SE Platform yet continue to evolve independently, to be installed into a run-time image.
+A modular image is composed of modules rather than jar files. Going forward we expect to support endorsed standards and standalone APIs in modular form only, via the concept of  upgradeable modules .
+This feature is deprecated in JDK 8u40. This deprecation is made in preparation for modules in a future release of the Java SE Platform. For more information, see  JEP 200 - The Modular JDK  and  JEP 220 - Modular Run-Time Images .
+There is no change to the default behavior.
+RFE
+8065675
+Area: Core Libs /  java.lang:class_loading
+Deprecated Feature
+The  extension mechanism  allows jar files containing APIs that extend the Java SE Platform to be installed into a run-time image so that their contents are visible to every application that is compiled with or runs on that image.
+The extension mechanism was introduced in JDK 1.2, which was released in 1998, but in modern times we have seen little evidence of its use. This is not surprising, since most Java applications today place the libraries that they need directly on the class path rather than require that those libraries be installed as extensions of the run-time system.
+This feature is deprecated in JDK 8u40. This deprecation is made in preparation for modules in a future release of the Java SE Platform. For more information, see  JEP 200 - The Modular JDK  and  JEP 220 - Modular Run-Time Images .
+Deprecation of this feature required the following specification changes:
+In  java.lang.System.getProperties() , the specification for the  java.ext.dirs  system property was amended to include a deprecation notice indicating that it may be removed in a future release.
+In  java.util.jar.Attributes.Name , the  EXTENSION_INSTALLATION ,  IMPLEMENTATION_URL , and  IMPLEMENTATION_VENDOR_ID  fields were deprecated indicating that class path should be used instead.
+In the JAR File Specification, all manifest attributes related to the ability of a JAR-packaged applet to depend on an installed optional package and to trigger downloading of optional packages were deprecated. This includes the following attributes:  Extension-Name ,  Extension-List ,  <extension>-Extension-Name ,  <extension>-Specification-Version ,  <extension>-Implementation-Vendor-ID ,  <extension>-Implementation-Version ,  <extension>-Implementation-URL ,  Implementation-Vendor-Id ,  Implementation-URL , and  Extension-Installation .
+There is no change to the runtime behavior.
+RFE
+8065702
+Area: Core Libs /  java.lang
+Deprecated Method
+The  SecurityManager.checkMemberAccess  method is deprecated. It has been error-prone to depend on the caller on a stack frame at depth 4. The JDK implementation no longer calls the  SecurityManager.checkMemberAccess  method to perform member access check; instead it calls the  SecurityManager.checkPermission  method.
+Custom  SecurityManager  implementation that overrides the  checkMemberAccess  method may be impacted by this change as the overridden version will not be called.
+Area: Core Libs /  java.lang
+Class
+SecurityManager
+Deprecated Methods
+checkTopLevelWindow ,  checkSystemClipboardAccess ,  checkAwtEventQueueAccess
+Use Instead
+checkPermission
+RFE
+8008981
+Area: Core Libs /  java.rmi
+Deprecated Feature
+The HTTP proxying feature from RMI/JRMP is now deprecated, and HTTP proxying is disabled by default.
+RFE
+8023862
+Area: Core Libs /  java.rmi
+Deprecated Feature
+Support for statically-generated stubs from RMI (JRMP) is now deprecated.
+RFE
+8023863
+Area: Core Libs /  java.util.jar
+Interface
+Pack200.Packer
+Deprecated Methods
+addPropertyChangeListener  and  removePropertyChangeListener
+These methods are expected to be removed in a future release of Java SE.
+Use Instead
+To monitor the progress of the packer, poll the value of the  PROGRESS  property.
+RFE
+8000362
+Area: Core Libs /  java.util.jar
+Interface
+Pack200.Unpacker
+Deprecated Methods
+addPropertyChangeListener  and  removePropertyChangeListener
+These methods are expected to be removed in a future release of Java SE.
+Use Instead
+To monitor the progress of the unpacker, poll the value of the  PROGRESS  property.
+RFE
+8000362
+Area: Core Libs /  java.util.logging
+Interface
+LogManager
+Deprecated Methods
+addPropertyChangeListener  and  removePropertyChangeListener
+These methods are expected to be removed in a future release of Java SE.
+RFE
+7192274
+Area: Core Libs /  com.sun.security.auth.callback
+Class
+DialogCallbackHandler
+RFE
+7190273
+Area: Core Services /  javax.management
+Synopsis
+The JSR-160 specification was updated so that the RMI connector is no longer required to support the IIOP transport. Oracle's JDK 8 continues to support the IIOP transport, however, support for the IIOP transport is expected to be removed in a future update of the JMX Remote API.
+RFE
+8001048
+Area: Client Libs /  javax.accessibility
+Deprecated Methods
+javax.swing.JComponent.accessibleFocusHandler
+Use Instead
+java.awt.Component.AccessibleAWTComponent.accessibleAWTFocusHandle r
+RFE
+7179482
+Area: JavaFX / Scene Graph
+Interface
+Builder<T>
+Deprecated Classes
+All classes implementing the  Builder<T>  interface.
+Use Instead
+Use appropriate constructors and setters to construct objects.
+RFE
+RT-30520
+Area: Security Libs /  java.security
+Deprecated Feature
+The  java.security.SecurityPermission   insertProvider.{provider name}  target name is discouraged from further use because it is possible to circumvent the name restrictions by overriding the  java.security.Provider.getName  method. Also, there is an equivalent level of risk associated with granting code permission to insert a provider with a specific name, or any name it chooses.
+Use Instead
+The new  insertProvider  target name. Compatibility with existing policy files has been preserved, as both the old and new permission will be checked by the  Security.addProvider  and  insertProviderAt  methods.
+RFE
+8001319
+Area: HotSpot / gc
+Deprecated Feature
+The following garbage collector combinations are deprecated:
+DefNew + CMS
+ParNew + SerialOld
+Incremental CMS
+Corresponding command-line options produce warning messages and it is recommended to avoid using them. These options will be removed in one of the next major releases.
+The  -Xincgc  option is deprecated
+The  -XX:CMSIncrementalMode  option is deprecated. Note that this also affects all  CMSIncremental  options.
+The  -XX:+UseParNewGC  option is deprecated, unless you also specify  -XX:+UseConcMarkSweepGC .
+The  -XX:-UseParNewGC  option is deprecated only in combination with  -XX:+UseConcMarkSweepGC .
+For more information, see   http://openjdk.java.net/jeps/173  .
+RFE
+8006479
+Area: HotSpot / gc
+Deprecated Feature
+The foreground collector in CMS has been deprecated and is expected to be removed in a future release. Use G1 or regular CMS instead.
+RFE
+8027132
+© 2026 Oracle
+Privacy
+/
+Do Not Sell My Info
+Ad Choices
+Careers
+Subscribe to emails
+Integrity Helpline
+Contact Us
+Facebook
+X
+LinkedIn
+YouTube

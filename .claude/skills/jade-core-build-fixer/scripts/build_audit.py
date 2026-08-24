@@ -707,12 +707,13 @@ def _docker_run(
 
 
 def run_ant_build(
-    build_path: pathlib.Path, docker_image: str, default_target: str = "jade"
+    build_path: pathlib.Path, docker_image: str, default_target: str = "clean jade"
 ) -> Tuple[int, str]:
+    targets = default_target.split()
     return _docker_run(
         docker_image,
         build_path.parent,
-        ["ant", default_target, "-q"],
+        ["ant"] + targets + ["-q"],
     )
 
 

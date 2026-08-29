@@ -31,9 +31,6 @@ __pycache__/
 # Legacy migration copies (pipeline reads workspace from 00-run-config.json)
 JADE-4.6.0-java1.6/
 
-# Generated workspace copies (never commit isolated workspaces)
-migration-runs/*/workspace/
-
 # Source policy test output artifacts (config JSONs are tracked)
 tests/fixtures/source-policy/artifacts/
 

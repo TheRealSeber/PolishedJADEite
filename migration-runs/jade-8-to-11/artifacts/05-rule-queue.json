@@ -4,5 +4,26 @@
     "CORBA_REMOVAL"
   ],
   "generated_at": "2026-08-29T15:10:00Z",
-  "decision": "User-approved: CORBA_REMOVAL (HIGH, mandatory breaking change) enters the queue. No LOW/INFO modernization rules were flagged, so nothing was deferred."
+  "decision": "User-approved: CORBA_REMOVAL (HIGH, mandatory breaking change) enters the queue. No LOW/INFO modernization rules were flagged, so nothing was deferred.",
+  "graph_metadata": {
+    "status": "computed",
+    "source_artifact": "03.5-knowledge-graph.json",
+    "suggested_order": [
+      "CORBA_REMOVAL"
+    ],
+    "direct_counts": {
+      "CORBA_REMOVAL": 38
+    },
+    "impact_counts": {
+      "CORBA_REMOVAL": 26
+    },
+    "cycles": [],
+    "ordering_reasons": [
+      {
+        "rule": "CORBA_REMOVAL",
+        "reason": "advisory dependency order \u2014 dependent transforms first"
+      }
+    ],
+    "diagnostics": []
+  }
 }

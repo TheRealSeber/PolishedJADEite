@@ -1,0 +1,9 @@
+{
+  "run_id": "jade-8-to-11",
+  "rules": {
+    "CORBA_REMOVAL": {
+      "status": "DONE",
+      "updated_at": "2026-08-29T15:22:56Z"
+    }
+  }
+}

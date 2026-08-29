@@ -1,15 +1,17 @@
 {
   "run_id": "jade-8-to-11",
-  "state": "AWAITING_AGENT",
-  "current_rule_id": null,
-  "updated_at": "2026-08-29T15:05:19Z",
+  "state": "DONE",
+  "current_rule_id": "CORBA_REMOVAL",
+  "updated_at": "2026-08-29T15:25:02Z",
   "failure_reason": null,
   "artifact_hashes": {
     "01-breaking-changes-manifest.json": "c4a17bd1604d6b181907d4608455a05a1f06b1737893060d0c56182c4c07cdc0",
     "02-tooling-scout-report.json": "f2cf0333af238909ab87f49613e1895c8b29f5a383d4654a9171b8440a372d08",
-    "03-build-audit.json": "a1ab2434af21b8cf2c125b6021dc643289a26d4670f9a947b7271334405e39ef",
+    "03-build-audit.json": "d4164ceeceaae7286fb85c698947f3851914dc308afad482f4c37d36b463acae",
     "03.5-knowledge-graph.json": "5615b2baa29b603494c8ce448ef92ba0821b90fa0edc7e829f546fa36f659069",
-    "04-flag-index.json": "21c1dd661279052569b3fbf6115d0b27a8adb099fca7c397e42fc7d4f7e5dcae"
+    "04-flag-index.json": "21c1dd661279052569b3fbf6115d0b27a8adb099fca7c397e42fc7d4f7e5dcae",
+    "07-build.log": "6d65c59a72203b87ece58ed85282626828b37964a3352de5a3cc29676d3ad923",
+    "07-runtime-verify.json": "3e433d8d0ac677af25464a8eb4fd1672f0fad090903f1abdb350b8221273cb73"
   },
   "graph": {
     "schema_version": 2,
@@ -155472,6 +155474,5 @@
         }
       ]
     }
-  },
-  "awaiting_phase": "RULE_BATCH_LOOP"
+  }
 }

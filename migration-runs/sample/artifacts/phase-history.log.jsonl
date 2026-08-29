@@ -1,2 +1,0 @@
-{"ts": "2026-05-23T18:29:48Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
-{"ts": "2026-05-23T18:29:48Z", "phase": "FAILED", "status": "ERROR", "message": "BASELINE_MISSING: Baseline not found: migration-runs\\sample\\workspace", "artifacts": ["failure-summary.json", "00-run-state.json"]}

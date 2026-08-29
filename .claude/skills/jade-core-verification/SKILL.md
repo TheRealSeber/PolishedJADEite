@@ -180,13 +180,15 @@ python scripts/normalize_trace.py \
 
 ### Step 4: Build migrated JADE and capture build log
 
-All builds run in Docker — no host JDK required.
+All builds run in Docker — no host JDK required. Container images are resolved
+from the central registry (`config/docker-images.json`) via run-config target
+version, never hardcoded here.
 
 ```bash
 docker run --rm \
   -v "$(pwd)/JADE-4.6.0:/workspace" \
   -w /workspace/src/jade \
-  frekele/ant:1.10.3-jdk8 ant jade -q 2>&1 | tee artifacts/07-build.log
+  ant jade -q 2>&1 | tee artifacts/07-build.log
 ```
 
 If build fails, fail with `BUILD_FAILED` — migration is not verifiable.

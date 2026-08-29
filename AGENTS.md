@@ -78,8 +78,8 @@ Apply ONE `rule_id` to ALL flagged files → verify compile + semantic gates →
 
 | Type | Count | Examples |
 |------|-------|----------|
-| Core (`jade-core-*`) | 11 | orchestrator, change-collector, scanner, batch-processor, rule-dispatcher, verification, atomic-commit, retry-router, evaluator, tooling-scout, build-fixer |
-| Recipe (`jade-recipe-*`) | 7 (per-migration) | Version-specific transforms + version-agnostic `dummy`/`noop`, stored under `.claude/skills/java-migration-skill-registry/{1.5-to-1.6,1.7,shared}/`. Registered by `rule_id` in `recipe-registry.json`; invoked as subprocesses by the dispatcher — NOT agent skills. |
+| Core (`jade-core-*`) | 12 | orchestrator, change-collector, scanner, batch-processor, rule-dispatcher, verification, atomic-commit, retry-router, evaluator, tooling-scout, build-fixer, knowledge-graph |
+| Recipe (`jade-recipe-*`) | 7 (per-migration) | Version-specific transforms + version-agnostic `dummy`/`noop`, stored under `.claude/skills/java-migration-skill-registry/{1.5-to-1.6,1.7,1.7-to-1.8,shared}/`. Registered by `rule_id` in `recipe-registry.json`; invoked as subprocesses by the dispatcher — NOT agent skills. |
 | Utility (`jade-utility-*`) | 1 | consumer-onboarder — ingests ZIP archives of JADE projects into the `consumer-playground/` for runtime testing |
 
 ## Consumer Playground & Runtime Verification
@@ -100,10 +100,10 @@ Consumer projects are managed via `jade-utility-consumer-onboarder`.
 ## Quick Phase Reference
 
 ```
-0 (opt) → 1 → 2 → 3 → 4 → 5 → 6 → 7 (batch loop) → 8 → RUNTIME_VERIFY → DONE
+0 (opt) → 1 → 2 → 3 → 4 → 5 → 3.5 (knowledge graph) → 6 → 7 (batch loop) → 8 → RUNTIME_VERIFY → DONE
 ```
 
-Artifact prefixes: `00-run`, `01-manifest`, `02-tooling`, `03-build`, `04-flag`, `05-batch`, `06-fix`, `07-verify`, `08-retry`, `09-commit`, `10-eval`.
+Artifact prefixes: `00-run`, `01-manifest`, `02-tooling`, `03-build`, `03.5-graph`, `04-flag`, `05-batch`, `06-fix`, `07-verify`, `08-retry`, `09-commit`, `10-eval`.
 
 ## Commit Convention
 

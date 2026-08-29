@@ -6,12 +6,12 @@
 
 ## What This Is
 
-A **JADE Migration Skill Suite** — 11 agnostic core pipeline skills (`jade-core-*`) plus versioned recipes in the canonical Java migration registry. The JADE 1.5→1.6 migration is the validation harness; the skill suite is the product.
+A **JADE Migration Skill Suite** — 12 agnostic core pipeline skills (`jade-core-*`) plus versioned recipes in the canonical Java migration registry. The JADE 1.5→1.6 migration is the validation harness; the skill suite is the product.
 
 The pipeline operates as a file-based state machine where artifacts on disk are the sole source of truth. Skills communicate through a shared `artifacts/` directory — no agent ever passes raw source code or large JSON in its prompt context.
 
 **Architecture:** `docs/architecture.md` — read before modifying the pipeline.  
-**Agent directives:** `AGENTS.md` — the constitution in 106 lines.
+**Agent directives:** `AGENTS.md` — the constitution in 110 lines.
 
 ---
 
@@ -32,7 +32,7 @@ The pipeline operates as a file-based state machine where artifacts on disk are 
 ## Pipeline Phases
 
 ```
-0 (optional) → 1 → 2 → 3 → 4 → 5 → 6 → 7 (batch loop) → 8 → RUNTIME_VERIFY → 9
+0 (optional) → 1 → 2 → 3 → 4 → 5 → 3.5 → 6 → 7 (batch loop) → 8 → RUNTIME_VERIFY → 9
 ```
 
 | Phase | Skill | What happens |
@@ -43,6 +43,7 @@ The pipeline operates as a file-based state machine where artifacts on disk are 
 | 3 | `jade-core-change-collector` | Strict evidence-backed manifest of breaking changes |
 | 4 | `jade-core-tooling-scout` | OpenRewrite/PMD/Checkstyle dry-run discovery |
 | 5 | `jade-core-build-fixer` | Updates compiler flags, verifies build compiles |
+| 3.5 | `jade-core-knowledge-graph` | Builds Java knowledge graph (`03.5-knowledge-graph.json`) |
 | 6 | `jade-core-scanner` | Injects `// JADE-FLAG:` markers, writes flag index |
 | 7 | batch loop | **Rule-by-Rule:** prepare → dispatch to recipe → verify → commit → next rule |
 | 8 | `jade-core-orchestrator` | Confirms all rules passed |
@@ -78,13 +79,13 @@ Every rule gets its own git commit. History is clean and revertible per rule.
 4. **Semantic verification** — compares normalized agent lifecycle/ACL/DF events, not raw text logs
 5. **Atomic per-rule commits** — safety gate rejects unrelated dirty files
 
-Full details: `AGENTS.md` (106 lines) and `docs/architecture.md` (545 lines).
+Full details: `AGENTS.md` (110 lines) and `docs/architecture.md` (593 lines).
 
 ---
 
 ## Skill Inventory
 
-### Core (11 skills)
+### Core (12 skills)
 
 | Skill | Purpose |
 |-------|---------|
@@ -92,6 +93,7 @@ Full details: `AGENTS.md` (106 lines) and `docs/architecture.md` (545 lines).
 | `jade-core-change-collector` | Evidence-backed manifest of breaking changes |
 | `jade-core-tooling-scout` | Auto-fix discovery via OpenRewrite/PMD/Checkstyle |
 | `jade-core-build-fixer` | Build system audit + compiler flag updates |
+| `jade-core-knowledge-graph` | Java knowledge graph for impact analysis (Phase 3.5) |
 | `jade-core-scanner` | Regex flag injection + idempotent flag index |
 | `jade-core-batch-processor` | Per-rule file task lists from flag index |
 | `jade-core-rule-dispatcher` | Routes tasks to registry recipe scripts |
@@ -103,7 +105,7 @@ Full details: `AGENTS.md` (106 lines) and `docs/architecture.md` (545 lines).
 ### Recipes (registry-managed)
 
 Recipes are stored under `.claude/skills/java-migration-skill-registry/` in buckets
-`1.5-to-1.6`, `1.7`, and `shared`, with directory names such as
+`1.5-to-1.6`, `1.7`, `1.7-to-1.8`, and `shared`, with directory names such as
 `arrays-copyof` and `dummy`. Use `scripts/register_recipe.py` to scaffold and register a recipe. Each recipe is a
 standalone CLI script invoked by the dispatcher: `python apply.py --file <path> --line <num>`.
 
@@ -113,7 +115,7 @@ standalone CLI script invoked by the dispatcher: `python apply.py --file <path> 
 
 ```
 PolishedJADEite/
-├── AGENTS.md                         # 106-line agent constitution
+├── AGENTS.md                         # 110-line agent constitution
 ├── README.md                         # This file
 ├── LICENSE                           # MIT
 ├── JADE-4.6.0/                       # Original JADE source — never modified
@@ -125,6 +127,7 @@ PolishedJADEite/
 │   ├── jade-core-change-collector/   # Evidence-backed manifest
 │   ├── jade-core-tooling-scout/      # Tooling discovery
 │   ├── jade-core-build-fixer/        # Build system gate
+│   ├── jade-core-knowledge-graph/    # Java knowledge graph (Phase 3.5)
 │   ├── jade-core-scanner/            # Idempotent source tagger
 │   ├── jade-core-batch-processor/    # Per-rule task preparation
 │   ├── jade-core-rule-dispatcher/    # Dispatcher + recipe-registry.json
@@ -148,15 +151,22 @@ PolishedJADEite/
 │       └── plans/                     # Implementation plans
 ├── JadeDocumentation/                 # Static analysis output (Phase 0, optional)
 ├── migration-runs/
-│   ├── jade-1.5-to-1.6/               # Target migration run (clean start)
-│   └── sample/                        # Harness artifacts for testing
+│   ├── jade-1.5-to-1.6/               # 1.5→1.6 run (DONE)
+│   ├── jade-1.6-to-1.7/               # 1.6→1.7 run (DONE)
+│   ├── jade-1.7-to-1.8/               # 1.7→1.8 run (DONE)
+│   ├── jrba-gate/                     # JRBA consumer gate artifacts
+│   ├── e2e-dummy/                     # E2E dummy-recipe harness
+│   ├── sample/                        # Harness artifacts for testing
+│   └── test-e2e/                      # Test harness run
 ├── config/
 │   └── docker-images.json            # Centralized Docker image registry
 ├── consumer-playground/              # Runtime verification consumer projects
 │   ├── hw-jade/                      # Hotel/flight booking multi-agent system
+│   ├── jrba/                         # JRBA rules-engine consumer (Maven, Java 17)
+│   ├── restaurant-recommendation/    # Restaurant booking multi-agent system
 │   └── version-check/                # Minimal agent: echo version and exit
 ├── mock-sources/                     # Mock source documents for testing
-├── tests/                            # pytest suite (41 passed, 5 skipped)
+├── tests/                            # pytest suite (285 passed, 6 skipped)
 ├── benchmarks/                       # Evaluation cases and benchmark scripts
 ├── evals/                            # Skill evaluation harness
 └── report/                           # Project report
@@ -166,18 +176,20 @@ PolishedJADEite/
 
 ## Current State
 
-- **Core pipeline complete** — all 11 `jade-core-*` skills built, agnostic, validated
+- **Core pipeline complete** — all 12 `jade-core-*` skills built, agnostic, validated
+- **1.5→1.6 migration completed** — rules collected, tooling scouted, flags injected, batch verified
 - **1.6→1.7 migration completed** — 33 modernization changes (diamond operator, strings-in-switch)
-- **1.5→1.6 migration** — rules collected, tooling scouted, flag injection in progress
-- **Recipe skills exist** — `1.5-1.6-arrays-copyof`, `1.5-1.6-deque-retrofit`, `1.5-1.6-navigable-set-map`, `1.7-diamond-operator`, `1.7-strings-in-switch`, `noop`, `dummy`
-- **Consumer Playground** — runtime verification against real JADE consumer projects (`hw-jade`, `version-check`)
+- **1.7→1.8 migration completed** — thread-stop disabled rule applied, 4/4 consumers PASS runtime verify
+- **Recipe skills exist** — `1.5-1.6-arrays-copyof`, `1.5-1.6-deque-retrofit`, `1.5-1.6-navigable-set-map`, `1.7-diamond-operator`, `1.7-strings-in-switch`, `1.7-1.8-lambda-conversion`, `1.7-1.8-thread-stop-removal`, `noop`, `dummy`
+- **Knowledge graph** — `jade-core-knowledge-graph` builds `03.5-knowledge-graph.json` for impact analysis
+- **Consumer Playground** — runtime verification against real JADE consumer projects (`hw-jade`, `jrba`, `restaurant-recommendation`, `version-check`)
 - **Source governance enforced** — production mode restricts evidence to official allowlist only (Oracle/OpenJDK)
 - **Source catalog** — structured JSON registry for 8 migration paths with per-path source lists
 - **Dockerized build + runtime gates** — no host JDK or build tools required
 - **LLM-as-Extractor change collector** — `write_manifest.py` enforces 12+ schema validations per rule
 - **Core/Recipe split enforced** — dispatcher routes via `recipe-registry.json`
 - **Phase 0 optional** — `JadeDocumentation/` enriches verification for dynamic trace scenarios
-- **Test suite** — 41 passed, 5 skipped
+- **Test suite** — 285 passed, 6 skipped
 
 ---
 

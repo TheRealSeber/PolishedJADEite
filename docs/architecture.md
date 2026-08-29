@@ -62,6 +62,7 @@ baseline directory is never touched by any phase.
 | `01-` | MANIFEST | Change collector |
 | `02-` | TOOLING | Tooling scout |
 | `03-` | BUILD | Build system fixer |
+| `03.5-` | KNOWLEDGE_GRAPH | Knowledge graph builder |
 | `04-` | SCAN | Scanner |
 | `05-` | BATCH | Batch processor |
 | `06-` | FIX | Rule dispatcher (per task) |
@@ -204,13 +205,14 @@ plumbing.
 | 2 | `jade-core-change-collector` | Strict evidence-backed manifest generation |
 | 3 | `jade-core-tooling-scout` | OpenRewrite/PMD/Checkstyle dry-run discovery |
 | 4 | `jade-core-build-fixer` | Build system audit + Dockerized compilation |
-| 5 | `jade-core-scanner` | Regex tag injection + idempotent flag index |
-| 6 | `jade-core-batch-processor` | Per-rule file task list from flag index |
-| 7 | `jade-core-rule-dispatcher` | Routes tasks to registry recipes via `recipe-registry.json` |
-| 8 | `jade-core-verification` | Semantic trace normalization + outcome matching |
-| 9 | `jade-core-atomic-commit` | Per-rule git commit with safety gate |
-| 10 | `jade-core-retry-router` | Failure classification + bounded retry/requeue |
-| 11 | `jade-core-evaluator` | Skill matrix scoring from run artifacts |
+| 5 | `jade-core-knowledge-graph` | Java knowledge graph (`03.5-knowledge-graph.json`) for impact analysis |
+| 6 | `jade-core-scanner` | Regex tag injection + idempotent flag index |
+| 7 | `jade-core-batch-processor` | Per-rule file task list from flag index |
+| 8 | `jade-core-rule-dispatcher` | Routes tasks to registry recipes via `recipe-registry.json` |
+| 9 | `jade-core-verification` | Semantic trace normalization + outcome matching |
+| 10 | `jade-core-atomic-commit` | Per-rule git commit with safety gate |
+| 11 | `jade-core-retry-router` | Failure classification + bounded retry/requeue |
+| 12 | `jade-core-evaluator` | Skill matrix scoring from run artifacts |
 
 ### Utility Skills (`jade-utility-*`)
 
@@ -386,8 +388,23 @@ PHASE 0 (optional)           PHASE 1                 PHASE 2
               │         03-build-verify   │          │
               │                           │          │
               │ Gate: FAILED → halt       │          │
-              │       OK → SCAN_READY     │          │
+              │       OK → KNOWLEDGE_GRAPH_READY │    │
               └────────────────┬──────────┘          │
+                               │                     │
+                    PHASE 3.5  │                     │
+              ┌────────────────┴─────────────────────┘
+              │        KNOWLEDGE_GRAPH_READY
+              │
+              │ jade-core-knowledge-graph
+              │
+              │ Reads: 00-run-config
+              │        workspace/**/*.java
+              │
+              │ Writes: 03.5-knowledge-graph.json
+              │
+              │ Advisory: missing/partial graph → SKIP,
+              │ not a hard failure
+              └────────────────┬─────────────────────┐
                                │                     │
                     PHASE 6    │                     │
               ┌────────────────┴─────────────────────┘
@@ -527,8 +544,9 @@ python .claude/skills/<skill-name>/scripts/<script>.py \
 - `3` — environment failure (missing Docker, missing JDK, tool not found)
 
 **Build gates use Docker:** The `jade-core-build-fixer` and `jade-core-verification`
-skills compile code in ephemeral Docker containers (`frekele/ant:1.10.3-jdk8`).
-No host JDK or Ant installation is required.
+skills compile code in ephemeral Docker containers. Container images are resolved from
+the central registry (`config/docker-images.json`) by run-config target version — never
+hardcoded in scripts or test configs. No host JDK or Ant installation is required.
 
 **Atomic writes:** All artifact writes use tmp-file + atomic rename. No partial files
 on disk. If the process is killed mid-write, the artifact either doesn't exist or is

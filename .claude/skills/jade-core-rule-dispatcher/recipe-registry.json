@@ -49,5 +49,17 @@
     "skill": "jade-recipe-8-11-corba-retrofit",
     "script": ".claude/skills/java-migration-skill-registry/8-to-11/jade-recipe-8-11-corba-retrofit/scripts/apply.py",
     "description": "Retrofit removed org.omg.* (CORBA) modules with GlassFish CORBA jars + classpath for Java 11"
+  },
+  "STRING_ISEMPTY_ADOPTION": {
+    "skill": "jade-recipe-1.5-1.6-string-isempty",
+    "skill_md": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-1.5-1.6-string-isempty/SKILL.md",
+    "description": "Replace String.length() == 0 with String.isEmpty() where the receiver is proven to be a String",
+    "mode": "agent"
+  },
+  "ARRAYS_COPYOF_FULL_ARRAY_COPY": {
+    "skill": "jade-recipe-1.5-1.6-arrays-copyof-full",
+    "skill_md": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-1.5-1.6-arrays-copyof-full/SKILL.md",
+    "description": "Replace the full-array System.arraycopy idiom with java.util.Arrays.copyOf",
+    "mode": "agent"
   }
 }

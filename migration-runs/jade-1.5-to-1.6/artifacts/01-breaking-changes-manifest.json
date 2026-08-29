@@ -28,7 +28,34 @@
       "evidence_ref": "oracle-java6-compatibility::lines 50-51",
       "evidence_hash": "655eccd35dc8c708729fe0fe4e1ea10d5807afcbf3ccbb00d9dd33f582ffc0bd",
       "confidence": 1.0,
-      "verification_hint": "Check that build.xml javac tasks use source=1.6 and target=1.6 and compilation succeeds on Java 6."
+      "verification_hint": "Check that build.xml javac tasks use source=1.6 and target=1.6 and compilation succeeds on Java 6.",
+      "blast_class": "body-local",
+      "blast_class_evidence": {
+        "confidence": "high",
+        "reasoning": "All real sites are Ant <javac> source/target and <javacc> jdkversion/target attribute values in build.xml -- a build-tool file no .java source ever reads -- so the change can never alter a field type, a return type, a parameter type, or an implements/extends list, and the site list is cross-checked exactly against 03-build-fixes-plan.json, so the rule is classified body-local with high confidence.",
+        "sites": [
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.5-to-1.6/workspace/src/jade/build.xml",
+            "line": 159,
+            "what_changes": "The javac task attribute source=\"1.5\" becomes source=\"1.6\" (already applied in this workspace, the line now reads source=\"1.6\"); it is an Ant compiler flag inside a single <javac> element, it declares no Java type and no .java file references it."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.5-to-1.6/workspace/src/jade/build.xml",
+            "line": 158,
+            "what_changes": "The javac task attribute target=\"1.5\" becomes target=\"1.6\" on the same <javac> element that compiles ${src} into ${build}; it only changes the emitted class-file version, not any signature in the sources."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.5-to-1.6/workspace/src/jade/build.xml",
+            "line": 129,
+            "what_changes": "The <javacc> attribute pair jdkversion/target in target MakeACLParser is rewritten to 1.6; it changes only the generated-parser toolchain level for src/jade/lang/acl, and the generated classes keep their existing public API."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.5-to-1.6/workspace/src/jade/build.xml",
+            "line": 140,
+            "what_changes": "The <javacc> attribute target in target StandAloneMakeExtendedSLParser is rewritten to 1.6; same scope as line 129, a build-tool attribute with no Java-level consumer."
+          }
+        ]
+      }
     },
     {
       "id": "STRICTER_CAST_CHECKING",
@@ -52,7 +79,49 @@
       "evidence_ref": "oracle-java6-compatibility::lines 61-62",
       "evidence_hash": "655eccd35dc8c708729fe0fe4e1ea10d5807afcbf3ccbb00d9dd33f582ffc0bd",
       "confidence": 0.85,
-      "verification_hint": "Compile with Java 6 javac and ensure no new type incompatibility errors appear."
+      "verification_hint": "Compile with Java 6 javac and ensure no new type incompatibility errors appear.",
+      "blast_class": "signature",
+      "blast_class_evidence": {
+        "confidence": "medium",
+        "reasoning": "Although most of the 2548 flagged sites are local-variable assignments or scanner false positives, three genuine casts sit in method return position -- one of them, PlatformManagerStub.findSlice, implementing the PlatformManager interface contract -- so per the mixed-rule tie-break the rule is classified signature, with confidence kept at medium because its recipe is unregistered in recipe-registry.json and today falls back to a no-op.",
+        "sites": [
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.5-to-1.6/workspace/src/jade/src/jade/core/BaseNode.java",
+            "line": 74,
+            "what_changes": "The cast in 'return (Service.Slice)localSlices.get(serviceName);' is the whole body of 'protected Service.Slice getSlice(String serviceName)', so the cast type is identical to the declared return type; retyping the cast forces the method return type to change, which propagates to the 15 files calling getSlice( and to the 2 subclasses NodeLEAP and NodeAdapter that extend BaseNode."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.5-to-1.6/workspace/src/jade/src/jade/imtp/leap/PlatformManagerStub.java",
+            "line": 274,
+            "what_changes": "'return (Service.Slice) res.getParamAt(0);' is the return of 'public Service.Slice findSlice(String serviceKey, String sliceKey)', a method implementing the PlatformManager contract; changing the cast type changes the return type of an interface-implementing method, so the interface declaration and the 11 files referencing findSlice( must change too."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.5-to-1.6/workspace/src/jade/src/FIPA/MTSHelper.java",
+            "line": 42,
+            "what_changes": "'return (FIPA.MTS) that;' sits inside the public static CORBA helper 'public static FIPA.MTS narrow(org.omg.CORBA.Object that)'; the cast type equals the declared return type of a public API entry point, so any retype is a public signature change visible to every caller of MTSHelper.narrow."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.5-to-1.6/workspace/src/jade/src/jade/core/management/BEAgentManagementService.java",
+            "line": 190,
+            "what_changes": "'previous = (BackEndContainer.AgentImage) myContainer.addAgentImage(agentID, image);' assigns into the local variable declared as 'Agent previous = null;' at line 169; a retype here stays inside the method body, so this site alone would be body-local."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.5-to-1.6/workspace/src/jade/src/jade/gui/AgentTreePopupManager.java",
+            "line": 72,
+            "what_changes": "'current = (AgentTree.Node) selPath.getLastPathComponent();' assigns into the local 'AgentTree.Node current;' declared at line 65 inside 'private JPopupMenu getPopup(MouseEvent e)'; the change cannot leave the method body."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.5-to-1.6/workspace/src/jade/src/jade/content/schema/ObjectSchemaImpl.java",
+            "line": 247,
+            "what_changes": "Nothing changes: the flagged line is 'if(logger.isLoggable(Logger.CONFIG))' and the manifest regex matched the argument list '(Logger.CONFIG)', not a cast; this is a scanner false positive."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.5-to-1.6/workspace/src/jade/src/FIPA/AgentIDHelper.java",
+            "line": 14,
+            "what_changes": "Nothing changes: the flagged line is 'out.write_string(that.name);' and the regex matched the qualified field read '(that.name)' used as a call argument, not a cast expression."
+          }
+        ]
+      }
     }
   ]
 }

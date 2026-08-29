@@ -27,7 +27,44 @@
       "evidence_ref": "jep126-lambda-extension::lines 2-4, 64-69",
       "evidence_hash": "eaefd3848fa8f8a2434ce491ac43a13fb442cc5657153411b846f5549567bc3c",
       "confidence": 0.8,
-      "verification_hint": "Compile with Java 8 javac; verify anonymous SAM classes were replaced with lambdas and behavior is unchanged."
+      "verification_hint": "Compile with Java 8 javac; verify anonymous SAM classes were replaced with lambdas and behavior is unchanged.",
+      "blast_class": "body-local",
+      "blast_class_evidence": {
+        "confidence": "medium",
+        "reasoning": "In every sampled site the SAM-to-lambda rewrite ('new Thread(){...}' to 'new Thread(() -> {...})', and the argument/local-variable equivalents) replaces only the expression while the declared target type at the call site, field, or variable declaration is left untouched, so the rule is classified body-local, with confidence kept at medium because this run recorded zero scanner-validated flags for it and the evidence was sampled from a manifest-pattern re-scan instead.",
+        "sites": [
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.7-to-1.8/workspace/src/jade/src/jade/core/Runtime.java",
+            "line": 180,
+            "what_changes": "terminators.addLast(new Runnable() { public void run() {...} }) inside setCloseVM(boolean) becomes terminators.addLast(() -> {...}); only the argument expression is rewritten \u2014 the 'private LinkedList terminators' field (line 80) keeps its type, setCloseVM keeps its signature, and the consumers at lines 228/237/274 are unaffected."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.7-to-1.8/workspace/src/jade/src/jade/core/messaging/MessagingService.java",
+            "line": 1284,
+            "what_changes": "'InChannel.Dispatcher dispatcher = new InChannel.Dispatcher() { public void dispatchMessage(Envelope, byte[]) {...} }' inside installMTP(String,String) becomes a lambda initializer; the local variable's declared type and the SAM interface itself (src/jade/src/jade/mtp/InChannel.java:38-39, one abstract method) are not edited, and proto.activate(dispatcher, ...) still binds to the same InChannel.activate(Dispatcher,...) signature."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.7-to-1.8/workspace/src/jade/src/jade/domain/ams.java",
+            "line": 965,
+            "what_changes": "handlers.put(RemovedContainer.NAME, new Handler() { public void handle(Event ev) {...} }) in the EventManager constructor becomes a lambda; Handler is the private inner SAM interface declared at ams.java:947-949 and stays as-is, and the 'private Map handlers' field (line 962) keeps its raw Map type."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.7-to-1.8/workspace/src/jade/src/jade/domain/ams.java",
+            "line": 226,
+            "what_changes": "'Thread t = new Thread() { public void run() {...} }' (a shutdown hook) is rewritten by the recipe to 'new Thread(() -> {...})'; the local's declared type Thread is unchanged and the body's qualified 'ams.this' references (lines 228-231) resolve identically \u2014 the edit never leaves this method body."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.7-to-1.8/workspace/src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+            "line": 277,
+            "what_changes": "'Thread t = new Thread() { public void run() {...} }' becomes 'new Thread(() -> {...})'; the captured local 'p' (Profile) and the surrounding method signature are untouched, so nothing outside this file observes the change."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.7-to-1.8/workspace/src/jade/src/jade/core/messaging/MessagingService.java",
+            "line": 409,
+            "what_changes": "'new AbsoluteCounterValueProvider() { public long getValue() {...} }' is a non-convertible case \u2014 AbsoluteCounterValueProvider (src/jade/src/jade/core/sam/AbsoluteCounterValueProvider.java:5) is an abstract class, not an interface \u2014 so the recipe leaves the expression and writes a deferral comment; either way the edit is confined to the argument of samHelper.addCounterValueProvider(...)."
+          }
+        ]
+      }
     },
     {
       "id": "THREAD_STOP_DISABLED",
@@ -51,7 +88,39 @@
       "evidence_ref": "oracle-java8-compatibility::lines 414-419",
       "evidence_hash": "015ce7bb34b72bf80b349191e0afe3d43e60490d520481a04d5a90f85cb432e8",
       "confidence": 0.9,
-      "verification_hint": "Verify no Thread.stop(Throwable) calls remain; JADE's custom .stop() methods are false positives."
+      "verification_hint": "Verify no Thread.stop(Throwable) calls remain; JADE's custom .stop() methods are false positives.",
+      "blast_class": "body-local",
+      "blast_class_evidence": {
+        "confidence": "high",
+        "reasoning": "All 14 flagged call sites resolve to JADE's own Runnable-implementing helpers, plain classes, or JDK types with their own stop() method -- never java.lang.Thread.stop(Throwable) -- and the recipe only rewrites the flag line into a deferral comment next to the call, so no field type, return type, parameter type, or implements/extends clause is reachable and the rule is classified body-local with high confidence.",
+        "sites": [
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.7-to-1.8/workspace/src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringService.java",
+            "line": 261,
+            "what_changes": "Call is client.stop(true) on a UDPMonitorClient (plain class declared at UDPMonitorClient.java:53, not a Thread subclass); the recipe only rewrites/inserts the adjacent JADE-MODERNIZATION-DEFERRED comment line inside the body of shutdown() (lines 249-266) \u2014 no declared type, field or method signature is touched."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.7-to-1.8/workspace/src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+            "line": 723,
+            "what_changes": "Call is loopers[i].stop() where LoopManager (BEManagementService.java:1364) is 'implements Runnable' with its own stop() at line 1417 \u2014 not java.lang.Thread.stop(Throwable); only a marker comment is added inside the body of shutdown() (lines 707-743), the loopers[] field type and LoopManager's public API stay unchanged."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.7-to-1.8/workspace/src/jade/src/jade/tools/gui/ACLTextArea.java",
+            "line": 2951,
+            "what_changes": "Call is scrollTimer.stop() on a javax.swing.Timer inside mouseReleased(MouseEvent) (lines 2949-2955); the fix is a comment-only annotation inside that method body \u2014 no change to the enclosing anonymous MouseAdapter's signature or to ACLTextArea's fields."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.7-to-1.8/workspace/src/jade/src/jade/core/messaging/PersistentDeliveryManager.java",
+            "line": 290,
+            "what_changes": "Flag line carries the marker for the failureSender.stop() call on line 289; failureSender is an ExpirationChecker (inner class at line 106, 'implements Runnable', field declared line 334), so the only edit is the comment line inside the body of the public synchronized void stop() method (lines 285-292) \u2014 the field's declared type and the method signature are untouched."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.7-to-1.8/workspace/src/jade/src/jade/core/Runtime.java",
+            "line": 288,
+            "what_changes": "Flag line carries the marker for TimerDispatcher.getTimerDispatcher().stop() on line 287; TimerDispatcher (TimerDispatcher.java:43) 'implements Runnable' and declares its own stop() at line 141, so the edit stays a comment inside the body of endContainer() (lines 267-308) even though the graph lists 431 impacted files for this rule."
+          }
+        ]
+      }
     },
     {
       "id": "PERMGEN_FLAGS_REMOVED",

@@ -1,0 +1,29 @@
+{
+  "run_id": "compat-fixture",
+  "rule_id": "DUMMY_TEST_RULE",
+  "files": [
+    {
+      "file": "Example1.java",
+      "status": "PENDING",
+      "flags": [
+        {"rule_id": "DUMMY_TEST_RULE", "file": "Example1.java", "line": 1},
+        {"rule_id": "DUMMY_TEST_RULE", "file": "Example1.java", "line": 2},
+        {"rule_id": "DUMMY_TEST_RULE", "file": "Example1.java", "line": 3}
+      ]
+    },
+    {
+      "file": "Example2.java",
+      "status": "PENDING",
+      "flags": [
+        {"rule_id": "DUMMY_TEST_RULE", "file": "Example2.java", "line": 1}
+      ]
+    },
+    {
+      "file": "Example3.java",
+      "status": "PENDING",
+      "flags": [
+        {"rule_id": "DUMMY_TEST_RULE", "file": "Example3.java", "line": 1}
+      ]
+    }
+  ]
+}

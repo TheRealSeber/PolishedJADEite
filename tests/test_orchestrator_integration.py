@@ -1,8 +1,9 @@
-# Orchestrator integration tests deliberately operate on the shared
-# artifacts_dir fixture (migration-runs/sample/artifacts).  Unlike the
-# scanner test which uses tmp_path, these tests exercise the real
-# end-to-end pipeline and need live artifact state to validate phases,
-# history, and state transitions.
+# Orchestrator integration tests deliberately operate on the
+# sample_artifacts_dir fixture, an isolated tmp_path copy of
+# migration-runs/sample/artifacts (see tests/conftest.py). These tests
+# exercise the real end-to-end pipeline and need real artifact state to
+# validate phases, history, and state transitions, but never mutate the
+# tracked files in the repo working tree.
 import json
 import pathlib
 import subprocess

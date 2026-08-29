@@ -1,0 +1,22 @@
+{
+  "blast_class": "body-local",
+  "flag_index_artifact": "migration-runs/jade-1.7-to-1.8/artifacts/04-flag-index.json",
+  "flagged_files_missing_from_graph": [],
+  "graph_artifact": "migration-runs/jade-1.7-to-1.8/artifacts/03.5-knowledge-graph.json",
+  "graph_content_hash": "b63b1197a0899e49af1fdaebf9e585fee6be090263c6450fae8d8c0c322c656e",
+  "manifest_artifact": "migration-runs/jade-1.7-to-1.8/artifacts/01-breaking-changes-manifest.json",
+  "rule_id": "LAMBDA_CONVERSION",
+  "run_id": "jade-1.7-to-1.8",
+  "schema_version": 1,
+  "shard_count": 0,
+  "shards": [],
+  "status": "EMPTY",
+  "total_flagged_files": 0,
+  "total_flags": 0,
+  "warnings": [
+    {
+      "kind": "no_flags",
+      "message": "No flags for rule LAMBDA_CONVERSION in 04-flag-index.json"
+    }
+  ]
+}

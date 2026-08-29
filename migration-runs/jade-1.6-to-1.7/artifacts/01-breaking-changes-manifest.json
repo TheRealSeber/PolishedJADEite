@@ -27,7 +27,44 @@
       "evidence_ref": "oracle-java7-language::lines 18-19",
       "evidence_hash": "74465a28639a10309a488b58691845fbc335841b64d48dd2fcf0e047ab0a9835",
       "confidence": 1.0,
-      "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors."
+      "verification_hint": "Replace explicit generic type arguments with diamond operator (<>). Verify compilation succeeds on Java 7 with no type inference errors.",
+      "blast_class": "body-local",
+      "blast_class_evidence": {
+        "confidence": "high",
+        "reasoning": "Every one of the 39 applied diffs rewrites only the right-hand-side generic-instance-creation expression ('new X<A,B>(...)' to 'new X<>(...)'), leaving the declared field or local type on the left byte-identical, so no calling file is ever forced to change and the rule is classified body-local with high confidence.",
+        "sites": [
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.6-to-1.7/workspace/src/jade/src/jade/core/sam/SAMInfo.java",
+            "line": 131,
+            "what_changes": "Local variable initializer inside the private static method oneShotComputeAggregatedMeasures (declared at line 130): only the constructor type arguments are erased (new HashMap<String, AverageMeasure>() -> new HashMap<>()); the declared local type Map<String, AverageMeasure> and the enclosing method signature stay byte-identical."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.6-to-1.7/workspace/src/jade/src/jade/core/sam/SAMInfo.java",
+            "line": 55,
+            "what_changes": "Still-unconverted flag site: this(new HashMap<String, AverageMeasure>(), new HashMap<String, Long>()) in the no-arg constructor; applying the rule erases the two argument-position type argument lists, while the delegated constructor SAMInfo(Map<String, AverageMeasure>, Map<String, Long>) at line 59 keeps both parameter types unchanged, so no overload resolution visible to another file is touched."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.6-to-1.7/workspace/src/jade/src/jade/core/sam/SAMService.java",
+            "line": 68,
+            "what_changes": "Field-declaration site (the interesting case): private List<CounterInfo> monitoredCounters = new ArrayList<CounterInfo>() -> new ArrayList<>(); only the right-hand side initializer expression loses its type argument, the field's declared type List<CounterInfo> is preserved verbatim, so every reader of the field elsewhere keeps compiling unchanged."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.6-to-1.7/workspace/src/jade/src/jade/core/behaviours/OntologyServer.java",
+            "line": 93,
+            "what_changes": "Second field-declaration site: private transient Map<String, Method> cachedMethods = new HashMap<String, Method>() -> new HashMap<>(); the field type Map<String, Method> is untouched, and the paired assignment at line 381 inside getMethod() is an ordinary statement in a method body."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.6-to-1.7/workspace/src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+            "line": 214,
+            "what_changes": "Local variable inside the private static method buildAccessorsMap (line 212): List<Method> getters = new ArrayList<Method>() -> new ArrayList<>(); the declared local type and the method's return type Map<SlotKey, SlotAccessData> are unaffected."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.6-to-1.7/workspace/src/jade/src/jade/content/onto/ClassDiscover.java",
+            "line": 107,
+            "what_changes": "Local variable inside the package-private static method getClassessOfInterface (line 106): List<Class> classList = new ArrayList<Class>() -> new ArrayList<>(); the method's declared return type List<Class> is not part of the edit, so callers of getClassessOfInterface see no change."
+          }
+        ]
+      }
     },
     {
       "id": "STRINGS_IN_SWITCH",
@@ -51,7 +88,39 @@
       "evidence_ref": "oracle-java7-language::lines 16-17",
       "evidence_hash": "74465a28639a10309a488b58691845fbc335841b64d48dd2fcf0e047ab0a9835",
       "confidence": 1.0,
-      "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes."
+      "verification_hint": "Convert if-else chains with equals() on String to switch statements. Verify compilation succeeds on Java 7 with no semantic changes.",
+      "blast_class": "body-local",
+      "blast_class_evidence": {
+        "confidence": "high",
+        "reasoning": "Every flagged site is an if/else-if chain over a String tested inside a method, constructor, or anonymous-listener body that gets rewritten into an equivalent switch statement without touching any field type, return type, parameter type, or implements/extends clause, so no calling file has to change and the rule is classified body-local with high confidence.",
+        "sites": [
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.6-to-1.7/workspace/src/jade/src/jade/util/Logger.java",
+            "line": 323,
+            "what_changes": "First branch of the 9-branch if-chain (lines 323-340) inside the private static method getLevel(String level) declared at line 316; the chain collapses into 'switch (level) { case \"severe\": return SEVERE; ... }'. Nothing outside the catch block moves: the method stays 'private static int getLevel(String level)'. The recipe already produced such a switch at lines 341-... in this very file (it appended the switch without deleting the ifs and emitted unreachable 'break;' after 'return;', which is a separate correctness defect of the recipe, not a blast-radius one)."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.6-to-1.7/workspace/src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+            "line": 520,
+            "what_changes": "Head of a two-branch if/else chain (lines 520-530) over the local String 'exception' (line 516) inside 'protected void checkRemoteExceptions(Command response) throws DispatcherException, UnreachableException' (line 514); the branches become case labels on string constants. The parameter type Command, the void return type and the throws clause are all outside the edited region."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.6-to-1.7/workspace/src/jade/src/jade/imtp/leap/BackEndStub.java",
+            "line": 168,
+            "what_changes": "Two sequential ifs (lines 168 and 172) test '((String) r.getParamAt(1)).equals(...)' inside 'public Object serviceInvokation(String, String, String, Object[]) throws NotFoundException, ServiceException, IMTPException' (line 154). Converting them requires hoisting the cast into a local String selector and switching on it - a new local variable plus two case labels inside the body; the public method signature and its throws clause are untouched."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.6-to-1.7/workspace/src/jade/src/jade/gui/AclGui.java",
+            "line": 419,
+            "what_changes": "'else if (lastSelectedItem.equals(LABEL_TO_ADD_PROT))' inside an anonymous ActionListener body; the selector 'lastSelectedItem' is a private String field (line 177) that is only read, and LABEL_TO_ADD_PROT is 'private static final String' (line 178), i.e. already a valid compile-time case label - so the conversion adds a switch statement and changes no declaration. Note the sibling branch at line 439 uses reference comparison '!=' rather than equals(), which a switch would silently change in semantics; that is a correctness trap for the recipe, still confined to this method."
+          },
+          {
+            "file": "/Users/sebastian/Desktop/myown/PolishedJADEite/migration-runs/jade-1.6-to-1.7/workspace/src/jade/src/jade/core/AgentContainerImpl.java",
+            "line": 476,
+            "what_changes": "Single 'if (dsc.getName().equals(\"jade.core.security.Security\"))' inside 'void bootAllServices(List services) throws ServiceException' (line 469) - not a chain at all, which is why the recipe recorded it SKIPPED ('Deferred - single branch, no convertible chain'). Even if converted, the edit is one statement in the method body; the raw 'List' parameter type is unaffected."
+          }
+        ]
+      }
     },
     {
       "id": "TRY_WITH_RESOURCES",

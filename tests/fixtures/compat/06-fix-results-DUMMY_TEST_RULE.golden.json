@@ -1,0 +1,154 @@
+[
+  {
+    "task_id": "DUMMY_TEST_RULE-Example1-f000",
+    "rule_id": "DUMMY_TEST_RULE",
+    "file": "Example1.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 1-1",
+    "match_context": "jade-recipe-dummy",
+    "diff_summary": "Dummy test executed at line 1",
+    "verification_hint": "compat fixture manual check",
+    "errors": [],
+    "warnings": [
+      {
+        "kind": "graph_unavailable",
+        "message": "flag carries no graph metadata"
+      }
+    ],
+    "applied_at": "1970-01-01T00:00:00Z",
+    "graph_context": {
+      "status": "unavailable",
+      "diagnostics": [
+        {
+          "kind": "graph_unavailable",
+          "message": "flag carries no graph metadata"
+        }
+      ]
+    }
+  },
+  {
+    "task_id": "DUMMY_TEST_RULE-Example1-f001",
+    "rule_id": "DUMMY_TEST_RULE",
+    "file": "Example1.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 2-2",
+    "match_context": "jade-recipe-dummy",
+    "diff_summary": "Dummy test executed at line 2",
+    "verification_hint": "compat fixture manual check",
+    "errors": [],
+    "warnings": [
+      {
+        "kind": "graph_unavailable",
+        "message": "flag carries no graph metadata"
+      },
+      {
+        "kind": "graph_unavailable",
+        "message": "flag carries no graph metadata"
+      }
+    ],
+    "applied_at": "1970-01-01T00:00:00Z",
+    "graph_context": {
+      "status": "unavailable",
+      "diagnostics": [
+        {
+          "kind": "graph_unavailable",
+          "message": "flag carries no graph metadata"
+        }
+      ]
+    }
+  },
+  {
+    "task_id": "DUMMY_TEST_RULE-Example1-f002",
+    "rule_id": "DUMMY_TEST_RULE",
+    "file": "Example1.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 3-3",
+    "match_context": "jade-recipe-dummy",
+    "diff_summary": "Dummy test executed at line 3",
+    "verification_hint": "compat fixture manual check",
+    "errors": [],
+    "warnings": [
+      {
+        "kind": "graph_unavailable",
+        "message": "flag carries no graph metadata"
+      },
+      {
+        "kind": "graph_unavailable",
+        "message": "flag carries no graph metadata"
+      },
+      {
+        "kind": "graph_unavailable",
+        "message": "flag carries no graph metadata"
+      }
+    ],
+    "applied_at": "1970-01-01T00:00:00Z",
+    "graph_context": {
+      "status": "unavailable",
+      "diagnostics": [
+        {
+          "kind": "graph_unavailable",
+          "message": "flag carries no graph metadata"
+        }
+      ]
+    }
+  },
+  {
+    "task_id": "DUMMY_TEST_RULE-Example2",
+    "rule_id": "DUMMY_TEST_RULE",
+    "file": "Example2.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 1-1",
+    "match_context": "jade-recipe-dummy",
+    "diff_summary": "Dummy test executed at line 1",
+    "verification_hint": "compat fixture manual check",
+    "errors": [],
+    "warnings": [
+      {
+        "kind": "graph_unavailable",
+        "message": "flag carries no graph metadata"
+      }
+    ],
+    "applied_at": "1970-01-01T00:00:00Z",
+    "graph_context": {
+      "status": "unavailable",
+      "diagnostics": [
+        {
+          "kind": "graph_unavailable",
+          "message": "flag carries no graph metadata"
+        }
+      ]
+    }
+  },
+  {
+    "task_id": "DUMMY_TEST_RULE-Example3",
+    "rule_id": "DUMMY_TEST_RULE",
+    "file": "Example3.java",
+    "status": "FIXED",
+    "match_count": 1,
+    "match_region": "lines 1-1",
+    "match_context": "jade-recipe-dummy",
+    "diff_summary": "Dummy test executed at line 1",
+    "verification_hint": "compat fixture manual check",
+    "errors": [],
+    "warnings": [
+      {
+        "kind": "graph_unavailable",
+        "message": "flag carries no graph metadata"
+      }
+    ],
+    "applied_at": "1970-01-01T00:00:00Z",
+    "graph_context": {
+      "status": "unavailable",
+      "diagnostics": [
+        {
+          "kind": "graph_unavailable",
+          "message": "flag carries no graph metadata"
+        }
+      ]
+    }
+  }
+]

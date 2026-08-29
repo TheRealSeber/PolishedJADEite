@@ -22,9 +22,12 @@ def _load_runtime_verify():
 def test_jrba_contains_only_all_production_java_sources():
     sources = sorted((CONSUMER / "src/main/java").rglob("*.java"))
 
+    # 88 vendored JRBA production sources + 2 consumer probe agents.
     assert len(sources) == 90
     assert all("/org/jrba/" in source.as_posix() for source in sources)
     assert (CONSUMER / "src/main/java/org/jrba/agentmodel/domain/AbstractAgent.java").is_file()
+    assert (CONSUMER / "src/main/java/org/jrba/consumer/JrbaIntegrationAgent.java").is_file()
+    assert (CONSUMER / "src/main/java/org/jrba/consumer/JrbaScenariosAgent.java").is_file()
 
 
 def test_jrba_maven_project_declares_workspace_compatible_dependencies():
@@ -46,8 +49,10 @@ def test_jrba_config_uses_maven_verifier_contract():
 
     assert config["build_mode"] == "maven"
     assert config["maven_project_root"] == "."
+    assert "JRBA production-source Maven consumer integration check" in config["description"]
     assert "S1 facts-driven rule" in config["description"]
     assert "S4 JADE interop" in config["description"]
+    assert "Java 17" in config["description"]
     assert config["docker_image"] == "${TARGET_DOCKER_IMAGE}"
     assert config["main_class"] == "jade.Boot"
     assert config["boot_args"] == ["-agents", "runner:org.jrba.consumer.JrbaScenariosAgent"]
@@ -55,9 +60,30 @@ def test_jrba_config_uses_maven_verifier_contract():
     assert config["runtime_java_version"] == 17
     assert config["jade_artifact"] == "src/jade/lib/jade.jar"
     assert config["classpath_deps"] == ["src/jade/lib/jade.jar"]
-    assert config["expected_stdout_markers"][0] == "JRBA_TEST_STARTED"
-    assert "JRBA_S4_PASSED" in config["expected_stdout_markers"]
-    assert config["expected_stdout_markers"][-1] == "JRBA_TEST_PASSED"
+    assert config["expected_stdout_markers"] == [
+        "JRBA_TEST_STARTED",
+        "JRBA_S1_STARTED",
+        "JRBA_S1_RULE_SKIPPED",
+        "JRBA_S1_RULE_EXECUTED",
+        "JRBA_S1_PASSED",
+        "JRBA_S2_STARTED",
+        "JRBA_S2_ALL_EXECUTED",
+        "JRBA_S2_ORDER_OK",
+        "JRBA_S2_PASSED",
+        "JRBA_S3_STARTED",
+        "JRBA_S3_RS0",
+        "JRBA_S3_RS1",
+        "JRBA_S3_ISOLATED",
+        "JRBA_S3_MISSING_RS_HANDLED",
+        "JRBA_S3_PASSED",
+        "JRBA_S4_STARTED",
+        "JRBA_S4_MESSAGE_OK",
+        "JRBA_S4_DF_REGISTERED",
+        "JRBA_S4_DF_FOUND",
+        "JRBA_S4_PASSED",
+        "JRBA_BEHAVIOR_EXECUTED",
+        "JRBA_TEST_PASSED",
+    ]
     assert config["failure_stdout_markers"] == ["JRBA_TEST_FAILED"]
     assert config["timeout_seconds"] > 0
 

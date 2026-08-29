@@ -1,0 +1,46 @@
+{
+  "run_id": "jade-8-to-11",
+  "generated_at": "2026-08-29T14:55:00Z",
+  "notes": "All rules are extracted by reading comprehension from the fetched official sources. Rejected candidates below were read in the sources but deliberately NOT promoted to manifest rules because they have zero matches in the JADE 8 workspace or describe deprecations/behavioural changes that require no source transformation for this codebase.",
+  "rejected_candidates": [
+    {
+      "candidate_id": "JAVA_EE_MODULES_REMOVED",
+      "source": "jep320-remove-ee-corba",
+      "source_lines": "20-26, 51-65",
+      "reason": "JEP 320 removes java.xml.bind (JAXB), java.xml.ws (JAX-WS), java.activation (JAF), java.xml.ws.annotation (Common Annotations) and java.transaction (JTA). The workspace has zero references to javax.xml.bind, javax.xml.ws, javax.activation, javax.annotation or javax.transaction (verified by rg). No source transform applies; dependency audit during BUILD_GATE_READY reports these as covered by the JDK-11 readiness scan."
+    },
+    {
+      "candidate_id": "RMI_IIOP_REMOVED",
+      "source": "jep320-remove-ee-corba",
+      "source_lines": "70",
+      "reason": "JEP 320 removes RMI-IIOP packages javax.rmi and javax.rmi.CORBA. The workspace has zero references to javax.rmi (verified by rg). No source transform applies."
+    },
+    {
+      "candidate_id": "NASHORN_DEPRECATED",
+      "source": "jep335-deprecate-nashorn",
+      "source_lines": "14-20",
+      "reason": "JEP 335 terminally deprecates jdk.scripting.nashorn and jjs in Java 11 (not removed). The workspace has zero references to jdk.nashorn.* or ScriptEngine usage (verified by rg). Deprecation only; no action required."
+    },
+    {
+      "candidate_id": "PACK200_DEPRECATED",
+      "source": "jep336-deprecate-pack200",
+      "source_lines": "10-15",
+      "reason": "JEP 336 terminally deprecates java.util.jar.Pack200 and pack200/unpack200 tools in Java 11 (not removed). The workspace has zero references to Pack200 (verified by rg). Deprecation only; no action required."
+    },
+    {
+      "candidate_id": "UNDERSCORE_IDENTIFIER_ERROR",
+      "source": "oracle-migrate-index",
+      "source_lines": "141-142",
+      "reason": "As of release 9 the underscore is a keyword and may not be used as an identifier (error since JDK 9). The workspace uses only '__index' style identifiers, never a single '_'. Verified by rg. No action required."
+    },
+    {
+      "candidate_id": "NEST_ACCESS_CONTROL",
+      "source": "jep181-nest-access",
+      "source_lines": "2, 172",
+      "reason": "JEP 181 (nest-based access control) is behavioural; the JEP states 'All Java language accesses that compile and run today will compile and run with the nestmate changes, with no changes to the source code.' No source transform applies."
+    }
+  ],
+  "adopted_rules_summary": {
+    "CORBA_REMOVAL": "HIGH — the only breaking change with real workspace usage (38 files reference org.omg.*). Fix is a build/dependency retrofit: vendor GlassFish CORBA jars under lib/corba/ and extend the Ant javac classpath (JEP 320 line 72 confirms GlassFish took over CORBA/RMI-IIOP stewardship; the JEP mandates standalone deployment on the class path)."
+  }
+}

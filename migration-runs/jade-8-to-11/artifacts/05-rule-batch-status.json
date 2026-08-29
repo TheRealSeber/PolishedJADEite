@@ -1,0 +1,11 @@
+{
+  "run_id": "artifacts",
+  "rule_id": "CORBA_REMOVAL",
+  "total_files": 38,
+  "completed": 38,
+  "failed": 0,
+  "skipped": 0,
+  "pending": 0,
+  "status": "DONE",
+  "updated_at": "2026-08-29T15:14:09Z"
+}

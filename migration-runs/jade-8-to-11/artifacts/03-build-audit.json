@@ -1,0 +1,22 @@
+{
+  "run_id": "jade-8-to-11",
+  "status": "OK",
+  "build_system": "ant",
+  "build_file": "migration-runs\\jade-8-to-11\\workspace\\src\\jade\\build.xml",
+  "source_version": "8",
+  "target_version": "11",
+  "build_exit_code": 0,
+  "docker_image": "jade-ant:11",
+  "error_count": 0,
+  "applied_fixes_count": 0,
+  "pending_fixes_count": 0,
+  "dependency_risk_level": "NONE",
+  "dependency_blockers_count": 0,
+  "dependency_warnings_count": 0,
+  "dependency_upgrade_candidates_count": 0,
+  "env": {
+    "docker": "available"
+  },
+  "jade_jar_built": true,
+  "updated_at": "2026-08-29T15:20:25Z"
+}

@@ -1,0 +1,17 @@
+{
+  "run_id": "jade-8-to-11",
+  "workspace": "migration-runs/jade-8-to-11/workspace",
+  "total_files_scanned": 1015,
+  "total_new_flags": 333,
+  "idempotent_skips": 0,
+  "by_rule": {
+    "CORBA_REMOVAL": {
+      "name": "Retrofit removed CORBA modules (org.omg.*) with standalone GlassFish CORBA",
+      "severity": "HIGH",
+      "count": 333
+    }
+  },
+  "by_confidence": {
+    "1.0": 333
+  }
+}

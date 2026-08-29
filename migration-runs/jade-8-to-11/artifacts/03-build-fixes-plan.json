@@ -1,0 +1,108 @@
+{
+  "run_id": "jade-8-to-11",
+  "build_system": "ant",
+  "target_version": "11",
+  "fixes": [],
+  "analysis_summary": {
+    "compiler_targets": [
+      {
+        "current_source": "11",
+        "current_target": "11",
+        "needs_update": false
+      }
+    ],
+    "javacc_targets": [
+      {
+        "jdkversion": "11",
+        "needs_update": false
+      },
+      {
+        "jdkversion": "11",
+        "needs_update": false
+      },
+      {
+        "jdkversion": "11",
+        "needs_update": false
+      }
+    ],
+    "dependencies": [
+      {
+        "group": "commons-codec",
+        "artifact": "commons-codec",
+        "version": "1.3"
+      }
+    ],
+    "dependency_compatibility": {
+      "build_system": "ant",
+      "target_version": "11",
+      "risk_level": "NONE",
+      "blockers": [],
+      "warnings": [],
+      "upgrade_candidates": []
+    },
+    "issues": [],
+    "java11_removed_modules_audit": {
+      "note": "Constraint #13 audit — removed JDK modules/libraries for Java 11+ targets (JEP 320). The automated dependency scan only inspects dependencies declared in build files, so the removed-modules surface was audited manually against workspace sources (rg across src/**/*.java).",
+      "findings": [
+        {
+          "family": "CORBA (org.omg.* / java.corba)",
+          "severity": "BLOCKER",
+          "status": "RESOLVED",
+          "workspace_usage": "38 files (FIPA/* stubs + jade/mtp/iiop/MessageTransportProtocol.java), 333 flagged references",
+          "resolution": "Vendored GlassFish CORBA 4.2.2 (org.glassfish.corba:glassfish-corba-orb:4.2.2 + transitive set incl. glassfish-corba-omgapi which provides org.omg.*) under src/jade/lib/corba/ and wired it into build.xml compile.classpath. Build verified on JDK 11 (BUILD SUCCESSFUL, jade.jar built).",
+          "recommended_version": "4.2.2 (MIGRATE_AWAY from JDK-bundled CORBA per JEP 320)"
+        },
+        {
+          "family": "JAXB (javax.xml.bind / java.xml.bind)",
+          "severity": "BLOCKER",
+          "status": "NO_WORKSPACE_USAGE",
+          "workspace_usage": "0 files",
+          "resolution": "None required — JADE source has zero references. If consumers require JAXB, add javax.xml.bind:jaxb-api >= 2.3.1.",
+          "recommended_version": "jaxb-api 2.3.1"
+        },
+        {
+          "family": "JAX-WS / SAAJ (javax.xml.ws / java.xml.ws)",
+          "severity": "WARNING",
+          "status": "NO_WORKSPACE_USAGE",
+          "workspace_usage": "0 files",
+          "resolution": "None required — JADE source has zero references.",
+          "recommended_version": "jaxws-api 2.3.1"
+        },
+        {
+          "family": "JAF (javax.activation / java.activation)",
+          "severity": "WARNING",
+          "status": "NO_WORKSPACE_USAGE",
+          "workspace_usage": "0 files",
+          "resolution": "None required — JADE source has zero references.",
+          "recommended_version": "javax.activation-api 1.2.0"
+        },
+        {
+          "family": "Common Annotations (javax.annotation / java.xml.ws.annotation)",
+          "severity": "WARNING",
+          "status": "NO_WORKSPACE_USAGE",
+          "workspace_usage": "0 files",
+          "resolution": "None required — JADE source has zero references.",
+          "recommended_version": "javax.annotation-api 1.3.2"
+        },
+        {
+          "family": "RMI-IIOP (javax.rmi / javax.rmi.CORBA)",
+          "severity": "BLOCKER",
+          "status": "NO_WORKSPACE_USAGE",
+          "workspace_usage": "0 files",
+          "resolution": "None required — JADE source has zero references. rmic in build.xml uses plain stubs, not -iiop.",
+          "recommended_version": "MIGRATE_AWAY"
+        },
+        {
+          "family": "JTA (javax.transaction / java.transaction)",
+          "severity": "WARNING",
+          "status": "NO_WORKSPACE_USAGE",
+          "workspace_usage": "0 files",
+          "resolution": "None required — JADE source has zero references.",
+          "recommended_version": "javax.transaction-api 1.3"
+        }
+      ],
+      "risk_level_after_audit": "RESOLVED — the only blocker (CORBA) is retrofitted and the JDK-11 build is verified."
+    }
+  },
+  "updated_at": "2026-08-29T15:20:25Z"
+}

@@ -1,0 +1,8 @@
+{
+  "run_id": "jade-8-to-11",
+  "rules": [
+    "CORBA_REMOVAL"
+  ],
+  "generated_at": "2026-08-29T15:10:00Z",
+  "decision": "User-approved: CORBA_REMOVAL (HIGH, mandatory breaking change) enters the queue. No LOW/INFO modernization rules were flagged, so nothing was deferred."
+}

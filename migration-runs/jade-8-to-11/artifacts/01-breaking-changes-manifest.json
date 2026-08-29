@@ -1,0 +1,33 @@
+{
+  "run_id": "jade-8-to-11",
+  "generated_at": "2026-08-29T14:53:41Z",
+  "source_version": "8",
+  "target_version": "11",
+  "citation": "Extracted from 6 source(s): jep320-remove-ee-corba, oracle-migrate-removed-ee-corba, jep335-deprecate-nashorn, jep181-nest-access, jep336-deprecate-pack200, oracle-migrate-index",
+  "rules": [
+    {
+      "id": "CORBA_REMOVAL",
+      "name": "Retrofit removed CORBA modules (org.omg.*) with standalone GlassFish CORBA",
+      "description": "Java SE 11 removes the java.corba module (JEP 320). The org.omg.CORBA, org.omg.CosNaming, org.omg.PortableServer and related packages no longer exist in the JDK runtime image, so any source referencing org.omg.* fails to compile on JDK 11. The JEP confirms standalone CORBA implementations are available (GlassFish CORBA / RMI-IIOP stewardship moved to the Eclipse Foundation) and must be deployed on the class path.",
+      "fix_strategy": "recipe:jade-recipe-8-11-corba-retrofit",
+      "severity": "HIGH",
+      "category": "API_REMOVAL",
+      "match_pattern": "\\borg\\.omg\\.[A-Za-z_]",
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "\\borg\\.omg\\.[A-Za-z_][A-Za-z0-9_.]*",
+          "target_extensions": [
+            ".java"
+          ],
+          "reason": "org.omg.* (CORBA API) classes were removed from the JDK in Java SE 11 (JEP 320); references no longer compile without a standalone CORBA implementation on the class path.",
+          "confidence": 1.0
+        }
+      ],
+      "evidence_ref": "jep320-remove-ee-corba::lines 20-26, 32-40, 47, 69-72",
+      "evidence_hash": "086ba7a180f52d85ab82b6caa70ddc202393f1123260fbc12d5829d9688c237d",
+      "confidence": 1.0,
+      "verification_hint": "After retrofit, 'ant jade' on JDK 11 must compile FIPA/*.java and jade/mtp/iiop/*.java against lib/corba/*.jar and produce BUILD SUCCESSFUL; jade.jar must contain the FIPA stub classes."
+    }
+  ]
+}

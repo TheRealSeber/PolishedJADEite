@@ -1,0 +1,66 @@
+{
+  "run_id": "jade-8-to-11",
+  "modern_jdk": "C:\\Program Files\\Java\\jdk-25.0.2",
+  "tools": {
+    "openrewrite": {
+      "available": false,
+      "version": null
+    },
+    "pmd": {
+      "available": false,
+      "version": null
+    },
+    "checkstyle": {
+      "available": false,
+      "version": null
+    }
+  },
+  "findings": {
+    "run_id": "jade-8-to-11",
+    "source_version": "8",
+    "target_version": "11",
+    "workspace_path": "migration-runs\\jade-8-to-11\\workspace",
+    "openrewrite": {
+      "available": false,
+      "version": null,
+      "recipes": []
+    },
+    "pmd": {
+      "available": false,
+      "version": null,
+      "violations": []
+    },
+    "checkstyle": {
+      "available": false,
+      "version": null,
+      "violations": []
+    }
+  },
+  "available_tools": [],
+  "unavailable_tools": [
+    "openrewrite",
+    "pmd",
+    "checkstyle"
+  ],
+  "findings_summary": {
+    "openrewrite": {
+      "recipes_total": 0,
+      "recipes_applicable": 0,
+      "recipes_not_applicable": 0
+    },
+    "pmd": {
+      "violations_total": 0,
+      "rulesets_used": [
+        "category/java/bestpractices.xml",
+        "category/java/codestyle.xml",
+        "category/java/errorprone.xml"
+      ]
+    },
+    "checkstyle": {
+      "violations_total": 0,
+      "checks_triggered": []
+    }
+  },
+  "manifest_merge_count": 0,
+  "updated_at": "2026-08-29T14:53:48Z"
+}

@@ -44,5 +44,10 @@
     "skill": "jade-recipe-1.7-1.8-lambda-conversion",
     "script": ".claude/skills/java-migration-skill-registry/1.7-to-1.8/jade-recipe-1.7-1.8-lambda-conversion/scripts/apply.py",
     "description": "Convert anonymous SAM classes to Java 8 lambda expressions"
+  },
+  "CORBA_REMOVAL": {
+    "skill": "jade-recipe-8-11-corba-retrofit",
+    "script": ".claude/skills/java-migration-skill-registry/8-to-11/jade-recipe-8-11-corba-retrofit/scripts/apply.py",
+    "description": "Retrofit removed org.omg.* (CORBA) modules with GlassFish CORBA jars + classpath for Java 11"
   }
 }

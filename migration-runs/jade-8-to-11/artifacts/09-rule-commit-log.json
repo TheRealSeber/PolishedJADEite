@@ -1,0 +1,12 @@
+{
+  "run_id": "jade-8-to-11",
+  "commits": [
+    {
+      "rule_id": "CORBA_REMOVAL",
+      "commit_sha": "6d87444d417b445e5b8fe7c15783a914d3ed79a2",
+      "message": "fix(migration): resolved CORBA_REMOVAL - retrofit GlassFish CORBA for Java 11",
+      "files_count": 1197,
+      "committed_at": "2026-08-29T15:25:00Z"
+    }
+  ]
+}

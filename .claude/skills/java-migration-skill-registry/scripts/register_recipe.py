@@ -16,6 +16,12 @@ from typing import Dict
 BUCKETS = {"1.5-to-1.6", "1.7", "1.7-to-1.8", "shared"}
 REGISTRY_SCRIPT_PREFIX = ".claude/skills/java-migration-skill-registry"
 REQUIRED_ENTRY_FIELDS = ("skill", "script", "description")
+# Agent-mode entries (recipe-registry.json entry carrying "mode": "agent")
+# point at a SKILL.md instead of a script -- see jade-core-rule-dispatcher's
+# --emit-agent-tasks / --record-agent-result. An entry with no "mode" key
+# (or "mode": "script") is validated exactly as before this constant existed.
+REQUIRED_AGENT_ENTRY_FIELDS = ("skill", "skill_md", "description")
+VALID_MODES = ("script", "agent")
 
 
 def _safe_segment(value: str, label: str) -> None:
@@ -24,6 +30,80 @@ def _safe_segment(value: str, label: str) -> None:
         raise ValueError(f"{label} must be one path segment")
     if path.is_absolute() or "/" in value or "\\" in value:
         raise ValueError(f"{label} must not contain path separators")
+
+
+def _validate_script_entry(
+    rule_id: str, entry: Dict, registry_root: pathlib.Path, resolved_root: pathlib.Path, prefix: tuple
+) -> None:
+    script = entry["script"]
+    script_path = pathlib.PurePosixPath(script)
+    if (
+        "\\" in script
+        or script_path.is_absolute()
+        or script_path.parts[: len(prefix)] != prefix
+        or len(script_path.parts) != len(prefix) + 4
+        or script_path.parts[-2:] != ("scripts", "apply.py")
+    ):
+        raise ValueError(f"invalid registry entry {rule_id}: unsafe script path")
+    bucket, recipe_name = script_path.parts[len(prefix) : len(prefix) + 2]
+    try:
+        _safe_segment(bucket, "bucket")
+        _safe_segment(recipe_name, "recipe-name")
+    except ValueError as exc:
+        raise ValueError(f"invalid registry entry {rule_id}: unsafe script path") from exc
+    if bucket not in BUCKETS:
+        raise ValueError(f"invalid registry entry {rule_id}: unknown bucket")
+    expected_script = (
+        f"{REGISTRY_SCRIPT_PREFIX}/{bucket}/{recipe_name}/scripts/apply.py"
+    )
+    if script != expected_script:
+        raise ValueError(f"invalid registry entry {rule_id}: unsafe script path")
+    resolved_script = registry_root.joinpath(bucket, recipe_name, "scripts", "apply.py").resolve()
+    script_on_disk = registry_root / bucket / recipe_name / "scripts" / "apply.py"
+    if script_on_disk.is_symlink():
+        raise ValueError(f"invalid registry entry {rule_id}: script must not be a symlink")
+    try:
+        resolved_script.relative_to(resolved_root)
+    except ValueError as exc:
+        raise ValueError(f"invalid registry entry {rule_id}: script outside registry") from exc
+    if not resolved_script.is_file():
+        raise ValueError(f"invalid registry entry {rule_id}: script does not exist")
+
+
+def _validate_agent_entry(
+    rule_id: str, entry: Dict, registry_root: pathlib.Path, resolved_root: pathlib.Path, prefix: tuple
+) -> None:
+    skill_md = entry["skill_md"]
+    skill_md_path = pathlib.PurePosixPath(skill_md)
+    if (
+        "\\" in skill_md
+        or skill_md_path.is_absolute()
+        or skill_md_path.parts[: len(prefix)] != prefix
+        or len(skill_md_path.parts) != len(prefix) + 3
+        or skill_md_path.parts[-1] != "SKILL.md"
+    ):
+        raise ValueError(f"invalid registry entry {rule_id}: unsafe skill_md path")
+    bucket, recipe_name = skill_md_path.parts[len(prefix) : len(prefix) + 2]
+    try:
+        _safe_segment(bucket, "bucket")
+        _safe_segment(recipe_name, "recipe-name")
+    except ValueError as exc:
+        raise ValueError(f"invalid registry entry {rule_id}: unsafe skill_md path") from exc
+    if bucket not in BUCKETS:
+        raise ValueError(f"invalid registry entry {rule_id}: unknown bucket")
+    expected_skill_md = f"{REGISTRY_SCRIPT_PREFIX}/{bucket}/{recipe_name}/SKILL.md"
+    if skill_md != expected_skill_md:
+        raise ValueError(f"invalid registry entry {rule_id}: unsafe skill_md path")
+    resolved_skill_md = registry_root.joinpath(bucket, recipe_name, "SKILL.md").resolve()
+    skill_md_on_disk = registry_root / bucket / recipe_name / "SKILL.md"
+    if skill_md_on_disk.is_symlink():
+        raise ValueError(f"invalid registry entry {rule_id}: skill_md must not be a symlink")
+    try:
+        resolved_skill_md.relative_to(resolved_root)
+    except ValueError as exc:
+        raise ValueError(f"invalid registry entry {rule_id}: skill_md outside registry") from exc
+    if not resolved_skill_md.is_file():
+        raise ValueError(f"invalid registry entry {rule_id}: skill_md does not exist")
 
 
 def _validate_registry(registry: Dict, registry_root: pathlib.Path) -> None:
@@ -36,50 +116,28 @@ def _validate_registry(registry: Dict, registry_root: pathlib.Path) -> None:
             raise ValueError("invalid registry entry: rule_id must be a non-empty string")
         if not isinstance(entry, dict):
             raise ValueError(f"invalid registry entry {rule_id}: expected object")
-        missing = [field for field in REQUIRED_ENTRY_FIELDS if field not in entry]
+
+        mode = entry.get("mode")
+        if mode is not None and mode not in VALID_MODES:
+            raise ValueError(f"invalid registry entry {rule_id}: unknown mode {mode!r}")
+        is_agent_mode = mode == "agent"
+        required_fields = REQUIRED_AGENT_ENTRY_FIELDS if is_agent_mode else REQUIRED_ENTRY_FIELDS
+
+        missing = [field for field in required_fields if field not in entry]
         if missing:
             raise ValueError(
                 f"invalid registry entry {rule_id}: missing {', '.join(missing)}"
             )
         if any(
             not isinstance(entry[field], str) or not entry[field].strip()
-            for field in REQUIRED_ENTRY_FIELDS
+            for field in required_fields
         ):
             raise ValueError(f"invalid registry entry {rule_id}: fields must be non-empty strings")
 
-        script = entry["script"]
-        script_path = pathlib.PurePosixPath(script)
-        if (
-            "\\" in script
-            or script_path.is_absolute()
-            or script_path.parts[: len(prefix)] != prefix
-            or len(script_path.parts) != len(prefix) + 4
-            or script_path.parts[-2:] != ("scripts", "apply.py")
-        ):
-            raise ValueError(f"invalid registry entry {rule_id}: unsafe script path")
-        bucket, recipe_name = script_path.parts[len(prefix) : len(prefix) + 2]
-        try:
-            _safe_segment(bucket, "bucket")
-            _safe_segment(recipe_name, "recipe-name")
-        except ValueError as exc:
-            raise ValueError(f"invalid registry entry {rule_id}: unsafe script path") from exc
-        if bucket not in BUCKETS:
-            raise ValueError(f"invalid registry entry {rule_id}: unknown bucket")
-        expected_script = (
-            f"{REGISTRY_SCRIPT_PREFIX}/{bucket}/{recipe_name}/scripts/apply.py"
-        )
-        if script != expected_script:
-            raise ValueError(f"invalid registry entry {rule_id}: unsafe script path")
-        resolved_script = registry_root.joinpath(bucket, recipe_name, "scripts", "apply.py").resolve()
-        script_on_disk = registry_root / bucket / recipe_name / "scripts" / "apply.py"
-        if script_on_disk.is_symlink():
-            raise ValueError(f"invalid registry entry {rule_id}: script must not be a symlink")
-        try:
-            resolved_script.relative_to(resolved_root)
-        except ValueError as exc:
-            raise ValueError(f"invalid registry entry {rule_id}: script outside registry") from exc
-        if not resolved_script.is_file():
-            raise ValueError(f"invalid registry entry {rule_id}: script does not exist")
+        if is_agent_mode:
+            _validate_agent_entry(rule_id, entry, registry_root, resolved_root, prefix)
+        else:
+            _validate_script_entry(rule_id, entry, registry_root, resolved_root, prefix)
 
 
 def _read_registry(path: pathlib.Path, registry_root: pathlib.Path) -> Dict:

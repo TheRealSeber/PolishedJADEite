@@ -1,0 +1,9 @@
+{
+  "rules": [
+    {
+      "id": "DUMMY_TEST_RULE",
+      "fix_strategy": "recipe:jade-recipe-dummy",
+      "verification_hint": "compat fixture manual check"
+    }
+  ]
+}

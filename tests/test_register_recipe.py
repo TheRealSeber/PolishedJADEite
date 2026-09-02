@@ -323,10 +323,79 @@ def test_recipe_registry_script_entries_resolve_to_files():
     for rule_id, entry in data.items():
         if rule_id.startswith("_"):
             continue
+        if entry.get("mode") == "agent":
+            # Agent-mode entries (jade-core-rule-dispatcher's
+            # --emit-agent-tasks / --record-agent-result) point at a
+            # SKILL.md instead of a script -- see register_recipe.py's
+            # _validate_agent_entry for the matching production check.
+            assert isinstance(entry["skill_md"], str)
+            relative_skill_md = pathlib.Path(entry["skill_md"])
+            assert relative_skill_md.parts[:3] == (".claude", "skills", "java-migration-skill-registry")
+            assert (SCRIPT.parents[4] / relative_skill_md).is_file(), rule_id
+            continue
         assert isinstance(entry["script"], str)
         relative_script = pathlib.Path(entry["script"])
         assert relative_script.parts[:3] == (".claude", "skills", "java-migration-skill-registry")
         assert (SCRIPT.parents[4] / relative_script).is_file(), rule_id
+
+
+def test_validate_registry_accepts_agent_mode_entry_with_valid_skill_md(tmp_path):
+    module = load_module()
+    registry_root = tmp_path / "registry"
+    skill_md = registry_root / "shared" / "jade-recipe-agent-example" / "SKILL.md"
+    skill_md.parent.mkdir(parents=True)
+    skill_md.write_text("# jade-recipe-agent-example\n", encoding="utf-8")
+
+    # Must not raise: an entry with "mode": "agent" is validated through
+    # skill_md rather than the script-mode "script" field.
+    module._validate_registry(
+        {
+            "RULE": {
+                "skill": "jade-recipe-agent-example",
+                "skill_md": ".claude/skills/java-migration-skill-registry/shared/jade-recipe-agent-example/SKILL.md",
+                "mode": "agent",
+                "description": "agent-mode recipe",
+            }
+        },
+        registry_root,
+    )
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {"RULE": {"skill": "recipe", "mode": "agent", "description": "missing skill_md"}},
+        {
+            "RULE": {
+                "skill": "recipe",
+                "mode": "agent",
+                "script": ".claude/skills/java-migration-skill-registry/shared/recipe/scripts/apply.py",
+                "description": "script instead of skill_md",
+            }
+        },
+        {
+            "RULE": {
+                "skill": "recipe",
+                "mode": "agent",
+                "skill_md": ".claude/skills/java-migration-skill-registry/shared/missing/SKILL.md",
+                "description": "missing file",
+            }
+        },
+        {
+            "RULE": {
+                "skill": "recipe",
+                "mode": "agent",
+                "skill_md": "unsafe/SKILL.md",
+                "description": "unsafe path",
+            }
+        },
+        {"RULE": {"skill": "recipe", "mode": "bogus", "script": "x", "description": "d"}},
+    ],
+)
+def test_validate_registry_rejects_invalid_agent_mode_entries(tmp_path, payload):
+    module = load_module()
+    with pytest.raises(ValueError, match="invalid registry entry"):
+        module._validate_registry(payload, tmp_path / "registry")
 
 
 @pytest.mark.parametrize(
@@ -491,10 +560,26 @@ def test_every_recipe_directory_has_one_registry_entry_with_canonical_script_lay
         for recipe_dir in bucket_dir.iterdir():
             if not recipe_dir.is_dir():
                 continue
-            expected_script = (
-                f".claude/skills/java-migration-skill-registry/"
-                f"{bucket}/{recipe_dir.name}/scripts/apply.py"
-            )
+            prefix = ".claude/skills/java-migration-skill-registry"
+            expected_script = f"{prefix}/{bucket}/{recipe_dir.name}/scripts/apply.py"
+            expected_skill_md = f"{prefix}/{bucket}/{recipe_dir.name}/SKILL.md"
+
+            # An agent-mode recipe is a SKILL.md the dispatcher hands to a
+            # subagent; it has no apply.py to run, so the canonical layout it
+            # must satisfy is the skill_md one.
+            agent_matches = [
+                entry
+                for entry in entries
+                if entry.get("mode") == "agent" and entry.get("skill_md") == expected_skill_md
+            ]
+            if agent_matches:
+                assert len(agent_matches) == 1, f"expected one registry entry for {recipe_dir}"
+                assert (recipe_dir / "SKILL.md").is_file()
+                assert not (recipe_dir / "scripts" / "apply.py").exists(), (
+                    f"agent-mode recipe {recipe_dir} must not ship an apply.py"
+                )
+                continue
+
             matches = [entry for entry in entries if entry.get("script") == expected_script]
             assert len(matches) == 1, f"expected one registry entry for {recipe_dir}"
             assert (recipe_dir / "scripts" / "apply.py").is_file()

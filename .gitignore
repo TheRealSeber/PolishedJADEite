@@ -51,3 +51,5 @@ consumer-playground/*/build/
 consumer-playground/*/target/
 consumer-playground/**/APDescription.txt
 consumer-playground/**/MTPs-Main-Container.txt
+
+.venv/

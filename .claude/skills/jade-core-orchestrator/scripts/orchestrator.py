@@ -57,6 +57,7 @@ TRANSITIONS: Dict[str, Dict[str, str]] = {
         "ARTIFACT_MISSING": "FAILED",
         "ARTIFACT_TAMPERED": "FAILED",
         "AWAIT_AGENT": "AWAITING_AGENT",
+        "SHARD_ROLLBACK_PENDING": "AWAITING_AGENT",
     },
     "RULE_RETRY": {"RETRY": "RULE_BATCH_LOOP", "ESCALATE": "RULE_ESCALATE"},
     "RULE_ESCALATE": {"OK": "RULE_BATCH_LOOP"},
@@ -190,6 +191,50 @@ RETRY_SCRIPT = pathlib.Path(
     ".claude/skills/jade-core-retry-router/scripts/retry_router.py"
 )
 MAX_RETRIES = 3
+
+# ------------------------------------------------------------------
+# Agent-mode rule dispatch (RULE_BATCH_LOOP agent recipes)
+# ------------------------------------------------------------------
+# A rule whose recipe-registry.json entry carries "mode": "agent" is not
+# dispatched as a script subprocess. Instead the orchestrator pauses with
+# AWAITING_AGENT.md describing the shard plan and the per-shard checkpoint
+# / verify / gate / record / accept-or-rollback commands, and resumes only
+# once every shard in that rule's checkpoint ledger reaches a terminal
+# state (ACCEPTED or ROLLED_BACK). See agent_registry_entry,
+# _process_agent_rule, and _agent_shard_instructions below.
+#
+# Binding rule-execution order ranks body-local blast_class rules ahead of
+# signature blast_class rules, ahead of unclassified rules; suggested_order
+# from the knowledge graph is a binding second-order tie-break within a
+# blast_class band. See compute_binding_rule_order / effective_rule_order.
+BLAST_CLASS_RANK: Dict[str, int] = {"body-local": 0, "signature": 1}
+UNCLASSIFIED_BLAST_RANK = 2
+
+SHARD_CHECKPOINT_SCRIPT = pathlib.Path(
+    ".claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py"
+)
+DISPATCHER_SCRIPT = pathlib.Path(
+    ".claude/skills/jade-core-rule-dispatcher/scripts/dispatcher.py"
+)
+VERIFY_SHARD_SCRIPT = pathlib.Path(
+    ".claude/skills/jade-core-verification/scripts/verify_shard.py"
+)
+GATE_SIGNATURES_SCRIPT = pathlib.Path(
+    ".claude/skills/jade-core-verification/scripts/gate_signatures.py"
+)
+
+RECIPE_REGISTRY_PATH = pathlib.Path(
+    ".claude/skills/jade-core-rule-dispatcher/recipe-registry.json"
+)
+"""Recipe registry read directly (S3 never imports the S1/S2 modules).
+
+Relative to the process cwd, matching every other script/artifact path
+constant in this module (RETRY_SCRIPT, SCRIPT_PHASES, ...) — never derived
+from ``__file__`` here, since ``test_transition_table_integrity`` execs
+this module's source with a bare namespace that has no ``__file__``.
+"""
+
+SHARD_LEDGER_STATES = ("CHECKPOINTED", "ACCEPTED", "ROLLED_BACK")
 
 
 # ------------------------------------------------------------------
@@ -438,13 +483,172 @@ def _run_script_phase(phase: str, cfg: Dict) -> str:
     return "SCRIPT_ERROR"
 
 
+def _shard_commands(
+    rule_id: str, shard_id: str, artifacts_path: str, workspace_path: str
+) -> Dict[str, str]:
+    """Build the six per-shard command strings for AWAITING_AGENT.md.
+
+    These mirror the frozen CLI contract of dispatcher.py's agent mode and
+    shard_checkpoint.py exactly (paths only — no source file content, no
+    subprocess is ever invoked here).
+    """
+    a = artifacts_path
+    r = rule_id
+    s = shard_id
+    w = workspace_path
+    result_file = f"{a}/06-agent-result-{r}-{s}.json"
+    after_graph = f"{a}/03.5-knowledge-graph-after-{s}.json"
+    return {
+        "checkpoint": (
+            f"python {SHARD_CHECKPOINT_SCRIPT} --artifacts-dir {a} --rule-id {r} "
+            f"--shard-id {s} --workspace {w} --create"
+        ),
+        "verify": (
+            f"python {VERIFY_SHARD_SCRIPT} --artifacts-dir {a} --rule-id {r} "
+            f"--shard-id {s}"
+        ),
+        "gate": (
+            f"python {GATE_SIGNATURES_SCRIPT} --artifacts-dir {a} --rule-id {r} "
+            f"--shard-id {s} --before-graph {a}/03.5-knowledge-graph.json "
+            f"--after-graph {after_graph}"
+        ),
+        "record": (
+            f"python {DISPATCHER_SCRIPT} --artifacts-dir {a} --rule-id {r} "
+            f"--record-agent-result --shard-id {s} --result-file {result_file}"
+        ),
+        "accept": (
+            f"python {SHARD_CHECKPOINT_SCRIPT} --artifacts-dir {a} --rule-id {r} "
+            f"--shard-id {s} --workspace {w} --accept"
+        ),
+        "rollback": (
+            f"python {SHARD_CHECKPOINT_SCRIPT} --artifacts-dir {a} --rule-id {r} "
+            f'--shard-id {s} --workspace {w} --rollback --reason "<why>"'
+        ),
+    }
+
+
+def _agent_shard_instructions(
+    rule_id: str,
+    shard_plan: Dict[str, Any],
+    cfg: Dict,
+    artifacts: pathlib.Path,
+) -> str:
+    """Build AWAITING_AGENT.md content for an agent-recipe RULE_BATCH_LOOP pause.
+
+    Never includes source file paths (only counts) — see 'Shards' table below.
+    Command strings are built directly from cfg + shard ids, mirroring the
+    frozen dispatcher/shard_checkpoint CLI contracts; this module never
+    imports or invokes those scripts.
+    """
+    artifacts_path = str(cfg.get("artifacts_path", artifacts))
+    workspace_path = str(cfg.get("workspace_path", "workspace"))
+    blast_class = shard_plan.get("blast_class") or "UNCLASSIFIED"
+    shards = [s for s in shard_plan.get("shards", []) if isinstance(s, dict)]
+
+    lines: List[str] = [
+        "# AWAITING AGENT — RULE_BATCH_LOOP (agent recipe)",
+        f"Rule: {rule_id} | blast_class: {blast_class} | shards: {len(shards)}",
+        "",
+        "## Anti-bypass",
+        "",
+        "**ANTI-BYPASS:** You are strictly forbidden from manually creating a batch",
+        "artifact and marking it `DONE` or `NOOP` if flags exist for that rule.",
+        "You must either (a) write a true registry recipe script to transform the flagged",
+        "code, or (b) use `defer_rules.py` to defer modernization flags and preserve",
+        "them as `// JADE-MODERNIZATION-DEFERRED` markers for future developers.",
+        "Failure to comply is a pipeline integrity violation. An agent-result envelope",
+        "reporting status `FIXED` with zero files is an additional integrity",
+        "violation — an empty envelope must never be recorded as FIXED.",
+        "",
+        "## Shards",
+        "",
+        "| shard_id | class | parallel_safe | editable_files | entry_points |",
+        "|----------|-------|----------------|----------------|--------------|",
+    ]
+    for shard in shards:
+        sid = shard.get("shard_id", "")
+        cls = shard.get("class", "")
+        parallel_safe = shard.get("parallel_safe", False)
+        n_editable = len(shard.get("editable_files") or [])
+        n_entry = len(shard.get("entry_points") or [])
+        lines.append(f"| {sid} | {cls} | {parallel_safe} | {n_editable} | {n_entry} |")
+
+    lines += [
+        "",
+        "## Per-shard procedure",
+        "",
+        "For each shard, run these seven steps in order:",
+        "",
+        "1. Checkpoint the shard's editable files (git blob snapshot).",
+        "2. Dispatch one subagent for the shard: it may edit only that shard's",
+        "   `editable_files`; `read_only_context` is read-only. It writes a result",
+        "   envelope to `result_file`.",
+        "3. Verify the shard compiles (javac in Docker against the previous jar).",
+        "4. Gate the shard's edits against the knowledge graph for signature leaks",
+        "   outside the shard's editable set.",
+        "5. Record the subagent's result envelope into `06-fix-results-<rule_id>.json`.",
+        "6. If verify and gate both exited 0/1 and record exited 0: accept the shard",
+        "   (the checkpoint blob is dropped; the edit is kept).",
+        "7. Otherwise (verify/gate exited 2/3, or record exited 2/3/4): roll back the",
+        "   shard to its checkpointed state, with a `--reason` explaining why.",
+        "",
+        "Shards with `parallel_safe: true` may be dispatched concurrently to",
+        "independent subagents; `parallel_safe: false` shards must be run",
+        "sequentially.",
+        "",
+    ]
+    for shard in shards:
+        sid = shard.get("shard_id", "")
+        cmds = _shard_commands(rule_id, sid, artifacts_path, workspace_path)
+        lines += [
+            f"### {sid}",
+            "",
+            f"1. `{cmds['checkpoint']}`",
+            "2. Dispatch the subagent for this shard.",
+            f"3. `{cmds['verify']}`",
+            f"4. `{cmds['gate']}`",
+            f"5. `{cmds['record']}`",
+            f"6. `{cmds['accept']}`",
+            f"7. `{cmds['rollback']}`",
+            "",
+        ]
+
+    lines += [
+        "## Subagent contract",
+        "",
+        "One subagent per shard. It may edit only files listed in that shard's",
+        "`editable_files`; `read_only_context` files may be read but never written.",
+        "It returns a result envelope (schema_version, rule_id, shard_id, status,",
+        "match_quality, diff_summary, files[], errors[], warnings[]) to the shard's",
+        "`result_file`.",
+        "",
+        "## Resume",
+        "",
+        "```",
+        f"python .claude/skills/jade-core-orchestrator/scripts/orchestrator.py --config {artifacts_path}/00-run-config.json --run",
+        "```",
+        "",
+    ]
+    return "\n".join(lines)
+
+
 def _pause_for_agent(
-    phase: str, artifacts: pathlib.Path, state: Dict, cfg: Dict
+    phase: str,
+    artifacts: pathlib.Path,
+    state: Dict,
+    cfg: Dict,
+    rule_id: Optional[str] = None,
+    shard_plan: Optional[Dict[str, Any]] = None,
 ) -> str:
     """Pause pipeline for an agent reasoning phase.  Writes AWAITING_AGENT.md."""
     md = artifacts / "AWAITING_AGENT.md"
     workspace = cfg.get("workspace_path", "workspace")
-    if phase == "MANIFEST_READY":
+    if phase == "RULE_BATCH_LOOP" and rule_id is not None and shard_plan is not None:
+        md.write_text(
+            _agent_shard_instructions(rule_id, shard_plan, cfg, artifacts),
+            encoding="utf-8",
+        )
+    elif phase == "MANIFEST_READY":
         md.write_text(
             f"""# AWAITING AGENT — {phase}
 
@@ -528,6 +732,11 @@ python .claude/skills/jade-core-orchestrator/scripts/orchestrator.py --config {c
         )
 
     state["awaiting_phase"] = phase
+    if rule_id is not None and shard_plan is not None:
+        state["awaiting_rule_id"] = rule_id
+        state["awaiting_shards"] = [
+            s.get("shard_id") for s in shard_plan.get("shards", []) if isinstance(s, dict)
+        ]
     state["state"] = "AWAITING_AGENT"
     state["updated_at"] = iso_now()
     write_json(artifacts / "00-run-state.json", state)
@@ -687,11 +896,12 @@ def rebuild_knowledge_graph(
 def compute_queue_graph_metadata(
     artifacts: pathlib.Path, rules: List[str]
 ) -> Dict[str, Any]:
-    """Compute additive, advisory graph metadata for the approved rule queue.
+    """Compute additive graph metadata for the approved rule queue.
 
     Only ever derived from the *approved* ``rules`` list — it never inserts
-    or reorders them.  ``suggested_order`` is advisory transform-order
-    guidance from the knowledge graph; ``rules`` itself is left untouched.
+    or reorders them on disk. ``suggested_order`` is a BINDING second-order
+    key for execution order (see ``compute_binding_rule_order``); the
+    on-disk ``rules`` list itself is still never reordered or extended.
     """
     meta: Dict[str, Any] = {
         "status": "empty" if not rules else "computed",
@@ -761,7 +971,7 @@ def compute_queue_graph_metadata(
             meta["cycles"].append(d.get("rules", []))
         meta["diagnostics"].append(d)
     meta["ordering_reasons"] = [
-        {"rule": rule, "reason": "advisory dependency order — dependent transforms first"}
+        {"rule": rule, "reason": "binding dependency order — dependent transforms first"}
         for rule in meta["suggested_order"]
     ]
     return meta
@@ -771,8 +981,11 @@ def attach_queue_graph_metadata(artifacts: pathlib.Path) -> Optional[Dict[str, A
     """Additively attach ``graph_metadata`` to 05-rule-queue.json.
 
     Returns the updated queue, or None if the queue is absent/unreadable.
-    ``rules`` is never reordered or extended — only user-approved rules are
-    ever present and remain exactly as produced by the agent.
+    ``rules`` on disk is never reordered or extended here — only
+    user-approved rules are ever present and remain exactly as produced by
+    the agent. Binding execution order (which may differ from this on-disk
+    list) is computed separately by ``effective_rule_order`` at iteration
+    time in ``process_rule_batch``.
     """
     queue_path = artifacts / "05-rule-queue.json"
     if not queue_path.exists():
@@ -789,6 +1002,273 @@ def attach_queue_graph_metadata(artifacts: pathlib.Path) -> Optional[Dict[str, A
     queue["graph_metadata"] = compute_queue_graph_metadata(artifacts, rules)
     write_json(queue_path, queue)
     return queue
+
+
+def load_rule_blast_classes(artifacts: pathlib.Path) -> Dict[str, str]:
+    """Read ``blast_class`` per rule from the breaking-changes manifest.
+
+    Only rules whose ``blast_class`` is exactly ``"body-local"`` or
+    ``"signature"`` are included. Any failure (missing file, malformed
+    JSON, missing field) degrades silently to an empty/partial dict —
+    this is advisory input to ``compute_binding_rule_order``, never a gate.
+    """
+    manifest_path = artifacts / "01-breaking-changes-manifest.json"
+    if not manifest_path.exists():
+        return {}
+    try:
+        data = read_json(manifest_path)
+    except (json.JSONDecodeError, OSError):
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    rules = data.get("rules")
+    if not isinstance(rules, list):
+        return {}
+    result: Dict[str, str] = {}
+    for rule in rules:
+        if not isinstance(rule, dict):
+            continue
+        rule_id = rule.get("id")
+        blast_class = rule.get("blast_class")
+        if isinstance(rule_id, str) and blast_class in BLAST_CLASS_RANK:
+            result[rule_id] = blast_class
+    return result
+
+
+def compute_binding_rule_order(
+    rules: List[str],
+    blast_classes: Dict[str, str],
+    suggested_order: List[str],
+) -> List[str]:
+    """Deterministically permute ``rules`` into binding execution order.
+
+    Sort key (ascending): (1) blast_class rank — body-local before
+    signature before unclassified; (2) index in ``suggested_order`` (a rule
+    absent from it sorts after every rule present in it) — this is the
+    binding second-order key; (3) index in ``rules`` — a final tie-break
+    that also makes the function degenerate to the original queue order
+    whenever no rule carries a classified blast_class and
+    ``suggested_order`` mirrors ``rules``. Never mutates either input;
+    returns a permutation (same length, same multiset of rule ids).
+    """
+    suggested_index = {rule: i for i, rule in enumerate(suggested_order)}
+    original_index = {rule: i for i, rule in enumerate(rules)}
+
+    def sort_key(rule_id: str) -> Tuple[int, int, int]:
+        blast_rank = BLAST_CLASS_RANK.get(
+            blast_classes.get(rule_id), UNCLASSIFIED_BLAST_RANK
+        )
+        suggested_rank = suggested_index.get(rule_id, len(suggested_order))
+        original_rank = original_index.get(rule_id, len(rules))
+        return (blast_rank, suggested_rank, original_rank)
+
+    return sorted(rules, key=sort_key)
+
+
+def effective_rule_order(artifacts: pathlib.Path, queue: Dict[str, Any]) -> List[str]:
+    """Compose the binding rule-execution order for one RULE_BATCH_LOOP pass.
+
+    Combines ``queue["rules"]`` (the on-disk approved list, never mutated),
+    ``load_rule_blast_classes`` (from the manifest), and
+    ``queue["graph_metadata"]["suggested_order"]`` (from the knowledge
+    graph). See ``compute_binding_rule_order`` for the sort key.
+    """
+    rules = queue.get("rules", [])
+    if not isinstance(rules, list):
+        return []
+    blast_classes = load_rule_blast_classes(artifacts)
+    graph_metadata = queue.get("graph_metadata")
+    suggested_order = (
+        graph_metadata.get("suggested_order") if isinstance(graph_metadata, dict) else None
+    )
+    if not isinstance(suggested_order, list):
+        suggested_order = []
+    return compute_binding_rule_order(rules, blast_classes, suggested_order)
+
+
+# ------------------------------------------------------------------
+# Agent-mode rule gate
+# ------------------------------------------------------------------
+def agent_registry_entry(rule_id: str) -> Optional[Dict[str, Any]]:
+    """Return this rule's recipe-registry.json entry iff mode == "agent".
+
+    Reads the registry directly (no import of dispatcher.py or
+    registry_modes.py — S3 never depends on S1/S2). Any read/parse failure,
+    a non-dict registry, or a missing/non-agent entry all degrade to
+    ``None`` — the caller then falls back to today's script-mode path.
+    """
+    try:
+        registry = read_json(RECIPE_REGISTRY_PATH)
+    except (json.JSONDecodeError, OSError):
+        return None
+    if not isinstance(registry, dict):
+        return None
+    entry = registry.get(rule_id)
+    if not isinstance(entry, dict):
+        return None
+    if entry.get("mode") != "agent":
+        return None
+    return entry
+
+
+def validate_shard_ledger(
+    artifacts: pathlib.Path, rule_id: str, plan: Dict[str, Any]
+) -> Tuple[bool, str]:
+    """Structurally validate ``06-shard-checkpoints-<rule_id>.json``.
+
+    Checks only well-formedness: root dict, schema_version == 1, rule_id
+    match, the ledger's shard-id keys exactly equal the plan's shard ids,
+    every state is one of SHARD_LEDGER_STATES, and every ROLLED_BACK entry
+    carries a non-empty rollback_reason. A ledger with a CHECKPOINTED
+    shard is still structurally valid (True) — whether that represents
+    "rollback pending" is a separate, caller-side check.
+    """
+    ledger_path = artifacts / f"06-shard-checkpoints-{rule_id}.json"
+    try:
+        ledger = read_json(ledger_path)
+    except (json.JSONDecodeError, OSError) as exc:
+        return False, f"cannot read shard ledger: {exc}"
+    if not isinstance(ledger, dict):
+        return False, "shard ledger must be a JSON object"
+    if ledger.get("schema_version") != 1:
+        return False, (
+            f"shard ledger schema_version must be 1, got {ledger.get('schema_version')!r}"
+        )
+    if ledger.get("rule_id") != rule_id:
+        return False, (
+            f"shard ledger rule_id mismatch: expected {rule_id!r}, "
+            f"got {ledger.get('rule_id')!r}"
+        )
+    shards_ledger = ledger.get("shards")
+    if not isinstance(shards_ledger, dict):
+        return False, "shard ledger 'shards' must be a JSON object"
+    plan_shard_ids = {
+        s.get("shard_id")
+        for s in plan.get("shards", [])
+        if isinstance(s, dict) and isinstance(s.get("shard_id"), str)
+    }
+    ledger_shard_ids = set(shards_ledger.keys())
+    if ledger_shard_ids != plan_shard_ids:
+        return False, (
+            f"shard ledger keys {sorted(ledger_shard_ids)} do not match plan "
+            f"shard_ids {sorted(plan_shard_ids)}"
+        )
+    for shard_id, info in shards_ledger.items():
+        if not isinstance(info, dict):
+            return False, f"shard ledger entry {shard_id!r} must be a JSON object"
+        state_val = info.get("state")
+        if state_val not in SHARD_LEDGER_STATES:
+            return False, f"shard {shard_id!r} has invalid state {state_val!r}"
+        if state_val == "ROLLED_BACK":
+            reason = info.get("rollback_reason")
+            if not isinstance(reason, str) or not reason.strip():
+                return False, (
+                    f"shard {shard_id!r} is ROLLED_BACK but rollback_reason is empty"
+                )
+    return True, ""
+
+
+def _fix_result_records(artifacts: pathlib.Path, rule_id: str) -> List[Dict[str, Any]]:
+    """Read ``06-fix-results-<rule_id>.json`` records, tolerating either the
+    list-of-records shape written by dispatcher.py or a wrapped dict."""
+    path = artifacts / f"06-fix-results-{rule_id}.json"
+    if not path.exists():
+        return []
+    try:
+        payload = read_json(path)
+    except (json.JSONDecodeError, OSError):
+        return []
+    if isinstance(payload, list):
+        records = payload
+    elif isinstance(payload, dict):
+        records = payload.get("results", [])
+    else:
+        records = []
+    return [r for r in records if isinstance(r, dict)] if isinstance(records, list) else []
+
+
+def _process_agent_rule(
+    cfg: Dict,
+    artifacts: pathlib.Path,
+    state: Dict,
+    rule_id: str,
+    hist_path: pathlib.Path,
+    state_path: pathlib.Path,
+    rule_status_path: pathlib.Path,
+    rstatus: Dict[str, Any],
+) -> Optional[str]:
+    """Gate one agent-mode rule (recipe-registry.json entry mode == "agent").
+
+    Returns an outcome string when the caller (``process_rule_batch``)
+    should return immediately, or ``None`` when this rule's shard ledger
+    shows every shard ACCEPTED/ROLLED_BACK and control should fall through
+    to today's unchanged build-verification path.
+    """
+    shard_plan_path = artifacts / f"05-rule-shards-{rule_id}.json"
+
+    def _missing_plan() -> str:
+        state["failure_reason"] = "MISSING_SHARD_PLAN"
+        state["updated_at"] = iso_now()
+        write_json(state_path, state)
+        rstatus[rule_id] = {
+            "status": "PENDING_AGENT",
+            "reason": "shard plan missing or unreadable",
+            "updated_at": iso_now(),
+        }
+        write_json(rule_status_path, {"run_id": cfg["run_id"], "rules": rstatus})
+        write_progress_md(artifacts, state, cfg)
+        return "ARTIFACT_MISSING"
+
+    if not shard_plan_path.exists():
+        return _missing_plan()
+    try:
+        plan = read_json(shard_plan_path)
+    except (json.JSONDecodeError, OSError):
+        return _missing_plan()
+    if not isinstance(plan, dict) or not isinstance(plan.get("shards"), list):
+        return _missing_plan()
+
+    agent_tasks_path = artifacts / f"05-agent-tasks-{rule_id}.json"
+    ledger_path = artifacts / f"06-shard-checkpoints-{rule_id}.json"
+    if not agent_tasks_path.exists() or not ledger_path.exists():
+        _pause_for_agent("RULE_BATCH_LOOP", artifacts, state, cfg, rule_id, plan)
+        return "AWAIT_AGENT"
+
+    ledger_ok, ledger_reason = validate_shard_ledger(artifacts, rule_id, plan)
+    if not ledger_ok:
+        fail(artifacts, state, "SHARD_LEDGER_INVALID", ledger_reason)
+        return "ARTIFACT_TAMPERED"
+
+    ledger = read_json(ledger_path)
+    shard_states: Dict[str, Any] = {
+        sid: info.get("state")
+        for sid, info in ledger.get("shards", {}).items()
+        if isinstance(info, dict)
+    }
+    if any(s == "CHECKPOINTED" for s in shard_states.values()):
+        _pause_for_agent("RULE_BATCH_LOOP", artifacts, state, cfg, rule_id, plan)
+        return "SHARD_ROLLBACK_PENDING"
+
+    accepted_shard_ids = {sid for sid, s in shard_states.items() if s == "ACCEPTED"}
+    if accepted_shard_ids:
+        for record in _fix_result_records(artifacts, rule_id):
+            if (
+                record.get("shard_id") in accepted_shard_ids
+                and record.get("status") == "NEEDS_REVIEW"
+            ):
+                fail(
+                    artifacts,
+                    state,
+                    "SHARD_NEEDS_REVIEW_ACCEPTED",
+                    f"Shard {record.get('shard_id')} of rule {rule_id} is ACCEPTED "
+                    f"in the ledger but its recorded fix status is NEEDS_REVIEW",
+                )
+                return "ARTIFACT_TAMPERED"
+
+    # Every shard is ACCEPTED or ROLLED_BACK (SHARD_LEDGER_STATES has no
+    # other member once CHECKPOINTED is ruled out above) — fall through to
+    # the unchanged build-verification path.
+    return None
 
 
 def process_rule_batch(
@@ -847,7 +1327,7 @@ def process_rule_batch(
         except (json.JSONDecodeError, OSError):
             pass
 
-    for rule_id in rules:
+    for rule_id in effective_rule_order(artifacts, queue):
         entry = rstatus.get(rule_id, {})
 
         if entry.get("status") in ("DONE", "ESCALATED"):
@@ -869,20 +1349,40 @@ def process_rule_batch(
             },
         )
 
-        # Simulate: batch-prep, dispatch, verify
-        batch_artifact = artifacts / f"05-rule-batch-{rule_id}.json"
-        if not batch_artifact.exists():
-            rstatus[rule_id] = {
-                "status": "SKIPPED",
-                "reason": "batch artifact missing",
-                "updated_at": iso_now(),
-            }
-            state["failure_reason"] = (
-                f"Batch missing for {rule_id}; manual run required"
+        agent_entry = agent_registry_entry(rule_id)
+        if agent_entry is not None:
+            agent_outcome = _process_agent_rule(
+                cfg,
+                artifacts,
+                state,
+                rule_id,
+                hist_path,
+                state_path,
+                rule_status_path,
+                rstatus,
             )
-            write_json(rule_status_path, {"run_id": cfg["run_id"], "rules": rstatus})
-            write_progress_md(artifacts, state, cfg)
-            return "ARTIFACT_MISSING"
+            if agent_outcome is not None:
+                return agent_outcome
+            # agent_outcome is None: every shard for this rule is ACCEPTED or
+            # ROLLED_BACK in its checkpoint ledger — fall through to the same
+            # build-verification path script-mode rules use below (agent-mode
+            # rules have no 05-rule-batch-<rule_id>.json, so that legacy check
+            # is skipped for them; nothing below it changes).
+        else:
+            # Simulate: batch-prep, dispatch, verify
+            batch_artifact = artifacts / f"05-rule-batch-{rule_id}.json"
+            if not batch_artifact.exists():
+                rstatus[rule_id] = {
+                    "status": "SKIPPED",
+                    "reason": "batch artifact missing",
+                    "updated_at": iso_now(),
+                }
+                state["failure_reason"] = (
+                    f"Batch missing for {rule_id}; manual run required"
+                )
+                write_json(rule_status_path, {"run_id": cfg["run_id"], "rules": rstatus})
+                write_progress_md(artifacts, state, cfg)
+                return "ARTIFACT_MISSING"
 
         verify_log = artifacts / "07-build.log"
         if not verify_log.exists():
@@ -1142,6 +1642,8 @@ def main() -> int:
         if resume_phase:
             state["state"] = resume_phase
             state["awaiting_phase"] = None
+            state["awaiting_rule_id"] = None
+            state["awaiting_shards"] = None
             write_json(state_path, state)
             append_jsonl(
                 hist_path,

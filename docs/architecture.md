@@ -60,6 +60,7 @@ baseline directory is never touched by any phase.
 |--------|-------|-------------|
 | `00-` | INIT | User (config), orchestrator (state) |
 | `01-` | MANIFEST | Change collector |
+| `01.5-` | PRECISION GATE | Change collector (`sample_pattern_hits.py` / `score_pattern_precision.py`), opt-in via `00-run-config.json#precision_gate` |
 | `02-` | TOOLING | Tooling scout |
 | `03-` | BUILD | Build system fixer |
 | `03.5-` | KNOWLEDGE_GRAPH | Knowledge graph builder |

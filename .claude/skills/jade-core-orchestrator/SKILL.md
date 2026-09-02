@@ -41,11 +41,11 @@ The `TRANSITIONS` dict drives all routing:
 | BUILD_GATE_READY | OK / ARTIFACT_MISSING | KNOWLEDGE_GRAPH_READY / FAILED |
 | KNOWLEDGE_GRAPH_READY | OK / DEPENDENCY_MISSING / ARTIFACT_MISSING | SCAN_READY / SCAN_READY / FAILED |
 | SCAN_READY | OK / ARTIFACT_MISSING | RULE_BATCH_LOOP / FAILED |
-| RULE_BATCH_LOOP | NEXT_RULE / NO_MORE_RULES / VERIFY_FAIL | RULE_BATCH_LOOP / VERIFIED / RULE_RETRY |
+| RULE_BATCH_LOOP | NEXT_RULE / NO_MORE_RULES / VERIFY_FAIL / AWAIT_AGENT / SHARD_ROLLBACK_PENDING | RULE_BATCH_LOOP / VERIFIED / RULE_RETRY / AWAITING_AGENT / AWAITING_AGENT |
 | RULE_RETRY | RETRY / ESCALATE | RULE_BATCH_LOOP / RULE_ESCALATE |
 | RULE_ESCALATE | OK | RULE_BATCH_LOOP |
 
-Terminal states: DONE, FAILED, AWAITING_SOURCE_INPUT.
+Terminal states: DONE, FAILED, AWAITING_SOURCE_INPUT, AWAITING_AGENT.
 
 On `VERIFY_FAIL`, the orchestrator invokes `retry_router.py` as a subprocess.
 On `ESCALATE`, the rule is marked `ESCALATED` and skipped; the loop advances
@@ -104,7 +104,54 @@ For each `rule_id` in queue:
 
 ## Halt/resume states
 - `AWAITING_SOURCE_INPUT`
+- `AWAITING_AGENT`
 - `BUILD_GATE_FAILED`
 - `VERIFICATION_FAILED`
 
+## Agent-mode rules (recipe-registry.json entries with `"mode": "agent"`)
+
+A rule whose registry entry carries `"mode": "agent"` skips the legacy
+`05-rule-batch-<rule_id>.json` script path entirely. `agent_registry_entry`
+reads `recipe-registry.json` directly — this skill never imports
+`dispatcher.py` or `registry_modes.py`, and never invokes `dispatcher.py`
+as a subprocess. A rule with no `"mode"` field (or `"mode": "script"`)
+is completely unaffected; this is a strict backward-compatible addition.
+
+`_process_agent_rule` gates each agent-mode rule against its shard plan
+(`05-rule-shards-<rule_id>.json`, produced upstream by `plan_shards.py`)
+and its checkpoint ledger (`06-shard-checkpoints-<rule_id>.json`, written
+by `shard_checkpoint.py`):
+
+1. No shard plan → `PENDING_AGENT` / `ARTIFACT_MISSING` (pipeline fails;
+   the shard plan is a prerequisite this skill does not produce).
+2. Shard plan present but `05-agent-tasks-<rule_id>.json` or the
+   checkpoint ledger is missing → pause once for the whole rule with
+   `AWAITING_AGENT.md` describing every shard's checkpoint / subagent /
+   verify / gate / record / accept-or-rollback commands (`AWAIT_AGENT`).
+3. Any shard still `CHECKPOINTED` (work started, not yet closed) → pause
+   again (`SHARD_ROLLBACK_PENDING` → `AWAITING_AGENT`) until it is
+   `ACCEPTED` or `ROLLED_BACK`.
+4. A shard `ACCEPTED` in the ledger whose recorded fix status is
+   `NEEDS_REVIEW` is a pipeline integrity violation → `FAILED`
+   (`SHARD_NEEDS_REVIEW_ACCEPTED`) — a shard needing review must be rolled
+   back, never accepted.
+5. Every shard `ACCEPTED` or `ROLLED_BACK` → falls through to the same
+   build-verification path a script-mode rule uses (unchanged).
+
+`shard_checkpoint.py` makes a shard's edit safely reversible with
+`git hash-object -w` / `git cat-file blob` against the enclosing repo's
+object store — never a commit, never `git stash`, never HEAD movement,
+never the index. Rolling back one shard never touches a sibling shard's
+edits (each shard's files are checkpointed independently).
+
+## Binding rule-execution order
+
+`effective_rule_order` (used only by the `RULE_BATCH_LOOP` iteration loop)
+permutes the approved `05-rule-queue.json` `rules` list by blast_class
+(body-local before signature before unclassified, from the breaking-changes
+manifest), with the knowledge graph's `suggested_order` as a binding
+second-order tie-break. The on-disk `rules` list itself is never reordered
+or rewritten — only the iteration order changes.
+
 Use `scripts/orchestrator.py` to execute the above behavior.
+`scripts/shard_checkpoint.py` implements the per-shard checkpoint ledger.

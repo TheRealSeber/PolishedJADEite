@@ -3,6 +3,44 @@ import json
 import pathlib
 import sys
 
+# ---------------------------------------------------------------------------
+# Soft-404 fixtures: a fake urllib.request.urlopen() response used to drive
+# fetch_source.fetch_url() through its real network-fetch code path (as
+# opposed to monkeypatching fetch_url itself away), so the soft-404
+# detection wired inside main()/fetch_url actually runs.
+# ---------------------------------------------------------------------------
+
+
+class _FakeHTTPResponse:
+    def __init__(self, content: str, final_url: str, status: int = 200):
+        self._content = content.encode("utf-8")
+        self._final_url = final_url
+        self.status = status
+
+    def read(self) -> bytes:
+        return self._content
+
+    def geturl(self) -> str:
+        return self._final_url
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        return False
+
+
+def _make_fake_urlopen(content: str, final_url: str, status: int = 200):
+    def _fake_urlopen(_req, timeout=30):
+        return _FakeHTTPResponse(content, final_url, status)
+
+    return _fake_urlopen
+
+
+_LONG_ORACLE_CONTENT = (
+    "Oracle Java SE Language Specification covers the specs of the platform. " * 10
+)  # well over MIN_EXPECTED_CONTENT_CHARS, mentions the "oracle"/"specs" label terms
+
 _REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]
 SCRIPT_PATH = (
     _REPO_ROOT / ".claude/skills/jade-core-change-collector/scripts/fetch_source.py"
@@ -248,3 +286,272 @@ def test_allowlist_load_failure_returns_exit_code_2(tmp_path, capsys, monkeypatc
     combined = output.out + output.err
     assert rc == 2
     assert "ALLOWLIST_LOAD_FAILED" in combined
+
+
+# ---------------------------------------------------------------------------
+# Soft-404 policy: an HTTP 200 that actually landed on a homepage / generic
+# error page must not be recorded as a successfully-fetched source.
+# ---------------------------------------------------------------------------
+
+
+def test_real_fetch_with_no_redirect_and_good_content_succeeds(
+    tmp_path, monkeypatch
+):
+    """Sanity check: the soft-404 gate must not false-positive on a normal fetch."""
+    fetch_source = _load_fetch_source_module()
+    run_config = _write_run_config(tmp_path, mode="production")
+    requested_url = "https://docs.oracle.com/javase/specs/oracle-specs.html"
+
+    monkeypatch.setattr(
+        fetch_source.urllib.request,
+        "urlopen",
+        _make_fake_urlopen(_LONG_ORACLE_CONTENT, final_url=requested_url),
+    )
+
+    rc = fetch_source.main(
+        [
+            "--run-config",
+            str(run_config),
+            "--source-url",
+            requested_url,
+            "--source-label",
+            "oracle-specs",
+        ]
+    )
+
+    assert rc == 0
+    source_entry = _read_source_index(tmp_path)["sources"][0]
+    assert source_entry["fetch_status"] == "success"
+
+
+def test_soft_404_redirect_to_site_root_is_rejected(tmp_path, monkeypatch, capsys):
+    fetch_source = _load_fetch_source_module()
+    run_config = _write_run_config(tmp_path, mode="production")
+    requested_url = "https://docs.oracle.com/javase/specs/jls-deep-page.html"
+
+    monkeypatch.setattr(
+        fetch_source.urllib.request,
+        "urlopen",
+        _make_fake_urlopen(
+            _LONG_ORACLE_CONTENT, final_url="https://docs.oracle.com/"
+        ),
+    )
+
+    rc = fetch_source.main(
+        [
+            "--run-config",
+            str(run_config),
+            "--source-url",
+            requested_url,
+            "--source-label",
+            "oracle-specs",
+        ]
+    )
+
+    output = capsys.readouterr()
+    combined = output.out + output.err
+    assert rc == 1
+    assert "SUSPECTED_SOFT_404" in combined
+    assert "redirected to the site root" in combined
+    source_entry = _read_source_index(tmp_path)["sources"][0]
+    assert source_entry["fetch_status"] == "error"
+    assert source_entry["error_type"] == "SUSPECTED_SOFT_404"
+
+
+def test_soft_404_redirect_to_different_host_is_rejected(
+    tmp_path, monkeypatch, capsys
+):
+    fetch_source = _load_fetch_source_module()
+    run_config = _write_run_config(tmp_path, mode="production")
+    requested_url = "https://docs.oracle.com/javase/specs/jls.html"
+
+    monkeypatch.setattr(
+        fetch_source.urllib.request,
+        "urlopen",
+        _make_fake_urlopen(
+            _LONG_ORACLE_CONTENT, final_url="https://example.com/parked"
+        ),
+    )
+
+    rc = fetch_source.main(
+        [
+            "--run-config",
+            str(run_config),
+            "--source-url",
+            requested_url,
+            "--source-label",
+            "oracle-specs",
+        ]
+    )
+
+    output = capsys.readouterr()
+    combined = output.out + output.err
+    assert rc == 1
+    assert "SUSPECTED_SOFT_404" in combined
+    assert "different host" in combined
+
+
+def test_soft_404_content_not_found_marker_is_rejected(tmp_path, monkeypatch, capsys):
+    fetch_source = _load_fetch_source_module()
+    run_config = _write_run_config(tmp_path, mode="production")
+    requested_url = "https://docs.oracle.com/javase/specs/jls.html"
+    content = (
+        "Oracle Page Not Found. The specs page you requested (oracle) has moved. "
+        * 5
+    )
+
+    monkeypatch.setattr(
+        fetch_source.urllib.request,
+        "urlopen",
+        _make_fake_urlopen(content, final_url=requested_url),
+    )
+
+    rc = fetch_source.main(
+        [
+            "--run-config",
+            str(run_config),
+            "--source-url",
+            requested_url,
+            "--source-label",
+            "oracle-specs",
+        ]
+    )
+
+    output = capsys.readouterr()
+    combined = output.out + output.err
+    assert rc == 1
+    assert "SUSPECTED_SOFT_404" in combined
+    assert "not-found indicator" in combined
+
+
+def test_soft_404_content_too_short_is_rejected(tmp_path, monkeypatch, capsys):
+    fetch_source = _load_fetch_source_module()
+    run_config = _write_run_config(tmp_path, mode="production")
+    requested_url = "https://docs.oracle.com/javase/specs/jls.html"
+    content = "oracle specs stub"  # well under MIN_EXPECTED_CONTENT_CHARS
+
+    monkeypatch.setattr(
+        fetch_source.urllib.request,
+        "urlopen",
+        _make_fake_urlopen(content, final_url=requested_url),
+    )
+
+    rc = fetch_source.main(
+        [
+            "--run-config",
+            str(run_config),
+            "--source-url",
+            requested_url,
+            "--source-label",
+            "oracle-specs",
+        ]
+    )
+
+    output = capsys.readouterr()
+    combined = output.out + output.err
+    assert rc == 1
+    assert "SUSPECTED_SOFT_404" in combined
+    assert "drastically shorter" in combined
+
+
+def test_soft_404_missing_label_terms_is_rejected(tmp_path, monkeypatch, capsys):
+    fetch_source = _load_fetch_source_module()
+    run_config = _write_run_config(tmp_path, mode="production")
+    requested_url = "https://docs.oracle.com/javase/specs/jls.html"
+    # Long enough, no 404 markers, but never mentions "oracle" or "specs".
+    content = "This unrelated marketing copy talks about cloud pricing tiers. " * 10
+
+    monkeypatch.setattr(
+        fetch_source.urllib.request,
+        "urlopen",
+        _make_fake_urlopen(content, final_url=requested_url),
+    )
+
+    rc = fetch_source.main(
+        [
+            "--run-config",
+            str(run_config),
+            "--source-url",
+            requested_url,
+            "--source-label",
+            "oracle-specs",
+        ]
+    )
+
+    output = capsys.readouterr()
+    combined = output.out + output.err
+    assert rc == 1
+    assert "SUSPECTED_SOFT_404" in combined
+    assert "source-label terms" in combined
+
+
+def test_allow_redirect_host_flag_suppresses_redirect_check(
+    tmp_path, monkeypatch
+):
+    """A known-legitimate redirect target, passed via --allow-redirect-host,
+    must not be flagged as a soft-404 on host/path grounds alone."""
+    fetch_source = _load_fetch_source_module()
+    run_config = _write_run_config(tmp_path, mode="production")
+    requested_url = "https://docs.oracle.com/javase/specs/jls-deep-page.html"
+
+    monkeypatch.setattr(
+        fetch_source.urllib.request,
+        "urlopen",
+        _make_fake_urlopen(
+            _LONG_ORACLE_CONTENT, final_url="https://cdn.oracle-mirror.example/jls.html"
+        ),
+    )
+
+    rc = fetch_source.main(
+        [
+            "--run-config",
+            str(run_config),
+            "--source-url",
+            requested_url,
+            "--source-label",
+            "oracle-specs",
+            "--allow-redirect-host",
+            "cdn.oracle-mirror.example",
+        ]
+    )
+
+    assert rc == 0
+    source_entry = _read_source_index(tmp_path)["sources"][0]
+    assert source_entry["fetch_status"] == "success"
+
+
+def test_allow_redirect_host_flag_does_not_bypass_content_heuristics(
+    tmp_path, monkeypatch, capsys
+):
+    """--allow-redirect-host only silences the host/path check — a genuinely
+    broken (too-short / not-found) page on that same host is still rejected."""
+    fetch_source = _load_fetch_source_module()
+    run_config = _write_run_config(tmp_path, mode="production")
+    requested_url = "https://docs.oracle.com/javase/specs/jls-deep-page.html"
+
+    monkeypatch.setattr(
+        fetch_source.urllib.request,
+        "urlopen",
+        _make_fake_urlopen(
+            "oracle specs stub", final_url="https://cdn.oracle-mirror.example/jls.html"
+        ),
+    )
+
+    rc = fetch_source.main(
+        [
+            "--run-config",
+            str(run_config),
+            "--source-url",
+            requested_url,
+            "--source-label",
+            "oracle-specs",
+            "--allow-redirect-host",
+            "cdn.oracle-mirror.example",
+        ]
+    )
+
+    output = capsys.readouterr()
+    combined = output.out + output.err
+    assert rc == 1
+    assert "SUSPECTED_SOFT_404" in combined
+    assert "drastically shorter" in combined

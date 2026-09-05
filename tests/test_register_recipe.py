@@ -560,6 +560,15 @@ def test_every_recipe_directory_has_one_registry_entry_with_canonical_script_lay
         for recipe_dir in bucket_dir.iterdir():
             if not recipe_dir.is_dir():
                 continue
+            # A bucket may also hold shared support code (shared/lib) that is
+            # imported by recipes rather than dispatched as one. Such a
+            # directory ships neither an apply.py nor a SKILL.md, so it has no
+            # registry entry to match and is not part of this contract.
+            is_recipe = (recipe_dir / "scripts" / "apply.py").is_file() or (
+                recipe_dir / "SKILL.md"
+            ).is_file()
+            if not is_recipe:
+                continue
             prefix = ".claude/skills/java-migration-skill-registry"
             expected_script = f"{prefix}/{bucket}/{recipe_dir.name}/scripts/apply.py"
             expected_skill_md = f"{prefix}/{bucket}/{recipe_dir.name}/SKILL.md"

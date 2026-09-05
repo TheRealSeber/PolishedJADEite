@@ -261,10 +261,7 @@ public class AclGui extends JPanel
 			put(aclPanel,senderButton,1,0,1,1,false);
 			put(aclPanel,sender, 2, 0, 1, 1, false);  
 
-			senderButton.addActionListener(new ActionListener(){
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-				public void actionPerformed(ActionEvent e)
-				{
+			senderButton.addActionListener(e -> {
 					String command = e.getActionCommand();
 					AIDGui guiSender = new AIDGui(getChildrenOwner());
 
@@ -288,7 +285,6 @@ public class AclGui extends JPanel
 // JADE-MODERNIZATION-DEFERRED:STRINGS_IN_SWITCH Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance. 1.0 (complex chain -- manual review recommended)
 							guiSender.ShowAIDGui(SenderAID, false,false);
 
-				}
 			});
 
 			// Receiver (line # 1)
@@ -385,11 +381,7 @@ public class AclGui extends JPanel
 			lastSelectedIndex = protocol.getSelectedIndex();
 			lastSelectedItem = (String) protocol.getSelectedItem();
 			put(aclPanel,protocol, 1, 12, 2, 1, true);
-			protocol.addActionListener( new ActionListener()
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			{
-				public void actionPerformed(ActionEvent e)
-				{    
+			protocol.addActionListener( e -> {
 					String param = (String) protocol.getSelectedItem();
 
 					// BEFORE THE CURRENT SELECTION THE JComboBox WAS NON EDITABLE (a FIPA protocol or null was selected)
@@ -457,7 +449,6 @@ public class AclGui extends JPanel
 
 					lastSelectedIndex = protocol.getSelectedIndex();
 					lastSelectedItem = (String) protocol.getSelectedItem();
-				}
 			} );
 
 			// Conversation-id (line # 13)
@@ -698,9 +689,7 @@ public class AclGui extends JPanel
 			from.setEditable(false);
 			from.setBackground(Color.white);
 			put(aclPanel,from,2,1,1,1,false);
-			fromButton.addActionListener(new ActionListener(){
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-				public void actionPerformed(ActionEvent e){
+			fromButton.addActionListener(e -> {
 					String command = e.getActionCommand();
 					AIDGui guiFrom = new AIDGui(ownerGui);
 					if(command.equals("Set"))
@@ -721,7 +710,6 @@ public class AclGui extends JPanel
 // JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance. 1.0
 							guiFrom.ShowAIDGui(fromAID,false,false);
 					}
-				}
 			});
 
 			//Comments (line # 2-6)
@@ -765,11 +753,7 @@ public class AclGui extends JPanel
 			date.setBackground(Color.white);
 			put(aclPanel,dateButton, 1, 10, 1, 1, false);
 			put(aclPanel,date, 2, 10, 1, 1, false); 
-			dateButton.addActionListener(new  ActionListener()
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			{
-				public void actionPerformed(ActionEvent e)
-				{
+			dateButton.addActionListener(e -> {
 					String command = e.getActionCommand();
 					//TimeChooser t = new TimeChooser(replyByDate);
 					TimeChooser t = new TimeChooser();
@@ -781,7 +765,7 @@ public class AclGui extends JPanel
 						{
 							t.setDate(ISO8601.toDate(d));
 						}
-						catch (Exception ee) { 
+						catch (Exception ee) {
 							if(logger.isLoggable(Logger.WARNING))
 								logger.log(Logger.WARNING,"Incorrect date format"); }
 					}
@@ -799,10 +783,9 @@ public class AclGui extends JPanel
 					}
 					else if (command.equals("View"))
 // JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance. 1.0
-					{         
+					{
 						t.showViewTimeDlg(null);
 					}
-				}
 			} );
 
 			//intendedReceiver (line #11)
@@ -851,11 +834,7 @@ public class AclGui extends JPanel
 			tempPane.add(l);
 			dateRecButton = new JButton("Set");
 			tempPane.add(dateRecButton);
-			dateRecButton.addActionListener(new ActionListener()
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			{
-				public void actionPerformed(ActionEvent e)
-				{
+			dateRecButton.addActionListener(e -> {
 					String command = e.getActionCommand();
 					//TimeChooser t = new TimeChooser(replyByDate);
 					TimeChooser t = new TimeChooser();
@@ -867,7 +846,7 @@ public class AclGui extends JPanel
 						{
 							t.setDate(ISO8601.toDate(d));
 						}
-						catch (Exception ee) { 
+						catch (Exception ee) {
 							if(logger.isLoggable(Logger.WARNING))
 								logger.log(Logger.WARNING,"Incorrect date format"); }
 					}
@@ -885,10 +864,9 @@ public class AclGui extends JPanel
 					}
 					else if (command.equals("View"))
 // JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance. 1.0
-					{         
+					{
 						t.showViewTimeDlg(null);
 					}
-				}
 			} );
 
 			dateRec = new JTextField();
@@ -930,10 +908,7 @@ public class AclGui extends JPanel
 			defaultEnvelopeButton = new JButton("Set Default Envelope");
 			tmpPanel.add(defaultEnvelopeButton);
 
-			defaultEnvelopeButton.addActionListener(new ActionListener(){
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-				public void actionPerformed(ActionEvent e)
-				{
+			defaultEnvelopeButton.addActionListener(e -> {
 					String command = e.getActionCommand();
 					if(command.equals("Set Default Envelope"))
 // JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance. 1.0
@@ -943,7 +918,6 @@ public class AclGui extends JPanel
 						Envelope envtmp = tmp.getEnvelope();
 						showEnvelope(envtmp);
 					}
-				}
 			});
 			put(aclPanel,tmpPanel,0,17,3,1,false);
 			//setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -1548,13 +1522,8 @@ public class AclGui extends JPanel
 		tempAclDlg.getContentPane().add("Center", aclPanel);
 		tempAclDlg.getContentPane().add("South", buttonPanel);
 
-		okButton.addActionListener(new ActionListener()
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		okButton.addActionListener(e -> {
 				tempAclDlg.dispose();
-			}
 		} );
 
 		tempAclDlg.pack();
@@ -1601,23 +1570,13 @@ public class AclGui extends JPanel
 		tempAclDlg.getContentPane().add("Center", aclPanel);
 		tempAclDlg.getContentPane().add("South", buttonPanel);
 
-		okButton.addActionListener(new ActionListener()
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		okButton.addActionListener(e -> {
 				editedMsg = aclPanel.getMsg();
 				tempAclDlg.dispose();
-			}
 		} );
-		cancelButton.addActionListener(new ActionListener()
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-		{
-			public void actionPerformed(ActionEvent e)
-			{
+		cancelButton.addActionListener(e -> {
 				editedMsg = null;
 				tempAclDlg.dispose();
-			}
 		} );
 
 		tempAclDlg.pack();

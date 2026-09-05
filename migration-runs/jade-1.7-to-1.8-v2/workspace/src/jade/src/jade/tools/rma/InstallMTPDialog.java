@@ -151,22 +151,16 @@ class InstallMTPDialog extends javax.swing.JDialog {
     bottomPanel.setBorder(new javax.swing.border.EmptyBorder(new java.awt.Insets(5, 5, 5, 5)));
 
       buttonOK.setText("OK");
-      buttonOK.addActionListener(new java.awt.event.ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+      buttonOK.addActionListener(evt -> {
           buttonOKActionPerformed(evt);
-        }
       }
       );
   
       bottomPanel.add(buttonOK);
   
       buttonCancel.setText("Cancel");
-      buttonCancel.addActionListener(new java.awt.event.ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
+      buttonCancel.addActionListener(evt -> {
           buttonCancelActionPerformed(evt);
-        }
       }
       );
   

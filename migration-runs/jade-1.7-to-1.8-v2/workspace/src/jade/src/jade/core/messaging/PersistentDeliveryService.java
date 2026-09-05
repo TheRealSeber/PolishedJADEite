@@ -433,9 +433,7 @@ public class PersistentDeliveryService extends BaseService {
 	 * This happens on the main container only.
 	 */
 	private void flushMessages(final AID target) {
-		Thread t = new Thread() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
+		Thread t = new Thread(() -> {
 				try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
 					Service.Slice[] slices = getStorageEnabledSlices();
@@ -456,8 +454,7 @@ public class PersistentDeliveryService extends BaseService {
 				catch (ServiceException se) {
 					myLogger.log(Logger.WARNING,"Persistent-Delivery - Error retrieving storage-enabled slices to flush persisted messages for agent "+target.getName());
 				}
-			}
-		};
+		});
 		t.start();
 	}
 	

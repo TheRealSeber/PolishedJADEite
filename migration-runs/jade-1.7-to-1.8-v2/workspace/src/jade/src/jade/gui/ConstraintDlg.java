@@ -141,11 +141,7 @@ public class ConstraintDlg extends JDialog
 	
 		// Ok Button
 		JButton okB = new JButton("OK");
-		okB.addActionListener(new ActionListener()
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-		{
-			public void actionPerformed(ActionEvent e)
- 				{
+		okB.addActionListener(e -> {
  					String param = e.getActionCommand();
  					if(param == "OK")
  					{
@@ -192,27 +188,21 @@ public class ConstraintDlg extends JDialog
             }	catch(Exception e1){
             		JOptionPane.showMessageDialog(null,"The inserted values must be numbers !!!.","Error Message",JOptionPane.ERROR_MESSAGE); 
 								return;
-            }			 
+            }
  					}
- 				}
 		});
-		
+
 		buttonPanel.add(okB);
 		
 		// Cancel Button
 		JButton cancelB = new JButton("Cancel");
-		cancelB.addActionListener(new ActionListener()
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-		{
-			public void actionPerformed(ActionEvent e)
- 				{
+		cancelB.addActionListener(e -> {
  					String param = e.getActionCommand();
  					if(param == "Cancel")
  					{
-            constraints = null; 
- 						dispose(); 
+            constraints = null;
+ 						dispose();
  					}
- 				}
 		});
 		
 		buttonPanel.add(cancelB);

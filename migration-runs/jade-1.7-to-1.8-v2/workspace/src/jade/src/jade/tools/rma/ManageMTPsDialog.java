@@ -158,9 +158,7 @@ public class ManageMTPsDialog extends JDialog {
         pack();
 
 	containers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	containers.addListSelectionListener(new ListSelectionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-	  public void valueChanged(ListSelectionEvent e) {
+	containers.addListSelectionListener(e -> {
 	    // Skip event burst, apart from the last one
 	    if(!e.getValueIsAdjusting()) {
 		Object sel = containers.getSelectedValue();
@@ -178,30 +176,22 @@ public class ManageMTPsDialog extends JDialog {
 		    addresses.setListData(EMPTY_LIST);
 		}
 	    }
-	  }
 	});
 
 
 	addresses.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	addresses.addListSelectionListener(new ListSelectionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-	  public void valueChanged(ListSelectionEvent e) {
+	addresses.addListSelectionListener(e -> {
 	    // Skip event burst, apart from the last one
 	    if(!e.getValueIsAdjusting()) {
 	      // The 'Remove MTP' action is enabled only if some MTP is selected
 	      Object sel = containers.getSelectedValue();
 	      removeMTP.setEnabled(sel != null);
 	    }
-	  }
-
 	});
 
-	closeDlg.addActionListener(new ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-	  public void actionPerformed(ActionEvent ae) {
+	closeDlg.addActionListener(ae -> {
 	    setVisible(false);
 	    dispose();
-	  }
 	});
 
 

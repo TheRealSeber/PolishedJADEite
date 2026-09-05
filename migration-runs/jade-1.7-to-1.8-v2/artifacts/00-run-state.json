@@ -1,17 +1,16 @@
 {
   "run_id": "jade-1.7-to-1.8-v2",
   "state": "DONE",
-  "current_rule_id": "LAMBDA_CONVERSION",
-  "updated_at": "2026-09-05T03:33:37Z",
+  "current_rule_id": null,
+  "updated_at": "2026-09-05T04:23:11Z",
   "failure_reason": null,
   "artifact_hashes": {
     "01-breaking-changes-manifest.json": "b14a424c12d694a8b175206c604cecb893a7bc137b6981ace006be35d4f8de96",
     "02-tooling-scout-report.json": "56f68bf246f561404024b9fd1701bd1dea5bcf6ff2b342180da6d7fa7a39ea48",
-    "03-build-audit.json": "83a45c82c57e3044f6b68b6d7cbe5fa668267122293c2f65f25498bfa01169dc",
+    "03-build-audit.json": "e9ccdbefb4c6adc46ec1f0a77ceadeb0e6fadc2e104898ce3ae1c9636f12d2eb",
     "03.5-knowledge-graph.json": "7f99ee55a9feb340173712c4b11ab1204da44e957d6d26938bc40edf30b03907",
     "04-flag-index.json": "6ada321663d82fe2083dd6dd0f849202656ce713cf9a4f67d582e3c3ae767092",
-    "07-build.log": "abe69c980cd0530dac8d3a10ccfb98cf4e36bf2e27beda7d30f5608754de8727",
-    "07-runtime-verify.json": "f604a90c1273b6de872cb87d16c9417dce345f46b2002807fadab378c815da27"
+    "07-runtime-verify.json": "96092fe2daea6d238ef16142c595fb02ff282c709b97138373a122bca5888498"
   },
   "graph": {
     "schema_version": 2,

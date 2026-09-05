@@ -132,11 +132,8 @@ class MainWindow extends JFrame {
 		//dispose();
 		final Window toDispose = this;
 		// Make AWT Event Dispatcher thread dispose RMA window for us.
-		SwingUtilities.invokeLater(new Runnable() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
+		SwingUtilities.invokeLater(() -> {
 				toDispose.dispose();
-			}
 		});
 
 	}
@@ -146,26 +143,19 @@ class MainWindow extends JFrame {
 	}
 
 	public void resetTree() {
-		Runnable resetIt = new Runnable() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-
-			public void run() {
+		Runnable resetIt = () -> {
 				tree.treeAgent.clearLocalPlatform();
-			}
 		};
 		SwingUtilities.invokeLater(resetIt);
 	}
 
 	public void addContainer(final String name, final InetAddress addr) {
-		Runnable addIt = new Runnable() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
+		Runnable addIt = () -> {
 				//MutableTreeNode node = tree.treeAgent.createNewNode(name, 0);
 				//tree.treeAgent.addContainerNode((AgentTree.ContainerNode)node,"FIPACONTAINER",addr);
 				tree.treeAgent.addContainerNode(name, addr);
 				containerNames.add(name);
 				manageDlg.setData(containerNames, addresses);
-			}
 		};
 		SwingUtilities.invokeLater(addIt);
 	}
@@ -173,14 +163,10 @@ class MainWindow extends JFrame {
 	public void removeContainer(final String name) {
 
 		// Remove a container from the tree model
-		Runnable removeIt = new Runnable() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-
-			public void run() {
+		Runnable removeIt = () -> {
 				tree.treeAgent.removeContainerNode(name);
 				containerNames.remove(name);
 				manageDlg.setData(containerNames, addresses);
-			}
 		};
 		SwingUtilities.invokeLater(removeIt);
 	}
@@ -188,9 +174,7 @@ class MainWindow extends JFrame {
 	public void addAgent(final String containerName, final AID agentID, final String state, final String ownership) {
 
 		// Add an agent to the specified container
-		Runnable addIt = new Runnable() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
+		Runnable addIt = () -> {
 				String agentName = agentID.getName();
 				Iterator add = agentID.getAllAddresses();
 				String agentAddresses = "";
@@ -198,7 +182,6 @@ class MainWindow extends JFrame {
 					agentAddresses = agentAddresses + add.next() + " ";
 				}
 				tree.treeAgent.addAgentNode(agentName, agentAddresses, containerName, state, ownership);
-			}
 		};
 		SwingUtilities.invokeLater(addIt);
 	}
@@ -206,12 +189,9 @@ class MainWindow extends JFrame {
 	public void removeAgent(final String containerName, final AID agentID) {
 
 		// Remove an agent from the specified container
-		Runnable removeIt = new Runnable() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
+		Runnable removeIt = () -> {
 				String agentName = agentID.getName();
 				tree.treeAgent.removeAgentNode(containerName, agentName);
-			}
 		};
 		SwingUtilities.invokeLater(removeIt);
 	}
@@ -219,12 +199,9 @@ class MainWindow extends JFrame {
 	public void modifyAgent(final String containerName, final AID agentID, final String state, final String ownership) {
 
 		// Remove an agent from the specified container
-		Runnable modifyIt = new Runnable() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
+		Runnable modifyIt = () -> {
 				String agentName = agentID.getName();
 				tree.treeAgent.modifyAgentNode(containerName, agentName, null, state, ownership);
-			}
 		};
 		SwingUtilities.invokeLater(modifyIt);
 	}
@@ -232,12 +209,9 @@ class MainWindow extends JFrame {
 	public void moveAgent(final String fromContainer, final String toContainer, final AID agentID) {
 
 		// Move an agent from a container node to another
-		Runnable moveIt = new Runnable() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
+		Runnable moveIt = () -> {
 				String agentName = agentID.getName();
 				tree.treeAgent.moveAgentNode(fromContainer, toContainer, agentName);
-			}
 		};
 		SwingUtilities.invokeLater(moveIt);
 	}
@@ -245,12 +219,9 @@ class MainWindow extends JFrame {
 	public void modifyFrozenAgent(final String oldContainer, final String newContainer, final AID agentID) {
 
 		// Freeze an agent to the specified container
-		Runnable freezeIt = new Runnable() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
+		Runnable freezeIt = () -> {
 				String agentName = agentID.getName();
 				tree.treeAgent.freezeAgentNode(oldContainer, newContainer, agentName);
-			}
 		};
 		SwingUtilities.invokeLater(freezeIt);
 	}
@@ -258,20 +229,15 @@ class MainWindow extends JFrame {
 	public void modifyThawedAgent(final String oldContainer, final String newContainer, final AID agentID) {
 
 		// Thaw an agent to the specified container
-		Runnable thawIt = new Runnable() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
+		Runnable thawIt = () -> {
 				String agentName = agentID.getName();
 				tree.treeAgent.thawAgentNode(oldContainer, newContainer, agentName);
-			}
 		};
 		SwingUtilities.invokeLater(thawIt);
 	}
 
 	public void addAddress(final String address, final String where) {
-		Runnable addIt = new Runnable() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
+		Runnable addIt = () -> {
 				List addrs = (List)addresses.get(where);
 				if(addrs == null) {
 					addrs = new LinkedList();
@@ -279,7 +245,6 @@ class MainWindow extends JFrame {
 				}
 				addrs.add(address);
 				manageDlg.setData(containerNames, addresses);
-			}
 		};
 		SwingUtilities.invokeLater(addIt);
 
@@ -287,14 +252,11 @@ class MainWindow extends JFrame {
 	}
 
 	public void addRemotePlatformFolder(){
-		Runnable addIt = new Runnable(){
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run(){
+		Runnable addIt = () -> {
 				PopupMenuPlatform menu = new PopupMenuPlatform(actPro);
 				tree.treeAgent.setNewPopupMenu(AgentTree.REMOTE_PLATFORMS_FOLDER_TYPE, menu);
 				tree.treeAgent.addRemotePlatformsFolderNode();
 
-			}
 		};
 		SwingUtilities.invokeLater(addIt);
 	}
@@ -304,13 +266,9 @@ class MainWindow extends JFrame {
 
 		final APDescription desc = profile;
 		final AID ams = name;
-		Runnable addIt = new Runnable(){
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-
-			public void run(){
+		Runnable addIt = () -> {
 				tree.treeAgent.addRemotePlatformNode(ams,desc);
 
-			}
 		};
 		SwingUtilities.invokeLater(addIt);
 	}
@@ -318,39 +276,30 @@ class MainWindow extends JFrame {
 
 	public void refreshRemoteAgentsInRemotePlatform(final APDescription platform, final Iterator remoteAgents){
 		// Add an agent to a specified AMS
-		Runnable addIt = new Runnable() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
+		Runnable addIt = () -> {
 				// Clear all previous agents
 				tree.treeAgent.clearRemotePlatformAgents(platform.getName());
-				
+
 				// Add new current agents
 				while(remoteAgents.hasNext()){
 					AMSAgentDescription agent = (AMSAgentDescription) remoteAgents.next();
 					tree.treeAgent.addRemoteAgentNode(agent,platform.getName());
 				}
-			}
 		};
 		SwingUtilities.invokeLater(addIt);
 	}
 
 	public void removeRemotePlatform(final String platformName){
 
-		Runnable addIt = new Runnable(){
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-
-			public void run(){
+		Runnable addIt = () -> {
 				tree.treeAgent.removeRemotePlatformNode(platformName);
 
-			}
 		};
 		SwingUtilities.invokeLater(addIt);
 	}
 
 	public void removeAddress(final String address, final String where) {
-		Runnable removeIt = new Runnable() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
+		Runnable removeIt = () -> {
 				List addrs = (List)addresses.get(where);
 				if (addrs != null) {
 					addrs.remove(address);
@@ -358,7 +307,6 @@ class MainWindow extends JFrame {
 						addresses.remove(where);
 					manageDlg.setData(containerNames, addresses);
 				}
-			}
 		};
 		SwingUtilities.invokeLater(removeIt);
 	}
@@ -366,12 +314,8 @@ class MainWindow extends JFrame {
 
 	public void refreshLocalPlatformName(final String name){
 
-		Runnable refreshName = new Runnable(){
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run(){
+		Runnable refreshName = () -> {
 				tree.treeAgent.refreshLocalPlatformName(name);
-			}
-
 		};
 		SwingUtilities.invokeLater(refreshName);
 

@@ -743,34 +743,31 @@ public class BackEndContainer extends AgentContainerImpl implements BackEnd {
 	 */
 	private void resynch() {
 		synchronizing = true;
-		Thread synchronizer = new Thread() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
-				while (!terminating) {
-					try {
+		Thread synchronizer = new Thread(() -> {
+			while (!terminating) {
+				try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
-						// Wait a bit also before the first attempt to avoid sending the synch 
-						// command in the middle of the BE creation procedure
-						try {Thread.sleep(1000);} catch (Exception e) {}
+					// Wait a bit also before the first attempt to avoid sending the synch
+					// command in the middle of the BE creation procedure
+					try {Thread.sleep(1000);} catch (Exception e) {}
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
-						myLogger.log(Logger.INFO, "BackEnd container "+ here().getName()+" - Sending SYNCH command to FE ...");
-						myFrontEnd.synch();
-						notifySynchronized();
-						myLogger.log(Logger.INFO, "BackEnd container "+ here().getName()+" - Resynch completed");
-						break;
-					}
-					catch (IMTPException imtpe) {
-						// Since the synchronization process will be repeated, be
-						// sure we start from a clean situation
-						//killAgentImages();
-						
-						// The input connection is down again (or there was an IMTP
-						// error resynching). Go back waiting
-						myLogger.log(Logger.WARNING, "BackEnd container "+ here().getName()+" - IMTP Exception in resynch. Wait a bit and retry...");
-					}
+					myLogger.log(Logger.INFO, "BackEnd container "+ here().getName()+" - Sending SYNCH command to FE ...");
+					myFrontEnd.synch();
+					notifySynchronized();
+					myLogger.log(Logger.INFO, "BackEnd container "+ here().getName()+" - Resynch completed");
+					break;
+				}
+				catch (IMTPException imtpe) {
+					// Since the synchronization process will be repeated, be
+					// sure we start from a clean situation
+					//killAgentImages();
+
+					// The input connection is down again (or there was an IMTP
+					// error resynching). Go back waiting
+					myLogger.log(Logger.WARNING, "BackEnd container "+ here().getName()+" - IMTP Exception in resynch. Wait a bit and retry...");
 				}
 			}
-		};
+		});
 		synchronizer.start();
 	}
 	

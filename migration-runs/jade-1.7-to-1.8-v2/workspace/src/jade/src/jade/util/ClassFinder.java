@@ -185,38 +185,26 @@ public class ClassFinder {
 		return map;
 	}
 
-	private final static FileFilter DIRECTORIES_ONLY = new FileFilter() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-		public boolean accept(File f) {
+	private final static FileFilter DIRECTORIES_ONLY = f -> {
 			if (f.exists() && f.isDirectory())
 				return true;
 			else
 				return false;
-		}
 	};
 
-	private final static FileFilter CLASSES_ONLY = new FileFilter() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-		public boolean accept(File f) {
+	private final static FileFilter CLASSES_ONLY = f -> {
 			if (f.exists() && f.isFile() && f.canRead())
 				return f.getName().endsWith(".class");
 			else
 				return false;
-		}
 	};
 
-	private final static Comparator URL_COMPARATOR = new Comparator() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-		public int compare(Object u1, Object u2) {
+	private final static Comparator URL_COMPARATOR = (u1, u2) -> {
 			return String.valueOf(u1).compareTo(String.valueOf(u2));
-		}
 	};
 
-	private final static Comparator CLASS_COMPARATOR = new Comparator() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-		public int compare(Object c1, Object c2) {
+	private final static Comparator CLASS_COMPARATOR = (c1, c2) -> {
 			return String.valueOf(c1).compareTo(String.valueOf(c2));
-		}
 	};
 
 	private final void include(String name, File file, Map map) {

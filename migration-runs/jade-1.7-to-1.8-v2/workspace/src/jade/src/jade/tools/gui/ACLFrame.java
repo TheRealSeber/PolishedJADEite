@@ -190,13 +190,9 @@ public class ACLFrame extends JFrame {
     closeButton.setBackground(Color.white);
     closeButton.setFont(new java.awt.Font("Dialog", 0, 10));
     closeButton.setText("close");
-    closeButton.addActionListener(
-      new java.awt.event.ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-        public void actionPerformed(ActionEvent e) {
-          closeButton_actionPerformed(e);
-        }
-      });
+    closeButton.addActionListener(e -> {
+      closeButton_actionPerformed(e);
+    });
     buttonPanel.setBackground(Color.white);
     fileMenu.setBackground(Color.white);
     fileMenu.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -207,24 +203,16 @@ public class ACLFrame extends JFrame {
     saveMenuItem.setActionCommand("Save as");
     saveMenuItem.setMnemonic('S');
     saveMenuItem.setText("Save As...");
-    saveMenuItem.addActionListener(
-      new java.awt.event.ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-        public void actionPerformed(ActionEvent e) {
-          saveMenuItem_actionPerformed(e);
-        }
-      });
+    saveMenuItem.addActionListener(e -> {
+      saveMenuItem_actionPerformed(e);
+    });
     exitMenuItem.setBackground(Color.white);
     exitMenuItem.setFont(new java.awt.Font("Dialog", 0, 12));
     exitMenuItem.setMnemonic('E');
     exitMenuItem.setText("Exit");
-    exitMenuItem.addActionListener(
-      new java.awt.event.ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-        public void actionPerformed(ActionEvent e) {
-          exitMenuItem_actionPerformed(e);
-        }
-      });
+    exitMenuItem.addActionListener(e -> {
+      exitMenuItem_actionPerformed(e);
+    });
     toolsMenu.setBackground(Color.white);
     toolsMenu.setFont(new java.awt.Font("Dialog", 0, 12));
     toolsMenu.setText("Tools");
@@ -232,13 +220,9 @@ public class ACLFrame extends JFrame {
     systemoutMenuItem.setFont(new java.awt.Font("Dialog", 0, 12));
     systemoutMenuItem.setMnemonic('S');
     systemoutMenuItem.setText("System.out");
-    systemoutMenuItem.addActionListener(
-      new java.awt.event.ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-        public void actionPerformed(ActionEvent e) {
-          systemoutMenuItem_actionPerformed(e);
-        }
-      });
+    systemoutMenuItem.addActionListener(e -> {
+      systemoutMenuItem_actionPerformed(e);
+    });
     theMenuBar.setBackground(Color.white);
     theMenuBar.setFont(new java.awt.Font("Dialog", 0, 12));
     this.getContentPane().add(aclPanel, new GridBagConstraints(0, 0, 2, 1, 1.0, 1.0

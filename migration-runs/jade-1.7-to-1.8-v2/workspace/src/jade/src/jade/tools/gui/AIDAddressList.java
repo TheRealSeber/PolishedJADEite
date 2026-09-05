@@ -228,13 +228,9 @@ public class AIDAddressList extends JPanel {
     viewButton.setToolTipText("edit/view address");
     viewButton.setMargin(new Insets(0, 0, 0, 0));
     viewButton.setText("v");
-    viewButton.addActionListener(
-      new java.awt.event.ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-        public void actionPerformed(ActionEvent e) {
-          viewButton_actionPerformed(e);
-        }
-      });
+    viewButton.addActionListener(e -> {
+      viewButton_actionPerformed(e);
+    });
     addButton.setBackground(Color.white);
     addButton.setFont(new java.awt.Font("Dialog", 0, 11));
     addButton.setForeground(new Color(0, 0, 83));
@@ -242,13 +238,9 @@ public class AIDAddressList extends JPanel {
     addButton.setToolTipText("add address");
     addButton.setMargin(new Insets(0, 0, 0, 0));
     addButton.setText("+");
-    addButton.addActionListener(
-      new java.awt.event.ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-        public void actionPerformed(ActionEvent e) {
-          addButton_actionPerformed(e);
-        }
-      });
+    addButton.addActionListener(e -> {
+      addButton_actionPerformed(e);
+    });
     deleteButton.setBackground(Color.white);
     deleteButton.setFont(new java.awt.Font("Dialog", 0, 11));
     deleteButton.setForeground(new Color(0, 0, 83));
@@ -256,13 +248,9 @@ public class AIDAddressList extends JPanel {
     deleteButton.setToolTipText("delete address");
     deleteButton.setMargin(new Insets(0, 0, 0, 0));
     deleteButton.setText("x");
-    deleteButton.addActionListener(
-      new java.awt.event.ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-        public void actionPerformed(ActionEvent e) {
-          deleteButton_actionPerformed(e);
-        }
-      });
+    deleteButton.addActionListener(e -> {
+      deleteButton_actionPerformed(e);
+    });
     contentList.setFont(new java.awt.Font("Dialog", 0, 11));
     contentList.addMouseListener(
       new java.awt.event.MouseAdapter() {
@@ -466,23 +454,15 @@ public class AIDAddressList extends JPanel {
       okButton.setBackground(Color.white);
       okButton.setFont(new java.awt.Font("Dialog", 0, 12));
       okButton.setText("ok");
-      okButton.addActionListener(
-        new java.awt.event.ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-          public void actionPerformed(ActionEvent e) {
-            okButton_actionPerformed(e);
-          }
-        });
+      okButton.addActionListener(e -> {
+        okButton_actionPerformed(e);
+      });
       cancelButton.setBackground(Color.white);
       cancelButton.setFont(new java.awt.Font("Dialog", 0, 12));
       cancelButton.setText("cancel");
-      cancelButton.addActionListener(
-        new java.awt.event.ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-          public void actionPerformed(ActionEvent e) {
-            cancelButton_actionPerformed(e);
-          }
-        });
+      cancelButton.addActionListener(e -> {
+        cancelButton_actionPerformed(e);
+      });
       this.getContentPane().add(theAddressField, new GridBagConstraints(1, 0, 2, 1, 1.0, 0.0
         , GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
       this.getContentPane().add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0

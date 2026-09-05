@@ -177,17 +177,13 @@ class Poller extends Thread {
 	}
 	
 	private synchronized void startWatchDog(final Thread thread, final String nodeName) {
-		watchDogTimer = TimerDispatcher.getTimerDispatcher().add(new Timer(System.currentTimeMillis()+10000, new TimerListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			@Override
-			public void doTimeOut(Timer t) {
-				synchronized (Poller.this) {
-					if (t == watchDogTimer) {
-						// The watchDog timer could have been cleared just between expiration and doTimeOut() execution
-						myLogger.log(Logger.WARNING, "SAMService - WatchDog timer expired while retrieving SAM information from node "+nodeName);
-						thread.interrupt();
-						myLogger.log(Logger.WARNING, "SAMService - Poller Thread interrupted!!!");
-					}
+		watchDogTimer = TimerDispatcher.getTimerDispatcher().add(new Timer(System.currentTimeMillis()+10000, t -> {
+			synchronized (Poller.this) {
+				if (t == watchDogTimer) {
+					// The watchDog timer could have been cleared just between expiration and doTimeOut() execution
+					myLogger.log(Logger.WARNING, "SAMService - WatchDog timer expired while retrieving SAM information from node "+nodeName);
+					thread.interrupt();
+					myLogger.log(Logger.WARNING, "SAMService - Poller Thread interrupted!!!");
 				}
 			}
 		}));

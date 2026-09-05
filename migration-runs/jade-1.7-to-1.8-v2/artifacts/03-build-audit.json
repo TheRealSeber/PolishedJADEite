@@ -8,7 +8,7 @@
   "build_exit_code": 0,
   "docker_image": "frekele/ant:1.10.3-jdk8",
   "error_count": 0,
-  "applied_fixes_count": 5,
+  "applied_fixes_count": 0,
   "pending_fixes_count": 0,
   "dependency_risk_level": "NONE",
   "dependency_blockers_count": 0,
@@ -18,5 +18,5 @@
     "docker": "available"
   },
   "jade_jar_built": true,
-  "updated_at": "2026-09-05T02:46:50Z"
+  "updated_at": "2026-09-05T04:20:26Z"
 }

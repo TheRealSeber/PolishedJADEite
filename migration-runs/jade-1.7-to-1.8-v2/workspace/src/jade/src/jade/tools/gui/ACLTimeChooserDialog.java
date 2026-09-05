@@ -355,32 +355,26 @@ public class ACLTimeChooserDialog implements ActionListener {
     B1.setBackground(Color.white);
     B1.setFont(new java.awt.Font("Dialog", 0, 11));
     B1.addActionListener(
-      new ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-        public void actionPerformed(ActionEvent e) {
-          Integer i = new Integer(timeUnitEdit.getText());
+      e -> {
+        Integer i = new Integer(timeUnitEdit.getText());
           int ii = i.intValue() + 1;
           if (ii <= limit) {
             timeUnitEdit.setText(String.valueOf(ii));
           }
 
-        }
       });
     JButton B2 = new JButton("-");
     B2.setBackground(Color.white);
     B2.setFont(new java.awt.Font("Dialog", 0, 11));
     B2.addActionListener(
-      new ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-        public void actionPerformed(ActionEvent e) {
-          Integer i = new Integer(timeUnitEdit.getText());
+      e -> {
+        Integer i = new Integer(timeUnitEdit.getText());
           int ii = i.intValue() - 1;
           int inf_limit = (timeUnitLabel.equalsIgnoreCase("Hour:") || timeUnitLabel.equalsIgnoreCase("Min:") || timeUnitLabel.equalsIgnoreCase("Sec:") ? 0 : 1);
           if (ii >= inf_limit) {
             timeUnitEdit.setText(String.valueOf(ii));
           }
 
-        }
       });
 
     B1.setMargin(new Insets(2, 4, 2, 4));

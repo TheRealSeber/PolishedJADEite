@@ -195,13 +195,10 @@ public class DFAgentDscDlg extends JDialog implements ActionListener
     
 		AIDButton = new JButton(editable ? "Set":"View");
 		
-		AIDButton.addActionListener(new ActionListener(){
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-    	public void actionPerformed(ActionEvent e)
-    	{
+		AIDButton.addActionListener(e -> {
     		String command = e.getActionCommand();
     		AIDGui guiSender = new AIDGui(dlgParent);
-    	
+
     		if(command.equals("View"))
 // JADE-MODERNIZATION-DEFERRED:STRINGS_IN_SWITCH Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance. 1.0 (complex chain -- manual review recommended)
     			guiSender.ShowAIDGui(dfdAgent.getName(), false,false);
@@ -209,17 +206,16 @@ public class DFAgentDscDlg extends JDialog implements ActionListener
     		  if(command.equals("Set"))
 // JADE-MODERNIZATION-DEFERRED:STRINGS_IN_SWITCH Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance. 1.0 (complex chain -- manual review recommended)
     		  	{
-    		  		
+
     		  		newAID = guiSender.ShowAIDGui(dfdAgent.getName(),true,checkSlots);
-    		  		
+
     		  		if (newAID != null)
-    		  		{	
+    		  		{
     		  			agentName.setText(newAID.getName());
     		  			dfdAgent.setName(newAID);
     		  		}
     		  	}
-    			
-    	}
+
     });
    
 	  p.add(AIDButton); 
@@ -323,11 +319,7 @@ public class DFAgentDscDlg extends JDialog implements ActionListener
 		bPane = new JPanel();
 		bPane.setLayout(new BoxLayout(bPane, BoxLayout.X_AXIS));
 		JButton bOK = new JButton("OK");
-		bOK.addActionListener( new ActionListener()
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-		{
-			public void actionPerformed(ActionEvent e)
-			{    
+		bOK.addActionListener(e -> {
 				String param = (String) e.getActionCommand();
 				if (param.equals("OK"))
 // JADE-MODERNIZATION-DEFERRED:STRINGS_IN_SWITCH Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance. 1.0 (complex chain -- manual review recommended)
@@ -377,7 +369,6 @@ public class DFAgentDscDlg extends JDialog implements ActionListener
             
 						dispose();
 					}
-			} 
 		} );
 		
 		bPane.add(bOK);
@@ -385,12 +376,7 @@ public class DFAgentDscDlg extends JDialog implements ActionListener
 		if(editable)
 		{
 			JButton cancelButton = new JButton("Cancel");
-			cancelButton.addActionListener(new ActionListener()
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			{
-			
-				public void actionPerformed(ActionEvent e)
-				{
+			cancelButton.addActionListener(e -> {
 					String param = e.getActionCommand();
 					if(param.equals("Cancel"))
 // JADE-MODERNIZATION-DEFERRED:STRINGS_IN_SWITCH Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance. 1.0 (complex chain -- manual review recommended)
@@ -398,7 +384,6 @@ public class DFAgentDscDlg extends JDialog implements ActionListener
 						out = null;
 						dispose();
 					}
-				}
 			});
 			
 			bPane.add(cancelButton);

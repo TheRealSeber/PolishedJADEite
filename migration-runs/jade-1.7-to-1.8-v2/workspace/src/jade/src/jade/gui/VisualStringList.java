@@ -165,49 +165,34 @@ public class VisualStringList extends JPanel
 		
 		//initilized with poUp editable
 		editItem = new JMenuItem(EDIT_LABEL);
-		editItem.addActionListener(new ActionListener()
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-		  {
-	    	public void actionPerformed(ActionEvent e)
-	    	{
+		editItem.addActionListener(e -> {
 	    		String param = e.getActionCommand();
 	    		if(param.equals(EDIT_LABEL))
 	    			editAction();
 	    		else
 	    		if(param.equals(VIEW_LABEL))
-	    			viewAction();	
-	    	}	  
+	    			viewAction();
 	    });
 
 		popUp.add(editItem);
 		
 	  
 		addItem = new JMenuItem(ADD_LABEL);
-	  addItem.addActionListener(new ActionListener()
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-	    {
-	    	public void actionPerformed(ActionEvent e)
-	    	{
+	  addItem.addActionListener(e -> {
 	    		String param = e.getActionCommand();
 	    		if(param.equals(ADD_LABEL))
-	    		{		
+	    		{
 	    			Object el = editElement(null,true);
-	    			
+
 	    			if(el != null)
 	    				addElement(el);
-	    		
+
 	    		}
-	    	
-	    	}	  
 	    });
 	  popUp.insert(addItem,0);
 	    
 	  removeItem = new JMenuItem(REMOVE_LABEL);
-	  removeItem.addActionListener(new ActionListener()
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-	    {
-	    	public void actionPerformed(ActionEvent e)
-	    	{ 
+	  removeItem.addActionListener(e -> {
 	    		String param = e.getActionCommand();
 	    		if(param.equals(REMOVE_LABEL))
 	    			{
@@ -217,10 +202,8 @@ public class VisualStringList extends JPanel
 	    				  if(el != null)
 	    				  	removeElement(el);
 	    				}
-	    				
+
 	    			}
-	    	}
-	    
 	    });
 	  popUp.insert(removeItem,2);
 		

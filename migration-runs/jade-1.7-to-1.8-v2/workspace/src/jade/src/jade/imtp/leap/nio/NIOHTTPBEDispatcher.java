@@ -572,11 +572,8 @@ public class NIOHTTPBEDispatcher implements NIOMediator, Dispatcher, BEConnectio
 				Runtime.instance().getTimerDispatcher().remove(keepAliveTimer);
 			}
 			long now = System.currentTimeMillis();
-			keepAliveTimer = new Timer(now + keepAliveTime, new TimerListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-				public void doTimeOut(Timer t) {
-					dispatchKeepAlive();
-				}
+			keepAliveTimer = new Timer(now + keepAliveTime, t -> {
+				dispatchKeepAlive();
 			});
 			keepAliveTimer = Runtime.instance().getTimerDispatcher().add(keepAliveTimer);
 			if (myLogger.isLoggable(Logger.FINEST)) {
@@ -589,15 +586,12 @@ public class NIOHTTPBEDispatcher implements NIOMediator, Dispatcher, BEConnectio
 	private void activateMaxDisconnectionTimer() {
 		// Set the disconnection timer
 		long now = System.currentTimeMillis();
-		maxDisconnectionTimer = new Timer(now + maxDisconnectionTime, new TimerListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void doTimeOut(Timer t) {
-				synchronized (NIOHTTPBEDispatcher.this) {
-					if (frontEndStatus != CONNECTED) {
-						myLogger.log(Logger.WARNING, myID+" - Max disconnection timeout expired.");
-						// The remote FrontEnd is probably down --> notify up.
-						handlePeerSelfTermination();
-					}
+		maxDisconnectionTimer = new Timer(now + maxDisconnectionTime, t -> {
+			synchronized (NIOHTTPBEDispatcher.this) {
+				if (frontEndStatus != CONNECTED) {
+					myLogger.log(Logger.WARNING, myID+" - Max disconnection timeout expired.");
+					// The remote FrontEnd is probably down --> notify up.
+					handlePeerSelfTermination();
 				}
 			}
 		});

@@ -78,30 +78,26 @@ public abstract class MomMessagingService extends MessagingService {
 			// to skip the MessageManager
 			if (!myProfile.getBooleanProperty("use-message-manager", false)) {
 				myLogger.log(Logger.INFO, "MessagingService configured to skip MessageManager");
-				return new Sink() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-					@Override
-					public void consume(VerticalCommand cmd) {
-						String name = cmd.getName();
-						if(name.equals(MessagingSlice.SEND_MESSAGE)) {
-							Object[] params = cmd.getParams();
-							AID sender = (AID)params[0];
-							GenericMessage msg = (GenericMessage)params[1];
-							AID dest = (AID)params[2];
-							// Since message delivery is asynchronous we use the GenericMessage
-							// as a temporary holder for the sender principal and credentials
-							msg.setSenderPrincipal(cmd.getPrincipal());
-							msg.setSenderCredentials(cmd.getCredentials());
-							msg.setSender(sender);
-							checkTracing(msg);
-							if (msg.getTraceID() != null) {
-								myLogger.log(Logger.INFO, "MessagingService source sink handling message "+MessageManager.stringify(msg)+" for receiver "+dest.getName()+". TraceID = "+msg.getTraceID());
-							}
-							deliverNow(msg, dest);
+				return cmd -> {
+					String name = cmd.getName();
+					if(name.equals(MessagingSlice.SEND_MESSAGE)) {
+						Object[] params = cmd.getParams();
+						AID sender = (AID)params[0];
+						GenericMessage msg = (GenericMessage)params[1];
+						AID dest = (AID)params[2];
+						// Since message delivery is asynchronous we use the GenericMessage
+						// as a temporary holder for the sender principal and credentials
+						msg.setSenderPrincipal(cmd.getPrincipal());
+						msg.setSenderCredentials(cmd.getCredentials());
+						msg.setSender(sender);
+						checkTracing(msg);
+						if (msg.getTraceID() != null) {
+							myLogger.log(Logger.INFO, "MessagingService source sink handling message "+MessageManager.stringify(msg)+" for receiver "+dest.getName()+". TraceID = "+msg.getTraceID());
 						}
-						else {
-							realSink.consume(cmd);
-						}
+						deliverNow(msg, dest);
+					}
+					else {
+						realSink.consume(cmd);
 					}
 				};
 			}
@@ -233,11 +229,8 @@ public abstract class MomMessagingService extends MessagingService {
 		ongoingDeliveries.put(context.deliveryID,  context);
 		if (deliveryCompletionTimeout > 0) {
 			// Activate Timer whatchDog 
-			Timer watchDog = TimerDispatcher.getTimerDispatcher().add(new Timer(System.currentTimeMillis()+deliveryCompletionTimeout, new TimerListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-				public void doTimeOut(Timer t) {
-					timeout(context);
-				}
+			Timer watchDog = TimerDispatcher.getTimerDispatcher().add(new Timer(System.currentTimeMillis()+deliveryCompletionTimeout, t -> {
+				timeout(context);
 			}));
 			context.setWatchDog(watchDog);
 		}

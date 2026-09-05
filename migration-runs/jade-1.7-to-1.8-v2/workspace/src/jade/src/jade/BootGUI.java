@@ -120,9 +120,7 @@ public class BootGUI extends JDialog {
         JButton openB = new JButton("Open File");
 
         openB.setToolTipText("Read configuration from file");
-        openB.addActionListener(new ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-            public void actionPerformed(ActionEvent e) {
+        openB.addActionListener(e -> {
                 String param = (String) e.getActionCommand();
 
                 if (param.equals("Open File")) {
@@ -155,7 +153,6 @@ public class BootGUI extends JDialog {
                         }
                     }
                 }
-            }
         });
         addWindowListener(new WindowAdapter() {
 // JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
@@ -168,9 +165,7 @@ public class BootGUI extends JDialog {
         JButton saveB = new JButton("Save File");
 
         saveB.setToolTipText("Save configuration into a file");
-        saveB.addActionListener(new ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-            public void actionPerformed(ActionEvent e) {
+        saveB.addActionListener(e -> {
                 String param = (String) e.getActionCommand();
 
                 if (param.equals("Save File")) {
@@ -232,16 +227,13 @@ public class BootGUI extends JDialog {
                         statusField.setText(be.getMessage());
                     }
                 }
-            }
         });
         buttonPanel.add(saveB);
 
         JButton runB = new JButton("Run");
 
         runB.setToolTipText("Launch the system");
-        runB.addActionListener(new ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-            public void actionPerformed(ActionEvent e) {
+        runB.addActionListener(e -> {
                 String param = (String) e.getActionCommand();
 
                 if (param.equals("Run")) {
@@ -325,31 +317,25 @@ public class BootGUI extends JDialog {
                         System.out.println("Io Exception");
                     }
                 }
-            }
         });
         buttonPanel.add(runB);
 
         JButton exitB = new JButton("Exit");
 
         exitB.setToolTipText("Exit without executing");
-        exitB.addActionListener(new ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-            public void actionPerformed(ActionEvent e) {
+        exitB.addActionListener(e -> {
                 String param = (String) e.getActionCommand();
 
                 if (param.equals("Exit")) {
 // JADE-MODERNIZATION-DEFERRED:STRINGS_IN_SWITCH Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance. 1.0 (complex chain -- manual review recommended)
                     System.exit(0);
                 }
-            }
         });
         buttonPanel.add(exitB);
 
         JButton helpB = new JButton("Help");
 
-        helpB.addActionListener(new ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-            public void actionPerformed(ActionEvent e) {
+        helpB.addActionListener(e -> {
                 String param = (String) e.getActionCommand();
 
                 if (param.equals("Help")) {
@@ -361,7 +347,6 @@ public class BootGUI extends JDialog {
                     help.setVisible(true);
                     help.requestFocus();
                 }
-            }
         });
         buttonPanel.add(helpB);
         topPanel.add(buttonPanel);

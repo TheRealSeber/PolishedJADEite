@@ -224,9 +224,7 @@ public class ams extends Agent /*implements AgentManager.Listener*/ {
 		//#J2ME_EXCLUDE_BEGIN
 		// Register a suitable Shutdown Hook to shutdown the whole platform in case 
 		// the Main Container JVM unexpectedly exits
-		Thread t = new Thread() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
+		Thread t = new Thread(() -> {
 				logger.log(Logger.FINE, ">>>>>>>>> Shutdown Hook activated. AMS state = "+ams.this.getState());
 				// Mutual exclusion with normal shutdown
 				synchronized(ams.this) {
@@ -248,8 +246,7 @@ public class ams extends Agent /*implements AgentManager.Listener*/ {
 					logger.log(Logger.SEVERE, ">>>>>>>>> Platform shutdown error", e);
 					shuttingDown = false;
 				}
-			}
-		};
+		});
 		t.setName("Platform-shutdown");
 		java.lang.Runtime.getRuntime().addShutdownHook(t);
 		//#J2ME_EXCLUDE_END
@@ -286,9 +283,7 @@ public class ams extends Agent /*implements AgentManager.Listener*/ {
 		final Credentials initialCredentials = ca.getInitialCredentials();
 
 		// Do the job in a separated thread to avoid deadlock
-		Thread auxThread = new Thread() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
+		Thread auxThread = new Thread(() -> {
 				try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
 					myPlatform.create(agentName, className, args, container, owner, initialCredentials, requesterPrincipal, requesterCredentials);
@@ -310,8 +305,7 @@ public class ams extends Agent /*implements AgentManager.Listener*/ {
 					// Send failure notification to the requester if any
 					sendFailureNotification(ca, agentID, new InternalError(t.getMessage()));
 				}
-			}
-		};
+		});
 		auxThread.start();
 	}
 
@@ -409,9 +403,7 @@ public class ams extends Agent /*implements AgentManager.Listener*/ {
 			e.printStackTrace();
 		}
 
-		Thread auxThread = new Thread() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
+		Thread auxThread = new Thread(() -> {
 				try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
 					myPlatform.killContainer(cid, requesterPrincipal, requesterCredentials);
@@ -429,8 +421,7 @@ public class ams extends Agent /*implements AgentManager.Listener*/ {
 					// Send failure notification to the requester if any
 					sendFailureNotification(kc, cid, new InternalError(t.getMessage()));
 				}
-			}
-		};
+		});
 
 		auxThread.start();
 	}
@@ -449,19 +440,16 @@ public class ams extends Agent /*implements AgentManager.Listener*/ {
 		notifyShutdownPlatformRequested();
 		
 		shuttingDown = true;
-		Thread auxThread = new Thread() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
+		Thread auxThread = new Thread(() -> {
 				try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
 					myPlatform.shutdownPlatform(requesterPrincipal, requesterCredentials);
-				} 
+				}
 				catch (JADESecurityException ae) {
 					logger.log(Logger.SEVERE, "Agent " + requester.getName() + " does not have permission to perform action Shutdown-Platform: " + ae);
 					shuttingDown = false;
 				}
-			}
-		};
+		});
 		auxThread.setName("Platform-shutdown");
 		auxThread.start();
 	}

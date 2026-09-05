@@ -274,9 +274,7 @@ public class BEManagementService extends BaseService {
 		}
 		
 		// Active all servers after a while to allow the correct starting and registration to the main-container
-		Thread t = new Thread() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
+		Thread t = new Thread(() -> {
 				long wait = 10000;
 				try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
@@ -287,8 +285,8 @@ public class BEManagementService extends BaseService {
 				try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
 					Thread.sleep(wait);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				} catch (InterruptedException ie2) {
+					ie2.printStackTrace();
 				}
 
 				Iterator it = servers.entrySet().iterator();
@@ -299,13 +297,12 @@ public class BEManagementService extends BaseService {
 						Map.Entry entry = (Map.Entry) it.next();
 						id = (String) entry.getKey();
 						((IOEventServer) entry.getValue()).activate();
-					} catch (Throwable t) {
-						myLogger.log(Logger.WARNING, "Error activating IOEventServer " + id + ". " + t);
-						t.printStackTrace();
+					} catch (Throwable thr) {
+						myLogger.log(Logger.WARNING, "Error activating IOEventServer " + id + ". " + thr);
+						thr.printStackTrace();
 					}
 				}
-			}
-		};
+		});
 		t.start();
 
 		// Activate the ticker
@@ -366,29 +363,23 @@ public class BEManagementService extends BaseService {
 				});
 	
 				// Number of active BackEnds
-				samHelper.addEntityMeasureProvider("BackEnd_Number", new MeasureProvider() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-					public Number getValue() {
+				samHelper.addEntityMeasureProvider("BackEnd_Number", () -> {
 						int cnt = 0;
 						Iterator it = servers.values().iterator();
 						while (it.hasNext()) {
 							cnt += ((IOEventServer) it.next()).mediators.values().size();
 						}
 						return cnt;
-					}
 				});
 				
 				// Number of opened socket
-				samHelper.addEntityMeasureProvider("Socket_Number", new MeasureProvider() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-					public Number getValue() {
+				samHelper.addEntityMeasureProvider("Socket_Number", () -> {
 						int cnt = 0;
 						Iterator it = servers.values().iterator();
 						while (it.hasNext()) {
 							cnt += ((IOEventServer) it.next()).getSocketCnt();
 						}
 						return cnt;
-					}
 				});
 
 				// JICP event counters
@@ -1679,9 +1670,7 @@ public class BEManagementService extends BaseService {
 					if(myLogger.isLoggable(Logger.FINE)) {
 						myLogger.log(Logger.FINE,  "Ticker: Tick begin. Current time = "+currentTime);
 					}
-					Thread t = new Thread() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-						public void run() {
+					Thread t = new Thread(() -> {
 							Object[] ss = servers.values().toArray();
 							for (int i = 0; i < ss.length; ++i) {
 								((IOEventServer) ss[i]).tick(currentTime);
@@ -1689,8 +1678,7 @@ public class BEManagementService extends BaseService {
 							if(myLogger.isLoggable(Logger.FINE)) {
 								myLogger.log(Logger.FINE,  "Ticker: Tick end. Current time = "+currentTime);
 							}
-						}
-					};
+					});
 					t.setName("BEManagementService-ticker-"+currentTime);
 					t.setDaemon(true);
 					t.start();

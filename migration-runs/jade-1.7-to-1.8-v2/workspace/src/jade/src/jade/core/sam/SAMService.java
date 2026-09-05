@@ -147,19 +147,15 @@ public class SAMService extends BaseService {
 					Specifier s = (Specifier) it.next();
 					final String name = s.getClassName();
 					// FIXME: manage specifier arguments queue, sent, posted, received
-					MediatedMeasureProvider provider = new MediatedMeasureProvider(new MeasureProvider() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-						@Override
-						public Number getValue() {
-							Number ret = Double.NaN;
-							AID id = new AID(name, AID.ISLOCALNAME);
-							Agent a = myContainer.acquireLocalAgent(id);
-							if (a != null) {
-								ret = a.getCurQueueSize();
-								myContainer.releaseLocalAgent(id);
-							}
-							return ret;
+					MediatedMeasureProvider provider = new MediatedMeasureProvider(() -> {
+						Number ret = Double.NaN;
+						AID id = new AID(name, AID.ISLOCALNAME);
+						Agent a = myContainer.acquireLocalAgent(id);
+						if (a != null) {
+							ret = a.getCurQueueSize();
+							myContainer.releaseLocalAgent(id);
 						}
+						return ret;
 					});
 					myHelper.addEntityMeasureProvider(name+"-avg-queue-size", provider);
 					myHelper.addCounterValueProvider(name+"-sent-message-count", new AbsoluteCounterValueProvider() {
@@ -303,16 +299,13 @@ public class SAMService extends BaseService {
 
 		public synchronized void addEntityMeasureProvider(String entityName, final MeasureProvider provider) {
 			// Wrap the "one shot" MeasureProvider into an AverageMeasureProvider to treat all providers in a uniform way
-			addEntityMeasureProvider(entityName, new AverageMeasureProvider() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-				public AverageMeasure getValue() {
-					Number value = provider.getValue();
-					if (value != null) {
-						return new AverageMeasure(value.doubleValue(), 1);
-					}
-					else {
-						return new AverageMeasure(0, 0);
-					}
+			addEntityMeasureProvider(entityName, () -> {
+				Number value = provider.getValue();
+				if (value != null) {
+					return new AverageMeasure(value.doubleValue(), 1);
+				}
+				else {
+					return new AverageMeasure(0, 0);
 				}
 			});
 		}

@@ -253,21 +253,18 @@ public class BIBEDispatcher extends Thread implements BEConnectionManager, Dispa
 				// Check the INP connection. Since this method must return
 				// asap, does it in a separated Thread
 				if (inpHolder.isConnected()) {
-					Thread t = new Thread() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-						public void run() {
-							try {
+					Thread t = new Thread(() -> {
+						try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
-								JICPPacket pkt = new JICPPacket(JICPProtocol.KEEP_ALIVE_TYPE, JICPProtocol.DEFAULT_INFO, null);
-								dispatchPacket(pkt, false, -1);
-								if(myLogger.isLoggable(Logger.FINE))
-									myLogger.log(Logger.FINE, myID+" - IC valid");
-							}
-							catch (Exception e) {
-								// Just do nothing
-							}
+							JICPPacket pkt = new JICPPacket(JICPProtocol.KEEP_ALIVE_TYPE, JICPProtocol.DEFAULT_INFO, null);
+							dispatchPacket(pkt, false, -1);
+							if(myLogger.isLoggable(Logger.FINE))
+								myLogger.log(Logger.FINE, myID+" - IC valid");
 						}
-					};
+						catch (Exception e) {
+							// Just do nothing
+						}
+					});
 					t.start();
 				}
 			}
@@ -547,9 +544,7 @@ public class BIBEDispatcher extends Thread implements BEConnectionManager, Dispa
 		}
 
 		private synchronized void startWatchDog(final long timeout) {
-			watchDog = new Thread() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-				public void run() {
+			watchDog = new Thread(() -> {
 					try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
 						Thread.sleep(timeout);
@@ -562,8 +557,7 @@ public class BIBEDispatcher extends Thread implements BEConnectionManager, Dispa
 					catch (InterruptedException ie) {
 						// Watch dog removed. Just do nothing
 					}
-				}
-			};
+			});
 			watchDog.start();
 		}
 

@@ -548,11 +548,8 @@ public class ACLPanel extends JPanel {
     senderButton.setIcon(zoomIcon);
     senderButton.setMargin(new Insets(0, 0, 0, 0));
     senderButton.addActionListener(
-      new java.awt.event.ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-        public void actionPerformed(ActionEvent e) {
+      e -> {
           senderButton_actionPerformed(e);
-        }
       });
     replyByButton.setBackground(Color.white);
     replyByButton.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -564,11 +561,8 @@ public class ACLPanel extends JPanel {
     replyByButton.setIcon(dateIcon);
     replyByButton.setMargin(new Insets(0, 0, 0, 0));
     replyByButton.addActionListener(
-      new java.awt.event.ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-        public void actionPerformed(ActionEvent e) {
+      e -> {
           replyByButton_actionPerformed(e);
-        }
       });
     senderTextField.setFont(new java.awt.Font("Dialog", 0, 11));
     senderTextField.setDisabledTextColor(Color.black);
@@ -637,18 +631,12 @@ public class ACLPanel extends JPanel {
     defaultEnvelopeButton.setIcon(envelopeIcon);
     defaultEnvelopeButton.setText("set Default Envelope");
     defaultEnvelopeButton.addActionListener(
-      new java.awt.event.ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-        public void actionPerformed(ActionEvent e) {
+      e -> {
           defaultEnvelopeButton_actionPerformed(e);
-        }
       });
     fromButton.addActionListener(
-      new java.awt.event.ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-        public void actionPerformed(ActionEvent e) {
+      e -> {
           fromButton_actionPerformed(e);
-        }
       });
     fromButton.setMargin(new Insets(0, 0, 0, 0));
     fromButton.setToolTipText("Edit/View From");
@@ -676,11 +664,8 @@ public class ACLPanel extends JPanel {
     envDateButton.setToolTipText("Edit/View Date");
     envDateButton.setIcon(dateIcon);
     envDateButton.addActionListener(
-      new java.awt.event.ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-        public void actionPerformed(ActionEvent e) {
+      e -> {
           envDateButton_actionPerformed(e);
-        }
       });
     contentZoomButton.setBorder(null);
     contentZoomButton.setMaximumSize(new Dimension(23, 20));
@@ -688,11 +673,8 @@ public class ACLPanel extends JPanel {
     contentZoomButton.setToolTipText("Zoom Content Of ACLMessage");
     contentZoomButton.setIcon(zoomIcon);
     contentZoomButton.addActionListener(
-      new java.awt.event.ActionListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-        public void actionPerformed(ActionEvent e) {
+      e -> {
           contentZoomButton_actionPerformed(e);
-        }
       });
     contentTextArea.setText("");
     contentTextArea.setAutoscrolls(true);

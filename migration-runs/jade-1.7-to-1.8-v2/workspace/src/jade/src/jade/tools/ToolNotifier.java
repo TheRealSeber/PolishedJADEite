@@ -87,26 +87,20 @@ public class ToolNotifier extends ToolAgent implements MessageListener, AgentLis
 	class NotifierAMSListenerBehaviour extends AMSListenerBehaviour {
 		protected void installHandlers(Map handlersTable) {
 			// Fill the event handler table.
-			handlersTable.put(IntrospectionOntology.DEADAGENT, new EventHandler() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-				public void handle(Event ev) {
-					DeadAgent da = (DeadAgent)ev;
-					AID dead = da.getAgent();
-					removeObservedAgent(dead);
-					if (dead.equals(observerAgent)) {
-						suicide();
-					}
+			handlersTable.put(IntrospectionOntology.DEADAGENT, (EventHandler) ev -> {
+				DeadAgent da = (DeadAgent)ev;
+				AID dead = da.getAgent();
+				removeObservedAgent(dead);
+				if (dead.equals(observerAgent)) {
+					suicide();
 				}
 			});
-			
-			handlersTable.put(IntrospectionOntology.MOVEDAGENT, new EventHandler() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-				public void handle(Event ev) {
-					MovedAgent ma = (MovedAgent)ev;
-					AID moved = ma.getAgent();
-					if (!here().equals(ma.getTo())) {
-						removeObservedAgent(moved);
-					}
+
+			handlersTable.put(IntrospectionOntology.MOVEDAGENT, (EventHandler) ev -> {
+				MovedAgent ma = (MovedAgent)ev;
+				AID moved = ma.getAgent();
+				if (!here().equals(ma.getTo())) {
+					removeObservedAgent(moved);
 				}
 			});
 			

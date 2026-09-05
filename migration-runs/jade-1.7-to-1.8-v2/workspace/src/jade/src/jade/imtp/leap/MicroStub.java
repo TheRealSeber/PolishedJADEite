@@ -129,16 +129,13 @@ public class MicroStub {
 		pendingCommands.addElement(pc);
 		if (timeout > 0) {
 			logger.log(Logger.INFO, Thread.currentThread().toString()+": Activating Timer for Command "+c.getCode());
-			pc.timer = TimerDispatcher.getTimerDispatcher().add(new Timer(System.currentTimeMillis()+timeout, new TimerListener() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-				public void doTimeOut(Timer t) {
+			pc.timer = TimerDispatcher.getTimerDispatcher().add(new Timer(System.currentTimeMillis()+timeout, t -> {
 					// Timeout expired --> Remove the related postponed command and
-					// let subclasses react properly 
+					// let subclasses react properly
 					if (t == pc.timer) {
 						logger.log(Logger.INFO, Thread.currentThread().toString()+": Timer for Command "+pc.command.getCode()+" expired!!!");
 						manageTimerExpired(pc);
 					}
-				}
 			}));
 		}
 		
@@ -165,11 +162,9 @@ public class MicroStub {
 		if (beginFlush()) {
 			// This is called by the main thread of the underlying EndPoint
 			// --> The actual flushing must be done asynchronously to avoid deadlock
-			flushingThread = new Thread() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-				public void run() {
+			flushingThread = new Thread(() -> {
 					// 2) Flush the buffer of pending commands
-					logger.log(Logger.INFO, "Start flushing");					
+					logger.log(Logger.INFO, "Start flushing");
 					int flushedCnt = 0;
 					PostponedCommand pc = null;
 					while ((pc = removeFirst()) != null) {
@@ -182,7 +177,7 @@ public class MicroStub {
 								logger.log(Logger.FINE,"Flushing command: code = "+pc.command.getCode());
 							}
 							Command r = executeRemotely(pc.command, 0, pc.sessionId);
-							// Command delivered. Remove the Timer associated to it if any 
+							// Command delivered. Remove the Timer associated to it if any
 							if (pc.timer != null) {
 								TimerDispatcher.getTimerDispatcher().remove(pc.timer);
 							}
@@ -202,13 +197,12 @@ public class MicroStub {
 							break;
 						}
 					}
-					
+
 					// 3) Unlock the buffer of pending commands
 					logger.log(Logger.FINE, "########## "+pendingCommands.size()+" pending commands after flush");
 					endFlush();
 					logger.log(Logger.INFO,"Flushing thread terminated ("+flushedCnt+")");
-				}
-			};
+			});
 			return flushingThread;
 		}
 		else {
@@ -306,10 +300,8 @@ public class MicroStub {
 	private void manageTimerExpired(final PostponedCommand pc) {
 		// This is invoked by the TimerDispatcher Thread. Since the operation may be 
 		// long, do it in a dedicated Thread
-		Thread t = new Thread() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-			public void run() {
-				// Removing expired pending commands cannot be done while flushing to 
+		Thread t = new Thread(() -> {
+				// Removing expired pending commands cannot be done while flushing to
 				// avoid cases like:
 				// - Flushing starts and postponed command dispatching begins
 				// - Timer expires and FAILURE is sent back
@@ -322,8 +314,7 @@ public class MicroStub {
 				if (found) {
 					handlePostponedCommandExpired(pc.command, pc.icpe);
 				}
-			}
-		};
+		});
 		t.start();
 	}
 	

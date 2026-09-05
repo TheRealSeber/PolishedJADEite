@@ -417,20 +417,12 @@ public class MessagingService extends BaseService implements MessageManager.Chan
 				// MESSAGE MANAGER METRICS
 				boolean enableMessageManagerMetrics = "true".equalsIgnoreCase(myProfile.getParameter(ENABLE_MESSAGE_MANAGER_METRICS, "false"));
 				if (enableMessageManagerMetrics) {
-					avgQueueSizeBytesProvider = new MediatedMeasureProvider(new MeasureProvider() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-						@Override
-						public Number getValue() {
-							return myMessageManager.getSize();
-						}
+					avgQueueSizeBytesProvider = new MediatedMeasureProvider(() -> {
+						return myMessageManager.getSize();
 					});
 					samHelper.addEntityMeasureProvider("Message-Manager-avg-queue-size-bytes#"+myContainer.getID().getName(), avgQueueSizeBytesProvider);
-					avgQueueSizeMessagesProvider = new MediatedMeasureProvider(new MeasureProvider() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-						@Override
-						public Number getValue() {
-							return myMessageManager.getPendingCnt();
-						}
+					avgQueueSizeMessagesProvider = new MediatedMeasureProvider(() -> {
+						return myMessageManager.getPendingCnt();
 					});
 					samHelper.addEntityMeasureProvider("Message-Manager-avg-queue-size-messages#"+myContainer.getID().getName(), avgQueueSizeMessagesProvider);
 					
@@ -1290,9 +1282,7 @@ public class MessagingService extends BaseService implements MessageManager.Chan
 				Class c = Class.forName(className);
 				MTP proto = (MTP)c.newInstance();
 				
-				InChannel.Dispatcher dispatcher = new InChannel.Dispatcher() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-					public void dispatchMessage(Envelope env, byte[] payload) {
+				InChannel.Dispatcher dispatcher = (env, payload) -> {
 						//log("Message from remote platform received", 2);
 
 						if (myLogger.isLoggable(Logger.FINE))
@@ -1333,8 +1323,7 @@ public class MessagingService extends BaseService implements MessageManager.Chan
 							}
 							myMessageManager.deliver(msg, rcv, MessagingService.this);
 						}
-					}
-				};
+					};
 				
 				if(address == null) {
 					// Let the MTP choose the address

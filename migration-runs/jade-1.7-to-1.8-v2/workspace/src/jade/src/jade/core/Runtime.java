@@ -177,14 +177,11 @@ public class Runtime {
 	 */
 	public void setCloseVM(boolean flag) {
 		if (flag) {
-			terminators.addLast(new Runnable() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-				public void run() {
-					// Give one more chance to other threads to complete
-					Thread.yield();
-					myLogger.log(Logger.INFO, "JADE is closing down now.");
-					System.exit(0);
-				}
+			terminators.addLast((Runnable) () -> {
+				// Give one more chance to other threads to complete
+				Thread.yield();
+				myLogger.log(Logger.INFO, "JADE is closing down now.");
+				System.exit(0);
 			} );
 		}
 	}
@@ -270,16 +267,13 @@ public class Runtime {
 		if(activeContainers == 0) {
 			// Start a new Thread that calls all terminators one after 
 			// the other
-			Thread t = new Thread(new Runnable() {
-// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
-				public void run() {
-					for (int i = 0; i < terminators.size(); ++i) {
-						Runnable r = (Runnable) terminators.get(i);
-						r.run();
-					}
-					// Clear the terminators list at the end
-					terminators.clear();
+			Thread t = new Thread(() -> {
+				for (int i = 0; i < terminators.size(); ++i) {
+					Runnable r = (Runnable) terminators.get(i);
+					r.run();
 				}
+				// Clear the terminators list at the end
+				terminators.clear();
 			} );
 			//#MIDP_EXCLUDE_BEGIN
 			t.setDaemon(false);

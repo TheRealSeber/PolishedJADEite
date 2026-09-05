@@ -17,3 +17,6 @@
 {"ts": "2026-09-05T03:32:21Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Processing rule LAMBDA_CONVERSION", "artifacts": ["05-rule-batch-status.json"]}
 {"ts": "2026-09-05T03:32:21Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule LAMBDA_CONVERSION", "artifacts": ["rule-status.json", "07-build.log"]}
 {"ts": "2026-09-05T03:33:37Z", "phase": "DONE", "status": "OK", "message": "Run terminated: DONE", "artifacts": ["00-run-state.json", "PROGRESS.md"]}
+{"ts": "2026-09-05T04:21:56Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T04:21:56Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs/jade-1.7-to-1.8-v2/workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T04:23:11Z", "phase": "DONE", "status": "OK", "message": "Run terminated: DONE", "artifacts": ["00-run-state.json", "PROGRESS.md"]}

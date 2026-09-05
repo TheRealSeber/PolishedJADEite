@@ -10825,5 +10825,105 @@
     },
     "mode": "agent",
     "shard_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-012"
+  },
+  {
+    "task_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-review-guiagent",
+    "rule_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+    "file": "src/jade/src/jade/gui/GuiAgent.java",
+    "status": "SKIPPED",
+    "match_count": 1,
+    "match_region": "line 140",
+    "match_context": "jade-recipe-11-17-wrapper-valueof",
+    "diff_summary": "new Boolean(true) at guiEventQueueLock = new Boolean(true); intentionally NOT converted. guiEventQueueLock is used as a monitor in synchronized(guiEventQueueLock) at two sites in this file; Boolean.valueOf(true) returns the JVM-wide cached Boolean.TRUE singleton, which would turn this per-instance lock into a monitor shared with any other code in the process that also locks on Boolean.TRUE -- an identity-sensitive change the recipe explicitly forbids. Left as new Boolean(true) so the object identity (and therefore the lock) stays unique to this instance.",
+    "verification_hint": "javac -Xlint:removal on the full workspace reports exactly one remaining [removal] warning, at GuiAgent.java:140, confirming this is the sole deliberately-kept site. All 4 runtime consumers still PASS.",
+    "errors": [],
+    "warnings": [
+      "Recorded as SKIPPED (identity-sensitive) rather than FIXED: flagged by the scanner (04-flag-index.json) but excluded from shard 001/002 by design, not by omission. See REVIEW_REQUIRED.md."
+    ],
+    "applied_at": "2026-09-05T13:45:00Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-11-to-17/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-review-001"
+  },
+  {
+    "task_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-review-amsjava",
+    "rule_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+    "file": "src/jade/src/jade/domain/ams.java",
+    "status": "SKIPPED",
+    "match_count": 1,
+    "match_region": "line 1209",
+    "match_context": "jade-recipe-11-17-wrapper-valueof",
+    "diff_summary": "new Boolean(true) at da.setContainerRemoved(new Boolean(true)); is dead code: it sits inside the commented-out legacy deadAgent(PlatformEvent) method (unterminated-looking /** ... */ block spanning roughly lines 1196-1216 that was never re-opened as live code; verified with java_source.is_live_code(source, 1209) == False from .claude/skills/java-migration-skill-registry/shared/lib/java_source.py). Not assigned to any shard for that reason. The live equivalent of this call already exists and was already converted: AMSEventQueueFeeder.java:83 does da.setContainerRemoved(Boolean.valueOf(true)); against the same DeadAgent.setContainerRemoved(Boolean) setter.",
+    "verification_hint": "javac -Xlint:removal on the full workspace emits no removal warning for ams.java, confirming the flagged line is not compiled. is_live_code(source, 1209) returns False.",
+    "errors": [],
+    "warnings": [
+      "Recorded as SKIPPED (dead code) rather than FIXED: flag raised by the line-level scanner (04-flag-index.json), which does not itself filter commented-out code; the shard-planning step correctly excluded it, but no corresponding fix-result record existed until this entry."
+    ],
+    "applied_at": "2026-09-05T13:45:00Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-11-to-17/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-review-001"
+  },
+  {
+    "task_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-review-xmlcodec",
+    "rule_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+    "file": "src/jade/src/jade/mtp/http/XMLCodec.java",
+    "status": "SKIPPED",
+    "match_count": 1,
+    "match_region": "line 701",
+    "match_context": "jade-recipe-11-17-wrapper-valueof",
+    "diff_summary": "new java.lang.Long(payStr) at env.setPayloadLength( new java.lang.Long(payStr) ); (LENGTH_TAG branch) is dead code: verified with java_source.is_live_code(source, 701) == False -- the surrounding branch is inside a block comment. The file's other flagged site (line 467, live) was converted in shard body-local-002 (recorded match_count=1 there); this second site was never live and needed no shard.",
+    "verification_hint": "javac -Xlint:removal on the full workspace emits no removal warning for XMLCodec.java line 701. is_live_code(source, 701) returns False.",
+    "errors": [],
+    "warnings": [
+      "Recorded as SKIPPED (dead code) rather than FIXED: raised by the line-level scanner; the file's existing 06-fix-results record (match_count=1) covers only its one live site, leaving this dead-code site unrecorded until now."
+    ],
+    "applied_at": "2026-09-05T13:45:00Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-11-to-17/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-review-001"
+  },
+  {
+    "task_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-review-mmcanvas",
+    "rule_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+    "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+    "status": "SKIPPED",
+    "match_count": 1,
+    "match_region": "line 448",
+    "match_context": "jade-recipe-11-17-wrapper-valueof",
+    "diff_summary": "new Integer(colorCounter.intValue() + 1) at colorCounter = new Integer(colorCounter.intValue() + 1); is dead code: verified with java_source.is_live_code(source, 448) == False -- it sits inside a block comment spanning roughly lines 427-467. (Note colorCounter is declared as a primitive int at line 139; .intValue() on it would not compile if this branch were live, which corroborates the dead-code finding.) The file's other 4 flagged sites (lines 397, 621, 647, 652, all live) were converted in shard body-local-002 (recorded match_count=4 there).",
+    "verification_hint": "javac -Xlint:removal on the full workspace emits no removal warning for MMCanvas.java line 448. is_live_code(source, 448) returns False.",
+    "errors": [],
+    "warnings": [
+      "Recorded as SKIPPED (dead code) rather than FIXED: raised by the line-level scanner; the file's existing 06-fix-results record (match_count=4) covers only its four live sites, leaving this dead-code site unrecorded until now."
+    ],
+    "applied_at": "2026-09-05T13:45:00Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-11-to-17/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-review-001"
   }
 ]

@@ -1096,10 +1096,16 @@ def main() -> int:
         print("\nBuild failed. See artifacts/03-build-verify.log for details.")
         return 2
     elif gate_status == "NEEDS_MANUAL":
+        # NEEDS_MANUAL is only reachable when build_rc != 0 -- see the gate
+        # status decision above -- so the build has FAILED and some of the
+        # proposed fixes need a human. This used to print "Build succeeded"
+        # and return 0, which let the orchestrator advance past a failed
+        # build. Exit 1 is the contract's "attention needed".
         print(
-            "\nBuild succeeded but manual fixes are pending — review artifacts/03-build-fixes-plan.json"
+            "\nBuild FAILED and manual fixes are pending — review "
+            "artifacts/03-build-fixes-plan.json and artifacts/03-build-verify.log"
         )
-        return 0
+        return 1
     else:
         return 0
 

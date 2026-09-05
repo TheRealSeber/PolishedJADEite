@@ -38,7 +38,7 @@
   ],
   "timeout_seconds": 60,
   "source_level": 17,
-  "runtime_java_version": 17,
+  "runtime_java_version": 21,
   "jade_artifact": "src/jade/lib/jade.jar",
   "classpath_deps": [
     "src/jade/lib/jade.jar"

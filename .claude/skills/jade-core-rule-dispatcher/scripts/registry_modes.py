@@ -21,7 +21,15 @@ RECIPE_MODES = ("script", "agent")
 DEFAULT_RECIPE_MODE = "script"
 
 REGISTRY_PREFIX = (".claude", "skills", "java-migration-skill-registry")
-REGISTRY_BUCKETS = {"1.5-to-1.6", "1.7", "1.7-to-1.8", "8-to-11", "11-to-17", "shared"}
+REGISTRY_BUCKETS = {
+    "1.5-to-1.6",
+    "1.7",
+    "1.7-to-1.8",
+    "8-to-11",
+    "11-to-17",
+    "17-to-21",
+    "shared",
+}
 
 REQUIRED_SCRIPT_FIELDS = ("skill", "script", "description")
 REQUIRED_AGENT_FIELDS = ("skill", "skill_md", "description")

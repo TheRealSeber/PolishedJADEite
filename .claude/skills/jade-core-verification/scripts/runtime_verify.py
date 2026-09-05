@@ -22,6 +22,7 @@ import sys
 import tempfile
 import time
 import xml.etree.ElementTree as ET
+import zipfile
 from typing import Any, Dict, List, Optional, Tuple
 
 # ------------------------------------------------------------------
@@ -638,6 +639,87 @@ def verify_deps(workspace: pathlib.Path, cfg: Dict[str, Any]) -> List[str]:
     return missing
 
 
+# Class-file major 45 is Java 1.1, so the feature release is major - 44:
+# major 61 is Java 17, major 65 is Java 21.
+CLASS_FILE_MAJOR_BASE = 44
+
+
+def _jar_class_file_major(jar_path: pathlib.Path) -> int:
+    """Class-file major version inside *jar_path*, or 0 when unreadable.
+
+    Ant compiles the whole tree at one source level, so the first class in the
+    jar speaks for all of them.
+    """
+    try:
+        with zipfile.ZipFile(jar_path) as archive:
+            for entry in archive.namelist():
+                if not entry.endswith(".class"):
+                    continue
+                with archive.open(entry) as handle:
+                    header = handle.read(8)
+                if len(header) == 8 and header[:4] == b"\xca\xfe\xba\xbe":
+                    return int.from_bytes(header[6:8], "big")
+    except (OSError, KeyError, zipfile.BadZipFile):
+        return 0
+    return 0
+
+
+def _javac_feature_version(javac: str) -> int:
+    """Feature release of *javac*, or 0 when it cannot be determined."""
+    try:
+        proc = subprocess.run(
+            [javac, "-version"], capture_output=True, text=True, timeout=30
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return 0
+    match = re.search(r"javac\s+(?:1\.)?(\d+)", (proc.stdout + proc.stderr).strip())
+    return int(match.group(1)) if match else 0
+
+
+def resolve_consumer_javac(required_feature: int) -> Tuple[str, Optional[str]]:
+    """Pick a javac able to READ the workspace jars, and say so when none can.
+
+    A consumer compiles at its own -source level, but it still has to read
+    jade.jar off the classpath, and javac refuses a class file newer than
+    itself. A JDK 17 javac against a Java 21 jade.jar reports "class file has
+    wrong version 65.0, should be 61.0" on every single import, which reads as
+    a JDK incompatibility in the migrated library and is nothing of the kind --
+    it is the harness being older than what it is testing. Report that as an
+    environment problem instead of letting it surface as consumer failures.
+
+    Candidates in order: JADE_CONSUMER_JAVAC, JAVA_HOME/bin/javac, PATH.
+    Returns (javac, error): error is None when the chosen compiler is new
+    enough.
+    """
+    candidates: List[str] = []
+    configured = os.environ.get("JADE_CONSUMER_JAVAC", "").strip()
+    if configured:
+        candidates.append(configured)
+    java_home = os.environ.get("JAVA_HOME", "").strip()
+    if java_home:
+        candidates.append(str(pathlib.Path(java_home) / "bin" / "javac"))
+    on_path = shutil.which("javac")
+    if on_path:
+        candidates.append(on_path)
+    if not candidates:
+        return "javac", None
+    if required_feature <= 0:
+        return candidates[0], None
+
+    best, best_feature = candidates[0], -1
+    for candidate in candidates:
+        feature = _javac_feature_version(candidate)
+        if feature >= required_feature:
+            return candidate, None
+        if feature > best_feature:
+            best, best_feature = candidate, feature
+    return best, (
+        f"javac {best_feature} at {best} cannot read Java {required_feature} "
+        f"class files. Set JADE_CONSUMER_JAVAC or JAVA_HOME to a JDK "
+        f"{required_feature} or newer installation."
+    )
+
+
 def compile_consumer(
     project_dir: pathlib.Path,
     workspace: pathlib.Path,
@@ -656,9 +738,17 @@ def compile_consumer(
         cp_parts.append(str(full.resolve()))
     classpath = os.pathsep.join(cp_parts)
 
-    javac = shutil.which("javac")
-    if not javac:
-        javac = "javac"  # hope it's on PATH
+    required_feature = 0
+    for part in cp_parts:
+        if part.endswith(".jar"):
+            major = _jar_class_file_major(pathlib.Path(part))
+            if major:
+                required_feature = max(
+                    required_feature, major - CLASS_FILE_MAJOR_BASE
+                )
+    javac, javac_error = resolve_consumer_javac(required_feature)
+    if javac_error:
+        return False, javac_error
 
     source_level = cfg.get("source_level")
     cmd = [javac]

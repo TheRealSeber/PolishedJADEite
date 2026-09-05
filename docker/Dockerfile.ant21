@@ -1,0 +1,14 @@
+# Ant + Eclipse Temurin JDK 21 build image for the JADE migration pipeline.
+# The central registry (config/docker-images.json) resolves this as the java-21
+# image so both the Ant build gate and JDK-21 consumer runtime share one image.
+# Base is the Maven temurin 21 image (java + mvn), augmented with Ant.
+#
+# Build:
+#   docker build -t jade-ant:21 -f docker/Dockerfile.ant21 .
+FROM maven:3.9-eclipse-temurin-21
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ant \
+    && rm -rf /var/lib/apt/lists/*
+
+CMD ["ant", "-version"]

@@ -292,6 +292,7 @@ class UDPMonitorServer {
 
 			/*#DOTNET_INCLUDE_BEGIN
 			 server = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 			 #DOTNET_INCLUDE_END*/
 		} catch (Exception e) { // .net requires I catch Exception instead of IOException
 			logger.log(Logger.SEVERE, "Cannot open UDP channel. " + e);
@@ -357,6 +358,7 @@ class UDPMonitorServer {
 
 		/*#DOTNET_INCLUDE_BEGIN
 		 server = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 		 server.set_Blocking( false );
 		 server.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1);
 		 String defaultNetworkName = Profile.getDefaultNetworkName();

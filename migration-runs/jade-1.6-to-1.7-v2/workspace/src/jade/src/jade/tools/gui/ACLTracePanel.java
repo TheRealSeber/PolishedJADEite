@@ -319,6 +319,7 @@ public class ACLTracePanel extends JPanel {
 
       try {
         FileWriter f = new FileWriter(fileName);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
         StringACLCodec codec = new StringACLCodec(null, f);
         // ACLMessage ACLmsg = currentMsgGui.getMsg();
         codec.write(currentACL);
@@ -372,6 +373,7 @@ public class ACLTracePanel extends JPanel {
 
       try {
         FileWriter f = new FileWriter(fileName);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
         BufferedWriter bw = new BufferedWriter(f);
         int size = aclModel.getChildCount(this.aclRoot);
         for (int i = 0; i < size; i++) {
@@ -425,6 +427,7 @@ public class ACLTracePanel extends JPanel {
       try {
         clearACLModel();
         FileReader f = new FileReader(fileName);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
         BufferedReader br = new BufferedReader(f);
         String line = br.readLine();
         String direction;

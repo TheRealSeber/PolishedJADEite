@@ -170,6 +170,7 @@ class MainPanel extends JPanel implements DropTargetListener, TreeSelectionListe
 				try {
 					java.io.File f = (java.io.File)(fileItor.next());
 					FileReader aclMsgFile = new FileReader(f);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 					ACLMessage msg = aclParser.parse(aclMsgFile);
 
 					msg.clearAllReceiver();

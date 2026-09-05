@@ -212,6 +212,7 @@ class DummyAgentGui extends JFrame
 				try {
           // Note the save/read functionality uses default US-ASCII charset
           StringACLCodec codec = new StringACLCodec(new FileReader(fileName),null);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
           currentMsgGui.setMsg(codec.decode());
 				}
 				catch(FileNotFoundException e1) {
@@ -245,6 +246,7 @@ class DummyAgentGui extends JFrame
 
 				  try {
 				    FileWriter f = new FileWriter(fileName);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
             // Note the save/read functionality uses default US-ASCII charset
 					  StringACLCodec codec = new StringACLCodec(null,f);
 				  	ACLMessage ACLmsg = currentMsgGui.getMsg();
@@ -288,6 +290,7 @@ class DummyAgentGui extends JFrame
 				try
 				{
 					BufferedReader inp = new BufferedReader(new FileReader(fileName));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 					// Read the number of messages in the queue
 					int n = -1;
 					try
@@ -336,6 +339,7 @@ class DummyAgentGui extends JFrame
 				try
 				{
 					BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 					// Write the number of messages in the queue
 					try
 					{

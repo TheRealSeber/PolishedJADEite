@@ -249,6 +249,7 @@ public class AccessControlList {
 
 		// count number of lines 
 		BufferedReader in = new BufferedReader(new FileReader(fileName));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 		int n=0;
 		while (( in.readLine()) != null) { n++; }
 		in.close();
@@ -259,6 +260,7 @@ public class AccessControlList {
 
 		logger.log(Logger.FINER, "Opening acc.control list file:"+fileName+" ("+n+" lines)");
 		in = new BufferedReader(new FileReader(fileName));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 		String str;
 		int pos=0;
 		while ((str = in.readLine()) != null) {
@@ -336,6 +338,7 @@ try {
  PrintWriter out;
 
  out = new PrintWriter(new BufferedWriter(new FileWriter(blackFilename)));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
  out.println(
 	"\n"
 	+"user:\n"
@@ -347,6 +350,7 @@ try {
  );
  out.flush(); out.close();
  out = new PrintWriter(new BufferedWriter(new FileWriter(whiteFilename)));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
  out.println(
 	"\n"
 	+"user:\n"

@@ -301,6 +301,7 @@ public class DFDBKB extends DBKB {
 			// get the datatype with the highest precision from the meta data information
 			DatabaseMetaData md = getConnectionWrapper().getConnection().getMetaData();
 			ResultSet typeInfo = md.getTypeInfo();
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 			long maxPrecision = -1;
 			while (typeInfo.next()) {
 				long jdbcType = Long.parseLong(typeInfo.getString("DATA_TYPE"));
@@ -348,6 +349,7 @@ public class DFDBKB extends DBKB {
 		logger.log(Logger.INFO, "Cleaning DF tables...");
 		
 		Statement stmt = getConnectionWrapper().getConnection().createStatement();
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		
 		dropTable(stmt, SUBSCRIPTION); 
 		dropTable(stmt, SERVICEPROTOCOL);
@@ -373,6 +375,7 @@ public class DFDBKB extends DBKB {
 	 */
 	protected boolean tableExists(String name) {
 		Statement stmt = null;
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		
 		try {
 			stmt = getConnectionWrapper().getConnection().createStatement();
@@ -404,6 +407,7 @@ public class DFDBKB extends DBKB {
 	protected void createTable(String name, String[] entries) {
 		if (!tableExists(name)) {
 			Statement stmt = null;
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 
 			try {
 				Connection conn = getConnectionWrapper().getConnection();
@@ -442,6 +446,7 @@ public class DFDBKB extends DBKB {
 	 */
 	protected void createIndices() {
 		Statement stmt = null;
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		
 		try {
 			Connection conn = getConnectionWrapper().getConnection();
@@ -669,6 +674,7 @@ public class DFDBKB extends DBKB {
 
 		pss.stm_selAgentResolverAIDs.setString(1, aid);
 		ResultSet rs = pss.stm_selAgentResolverAIDs.executeQuery();
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		while(rs.next()){
 			res.add(rs.getString(1));
 		}
@@ -938,7 +944,9 @@ public class DFDBKB extends DBKB {
 		// Get the names of all DFDs matching the template
 		String select = null;
 		ResultSet rs = null;
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		Statement s = null;
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		
 		try {
 			select = createSelect((DFAgentDescription) template);
@@ -995,6 +1003,7 @@ public class DFDBKB extends DBKB {
 	private Map preloadIdValueTable(PreparedStatement cntStm, PreparedStatement stm) throws SQLException {
 		Map m = null;
 		ResultSet rs = cntStm.executeQuery();
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		rs.next();
 		long recordCount = rs.getLong(1);
 		closeResultSet(rs);
@@ -1028,7 +1037,9 @@ public class DFDBKB extends DBKB {
 	protected KBIterator iteratorSingle(Object template) throws SQLException {
 		String select = null;
 		ResultSet rs = null;
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		Statement s = null;
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		
 		try {
 			select = createSelect((DFAgentDescription) template);
@@ -1106,6 +1117,7 @@ public class DFDBKB extends DBKB {
 	private AID getAID(String aidN) throws SQLException {
 		
 		ResultSet rs = null;
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		AID id = new AID(aidN, AID.ISGUID);
 
 		PreparedStatements pss = getPreparedStatements();
@@ -1147,7 +1159,9 @@ public class DFDBKB extends DBKB {
 		AID id = null;
 		
 		ResultSet rs = null;
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		ResultSet rsS = null;
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		String descrId = null;
 		
 		try{
@@ -1280,6 +1294,7 @@ public class DFDBKB extends DBKB {
 			PreparedStatements pss = getPreparedStatements();
 			pss.stm_selOntologies.setString(1, descrId);
 			ResultSet rs = pss.stm_selOntologies.executeQuery();
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 			while(rs.next()){
 				dfd.addOntologies(rs.getString(ONTOLOGY));
 			}
@@ -1301,6 +1316,7 @@ public class DFDBKB extends DBKB {
 			PreparedStatements pss = getPreparedStatements();
 			pss.stm_selLanguages.setString(1, descrId);
 			ResultSet rs = pss.stm_selLanguages.executeQuery();
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 			while(rs.next()){
 				dfd.addLanguages(rs.getString(LANGUAGE));
 			}
@@ -1322,6 +1338,7 @@ public class DFDBKB extends DBKB {
 			PreparedStatements pss = getPreparedStatements();
 			pss.stm_selProtocols.setString(1, descrId);
 			ResultSet rs = pss.stm_selProtocols.executeQuery();
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 			while(rs.next()){
 				dfd.addProtocols(rs.getString(PROTOCOL));
 			}
@@ -1338,6 +1355,7 @@ public class DFDBKB extends DBKB {
 		// check whether there exists a DF description for the agent
 		pss.stm_selNrOfDescrForAID.setString(1, aid);
 		ResultSet rs = pss.stm_selNrOfDescrForAID.executeQuery();
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		int found = 0;
 		if (rs.next())
 			found = Integer.parseInt(rs.getString(1));
@@ -1372,6 +1390,7 @@ public class DFDBKB extends DBKB {
 	 */
 	private void removeServices(String descrId) throws SQLException {
 		ResultSet rs = null;
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		PreparedStatements pss = getPreparedStatements();
 		pss.stm_selServiceId.setString(1, descrId);
 		rs = pss.stm_selServiceId.executeQuery();
@@ -1414,6 +1433,7 @@ public class DFDBKB extends DBKB {
 	 */
 	private void remove(String aid) throws SQLException {  		
 		ResultSet rs = null;
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		Connection conn = getConnectionWrapper().getConnection();
 		
 		try {   
@@ -1627,6 +1647,7 @@ public class DFDBKB extends DBKB {
 	private boolean isMultiValueProperty(String propKey) throws SQLException {
 		int found = 0;
 		ResultSet rs = null;
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		try {
 			PreparedStatements pss = getPreparedStatements();
 			pss.stm_selNrOfPropForKey.setString(1, propKey+MULTI_VALUE_PROPERTY_SEPARATOR+"1");
@@ -1670,6 +1691,7 @@ public class DFDBKB extends DBKB {
 	private void cleanExpiredRegistrations(){
 		
 		ResultSet rs = null;
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		long currTime = System.currentTimeMillis();
 		try{
 			PreparedStatements pss = getPreparedStatements();
@@ -1746,6 +1768,7 @@ public class DFDBKB extends DBKB {
 		Vector subscriptions = new Vector();
 		StringACLCodec codec = new StringACLCodec();
 		ResultSet rs = null;
+// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		
 		try {
 			rs = getPreparedStatements().stm_selSubscriptions.executeQuery();

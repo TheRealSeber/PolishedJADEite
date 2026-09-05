@@ -51,7 +51,9 @@ class ClassDiscover {
 		// There may be more than one if a package is split over multiple
 		// jars/paths
 		List<Class> classes = new ArrayList<Class>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 		ArrayList<File> directories = new ArrayList<File>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 		try {
 			ClassLoader cld = Thread.currentThread().getContextClassLoader();
 			if (cld == null) {
@@ -104,6 +106,7 @@ class ClassDiscover {
 
 	static List<Class> getClassessOfInterface(String thePackage, Class<Concept> theInterface) throws ClassNotFoundException {
 		List<Class> classList = new ArrayList<Class>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 		for (Class discovered : getClassesForPackage(thePackage)) {
 			if (Arrays.asList(discovered.getInterfaces()).contains(theInterface)) {
 				classList.add(discovered);

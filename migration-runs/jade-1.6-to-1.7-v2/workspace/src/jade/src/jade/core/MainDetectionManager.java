@@ -293,6 +293,7 @@ public class MainDetectionManager {
 		try {
 			try {
 				socket = new MulticastSocket(SRC_PORT);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 				socket.setTimeToLive(mcast.ttl);
 				socket.setSoTimeout(mcast.firstTimeout);
 			} catch (IOException ioe) {

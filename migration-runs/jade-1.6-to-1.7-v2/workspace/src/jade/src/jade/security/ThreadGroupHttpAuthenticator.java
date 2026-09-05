@@ -37,6 +37,7 @@ public class ThreadGroupHttpAuthenticator extends Authenticator {
 	
 	private static ThreadGroupHttpAuthenticator theInstance;
 	private static Map<String, PasswordAuthentication> passwordAuthentications = new HashMap<String, PasswordAuthentication>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 
 	private ThreadGroupHttpAuthenticator() {
 	}

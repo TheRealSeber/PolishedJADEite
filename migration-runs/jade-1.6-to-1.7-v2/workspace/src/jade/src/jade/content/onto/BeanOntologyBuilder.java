@@ -211,8 +211,11 @@ class BeanOntologyBuilder {
 
 	private static Map<SlotKey, SlotAccessData> buildAccessorsMap(String schemaName, Class clazz, Method[] methodsArray) throws BeanOntologyException {
 		Map<SlotKey, SlotAccessData> result = new TreeMap<SlotKey, SlotAccessData>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 		List<Method> getters = new ArrayList<Method>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 		Map<String, Method> setters = new HashMap<String, Method>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 		for (Method method: methodsArray) {
 			if (method.getAnnotation(SuppressSlot.class) == null) {
 				if (isGetter(method)) {
@@ -364,6 +367,7 @@ class BeanOntologyBuilder {
 			
 			SlotKey[] positionedSK = new SlotKey[result.size()];
 			List<SlotKey> nonPositionedSAD = new ArrayList<SlotKey>();  
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 			for (SlotKey key : result.keySet()) {
 				position = key.position;
 				if (position != -1) {
@@ -386,6 +390,7 @@ class BeanOntologyBuilder {
 			
 			int nonPositionedSADIndex = 0;
 			Map<SlotKey, SlotAccessData> orderedMap = new LinkedHashMap<SlotKey, SlotAccessData>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 			for (int i=0; i<result.size(); i++) {
 				
 				SlotKey key;
@@ -582,6 +587,7 @@ class BeanOntologyBuilder {
 	private void manageSlots(Class clazz, ObjectSchema schema, boolean buildHierarchy) throws OntologyException {
 		Method[] methods = clazz.getMethods();
 		List<Method> concreteMethodsList = new ArrayList<Method>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 		int modifiers;
 		for (Method m: methods) {
 			modifiers = m.getModifiers();

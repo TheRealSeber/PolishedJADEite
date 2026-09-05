@@ -1,0 +1,185 @@
+{
+  "blast_class": "body-local",
+  "flag_index_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/04-flag-index.json",
+  "flagged_files_missing_from_graph": [],
+  "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
+  "graph_content_hash": "0113e801dd3de5b2249dc9e286133b79273c784c0981d85c7bce509296251fab",
+  "manifest_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/01-breaking-changes-manifest.json",
+  "rule_id": "STRINGS_IN_SWITCH",
+  "run_id": "jade-1.6-to-1.7-v2",
+  "schema_version": 1,
+  "shard_count": 4,
+  "shards": [
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/gui/AclGui.java",
+        "src/jade/src/jade/gui/TimeChooser.java",
+        "src/jade/src/jade/tools/introspector/gui/TablePopupMenuListener.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 528
+        },
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 782
+        },
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 864
+        },
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 1218
+        },
+        {
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 277
+        },
+        {
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 283
+        },
+        {
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 288
+        },
+        {
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 292
+        },
+        {
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 298
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/gui/TablePopupMenuListener.java",
+          "line": 63
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/gui/TablePopupMenuListener.java",
+          "line": 66
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [
+        "src/jade/src/jade/gui/DFAgentDscDlg.java",
+        "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+        "src/jade/src/jade/tools/introspector/gui/TablePopupMenu.java",
+        "src/jade/src/jade/tools/logging/gui/ContainerLogWindow.java",
+        "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java",
+        "src/jade/src/jade/tools/rma/CustomAction.java",
+        "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+        "src/jade/src/jade/tools/sniffer/ViewMessage.java"
+      ],
+      "rule_id": "STRINGS_IN_SWITCH",
+      "shard_id": "STRINGS_IN_SWITCH-body-local-001"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/imtp/leap/MicroStub.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/imtp/leap/MicroStub.java",
+          "line": 76
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [
+        "src/jade/src/jade/imtp/leap/BackEndStub.java",
+        "src/jade/src/jade/imtp/leap/FrontEndStub.java",
+        "src/jade/src/jade/imtp/leap/JICP/ConnectionPool.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPConnection.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPPeer.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPSPeer.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPServer.java",
+        "src/jade/src/jade/imtp/leap/JICP/MaskableJICPPeer.java",
+        "src/jade/src/jade/imtp/leap/http/HTTPPeer.java"
+      ],
+      "rule_id": "STRINGS_IN_SWITCH",
+      "shard_id": "STRINGS_IN_SWITCH-body-local-002"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 296
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 301
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 305
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 309
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 314
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [
+        "src/jade/src/jade/tools/gui/ACLPanel.java"
+      ],
+      "rule_id": "STRINGS_IN_SWITCH",
+      "shard_id": "STRINGS_IN_SWITCH-body-local-003"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/tools/introspector/gui/TreeAgentPopupMenu.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/tools/introspector/gui/TreeAgentPopupMenu.java",
+          "line": 72
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [],
+      "rule_id": "STRINGS_IN_SWITCH",
+      "shard_id": "STRINGS_IN_SWITCH-body-local-004"
+    }
+  ],
+  "status": "OK",
+  "total_flagged_files": 6,
+  "total_flags": 18,
+  "warnings": []
+}

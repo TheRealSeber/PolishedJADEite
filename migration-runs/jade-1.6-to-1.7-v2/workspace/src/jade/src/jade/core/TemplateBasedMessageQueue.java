@@ -47,6 +47,7 @@ public class TemplateBasedMessageQueue extends ExtendedMessageQueue {
 		// This method is executed in mutual exclusion with receive() and addLast()/addFirst() that 
 		// are ALWAYS invoked inside code blocks synchronized on the MessageQueue object
 		LinkedList<ACLMessage> l = new LinkedList<ACLMessage>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 		// If there are messages in the default list matching this template, move them into the 
 		// per-template list we are creating
 		List<ACLMessage> mm = super.receive(tpl, -1);
@@ -123,6 +124,7 @@ public class TemplateBasedMessageQueue extends ExtendedMessageQueue {
 	class PerTemplateList extends LinkedList<ACLMessage> {
 		int currentSize = 0;
 		Map<MessageTemplate, LinkedList<ACLMessage>> tplListMap = new HashMap<MessageTemplate, LinkedList<ACLMessage>>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 
 		@Override
 		public int size() {

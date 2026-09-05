@@ -134,6 +134,7 @@ class FileMessageStorage implements MessageStorage {
 
 				// Read the file content
 				BufferedReader in = new BufferedReader(new FileReader(toRead));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 
 				// Read the number of copies
 				String strHowMany = in.readLine();
@@ -204,11 +205,13 @@ class FileMessageStorage implements MessageStorage {
 
 	private void incrementCounter(File f) throws IOException {
 		BufferedReader in = new BufferedReader(new FileReader(f));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 		File tmp = File.createTempFile("JADE", ".tmp");
 		String s = in.readLine();
 		try {
 			long counter = Long.parseLong(s);
 			BufferedWriter out = new BufferedWriter(new FileWriter(tmp));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 			try {
 				counter++;
 				s = Long.toString(counter);
@@ -241,6 +244,7 @@ class FileMessageStorage implements MessageStorage {
 	private void decrementCounter(File f) throws IOException {
 
 		BufferedReader in = new BufferedReader(new FileReader(f));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 		File tmp = File.createTempFile("JADE", ".tmp");
 		String s = in.readLine();
 		try {
@@ -252,6 +256,7 @@ class FileMessageStorage implements MessageStorage {
 			}
 			else {
 				BufferedWriter out = new BufferedWriter(new FileWriter(tmp));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 				try {
 					s = Long.toString(counter);
 					out.write(s, 0, s.length());
@@ -286,6 +291,7 @@ class FileMessageStorage implements MessageStorage {
 		try {
 			toStore.createNewFile();
 			out = new BufferedWriter(new FileWriter(toStore));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 
 			// Write the number of message copies (of course is 1 to begin with)
 			out.write("1", 0, 1);

@@ -2,3 +2,6 @@
 {"ts": "2026-09-05T00:47:31Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs/jade-1.6-to-1.7-v2/workspace", "artifacts": ["00-run-state.json"]}
 {"ts": "2026-09-05T00:47:31Z", "phase": "FAILED", "status": "ERROR", "message": "ARTIFACT_MISSING: Required for MANIFEST_READY: migration-runs/jade-1.6-to-1.7-v2/artifacts/01-breaking-changes-manifest.json", "artifacts": ["failure-summary.json", "00-run-state.json"]}
 {"ts": "2026-09-05T00:47:31Z", "phase": "FAILED", "status": "ERROR", "message": "Run terminated: FAILED", "artifacts": ["00-run-state.json", "PROGRESS.md"]}
+{"ts": "2026-09-05T01:13:56Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T01:13:56Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs/jade-1.6-to-1.7-v2/workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T01:14:05Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Paused for agent input \u2014 see AWAITING_AGENT.md", "artifacts": ["AWAITING_AGENT.md"]}

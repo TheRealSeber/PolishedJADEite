@@ -274,27 +274,32 @@ public class TimeChooser implements ActionListener
 			dlg.dispose();
 		}
 		else if (command.equals("Reset"))
+// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
 		{
 			date = null;
 			retVal = OK;
 			dlg.dispose();
 		}
 		else if (command.equals("Cancel"))
+// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
 		{
 			retVal = CANCEL;
 			dlg.dispose();
 		}
 		else if (command.equals("Close"))
+// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
 		{
 			dlg.dispose();
 		}
 		else if (command.equals("Absolute"))
+// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
 		{
 			absButton.setSelected(true);
 			relButton.setSelected(false);
 			mode = ABSOLUTE;
 		}
 		else if (command.equals("Relative"))
+// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
 		{
 			relButton.setSelected(true);
 			absButton.setSelected(false);

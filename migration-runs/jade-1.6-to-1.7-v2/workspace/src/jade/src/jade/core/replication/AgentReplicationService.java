@@ -76,12 +76,16 @@ public class AgentReplicationService extends BaseService {
 
 	// Map a virtual agent to the set of global information associated to it 
 	private Map<AID, GlobalReplicationInfo> globalReplications = new Hashtable<AID, GlobalReplicationInfo>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 	// Map a replica agent to the related virtual agent
 	private Map<AID, AID> replicaToVirtualMap = new Hashtable<AID, AID>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 	// Map a master replica agent to the pending replica creation requests
 	private Map<AID, List<ReplicaInfo>> pendingReplicaCreationRequests = new Hashtable<AID, List<ReplicaInfo>>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 
 	private Map<String, Method> cachedAgentMethods = new HashMap<String, Method>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 
 
 	public String getName() {
@@ -163,6 +167,7 @@ public class AgentReplicationService extends BaseService {
 		private AID myAid;
 		private AID virtualAid;
 		private List<ReplicaInfo> peerReplicas = new ArrayList<ReplicaInfo>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 		private ReplicaInfo[] peerReplicasArray = new ReplicaInfo[0];
 
 		public void init(Agent a) {
@@ -253,6 +258,7 @@ public class AgentReplicationService extends BaseService {
 						List<ReplicaInfo> rr = pendingReplicaCreationRequests.get(myAid);
 						if (rr == null) {
 							rr = new ArrayList<ReplicaInfo>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 							pendingReplicaCreationRequests.put(myAid, rr);
 						}
 						rr.add(new ReplicaInfo(replicaAid, where));
@@ -582,6 +588,7 @@ public class AgentReplicationService extends BaseService {
 				// that duplications are avoided.
 				AID[] aa = replicaToVirtualMap.keySet().toArray(new AID[0]);
 				List<AID> vv = new ArrayList<AID>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 				for (AID aid : aa) {
 					if (myContainer.isLocalAgent(aid)) {
 						AID virtualAid = replicaToVirtualMap.get(aid);

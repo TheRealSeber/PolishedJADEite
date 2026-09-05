@@ -67,6 +67,7 @@ public class DisplayLogFileAction extends FixedAction {
     if(returnVal == JFileChooser.APPROVE_OPTION){
       String fileName = fileDialog.getSelectedFile().getAbsolutePath();
       FileInputStream istream = new FileInputStream(fileName);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
       ObjectInputStream p = new ObjectInputStream(istream);
       mainPanel.panelcan.canvAgent.setAgentList((AgentList)p.readObject());
       mainPanel.panelcan.canvMess.setMessageList((MessageList)p.readObject());

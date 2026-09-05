@@ -67,6 +67,7 @@ class Server extends Thread
 
 		try {
 			listen_socket = new ServerSocket(port);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 		}
 		catch (IOException e) {
 			e.printStackTrace();

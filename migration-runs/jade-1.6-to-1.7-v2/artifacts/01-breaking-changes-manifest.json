@@ -74,7 +74,7 @@
     },
     {
       "id": "STRINGS_IN_SWITCH",
-      "name": "Java 7 String in switch — if/else-if chain over String constants",
+      "name": "Java 7 String in switch \u2014 if/else-if chain over String constants",
       "description": "A branch of an if / else-if chain tests a String-valued expression against a string literal with .equals(). Java 7 permits String in a switch selector, so a chain of such branches over one receiver collapses into a switch with case labels. The pattern deliberately matches only the 'else if' head of a branch (so a lone, unchained if is never flagged), requires a string-literal argument (so an .equals() against an arbitrary object is never flagged), and rejects a negated condition.",
       "fix_strategy": "recipe:jade-recipe-1.7-strings-in-switch",
       "severity": "MEDIUM",
@@ -160,7 +160,7 @@
     },
     {
       "id": "TRY_WITH_RESOURCES",
-      "name": "Java 7 try-with-resources — manually released external resource",
+      "name": "Java 7 try-with-resources \u2014 manually released external resource",
       "description": "An external auto-closeable resource is acquired at this line: a java.io file stream/reader/writer, a java.net socket, a java.util.zip / java.util.jar archive, or a java.sql Statement/ResultSet. Pre-Java-7 code has to release it itself with an explicit close(), normally in a finally block, or it leaks; Java 7 try-with-resources closes it automatically when the block exits. The pattern flags the acquisition site - the line a conversion has to move into the try header - whether the resource is bound to a local variable or created inline as a call argument. In-memory streams (ByteArrayInputStream/OutputStream, StringReader/Writer), whose close() is a documented no-op and which are never a try-with-resources target, are deliberately excluded, as are cached java.sql PreparedStatement fields. An acquisition whose resource is stored in a field, and therefore deliberately outlives the method, is NOT this construct.",
       "fix_strategy": "recipe:jade-recipe-1.7-try-with-resources",
       "severity": "MEDIUM",

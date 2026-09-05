@@ -75,6 +75,7 @@ public class JarClassLoader extends ClassLoader {
 		jarFiles = new JarFile[files.length];
 		for (int i = 0; i < files.length; ++i) {
 			jarFiles[i] = new JarFile(files[i]);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 		}
 	}
 	/**

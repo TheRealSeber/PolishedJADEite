@@ -455,6 +455,7 @@ public class Sniffer extends ToolAgent {
 			if (fileName != null) {
 				try {
 					properties.load(new FileInputStream(fileName));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 				} catch (IOException ioe) {
 					// ignore - Properties not processed
 				}
@@ -561,6 +562,7 @@ public class Sniffer extends ToolAgent {
 		BufferedReader in = null;
 		try {
 			in = new BufferedReader(new FileReader(aFileName));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 			boolean eof = false;
 			while (!eof) {
 				String line = in.readLine();

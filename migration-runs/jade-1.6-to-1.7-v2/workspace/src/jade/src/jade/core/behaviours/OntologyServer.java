@@ -89,8 +89,10 @@ public class OntologyServer extends CyclicBehaviour {
 	private int maxProcessedMessagesPerRun = 1;
 	protected MessageTemplate template;
 	private Set<Integer> performativesRequiringReply = new HashSet<Integer>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 	
 	private transient Map<String, Method> cachedMethods = new HashMap<String, Method>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 	private ContentElement receivedContentElement;
 	
 	protected Logger myLogger = Logger.getMyLogger(getClass().getName());
@@ -377,6 +379,7 @@ public class OntologyServer extends CyclicBehaviour {
 		// NOTE: cachedMethods is transient --> If the agent has just moved it must be recreated
 		if (cachedMethods == null) {
 			cachedMethods = new HashMap<String, Method>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 		}
 		Method m = (Method) cachedMethods.get(key);
 		if (m != null) {

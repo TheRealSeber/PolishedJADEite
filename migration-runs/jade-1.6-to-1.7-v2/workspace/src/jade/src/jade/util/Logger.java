@@ -425,6 +425,7 @@ public class Logger
 				java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("ddMMyyyy");
 				String logfile = logprefix + sdf.format(new java.util.Date()) + ".txt";
 				return new PrintStream(new FileOutputStream(logfile, true)) {
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 					private java.text.SimpleDateFormat hourFormatter = new java.text.SimpleDateFormat("HH:mm:ss");
 
 					public void println(String s) {

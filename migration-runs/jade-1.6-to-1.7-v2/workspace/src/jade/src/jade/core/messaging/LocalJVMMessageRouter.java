@@ -10,6 +10,7 @@ import jade.core.AID;
 
 class LocalJVMMessageRouter {
 	private static Map<String, LocalJVMMessageRouter> localRouters = new HashMap<String, LocalJVMMessageRouter>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 
 	synchronized static LocalJVMMessageRouter getRouter(String platformID) {
 		LocalJVMMessageRouter router = localRouters.get(platformID);
@@ -22,6 +23,7 @@ class LocalJVMMessageRouter {
 	
 	
 	private Map<String, MomMessagingService> localServices = new HashMap<String, MomMessagingService>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 	
 	public void register(String location, MomMessagingService mms) {
 		localServices.put(location, mms);

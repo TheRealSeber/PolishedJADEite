@@ -50,6 +50,7 @@ class BeanIntrospector implements Introspector {
 
 	BeanIntrospector() {
 		accessors = new HashMap<SlotKey, SlotAccessData>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 	}
 
 	void addAccessors(Map<SlotKey, SlotAccessData> accessors) {

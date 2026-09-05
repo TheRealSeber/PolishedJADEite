@@ -169,6 +169,7 @@ public class JICPPeer implements ICP, ProtocolManager {
 	protected ServerSocket getServerSocket(String host, int port, boolean changePortIfBusy) throws ICPException {
 		try {
 			return new ServerSocket(port, 50, (host != null ? InetAddress.getByName(host) : null));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 		} 
 		catch (SocketException be) {
 			// HACK! We should do this only in case of a BindException. However some implementations 
@@ -178,6 +179,7 @@ public class JICPPeer implements ICP, ProtocolManager {
 				// The specified port is busy. Let the system find a free one
 				try {
 					return new ServerSocket(0, 50, (host != null ? InetAddress.getByName(host) : null));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 				} catch (IOException ioe) {
 					throw new ICPException("Cannot create server socket on a free port. ", ioe);
 				}

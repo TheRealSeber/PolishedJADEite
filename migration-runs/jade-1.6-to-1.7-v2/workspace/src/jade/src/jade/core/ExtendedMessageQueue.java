@@ -39,6 +39,7 @@ public class ExtendedMessageQueue implements MessageQueue {
 		this.warningDiscardTemplate = warningDiscardTemplate;
 		myAgent = a;
 		list = new LinkedList<ACLMessage>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 	}
 
 	public ExtendedMessageQueue() {
@@ -141,6 +142,7 @@ public class ExtendedMessageQueue implements MessageQueue {
 				messages.remove();
 				if (mm == null) {
 					mm = new ArrayList<ACLMessage>(max > 0 ? max : 16);
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 				}
 				mm.add(msg);
 				cnt++;

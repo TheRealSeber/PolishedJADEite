@@ -137,6 +137,7 @@ public class BEManagementService extends BaseService {
 	};
 
 	private static final Map<String, Class> protocolManagers = new HashMap<String, Class>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 	static {
 		protocolManagers.put(MicroRuntime.SOCKET_PROTOCOL, NIOJICPPeer.class);
 		protocolManagers.put(MicroRuntime.SSL_PROTOCOL, NIOJICPSPeer.class);
@@ -506,7 +507,9 @@ public class BEManagementService extends BaseService {
 		private ServerSocketChannel mySSChannel;
 		private long mediatorCnt = 1;
 		private Hashtable<String, NIOMediator> mediators = new Hashtable<String, NIOMediator>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 		private Vector<String> deregisteredMediators = new Vector<String>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 		private String host;
 		private int port;
 		private Properties leapProps = new Properties();
@@ -645,6 +648,7 @@ public class BEManagementService extends BaseService {
 		void replaceLoopManager(int index, LoopManager newLoopManager) {
 			LoopManager oldLoopManager = loopers[index];
 			Map<SelectableChannel, KeyManager> managers = new HashMap<SelectableChannel, KeyManager>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 			Iterator<SelectionKey> it = oldLoopManager.getSelector().keys().iterator();
 			while (it.hasNext()) {
 				SelectionKey selectionKey = it.next();

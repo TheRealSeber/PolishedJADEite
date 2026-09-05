@@ -1101,6 +1101,7 @@ public class AgentMobilityService extends BaseService {
 								myLogger.log(Logger.FINER, "File exists");
 							}
 							classStream = new FileInputStream(f);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 							break;
 						}
 					}
@@ -1122,6 +1123,7 @@ public class AgentMobilityService extends BaseService {
 				}
 			}
 			ZipFile zf = new ZipFile(f);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 			ZipEntry e = zf.getEntry(classFileName);
 			if (e != null) {
 				if (myLogger.isLoggable(Logger.FINER)) {

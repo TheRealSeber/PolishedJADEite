@@ -86,6 +86,7 @@ public class JICPConnection extends Connection {
 			try { 
 				//#PJAVA_EXCLUDE_BEGIN
 				sc = new Socket();
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 				if (bindHost != null || bindPort > 0) {
 					// Local binding explicitly specified
 					myLogger.log(Logger.INFO, "Binding JICPConnection with bindHost="+bindHost+" and bindPort="+bindPort);
@@ -105,6 +106,7 @@ public class JICPConnection extends Connection {
 				//#PJAVA_EXCLUDE_END
 				/*#PJAVA_INCLUDE_BEGIN
 				sc = new Socket(ta.getHost(), Integer.parseInt(ta.getPort()));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 				#PJAVA_INCLUDE_END*/
 				is = sc.getInputStream();
 				os = getOutputStream();

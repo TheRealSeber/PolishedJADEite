@@ -87,6 +87,7 @@ public class DFAppletCommunicator implements DFGUIAdapter{
     	logger.log(Logger.FINEST,"HAP:" + hap);
  
     Socket s = new Socket(a.getCodeBase().getHost(), DEFAULT_PORT);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
     if(logger.isLoggable(Logger.CONFIG))
     	logger.log(Logger.CONFIG,"DFAppletClient connected to local port "+s.getLocalPort()+" and remote port "+s.getPort());
     in = new DataInputStream(s.getInputStream());

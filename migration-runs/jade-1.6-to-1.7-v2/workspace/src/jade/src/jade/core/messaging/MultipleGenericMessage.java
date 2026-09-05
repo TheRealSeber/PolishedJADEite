@@ -8,6 +8,7 @@ import java.util.List;
 public class MultipleGenericMessage extends GenericMessage {
 
 	private List<GenericMessage> messages = new ArrayList<GenericMessage>(); 
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 	private int length; // Raw estimation of bytes taken by this MGM
 	
 	public MultipleGenericMessage(int length) {

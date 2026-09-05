@@ -75,6 +75,7 @@ public class StrongAuthentication implements HTTPSTrustManager {
     String javaHome = System.getProperty("java.home");
     String defaultTs = javaHome + s + "lib" + s + "security"+ s +"cacerts";
     ks.load(new FileInputStream(defaultTs), null);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
     TrustManagerFactory tmf = 
       TrustManagerFactory.getInstance("SunX509");
     tmf.init(ks);

@@ -53,6 +53,7 @@ public class SAMInfo implements Serializable {
 	
 	SAMInfo() {
 		this(new HashMap<String, AverageMeasure>(), new HashMap<String, Long>());
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 	}
 	
 	SAMInfo(Map<String, AverageMeasure> entityMeasures, Map<String, Long> counterValues) {
@@ -128,6 +129,7 @@ public class SAMInfo implements Serializable {
 	
 	private static Map<String, AverageMeasure> oneShotComputeAggregatedMeasures(Map<String, AverageMeasure> measures) {
 		Map<String, AverageMeasure> aggregatedMeasures = new HashMap<String, AverageMeasure>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 		for (String entityName : measures.keySet()) {
 			AverageMeasure am = measures.get(entityName);
 			AggregationInfo ai = getAggregationInfo(entityName, AVG_AGGREGATION);
@@ -160,6 +162,7 @@ public class SAMInfo implements Serializable {
 	
 	private static Map<String, Long> oneShotComputeAggregatedCounters(Map<String, Long> counters) {
 		Map<String, CounterAggregator> aggregatedCounters = new HashMap<String, CounterAggregator>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 		for (String counterName : counters.keySet()) {
 			Long c = counters.get(counterName);
 			AggregationInfo ai = getAggregationInfo(counterName, SUM_AGGREGATION);
@@ -176,6 +179,7 @@ public class SAMInfo implements Serializable {
 		}
 		
 		Map<String, Long> result = new HashMap<String, Long>(aggregatedCounters.size());
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 		for (Map.Entry<String, CounterAggregator> entry : aggregatedCounters.entrySet()) {
 			result.put(entry.getKey(), entry.getValue().getAggregatedValue());
 		}

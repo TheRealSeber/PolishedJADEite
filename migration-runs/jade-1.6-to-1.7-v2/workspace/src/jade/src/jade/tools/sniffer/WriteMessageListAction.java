@@ -67,6 +67,7 @@ private MainPanel mainPanel;
      if(returnVal == JFileChooser.APPROVE_OPTION){
        String fileName = fileDialog.getSelectedFile().getAbsolutePath();
        out = new PrintWriter(new BufferedWriter(new FileWriter(fileName)));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
        MessageList msgList = mainPanel.panelcan.canvMess.getMessageList();
        Iterator it = msgList.getMessages();
        while(it.hasNext()) {

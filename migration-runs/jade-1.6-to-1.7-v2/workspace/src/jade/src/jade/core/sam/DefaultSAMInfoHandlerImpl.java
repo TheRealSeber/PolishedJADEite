@@ -43,8 +43,10 @@ class DefaultSAMInfoHandlerImpl implements SAMInfoHandler {
 	private static final String SAM_PREFIX = "SAM_";
 	
 	private Map<String, PrintStream> entityFiles = new HashMap<String, PrintStream>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 	// For counters we need to keep the total value together with the Stream used to write the CSV file
 	private Map<String, CounterInfo> counters = new HashMap<String, CounterInfo>();
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 	
 	private SimpleDateFormat timeStampFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	private String csvSeparator;
@@ -84,7 +86,9 @@ class DefaultSAMInfoHandlerImpl implements SAMInfoHandler {
 		if (summaryStr != null && summaryStr.length() > 0) {
 			String[] ff = summaryStr.split(";");
 			summaryFields = new ArrayList<String>(ff.length);
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 			summaryValues = new ArrayList<String>(ff.length);
+// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
 			for (String field : ff) {
 				summaryFields.add(field);
 				summaryValues.add("");

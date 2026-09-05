@@ -341,6 +341,7 @@ public class MessagingService extends BaseService implements MessageManager.Chan
 				if (f == null) { 
 					String fileName = myProfile.getParameter(Profile.FILE_DIR, "") + "MTPs-" + myContainer.getID().getName() + ".txt";
 					f = new PrintWriter(new FileWriter(fileName));
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 					sb = new StringBuffer("MTP addresses:");
 				}
 				f.println(mtpAddrs[0]);

@@ -270,6 +270,7 @@ class FSPersistentStorage implements PersistentStorage {
 		FileOutputStream fos = null;
 		try {
 			fos = new FileOutputStream(file);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 			fos.write(content);
 		} 
 		finally {
@@ -286,6 +287,7 @@ class FSPersistentStorage implements PersistentStorage {
 			byte[] content = new byte[length];
 			try {
 				fis = new FileInputStream(file);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 				int cnt = 0;
 				int n;
 				do {

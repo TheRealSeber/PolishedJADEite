@@ -1,0 +1,67 @@
+{
+  "run_id": "jade-1.6-to-1.7-v2",
+  "rules": [
+    "DIAMOND_OPERATOR",
+    "STRINGS_IN_SWITCH",
+    "TRY_WITH_RESOURCES"
+  ],
+  "selection_policy": "Standing user instruction for this run: queue every rule that cleared the pattern-precision gate (01.5-precision-report.json status PASS, queue_eligible true in 01-breaking-changes-manifest.json). No rule was deferred, so defer_rules.py was not run and no JADE-MODERNIZATION-DEFERRED marker exists in this workspace.",
+  "graph_metadata": {
+    "status": "computed",
+    "source_artifact": "03.5-knowledge-graph.json",
+    "suggested_order": [
+      "DIAMOND_OPERATOR",
+      "STRINGS_IN_SWITCH",
+      "TRY_WITH_RESOURCES"
+    ],
+    "direct_counts": {
+      "DIAMOND_OPERATOR": 23,
+      "STRINGS_IN_SWITCH": 6,
+      "TRY_WITH_RESOURCES": 41
+    },
+    "impact_counts": {
+      "DIAMOND_OPERATOR": 592,
+      "STRINGS_IN_SWITCH": 430,
+      "TRY_WITH_RESOURCES": 701
+    },
+    "cycles": [
+      [
+        "DIAMOND_OPERATOR",
+        "STRINGS_IN_SWITCH",
+        "TRY_WITH_RESOURCES"
+      ]
+    ],
+    "ordering_reasons": [
+      {
+        "rule": "DIAMOND_OPERATOR",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      },
+      {
+        "rule": "STRINGS_IN_SWITCH",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      },
+      {
+        "rule": "TRY_WITH_RESOURCES",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      }
+    ],
+    "diagnostics": [
+      {
+        "kind": "ambiguous_file_ownership",
+        "file": "src/jade/src/jade/gui/AclGui.java",
+        "rules": [
+          "STRINGS_IN_SWITCH",
+          "TRY_WITH_RESOURCES"
+        ]
+      },
+      {
+        "kind": "cycle",
+        "rules": [
+          "DIAMOND_OPERATOR",
+          "STRINGS_IN_SWITCH",
+          "TRY_WITH_RESOURCES"
+        ]
+      }
+    ]
+  }
+}

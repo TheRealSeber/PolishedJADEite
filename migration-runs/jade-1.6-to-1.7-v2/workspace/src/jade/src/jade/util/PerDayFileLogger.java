@@ -52,6 +52,7 @@ public class PerDayFileLogger extends PrintStream {
     */
 	public PerDayFileLogger(String file) throws IOException {
 		super(new FileOutputStream(file+"."+df.format(new Date()), true), true);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 		
 		this.file = file;
 		dayCnt = System.currentTimeMillis() / DAY;
@@ -64,6 +65,7 @@ public class PerDayFileLogger extends PrintStream {
 			try {
 				out.close();
 				out = new FileOutputStream(file+"."+df.format(new Date()), true);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 			}
 			catch (Exception e) {}
 		}

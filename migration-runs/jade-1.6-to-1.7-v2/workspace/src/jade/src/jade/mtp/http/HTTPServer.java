@@ -101,6 +101,7 @@ public class HTTPServer extends Thread {
 			//#PJAVA_EXCLUDE_END
 			/*#PJAVA_INCLUDE_BEGIN
 			 server = new ServerSocket(port);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 			 #PJAVA_INCLUDE_END*/
 		}
 		catch (IOException ioe) {
@@ -111,6 +112,7 @@ public class HTTPServer extends Thread {
 				//#PJAVA_EXCLUDE_END
 				/*#PJAVA_INCLUDE_BEGIN
 				 server = new ServerSocket(0);
+// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 				 #PJAVA_INCLUDE_END*/
 				if(logger.isLoggable(Logger.WARNING))
 					logger.log(Logger.WARNING,"Port "+p+" is already in used, selected another one");

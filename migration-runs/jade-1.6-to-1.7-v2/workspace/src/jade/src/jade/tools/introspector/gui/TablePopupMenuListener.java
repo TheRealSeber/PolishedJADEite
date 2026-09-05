@@ -60,9 +60,11 @@ public class TablePopupMenuListener implements ActionListener {
       }
     }
     else if(name.equals("remove")) {
+// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
       model.removeRow(selectedRow);
     }
     else if(name.equals("clear")) {
+// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
       model.clearRows();
     }
 

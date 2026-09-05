@@ -432,8 +432,7 @@ public class MainReplicationService extends BaseService {
 				Object[] params = cmd.getParams();
 
 				if (cmdName.equals(MainReplicationSlice.H_GETLABEL)) {
-					Integer i = new Integer(getLabel());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+					Integer i = Integer.valueOf(getLabel());
 					cmd.setReturnValue(i);
 				} else if (cmdName.equals(MainReplicationSlice.H_INVOKESERVICEMETHOD)) { 
 					String serviceName = (String) params[0];
@@ -797,8 +796,7 @@ public class MainReplicationService extends BaseService {
 				// Broadcast a 'removeReplica()' method (exclude yourself from bcast)
 				GenericCommand hCmd = new GenericCommand(MainReplicationSlice.H_REMOVEREPLICA, MainReplicationSlice.NAME, null);
 				hCmd.addParam(monitoredSvcMgr);
-				hCmd.addParam(new Integer(monitoredLabel));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+				hCmd.addParam(Integer.valueOf(monitoredLabel));
 				broadcastToReplicas(hCmd, EXCLUDE_MYSELF);
 
 				int oldLabel = myLabel;

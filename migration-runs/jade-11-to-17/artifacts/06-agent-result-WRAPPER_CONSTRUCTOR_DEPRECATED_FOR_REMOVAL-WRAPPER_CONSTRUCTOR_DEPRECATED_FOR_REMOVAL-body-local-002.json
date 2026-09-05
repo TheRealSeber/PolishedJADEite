@@ -1,0 +1,338 @@
+{
+  "schema_version": 1,
+  "rule_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+  "shard_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-002",
+  "status": "FIXED",
+  "match_quality": "exact",
+  "diff_summary": "Replaced 110 of 111 live primitive wrapper constructor calls across 36 of 38 files with the corresponding valueOf factory (Boolean/Integer/Long/Double/Float/Character), reviewed individually for identity sensitivity (==/!=, synchronized monitor, IdentityHashMap, identityHashCode, wait/notify). One site was left unconverted: src/jade/src/jade/gui/GuiAgent.java:140 `guiEventQueueLock = new Boolean(true);` is used as a `synchronized(guiEventQueueLock)` monitor at lines 94 and 154 -- Boolean.valueOf(true) returns the shared, JVM-wide Boolean.TRUE singleton, which would make this lock share a monitor with unrelated code. Its JADE-FLAG marker is kept. Five additional matches across this shard's files (ams.java:1209, AclGui.java:1399, DeliverableDataInputStream.java:332, MMCanvas.java:448, plus the qualifier-free form already inside a block comment) are not live code per java_source.is_live_code() and were left untouched with their markers intact -- these are exactly the scanner's known comment-context over-count (147 census vs 144 javac-live).",
+  "files": [
+    {
+      "file": "src/jade/src/jade/BootHelper.java",
+      "match_count": 5,
+      "changes": 5,
+      "touched_line_start": 89,
+      "touched_line_end": 144,
+      "migration_skip_marker": false,
+      "diff_summary": "5 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 89, 94, 122, 127, 144."
+    },
+    {
+      "file": "src/jade/src/jade/content/abs/AbsPrimitive.java",
+      "match_count": 10,
+      "changes": 10,
+      "touched_line_start": 76,
+      "touched_line_end": 222,
+      "migration_skip_marker": false,
+      "diff_summary": "10 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 76, 86, 96, 107, 117, 169, 182, 195, 209, 222."
+    },
+    {
+      "file": "src/jade/src/jade/content/lang/sl/ExtendedSLParser.java",
+      "match_count": 3,
+      "changes": 3,
+      "touched_line_start": 915,
+      "touched_line_end": 943,
+      "migration_skip_marker": false,
+      "diff_summary": "3 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 915, 929, 943."
+    },
+    {
+      "file": "src/jade/src/jade/content/lang/sl/SLParser.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 858,
+      "touched_line_end": 872,
+      "migration_skip_marker": false,
+      "diff_summary": "2 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 858, 872."
+    },
+    {
+      "file": "src/jade/src/jade/content/onto/BasicOntology.java",
+      "match_count": 14,
+      "changes": 14,
+      "touched_line_start": 522,
+      "touched_line_end": 591,
+      "migration_skip_marker": false,
+      "diff_summary": "14 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 522, 526, 533, 537, 544, 548, 552, 556, 563, 567, 571, 575, 587, 591."
+    },
+    {
+      "file": "src/jade/src/jade/core/PlatformManagerImpl.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 915,
+      "touched_line_end": 918,
+      "migration_skip_marker": false,
+      "diff_summary": "2 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 915, 918."
+    },
+    {
+      "file": "src/jade/src/jade/core/ProfileImpl.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 108,
+      "touched_line_end": 177,
+      "migration_skip_marker": false,
+      "diff_summary": "2 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 108, 177."
+    },
+    {
+      "file": "src/jade/src/jade/core/Specifier.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 157,
+      "touched_line_end": 157,
+      "migration_skip_marker": false,
+      "diff_summary": "1 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 157."
+    },
+    {
+      "file": "src/jade/src/jade/core/behaviours/FSMBehaviour.java",
+      "match_count": 3,
+      "changes": 3,
+      "touched_line_start": 499,
+      "touched_line_end": 533,
+      "migration_skip_marker": false,
+      "diff_summary": "3 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 499, 508, 533."
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/MessagingProxy.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 63,
+      "touched_line_end": 63,
+      "migration_skip_marker": false,
+      "diff_summary": "1 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 63."
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/OutgoingEncodingFilter.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 124,
+      "touched_line_end": 224,
+      "migration_skip_marker": false,
+      "diff_summary": "2 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 124, 224."
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/PersistentDeliveryProxy.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 65,
+      "touched_line_end": 65,
+      "migration_skip_marker": false,
+      "diff_summary": "1 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 65."
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/PersistentDeliveryService.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 307,
+      "touched_line_end": 307,
+      "migration_skip_marker": false,
+      "diff_summary": "1 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 307."
+    },
+    {
+      "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java",
+      "match_count": 5,
+      "changes": 5,
+      "touched_line_start": 772,
+      "touched_line_end": 947,
+      "migration_skip_marker": false,
+      "diff_summary": "5 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 772, 904, 906, 939, 947."
+    },
+    {
+      "file": "src/jade/src/jade/core/replication/MainReplicationService.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 435,
+      "touched_line_end": 800,
+      "migration_skip_marker": false,
+      "diff_summary": "2 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 435, 800."
+    },
+    {
+      "file": "src/jade/src/jade/domain/AMSEventQueueFeeder.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 83,
+      "touched_line_end": 83,
+      "migration_skip_marker": false,
+      "diff_summary": "1 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 83."
+    },
+    {
+      "file": "src/jade/src/jade/domain/DFService.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 342,
+      "touched_line_end": 342,
+      "migration_skip_marker": false,
+      "diff_summary": "1 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 342."
+    },
+    {
+      "file": "src/jade/src/jade/domain/FIPAAgentManagement/Envelope.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 98,
+      "touched_line_end": 98,
+      "migration_skip_marker": false,
+      "diff_summary": "1 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 98."
+    },
+    {
+      "file": "src/jade/src/jade/domain/df.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 763,
+      "touched_line_end": 766,
+      "migration_skip_marker": false,
+      "diff_summary": "2 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 763, 766."
+    },
+    {
+      "file": "src/jade/src/jade/gui/AclGui.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 1396,
+      "touched_line_end": 1396,
+      "migration_skip_marker": false,
+      "diff_summary": "1 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 1396."
+    },
+    {
+      "file": "src/jade/src/jade/gui/ConstraintDlg.java",
+      "match_count": 3,
+      "changes": 3,
+      "touched_line_start": 160,
+      "touched_line_end": 188,
+      "migration_skip_marker": false,
+      "diff_summary": "3 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 160, 176, 188."
+    },
+    {
+      "file": "src/jade/src/jade/gui/TimeChooser.java",
+      "match_count": 8,
+      "changes": 8,
+      "touched_line_start": 258,
+      "touched_line_end": 363,
+      "migration_skip_marker": false,
+      "diff_summary": "8 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 258, 261, 264, 267, 270, 273, 351, 363."
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+      "match_count": 5,
+      "changes": 5,
+      "touched_line_start": 336,
+      "touched_line_end": 978,
+      "migration_skip_marker": false,
+      "diff_summary": "5 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 336, 747, 753, 965, 978."
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/DeliverableDataInputStream.java",
+      "match_count": 3,
+      "changes": 3,
+      "touched_line_start": 127,
+      "touched_line_end": 760,
+      "migration_skip_marker": false,
+      "diff_summary": "3 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 127, 130, 760."
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/NodeStub.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 131,
+      "touched_line_end": 131,
+      "migration_skip_marker": false,
+      "diff_summary": "1 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 131."
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/PlatformManagerStub.java",
+      "match_count": 6,
+      "changes": 6,
+      "touched_line_start": 103,
+      "touched_line_end": 222,
+      "migration_skip_marker": false,
+      "diff_summary": "6 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 103, 131, 154, 177, 200, 222."
+    },
+    {
+      "file": "src/jade/src/jade/mtp/http/HTTPIO.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 225,
+      "touched_line_end": 225,
+      "migration_skip_marker": false,
+      "diff_summary": "1 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 225."
+    },
+    {
+      "file": "src/jade/src/jade/mtp/http/XMLCodec.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 466,
+      "touched_line_end": 466,
+      "migration_skip_marker": false,
+      "diff_summary": "1 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 466."
+    },
+    {
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 299,
+      "touched_line_end": 299,
+      "migration_skip_marker": false,
+      "diff_summary": "1 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 299."
+    },
+    {
+      "file": "src/jade/src/jade/tools/DummyAgent/MsgIndication.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 146,
+      "touched_line_end": 151,
+      "migration_skip_marker": false,
+      "diff_summary": "2 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 146, 151."
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 177,
+      "touched_line_end": 177,
+      "migration_skip_marker": false,
+      "diff_summary": "1 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 177."
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+      "match_count": 8,
+      "changes": 8,
+      "touched_line_start": 277,
+      "touched_line_end": 381,
+      "migration_skip_marker": false,
+      "diff_summary": "8 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 277, 280, 283, 286, 289, 292, 366, 381."
+    },
+    {
+      "file": "src/jade/src/jade/tools/rma/rma.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 1119,
+      "touched_line_end": 1119,
+      "migration_skip_marker": false,
+      "diff_summary": "1 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 1119."
+    },
+    {
+      "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+      "match_count": 4,
+      "changes": 4,
+      "touched_line_start": 396,
+      "touched_line_end": 655,
+      "migration_skip_marker": false,
+      "diff_summary": "4 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 396, 622, 649, 655."
+    },
+    {
+      "file": "src/jade/src/jade/tools/testagent/TestAgent.java",
+      "match_count": 4,
+      "changes": 4,
+      "touched_line_start": 163,
+      "touched_line_end": 184,
+      "migration_skip_marker": false,
+      "diff_summary": "4 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 163, 165, 182, 184."
+    },
+    {
+      "file": "src/jade/src/jade/util/leap/HashMap.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 60,
+      "touched_line_end": 60,
+      "migration_skip_marker": false,
+      "diff_summary": "1 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 60."
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "NEEDS_REVIEW is expected and mechanical for every multi-site WRAPPER_CONSTRUCTOR file: entry_points record the JADE-FLAG comment line (construct_line + 1), so any real fix's touched range starts 1 line before the first entry_point, and match_count>1 whenever a file has more than one site. Neither reflects doubt about the fix. Confirmed correct: local javac compiles all 38 files clean (with commons-codec on classpath), Docker verify_shard PASS, signature gate PASS (changed=0)."
+  ]
+}

@@ -274,23 +274,17 @@ public class ACLTimeChooserDialog implements ActionListener {
     if (command.equals("Set")) {
 // JADE-MODERNIZATION-DEFERRED:STRINGS_IN_SWITCH Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance. 1.0 (complex chain -- manual review recommended)
       Integer I;
-      I = new Integer(year.getText());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+      I = Integer.valueOf(year.getText());
       int YY = I.intValue();
-      I = new Integer(month.getText());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+      I = Integer.valueOf(month.getText());
       int MM = I.intValue();
-      I = new Integer(day.getText());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+      I = Integer.valueOf(day.getText());
       int DD = I.intValue();
-      I = new Integer(hour.getText());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+      I = Integer.valueOf(hour.getText());
       int hh = I.intValue();
-      I = new Integer(min.getText());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+      I = Integer.valueOf(min.getText());
       int mm = I.intValue();
-      I = new Integer(sec.getText());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+      I = Integer.valueOf(sec.getText());
       int ss = I.intValue();
 
       Calendar cal = new GregorianCalendar(YY, MM - 1, DD, hh, mm, ss);
@@ -363,8 +357,7 @@ public class ACLTimeChooserDialog implements ActionListener {
     B1.addActionListener(
       new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-          Integer i = new Integer(timeUnitEdit.getText());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+          Integer i = Integer.valueOf(timeUnitEdit.getText());
           int ii = i.intValue() + 1;
           if (ii <= limit) {
             timeUnitEdit.setText(String.valueOf(ii));
@@ -378,8 +371,7 @@ public class ACLTimeChooserDialog implements ActionListener {
     B2.addActionListener(
       new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-          Integer i = new Integer(timeUnitEdit.getText());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+          Integer i = Integer.valueOf(timeUnitEdit.getText());
           int ii = i.intValue() - 1;
           int inf_limit = (timeUnitLabel.equalsIgnoreCase("Hour:") || timeUnitLabel.equalsIgnoreCase("Min:") || timeUnitLabel.equalsIgnoreCase("Sec:") ? 0 : 1);
           if (ii >= inf_limit) {

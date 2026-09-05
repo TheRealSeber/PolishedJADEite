@@ -60,8 +60,7 @@ public class AgentManagementProxy extends SliceProxy implements AgentManagementS
 			cmd.addParam(arguments);
 			cmd.addParam(owner);
 			cmd.addParam(initialCredentials);
-			cmd.addParam(new Boolean(startIt));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+			cmd.addParam(Boolean.valueOf(startIt));
 			cmd.setPrincipal(sourceCmd.getPrincipal());
 			cmd.setCredentials(sourceCmd.getCredentials());
 
@@ -122,8 +121,7 @@ public class AgentManagementProxy extends SliceProxy implements AgentManagementS
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
 			GenericCommand cmd = new GenericCommand(H_CHANGEAGENTSTATE, AgentManagementSlice.NAME, null);
 			cmd.addParam(agentID);
-			cmd.addParam(new Integer(newState));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+			cmd.addParam(Integer.valueOf(newState));
 
 			Node n = getNode();
 			Object result = n.accept(cmd);

@@ -496,8 +496,7 @@ public class FSMBehaviour extends SerialBehaviour {
 				tfs.setDefaultTransition(t);
 			}
 			else {
-				Integer key2 = new Integer(t.getTrigger());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+				Integer key2 = Integer.valueOf(t.getTrigger());
 				tfs.put(key2, t);
 			}
 		}
@@ -505,8 +504,7 @@ public class FSMBehaviour extends SerialBehaviour {
 		void removeTransition(String s1, int event) {
 			TransitionsFromState tfs = (TransitionsFromState)transitions.get(s1);
 			if(tfs != null) {
-				Transition t = (Transition)tfs.remove(new Integer(event));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+				Transition t = (Transition)tfs.remove(Integer.valueOf(event));
 				if(t != null) {
 					
 					if((tfs.isEmpty() && (tfs.getDefaultTransition() == null))) {
@@ -530,8 +528,7 @@ public class FSMBehaviour extends SerialBehaviour {
 		Transition getTransition(String s, int event) {
 			TransitionsFromState tfs = (TransitionsFromState) transitions.get(s);
 			if(tfs != null) {
-				Transition t = (Transition) tfs.get(new Integer(event));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+				Transition t = (Transition) tfs.get(Integer.valueOf(event));
 				return t;
 			}
 			else {

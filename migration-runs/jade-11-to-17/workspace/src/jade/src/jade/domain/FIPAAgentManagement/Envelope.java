@@ -95,8 +95,7 @@ public class Envelope implements Concept, jade.util.leap.Serializable {
 	 * Default constructor. Initializes the payloadLength to -1.
 	 **/
 	public Envelope () {
-		payloadLength = new Long(-1);
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+		payloadLength = Long.valueOf(-1);
 	}
 
 

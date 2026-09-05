@@ -760,11 +760,9 @@ public class df extends GuiAgent implements DFGUIAdapter {
 		// Create the new SearchConstraints.
 		SearchConstraints newConstr = new SearchConstraints();
 		// Max-depth decreased by 1
-		newConstr.setMaxDepth(new Long ((long) (maxDep - 1)));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+		newConstr.setMaxDepth(Long.valueOf((long) (maxDep - 1)));
 		// Max-results decreased by the number of items found locally
-		newConstr.setMaxResults(new Long((long) (maxRes - localResults.size())));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+		newConstr.setMaxResults(Long.valueOf((long) (maxRes - localResults.size())));
 		// New globally unique search-id unless already present
 		String searchId = constraints.getSearchId();
 		if (searchId == null) {

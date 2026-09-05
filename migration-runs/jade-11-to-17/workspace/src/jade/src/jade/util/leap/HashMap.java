@@ -57,8 +57,7 @@ public class HashMap implements Map, Serializable {
    	   operations.
    	 */
     private static final long     serialVersionUID = 3487495895819395L;
-  	private static final Long     nullValue = new Long(serialVersionUID);
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+  	private static final Long     nullValue = Long.valueOf(serialVersionUID);
     private Hashtable             hiddenMap;
 
     /**

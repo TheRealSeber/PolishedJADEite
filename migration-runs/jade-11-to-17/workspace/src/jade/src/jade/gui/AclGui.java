@@ -1393,8 +1393,7 @@ public class AclGui extends JPanel
 		try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
 			param = payloadLength.getText().trim();
-			env.setPayloadLength(new Long(param));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+			env.setPayloadLength(Long.valueOf(param));
 		} catch (Exception e) { 
 			//System.err.println("Incorrect int format. payloadLength must be an integer. Automatic reset to -1.");
 			//env.setPayloadLength(new Long(-1));

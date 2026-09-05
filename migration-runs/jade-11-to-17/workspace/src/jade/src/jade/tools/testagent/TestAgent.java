@@ -160,10 +160,8 @@ public class TestAgent extends Agent {
 
     AMSAgentDescription amsAgentDescription = new AMSAgentDescription();
     SearchConstraints searchConstraints = new SearchConstraints();
-    searchConstraints.setMaxDepth(new Long(100));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
-    searchConstraints.setMaxResults(new Long(100));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+    searchConstraints.setMaxDepth(Long.valueOf(100));
+    searchConstraints.setMaxResults(Long.valueOf(100));
 
     Search search = new Search();
     search.setConstraints(searchConstraints);
@@ -179,10 +177,8 @@ public class TestAgent extends Agent {
     DFAgentDescription dFAgentDescription = new DFAgentDescription();
     SearchConstraints searchConstraints = new SearchConstraints();
 
-    searchConstraints.setMaxDepth(new Long(100));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
-    searchConstraints.setMaxResults(new Long(100));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+    searchConstraints.setMaxDepth(Long.valueOf(100));
+    searchConstraints.setMaxResults(Long.valueOf(100));
 
     Search search = new Search();
     search.setConstraints(searchConstraints);

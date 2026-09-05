@@ -143,13 +143,11 @@ class MsgIndication
 			mi.date = df.parse(line);
 
 			// Direction
-			ii = new Integer(r.readLine());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+			ii = Integer.valueOf(r.readLine());
 			mi.direction = ii.intValue();
 			 
 			// Message length
-			ii = new Integer(r.readLine());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+			ii = Integer.valueOf(r.readLine());
 			int len = ii.intValue();
 
 			// Message

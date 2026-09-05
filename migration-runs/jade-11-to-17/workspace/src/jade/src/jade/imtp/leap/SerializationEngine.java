@@ -156,11 +156,9 @@ class SerializationEngine {
 			case STRING_ARRAY_ID:
 				return deserializeStringArray(dis);
 			case BOOLEAN_ID:
-				return new Boolean(dis.readBoolean());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+				return Boolean.valueOf(dis.readBoolean());
 			case INTEGER_ID:
-				return new Integer(dis.readInt());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+				return Integer.valueOf(dis.readInt());
 			default:
 				/*System.out.println("Packet was:");
       	jade.imtp.leap.JICP.JICPPacket pkt = jade.imtp.leap.JICP.BIFEDispatcher.lastResponseCazzo;

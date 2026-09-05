@@ -912,8 +912,7 @@ class ExtendedSLParser implements ExtendedSLParserConstants {
                    try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
                     // J2ME incompatible d1=Double.parseDouble(t.image); 
-                    d1=(new Double(t.image)).doubleValue();
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+                    d1=(Double.valueOf(t.image)).doubleValue();
                     val=AbsPrimitive.wrap(d1);
                   } catch (NumberFormatException e) { //should never happen
                     e.printStackTrace();
@@ -926,8 +925,7 @@ class ExtendedSLParser implements ExtendedSLParserConstants {
                    try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
                     // J2ME incompatible d2=Double.parseDouble(t.image); 
-                    d2=(new Double(t.image)).doubleValue();
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+                    d2=(Double.valueOf(t.image)).doubleValue();
                     val=AbsPrimitive.wrap(d2);
                   } catch (NumberFormatException e) { //should never happen
                     e.printStackTrace();
@@ -940,8 +938,7 @@ class ExtendedSLParser implements ExtendedSLParserConstants {
                   try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
                    floatStr = t.image.substring(0, t.image.length() - 1);
-                   val = AbsPrimitive.wrap((new Float(floatStr)).floatValue());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+                   val = AbsPrimitive.wrap((Float.valueOf(floatStr)).floatValue());
                   } catch (NumberFormatException e) { //should never happen
                     e.printStackTrace();
                     val=AbsPrimitive.wrap(t.image);

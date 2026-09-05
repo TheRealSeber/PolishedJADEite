@@ -912,11 +912,9 @@ public class PlatformManagerImpl implements PlatformManager {
 		String name = null;
 		NodeDescriptor old = null;
 		if (n.hasPlatformManager()) {
-			cid.setMain(new Boolean(true));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+			cid.setMain(Boolean.valueOf(true));
 		}else{
-			cid.setMain(new Boolean(false));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+			cid.setMain(Boolean.valueOf(false));
 		}
 		
 		if (cid.getName() == null || cid.getName().equals(NO_NAME)) {

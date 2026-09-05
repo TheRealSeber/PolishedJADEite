@@ -769,8 +769,7 @@ public class AgentMobilityService extends BaseService {
 				// If the name is already in the GADT, throws NameClashException
 				bornAgent(agentID, cid, null, ownership, false);
 				// Since bornAgent() succeeded, directly apply forceReplacement on replicated Main Containers 
-				replicationHandle.invokeReplicatedMethod("bornAgent", new Object[]{agentID, cid, null, ownership, new Boolean(true)});
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+				replicationHandle.invokeReplicatedMethod("bornAgent", new Object[]{agentID, cid, null, ownership, Boolean.valueOf(true)});
 			}
 		}
 		
@@ -901,10 +900,8 @@ public class AgentMobilityService extends BaseService {
 					gCmd.addParam(agentID);
 					gCmd.addParam(instance);
 					gCmd.addParam(classSiteName);
-					gCmd.addParam(new Boolean(isCloned));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
-					gCmd.addParam(new Boolean(startIt));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+					gCmd.addParam(Boolean.valueOf(isCloned));
+					gCmd.addParam(Boolean.valueOf(startIt));
 					
 					result = gCmd;
 				}
@@ -936,16 +933,14 @@ public class AgentMobilityService extends BaseService {
 				}
 				else if(cmdName.equals(AgentMobilitySlice.H_PREPARE)) {
 					
-					cmd.setReturnValue(new Boolean(prepare()));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+					cmd.setReturnValue(Boolean.valueOf(prepare()));
 				}
 				else if(cmdName.equals(AgentMobilitySlice.H_TRANSFERIDENTITY)) {
 					AID agentID = (AID)params[0];
 					Location src = (Location)params[1];
 					Location dest = (Location)params[2];
 					
-					cmd.setReturnValue(new Boolean(transferIdentity(agentID, src, dest)));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+					cmd.setReturnValue(Boolean.valueOf(transferIdentity(agentID, src, dest)));
 				}
 				else if(cmdName.equals(AgentMobilitySlice.H_HANDLETRANSFERRESULT)) {
 					AID agentID = (AID)params[0];

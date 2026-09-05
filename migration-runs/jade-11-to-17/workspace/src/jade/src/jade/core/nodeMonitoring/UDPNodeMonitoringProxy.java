@@ -17,12 +17,9 @@ public class UDPNodeMonitoringProxy extends SliceProxy implements UDPNodeMonitor
 		GenericCommand cmd = new GenericCommand(H_ACTIVATEUDP, UDPNodeMonitoringService.NAME, null);
 		cmd.addParam(label);
 		cmd.addParam(host);
-		cmd.addParam(new Integer(port));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
-		cmd.addParam(new Integer(pingDelay));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
-		cmd.addParam(new Long(key));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+		cmd.addParam(Integer.valueOf(port));
+		cmd.addParam(Integer.valueOf(pingDelay));
+		cmd.addParam(Long.valueOf(key));
 
 		Node n = getNode();
 		Object result = n.accept(cmd);
@@ -44,8 +41,7 @@ public class UDPNodeMonitoringProxy extends SliceProxy implements UDPNodeMonitor
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
 			GenericCommand cmd = new GenericCommand(H_DEACTIVATEUDP, UDPNodeMonitoringService.NAME, null);
 			cmd.addParam(label);
-			cmd.addParam(new Long(key));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+			cmd.addParam(Long.valueOf(key));
 	
 			Node n = getNode();
 			Object result = n.accept(cmd);

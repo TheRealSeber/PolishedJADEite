@@ -222,8 +222,7 @@ public class HTTPIO {
       body.write(XML);
       body.write(CRLF);
       body.write(CRLF); //A empty line
-      env.setPayloadLength(new Long(payload.length));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+      env.setPayloadLength(Long.valueOf(payload.length));
       writeLowBytes(body,XMLCodec.encodeXML(env));
       body.write(CRLF);
       //Put the boundary delimit.

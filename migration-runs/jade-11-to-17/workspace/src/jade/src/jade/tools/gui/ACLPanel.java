@@ -174,8 +174,7 @@ public class ACLPanel extends JPanel {
       try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
         Method sn = obj.getClass().getMethod(methodName, new Class[]{Boolean.TYPE});
-        Object os = new Boolean(editable);
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+        Object os = Boolean.valueOf(editable);
         sn.invoke(obj, new Object[]{os});
       }
       catch (Exception ex) {

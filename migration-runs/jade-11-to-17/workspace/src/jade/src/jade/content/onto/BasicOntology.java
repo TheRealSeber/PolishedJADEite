@@ -519,61 +519,49 @@ public class BasicOntology extends Ontology implements SL0Vocabulary {
 				if (destClass == Integer.class ||
 					destClass == int.class) {
 					if (srcClass == Long.class) {
-						destValue = new Integer(((Long)srcValue).intValue());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+						destValue = Integer.valueOf(((Long)srcValue).intValue());
 					} 
 					else if (srcClass == String.class) {
-						destValue = new Integer(Integer.parseInt((String)srcValue));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+						destValue = Integer.valueOf(Integer.parseInt((String)srcValue));
 					}
 				}
 				else if (destClass == Long.class ||
 						 destClass == long.class) {
 					if (srcClass == Integer.class) {
-						destValue = new Long(((Integer)srcValue).longValue());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+						destValue = Long.valueOf(((Integer)srcValue).longValue());
 					} 
 					else if (srcClass == String.class) {
-						destValue = new Long(Long.parseLong((String)srcValue));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+						destValue = Long.valueOf(Long.parseLong((String)srcValue));
 					}
 				}
 				else if (destClass == Float.class ||
 						 destClass == float.class) {
 					if (srcClass == Integer.class) {
-						destValue = new Float(((Integer)srcValue).floatValue());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+						destValue = Float.valueOf(((Integer)srcValue).floatValue());
 					}
 					else if (srcClass == Long.class) {
-						destValue = new Float(((Long)srcValue).floatValue());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+						destValue = Float.valueOf(((Long)srcValue).floatValue());
 					}
 					else if (srcClass == Double.class) {
-						destValue = new Float(((Double)srcValue).floatValue());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+						destValue = Float.valueOf(((Double)srcValue).floatValue());
 					}
 					else if (srcClass == String.class) {
-						destValue = new Float(Float.parseFloat((String)srcValue));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+						destValue = Float.valueOf(Float.parseFloat((String)srcValue));
 					}
 				}
 				else if (destClass == Double.class ||
 						 destClass == double.class) {
 					if (srcClass == Integer.class) {
-						destValue = new Double(((Integer)srcValue).doubleValue());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+						destValue = Double.valueOf(((Integer)srcValue).doubleValue());
 					}
 					else if (srcClass == Long.class) {
-						destValue = new Double(((Long)srcValue).doubleValue());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+						destValue = Double.valueOf(((Long)srcValue).doubleValue());
 					}
 					else if (srcClass == Float.class) {
-						destValue = new Double(((Float)srcValue).doubleValue());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+						destValue = Double.valueOf(((Float)srcValue).doubleValue());
 					}
 					else if (srcClass == String.class) {
-						destValue = new Double(Double.parseDouble((String)srcValue));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+						destValue = Double.valueOf(Double.parseDouble((String)srcValue));
 					}
 				}
 				else if (destClass == String.class) {
@@ -584,12 +572,10 @@ public class BasicOntology extends Ontology implements SL0Vocabulary {
 					if (srcClass == String.class) {
 						String s = (String) srcValue;
 						if (s.equalsIgnoreCase("true")) {
-							destValue = new Boolean(true);
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+							destValue = Boolean.valueOf(true);
 						}
 						else if (s.equalsIgnoreCase("false")) {
-							destValue = new Boolean(false);
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+							destValue = Boolean.valueOf(false);
 						}
 					}
 				}

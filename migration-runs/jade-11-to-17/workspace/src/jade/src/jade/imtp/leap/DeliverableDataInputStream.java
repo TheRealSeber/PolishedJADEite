@@ -124,11 +124,9 @@ class DeliverableDataInputStream extends DataInputStream {
 				case Serializer.CONTAINERIDARRAY_ID:
 					return deserializeContainerIDArray();
 				case Serializer.BOOLEAN_ID:
-					return new Boolean(readBoolean());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+					return Boolean.valueOf(readBoolean());
 				case Serializer.INTEGER_ID:
-					return new Integer(readInt());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+					return Integer.valueOf(readInt());
 				case Serializer.DATE_ID:
 					return deserializeDate();
 				case Serializer.STRINGARRAY_ID:
@@ -757,8 +755,7 @@ class DeliverableDataInputStream extends DataInputStream {
 			e.setFrom(readAID());
 			e.setComments(readString());
 			e.setAclRepresentation(readString());
-			e.setPayloadLength(new Long(readLong()));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+			e.setPayloadLength(Long.valueOf(readLong()));
 			e.setPayloadEncoding(readString());
 			e.setDate(readDate());
 

@@ -61,10 +61,8 @@ public class AgentMobilityProxy extends SliceProxy implements AgentMobilitySlice
 			cmd.addParam(agentID);
 			cmd.addParam(serializedInstance);
 			cmd.addParam(classSiteName);
-			cmd.addParam(new Boolean(isCloned));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
-			cmd.addParam(new Boolean(startIt));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+			cmd.addParam(Boolean.valueOf(isCloned));
+			cmd.addParam(Boolean.valueOf(startIt));
 
 
 			Node n = getNode();
@@ -234,8 +232,7 @@ public class AgentMobilityProxy extends SliceProxy implements AgentMobilitySlice
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
 			GenericCommand cmd = new GenericCommand(H_HANDLETRANSFERRESULT, AgentMobilitySlice.NAME, null);
 			cmd.addParam(agentID);
-			cmd.addParam(new Boolean(result));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+			cmd.addParam(Boolean.valueOf(result));
 			cmd.addParam(messages);
 
 

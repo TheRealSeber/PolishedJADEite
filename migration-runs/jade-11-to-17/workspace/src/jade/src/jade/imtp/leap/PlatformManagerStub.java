@@ -100,8 +100,7 @@ class PlatformManagerStub extends Stub implements PlatformManager {
 			
 			cmd.addParam(desc);
 			cmd.addParam(services);
-			cmd.addParam(new Boolean(propagated));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+			cmd.addParam(Boolean.valueOf(propagated));
 			
 			Command result = theDispatcher.dispatchCommand(remoteTAs, cmd);
 			
@@ -128,8 +127,7 @@ class PlatformManagerStub extends Stub implements PlatformManager {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
 			Command cmd = new Command(REMOVE_NODE, remoteID);
 			cmd.addParam(desc);
-			cmd.addParam(new Boolean(propagate));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+			cmd.addParam(Boolean.valueOf(propagate));
 			Command res = theDispatcher.dispatchCommand(remoteTAs, cmd);
 			
 			// Check whether an exception occurred in the remote container
@@ -151,8 +149,7 @@ class PlatformManagerStub extends Stub implements PlatformManager {
 			Command cmd = new Command(ADD_SLICE, remoteID);
 			cmd.addParam(service);
 			cmd.addParam(dsc);
-			cmd.addParam(new Boolean(propagated));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+			cmd.addParam(Boolean.valueOf(propagated));
 			Command res = theDispatcher.dispatchCommand(remoteTAs, cmd);
 			
 			// Check whether an exception occurred in the remote container
@@ -174,8 +171,7 @@ class PlatformManagerStub extends Stub implements PlatformManager {
 			Command cmd = new Command(REMOVE_SLICE, remoteID);
 			cmd.addParam(serviceKey);
 			cmd.addParam(sliceKey);
-			cmd.addParam(new Boolean(propagated));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+			cmd.addParam(Boolean.valueOf(propagated));
 			Command res = theDispatcher.dispatchCommand(remoteTAs, cmd);
 			
 			// Check whether an exception occurred in the remote container
@@ -197,8 +193,7 @@ class PlatformManagerStub extends Stub implements PlatformManager {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
 			Command cmd = new Command(ADD_REPLICA, remoteID);
 			cmd.addParam(newAddr);
-			cmd.addParam(new Boolean(propagated));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+			cmd.addParam(Boolean.valueOf(propagated));
 			Command res = theDispatcher.dispatchCommand(remoteTAs, cmd);
 			
 			// Check whether an exception occurred in the remote container
@@ -219,8 +214,7 @@ class PlatformManagerStub extends Stub implements PlatformManager {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
 			Command cmd = new Command(REMOVE_REPLICA, remoteID);
 			cmd.addParam(address);
-			cmd.addParam(new Boolean(propagated));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+			cmd.addParam(Boolean.valueOf(propagated));
 			Command res = theDispatcher.dispatchCommand(remoteTAs, cmd);
 			
 			// Check whether an exception occurred in the remote container

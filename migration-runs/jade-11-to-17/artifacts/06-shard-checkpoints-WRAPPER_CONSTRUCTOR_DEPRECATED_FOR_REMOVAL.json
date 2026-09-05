@@ -1,0 +1,261 @@
+{
+  "repo_root": "/Users/sebastian/Desktop/myown/PolishedJADEite-1117",
+  "rule_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+  "run_id": "jade-11-to-17",
+  "schema_version": 1,
+  "shards": {
+    "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-001": {
+      "created_at": "2026-09-05T11:00:33Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/BootGUI.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T11:01:46Z"
+    },
+    "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-002": {
+      "created_at": "2026-09-05T11:01:52Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/BootHelper.java"
+        },
+        {
+          "file": "src/jade/src/jade/content/abs/AbsPrimitive.java"
+        },
+        {
+          "file": "src/jade/src/jade/content/lang/sl/ExtendedSLParser.java"
+        },
+        {
+          "file": "src/jade/src/jade/content/lang/sl/SLParser.java"
+        },
+        {
+          "file": "src/jade/src/jade/content/onto/BasicOntology.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/PlatformManagerImpl.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/ProfileImpl.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/Specifier.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/behaviours/FSMBehaviour.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessagingProxy.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/OutgoingEncodingFilter.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/PersistentDeliveryProxy.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/PersistentDeliveryService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/replication/MainReplicationService.java"
+        },
+        {
+          "file": "src/jade/src/jade/domain/AMSEventQueueFeeder.java"
+        },
+        {
+          "file": "src/jade/src/jade/domain/DFService.java"
+        },
+        {
+          "file": "src/jade/src/jade/domain/FIPAAgentManagement/Envelope.java"
+        },
+        {
+          "file": "src/jade/src/jade/domain/ams.java"
+        },
+        {
+          "file": "src/jade/src/jade/domain/df.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/ConstraintDlg.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/GuiAgent.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/TimeChooser.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/DeliverableDataInputStream.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/NodeStub.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/PlatformManagerStub.java"
+        },
+        {
+          "file": "src/jade/src/jade/mtp/http/HTTPIO.java"
+        },
+        {
+          "file": "src/jade/src/jade/mtp/http/XMLCodec.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/MsgIndication.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPanel.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/rma.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgent.java"
+        },
+        {
+          "file": "src/jade/src/jade/util/leap/HashMap.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T11:06:45Z"
+    },
+    "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-003": {
+      "created_at": "2026-09-05T11:09:33Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/content/frame/LEAPFrameCodec.java"
+        },
+        {
+          "file": "src/jade/src/jade/content/frame/QualifiedFrame.java"
+        },
+        {
+          "file": "src/jade/src/jade/content/frame/SLFrameCodec.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T11:10:39Z"
+    },
+    "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-004": {
+      "created_at": "2026-09-05T11:09:33Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/core/management/AgentManagementProxy.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T11:10:39Z"
+    },
+    "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-005": {
+      "created_at": "2026-09-05T11:09:33Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/core/messaging/MomMessagingService.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T11:10:39Z"
+    },
+    "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-006": {
+      "created_at": "2026-09-05T11:09:33Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/core/mobility/AgentMobilityProxy.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T11:10:39Z"
+    },
+    "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-007": {
+      "created_at": "2026-09-05T11:09:33Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringProxy.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T11:10:39Z"
+    },
+    "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-008": {
+      "created_at": "2026-09-05T11:09:33Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/core/replication/MainReplicationProxy.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T11:10:39Z"
+    },
+    "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-009": {
+      "created_at": "2026-09-05T11:09:33Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/core/sam/SAMInfo.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T11:10:39Z"
+    },
+    "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-010": {
+      "created_at": "2026-09-05T11:09:34Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/imtp/leap/FrontEndStub.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T11:10:39Z"
+    },
+    "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-011": {
+      "created_at": "2026-09-05T11:09:34Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/imtp/leap/MicroSkeleton.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/SerializationEngine.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T11:10:39Z"
+    },
+    "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-012": {
+      "created_at": "2026-09-05T11:09:34Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/imtp/leap/NodeSkel.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T11:10:39Z"
+    }
+  },
+  "workspace_root": "migration-runs/jade-11-to-17/workspace"
+}

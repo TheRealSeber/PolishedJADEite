@@ -339,8 +339,7 @@ public class DFService extends FIPAService {
 	}
 	
 	// constant used to set max results of SearchConstraints
-	private static Long MINUSONE = new Long(-1);
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+	private static Long MINUSONE = Long.valueOf(-1);
 	/**
 	 Searches for data contained within a <b>DF</b> agent. 
 	 @param a is the Agent requesting the search 

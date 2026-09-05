@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "rule_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+  "shard_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-001",
+  "status": "FIXED",
+  "match_quality": "exact",
+  "diff_summary": "Replaced all 7 primitive wrapper constructor calls in BootGUI.java (new Boolean x6, new Integer x1) with the corresponding valueOf factory. Every site is used only via .toString()/.booleanValue() unwrapping or as a constructor argument to Boolean.valueOf itself -- none is compared with ==/!=, used as a monitor, stored in an IdentityHashMap, or passed to identityHashCode/wait/notify, so none is identity-sensitive. javac compiles clean with commons-codec on the classpath and no 'new Boolean('/'new Integer(' remains in the file.",
+  "files": [
+    {
+      "file": "src/jade/src/jade/BootGUI.java",
+      "match_count": 7,
+      "changes": 7,
+      "touched_line_start": 410,
+      "touched_line_end": 690,
+      "migration_skip_marker": false,
+      "diff_summary": "new Boolean(box.isSelected()) -> Boolean.valueOf(...) (line 410, chained .toString()); new Boolean(...GUI_KEY...).toString() -> Boolean.valueOf(...).toString() (595); new Integer(...MAIN_PORT...) -> Integer.valueOf(...) (602); new Boolean(...CONTAINER_KEY...).toString() -> Boolean.valueOf(...).toString() (616); new Boolean(...NOMTP_KEY...).toString() -> Boolean.valueOf(...).toString() (629); new Boolean(...NOMOBILITY_KEY...).toString() -> Boolean.valueOf(...).toString() (647); (new Boolean(value)).booleanValue() -> (Boolean.valueOf(value)).booleanValue() (690)."
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "NEEDS_REVIEW is expected and mechanical for every multi-site WRAPPER_CONSTRUCTOR file: the scanner's entry_points record the JADE-FLAG comment line (construct_line + 1), so any real fix's touched range always starts 1 line before the first entry_point and match_count>1 whenever a file has more than one site. Neither reflects doubt about the fix. Confirmed correct: local javac compiles clean, Docker verify_shard PASS, signature gate PASS (changed=0)."
+  ]
+}

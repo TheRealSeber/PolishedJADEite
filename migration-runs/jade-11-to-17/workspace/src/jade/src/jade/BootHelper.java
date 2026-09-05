@@ -86,13 +86,11 @@ public class BootHelper {
                             token.append(ch);
                         }
 
-                        returnState.push(new Integer(BETWEENTOKENS));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+                        returnState.push(Integer.valueOf(BETWEENTOKENS));
                     } else if (ch == '\\') {
                         state = ESCAPE;
 
-                        returnState.push(new Integer(BETWEENTOKENS));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+                        returnState.push(Integer.valueOf(BETWEENTOKENS));
                     } else {
                         token.append(ch);
 
@@ -119,13 +117,11 @@ public class BootHelper {
                         token.append(ch);
                     }
 
-                    returnState.push(new Integer(WORDTOKEN));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+                    returnState.push(Integer.valueOf(WORDTOKEN));
                 } else if (ch == '\\') {
                     state = ESCAPE;
 
-                    returnState.push(new Integer(WORDTOKEN));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+                    returnState.push(Integer.valueOf(WORDTOKEN));
                 } else {
                     token.append(ch);
                 }
@@ -141,8 +137,7 @@ public class BootHelper {
                 } else if (ch == '\\') {
                     state = ESCAPE;
 
-                    returnState.push(new Integer(STRINGTOKEN));
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
+                    returnState.push(Integer.valueOf(STRINGTOKEN));
                 } else {
                     token.append(ch);
                 }

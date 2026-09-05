@@ -62,6 +62,7 @@ public abstract class MicroSkeleton {
 	protected Command createErrorRsp(Throwable tr, boolean expected) { 
 		Command rsp = new Command(Command.ERROR);
 		rsp.addParam(new Boolean(expected));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 		rsp.addParam(tr.getClass().getName());
 		rsp.addParam(tr.getMessage());
 		return rsp;

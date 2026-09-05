@@ -100,6 +100,7 @@ public class MainReplicationProxy extends SliceProxy implements MainReplicationS
 	    cmd.addParam(sliceName);
 	    cmd.addParam(smAddr);
 	    cmd.addParam(new Integer(sliceIndex));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 	    cmd.addParam(dsc);
 	    cmd.addParam(services);
 
@@ -125,6 +126,7 @@ public class MainReplicationProxy extends SliceProxy implements MainReplicationS
 	    GenericCommand cmd = new GenericCommand(H_REMOVEREPLICA, NAME, null);
 	    cmd.addParam(smAddr);
 	    cmd.addParam(new Integer(sliceIndex));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 
 	    Node n = getNode();
 	    Object result = n.accept(cmd);

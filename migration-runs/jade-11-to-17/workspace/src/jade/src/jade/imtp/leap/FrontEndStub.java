@@ -137,6 +137,7 @@ public class FrontEndStub extends MicroStub implements FrontEnd {
 	public void exit(boolean self) throws IMTPException {
 		Command c = new Command(FrontEndSkel.EXIT);
 		c.addParam(new Boolean(self));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 		// The EXIT command must not be postponed
 		executeRemotely(c, 0);
 	}

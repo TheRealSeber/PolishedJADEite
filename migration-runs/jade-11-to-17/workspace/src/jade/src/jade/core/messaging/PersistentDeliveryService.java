@@ -305,6 +305,7 @@ public class PersistentDeliveryService extends BaseService {
 
 					boolean stored = storeMessage(storeName, msg, receiver);
 					cmd.setReturnValue(new Boolean(stored));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 				}
 				else if(cmdName.equals(PersistentDeliverySlice.H_FLUSHMESSAGES)) {
 					AID receiver = (AID)params[0];

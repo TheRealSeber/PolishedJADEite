@@ -122,6 +122,7 @@ public class OutgoingEncodingFilter extends Filter {
 				Envelope env =  msg.getEnvelope();
 				if (env!=null)
 					env.setPayloadLength(new Long(payload.length));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 				
 				// Update the ACLMessage: some information are kept because they are 
 				// required in other services
@@ -221,6 +222,7 @@ public class OutgoingEncodingFilter extends Filter {
 		Long payloadLength = env.getPayloadLength();
 		if(payloadLength == null)
 			env.setPayloadLength(new Long(-1));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 	}
 	
 	/**

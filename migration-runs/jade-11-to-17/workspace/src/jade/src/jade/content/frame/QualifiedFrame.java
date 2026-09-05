@@ -73,6 +73,7 @@ public class QualifiedFrame extends Hashtable implements Frame {
 	 */
 	public Object putInteger(Object key, int val) {
 		return put(key, new Long(val));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 	}
 	
 	/**
@@ -89,6 +90,7 @@ public class QualifiedFrame extends Hashtable implements Frame {
 	 */
 	public Object putBoolean(Object key, boolean val) {
 		return put(key, new Boolean(val));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 	}
 	
 	/**

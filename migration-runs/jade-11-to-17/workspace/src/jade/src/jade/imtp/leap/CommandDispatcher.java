@@ -334,6 +334,7 @@ class CommandDispatcher implements StubHelper, ICP.Listener {
 		//#J2ME_EXCLUDE_BEGIN
 		if (isLocal(destTAs)) {
 			Integer id = new Integer(command.getObjectID());
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 			Skeleton skel = (Skeleton) skeletons.get(id);
 			if (skel != null) {
 				response = skel.processCommand(command);
@@ -744,11 +745,13 @@ class CommandDispatcher implements StubHelper, ICP.Listener {
 		Integer id = null;
 		if(remotizedObject instanceof PlatformManager) {
 			id = new Integer(0);
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 			name = "Service-Manager";
 			setPlatformManager((PlatformManager) remotizedObject);
 		}
 		else {
 			id = new Integer((int) (System.currentTimeMillis() & 0xffffff));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 		}
 		if (myLogger.isLoggable(Logger.FINE)) {
 			myLogger.log(Logger.FINE, "Registering skeleton "+skeleton+" for remotized object "+remotizedObject+". ID is "+id);
@@ -960,6 +963,7 @@ class CommandDispatcher implements StubHelper, ICP.Listener {
 				// If this is a normal Command, let the proper Skeleton
 				// process it.
 				Integer id = new Integer(command.getObjectID());
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 				Skeleton s = (Skeleton) skeletons.get(id);
 				if (s != null) {
 					response = s.processCommand(command);
@@ -972,6 +976,7 @@ class CommandDispatcher implements StubHelper, ICP.Listener {
 			long elapsed = System.currentTimeMillis() - start;
 			if (elapsed > 100) {
 				response.addParam(new Integer((int) elapsed));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 			}
 			return serializeCommand(response);
 		} 

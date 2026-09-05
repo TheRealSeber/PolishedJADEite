@@ -138,6 +138,7 @@ public abstract class GuiAgent extends Agent
 	super();
 	guiEventQueue = new Vector();
 	guiEventQueueLock = new Boolean(true);
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 
 	// Add the GUI handler behaviour
 	Behaviour b = new GuiHandlerBehaviour();

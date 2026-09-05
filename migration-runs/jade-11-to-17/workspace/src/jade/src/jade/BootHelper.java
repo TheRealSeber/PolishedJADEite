@@ -87,10 +87,12 @@ public class BootHelper {
                         }
 
                         returnState.push(new Integer(BETWEENTOKENS));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
                     } else if (ch == '\\') {
                         state = ESCAPE;
 
                         returnState.push(new Integer(BETWEENTOKENS));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
                     } else {
                         token.append(ch);
 
@@ -118,10 +120,12 @@ public class BootHelper {
                     }
 
                     returnState.push(new Integer(WORDTOKEN));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
                 } else if (ch == '\\') {
                     state = ESCAPE;
 
                     returnState.push(new Integer(WORDTOKEN));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
                 } else {
                     token.append(ch);
                 }
@@ -138,6 +142,7 @@ public class BootHelper {
                     state = ESCAPE;
 
                     returnState.push(new Integer(STRINGTOKEN));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
                 } else {
                     token.append(ch);
                 }

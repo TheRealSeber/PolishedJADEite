@@ -158,6 +158,7 @@ public class ConstraintDlg extends JDialog
             		Long d = Long.valueOf(depth);
             		
             		if(d.compareTo(new Long(0)) >= 0)
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
             		  constraints.setMaxDepth(d);
             		else
             			{
@@ -173,6 +174,7 @@ public class ConstraintDlg extends JDialog
                      */
                     Long r = Long.valueOf(result);
 					if(r.compareTo(new Long(0)) >= 0)
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
                     	constraints.setMaxResults(r);              	
 					else{
 						JOptionPane.showMessageDialog(null,"The max result must be positive !!!.","Error Message",JOptionPane.ERROR_MESSAGE); 
@@ -184,6 +186,7 @@ public class ConstraintDlg extends JDialog
                       * to the default value
                      */
                       constraints.setMaxResults(new Long(100));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
                 }
  
             	dispose();

@@ -106,6 +106,7 @@ public class ProfileImpl extends Profile {
 		 props = new Properties();
 		 #ALL_INCLUDE_END*/
 		props.setProperty(Profile.MAIN, (new Boolean(isMain)).toString()); // set to a main/non-main container
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 	}
 	
 	/**
@@ -174,6 +175,7 @@ public class ProfileImpl extends Profile {
 		 #ALL_INCLUDE_END*/
 		// set the passed properties
 		props.setProperty(Profile.MAIN, (new Boolean(isMain)).toString()); // set to a main/non-main container
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 		if(host != null)
 			props.setProperty(MAIN_HOST, host);
 		if(port > 0)

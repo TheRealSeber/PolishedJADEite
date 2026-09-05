@@ -1,6 +1,6 @@
 {
   "run_id": "jade-11-to-17",
-  "generated_at": "2026-09-05T10:37:52Z",
+  "generated_at": "2026-09-05T10:39:58Z",
   "source_version": "11",
   "target_version": "17",
   "citation": "Extracted from 24 source(s): jep403-strong-encapsulation-jdk-internals, jep396-strongly-encapsulate-jdk-internals-default, jep398-applet-api-deprecation, jep411-securitymanager-deprecation, jep372-nashorn-removal, jep407-rmi-activation-removal, jep306-always-strict-floating-point, jep409-sealed-classes, jep395-records, jep391-macos-aarch64, oracle-jdk17-migration-guide, oracle-jdk17-migrate-significant-changes, oracle-jdk17-migrate-removed-apis, oracle-jdk17-migrate-removed-tools, oracle-jdk17-migrate-preparing, oracle-jdk17-migrate-security-updates, oracle-jdk12-release-notes, oracle-jdk13-release-notes, oracle-jdk14-release-notes, oracle-jdk15-release-notes, oracle-jdk16-release-notes, oracle-jdk17-release-notes, jep390-warnings-value-based-classes, jep182-retiring-javac-source-target",
@@ -69,76 +69,6 @@
         "sample_hash": "f1820a7dc2252bdc8c92ca7b43437d9091289e12479bc41591b3736733327534",
         "verdicts_artifact": "01.5-precision-verdicts-RMIC_TOOL_REMOVED.json",
         "verdicts_hash": "16d4eab3b9ca5b7592a6cbd6e080485cf926dd60f0eb596da0140be27afa6880",
-        "report_artifact": "01.5-precision-report.json",
-        "false_positive_classes": {},
-        "counterexamples": []
-      },
-      "queue_eligible": true
-    },
-    {
-      "id": "BUILD_JAVAC_SOURCE_TARGET_17",
-      "name": "javac source/target still pinned at 11 after the jump to 17",
-      "description": "The javac task in build.xml pins source=\"11\" and target=\"11\". JDK 17 still accepts those values -- the Oracle migration guide lists 17, 16, 15, 14, 13, 12, 11, 10, 9, 8 and 7 as supported -source/-target values, and a probe build on jade-ant:17 compiled all 972 sources with zero errors at source/target 11. This rule is therefore NOT a build blocker and must not be described as one. What it fixes is that the artifact produced by a run whose target_version is 17 would otherwise still be a Java 11 artifact (class file major version 55), so the jump would be nominal. JEP 182 retires -source/-target values on a 'one plus three back' schedule, which is why 11 has a shelf life rather than a permanent home.",
-      "fix_strategy": "recipe:jade-recipe-11-17-javac-source-target",
-      "severity": "MEDIUM",
-      "category": "BUILD",
-      "blast_class": "body-local",
-      "blast_class_evidence": {
-        "classification": "body-local",
-        "reason": "Two attribute values inside a single <javac> element. No Java declaration changes; the compiler is asked for a newer class-file version of the same sources.",
-        "witnesses": [
-          {
-            "file": "src/jade/build.xml",
-            "line": 141,
-            "code": "target=\"11\"",
-            "note": "javac task attribute; probe build at target=\"17\" produced 0 errors and 315 warnings"
-          },
-          {
-            "file": "src/jade/build.xml",
-            "line": 142,
-            "code": "source=\"11\"",
-            "note": "javac task attribute; JADE uses no identifier named 'record', 'yield' or '_' so no restricted-identifier break at source 17"
-          }
-        ],
-        "escalation_condition": "If a consumer in consumer-playground still runs on a JDK older than 17, raising target to 17 makes jade.jar unloadable there (UnsupportedClassVersionError). The recipe must confirm every consumer image is java-17 before applying, and stop otherwise."
-      },
-      "match_pattern": "^\\s*(?:source|target)\\s*=\\s*\"11\"\\s*$",
-      "patterns": [
-        {
-          "type": "regex",
-          "pattern": "^\\s*(?:source|target)\\s*=\\s*\"11\"\\s*$",
-          "target_extensions": [
-            ".xml"
-          ],
-          "reason": "javac source/target still pinned to the source version of this jump; the run targets 17",
-          "confidence": 0.95
-        }
-      ],
-      "evidence_ref": "oracle-jdk17-migrate-preparing::lines 63-65, 72",
-      "evidence_hash": "0d1cbd27d9cc0e1c0b66e2d1e0eec6991ae0c786fd15f77da3acf69290492394",
-      "confidence": 0.95,
-      "pattern_revision": 1,
-      "verification_hint": "build.xml carries source=\"17\" and target=\"17\". 'ant clean lib' on jade-ant:17 exits 0 with BUILD SUCCESSFUL, and 'javap -v' on a class inside the produced jade.jar reports major version 61.",
-      "pattern_precision": {
-        "value": 1.0,
-        "status": "PASS",
-        "judged": 2,
-        "true_positive": 2,
-        "false_positive": 0,
-        "undecidable": 0,
-        "sample_size": 2,
-        "population_total_hits": 2,
-        "wilson_95": [
-          0.3424,
-          1.0
-        ],
-        "effective_min_precision": 0.7,
-        "pattern_revision": 1,
-        "seed": "243c4311612b9b5f",
-        "sample_artifact": "01.5-precision-sample-BUILD_JAVAC_SOURCE_TARGET_17.json",
-        "sample_hash": "605177e50e7656d28a13c4892658d83f008a0e6b8247cef95cf13fac42f07331",
-        "verdicts_artifact": "01.5-precision-verdicts-BUILD_JAVAC_SOURCE_TARGET_17.json",
-        "verdicts_hash": "b3e8e7f226b7e6d94cbca109cbe2e9e2a4b9d3507dbc6c46cc4ddf578a8cb2e9",
         "report_artifact": "01.5-precision-report.json",
         "false_positive_classes": {},
         "counterexamples": []
@@ -450,6 +380,12 @@
     }
   ],
   "withdrawn_rules": [
+    {
+      "id": "BUILD_JAVAC_SOURCE_TARGET_17",
+      "candidate_source": "oracle-jdk17-migrate-preparing::lines 63-65, 72",
+      "reason": "Withdrawn as redundant with the pipeline, not as wrong. It passed the precision gate at 1.0 (two hits, build.xml:141-142) and is recorded in 01.5-precision-sample/verdicts-BUILD_JAVAC_SOURCE_TARGET_17.json. It was then removed because BUILD_GATE_READY runs before RULE_BATCH_LOOP and build_audit.py already owns this fix: 03-build-fixes-plan.json records compiler_source and compiler_target applied, and the workspace build.xml now carries source=\"17\" target=\"17\" (plus javacc jdkversion 11 -> 17 in three targets, inert because rebuildParsers=false). Leaving the rule in the manifest would put a rule in the queue whose pattern matches zero lines, and any status it reported would be work nobody did. Note for the record that this was never a build blocker: a probe of the untouched baseline on jade-ant:17 compiled all 972 sources at source/target 11 with zero errors, and the migration guide lists 11 among the supported -source/-target values for JDK 17.",
+      "sites": 2
+    },
     {
       "id": "JEP403_STRONG_ENCAPSULATION_JDK_INTERNALS",
       "candidate_source": "jep403-strong-encapsulation-jdk-internals + jep396-strongly-encapsulate-jdk-internals-default",

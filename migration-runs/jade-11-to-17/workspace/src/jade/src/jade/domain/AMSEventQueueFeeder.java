@@ -81,6 +81,7 @@ public class AMSEventQueueFeeder implements AgentManager.Listener {
 		da.setWhere(cid);
 		if (ev.getContainerRemoved()) {
 			da.setContainerRemoved(new Boolean(true));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 		}
 
 		EventRecord er = new EventRecord(da, localContainer);

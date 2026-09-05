@@ -770,6 +770,7 @@ public class AgentMobilityService extends BaseService {
 				bornAgent(agentID, cid, null, ownership, false);
 				// Since bornAgent() succeeded, directly apply forceReplacement on replicated Main Containers 
 				replicationHandle.invokeReplicatedMethod("bornAgent", new Object[]{agentID, cid, null, ownership, new Boolean(true)});
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 			}
 		}
 		
@@ -901,7 +902,9 @@ public class AgentMobilityService extends BaseService {
 					gCmd.addParam(instance);
 					gCmd.addParam(classSiteName);
 					gCmd.addParam(new Boolean(isCloned));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 					gCmd.addParam(new Boolean(startIt));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 					
 					result = gCmd;
 				}
@@ -934,6 +937,7 @@ public class AgentMobilityService extends BaseService {
 				else if(cmdName.equals(AgentMobilitySlice.H_PREPARE)) {
 					
 					cmd.setReturnValue(new Boolean(prepare()));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 				}
 				else if(cmdName.equals(AgentMobilitySlice.H_TRANSFERIDENTITY)) {
 					AID agentID = (AID)params[0];
@@ -941,6 +945,7 @@ public class AgentMobilityService extends BaseService {
 					Location dest = (Location)params[2];
 					
 					cmd.setReturnValue(new Boolean(transferIdentity(agentID, src, dest)));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 				}
 				else if(cmdName.equals(AgentMobilitySlice.H_HANDLETRANSFERRESULT)) {
 					AID agentID = (AID)params[0];

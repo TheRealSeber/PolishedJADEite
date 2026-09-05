@@ -63,6 +63,7 @@ public class PersistentDeliveryProxy extends SliceProxy implements PersistentDel
 			cmd.addParam(msg.getEnvelope());
 			cmd.addParam(msg.getPayload());
 			cmd.addParam(new Boolean(msg.hasForeignReceiver()));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 			cmd.addParam(msg.getTraceID());
 			cmd.addParam(receiver);
 

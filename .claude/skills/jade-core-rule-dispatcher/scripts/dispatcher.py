@@ -23,7 +23,7 @@ RECIPE_STATUSES = {"FIXED", "FAILED", "SKIPPED", "DEFERRED", "NEEDS_REVIEW"}
 RECIPE_REGISTRY_PREFIX = pathlib.PurePosixPath(
     ".claude/skills/java-migration-skill-registry"
 ).parts
-RECIPE_BUCKETS = {"1.5-to-1.6", "1.7", "1.7-to-1.8", "8-to-11", "shared"}
+RECIPE_BUCKETS = {"1.5-to-1.6", "1.7", "1.7-to-1.8", "8-to-11", "11-to-17", "shared"}
 
 # --- Agent-mode dispatch (recipe registry entries with "mode": "agent") ---
 #

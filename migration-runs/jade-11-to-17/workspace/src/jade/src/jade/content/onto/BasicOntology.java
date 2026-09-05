@@ -520,48 +520,60 @@ public class BasicOntology extends Ontology implements SL0Vocabulary {
 					destClass == int.class) {
 					if (srcClass == Long.class) {
 						destValue = new Integer(((Long)srcValue).intValue());
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 					} 
 					else if (srcClass == String.class) {
 						destValue = new Integer(Integer.parseInt((String)srcValue));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 					}
 				}
 				else if (destClass == Long.class ||
 						 destClass == long.class) {
 					if (srcClass == Integer.class) {
 						destValue = new Long(((Integer)srcValue).longValue());
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 					} 
 					else if (srcClass == String.class) {
 						destValue = new Long(Long.parseLong((String)srcValue));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 					}
 				}
 				else if (destClass == Float.class ||
 						 destClass == float.class) {
 					if (srcClass == Integer.class) {
 						destValue = new Float(((Integer)srcValue).floatValue());
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 					}
 					else if (srcClass == Long.class) {
 						destValue = new Float(((Long)srcValue).floatValue());
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 					}
 					else if (srcClass == Double.class) {
 						destValue = new Float(((Double)srcValue).floatValue());
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 					}
 					else if (srcClass == String.class) {
 						destValue = new Float(Float.parseFloat((String)srcValue));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 					}
 				}
 				else if (destClass == Double.class ||
 						 destClass == double.class) {
 					if (srcClass == Integer.class) {
 						destValue = new Double(((Integer)srcValue).doubleValue());
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 					}
 					else if (srcClass == Long.class) {
 						destValue = new Double(((Long)srcValue).doubleValue());
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 					}
 					else if (srcClass == Float.class) {
 						destValue = new Double(((Float)srcValue).doubleValue());
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 					}
 					else if (srcClass == String.class) {
 						destValue = new Double(Double.parseDouble((String)srcValue));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 					}
 				}
 				else if (destClass == String.class) {
@@ -573,9 +585,11 @@ public class BasicOntology extends Ontology implements SL0Vocabulary {
 						String s = (String) srcValue;
 						if (s.equalsIgnoreCase("true")) {
 							destValue = new Boolean(true);
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 						}
 						else if (s.equalsIgnoreCase("false")) {
 							destValue = new Boolean(false);
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 						}
 					}
 				}

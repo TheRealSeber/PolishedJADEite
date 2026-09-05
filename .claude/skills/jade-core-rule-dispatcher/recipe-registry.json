@@ -3,12 +3,12 @@
   "fallback": {
     "skill": "jade-recipe-noop",
     "script": ".claude/skills/java-migration-skill-registry/shared/jade-recipe-noop/scripts/apply.py",
-    "description": "Fallback NOOP — marks rule as SKIPPED when no specific recipe exists"
+    "description": "Fallback NOOP \u2014 marks rule as SKIPPED when no specific recipe exists"
   },
   "DUMMY_TEST_RULE": {
     "skill": "jade-recipe-dummy",
     "script": ".claude/skills/java-migration-skill-registry/shared/jade-recipe-dummy/scripts/apply.py",
-    "description": "E2E dummy recipe — appends // E2E TEST comment"
+    "description": "E2E dummy recipe \u2014 appends // E2E TEST comment"
   },
   "ARRAYS_COPY_OF_UPGRADE": {
     "skill": "jade-recipe-1.5-1.6-arrays-copyof",
@@ -18,12 +18,12 @@
   "DEQUE_LINKEDLIST_RETROFIT": {
     "skill": "jade-recipe-1.5-1.6-deque-retrofit",
     "script": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-1.5-1.6-deque-retrofit/scripts/apply.py",
-    "description": "LinkedList already implements Deque in Java 6 — informational only"
+    "description": "LinkedList already implements Deque in Java 6 \u2014 informational only"
   },
   "NAVIGABLE_SET_MAP": {
     "skill": "jade-recipe-1.5-1.6-navigable-set-map",
     "script": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-1.5-1.6-navigable-set-map/scripts/apply.py",
-    "description": "TreeSet/TreeMap already implement NavigableSet/NavigableMap in Java 6 — informational only"
+    "description": "TreeSet/TreeMap already implement NavigableSet/NavigableMap in Java 6 \u2014 informational only"
   },
   "DIAMOND_OPERATOR": {
     "skill": "jade-recipe-1.7-diamond-operator",
@@ -80,6 +80,37 @@
     "skill": "jade-recipe-1.7-try-with-resources",
     "skill_md": ".claude/skills/java-migration-skill-registry/1.7/jade-recipe-1.7-try-with-resources/SKILL.md",
     "description": "Convert manual open/close to try-with-resources only where the resource is Closeable, closed on every path, and unused after the block",
+    "mode": "agent"
+  },
+  "_comment_11_to_17": "The 11-to-17 bucket is agent-mode only. The jump has one build blocker (RMIC_TOOL_REMOVED); the other four rules are deprecation work that compiles unchanged on 17, so each recipe carries an explicit stop condition rather than a blanket transform.",
+  "RMIC_TOOL_REMOVED": {
+    "skill": "jade-recipe-11-17-rmic-task-removal",
+    "skill_md": ".claude/skills/java-migration-skill-registry/11-to-17/jade-recipe-11-17-rmic-task-removal/SKILL.md",
+    "description": "Delete the two Ant <rmic> pregeneration steps; the rmic tool was removed in JDK 15 and UnicastRemoteObject generates stubs dynamically",
+    "mode": "agent"
+  },
+  "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL": {
+    "skill": "jade-recipe-11-17-wrapper-valueof",
+    "skill_md": ".claude/skills/java-migration-skill-registry/11-to-17/jade-recipe-11-17-wrapper-valueof/SKILL.md",
+    "description": "Replace primitive wrapper constructors with the valueOf factories deprecated for removal by JEP 390, skipping identity-sensitive sites",
+    "mode": "agent"
+  },
+  "APPLET_API_DEPRECATED_FOR_REMOVAL": {
+    "skill": "jade-recipe-11-17-applet-api-removal",
+    "skill_md": ".claude/skills/java-migration-skill-registry/11-to-17/jade-recipe-11-17-applet-api-removal/SKILL.md",
+    "description": "Resolve JADE's java.applet.Applet dependency, deprecated for removal by JEP 398; the retire-or-suppress decision is escalated",
+    "mode": "agent"
+  },
+  "MULTICAST_SOCKET_GROUP_API_DEPRECATED": {
+    "skill": "jade-recipe-11-17-multicast-group-api",
+    "skill_md": ".claude/skills/java-migration-skill-registry/11-to-17/jade-recipe-11-17-multicast-group-api/SKILL.md",
+    "description": "Move multicast discovery off the deprecated MulticastSocket.joinGroup/leaveGroup(InetAddress) overloads superseded in JDK 17",
+    "mode": "agent"
+  },
+  "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL": {
+    "skill": "jade-recipe-11-17-threadgroup-destroy",
+    "skill_md": ".claude/skills/java-migration-skill-registry/11-to-17/jade-recipe-11-17-threadgroup-destroy/SKILL.md",
+    "description": "Remove the terminally deprecated ThreadGroup.destroy() call in jade.core.Runtime while preserving the shutdown diagnostic",
     "mode": "agent"
   }
 }

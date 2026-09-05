@@ -297,6 +297,7 @@ class DummyAgentGui extends JFrame
 					try
 					{
 						Integer nn = new Integer(inp.readLine());
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 						n = nn.intValue();
 					}
 					catch(IOException ioEx) { 

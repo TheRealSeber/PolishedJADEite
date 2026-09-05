@@ -144,10 +144,12 @@ class MsgIndication
 
 			// Direction
 			ii = new Integer(r.readLine());
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 			mi.direction = ii.intValue();
 			 
 			// Message length
 			ii = new Integer(r.readLine());
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 			int len = ii.intValue();
 
 			// Message

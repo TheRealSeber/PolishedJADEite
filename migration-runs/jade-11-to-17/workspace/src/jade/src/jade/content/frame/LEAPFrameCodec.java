@@ -228,13 +228,16 @@ public class LEAPFrameCodec implements jade.util.leap.Serializable {
 		}
 		else if (type == BOOLEAN) {
 			obj = new Boolean(stream.readBoolean());
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 		}
 		else if (type == INTEGER) {
 			obj = new Long(stream.readLong());
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 		}
 		//#MIDP_EXCLUDE_BEGIN
 		else if (type == FLOAT) {
 			obj = new Double(stream.readDouble());
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 		} 
 		//#MIDP_EXCLUDE_END
 		else if (type == DATE) {

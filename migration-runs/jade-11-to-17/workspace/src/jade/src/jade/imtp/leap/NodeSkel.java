@@ -68,6 +68,7 @@ class NodeSkel extends Skeleton {
 		case Command.PING_NODE_NONBLOCKING: {
 			Boolean hang = (Boolean)command.getParamAt(0);
 			Boolean result = new Boolean(myNode.ping(hang.booleanValue()));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 
 			command.reset(Command.OK);
 			command.addParam(result);

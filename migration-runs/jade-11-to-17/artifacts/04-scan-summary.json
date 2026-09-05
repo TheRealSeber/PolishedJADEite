@@ -1,0 +1,39 @@
+{
+  "run_id": "jade-11-to-17",
+  "workspace": "migration-runs/jade-11-to-17/workspace",
+  "total_files_scanned": 973,
+  "total_new_flags": 160,
+  "idempotent_skips": 0,
+  "by_rule": {
+    "RMIC_TOOL_REMOVED": {
+      "name": "The rmic static stub compiler was removed in JDK 15, breaking the Ant rmic task",
+      "severity": "HIGH",
+      "count": 2
+    },
+    "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL": {
+      "name": "Primitive wrapper constructors deprecated for removal in JDK 16",
+      "severity": "MEDIUM",
+      "count": 147
+    },
+    "APPLET_API_DEPRECATED_FOR_REMOVAL": {
+      "name": "java.applet.Applet deprecated for removal in JDK 17",
+      "severity": "MEDIUM",
+      "count": 8
+    },
+    "MULTICAST_SOCKET_GROUP_API_DEPRECATED": {
+      "name": "MulticastSocket.joinGroup(InetAddress)/leaveGroup(InetAddress) deprecated in JDK 17",
+      "severity": "LOW",
+      "count": 2
+    },
+    "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL": {
+      "name": "ThreadGroup.destroy() terminally deprecated in JDK 16",
+      "severity": "LOW",
+      "count": 1
+    }
+  },
+  "by_confidence": {
+    "0.98": 2,
+    "0.95": 148,
+    "0.9": 10
+  }
+}

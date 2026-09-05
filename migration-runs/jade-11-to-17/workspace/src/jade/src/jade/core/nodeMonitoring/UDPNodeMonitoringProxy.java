@@ -18,8 +18,11 @@ public class UDPNodeMonitoringProxy extends SliceProxy implements UDPNodeMonitor
 		cmd.addParam(label);
 		cmd.addParam(host);
 		cmd.addParam(new Integer(port));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 		cmd.addParam(new Integer(pingDelay));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 		cmd.addParam(new Long(key));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 
 		Node n = getNode();
 		Object result = n.accept(cmd);
@@ -42,6 +45,7 @@ public class UDPNodeMonitoringProxy extends SliceProxy implements UDPNodeMonitor
 			GenericCommand cmd = new GenericCommand(H_DEACTIVATEUDP, UDPNodeMonitoringService.NAME, null);
 			cmd.addParam(label);
 			cmd.addParam(new Long(key));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 	
 			Node n = getNode();
 			Object result = n.accept(cmd);

@@ -1,0 +1,77 @@
+{
+  "run_id": "jade-11-to-17",
+  "build_system": "ant",
+  "target_version": "17",
+  "fixes": [
+    {
+      "type": "compiler_source",
+      "applied": true,
+      "detail": "Updated source to 17 (1 occurrence(s))"
+    },
+    {
+      "type": "compiler_target",
+      "applied": true,
+      "detail": "Updated target to 17 (1 occurrence(s))"
+    },
+    {
+      "type": "javacc_jdkversion",
+      "applied": true,
+      "detail": "Updated jdkversion to 17 (3 occurrence(s))"
+    },
+    {
+      "type": "javacc_jdkversion",
+      "applied": true,
+      "detail": "Updated jdkversion to 17 (3 occurrence(s))"
+    },
+    {
+      "type": "javacc_jdkversion",
+      "applied": true,
+      "detail": "Updated jdkversion to 17 (3 occurrence(s))"
+    }
+  ],
+  "analysis_summary": {
+    "compiler_targets": [
+      {
+        "current_source": "11",
+        "current_target": "11",
+        "needs_update": true,
+        "new_source": "17",
+        "new_target": "17"
+      }
+    ],
+    "javacc_targets": [
+      {
+        "jdkversion": "11",
+        "needs_update": true,
+        "new_jdkversion": "17"
+      },
+      {
+        "jdkversion": "11",
+        "needs_update": true,
+        "new_jdkversion": "17"
+      },
+      {
+        "jdkversion": "11",
+        "needs_update": true,
+        "new_jdkversion": "17"
+      }
+    ],
+    "dependencies": [
+      {
+        "group": "commons-codec",
+        "artifact": "commons-codec",
+        "version": "1.3"
+      }
+    ],
+    "dependency_compatibility": {
+      "build_system": "ant",
+      "target_version": "17",
+      "risk_level": "NONE",
+      "blockers": [],
+      "warnings": [],
+      "upgrade_candidates": []
+    },
+    "issues": []
+  },
+  "updated_at": "2026-09-05T10:38:56Z"
+}

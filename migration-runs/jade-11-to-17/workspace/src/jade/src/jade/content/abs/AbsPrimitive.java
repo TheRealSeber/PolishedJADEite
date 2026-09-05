@@ -74,6 +74,7 @@ public class AbsPrimitive implements AbsTerm {
 	 */
 	public static AbsPrimitive wrap(boolean value) {
 		AbsPrimitive ret = new AbsPrimitive(BasicOntology.BOOLEAN, new Boolean(value));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 		return ret;
 	} 
 
@@ -83,6 +84,7 @@ public class AbsPrimitive implements AbsTerm {
 	 */
 	public static AbsPrimitive wrap(int value) {
 		AbsPrimitive ret = new AbsPrimitive(BasicOntology.INTEGER, new Integer(value));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 		return ret;
 	} 
 
@@ -92,6 +94,7 @@ public class AbsPrimitive implements AbsTerm {
 	 */
 	public static AbsPrimitive wrap(long value) {
 		AbsPrimitive ret = new AbsPrimitive(BasicOntology.INTEGER, new Long(value));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 		return ret;
 	} 
 
@@ -102,6 +105,7 @@ public class AbsPrimitive implements AbsTerm {
 	 */
 	public static AbsPrimitive wrap(float value) {
 		AbsPrimitive ret = new AbsPrimitive(BasicOntology.FLOAT, new Float(value));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 		return ret;
 	} 
 
@@ -111,6 +115,7 @@ public class AbsPrimitive implements AbsTerm {
 	 */
 	public static AbsPrimitive wrap(double value) {
 		AbsPrimitive ret = new AbsPrimitive(BasicOntology.FLOAT, new Double(value));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 		return ret;
 	} 
 	//#MIDP_EXCLUDE_END
@@ -162,6 +167,7 @@ public class AbsPrimitive implements AbsTerm {
 		if (!getTypeName().equals(BasicOntology.BOOLEAN))
 			throw new IllegalArgumentException("Wrong type");
 		this.value = new Boolean(value);
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 	} 
 
 	/**
@@ -174,6 +180,7 @@ public class AbsPrimitive implements AbsTerm {
 		if (!getTypeName().equals(BasicOntology.INTEGER))
 			throw new IllegalArgumentException("Wrong type");
 		this.value = new Integer(value);
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 	} 
 
 	/**
@@ -186,6 +193,7 @@ public class AbsPrimitive implements AbsTerm {
 		if (!getTypeName().equals(BasicOntology.INTEGER))
 			throw new IllegalArgumentException("Wrong type");
 		this.value = new Long(value);
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 	} 
 
 	//#MIDP_EXCLUDE_BEGIN
@@ -199,6 +207,7 @@ public class AbsPrimitive implements AbsTerm {
 		if (!getTypeName().equals(BasicOntology.FLOAT))
 			throw new IllegalArgumentException("Wrong type");
 		this.value = new Float(value);
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 	}
 
 	/**
@@ -211,6 +220,7 @@ public class AbsPrimitive implements AbsTerm {
 		if (!getTypeName().equals(BasicOntology.FLOAT))
 			throw new IllegalArgumentException("Wrong type");
 		this.value = new Double(value);
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 	} 
 	//#MIDP_EXCLUDE_END
 

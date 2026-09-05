@@ -109,13 +109,13 @@ ant dist - to create the distribution files
 	      _______________________________________________ -->
 	<target name="parser" depends="init, check_javacc, MakeACLParser, MakeSLParser, MakeExtendedSLParser" description="generate parser with javacc"/>
 	<target name="MakeACLParser" depends="init, check_javacc" if="makeParsers">
-		<javacc jdkversion="11" javacchome="${env.JAVACC_HOME}" outputdirectory="src/jade/lang/acl" target="src/jade/lang/acl/ACLParser.jj"/>
+		<javacc jdkversion="17" javacchome="${env.JAVACC_HOME}" outputdirectory="src/jade/lang/acl" target="src/jade/lang/acl/ACLParser.jj"/>
 	</target>
 	<target name="MakeSLParser" depends="init, check_javacc" if="makeParsers">
-		<javacc jdkversion="11" javacchome="${env.JAVACC_HOME}" outputdirectory="src/jade/content/lang/sl" target="src/jade/content/lang/sl/SLParser.jj"/>
+		<javacc jdkversion="17" javacchome="${env.JAVACC_HOME}" outputdirectory="src/jade/content/lang/sl" target="src/jade/content/lang/sl/SLParser.jj"/>
 	</target>
 	<target name="MakeExtendedSLParser" depends="init, check_javacc" if="makeParsers">
-		<javacc jdkversion="11" javacchome="${env.JAVACC_HOME}" outputdirectory="src/jade/content/lang/sl" target="src/jade/content/lang/sl/ExtendedSLParser.jj"/>
+		<javacc jdkversion="17" javacchome="${env.JAVACC_HOME}" outputdirectory="src/jade/content/lang/sl" target="src/jade/content/lang/sl/ExtendedSLParser.jj"/>
 	</target>
 
 	<!-- To just recreate the ExtendedSLParser  -->
@@ -138,8 +138,8 @@ ant dist - to create the distribution files
 		       debug="${javac.debug}" 
 		       debuglevel="lines,vars,source" 
 		       deprecation="on" 
-			   target="11"
-			   source="11"
+			   target="17"
+			   source="17"
 		       excludes="demo/**,examples/**,test/**" >
 		</javac>
 		
@@ -152,7 +152,9 @@ ant dist - to create the distribution files
 		</copy>
 		
 		<rmic classname="jade.imtp.rmi.ServiceManagerRMIImpl" base="${build}"/>
+<!-- JADE-FLAG:RMIC_TOOL_REMOVED Ant <rmic> task; the rmic tool it drives was removed in JDK 15 and Ant refuses the task on JDK 15+ 0.98 -->
 		<rmic classname="jade.imtp.rmi.NodeRMIImpl" base="${build}"/>
+<!-- JADE-FLAG:RMIC_TOOL_REMOVED Ant <rmic> task; the rmic tool it drives was removed in JDK 15 and Ant refuses the task on JDK 15+ 0.98 -->
 	</target>
 
 	<!--  ________________________________________________

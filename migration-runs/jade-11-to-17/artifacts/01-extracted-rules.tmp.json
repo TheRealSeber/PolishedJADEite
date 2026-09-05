@@ -45,51 +45,6 @@
     "verification_hint": "No build file in the workspace contains an <rmic element. 'ant clean lib' inside jade-ant:17 prints BUILD SUCCESSFUL and exits 0, and lib/jade.jar is produced. All consumers still PASS."
   },
   {
-    "id": "BUILD_JAVAC_SOURCE_TARGET_17",
-    "name": "javac source/target still pinned at 11 after the jump to 17",
-    "description": "The javac task in build.xml pins source=\"11\" and target=\"11\". JDK 17 still accepts those values -- the Oracle migration guide lists 17, 16, 15, 14, 13, 12, 11, 10, 9, 8 and 7 as supported -source/-target values, and a probe build on jade-ant:17 compiled all 972 sources with zero errors at source/target 11. This rule is therefore NOT a build blocker and must not be described as one. What it fixes is that the artifact produced by a run whose target_version is 17 would otherwise still be a Java 11 artifact (class file major version 55), so the jump would be nominal. JEP 182 retires -source/-target values on a 'one plus three back' schedule, which is why 11 has a shelf life rather than a permanent home.",
-    "fix_strategy": "recipe:jade-recipe-11-17-javac-source-target",
-    "severity": "MEDIUM",
-    "category": "BUILD",
-    "blast_class": "body-local",
-    "blast_class_evidence": {
-      "classification": "body-local",
-      "reason": "Two attribute values inside a single <javac> element. No Java declaration changes; the compiler is asked for a newer class-file version of the same sources.",
-      "witnesses": [
-        {
-          "file": "src/jade/build.xml",
-          "line": 141,
-          "code": "target=\"11\"",
-          "note": "javac task attribute; probe build at target=\"17\" produced 0 errors and 315 warnings"
-        },
-        {
-          "file": "src/jade/build.xml",
-          "line": 142,
-          "code": "source=\"11\"",
-          "note": "javac task attribute; JADE uses no identifier named 'record', 'yield' or '_' so no restricted-identifier break at source 17"
-        }
-      ],
-      "escalation_condition": "If a consumer in consumer-playground still runs on a JDK older than 17, raising target to 17 makes jade.jar unloadable there (UnsupportedClassVersionError). The recipe must confirm every consumer image is java-17 before applying, and stop otherwise."
-    },
-    "match_pattern": "^\\s*(?:source|target)\\s*=\\s*\"11\"\\s*$",
-    "patterns": [
-      {
-        "type": "regex",
-        "pattern": "^\\s*(?:source|target)\\s*=\\s*\"11\"\\s*$",
-        "target_extensions": [
-          ".xml"
-        ],
-        "reason": "javac source/target still pinned to the source version of this jump; the run targets 17",
-        "confidence": 0.95
-      }
-    ],
-    "evidence_ref": "oracle-jdk17-migrate-preparing::lines 63-65, 72",
-    "evidence_hash": "0d1cbd27d9cc0e1c0b66e2d1e0eec6991ae0c786fd15f77da3acf69290492394",
-    "confidence": 0.95,
-    "pattern_revision": 1,
-    "verification_hint": "build.xml carries source=\"17\" and target=\"17\". 'ant clean lib' on jade-ant:17 exits 0 with BUILD SUCCESSFUL, and 'javap -v' on a class inside the produced jade.jar reports major version 61."
-  },
-  {
     "id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
     "name": "Primitive wrapper constructors deprecated for removal in JDK 16",
     "description": "JEP 390 (JDK 16) designated the primitive wrapper classes as value-based and deprecated their constructors for removal. Compiling JADE on JDK 17 with -Xlint:removal produces 144 removal warnings for new Boolean/Integer/Long/Double/Float/Character calls -- the single largest terminally-deprecated surface in the codebase. The code still compiles and runs on 17; the exposure is that these constructors are the ones scheduled to disappear. The fix is the documented replacement, the corresponding valueOf factory.",

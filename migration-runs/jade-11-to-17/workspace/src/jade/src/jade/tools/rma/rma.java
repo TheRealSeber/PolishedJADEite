@@ -1117,6 +1117,7 @@ public class rma extends ToolAgent {
 			AMSAgentDescription amsd = new AMSAgentDescription();
 			SearchConstraints constraints = new SearchConstraints();
 			constraints.setMaxResults(new Long(-1)); // all results back
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 			// Build a AMS action object for the request
 			Search s = new Search();
 			s.setDescription(amsd);

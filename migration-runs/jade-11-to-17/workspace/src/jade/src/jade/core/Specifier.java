@@ -155,6 +155,7 @@ public class Specifier {
 		//#J2ME_INCLUDE_END
 		if (escapeChar.length() > 0) {
 			return new Character(escapeChar.charAt(0));
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 		}
 		else {
 			// No escaping

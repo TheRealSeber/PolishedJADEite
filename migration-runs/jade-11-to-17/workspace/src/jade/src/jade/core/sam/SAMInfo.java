@@ -189,6 +189,7 @@ public class SAMInfo implements Serializable {
 			Long old = cc2.get(counterName);
 			if (old == null) {
 				old = new Long(0);
+// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
 			}
 			cc2.put(counterName, old + c);
 		}

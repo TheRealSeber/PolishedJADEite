@@ -24,6 +24,7 @@ Boston, MA  02111-1307, USA.
 package jade.tools.applet;
 
 import java.applet.Applet;
+// JADE-FLAG:APPLET_API_DEPRECATED_FOR_REMOVAL java.applet import, or a bare Applet type in a supertype / field / parameter position; revision 1 matched the bare token anywhere and caught 10 javadoc mentions of the 'DF-Applet' ontology, so revision 2 requires a type position 0.9
 import java.io.DataInputStream;
 import java.io.PrintStream;
 import java.io.IOException;
@@ -56,6 +57,7 @@ import jade.domain.DFGUIManagement.*;
 public class DFAppletCommunicator implements DFGUIAdapter{
   
 	private Applet a;
+// JADE-FLAG:APPLET_API_DEPRECATED_FOR_REMOVAL java.applet import, or a bare Applet type in a supertype / field / parameter position; revision 1 matched the bare token anywhere and caught 10 javadoc mentions of the 'DF-Applet' ontology, so revision 2 requires a type position 0.9
   private DataInputStream in;
   private PrintStream out;
   private final static int DEFAULT_PORT = 6789;
@@ -78,6 +80,7 @@ public class DFAppletCommunicator implements DFGUIAdapter{
    * from the HTML file.
    */
   public DFAppletCommunicator(Applet applet) {
+// JADE-FLAG:APPLET_API_DEPRECATED_FOR_REMOVAL java.applet import, or a bare Applet type in a supertype / field / parameter position; revision 1 matched the bare token anywhere and caught 10 javadoc mentions of the 'DF-Applet' ontology, so revision 2 requires a type position 0.9
     try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
 

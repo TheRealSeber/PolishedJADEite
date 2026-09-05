@@ -295,6 +295,7 @@ public class Runtime {
 			try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
 				criticalThreads.destroy();
+// JADE-FLAG:THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL terminally deprecated ThreadGroup member invoked on one of the workspace's own ThreadGroup-typed fields (FullResourceManager.java:39-42, Runtime.java:73). Revision 1 was the untyped '\.destroy\(\)' and caught two java.applet.Applet.destroy() calls; a line-based regex cannot resolve the receiver's type, so revision 2 enumerates the ThreadGroup-typed receivers actually declared in this tree. The limitation is deliberate and recorded: a ThreadGroup held in a differently named variable would not be flagged, which is why the verification hint checks with javac rather than with this regex 0.95
 			}
 			catch(IllegalThreadStateException itse) {
 				myLogger.log(Logger.WARNING, "Time-critical threads still active: ");

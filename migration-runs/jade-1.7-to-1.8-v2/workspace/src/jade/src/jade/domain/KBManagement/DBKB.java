@@ -54,8 +54,17 @@ public abstract class DBKB extends KB {
 	/**
 	 * Used database driver
 	 */
-	protected String driver = "sun.jdbc.odbc.JdbcOdbcDriver";
-// JADE-FLAG:JDBC_ODBC_BRIDGE_REMOVED sun.jdbc.odbc.JdbcOdbcDriver (the JDBC-ODBC Bridge) is removed from the JDK as of Java SE 8; Class.forName on this name throws ClassNotFoundException. 0.9
+	protected String driver = REMOVED_JDBC_ODBC_BRIDGE;
+
+	/**
+	 * The JDBC-ODBC Bridge driver, removed from the JDK in Java SE 8.
+	 *
+	 * It remains the default only so that callers passing no driver keep
+	 * reaching the same code path they always did. Loading it cannot succeed
+	 * on any supported JDK, so loadDBDriver reports that directly instead of
+	 * letting it surface as a bare ClassNotFoundException.
+	 */
+	private static final String REMOVED_JDBC_ODBC_BRIDGE = "sun.jdbc.odbc.JdbcOdbcDriver";
 	
 	/**
 	 * This ThreadLocal is used to hold connections and associated additional information
@@ -177,6 +186,14 @@ public abstract class DBKB extends KB {
 				if(!drv.equals("null"))
 // JADE-MODERNIZATION-DEFERRED:STRINGS_IN_SWITCH Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance. 1.0 (complex chain -- manual review recommended)
 					driver = drv;
+			}
+			if (REMOVED_JDBC_ODBC_BRIDGE.equals(driver)) {
+				throw new SQLException(
+						"No JDBC driver configured. The default, "
+						+ REMOVED_JDBC_ODBC_BRIDGE
+						+ ", was the JDBC-ODBC Bridge and was removed from the JDK in Java SE 8; "
+						+ "it cannot be loaded on any supported runtime. Pass the class name of a "
+						+ "real JDBC driver for your database instead.");
 			}
 			Class.forName(driver).newInstance();
 		}

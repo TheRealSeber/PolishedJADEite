@@ -383,9 +383,10 @@ public class BootProfileImpl extends ProfileImpl {
 	 * each delimited by a <code>;</code> and no space in between.
 	 * <p>
 	 * For instance
-	 * <code>jade.mtp.iiop(50);http.mtp.http(8080)</code> is a valid
-	 * string, while  <code>jade.mtp.iiop(50 80);http.mtp.http(8080)</code>
-	 * is not valid
+	 * <code>jade.mtp.http(7778);http.mtp.http(8080)</code> is a valid
+	 * string, while  <code>jade.mtp.http(7778 8080);http.mtp.http(8080)</code>
+	 * is not valid. (The IIOP MTP shipped in earlier JADE versions was removed
+	 * along with the CORBA dependency it relied on; HTTP is the transport.)
 	 * For each object specifier, a new java object <code>Specifier</code>
 	 * is added to the passed <code>out</code> List parameter.
 	 */

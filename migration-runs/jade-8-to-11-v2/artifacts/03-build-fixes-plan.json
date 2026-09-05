@@ -2,58 +2,27 @@
   "run_id": "jade-8-to-11-v2",
   "build_system": "ant",
   "target_version": "11",
-  "fixes": [
-    {
-      "type": "compiler_source",
-      "applied": true,
-      "detail": "Updated source to 11 (1 occurrence(s))"
-    },
-    {
-      "type": "compiler_target",
-      "applied": true,
-      "detail": "Updated target to 11 (1 occurrence(s))"
-    },
-    {
-      "type": "javacc_jdkversion",
-      "applied": true,
-      "detail": "Updated jdkversion to 11 (3 occurrence(s))"
-    },
-    {
-      "type": "javacc_jdkversion",
-      "applied": true,
-      "detail": "Updated jdkversion to 11 (3 occurrence(s))"
-    },
-    {
-      "type": "javacc_jdkversion",
-      "applied": true,
-      "detail": "Updated jdkversion to 11 (3 occurrence(s))"
-    }
-  ],
+  "fixes": [],
   "analysis_summary": {
     "compiler_targets": [
       {
-        "current_source": "1.8",
-        "current_target": "1.8",
-        "needs_update": true,
-        "new_source": "11",
-        "new_target": "11"
+        "current_source": "11",
+        "current_target": "11",
+        "needs_update": false
       }
     ],
     "javacc_targets": [
       {
-        "jdkversion": "1.8",
-        "needs_update": true,
-        "new_jdkversion": "11"
+        "jdkversion": "11",
+        "needs_update": false
       },
       {
-        "jdkversion": "1.8",
-        "needs_update": true,
-        "new_jdkversion": "11"
+        "jdkversion": "11",
+        "needs_update": false
       },
       {
-        "jdkversion": "1.8",
-        "needs_update": true,
-        "new_jdkversion": "11"
+        "jdkversion": "11",
+        "needs_update": false
       }
     ],
     "dependencies": [
@@ -73,5 +42,5 @@
     },
     "issues": []
   },
-  "updated_at": "2026-09-05T00:55:08Z"
+  "updated_at": "2026-09-05T01:18:49Z"
 }

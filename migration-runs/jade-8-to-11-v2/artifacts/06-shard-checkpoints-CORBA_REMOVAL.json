@@ -1,0 +1,146 @@
+{
+  "repo_root": "/Users/sebastian/Desktop/myown/PolishedJADEite-811",
+  "rule_id": "CORBA_REMOVAL",
+  "run_id": "jade-8-to-11-v2",
+  "schema_version": 1,
+  "shards": {
+    "CORBA_REMOVAL-signature-001": {
+      "created_at": "2026-09-05T01:05:31Z",
+      "files": [
+        {
+          "file": "src/jade/src/FIPA/AgentID.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHolder.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDsHelper.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDsHolder.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTime.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHolder.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/Envelope.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHolder.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopesHelper.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopesHolder.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessage.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHelper.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHolder.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/MTS.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHelper.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHolder.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHelper.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHolder.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHelper.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHolder.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHelper.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHolder.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHolder.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/PayloadHelper.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/PayloadHolder.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/Property.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHelper.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHolder.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObject.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHolder.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/TransportBehaviourTypeHelper.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/TransportBehaviourTypeHolder.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/URLHelper.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/_MTSImplBase.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/_MTSStub.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/stringsHelper.java"
+        },
+        {
+          "file": "src/jade/src/FIPA/stringsHolder.java"
+        },
+        {
+          "file": "src/jade/src/jade/mtp/iiop/MessageTransportProtocol.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T01:17:05Z"
+    }
+  },
+  "workspace_root": "migration-runs/jade-8-to-11-v2/workspace"
+}

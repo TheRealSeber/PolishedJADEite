@@ -3,7 +3,7 @@
 
 <!-- The following targets are expected to be used by users:
 ant jade - to compile JADE
-ant lib - to create the JADE libraries i.e. jade.jar and iiop.jar
+ant lib - to create the JADE library i.e. jade.jar
 ant examples - to compile JADE examples demo
 ant dist - to create the distribution files
 -->
@@ -50,10 +50,6 @@ ant dist - to create the distribution files
 			</not>
 		</condition>
 
-		<!-- IDL for IIOP MTP will be recreated IF the EXECidlj property is set in the build.properties file -->
-		<condition property="EXECidlj.is.set">
-			<equals arg1="${EXECidlj}" arg2="true"/>
-		</condition>
 	</target>
 
 	<target name="check_javacc" unless="makeParsers">
@@ -61,19 +57,6 @@ ant dist - to create the distribution files
 	</target>
 	<target name="check_jess" unless="jess.home.is.set">
 		<echo>jess task is being skipped. If you want to compile the examples based on JESS, set the environment variable JESS_HOME to the home directory where your jess program has been installed.</echo>
-	</target>
-	<target name="check_execIdlj" unless="EXECidlj.is.set">
-		<echo>Default behaviour: IDLJ task is being skipped.</echo>
-	</target>
-
-	<!--  _______________________________________________
-	                            idlj
-	      _______________________________________________ -->
-	<target name="idlj" depends="init,check_execIdlj" if="EXECidlj.is.set">
-		<echo>WARNING: Executing the idlj task might create wrong java files</echo>
-		<exec dir="${src}" executable="idlj.exe">
-			<arg line="-fall fipa.idl"/>
-		</exec>
 	</target>
 
 	<!--  _______________________________________________
@@ -143,11 +126,11 @@ ant dist - to create the distribution files
 	<!--  _______________________________________________
 	                          compile
 	      _______________________________________________ -->
-	<target name="jade" depends="init,parser,idlj,setWCInfo" description="compile the source ">
+	<target name="jade" depends="init,parser,setWCInfo" description="compile the source ">
 		<!-- Compile the java code from ${src} into ${build} -->
 		<!--   <delete dir="${build}/examples"/>
 	    <delete dir="${build}/demo"/> -->
-		<javac srcdir="${src}" 
+		<javac srcdir="${src}"
 		       destdir="${build}" 
 		       classpath="lib/commons-codec/commons-codec-1.3.jar" 
 		       nowarn="on" 
@@ -215,7 +198,7 @@ ant dist - to create the distribution files
 		<!-- clean the doc/api directory -->
 		<delete dir="${doc}/api" excludes="javalogo52x88.gif" includeEmptyDirs="true"/>
 		<!-- generate new javadoc documentation -->
-		<javadoc destdir="${doc}/api" author="true" windowtitle="JADE ${version} API Reference" sourcepath="${src}" use="true" packagenames="jade.core, jade.core.behaviours, jade.core.event, jade.lang.acl, jade.domain, jade.domain.FIPAAgentManagement, jade.domain.JADEAgentManagement, jade.domain.mobility, jade.proto, jade.gui, jade.wrapper.gateway, jade.wrapper, jade.domain.DFGUIManagement, jade.domain.introspection, jade.content, jade.content.abs, jade.content.acl, jade.content.lang, jade.content.lang.j, jade.content.lang.leap, jade.content.lang.sl, jade.content.onto, jade.content.onto.basic, jade.content.schema, jade.content.schema.facets, jade.util, jade.util.leap, jade.mtp, jade.mtp.iiop jade.mtp.http jade.mtp.http.https"/>
+		<javadoc destdir="${doc}/api" author="true" windowtitle="JADE ${version} API Reference" sourcepath="${src}" use="true" packagenames="jade.core, jade.core.behaviours, jade.core.event, jade.lang.acl, jade.domain, jade.domain.FIPAAgentManagement, jade.domain.JADEAgentManagement, jade.domain.mobility, jade.proto, jade.gui, jade.wrapper.gateway, jade.wrapper, jade.domain.DFGUIManagement, jade.domain.introspection, jade.content, jade.content.abs, jade.content.acl, jade.content.lang, jade.content.lang.j, jade.content.lang.leap, jade.content.lang.sl, jade.content.onto, jade.content.onto.basic, jade.content.schema, jade.content.schema.facets, jade.util, jade.util.leap, jade.mtp, jade.mtp.http jade.mtp.http.https"/>
 		<javadoc destdir="${doc}/tools/sniffer/html/jdoc" author="true" windowtitle="JADE ${version} Sniffer Reference" sourcepath="${src}" packagenames="jade.tools.sniffer"/>
 	</target>
 	
@@ -264,9 +247,7 @@ ant dist - to create the distribution files
 		<delete file="${dist}/JADE-src-${version}.zip" quiet="true"/>
 		<zip zipfile="${dist}/JADE-src-${version}.zip">
 			<zipfileset dir="." prefix="jade">
-				<include name="src/FIPA/**"/>
 				<include name="src/jade/**"/>
-				<include name="src/*.idl"/>
 				<include name="src/*.html"/>
 				<include name="README"/>
 				<include name="COPYNG"/>

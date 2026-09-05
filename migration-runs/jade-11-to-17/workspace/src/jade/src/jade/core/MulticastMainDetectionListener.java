@@ -10,6 +10,7 @@ import jade.util.leap.List;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
 import java.net.UnknownHostException;
 
@@ -47,8 +48,7 @@ class MulticastMainDetectionListener implements Runnable {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
 			socket = new MulticastSocket(mcast.port);
 	
-			socket.joinGroup(mcastGroupAddress);
-// JADE-FLAG:MULTICAST_SOCKET_GROUP_API_DEPRECATED deprecated MulticastSocket.joinGroup/leaveGroup(InetAddress) overload; JDK 17 moved multicast onto DatagramSocket 0.9
+			socket.joinGroup(new InetSocketAddress(mcastGroupAddress, 0), null);
 			socket.setTimeToLive(mcast.ttl);
 		} catch (IOException ioe) {
 			throw new ProfileException("Error setting up multicast socket", ioe);
@@ -65,8 +65,7 @@ class MulticastMainDetectionListener implements Runnable {
 			if (socket != null) {
 				try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
-					socket.leaveGroup(mcastGroupAddress);
-// JADE-FLAG:MULTICAST_SOCKET_GROUP_API_DEPRECATED deprecated MulticastSocket.joinGroup/leaveGroup(InetAddress) overload; JDK 17 moved multicast onto DatagramSocket 0.9
+					socket.leaveGroup(new InetSocketAddress(mcastGroupAddress, 0), null);
 				} catch (IOException e) {
 					logger.log(Logger.FINER, "Error leaving multicast group", e);
 				}

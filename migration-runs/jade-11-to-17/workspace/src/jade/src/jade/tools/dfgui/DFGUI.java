@@ -34,8 +34,6 @@ import javax.swing.table.*;
 import jade.util.leap.Iterator;
 import jade.util.leap.List;
 import java.util.HashMap;
-import java.applet.*;
-// JADE-FLAG:APPLET_API_DEPRECATED_FOR_REMOVAL java.applet import, or a bare Applet type in a supertype / field / parameter position; revision 1 matched the bare token anywhere and caught 10 javadoc mentions of the 'DF-Applet' ontology, so revision 2 requires a type position 0.9
 
 // Import required Jade classes
 import jade.domain.*;

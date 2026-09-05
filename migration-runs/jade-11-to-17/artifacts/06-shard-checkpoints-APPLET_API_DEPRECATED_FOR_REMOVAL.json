@@ -1,0 +1,65 @@
+{
+  "repo_root": "/Users/sebastian/Desktop/myown/PolishedJADEite-1117",
+  "rule_id": "APPLET_API_DEPRECATED_FOR_REMOVAL",
+  "run_id": "jade-11-to-17",
+  "schema_version": 1,
+  "shards": {
+    "APPLET_API_DEPRECATED_FOR_REMOVAL-signature-001": {
+      "created_at": "2026-09-05T11:15:39Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/AppletBoot.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/applet/DFApplet.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/applet/FIPAAppletRequestProto.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/applet/JADEAppletRequestProto.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUIAboutAction.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUICloseGuiAction.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUIDeregisterAction.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUIExitDFAction.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUIFederateAction.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUIModifyAction.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUIRefreshAppletAction.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUIRegisterAction.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUISearchAction.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUIViewAction.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T11:16:38Z"
+    }
+  },
+  "workspace_root": "migration-runs/jade-11-to-17/workspace"
+}

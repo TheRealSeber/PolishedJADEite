@@ -1,0 +1,53 @@
+{
+  "baseline_jar": "migration-runs/jade-11-to-17/workspace/src/jade/lib/jade.jar",
+  "baseline_jar_commit": null,
+  "compiled_file_count": 16,
+  "compiled_files": [
+    "src/jade/src/jade/AppletBoot.java",
+    "src/jade/src/jade/tools/applet/DFApplet.java",
+    "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+    "src/jade/src/jade/tools/applet/FIPAAppletRequestProto.java",
+    "src/jade/src/jade/tools/applet/JADEAppletRequestProto.java",
+    "src/jade/src/jade/tools/dfgui/DFGUI.java",
+    "src/jade/src/jade/tools/dfgui/DFGUIAboutAction.java",
+    "src/jade/src/jade/tools/dfgui/DFGUICloseGuiAction.java",
+    "src/jade/src/jade/tools/dfgui/DFGUIDeregisterAction.java",
+    "src/jade/src/jade/tools/dfgui/DFGUIExitDFAction.java",
+    "src/jade/src/jade/tools/dfgui/DFGUIFederateAction.java",
+    "src/jade/src/jade/tools/dfgui/DFGUIModifyAction.java",
+    "src/jade/src/jade/tools/dfgui/DFGUIRefreshAppletAction.java",
+    "src/jade/src/jade/tools/dfgui/DFGUIRegisterAction.java",
+    "src/jade/src/jade/tools/dfgui/DFGUISearchAction.java",
+    "src/jade/src/jade/tools/dfgui/DFGUIViewAction.java"
+  ],
+  "docker_image": "jade-ant:17",
+  "docker_image_config": "config/docker-images.json",
+  "docker_image_registry_key": "java-17",
+  "docker_image_resolution_source": "central-registry",
+  "duration_seconds": 0.89,
+  "error_count": 0,
+  "errors": [],
+  "exit_code": 0,
+  "generated_at": "2026-09-05T11:15:47Z",
+  "javac_encoding": "ISO-8859-1",
+  "javac_log": "07-shard-verify-APPLET_API_DEPRECATED_FOR_REMOVAL-signature-001.log",
+  "javac_log_excerpt": "\nNote: Some input files use or override a deprecated API that is marked for removal.\nNote: Recompile with -Xlint:removal for details.\nNote: /ws/src/jade/src/jade/tools/dfgui/DFGUI.java uses unchecked or unsafe operations.\nNote: Recompile with -Xlint:unchecked for details.\n",
+  "javac_source": "17",
+  "javac_target": "17",
+  "rule_id": "APPLET_API_DEPRECATED_FOR_REMOVAL",
+  "run_id": "jade-11-to-17",
+  "schema_version": 1,
+  "shard_class": "signature",
+  "shard_id": "APPLET_API_DEPRECATED_FOR_REMOVAL-signature-001",
+  "status": "PASS",
+  "warnings": [
+    {
+      "kind": "baseline_jar_commit_unknown",
+      "message": "No matching commit_hash found in 09-rule-commit-log.json for rule_id=APPLET_API_DEPRECATED_FOR_REMOVAL"
+    },
+    {
+      "kind": "empty_read_only_context",
+      "message": "shard declares no read_only_context files"
+    }
+  ]
+}

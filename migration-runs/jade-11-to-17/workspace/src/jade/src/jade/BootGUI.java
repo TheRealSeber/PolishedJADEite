@@ -408,7 +408,6 @@ public class BootGUI extends JDialog {
 
                         out.setProperty(name.toLowerCase(),
                                         (Boolean.valueOf(box.isSelected()))
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
                                             .toString());
                     } else {
 
@@ -593,14 +592,12 @@ public class BootGUI extends JDialog {
         pv.add(new PropertyType(BootProfileImpl.GUI_KEY,
                                 PropertyType.BOOLEAN_TYPE,
                                 Boolean.valueOf(theProperties.getBooleanProperty(BootProfileImpl.GUI_KEY, false)).toString(),
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
                                 "Select to launch the RMA Gui",
                                 false));
                              
         pv.add(new PropertyType(BootProfileImpl.MAIN_PORT,
                                 PropertyType.STRING_TYPE,
                                 Integer.valueOf(theProperties.getIntProperty(BootProfileImpl.MAIN_PORT,
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
                                             BootProfileImpl.DEFAULT_PORT)).toString(),
                                 "Port Number of the main-container",
                                 false));
@@ -614,7 +611,6 @@ public class BootGUI extends JDialog {
         pv.add(new PropertyType(BootProfileImpl.CONTAINER_KEY,
                                 PropertyType.BOOLEAN_TYPE,
                                 Boolean.valueOf(theProperties.getBooleanProperty(BootProfileImpl.CONTAINER_KEY, false)).toString(),
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
                                 "Select to launch an agent-container",
                                 false));
                                              
@@ -627,7 +623,6 @@ public class BootGUI extends JDialog {
         pv.add(new PropertyType(BootProfileImpl.NOMTP_KEY,
                                 PropertyType.BOOLEAN_TYPE,
                                 Boolean.valueOf(theProperties.getBooleanProperty(BootProfileImpl.NOMTP_KEY, false)).toString(),
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
                                 "Disable all external MTPs on this container",
                                 false));
                                          
@@ -645,7 +640,6 @@ public class BootGUI extends JDialog {
         pv.add(new PropertyType(BootProfileImpl.NOMOBILITY_KEY,
                                 PropertyType.BOOLEAN_TYPE,
                                 Boolean.valueOf(theProperties.getBooleanProperty(BootProfileImpl.NOMOBILITY_KEY,false)).toString(),
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
                                 "Disable Mobility",
                                 false));
         return pv;
@@ -688,7 +682,6 @@ public class BootGUI extends JDialog {
             } else if (type.equalsIgnoreCase(PropertyType.BOOLEAN_TYPE)) {
                 valueBox = new JCheckBox();
                 valueBox.setSelected((Boolean.valueOf(value)).booleanValue());
-// JADE-FLAG:WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory 0.95
                 valueBox.setToolTipText(property.getToolTip());
                 mainP.add(valueBox);
             } else {

@@ -2,7 +2,7 @@
   "run_id": "jade-1.6-to-1.7-v2",
   "state": "FAILED",
   "current_rule_id": null,
-  "updated_at": "2026-09-05T02:28:15Z",
+  "updated_at": "2026-09-05T02:44:26Z",
   "failure_reason": null,
   "artifact_hashes": {
     "01-breaking-changes-manifest.json": "331806b3012a3f98c39515decc5233b5def4ca5f43ad7d587b194d4589bb9603",

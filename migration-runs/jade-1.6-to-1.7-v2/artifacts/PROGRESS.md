@@ -2,7 +2,7 @@
 
 **Source:** 1.6 → **Target:** 1.7
 **Current state:** FAILED
-**Updated:** 2026-09-05T02:28:15Z
+**Updated:** 2026-09-05T02:44:26Z
 
 | Phase | Status | Details |
 |-------|--------|---------|
@@ -24,6 +24,9 @@
 | ✅ RULE_BATCH_LOOP | OK | Completed rule STRINGS_IN_SWITCH |
 | ✅ RULE_BATCH_LOOP | OK | Processing rule TRY_WITH_RESOURCES |
 | ✅ RULE_BATCH_LOOP | OK | Completed rule TRY_WITH_RESOURCES |
+| 🔴 FAILED | ERROR | Run terminated: FAILED |
+| ✅ INIT | OK | Run initialized |
+| ✅ WORKSPACE_READY | OK | Workspace ready: migration-runs/jade-1.6-to-1.7-v2/workspace |
 | 🔴 FAILED | ERROR | Run terminated: FAILED |
 | ✅ INIT | OK | Run initialized |
 | ✅ WORKSPACE_READY | OK | Workspace ready: migration-runs/jade-1.6-to-1.7-v2/workspace |

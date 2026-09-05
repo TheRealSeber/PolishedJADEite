@@ -1,0 +1,25 @@
+{
+  "run_id": "jade-11-to-17",
+  "rules": {
+    "RMIC_TOOL_REMOVED": {
+      "status": "DONE",
+      "updated_at": "2026-09-05T11:37:35Z"
+    },
+    "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL": {
+      "status": "DONE",
+      "updated_at": "2026-09-05T11:37:36Z"
+    },
+    "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL": {
+      "status": "DONE",
+      "updated_at": "2026-09-05T11:37:36Z"
+    },
+    "MULTICAST_SOCKET_GROUP_API_DEPRECATED": {
+      "status": "DONE",
+      "updated_at": "2026-09-05T11:37:36Z"
+    },
+    "APPLET_API_DEPRECATED_FOR_REMOVAL": {
+      "status": "DONE",
+      "updated_at": "2026-09-05T11:37:36Z"
+    }
+  }
+}

@@ -1,19 +1,21 @@
 {
   "run_id": "jade-11-to-17",
-  "state": "AWAITING_AGENT",
-  "current_rule_id": null,
-  "updated_at": "2026-09-05T10:40:48Z",
-  "failure_reason": null,
+  "state": "DONE",
+  "current_rule_id": "APPLET_API_DEPRECATED_FOR_REMOVAL",
+  "updated_at": "2026-09-05T11:37:37Z",
+  "failure_reason": "Build log validation failed: build log missing required marker: 'BUILD SUCCESSFUL'",
   "artifact_hashes": {
     "01-breaking-changes-manifest.json": "9f4e99c8242f50ab9bed0a8c01ca14e3b88123bd1f123c8c8138085d26bd2b5c",
     "02-tooling-scout-report.json": "730933943dbf63ece88519b4eebec2a3d404b08317fb252d09711ea71c7a297b",
     "03-build-audit.json": "ddd6bbfb4d03fba06a6d1456c8b1af1c6cb9a24258eb2b2fdd7e08a3d85d24c9",
-    "03.5-knowledge-graph.json": "0613cd8d2b7a5f366c68c537bb6519e48a278ef1de3af26978d14d64909c9c88",
-    "04-flag-index.json": "74ab7d5124986f54b63e896a3604645922f67079da20f7329515a763d613076c"
+    "03.5-knowledge-graph.json": "95bbfdbd3680f40f9d0be505c8fab70b201703ee0cb06f4bbaa30bfea35f3bf1",
+    "04-flag-index.json": "74ab7d5124986f54b63e896a3604645922f67079da20f7329515a763d613076c",
+    "07-build.log": "7828c29e11e4678afb31f7d8f7f11e7a62ebb4ef6a684526c6c9c58ef26b940c",
+    "07-runtime-verify.json": "46c6b9f8922648aa23a826ae05cc0617811fa0216a3c81a57e0ad9f2e487264e"
   },
   "graph": {
     "schema_version": 2,
-    "content_hash": "f67864ce63df80be120f91a339c8a3cc322966d38d87f24774fc19ed1fc1101d",
+    "content_hash": "e3d70c4e270192911343a4446321e13f0ad1e86e3b6b955c0c821b34a8ea15fc",
     "java_files": 972,
     "source_identity": {
       "workspace_root": "/Users/sebastian/Desktop/myown/PolishedJADEite-1117/migration-runs/jade-11-to-17/workspace",
@@ -42433,7 +42435,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 260,
+          "line": 263,
           "receiver": "e",
           "method": "printStackTrace",
           "caller_method": "DeregisterAgent"
@@ -42441,7 +42443,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 269,
+          "line": 272,
           "receiver": "e",
           "method": "printStackTrace",
           "caller_method": "DeregisterAgent"
@@ -42609,7 +42611,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 347,
+          "line": 350,
           "receiver": "e",
           "method": "printStackTrace",
           "caller_method": "Federate"
@@ -42761,7 +42763,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 315,
+          "line": 318,
           "receiver": "e",
           "method": "printStackTrace",
           "caller_method": "Modify"
@@ -42769,7 +42771,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 323,
+          "line": 326,
           "receiver": "e",
           "method": "printStackTrace",
           "caller_method": "Modify"
@@ -42809,6 +42811,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/content/lang/sl/ExtendedSLParser.java",
+          "line": 915,
+          "receiver": "Double",
+          "method": "valueOf",
+          "caller_method": "Number"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/lang/sl/ExtendedSLParser.java",
           "line": 918,
           "receiver": "e",
           "method": "printStackTrace",
@@ -42817,9 +42827,25 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/content/lang/sl/ExtendedSLParser.java",
+          "line": 928,
+          "receiver": "Double",
+          "method": "valueOf",
+          "caller_method": "Number"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/lang/sl/ExtendedSLParser.java",
           "line": 931,
           "receiver": "e",
           "method": "printStackTrace",
+          "caller_method": "Number"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/lang/sl/ExtendedSLParser.java",
+          "line": 941,
+          "receiver": "Float",
+          "method": "valueOf",
           "caller_method": "Number"
         },
         {
@@ -42849,9 +42875,25 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/content/lang/sl/SLParser.java",
+          "line": 858,
+          "receiver": "Double",
+          "method": "valueOf",
+          "caller_method": "Number"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/lang/sl/SLParser.java",
           "line": 861,
           "receiver": "e",
           "method": "printStackTrace",
+          "caller_method": "Number"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/lang/sl/SLParser.java",
+          "line": 871,
+          "receiver": "Double",
+          "method": "valueOf",
           "caller_method": "Number"
         },
         {
@@ -42865,7 +42907,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 234,
+          "line": 237,
           "receiver": "e",
           "method": "printStackTrace",
           "caller_method": "RegisterNewAgent"
@@ -42873,7 +42915,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 243,
+          "line": 246,
           "receiver": "e",
           "method": "printStackTrace",
           "caller_method": "RegisterNewAgent"
@@ -42881,7 +42923,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 289,
+          "line": 292,
           "receiver": "e",
           "method": "printStackTrace",
           "caller_method": "SearchAgents"
@@ -42889,7 +42931,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 297,
+          "line": 300,
           "receiver": "e",
           "method": "printStackTrace",
           "caller_method": "SearchAgents"
@@ -44169,9 +44211,25 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootHelper.java",
+          "line": 120,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "T2"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/BootHelper.java",
           "line": 124,
           "receiver": "returnState",
           "method": "push",
+          "caller_method": "T2"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/BootHelper.java",
+          "line": 124,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "T2"
         },
         {
@@ -44204,6 +44262,14 @@
           "line": 140,
           "receiver": "returnState",
           "method": "push",
+          "caller_method": "T2"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/BootHelper.java",
+          "line": 140,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "T2"
         },
         {
@@ -44297,9 +44363,25 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootHelper.java",
+          "line": 89,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "T2"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/BootHelper.java",
           "line": 93,
           "receiver": "returnState",
           "method": "push",
+          "caller_method": "T2"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/BootHelper.java",
+          "line": 93,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "T2"
         },
         {
@@ -44521,7 +44603,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 712,
+          "line": 719,
           "receiver": "f",
           "method": "isDirectory",
           "caller_method": "accept"
@@ -44529,7 +44611,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 719,
+          "line": 726,
           "receiver": "ext",
           "method": "equals",
           "caller_method": "accept"
@@ -44828,6 +44910,14 @@
           "line": 469,
           "receiver": "mtpe",
           "method": "printStackTrace",
+          "caller_method": "accept"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/messaging/OutgoingEncodingFilter.java",
+          "line": 124,
+          "receiver": "Long",
+          "method": "valueOf",
           "caller_method": "accept"
         },
         {
@@ -45761,7 +45851,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/domain/ams.java",
-          "line": 1538,
+          "line": 1539,
           "receiver": "pendingNewAgents",
           "method": "remove",
           "caller_method": "action"
@@ -45769,7 +45859,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/domain/ams.java",
-          "line": 1540,
+          "line": 1541,
           "receiver": "pendingRemovedContainers",
           "method": "remove",
           "caller_method": "action"
@@ -45777,7 +45867,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/domain/ams.java",
-          "line": 1554,
+          "line": 1555,
           "receiver": "e",
           "method": "printStackTrace",
           "caller_method": "action"
@@ -45785,7 +45875,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/domain/ams.java",
-          "line": 1555,
+          "line": 1556,
           "receiver": "fe",
           "method": "getMessage",
           "caller_method": "action"
@@ -47945,6 +48035,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/gui/ConstraintDlg.java",
+          "line": 160,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/gui/ConstraintDlg.java",
           "line": 164,
           "receiver": "JOptionPane",
           "method": "showMessageDialog",
@@ -47977,9 +48075,25 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/gui/ConstraintDlg.java",
+          "line": 175,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/gui/ConstraintDlg.java",
           "line": 178,
           "receiver": "JOptionPane",
           "method": "showMessageDialog",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/gui/ConstraintDlg.java",
+          "line": 186,
+          "receiver": "Long",
+          "method": "valueOf",
           "caller_method": "actionPerformed"
         },
         {
@@ -48449,6 +48563,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 258,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
           "line": 259,
           "receiver": "I",
           "method": "intValue",
@@ -48460,6 +48582,14 @@
           "line": 260,
           "receiver": "month",
           "method": "getText",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 260,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "actionPerformed"
         },
         {
@@ -48481,6 +48611,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 262,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
           "line": 263,
           "receiver": "I",
           "method": "intValue",
@@ -48492,6 +48630,14 @@
           "line": 264,
           "receiver": "hour",
           "method": "getText",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 264,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "actionPerformed"
         },
         {
@@ -48513,6 +48659,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 266,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
           "line": 267,
           "receiver": "I",
           "method": "intValue",
@@ -48524,6 +48678,14 @@
           "line": 268,
           "receiver": "sec",
           "method": "getText",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 268,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "actionPerformed"
         },
         {
@@ -48657,6 +48819,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 345,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
           "line": 346,
           "receiver": "i",
           "method": "intValue",
@@ -48684,6 +48854,14 @@
           "line": 356,
           "receiver": "timeUnitEdit",
           "method": "getText",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 356,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "actionPerformed"
         },
         {
@@ -49161,6 +49339,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+          "line": 299,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
           "line": 300,
           "receiver": "nn",
           "method": "intValue",
@@ -49521,6 +49707,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 277,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
           "line": 278,
           "receiver": "I",
           "method": "intValue",
@@ -49532,6 +49726,14 @@
           "line": 279,
           "receiver": "month",
           "method": "getText",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 279,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "actionPerformed"
         },
         {
@@ -49553,6 +49755,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 281,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
           "line": 282,
           "receiver": "I",
           "method": "intValue",
@@ -49564,6 +49774,14 @@
           "line": 283,
           "receiver": "hour",
           "method": "getText",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 283,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "actionPerformed"
         },
         {
@@ -49585,6 +49803,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 285,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
           "line": 286,
           "receiver": "I",
           "method": "intValue",
@@ -49596,6 +49822,14 @@
           "line": 287,
           "receiver": "sec",
           "method": "getText",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 287,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "actionPerformed"
         },
         {
@@ -49729,6 +49963,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 360,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
           "line": 361,
           "receiver": "i",
           "method": "intValue",
@@ -49756,6 +49998,14 @@
           "line": 374,
           "receiver": "timeUnitEdit",
           "method": "getText",
+          "caller_method": "actionPerformed"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 374,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "actionPerformed"
         },
         {
@@ -50904,6 +51154,30 @@
         },
         {
           "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringProxy.java",
+          "line": 20,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "activateUDP"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringProxy.java",
+          "line": 21,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "activateUDP"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringProxy.java",
+          "line": 22,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "activateUDP"
+        },
+        {
+          "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringService.java",
           "line": 314,
           "receiver": "myLogger",
@@ -51201,7 +51475,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 877,
+          "line": 878,
           "receiver": "registeredModel",
           "method": "add",
           "caller_method": "addAgentDesc"
@@ -51209,7 +51483,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 878,
+          "line": 879,
           "receiver": "registeredModel",
           "method": "fireTableDataChanged",
           "caller_method": "addAgentDesc"
@@ -51460,6 +51734,14 @@
           "line": 189,
           "receiver": "cc2",
           "method": "get",
+          "caller_method": "addAllCounters"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/sam/SAMInfo.java",
+          "line": 191,
+          "receiver": "Long",
+          "method": "valueOf",
           "caller_method": "addAllCounters"
         },
         {
@@ -52225,7 +52507,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 989,
+          "line": 990,
           "receiver": "SwingUtilities",
           "method": "invokeLater",
           "caller_method": "addMessage"
@@ -52489,6 +52771,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/imtp/leap/PlatformManagerStub.java",
+          "line": 103,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "addNode"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/PlatformManagerStub.java",
           "line": 105,
           "receiver": "theDispatcher",
           "method": "dispatchCommand",
@@ -52641,7 +52931,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 857,
+          "line": 858,
           "receiver": "parentModel",
           "method": "add",
           "caller_method": "addParent"
@@ -52649,7 +52939,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 858,
+          "line": 859,
           "receiver": "parentModel",
           "method": "fireTableDataChanged",
           "caller_method": "addParent"
@@ -53216,6 +53506,14 @@
         },
         {
           "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/replication/MainReplicationProxy.java",
+          "line": 102,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "addReplica"
+        },
+        {
+          "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/replication/MainReplicationService.java",
           "line": 551,
           "receiver": "nfe",
@@ -53244,6 +53542,14 @@
           "line": 594,
           "receiver": "myLogger",
           "method": "log",
+          "caller_method": "addReplica"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/PlatformManagerStub.java",
+          "line": 196,
+          "receiver": "Boolean",
+          "method": "valueOf",
           "caller_method": "addReplica"
         },
         {
@@ -53309,6 +53615,14 @@
           "receiver": "imtpe",
           "method": "printStackTrace",
           "caller_method": "addServiceManagerAddress"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/PlatformManagerStub.java",
+          "line": 152,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "addSlice"
         },
         {
           "kind": "unresolved_receiver_call",
@@ -53756,6 +54070,14 @@
           "line": 499,
           "receiver": "t",
           "method": "getTrigger",
+          "caller_method": "addTransition"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/behaviours/FSMBehaviour.java",
+          "line": 499,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "addTransition"
         },
         {
@@ -54232,6 +54554,22 @@
         },
         {
           "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/PlatformManagerImpl.java",
+          "line": 915,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "adjustContainerName"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/PlatformManagerImpl.java",
+          "line": 917,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "adjustContainerName"
+        },
+        {
+          "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/introspector/gui/MainWindow.java",
           "line": 106,
           "receiver": "splitPanel",
@@ -54313,9 +54651,33 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/content/onto/BasicOntology.java",
+          "line": 522,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "adjustPrimitiveValue"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/onto/BasicOntology.java",
           "line": 525,
           "receiver": "Integer",
           "method": "parseInt",
+          "caller_method": "adjustPrimitiveValue"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/onto/BasicOntology.java",
+          "line": 525,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "adjustPrimitiveValue"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/onto/BasicOntology.java",
+          "line": 531,
+          "receiver": "Long",
+          "method": "valueOf",
           "caller_method": "adjustPrimitiveValue"
         },
         {
@@ -54329,6 +54691,38 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/content/onto/BasicOntology.java",
+          "line": 534,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "adjustPrimitiveValue"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/onto/BasicOntology.java",
+          "line": 540,
+          "receiver": "Float",
+          "method": "valueOf",
+          "caller_method": "adjustPrimitiveValue"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/onto/BasicOntology.java",
+          "line": 543,
+          "receiver": "Float",
+          "method": "valueOf",
+          "caller_method": "adjustPrimitiveValue"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/onto/BasicOntology.java",
+          "line": 546,
+          "receiver": "Float",
+          "method": "valueOf",
+          "caller_method": "adjustPrimitiveValue"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/onto/BasicOntology.java",
           "line": 549,
           "receiver": "Float",
           "method": "parseFloat",
@@ -54337,9 +54731,49 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/content/onto/BasicOntology.java",
+          "line": 549,
+          "receiver": "Float",
+          "method": "valueOf",
+          "caller_method": "adjustPrimitiveValue"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/onto/BasicOntology.java",
+          "line": 555,
+          "receiver": "Double",
+          "method": "valueOf",
+          "caller_method": "adjustPrimitiveValue"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/onto/BasicOntology.java",
+          "line": 558,
+          "receiver": "Double",
+          "method": "valueOf",
+          "caller_method": "adjustPrimitiveValue"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/onto/BasicOntology.java",
+          "line": 561,
+          "receiver": "Double",
+          "method": "valueOf",
+          "caller_method": "adjustPrimitiveValue"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/onto/BasicOntology.java",
           "line": 564,
           "receiver": "Double",
           "method": "parseDouble",
+          "caller_method": "adjustPrimitiveValue"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/onto/BasicOntology.java",
+          "line": 564,
+          "receiver": "Double",
+          "method": "valueOf",
           "caller_method": "adjustPrimitiveValue"
         },
         {
@@ -54361,9 +54795,25 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/content/onto/BasicOntology.java",
+          "line": 575,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "adjustPrimitiveValue"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/onto/BasicOntology.java",
           "line": 577,
           "receiver": "s",
           "method": "equalsIgnoreCase",
+          "caller_method": "adjustPrimitiveValue"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/onto/BasicOntology.java",
+          "line": 578,
+          "receiver": "Boolean",
+          "method": "valueOf",
           "caller_method": "adjustPrimitiveValue"
         },
         {
@@ -57528,6 +57978,14 @@
         },
         {
           "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/management/AgentManagementProxy.java",
+          "line": 124,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "changeAgentState"
+        },
+        {
+          "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/gui/AgentTree.java",
           "line": 132,
           "receiver": "agentState",
@@ -59584,6 +60042,14 @@
         },
         {
           "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java",
+          "line": 772,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "clonedAgent"
+        },
+        {
+          "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/imtp/leap/JICP/JICPConnection.java",
           "line": 207,
           "receiver": "realOs",
@@ -59961,7 +60427,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 443,
+          "line": 444,
           "receiver": "keys",
           "method": "hasMoreElements",
           "caller_method": "compareProperties"
@@ -59969,7 +60435,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 444,
+          "line": 445,
           "receiver": "keys",
           "method": "nextElement",
           "caller_method": "compareProperties"
@@ -59977,7 +60443,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 451,
+          "line": 452,
           "receiver": "v1",
           "method": "equalsIgnoreCase",
           "caller_method": "compareProperties"
@@ -61808,6 +62274,14 @@
         },
         {
           "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/management/AgentManagementProxy.java",
+          "line": 63,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "createAgent"
+        },
+        {
+          "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/management/AgentManagementService.java",
           "line": 627,
           "receiver": "Class",
@@ -61820,6 +62294,22 @@
           "line": 645,
           "receiver": "myLogger",
           "method": "log",
+          "caller_method": "createAgent"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/mobility/AgentMobilityProxy.java",
+          "line": 64,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "createAgent"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/mobility/AgentMobilityProxy.java",
+          "line": 65,
+          "receiver": "Boolean",
+          "method": "valueOf",
           "caller_method": "createAgent"
         },
         {
@@ -62449,6 +62939,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/imtp/leap/MicroSkeleton.java",
+          "line": 64,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "createErrorRsp"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/MicroSkeleton.java",
           "line": 65,
           "receiver": "tr",
           "method": "getClass",
@@ -62604,6 +63102,14 @@
           "line": 224,
           "receiver": "body",
           "method": "write",
+          "caller_method": "createHTTPBody"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/mtp/http/HTTPIO.java",
+          "line": 225,
+          "receiver": "Long",
+          "method": "valueOf",
           "caller_method": "createHTTPBody"
         },
         {
@@ -63553,7 +64059,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 579,
+          "line": 580,
           "receiver": "pv",
           "method": "add",
           "caller_method": "createPropertyVector"
@@ -63561,7 +64067,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 586,
+          "line": 587,
           "receiver": "pv",
           "method": "add",
           "caller_method": "createPropertyVector"
@@ -63569,7 +64075,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 592,
+          "line": 593,
           "receiver": "pv",
           "method": "add",
           "caller_method": "createPropertyVector"
@@ -63577,7 +64083,15 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 598,
+          "line": 595,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "createPropertyVector"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 600,
           "receiver": "pv",
           "method": "add",
           "caller_method": "createPropertyVector"
@@ -63585,7 +64099,15 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 605,
+          "line": 602,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "createPropertyVector"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 608,
           "receiver": "pv",
           "method": "add",
           "caller_method": "createPropertyVector"
@@ -63593,7 +64115,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 611,
+          "line": 614,
           "receiver": "pv",
           "method": "add",
           "caller_method": "createPropertyVector"
@@ -63601,7 +64123,15 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 617,
+          "line": 616,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "createPropertyVector"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 621,
           "receiver": "pv",
           "method": "add",
           "caller_method": "createPropertyVector"
@@ -63609,7 +64139,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 623,
+          "line": 627,
           "receiver": "pv",
           "method": "add",
           "caller_method": "createPropertyVector"
@@ -63618,14 +64148,14 @@
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
           "line": 629,
-          "receiver": "pv",
-          "method": "add",
+          "receiver": "Boolean",
+          "method": "valueOf",
           "caller_method": "createPropertyVector"
         },
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 635,
+          "line": 634,
           "receiver": "pv",
           "method": "add",
           "caller_method": "createPropertyVector"
@@ -63636,6 +64166,22 @@
           "line": 640,
           "receiver": "pv",
           "method": "add",
+          "caller_method": "createPropertyVector"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 645,
+          "receiver": "pv",
+          "method": "add",
+          "caller_method": "createPropertyVector"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 647,
+          "receiver": "Boolean",
+          "method": "valueOf",
           "caller_method": "createPropertyVector"
         },
         {
@@ -64085,6 +64631,22 @@
           "receiver": "it",
           "method": "nextElement",
           "caller_method": "deactivate"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringProxy.java",
+          "line": 44,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "deactivateUDP"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/domain/AMSEventQueueFeeder.java",
+          "line": 83,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "deadAgent"
         },
         {
           "kind": "unresolved_receiver_call",
@@ -65721,6 +66283,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/imtp/leap/DeliverableDataInputStream.java",
+          "line": 758,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "deserializeEnvelope"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/DeliverableDataInputStream.java",
           "line": 486,
           "receiver": "messages",
           "method": "add",
@@ -65825,9 +66395,25 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/imtp/leap/SerializationEngine.java",
+          "line": 159,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "deserializeObject"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/SerializationEngine.java",
           "line": 161,
           "receiver": "dis",
           "method": "readInt",
+          "caller_method": "deserializeObject"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/SerializationEngine.java",
+          "line": 161,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "deserializeObject"
         },
         {
@@ -66145,6 +66731,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+          "line": 336,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "dispatchCommand"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
           "line": 349,
           "receiver": "lse",
           "method": "getMessage",
@@ -66165,6 +66759,14 @@
           "receiver": "icpe",
           "method": "getMessage",
           "caller_method": "dispatchKeepAlive"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/messaging/MessagingProxy.java",
+          "line": 63,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "dispatchLocally"
         },
         {
           "kind": "unresolved_receiver_call",
@@ -66257,7 +66859,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 964,
+          "line": 965,
           "receiver": "EventQueue",
           "method": "invokeLater",
           "caller_method": "disposeAsync"
@@ -67245,6 +67847,38 @@
           "receiver": "reply",
           "method": "setSender",
           "caller_method": "doReply"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/testagent/TestAgent.java",
+          "line": 163,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "doSearchAMS"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/testagent/TestAgent.java",
+          "line": 164,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "doSearchAMS"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/testagent/TestAgent.java",
+          "line": 180,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "doSearchDF"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/testagent/TestAgent.java",
+          "line": 181,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "doSearchDF"
         },
         {
           "kind": "unresolved_receiver_call",
@@ -69305,7 +69939,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 985,
+          "line": 986,
           "receiver": "refreshB",
           "method": "setVisible",
           "caller_method": "enableRefreshButton"
@@ -69313,7 +69947,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 986,
+          "line": 987,
           "receiver": "refreshItem",
           "method": "setVisible",
           "caller_method": "enableRefreshButton"
@@ -70857,15 +71491,15 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/Runtime.java",
-          "line": 297,
+          "line": 300,
           "receiver": "criticalThreads",
-          "method": "destroy",
+          "method": "activeCount",
           "caller_method": "endContainer"
         },
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/Runtime.java",
-          "line": 301,
+          "line": 302,
           "receiver": "criticalThreads",
           "method": "list",
           "caller_method": "endContainer"
@@ -70873,7 +71507,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/Runtime.java",
-          "line": 307,
+          "line": 306,
           "receiver": "t",
           "method": "start",
           "caller_method": "endContainer"
@@ -70996,6 +71630,14 @@
           "line": 466,
           "receiver": "accumulator",
           "method": "toString",
+          "caller_method": "endElement"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/mtp/http/XMLCodec.java",
+          "line": 466,
+          "receiver": "Long",
+          "method": "valueOf",
           "caller_method": "endElement"
         },
         {
@@ -71400,6 +72042,14 @@
         },
         {
           "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/NodeSkel.java",
+          "line": 70,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "executeCommand"
+        },
+        {
+          "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/imtp/leap/MicroStub.java",
           "line": 100,
           "receiver": "System",
@@ -71433,7 +72083,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 147,
+          "line": 148,
           "receiver": "request",
           "method": "indexOf",
           "caller_method": "executeRequest"
@@ -71441,7 +72091,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 155,
+          "line": 156,
           "receiver": "request",
           "method": "indexOf",
           "caller_method": "executeRequest"
@@ -71508,6 +72158,14 @@
           "line": 434,
           "receiver": "localAgents",
           "method": "clear",
+          "caller_method": "exit"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/FrontEndStub.java",
+          "line": 139,
+          "receiver": "Boolean",
+          "method": "valueOf",
           "caller_method": "exit"
         },
         {
@@ -71873,7 +72531,15 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 416,
+          "line": 410,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "extractPropertiesFromGui"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 417,
           "receiver": "singlePanel",
           "method": "getComponent",
           "caller_method": "extractPropertiesFromGui"
@@ -71881,7 +72547,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 417,
+          "line": 418,
           "receiver": "textField",
           "method": "getText",
           "caller_method": "extractPropertiesFromGui"
@@ -71889,7 +72555,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 420,
+          "line": 421,
           "receiver": "text",
           "method": "length",
           "caller_method": "extractPropertiesFromGui"
@@ -71897,7 +72563,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 424,
+          "line": 425,
           "receiver": "name",
           "method": "toLowerCase",
           "caller_method": "extractPropertiesFromGui"
@@ -74449,6 +75115,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/DummyAgent/MsgIndication.java",
+          "line": 146,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "fromText"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/DummyAgent/MsgIndication.java",
           "line": 147,
           "receiver": "ii",
           "method": "intValue",
@@ -74460,6 +75134,14 @@
           "line": 150,
           "receiver": "r",
           "method": "readLine",
+          "caller_method": "fromText"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/DummyAgent/MsgIndication.java",
+          "line": 150,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "fromText"
         },
         {
@@ -76513,7 +77195,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 375,
+          "line": 378,
           "receiver": "nyr",
           "method": "printStackTrace",
           "caller_method": "getDFAgentDsc"
@@ -76521,7 +77203,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 377,
+          "line": 380,
           "receiver": "e",
           "method": "printStackTrace",
           "caller_method": "getDFAgentDsc"
@@ -76945,7 +77627,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 399,
+          "line": 402,
           "receiver": "e",
           "method": "printStackTrace",
           "caller_method": "getDescriptionOfThisDF"
@@ -76953,7 +77635,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 426,
+          "line": 429,
           "receiver": "e",
           "method": "printStackTrace",
           "caller_method": "getDescriptionOfThisDF"
@@ -76961,7 +77643,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 428,
+          "line": 431,
           "receiver": "nyr",
           "method": "printStackTrace",
           "caller_method": "getDescriptionOfThisDF"
@@ -77088,8 +77770,16 @@
         },
         {
           "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/Specifier.java",
+          "line": 157,
+          "receiver": "Character",
+          "method": "valueOf",
+          "caller_method": "getEscapeChar"
+        },
+        {
+          "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 735,
+          "line": 742,
           "receiver": "f",
           "method": "getName",
           "caller_method": "getExtension"
@@ -77097,7 +77787,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 736,
+          "line": 743,
           "receiver": "s",
           "method": "lastIndexOf",
           "caller_method": "getExtension"
@@ -77105,7 +77795,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 738,
+          "line": 745,
           "receiver": "s",
           "method": "length",
           "caller_method": "getExtension"
@@ -77113,7 +77803,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 739,
+          "line": 746,
           "receiver": "s",
           "method": "substring",
           "caller_method": "getExtension"
@@ -78929,6 +79619,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 1396,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "getMsg"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/gui/AclGui.java",
           "line": 1403,
           "receiver": "payloadEncoding",
           "method": "getText",
@@ -79077,6 +79775,22 @@
           "receiver": "e",
           "method": "nextElement",
           "caller_method": "getNames"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+          "line": 647,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "getNewColorIndex"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+          "line": 652,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "getNewColorIndex"
         },
         {
           "kind": "unresolved_receiver_call",
@@ -80505,7 +81219,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 706,
+          "line": 707,
           "receiver": "tabbedPane",
           "method": "getSelectedIndex",
           "caller_method": "getSelectedAgentInTable"
@@ -80513,7 +81227,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 711,
+          "line": 712,
           "receiver": "registeredTable",
           "method": "getSelectionModel",
           "caller_method": "getSelectedAgentInTable"
@@ -80521,7 +81235,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 714,
+          "line": 715,
           "receiver": "registeredModel",
           "method": "getElementAt",
           "caller_method": "getSelectedAgentInTable"
@@ -80529,7 +81243,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 721,
+          "line": 722,
           "receiver": "foundTable",
           "method": "getSelectionModel",
           "caller_method": "getSelectedAgentInTable"
@@ -80537,7 +81251,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 724,
+          "line": 725,
           "receiver": "foundModel",
           "method": "getElementAt",
           "caller_method": "getSelectedAgentInTable"
@@ -80545,7 +81259,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 732,
+          "line": 733,
           "receiver": "parentTable",
           "method": "getSelectionModel",
           "caller_method": "getSelectedAgentInTable"
@@ -80553,7 +81267,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 735,
+          "line": 736,
           "receiver": "parentModel",
           "method": "getElementAt",
           "caller_method": "getSelectedAgentInTable"
@@ -80561,7 +81275,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 739,
+          "line": 740,
           "receiver": "childrenTable",
           "method": "getSelectionModel",
           "caller_method": "getSelectedAgentInTable"
@@ -81412,6 +82126,14 @@
           "line": 531,
           "receiver": "tfs",
           "method": "get",
+          "caller_method": "getTransition"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/behaviours/FSMBehaviour.java",
+          "line": 531,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "getTransition"
         },
         {
@@ -82585,9 +83307,25 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+          "line": 962,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "handleCommand"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
           "line": 972,
           "receiver": "System",
           "method": "currentTimeMillis",
+          "caller_method": "handleCommand"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+          "line": 974,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "handleCommand"
         },
         {
@@ -84624,6 +85362,14 @@
         },
         {
           "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/mobility/AgentMobilityProxy.java",
+          "line": 235,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "handleTransferResult"
+        },
+        {
+          "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/nodeMonitoring/UDPMonitorServer.java",
           "line": 490,
           "receiver": "unknownPingCounters",
@@ -84713,7 +85459,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 558,
+          "line": 559,
           "receiver": "fileName",
           "method": "lastIndexOf",
           "caller_method": "hasExtension"
@@ -84721,7 +85467,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 560,
+          "line": 561,
           "receiver": "fileName",
           "method": "length",
           "caller_method": "hasExtension"
@@ -84729,7 +85475,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 561,
+          "line": 562,
           "receiver": "fileName",
           "method": "substring",
           "caller_method": "hasExtension"
@@ -84737,7 +85483,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 565,
+          "line": 566,
           "receiver": "ext",
           "method": "equalsIgnoreCase",
           "caller_method": "hasExtension"
@@ -95841,7 +96587,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 381,
+          "line": 382,
           "receiver": "e",
           "method": "getKeyCode",
           "caller_method": "keyPressed"
@@ -96113,7 +96859,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 759,
+          "line": 760,
           "receiver": "tabbedPane",
           "method": "getSelectedIndex",
           "caller_method": "kindOfOperation"
@@ -96121,7 +96867,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 768,
+          "line": 769,
           "receiver": "parentTable",
           "method": "getSelectionModel",
           "caller_method": "kindOfOperation"
@@ -96129,7 +96875,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 775,
+          "line": 776,
           "receiver": "childrenTable",
           "method": "getSelectionModel",
           "caller_method": "kindOfOperation"
@@ -97057,7 +97803,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 522,
+          "line": 523,
           "receiver": "e",
           "method": "hasMoreElements",
           "caller_method": "loadPropertiesFromFile"
@@ -97065,7 +97811,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 524,
+          "line": 525,
           "receiver": "e",
           "method": "nextElement",
           "caller_method": "loadPropertiesFromFile"
@@ -97073,7 +97819,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 525,
+          "line": 526,
           "receiver": "propertiesVector",
           "method": "elements",
           "caller_method": "loadPropertiesFromFile"
@@ -97081,7 +97827,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 527,
+          "line": 528,
           "receiver": "it",
           "method": "hasMoreElements",
           "caller_method": "loadPropertiesFromFile"
@@ -97089,7 +97835,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 528,
+          "line": 529,
           "receiver": "it",
           "method": "nextElement",
           "caller_method": "loadPropertiesFromFile"
@@ -98433,14 +99179,6 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 173,
-          "receiver": "request",
-          "method": "length",
-          "caller_method": "manageRequest"
-        },
-        {
-          "kind": "unresolved_receiver_call",
-          "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
           "line": 174,
           "receiver": "request",
           "method": "length",
@@ -98449,7 +99187,15 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 179,
+          "line": 175,
+          "receiver": "request",
+          "method": "length",
+          "caller_method": "manageRequest"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
+          "line": 180,
           "receiver": "request",
           "method": "substring",
           "caller_method": "manageRequest"
@@ -99177,7 +99923,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 368,
+          "line": 369,
           "receiver": "e",
           "method": "getClickCount",
           "caller_method": "mouseClicked"
@@ -99185,15 +99931,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 424,
-          "receiver": "e",
-          "method": "getClickCount",
-          "caller_method": "mouseClicked"
-        },
-        {
-          "kind": "unresolved_receiver_call",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 467,
+          "line": 425,
           "receiver": "e",
           "method": "getClickCount",
           "caller_method": "mouseClicked"
@@ -99202,14 +99940,6 @@
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "line": 468,
-          "receiver": "childrenTable",
-          "method": "clearSelection",
-          "caller_method": "mouseClicked"
-        },
-        {
-          "kind": "unresolved_receiver_call",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 469,
           "receiver": "e",
           "method": "getClickCount",
           "caller_method": "mouseClicked"
@@ -99217,7 +99947,15 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 508,
+          "line": 469,
+          "receiver": "childrenTable",
+          "method": "clearSelection",
+          "caller_method": "mouseClicked"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "line": 470,
           "receiver": "e",
           "method": "getClickCount",
           "caller_method": "mouseClicked"
@@ -99226,6 +99964,14 @@
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "line": 509,
+          "receiver": "e",
+          "method": "getClickCount",
+          "caller_method": "mouseClicked"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "line": 510,
           "receiver": "parentTable",
           "method": "clearSelection",
           "caller_method": "mouseClicked"
@@ -99233,7 +99979,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 510,
+          "line": 511,
           "receiver": "e",
           "method": "getClickCount",
           "caller_method": "mouseClicked"
@@ -99361,7 +100107,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 732,
+          "line": 733,
           "receiver": "evt",
           "method": "getClickCount",
           "caller_method": "mouseClicked"
@@ -99977,7 +100723,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 1095,
+          "line": 1096,
           "receiver": "parser",
           "method": "hasMoreElements",
           "caller_method": "nameClip"
@@ -99985,7 +100731,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 1096,
+          "line": 1097,
           "receiver": "parser",
           "method": "nextToken",
           "caller_method": "nameClip"
@@ -99993,7 +100739,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 1097,
+          "line": 1098,
           "receiver": "aName",
           "method": "startsWith",
           "caller_method": "nameClip"
@@ -100001,7 +100747,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 1098,
+          "line": 1099,
           "receiver": "clip",
           "method": "length",
           "caller_method": "nameClip"
@@ -100009,7 +100755,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 1098,
+          "line": 1099,
           "receiver": "aName",
           "method": "substring",
           "caller_method": "nameClip"
@@ -100113,7 +100859,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 658,
+          "line": 664,
           "receiver": "BorderFactory",
           "method": "createEtchedBorder",
           "caller_method": "newSinglePanel"
@@ -100121,7 +100867,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 661,
+          "line": 667,
           "receiver": "name",
           "method": "toUpperCase",
           "caller_method": "newSinglePanel"
@@ -100129,7 +100875,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 663,
+          "line": 669,
           "receiver": "nameLabel",
           "method": "setPreferredSize",
           "caller_method": "newSinglePanel"
@@ -100137,7 +100883,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 664,
+          "line": 670,
           "receiver": "nameLabel",
           "method": "setMaximumSize",
           "caller_method": "newSinglePanel"
@@ -100145,7 +100891,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 665,
+          "line": 671,
           "receiver": "nameLabel",
           "method": "setMinimumSize",
           "caller_method": "newSinglePanel"
@@ -100153,7 +100899,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 666,
+          "line": 672,
           "receiver": "mainP",
           "method": "add",
           "caller_method": "newSinglePanel"
@@ -100161,7 +100907,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 677,
+          "line": 683,
           "receiver": "type",
           "method": "equalsIgnoreCase",
           "caller_method": "newSinglePanel"
@@ -100169,7 +100915,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 679,
+          "line": 685,
           "receiver": "valueCombo",
           "method": "setSelectedIndex",
           "caller_method": "newSinglePanel"
@@ -100177,7 +100923,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 680,
+          "line": 686,
           "receiver": "valueCombo",
           "method": "setToolTipText",
           "caller_method": "newSinglePanel"
@@ -100185,7 +100931,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 681,
+          "line": 687,
           "receiver": "mainP",
           "method": "add",
           "caller_method": "newSinglePanel"
@@ -100193,7 +100939,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 682,
+          "line": 688,
           "receiver": "type",
           "method": "equalsIgnoreCase",
           "caller_method": "newSinglePanel"
@@ -100201,7 +100947,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 684,
+          "line": 690,
           "receiver": "valueBox",
           "method": "setSelected",
           "caller_method": "newSinglePanel"
@@ -100209,7 +100955,15 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 685,
+          "line": 690,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "newSinglePanel"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 692,
           "receiver": "valueBox",
           "method": "setToolTipText",
           "caller_method": "newSinglePanel"
@@ -100217,7 +100971,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 686,
+          "line": 693,
           "receiver": "mainP",
           "method": "add",
           "caller_method": "newSinglePanel"
@@ -100225,7 +100979,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 689,
+          "line": 696,
           "receiver": "valueText",
           "method": "setBorder",
           "caller_method": "newSinglePanel"
@@ -100233,7 +100987,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 690,
+          "line": 697,
           "receiver": "type",
           "method": "equalsIgnoreCase",
           "caller_method": "newSinglePanel"
@@ -100241,7 +100995,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 691,
+          "line": 698,
           "receiver": "valueText",
           "method": "setPreferredSize",
           "caller_method": "newSinglePanel"
@@ -100249,7 +101003,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 692,
+          "line": 699,
           "receiver": "valueText",
           "method": "setMaximumSize",
           "caller_method": "newSinglePanel"
@@ -100257,7 +101011,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 694,
+          "line": 701,
           "receiver": "valueText",
           "method": "setPreferredSize",
           "caller_method": "newSinglePanel"
@@ -100265,7 +101019,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 696,
+          "line": 703,
           "receiver": "valueText",
           "method": "setMinimumSize",
           "caller_method": "newSinglePanel"
@@ -100273,7 +101027,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 697,
+          "line": 704,
           "receiver": "valueText",
           "method": "setText",
           "caller_method": "newSinglePanel"
@@ -100281,7 +101035,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 698,
+          "line": 705,
           "receiver": "valueText",
           "method": "setToolTipText",
           "caller_method": "newSinglePanel"
@@ -100289,7 +101043,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 699,
+          "line": 706,
           "receiver": "mainP",
           "method": "add",
           "caller_method": "newSinglePanel"
@@ -102049,6 +102803,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+          "line": 396,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "paintComponent"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
           "line": 422,
           "receiver": "colorIndex",
           "method": "intValue",
@@ -102057,17 +102819,9 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 470,
-          "receiver": "g",
-          "method": "setColor",
-          "caller_method": "paintComponent"
-        },
-        {
-          "kind": "unresolved_receiver_call",
-          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
           "line": 471,
           "receiver": "g",
-          "method": "drawRect",
+          "method": "setColor",
           "caller_method": "paintComponent"
         },
         {
@@ -102075,15 +102829,15 @@
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
           "line": 472,
           "receiver": "g",
-          "method": "fillRect",
+          "method": "drawRect",
           "caller_method": "paintComponent"
         },
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 476,
+          "line": 473,
           "receiver": "g",
-          "method": "setFont",
+          "method": "fillRect",
           "caller_method": "paintComponent"
         },
         {
@@ -102091,13 +102845,21 @@
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
           "line": 477,
           "receiver": "g",
+          "method": "setFont",
+          "caller_method": "paintComponent"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+          "line": 478,
+          "receiver": "g",
           "method": "getFontMetrics",
           "caller_method": "paintComponent"
         },
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 502,
+          "line": 503,
           "receiver": "fmPerf",
           "method": "stringWidth",
           "caller_method": "paintComponent"
@@ -102105,7 +102867,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 511,
+          "line": 512,
           "receiver": "g",
           "method": "drawString",
           "caller_method": "paintComponent"
@@ -102113,7 +102875,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 520,
+          "line": 521,
           "receiver": "g",
           "method": "drawString",
           "caller_method": "paintComponent"
@@ -102121,7 +102883,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 539,
+          "line": 540,
           "receiver": "g",
           "method": "drawLine",
           "caller_method": "paintComponent"
@@ -102129,17 +102891,9 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 548,
+          "line": 549,
           "receiver": "g",
           "method": "drawLine",
-          "caller_method": "paintComponent"
-        },
-        {
-          "kind": "unresolved_receiver_call",
-          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 558,
-          "receiver": "g",
-          "method": "drawPolygon",
           "caller_method": "paintComponent"
         },
         {
@@ -102147,13 +102901,21 @@
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
           "line": 559,
           "receiver": "g",
+          "method": "drawPolygon",
+          "caller_method": "paintComponent"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+          "line": 560,
+          "receiver": "g",
           "method": "fillPolygon",
           "caller_method": "paintComponent"
         },
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 583,
+          "line": 584,
           "receiver": "g",
           "method": "setColor",
           "caller_method": "paintComponent"
@@ -102161,7 +102923,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 603,
+          "line": 604,
           "receiver": "g",
           "method": "drawLine",
           "caller_method": "paintComponent"
@@ -102169,7 +102931,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 612,
+          "line": 613,
           "receiver": "g",
           "method": "setColor",
           "caller_method": "paintComponent"
@@ -102177,7 +102939,15 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 622,
+          "line": 621,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "paintComponent"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+          "line": 623,
           "receiver": "g",
           "method": "drawString",
           "caller_method": "paintComponent"
@@ -102185,7 +102955,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 622,
+          "line": 623,
           "receiver": "msgNumWrapped",
           "method": "toString",
           "caller_method": "paintComponent"
@@ -104001,6 +104771,22 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/domain/df.java",
+          "line": 763,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "performRecursiveSearch"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/domain/df.java",
+          "line": 765,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "performRecursiveSearch"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/domain/df.java",
           "line": 769,
           "receiver": "System",
           "method": "currentTimeMillis",
@@ -104021,6 +104807,14 @@
           "receiver": "msg",
           "method": "setPerformative",
           "caller_method": "performativeItemStateChanged"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/NodeStub.java",
+          "line": 131,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "ping"
         },
         {
           "kind": "unresolved_receiver_call",
@@ -104289,7 +105083,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/gui/GuiAgent.java",
-          "line": 155,
+          "line": 156,
           "receiver": "guiEventQueue",
           "method": "addElement",
           "caller_method": "postGuiEvent"
@@ -104297,7 +105091,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 145,
+          "line": 148,
           "receiver": "a",
           "method": "destroy",
           "caller_method": "postGuiEvent"
@@ -104305,7 +105099,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 149,
+          "line": 152,
           "receiver": "a",
           "method": "destroy",
           "caller_method": "postGuiEvent"
@@ -105048,6 +105842,14 @@
         },
         {
           "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/messaging/OutgoingEncodingFilter.java",
+          "line": 223,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "prepareEnvelope"
+        },
+        {
+          "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/domain/RequestManagementBehaviour.java",
           "line": 176,
           "receiver": "content",
@@ -105528,6 +106330,14 @@
         },
         {
           "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/messaging/MomMessagingService.java",
+          "line": 440,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "processIncomingMessage"
+        },
+        {
+          "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/testagent/TestAgent.java",
           "line": 284,
           "receiver": "msg",
@@ -105760,6 +106570,22 @@
         },
         {
           "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/frame/QualifiedFrame.java",
+          "line": 91,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "putBoolean"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/frame/QualifiedFrame.java",
+          "line": 75,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "putInteger"
+        },
+        {
+          "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/Agent.java",
           "line": 1449,
           "receiver": "cond",
@@ -105873,6 +106699,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/content/frame/LEAPFrameCodec.java",
+          "line": 230,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "read"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/frame/LEAPFrameCodec.java",
           "line": 233,
           "receiver": "stream",
           "method": "readLong",
@@ -105881,9 +106715,25 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/content/frame/LEAPFrameCodec.java",
+          "line": 233,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "read"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/frame/LEAPFrameCodec.java",
           "line": 237,
           "receiver": "stream",
           "method": "readDouble",
+          "caller_method": "read"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/frame/LEAPFrameCodec.java",
+          "line": 237,
+          "receiver": "Double",
+          "method": "valueOf",
           "caller_method": "read"
         },
         {
@@ -105937,6 +106787,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
+          "line": 194,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "read"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
           "line": 203,
           "receiver": "Double",
           "method": "valueOf",
@@ -105953,9 +106811,25 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
+          "line": 218,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "read"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
           "line": 220,
           "receiver": "val",
           "method": "equals",
+          "caller_method": "read"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
+          "line": 222,
+          "receiver": "Boolean",
+          "method": "valueOf",
           "caller_method": "read"
         },
         {
@@ -107169,6 +108043,22 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/imtp/leap/DeliverableDataInputStream.java",
+          "line": 127,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "readObject"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/DeliverableDataInputStream.java",
+          "line": 129,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "readObject"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/DeliverableDataInputStream.java",
           "line": 177,
           "receiver": "decoder",
           "method": "readObject",
@@ -107553,7 +108443,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 547,
+          "line": 548,
           "receiver": "in",
           "method": "close",
           "caller_method": "readPropertiesFromFile"
@@ -107761,17 +108651,9 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 789,
+          "line": 790,
           "receiver": "registeredModel",
           "method": "clear",
-          "caller_method": "refresh"
-        },
-        {
-          "kind": "unresolved_receiver_call",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 791,
-          "receiver": "registeredModel",
-          "method": "add",
           "caller_method": "refresh"
         },
         {
@@ -107779,13 +108661,21 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "line": 792,
           "receiver": "registeredModel",
+          "method": "add",
+          "caller_method": "refresh"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "line": 793,
+          "receiver": "registeredModel",
           "method": "fireTableDataChanged",
           "caller_method": "refresh"
         },
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 794,
+          "line": 795,
           "receiver": "parentModel",
           "method": "clear",
           "caller_method": "refresh"
@@ -107793,7 +108683,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 796,
+          "line": 797,
           "receiver": "parentModel",
           "method": "add",
           "caller_method": "refresh"
@@ -107801,7 +108691,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 797,
+          "line": 798,
           "receiver": "parentModel",
           "method": "fireTableDataChanged",
           "caller_method": "refresh"
@@ -107809,7 +108699,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 804,
+          "line": 805,
           "receiver": "registeredTable",
           "method": "getSelectionModel",
           "caller_method": "refresh"
@@ -107817,7 +108707,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 805,
+          "line": 806,
           "receiver": "parentTable",
           "method": "getSelectionModel",
           "caller_method": "refresh"
@@ -107825,7 +108715,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 806,
+          "line": 807,
           "receiver": "childrenTable",
           "method": "getSelectionModel",
           "caller_method": "refresh"
@@ -107857,7 +108747,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 208,
+          "line": 211,
           "receiver": "nyr",
           "method": "printStackTrace",
           "caller_method": "refreshDFGUI"
@@ -107865,7 +108755,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 210,
+          "line": 213,
           "receiver": "ex",
           "method": "printStackTrace",
           "caller_method": "refreshDFGUI"
@@ -107873,7 +108763,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "line": 213,
+          "line": 216,
           "receiver": "e",
           "method": "printStackTrace",
           "caller_method": "refreshDFGUI"
@@ -107905,7 +108795,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 818,
+          "line": 819,
           "receiver": "foundModel",
           "method": "clear",
           "caller_method": "refreshLastSearchResults"
@@ -107913,7 +108803,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 824,
+          "line": 825,
           "receiver": "foundModel",
           "method": "add",
           "caller_method": "refreshLastSearchResults"
@@ -107921,7 +108811,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 827,
+          "line": 828,
           "receiver": "foundModel",
           "method": "fireTableDataChanged",
           "caller_method": "refreshLastSearchResults"
@@ -107929,7 +108819,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 828,
+          "line": 829,
           "receiver": "foundTable",
           "method": "clearSelection",
           "caller_method": "refreshLastSearchResults"
@@ -108013,6 +108903,14 @@
           "receiver": "t",
           "method": "start",
           "caller_method": "refreshOut"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/rma/rma.java",
+          "line": 1119,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "refreshRemoteAgent"
         },
         {
           "kind": "unresolved_receiver_call",
@@ -108737,9 +109635,25 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+          "line": 746,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "registerSkeleton"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
           "line": 751,
           "receiver": "System",
           "method": "currentTimeMillis",
+          "caller_method": "registerSkeleton"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+          "line": 751,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "registerSkeleton"
         },
         {
@@ -109321,7 +110235,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 888,
+          "line": 889,
           "receiver": "registeredModel",
           "method": "remove",
           "caller_method": "removeAgentDesc"
@@ -109329,7 +110243,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 889,
+          "line": 890,
           "receiver": "registeredModel",
           "method": "fireTableDataChanged",
           "caller_method": "removeAgentDesc"
@@ -109337,7 +110251,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 890,
+          "line": 891,
           "receiver": "registeredTable",
           "method": "clearSelection",
           "caller_method": "removeAgentDesc"
@@ -109393,7 +110307,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 960,
+          "line": 961,
           "receiver": "SwingUtilities",
           "method": "invokeLater",
           "caller_method": "removeAllAgents"
@@ -109433,7 +110347,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 907,
+          "line": 908,
           "receiver": "childrenTable",
           "method": "clearSelection",
           "caller_method": "removeChildren"
@@ -109777,6 +110691,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/imtp/leap/PlatformManagerStub.java",
+          "line": 130,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "removeNode"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/PlatformManagerStub.java",
           "line": 131,
           "receiver": "theDispatcher",
           "method": "dispatchCommand",
@@ -109801,7 +110723,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 916,
+          "line": 917,
           "receiver": "parentModel",
           "method": "remove",
           "caller_method": "removeParent"
@@ -109809,7 +110731,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 917,
+          "line": 918,
           "receiver": "parentModel",
           "method": "fireTableDataChanged",
           "caller_method": "removeParent"
@@ -109817,7 +110739,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 918,
+          "line": 919,
           "receiver": "parentTable",
           "method": "clearSelection",
           "caller_method": "removeParent"
@@ -110032,6 +110954,22 @@
         },
         {
           "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/replication/MainReplicationProxy.java",
+          "line": 127,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "removeReplica"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/PlatformManagerStub.java",
+          "line": 217,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "removeReplica"
+        },
+        {
+          "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/imtp/leap/PlatformManagerStub.java",
           "line": 218,
           "receiver": "theDispatcher",
@@ -110073,7 +111011,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 837,
+          "line": 838,
           "receiver": "foundModel",
           "method": "remove",
           "caller_method": "removeSearchResult"
@@ -110081,7 +111019,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 838,
+          "line": 839,
           "receiver": "foundModel",
           "method": "fireTableDataChanged",
           "caller_method": "removeSearchResult"
@@ -110089,7 +111027,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 840,
+          "line": 841,
           "receiver": "foundTable",
           "method": "clearSelection",
           "caller_method": "removeSearchResult"
@@ -110124,6 +111062,14 @@
           "line": 98,
           "receiver": "e",
           "method": "getSlice",
+          "caller_method": "removeSlice"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/imtp/leap/PlatformManagerStub.java",
+          "line": 174,
+          "receiver": "Boolean",
+          "method": "valueOf",
           "caller_method": "removeSlice"
         },
         {
@@ -110188,6 +111134,14 @@
           "line": 779,
           "receiver": "myLogger",
           "method": "log",
+          "caller_method": "removeTerminatedNode"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/replication/MainReplicationService.java",
+          "line": 799,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "removeTerminatedNode"
         },
         {
@@ -110260,6 +111214,14 @@
           "line": 507,
           "receiver": "tfs",
           "method": "remove",
+          "caller_method": "removeTransition"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/behaviours/FSMBehaviour.java",
+          "line": 507,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "removeTransition"
         },
         {
@@ -111705,7 +112667,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 202,
+          "line": 203,
           "receiver": "socket",
           "method": "receive",
           "caller_method": "run"
@@ -111713,7 +112675,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 217,
+          "line": 218,
           "receiver": "packet",
           "method": "getLength",
           "caller_method": "run"
@@ -111721,7 +112683,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 220,
+          "line": 221,
           "receiver": "packet",
           "method": "getData",
           "caller_method": "run"
@@ -111729,7 +112691,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 223,
+          "line": 224,
           "receiver": "e",
           "method": "getMessage",
           "caller_method": "run"
@@ -111737,7 +112699,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 228,
+          "line": 229,
           "receiver": "response",
           "method": "getBytes",
           "caller_method": "run"
@@ -111745,7 +112707,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 231,
+          "line": 232,
           "receiver": "packet",
           "method": "getAddress",
           "caller_method": "run"
@@ -111753,7 +112715,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 232,
+          "line": 233,
           "receiver": "packet",
           "method": "getPort",
           "caller_method": "run"
@@ -111761,7 +112723,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 238,
+          "line": 239,
           "receiver": "socket",
           "method": "send",
           "caller_method": "run"
@@ -113273,7 +114235,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 958,
+          "line": 959,
           "receiver": "toDispose",
           "method": "dispose",
           "caller_method": "run"
@@ -114321,15 +115283,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 870,
-          "receiver": "evt",
-          "method": "getX",
-          "caller_method": "selAgent"
-        },
-        {
-          "kind": "unresolved_receiver_call",
-          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 870,
+          "line": 871,
           "receiver": "evt",
           "method": "getX",
           "caller_method": "selAgent"
@@ -114339,29 +115293,29 @@
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
           "line": 871,
           "receiver": "evt",
-          "method": "getY",
-          "caller_method": "selAgent"
-        },
-        {
-          "kind": "unresolved_receiver_call",
-          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 871,
-          "receiver": "evt",
-          "method": "getY",
-          "caller_method": "selAgent"
-        },
-        {
-          "kind": "unresolved_receiver_call",
-          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 815,
-          "receiver": "evt",
           "method": "getX",
-          "caller_method": "selMessage"
+          "caller_method": "selAgent"
         },
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 815,
+          "line": 872,
+          "receiver": "evt",
+          "method": "getY",
+          "caller_method": "selAgent"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+          "line": 872,
+          "receiver": "evt",
+          "method": "getY",
+          "caller_method": "selAgent"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+          "line": 816,
           "receiver": "evt",
           "method": "getX",
           "caller_method": "selMessage"
@@ -114371,29 +115325,29 @@
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
           "line": 816,
           "receiver": "evt",
-          "method": "getY",
-          "caller_method": "selMessage"
-        },
-        {
-          "kind": "unresolved_receiver_call",
-          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 816,
-          "receiver": "evt",
-          "method": "getY",
-          "caller_method": "selMessage"
-        },
-        {
-          "kind": "unresolved_receiver_call",
-          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 827,
-          "receiver": "evt",
           "method": "getX",
           "caller_method": "selMessage"
         },
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 827,
+          "line": 817,
+          "receiver": "evt",
+          "method": "getY",
+          "caller_method": "selMessage"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+          "line": 817,
+          "receiver": "evt",
+          "method": "getY",
+          "caller_method": "selMessage"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+          "line": 828,
           "receiver": "evt",
           "method": "getX",
           "caller_method": "selMessage"
@@ -114403,13 +115357,21 @@
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
           "line": 828,
           "receiver": "evt",
+          "method": "getX",
+          "caller_method": "selMessage"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+          "line": 829,
+          "receiver": "evt",
           "method": "getY",
           "caller_method": "selMessage"
         },
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 828,
+          "line": 829,
           "receiver": "evt",
           "method": "getY",
           "caller_method": "selMessage"
@@ -116057,6 +117019,14 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/messaging/PersistentDeliveryService.java",
+          "line": 307,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "serve"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/messaging/PersistentDeliveryService.java",
           "line": 309,
           "receiver": "cmdName",
           "method": "equals",
@@ -116121,6 +117091,22 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java",
+          "line": 903,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "serve"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java",
+          "line": 904,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "serve"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java",
           "line": 908,
           "receiver": "cmdName",
           "method": "equals",
@@ -116153,9 +117139,25 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java",
+          "line": 936,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "serve"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java",
           "line": 938,
           "receiver": "cmdName",
           "method": "equals",
+          "caller_method": "serve"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java",
+          "line": 943,
+          "receiver": "Boolean",
+          "method": "valueOf",
           "caller_method": "serve"
         },
         {
@@ -116316,6 +117318,14 @@
           "line": 434,
           "receiver": "cmdName",
           "method": "equals",
+          "caller_method": "serve"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/replication/MainReplicationService.java",
+          "line": 435,
+          "receiver": "Integer",
+          "method": "valueOf",
           "caller_method": "serve"
         },
         {
@@ -116601,7 +117611,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 103,
+          "line": 104,
           "receiver": "platformName",
           "method": "equals",
           "caller_method": "serveGetMain"
@@ -116609,7 +117619,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 117,
+          "line": 118,
           "receiver": "proto",
           "method": "equals",
           "caller_method": "serveGetMain"
@@ -116617,17 +117627,9 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 87,
+          "line": 88,
           "receiver": "request",
           "method": "indexOf",
-          "caller_method": "serveGetMain"
-        },
-        {
-          "kind": "unresolved_receiver_call",
-          "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 89,
-          "receiver": "request",
-          "method": "substring",
           "caller_method": "serveGetMain"
         },
         {
@@ -116641,15 +117643,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 95,
-          "receiver": "request",
-          "method": "indexOf",
-          "caller_method": "serveGetMain"
-        },
-        {
-          "kind": "unresolved_receiver_call",
-          "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 97,
+          "line": 91,
           "receiver": "request",
           "method": "substring",
           "caller_method": "serveGetMain"
@@ -116657,7 +117651,23 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
+          "line": 96,
+          "receiver": "request",
+          "method": "indexOf",
+          "caller_method": "serveGetMain"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
           "line": 98,
+          "receiver": "request",
+          "method": "substring",
+          "caller_method": "serveGetMain"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
+          "line": 99,
           "receiver": "request",
           "method": "substring",
           "caller_method": "serveGetMain"
@@ -116952,6 +117962,46 @@
         },
         {
           "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/abs/AbsPrimitive.java",
+          "line": 164,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "set"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/abs/AbsPrimitive.java",
+          "line": 176,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "set"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/abs/AbsPrimitive.java",
+          "line": 188,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "set"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/abs/AbsPrimitive.java",
+          "line": 201,
+          "receiver": "Float",
+          "method": "valueOf",
+          "caller_method": "set"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/abs/AbsPrimitive.java",
+          "line": 213,
+          "receiver": "Double",
+          "method": "valueOf",
+          "caller_method": "set"
+        },
+        {
+          "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/gui/APDescriptionPanel.java",
           "line": 128,
           "receiver": "platformName_Field",
@@ -116985,7 +118035,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 604,
+          "line": 605,
           "receiver": "e",
           "method": "printStackTrace",
           "caller_method": "setAdapter"
@@ -117601,7 +118651,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 678,
+          "line": 679,
           "receiver": "fedDFB",
           "method": "setEnabled",
           "caller_method": "setDFfed"
@@ -117689,7 +118739,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 664,
+          "line": 665,
           "receiver": "deregB",
           "method": "setEnabled",
           "caller_method": "setDeregister"
@@ -117804,6 +118854,14 @@
           "line": 176,
           "receiver": "obj",
           "method": "getClass",
+          "caller_method": "setEnabled"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+          "line": 177,
+          "receiver": "Boolean",
+          "method": "valueOf",
           "caller_method": "setEnabled"
         },
         {
@@ -118265,7 +119323,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 657,
+          "line": 658,
           "receiver": "modifyB",
           "method": "setEnabled",
           "caller_method": "setModify"
@@ -119041,7 +120099,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 649,
+          "line": 650,
           "receiver": "regNewB",
           "method": "setEnabled",
           "caller_method": "setRegister"
@@ -119153,17 +120211,9 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 687,
+          "line": 688,
           "receiver": "tab",
           "method": "equalsIgnoreCase",
-          "caller_method": "setTab"
-        },
-        {
-          "kind": "unresolved_receiver_call",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 689,
-          "receiver": "tabbedPane",
-          "method": "setSelectedIndex",
           "caller_method": "setTab"
         },
         {
@@ -119171,13 +120221,21 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "line": 690,
           "receiver": "tabbedPane",
+          "method": "setSelectedIndex",
+          "caller_method": "setTab"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "line": 691,
+          "receiver": "tabbedPane",
           "method": "setTitleAt",
           "caller_method": "setTab"
         },
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 693,
+          "line": 694,
           "receiver": "tab",
           "method": "equalsIgnoreCase",
           "caller_method": "setTab"
@@ -119185,7 +120243,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 694,
+          "line": 695,
           "receiver": "tabbedPane",
           "method": "setSelectedIndex",
           "caller_method": "setTab"
@@ -119193,7 +120251,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 696,
+          "line": 697,
           "receiver": "tabbedPane",
           "method": "setSelectedIndex",
           "caller_method": "setTab"
@@ -119401,7 +120459,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 932,
+          "line": 933,
           "receiver": "screenSize",
           "method": "getWidth",
           "caller_method": "setVisible"
@@ -119409,7 +120467,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 933,
+          "line": 934,
           "receiver": "screenSize",
           "method": "getHeight",
           "caller_method": "setVisible"
@@ -121097,7 +122155,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 617,
+          "line": 618,
           "receiver": "statusField",
           "method": "setText",
           "caller_method": "showStatusMsg"
@@ -123025,7 +124083,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 576,
+          "line": 577,
           "receiver": "event",
           "method": "getSource",
           "caller_method": "stateChanged"
@@ -123033,7 +124091,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 67,
+          "line": 68,
           "receiver": "socket",
           "method": "leaveGroup",
           "caller_method": "stop"
@@ -123041,7 +124099,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
-          "line": 71,
+          "line": 72,
           "receiver": "socket",
           "method": "close",
           "caller_method": "stop"
@@ -123328,6 +124386,14 @@
         },
         {
           "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/core/messaging/PersistentDeliveryProxy.java",
+          "line": 65,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "storeMessage"
+        },
+        {
+          "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/core/messaging/PersistentDeliveryService.java",
           "line": 330,
           "receiver": "System",
@@ -123401,7 +124467,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/domain/ams.java",
-          "line": 1516,
+          "line": 1517,
           "receiver": "pendingNewAgents",
           "method": "put",
           "caller_method": "storeNotification"
@@ -123409,7 +124475,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/domain/ams.java",
-          "line": 1519,
+          "line": 1520,
           "receiver": "pendingDeadAgents",
           "method": "put",
           "caller_method": "storeNotification"
@@ -123417,7 +124483,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/domain/ams.java",
-          "line": 1521,
+          "line": 1522,
           "receiver": "pendingClonedAgents",
           "method": "put",
           "caller_method": "storeNotification"
@@ -123425,7 +124491,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/domain/ams.java",
-          "line": 1523,
+          "line": 1524,
           "receiver": "pendingMovedAgents",
           "method": "put",
           "caller_method": "storeNotification"
@@ -123433,7 +124499,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/domain/ams.java",
-          "line": 1525,
+          "line": 1526,
           "receiver": "pendingRemovedContainers",
           "method": "put",
           "caller_method": "storeNotification"
@@ -124713,7 +125779,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "line": 584,
+          "line": 585,
           "receiver": "tabbedPane",
           "method": "getSelectedIndex",
           "caller_method": "tabStateChanged"
@@ -124745,7 +125811,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 1079,
+          "line": 1080,
           "receiver": "s",
           "method": "length",
           "caller_method": "tail"
@@ -124753,7 +125819,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 1079,
+          "line": 1080,
           "receiver": "s",
           "method": "length",
           "caller_method": "tail"
@@ -124761,7 +125827,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
-          "line": 1079,
+          "line": 1080,
           "receiver": "s",
           "method": "substring",
           "caller_method": "tail"
@@ -128825,7 +129891,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 464,
+          "line": 465,
           "receiver": "propertyPanel",
           "method": "getComponentCount",
           "caller_method": "updateProperties"
@@ -128833,7 +129899,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 466,
+          "line": 467,
           "receiver": "propertiesVector",
           "method": "elements",
           "caller_method": "updateProperties"
@@ -128841,7 +129907,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 467,
+          "line": 468,
           "receiver": "it",
           "method": "hasMoreElements",
           "caller_method": "updateProperties"
@@ -128849,7 +129915,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 468,
+          "line": 469,
           "receiver": "it",
           "method": "nextElement",
           "caller_method": "updateProperties"
@@ -128857,7 +129923,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 475,
+          "line": 476,
           "receiver": "propertyPanel",
           "method": "getComponent",
           "caller_method": "updateProperties"
@@ -128865,7 +129931,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 476,
+          "line": 477,
           "receiver": "singlePanel",
           "method": "getComponent",
           "caller_method": "updateProperties"
@@ -128873,7 +129939,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 478,
+          "line": 479,
           "receiver": "name",
           "method": "equalsIgnoreCase",
           "caller_method": "updateProperties"
@@ -128881,7 +129947,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 478,
+          "line": 479,
           "receiver": "label",
           "method": "getText",
           "caller_method": "updateProperties"
@@ -128889,7 +129955,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 480,
+          "line": 481,
           "receiver": "type",
           "method": "equalsIgnoreCase",
           "caller_method": "updateProperties"
@@ -128897,7 +129963,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 482,
+          "line": 483,
           "receiver": "singlePanel",
           "method": "getComponent",
           "caller_method": "updateProperties"
@@ -128905,7 +129971,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 483,
+          "line": 484,
           "receiver": "newValue",
           "method": "equalsIgnoreCase",
           "caller_method": "updateProperties"
@@ -128913,7 +129979,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 483,
+          "line": 484,
           "receiver": "box",
           "method": "setSelected",
           "caller_method": "updateProperties"
@@ -128921,7 +129987,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 486,
+          "line": 487,
           "receiver": "singlePanel",
           "method": "getComponent",
           "caller_method": "updateProperties"
@@ -128929,7 +129995,7 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 487,
+          "line": 488,
           "receiver": "textField",
           "method": "setText",
           "caller_method": "updateProperties"
@@ -130720,6 +131786,46 @@
         },
         {
           "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/abs/AbsPrimitive.java",
+          "line": 104,
+          "receiver": "Float",
+          "method": "valueOf",
+          "caller_method": "wrap"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/abs/AbsPrimitive.java",
+          "line": 113,
+          "receiver": "Double",
+          "method": "valueOf",
+          "caller_method": "wrap"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/abs/AbsPrimitive.java",
+          "line": 76,
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "caller_method": "wrap"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/abs/AbsPrimitive.java",
+          "line": 85,
+          "receiver": "Integer",
+          "method": "valueOf",
+          "caller_method": "wrap"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/content/abs/AbsPrimitive.java",
+          "line": 94,
+          "receiver": "Long",
+          "method": "valueOf",
+          "caller_method": "wrap"
+        },
+        {
+          "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/imtp/leap/nio/SSLEngineHelper.java",
           "line": 274,
           "receiver": "wrapData",
@@ -131249,14 +132355,6 @@
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/domain/ams.java",
-          "line": 1480,
-          "receiver": "f",
-          "method": "write",
-          "caller_method": "writeAPDescription"
-        },
-        {
-          "kind": "unresolved_receiver_call",
-          "file": "src/jade/src/jade/domain/ams.java",
           "line": 1481,
           "receiver": "f",
           "method": "write",
@@ -131267,7 +132365,7 @@
           "file": "src/jade/src/jade/domain/ams.java",
           "line": 1482,
           "receiver": "f",
-          "method": "flush",
+          "method": "write",
           "caller_method": "writeAPDescription"
         },
         {
@@ -131275,13 +132373,21 @@
           "file": "src/jade/src/jade/domain/ams.java",
           "line": 1483,
           "receiver": "f",
+          "method": "flush",
+          "caller_method": "writeAPDescription"
+        },
+        {
+          "kind": "unresolved_receiver_call",
+          "file": "src/jade/src/jade/domain/ams.java",
+          "line": 1484,
+          "receiver": "f",
           "method": "close",
           "caller_method": "writeAPDescription"
         },
         {
           "kind": "unresolved_receiver_call",
           "file": "src/jade/src/jade/domain/ams.java",
-          "line": 1485,
+          "line": 1486,
           "receiver": "ioe",
           "method": "printStackTrace",
           "caller_method": "writeAPDescription"
@@ -134518,7 +135624,7 @@
           "scope": "initializer_or_block",
           "receiver": "Logger",
           "method": "getMyLogger",
-          "line": 20
+          "line": 21
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -134526,7 +135632,7 @@
           "scope": "initializer_or_block",
           "receiver": "InetAddress",
           "method": "getByName",
-          "line": 39
+          "line": 40
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -134534,7 +135640,7 @@
           "scope": "initializer_or_block",
           "receiver": "mcastGroupAddress",
           "method": "isMulticastAddress",
-          "line": 43
+          "line": 44
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -134542,7 +135648,7 @@
           "scope": "initializer_or_block",
           "receiver": "socket",
           "method": "joinGroup",
-          "line": 50
+          "line": 51
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -134550,7 +135656,7 @@
           "scope": "initializer_or_block",
           "receiver": "socket",
           "method": "setTimeToLive",
-          "line": 51
+          "line": 52
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -134666,6 +135772,14 @@
           "kind": "unsupported_receiver_scope",
           "file": "src/jade/src/jade/core/ProfileImpl.java",
           "scope": "initializer_or_block",
+          "receiver": "Boolean",
+          "method": "valueOf",
+          "line": 108
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/core/ProfileImpl.java",
+          "scope": "initializer_or_block",
           "receiver": "props",
           "method": "load",
           "line": 127
@@ -134684,6 +135798,14 @@
           "scope": "initializer_or_block",
           "receiver": "props",
           "method": "setProperty",
+          "line": 176
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/core/ProfileImpl.java",
+          "scope": "initializer_or_block",
+          "receiver": "Boolean",
+          "method": "valueOf",
           "line": 176
         },
         {
@@ -136104,6 +137226,14 @@
         },
         {
           "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/domain/DFService.java",
+          "scope": "initializer_or_block",
+          "receiver": "Long",
+          "method": "valueOf",
+          "line": 342
+        },
+        {
+          "kind": "unsupported_receiver_scope",
           "file": "src/jade/src/jade/domain/DFSubscriber.java",
           "scope": "initializer_or_block",
           "receiver": "Logger",
@@ -136125,6 +137255,14 @@
           "receiver": "a",
           "method": "getDefaultDF",
           "line": 22
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/domain/FIPAAgentManagement/Envelope.java",
+          "scope": "initializer_or_block",
+          "receiver": "Long",
+          "method": "valueOf",
+          "line": 98
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -144755,97 +145893,9 @@
           "kind": "unsupported_receiver_scope",
           "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
           "scope": "initializer_or_block",
-          "receiver": "Logger",
-          "method": "getMyLogger",
-          "line": 72
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "scope": "initializer_or_block",
-          "receiver": "a",
-          "method": "getParameter",
-          "line": 86
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "scope": "initializer_or_block",
-          "receiver": "logger",
-          "method": "isLoggable",
-          "line": 87
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "scope": "initializer_or_block",
-          "receiver": "logger",
-          "method": "log",
-          "line": 88
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "scope": "initializer_or_block",
-          "receiver": "a",
-          "method": "getCodeBase",
-          "line": 90
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "scope": "initializer_or_block",
-          "receiver": "logger",
-          "method": "isLoggable",
-          "line": 91
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "scope": "initializer_or_block",
-          "receiver": "s",
-          "method": "getLocalPort",
-          "line": 92
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "scope": "initializer_or_block",
-          "receiver": "s",
-          "method": "getPort",
-          "line": 92
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "scope": "initializer_or_block",
-          "receiver": "logger",
-          "method": "log",
-          "line": 92
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "scope": "initializer_or_block",
-          "receiver": "s",
-          "method": "getInputStream",
-          "line": 93
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "scope": "initializer_or_block",
-          "receiver": "s",
-          "method": "getOutputStream",
-          "line": 95
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
-          "scope": "initializer_or_block",
           "receiver": "e",
           "method": "printStackTrace",
-          "line": 98
+          "line": 101
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -144853,6 +145903,94 @@
           "scope": "initializer_or_block",
           "receiver": "a",
           "method": "stop",
+          "line": 101
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "scope": "initializer_or_block",
+          "receiver": "Logger",
+          "method": "getMyLogger",
+          "line": 74
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "scope": "initializer_or_block",
+          "receiver": "a",
+          "method": "getParameter",
+          "line": 89
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "scope": "initializer_or_block",
+          "receiver": "logger",
+          "method": "isLoggable",
+          "line": 90
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "scope": "initializer_or_block",
+          "receiver": "logger",
+          "method": "log",
+          "line": 91
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "scope": "initializer_or_block",
+          "receiver": "a",
+          "method": "getCodeBase",
+          "line": 93
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "scope": "initializer_or_block",
+          "receiver": "logger",
+          "method": "isLoggable",
+          "line": 94
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "scope": "initializer_or_block",
+          "receiver": "s",
+          "method": "getLocalPort",
+          "line": 95
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "scope": "initializer_or_block",
+          "receiver": "s",
+          "method": "getPort",
+          "line": 95
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "scope": "initializer_or_block",
+          "receiver": "logger",
+          "method": "log",
+          "line": 95
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "scope": "initializer_or_block",
+          "receiver": "s",
+          "method": "getInputStream",
+          "line": 96
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "scope": "initializer_or_block",
+          "receiver": "s",
+          "method": "getOutputStream",
           "line": 98
         },
         {
@@ -145730,14 +146868,6 @@
           "scope": "initializer_or_block",
           "receiver": "DFGuiProperties",
           "method": "getIcon",
-          "line": 193
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "DFGuiProperties",
-          "method": "getIcon",
           "line": 194
         },
         {
@@ -145776,9 +146906,9 @@
           "kind": "unsupported_receiver_scope",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
-          "receiver": "generalMenu",
-          "method": "add",
-          "line": 206
+          "receiver": "DFGuiProperties",
+          "method": "getIcon",
+          "line": 199
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -145794,7 +146924,15 @@
           "scope": "initializer_or_block",
           "receiver": "generalMenu",
           "method": "add",
-          "line": 210
+          "line": 208
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "generalMenu",
+          "method": "add",
+          "line": 211
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -145802,7 +146940,7 @@
           "scope": "initializer_or_block",
           "receiver": "refreshItem",
           "method": "setVisible",
-          "line": 211
+          "line": 212
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -145810,7 +146948,7 @@
           "scope": "initializer_or_block",
           "receiver": "jmb",
           "method": "add",
-          "line": 213
+          "line": 214
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -145818,63 +146956,63 @@
           "scope": "initializer_or_block",
           "receiver": "catalogueMenu",
           "method": "add",
-          "line": 223
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "item",
-          "method": "setIcon",
           "line": 224
         },
         {
           "kind": "unsupported_receiver_scope",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
-          "receiver": "catalogueMenu",
-          "method": "add",
+          "receiver": "item",
+          "method": "setIcon",
           "line": 225
         },
         {
           "kind": "unsupported_receiver_scope",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
-          "receiver": "item",
-          "method": "setIcon",
+          "receiver": "catalogueMenu",
+          "method": "add",
           "line": 226
         },
         {
           "kind": "unsupported_receiver_scope",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
-          "receiver": "catalogueMenu",
-          "method": "add",
+          "receiver": "item",
+          "method": "setIcon",
           "line": 227
         },
         {
           "kind": "unsupported_receiver_scope",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
-          "receiver": "item",
-          "method": "setIcon",
+          "receiver": "catalogueMenu",
+          "method": "add",
           "line": 228
         },
         {
           "kind": "unsupported_receiver_scope",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
-          "receiver": "catalogueMenu",
-          "method": "add",
+          "receiver": "item",
+          "method": "setIcon",
           "line": 229
         },
         {
           "kind": "unsupported_receiver_scope",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
+          "receiver": "catalogueMenu",
+          "method": "add",
+          "line": 230
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
           "receiver": "item",
           "method": "setIcon",
-          "line": 230
+          "line": 231
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -145882,7 +147020,7 @@
           "scope": "initializer_or_block",
           "receiver": "catalogueMenu",
           "method": "add",
-          "line": 231
+          "line": 232
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -145890,7 +147028,7 @@
           "scope": "initializer_or_block",
           "receiver": "item",
           "method": "setIcon",
-          "line": 232
+          "line": 233
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -145898,7 +147036,7 @@
           "scope": "initializer_or_block",
           "receiver": "jmb",
           "method": "add",
-          "line": 236
+          "line": 237
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -145906,7 +147044,7 @@
           "scope": "initializer_or_block",
           "receiver": "superDFMenu",
           "method": "add",
-          "line": 240
+          "line": 241
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -145914,7 +147052,7 @@
           "scope": "initializer_or_block",
           "receiver": "item",
           "method": "setIcon",
-          "line": 241
+          "line": 242
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -145922,15 +147060,7 @@
           "scope": "initializer_or_block",
           "receiver": "jmb",
           "method": "add",
-          "line": 242
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "helpMenu",
-          "method": "add",
-          "line": 245
+          "line": 243
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -145944,7 +147074,7 @@
           "kind": "unsupported_receiver_scope",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
-          "receiver": "jmb",
+          "receiver": "helpMenu",
           "method": "add",
           "line": 247
         },
@@ -145952,9 +147082,17 @@
           "kind": "unsupported_receiver_scope",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
+          "receiver": "jmb",
+          "method": "add",
+          "line": 248
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
           "receiver": "DFGuiProperties",
           "method": "getIcon",
-          "line": 256
+          "line": 257
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -145962,14 +147100,6 @@
           "scope": "initializer_or_block",
           "receiver": "bar",
           "method": "add",
-          "line": 257
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "exitB",
-          "method": "setText",
           "line": 258
         },
         {
@@ -145977,7 +147107,7 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "exitB",
-          "method": "setIcon",
+          "method": "setText",
           "line": 259
         },
         {
@@ -145985,8 +147115,16 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "exitB",
-          "method": "setToolTipText",
+          "method": "setIcon",
           "line": 260
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "exitB",
+          "method": "setToolTipText",
+          "line": 261
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -145994,7 +147132,7 @@
           "scope": "initializer_or_block",
           "receiver": "DFGuiProperties",
           "method": "getIcon",
-          "line": 262
+          "line": 263
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146002,14 +147140,6 @@
           "scope": "initializer_or_block",
           "receiver": "bar",
           "method": "add",
-          "line": 263
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "closeB",
-          "method": "setText",
           "line": 264
         },
         {
@@ -146017,7 +147147,7 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "closeB",
-          "method": "setIcon",
+          "method": "setText",
           "line": 265
         },
         {
@@ -146025,8 +147155,16 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "closeB",
-          "method": "setToolTipText",
+          "method": "setIcon",
           "line": 266
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "closeB",
+          "method": "setToolTipText",
+          "line": 267
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146034,7 +147172,7 @@
           "scope": "initializer_or_block",
           "receiver": "DFGuiProperties",
           "method": "getIcon",
-          "line": 269
+          "line": 270
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146042,14 +147180,6 @@
           "scope": "initializer_or_block",
           "receiver": "bar",
           "method": "add",
-          "line": 270
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "refreshB",
-          "method": "setText",
           "line": 271
         },
         {
@@ -146057,7 +147187,7 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "refreshB",
-          "method": "setIcon",
+          "method": "setText",
           "line": 272
         },
         {
@@ -146065,7 +147195,7 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "refreshB",
-          "method": "setToolTipText",
+          "method": "setIcon",
           "line": 273
         },
         {
@@ -146073,8 +147203,16 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "refreshB",
-          "method": "setVisible",
+          "method": "setToolTipText",
           "line": 274
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "refreshB",
+          "method": "setVisible",
+          "line": 275
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146082,7 +147220,7 @@
           "scope": "initializer_or_block",
           "receiver": "bar",
           "method": "addSeparator",
-          "line": 277
+          "line": 278
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146090,14 +147228,6 @@
           "scope": "initializer_or_block",
           "receiver": "bar",
           "method": "add",
-          "line": 281
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "viewB",
-          "method": "setText",
           "line": 282
         },
         {
@@ -146105,7 +147235,7 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "viewB",
-          "method": "setIcon",
+          "method": "setText",
           "line": 283
         },
         {
@@ -146113,8 +147243,16 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "viewB",
-          "method": "setToolTipText",
+          "method": "setIcon",
           "line": 284
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "viewB",
+          "method": "setToolTipText",
+          "line": 285
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146122,14 +147260,6 @@
           "scope": "initializer_or_block",
           "receiver": "bar",
           "method": "add",
-          "line": 287
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "modifyB",
-          "method": "setText",
           "line": 288
         },
         {
@@ -146137,7 +147267,7 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "modifyB",
-          "method": "setIcon",
+          "method": "setText",
           "line": 289
         },
         {
@@ -146145,8 +147275,16 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "modifyB",
-          "method": "setToolTipText",
+          "method": "setIcon",
           "line": 290
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "modifyB",
+          "method": "setToolTipText",
+          "line": 291
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146154,14 +147292,6 @@
           "scope": "initializer_or_block",
           "receiver": "bar",
           "method": "add",
-          "line": 293
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "deregB",
-          "method": "setText",
           "line": 294
         },
         {
@@ -146169,7 +147299,7 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "deregB",
-          "method": "setIcon",
+          "method": "setText",
           "line": 295
         },
         {
@@ -146177,8 +147307,16 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "deregB",
-          "method": "setToolTipText",
+          "method": "setIcon",
           "line": 296
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "deregB",
+          "method": "setToolTipText",
+          "line": 297
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146186,14 +147324,6 @@
           "scope": "initializer_or_block",
           "receiver": "bar",
           "method": "add",
-          "line": 299
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "regNewB",
-          "method": "setText",
           "line": 300
         },
         {
@@ -146201,7 +147331,7 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "regNewB",
-          "method": "setIcon",
+          "method": "setText",
           "line": 301
         },
         {
@@ -146209,8 +147339,16 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "regNewB",
-          "method": "setToolTipText",
+          "method": "setIcon",
           "line": 302
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "regNewB",
+          "method": "setToolTipText",
+          "line": 303
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146218,14 +147356,6 @@
           "scope": "initializer_or_block",
           "receiver": "bar",
           "method": "add",
-          "line": 305
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "searchB",
-          "method": "setText",
           "line": 306
         },
         {
@@ -146233,7 +147363,7 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "searchB",
-          "method": "setIcon",
+          "method": "setText",
           "line": 307
         },
         {
@@ -146241,8 +147371,16 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "searchB",
-          "method": "setToolTipText",
+          "method": "setIcon",
           "line": 308
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "searchB",
+          "method": "setToolTipText",
+          "line": 309
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146250,7 +147388,7 @@
           "scope": "initializer_or_block",
           "receiver": "bar",
           "method": "addSeparator",
-          "line": 311
+          "line": 312
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146258,14 +147396,6 @@
           "scope": "initializer_or_block",
           "receiver": "bar",
           "method": "add",
-          "line": 314
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "fedDFB",
-          "method": "setText",
           "line": 315
         },
         {
@@ -146273,7 +147403,7 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "fedDFB",
-          "method": "setIcon",
+          "method": "setText",
           "line": 316
         },
         {
@@ -146281,8 +147411,16 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "fedDFB",
-          "method": "setToolTipText",
+          "method": "setIcon",
           "line": 317
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "fedDFB",
+          "method": "setToolTipText",
+          "line": 318
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146290,7 +147428,7 @@
           "scope": "initializer_or_block",
           "receiver": "bar",
           "method": "addSeparator",
-          "line": 319
+          "line": 320
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146298,7 +147436,7 @@
           "scope": "initializer_or_block",
           "receiver": "DFGuiProperties",
           "method": "getIcon",
-          "line": 322
+          "line": 323
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146306,14 +147444,6 @@
           "scope": "initializer_or_block",
           "receiver": "bar",
           "method": "add",
-          "line": 323
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "aboutB",
-          "method": "setText",
           "line": 324
         },
         {
@@ -146321,7 +147451,7 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "aboutB",
-          "method": "setIcon",
+          "method": "setText",
           "line": 325
         },
         {
@@ -146329,8 +147459,16 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "aboutB",
-          "method": "setToolTipText",
+          "method": "setIcon",
           "line": 326
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "aboutB",
+          "method": "setToolTipText",
+          "line": 327
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146338,14 +147476,6 @@
           "scope": "initializer_or_block",
           "receiver": "bar",
           "method": "addSeparator",
-          "line": 328
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "bar",
-          "method": "add",
           "line": 329
         },
         {
@@ -146354,7 +147484,15 @@
           "scope": "initializer_or_block",
           "receiver": "bar",
           "method": "add",
-          "line": 331
+          "line": 330
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "bar",
+          "method": "add",
+          "line": 332
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146362,7 +147500,7 @@
           "scope": "initializer_or_block",
           "receiver": "registerPanel",
           "method": "setLayout",
-          "line": 348
+          "line": 349
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146370,14 +147508,6 @@
           "scope": "initializer_or_block",
           "receiver": "registeredTable",
           "method": "setRowHeight",
-          "line": 351
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "registeredTable",
-          "method": "setSelectionMode",
           "line": 352
         },
         {
@@ -146385,23 +147515,15 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "registeredTable",
-          "method": "getColumn",
-          "line": 356
+          "method": "setSelectionMode",
+          "line": 353
         },
         {
           "kind": "unsupported_receiver_scope",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "registeredTable",
-          "method": "getColumnName",
-          "line": 356
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "c",
-          "method": "setHeaderValue",
+          "method": "getColumn",
           "line": 357
         },
         {
@@ -146409,16 +147531,8 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "registeredTable",
-          "method": "getColumn",
-          "line": 358
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "registeredTable",
           "method": "getColumnName",
-          "line": 358
+          "line": 357
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146426,6 +147540,14 @@
           "scope": "initializer_or_block",
           "receiver": "c",
           "method": "setHeaderValue",
+          "line": 358
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "registeredTable",
+          "method": "getColumn",
           "line": 359
         },
         {
@@ -146433,16 +147555,8 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "registeredTable",
-          "method": "getColumn",
-          "line": 360
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "registeredTable",
           "method": "getColumnName",
-          "line": 360
+          "line": 359
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146450,6 +147564,14 @@
           "scope": "initializer_or_block",
           "receiver": "c",
           "method": "setHeaderValue",
+          "line": 360
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "registeredTable",
+          "method": "getColumn",
           "line": 361
         },
         {
@@ -146457,8 +147579,24 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "registeredTable",
+          "method": "getColumnName",
+          "line": 361
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "c",
+          "method": "setHeaderValue",
+          "line": 362
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "registeredTable",
           "method": "addMouseListener",
-          "line": 375
+          "line": 376
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146466,7 +147604,7 @@
           "scope": "initializer_or_block",
           "receiver": "registeredTable",
           "method": "addKeyListener",
-          "line": 390
+          "line": 391
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146474,7 +147612,7 @@
           "scope": "initializer_or_block",
           "receiver": "registerPanel",
           "method": "setLayout",
-          "line": 392
+          "line": 393
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146482,7 +147620,7 @@
           "scope": "initializer_or_block",
           "receiver": "pane",
           "method": "getViewport",
-          "line": 394
+          "line": 395
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146490,7 +147628,7 @@
           "scope": "initializer_or_block",
           "receiver": "registerPanel",
           "method": "add",
-          "line": 395
+          "line": 396
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146498,7 +147636,7 @@
           "scope": "initializer_or_block",
           "receiver": "BorderFactory",
           "method": "createEtchedBorder",
-          "line": 396
+          "line": 397
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146506,7 +147644,7 @@
           "scope": "initializer_or_block",
           "receiver": "registerPanel",
           "method": "setBorder",
-          "line": 396
+          "line": 397
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146514,7 +147652,7 @@
           "scope": "initializer_or_block",
           "receiver": "tabbedPane",
           "method": "addTab",
-          "line": 398
+          "line": 399
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146522,7 +147660,7 @@
           "scope": "initializer_or_block",
           "receiver": "tabbedPane",
           "method": "setSelectedIndex",
-          "line": 399
+          "line": 400
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146530,7 +147668,7 @@
           "scope": "initializer_or_block",
           "receiver": "lastSearchPanel",
           "method": "setLayout",
-          "line": 405
+          "line": 406
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146538,14 +147676,6 @@
           "scope": "initializer_or_block",
           "receiver": "foundTable",
           "method": "setRowHeight",
-          "line": 408
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "foundTable",
-          "method": "setSelectionMode",
           "line": 409
         },
         {
@@ -146553,7 +147683,7 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "foundTable",
-          "method": "setToolTipText",
+          "method": "setSelectionMode",
           "line": 410
         },
         {
@@ -146561,23 +147691,15 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "foundTable",
-          "method": "getColumn",
-          "line": 412
+          "method": "setToolTipText",
+          "line": 411
         },
         {
           "kind": "unsupported_receiver_scope",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "foundTable",
-          "method": "getColumnName",
-          "line": 412
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "c",
-          "method": "setHeaderValue",
+          "method": "getColumn",
           "line": 413
         },
         {
@@ -146585,16 +147707,8 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "foundTable",
-          "method": "getColumn",
-          "line": 414
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "foundTable",
           "method": "getColumnName",
-          "line": 414
+          "line": 413
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146602,6 +147716,14 @@
           "scope": "initializer_or_block",
           "receiver": "c",
           "method": "setHeaderValue",
+          "line": 414
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "foundTable",
+          "method": "getColumn",
           "line": 415
         },
         {
@@ -146609,16 +147731,8 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "foundTable",
-          "method": "getColumn",
-          "line": 416
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "foundTable",
           "method": "getColumnName",
-          "line": 416
+          "line": 415
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146626,6 +147740,14 @@
           "scope": "initializer_or_block",
           "receiver": "c",
           "method": "setHeaderValue",
+          "line": 416
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "foundTable",
+          "method": "getColumn",
           "line": 417
         },
         {
@@ -146633,8 +147755,24 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "foundTable",
+          "method": "getColumnName",
+          "line": 417
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "c",
+          "method": "setHeaderValue",
+          "line": 418
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "foundTable",
           "method": "addMouseListener",
-          "line": 431
+          "line": 432
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146642,7 +147780,7 @@
           "scope": "initializer_or_block",
           "receiver": "lastSearchPanel",
           "method": "setLayout",
-          "line": 434
+          "line": 435
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146650,7 +147788,7 @@
           "scope": "initializer_or_block",
           "receiver": "pane",
           "method": "getViewport",
-          "line": 436
+          "line": 437
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146658,7 +147796,7 @@
           "scope": "initializer_or_block",
           "receiver": "lastSearchPanel",
           "method": "add",
-          "line": 437
+          "line": 438
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146666,7 +147804,7 @@
           "scope": "initializer_or_block",
           "receiver": "BorderFactory",
           "method": "createEtchedBorder",
-          "line": 438
+          "line": 439
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146674,7 +147812,7 @@
           "scope": "initializer_or_block",
           "receiver": "lastSearchPanel",
           "method": "setBorder",
-          "line": 438
+          "line": 439
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146682,7 +147820,7 @@
           "scope": "initializer_or_block",
           "receiver": "tabbedPane",
           "method": "addTab",
-          "line": 440
+          "line": 441
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146690,7 +147828,7 @@
           "scope": "initializer_or_block",
           "receiver": "tablePane",
           "method": "setContinuousLayout",
-          "line": 443
+          "line": 444
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146698,7 +147836,7 @@
           "scope": "initializer_or_block",
           "receiver": "parentPanel",
           "method": "setLayout",
-          "line": 448
+          "line": 449
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146706,14 +147844,6 @@
           "scope": "initializer_or_block",
           "receiver": "parentTable",
           "method": "setRowHeight",
-          "line": 451
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "parentTable",
-          "method": "setSelectionMode",
           "line": 452
         },
         {
@@ -146721,23 +147851,15 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "parentTable",
-          "method": "getColumn",
-          "line": 456
+          "method": "setSelectionMode",
+          "line": 453
         },
         {
           "kind": "unsupported_receiver_scope",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "parentTable",
-          "method": "getColumnName",
-          "line": 456
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "c",
-          "method": "setHeaderValue",
+          "method": "getColumn",
           "line": 457
         },
         {
@@ -146745,16 +147867,8 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "parentTable",
-          "method": "getColumn",
-          "line": 458
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "parentTable",
           "method": "getColumnName",
-          "line": 458
+          "line": 457
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146762,6 +147876,14 @@
           "scope": "initializer_or_block",
           "receiver": "c",
           "method": "setHeaderValue",
+          "line": 458
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "parentTable",
+          "method": "getColumn",
           "line": 459
         },
         {
@@ -146769,16 +147891,8 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "parentTable",
-          "method": "getColumn",
-          "line": 460
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "parentTable",
           "method": "getColumnName",
-          "line": 460
+          "line": 459
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146786,6 +147900,14 @@
           "scope": "initializer_or_block",
           "receiver": "c",
           "method": "setHeaderValue",
+          "line": 460
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "parentTable",
+          "method": "getColumn",
           "line": 461
         },
         {
@@ -146793,8 +147915,24 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "parentTable",
+          "method": "getColumnName",
+          "line": 461
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "c",
+          "method": "setHeaderValue",
+          "line": 462
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "parentTable",
           "method": "addMouseListener",
-          "line": 479
+          "line": 480
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146802,7 +147940,7 @@
           "scope": "initializer_or_block",
           "receiver": "parentPanel",
           "method": "setLayout",
-          "line": 481
+          "line": 482
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146810,7 +147948,7 @@
           "scope": "initializer_or_block",
           "receiver": "pane1",
           "method": "getViewport",
-          "line": 483
+          "line": 484
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146818,7 +147956,7 @@
           "scope": "initializer_or_block",
           "receiver": "parentPanel",
           "method": "add",
-          "line": 484
+          "line": 485
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146826,7 +147964,7 @@
           "scope": "initializer_or_block",
           "receiver": "BorderFactory",
           "method": "createTitledBorder",
-          "line": 485
+          "line": 486
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146834,7 +147972,7 @@
           "scope": "initializer_or_block",
           "receiver": "parentPanel",
           "method": "setBorder",
-          "line": 485
+          "line": 486
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146842,7 +147980,7 @@
           "scope": "initializer_or_block",
           "receiver": "tablePane",
           "method": "setTopComponent",
-          "line": 487
+          "line": 488
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146850,7 +147988,7 @@
           "scope": "initializer_or_block",
           "receiver": "childrenPanel",
           "method": "setLayout",
-          "line": 490
+          "line": 491
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146858,14 +147996,6 @@
           "scope": "initializer_or_block",
           "receiver": "childrenTable",
           "method": "setRowHeight",
-          "line": 493
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "childrenTable",
-          "method": "setSelectionMode",
           "line": 494
         },
         {
@@ -146873,23 +148003,15 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "childrenTable",
-          "method": "getColumn",
-          "line": 497
+          "method": "setSelectionMode",
+          "line": 495
         },
         {
           "kind": "unsupported_receiver_scope",
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "childrenTable",
-          "method": "getColumnName",
-          "line": 497
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "c",
-          "method": "setHeaderValue",
+          "method": "getColumn",
           "line": 498
         },
         {
@@ -146897,16 +148019,8 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "childrenTable",
-          "method": "getColumn",
-          "line": 499
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "childrenTable",
           "method": "getColumnName",
-          "line": 499
+          "line": 498
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146914,6 +148028,14 @@
           "scope": "initializer_or_block",
           "receiver": "c",
           "method": "setHeaderValue",
+          "line": 499
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "childrenTable",
+          "method": "getColumn",
           "line": 500
         },
         {
@@ -146921,16 +148043,8 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "childrenTable",
-          "method": "getColumn",
-          "line": 501
-        },
-        {
-          "kind": "unsupported_receiver_scope",
-          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
-          "scope": "initializer_or_block",
-          "receiver": "childrenTable",
           "method": "getColumnName",
-          "line": 501
+          "line": 500
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146938,6 +148052,14 @@
           "scope": "initializer_or_block",
           "receiver": "c",
           "method": "setHeaderValue",
+          "line": 501
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "childrenTable",
+          "method": "getColumn",
           "line": 502
         },
         {
@@ -146945,8 +148067,24 @@
           "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
           "scope": "initializer_or_block",
           "receiver": "childrenTable",
+          "method": "getColumnName",
+          "line": 502
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "c",
+          "method": "setHeaderValue",
+          "line": 503
+        },
+        {
+          "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "scope": "initializer_or_block",
+          "receiver": "childrenTable",
           "method": "addMouseListener",
-          "line": 519
+          "line": 520
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146954,7 +148092,7 @@
           "scope": "initializer_or_block",
           "receiver": "pane1",
           "method": "getViewport",
-          "line": 522
+          "line": 523
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146962,7 +148100,7 @@
           "scope": "initializer_or_block",
           "receiver": "childrenPanel",
           "method": "add",
-          "line": 523
+          "line": 524
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146970,7 +148108,7 @@
           "scope": "initializer_or_block",
           "receiver": "BorderFactory",
           "method": "createTitledBorder",
-          "line": 524
+          "line": 525
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146978,7 +148116,7 @@
           "scope": "initializer_or_block",
           "receiver": "childrenPanel",
           "method": "setBorder",
-          "line": 524
+          "line": 525
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146986,7 +148124,7 @@
           "scope": "initializer_or_block",
           "receiver": "tablePane",
           "method": "setBottomComponent",
-          "line": 526
+          "line": 527
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -146994,7 +148132,7 @@
           "scope": "initializer_or_block",
           "receiver": "tablePane",
           "method": "setDividerLocation",
-          "line": 527
+          "line": 528
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -147002,7 +148140,7 @@
           "scope": "initializer_or_block",
           "receiver": "tabbedPane",
           "method": "addTab",
-          "line": 530
+          "line": 531
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -147010,7 +148148,7 @@
           "scope": "initializer_or_block",
           "receiver": "tabbedPane",
           "method": "addChangeListener",
-          "line": 531
+          "line": 532
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -147018,7 +148156,7 @@
           "scope": "initializer_or_block",
           "receiver": "statusPanel",
           "method": "setLayout",
-          "line": 539
+          "line": 540
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -147026,7 +148164,7 @@
           "scope": "initializer_or_block",
           "receiver": "BorderFactory",
           "method": "createTitledBorder",
-          "line": 540
+          "line": 541
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -147034,7 +148172,7 @@
           "scope": "initializer_or_block",
           "receiver": "statusPanel",
           "method": "setBorder",
-          "line": 540
+          "line": 541
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -147042,7 +148180,7 @@
           "scope": "initializer_or_block",
           "receiver": "statusField",
           "method": "setEditable",
-          "line": 542
+          "line": 543
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -147050,7 +148188,7 @@
           "scope": "initializer_or_block",
           "receiver": "statusPanel",
           "method": "add",
-          "line": 543
+          "line": 544
         },
         {
           "kind": "unsupported_receiver_scope",
@@ -151790,6 +152928,14 @@
         },
         {
           "kind": "unsupported_receiver_scope",
+          "file": "src/jade/src/jade/util/leap/HashMap.java",
+          "scope": "initializer_or_block",
+          "receiver": "Long",
+          "method": "valueOf",
+          "line": 60
+        },
+        {
+          "kind": "unsupported_receiver_scope",
           "file": "src/jade/src/jade/util/leap/HashSet.java",
           "scope": "initializer_or_block",
           "receiver": "it",
@@ -151901,6 +153047,5 @@
         }
       ]
     }
-  },
-  "awaiting_phase": "RULE_BATCH_LOOP"
+  }
 }

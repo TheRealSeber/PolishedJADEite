@@ -1,0 +1,39 @@
+{
+  "changed_nodes": [],
+  "editable_file_count": 1,
+  "graph_diff_version": 1,
+  "graph_diff_warnings": [
+    {
+      "buckets": {
+        "ambiguous_symbols": 728,
+        "other": 13732,
+        "parse_failures": 2,
+        "unresolved_types": 7162
+      },
+      "kind": "graph_diagnostics",
+      "side": "before"
+    },
+    {
+      "buckets": {
+        "ambiguous_symbols": 728,
+        "other": 13875,
+        "parse_failures": 2,
+        "unresolved_types": 7162
+      },
+      "kind": "graph_diagnostics",
+      "side": "after"
+    }
+  ],
+  "impact_path_truncated": false,
+  "leaked_nodes": [],
+  "out_of_scope_changed_nodes": [],
+  "reason": "No signature change leaks outside the shard editable set",
+  "removed_nodes": [],
+  "rule_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+  "run_id": "jade-11-to-17",
+  "schema_version": 1,
+  "shard_class": "body-local",
+  "shard_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-006",
+  "suggested_shard_expansion": [],
+  "verdict": "PASS"
+}

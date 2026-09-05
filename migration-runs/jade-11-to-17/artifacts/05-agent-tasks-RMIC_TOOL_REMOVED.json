@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "run_id": "jade-11-to-17",
+  "rule_id": "RMIC_TOOL_REMOVED",
+  "mode": "agent",
+  "recipe_skill": "jade-recipe-11-17-rmic-task-removal",
+  "recipe_skill_md": ".claude/skills/java-migration-skill-registry/11-to-17/jade-recipe-11-17-rmic-task-removal/SKILL.md",
+  "blast_class": "body-local",
+  "shard_plan_artifact": "migration-runs/jade-11-to-17/artifacts/05-rule-shards-RMIC_TOOL_REMOVED.json",
+  "artifacts_dir": "migration-runs/jade-11-to-17/artifacts",
+  "workspace_root": "migration-runs/jade-11-to-17/workspace",
+  "verification_hint": "No build file in the workspace contains an <rmic element. 'ant clean lib' inside jade-ant:17 prints BUILD SUCCESSFUL and exits 0, and lib/jade.jar is produced. All consumers still PASS.",
+  "generated_at": "2026-09-05T10:44:46Z",
+  "task_count": 1,
+  "tasks": [
+    {
+      "task_id": "RMIC_TOOL_REMOVED-body-local-001",
+      "shard_id": "RMIC_TOOL_REMOVED-body-local-001",
+      "rule_id": "RMIC_TOOL_REMOVED",
+      "class": "body-local",
+      "parallel_safe": true,
+      "editable_files": [
+        "src/jade/build.xml"
+      ],
+      "read_only_context": [],
+      "entry_points": [
+        {
+          "file": "src/jade/build.xml",
+          "line": 155
+        },
+        {
+          "file": "src/jade/build.xml",
+          "line": 156
+        }
+      ],
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "graph_artifact": "migration-runs/jade-11-to-17/artifacts/03.5-knowledge-graph.json",
+      "result_file": "migration-runs/jade-11-to-17/artifacts/06-agent-result-RMIC_TOOL_REMOVED-RMIC_TOOL_REMOVED-body-local-001.json",
+      "checkpoint_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-11-to-17/artifacts --rule-id RMIC_TOOL_REMOVED --shard-id RMIC_TOOL_REMOVED-body-local-001 --workspace migration-runs/jade-11-to-17/workspace --create",
+      "verify_command": "python .claude/skills/jade-core-verification/scripts/verify_shard.py --artifacts-dir migration-runs/jade-11-to-17/artifacts --rule-id RMIC_TOOL_REMOVED --shard-id RMIC_TOOL_REMOVED-body-local-001",
+      "gate_command": "python .claude/skills/jade-core-verification/scripts/gate_signatures.py --artifacts-dir migration-runs/jade-11-to-17/artifacts --rule-id RMIC_TOOL_REMOVED --shard-id RMIC_TOOL_REMOVED-body-local-001 --before-graph migration-runs/jade-11-to-17/artifacts/03.5-knowledge-graph.json --after-graph migration-runs/jade-11-to-17/artifacts/03.5-knowledge-graph-after-RMIC_TOOL_REMOVED-body-local-001.json",
+      "record_command": "python .claude/skills/jade-core-rule-dispatcher/scripts/dispatcher.py --artifacts-dir migration-runs/jade-11-to-17/artifacts --rule-id RMIC_TOOL_REMOVED --record-agent-result --shard-id RMIC_TOOL_REMOVED-body-local-001 --result-file migration-runs/jade-11-to-17/artifacts/06-agent-result-RMIC_TOOL_REMOVED-RMIC_TOOL_REMOVED-body-local-001.json",
+      "accept_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-11-to-17/artifacts --rule-id RMIC_TOOL_REMOVED --shard-id RMIC_TOOL_REMOVED-body-local-001 --workspace migration-runs/jade-11-to-17/workspace --accept",
+      "rollback_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-11-to-17/artifacts --rule-id RMIC_TOOL_REMOVED --shard-id RMIC_TOOL_REMOVED-body-local-001 --workspace migration-runs/jade-11-to-17/workspace --rollback --reason \"<why>\""
+    }
+  ],
+  "warnings": [
+    {
+      "file": "src/jade/build.xml",
+      "kind": "flagged_file_not_in_graph",
+      "message": "Flagged file is absent from the knowledge graph; isolated shard"
+    }
+  ]
+}

@@ -1,0 +1,284 @@
+Significant Changes in the JDK
+Previous
+Next
+JavaScript must be enabled to correctly display this content
+Oracle JDK Migration Guide
+Significant Changes in the JDK
+2  Significant Changes in the JDK
+Before migrating your application to the latest JDK release, you must understand what the updates and changes are between it and the previous JDK release. If you are migrating from JDK 8, you should also be familiar with the differences between JDK 8 and later releases that are described in  Migrating From JDK 8 to Later JDK Releases .
+See the following sections to learn about some of the significant changes in latest
+JDK releases.
+Significant Changes in JDK 17
+Release
+See  JDK 17 Release Notes  for
+additional descriptions of the new features and enhancements, and API specification
+in JDK 17.
+The following are some of the updates in Java SE 17 and JDK 17:
+New Language Feature
+Sealed Classes, first previewed in Java SE 15, is a permanent
+feature in this release. Sealed classes and interfaces restrict which other
+classes or interfaces may extend or implement them. See  JEP 409: Sealed Classes  and  Sealed Classes  in   Java Platform, Standard Edition Java Language Updates   guide.
+Library Changes
+Applications can now configure context-specific and dynamically
+selected deserialization filters using a JVM-wide filter factory, which is
+invoked to select a filter for each individual deserialization operation. See
+JEP 415: Context-Specific Deserialization
+Filters  and  Serialization Filtering  in
+Java Platform, Standard Edition Core
+Libraries   guide.
+New interface types and implementations for pseudo-random number
+generators (PRNGs) are now available, including jumpable PRNGs and an additional
+class of splittable PRNG algorithms (LXM). See  JEP 356: Enhanced Pseudo-Random Number Generators  and
+Pseudorandom Number
+Generators  in   Java Platform, Standard Edition Core
+Libraries   guide.
+New Java 2D internal rendering pipeline for macOS is implemented
+using the Apple Metal API. This is an alternative to the existing pipeline,
+which uses the deprecated Apple OpenGL API. See  JEP 382: New macOS Rendering Pipeline .
+Other Changes
+By default, all internal elements of the JDK are strongly
+encapsulated, except for critical internal APIs such as
+sun.misc.Unsafe . However, it will no longer be possible to
+relax the strong encapsulation of internal elements using a single command-line
+option, as it was possible in JDK 9 through JDK 16. See  JEP 403: Strongly Encapsulate JDK Internals by Default .
+The floating-point operations are now consistently strict, rather
+than having both strict floating-point semantics ( strictfp ) and
+subtly different default floating-point semantics. See  JEP 306: Restore Always-Strict Floating-Point
+Semantics .
+Deprecations
+The Security Manager and APIs related to it have been deprecated
+for removal in a future release. See  JEP 411: Deprecate the Security Manager for Removal .
+Preview Features and Incubator
+Modules
+See  JEP 12: Preview Features  for more
+information about preview features and  JEP 11: Incubator Modules  for
+more information about incubator modules.
+Pattern matching for  switch  expressions and
+statements is introduced in this release. This feature allows an expression
+to be tested against a number of patterns, each with a specific action, so
+that complex data-oriented queries can be expressed concisely and safely.
+See  JEP 406: Pattern Matching for switch
+(Preview)  and  Pattern Matching for Switch Expressions
+and Statements  in   Java Platform, Standard Edition Java Language Updates   guide.
+Foreign Function & Memory API allows Java programs to interoperate with
+code and data outside of the Java runtime. See  JEP 412: Foreign Function & Memory API (Incubator) .
+The Vector API was introduced in Java SE 16 as an incubating API. In this
+release, enhancements have been incorporated along with performance
+improvements. See  JEP 414: Vector API (Second
+Incubator) .
+Removed APIs, Tools, and Components
+See:
+API Removed in Java SE 17
+Tools and Components Removed and Deprecated in JDK 17
+In addition, there are security related updates that you need to be aware
+of. See:  Security Updates in JDK 17 .
+Significant Changes in JDK 16
+Release
+See  JDK 16 Release Notes  for
+additional descriptions of the new features and enhancements, and API specification
+in JDK 16.
+The following are some of the updates in Java SE 16 and JDK 16:
+The Java programming language is enhanced with pattern matching for
+the  instanceof  operator. This feature allows common logic in a
+program, namely the conditional extraction of components from objects, to be
+expressed more concisely and safely. See  JEP 394: Pattern Matching for instanceof  and  Pattern Matching for instanceof  in   Java Platform, Standard Edition Java Language Updates   guide.
+Records, first previewed in Java SE 14, is a permanent feature in
+this release. The earlier restrictions have been relaxed whereby the inner
+classes can declare members that are either explicitly or implicitly static.
+This includes record class members, which are implicitly static. See  JEP 395: Records  and  Record Classes  in   Java Platform, Standard Edition Java Language Updates   guide.
+By default, all internal elements of the JDK are strongly
+encapsulated, except for critical internal APIs such as
+sun.misc.Unsafe . You can choose the relaxed strong
+encapsulation that has been the default since JDK 9. See  JEP 396: Strongly Encapsulate JDK Internals by Default
+and  Strong Encapsulation in the JDK .
+UNIX domain socket channels have been integrated into JDK 16. See
+JEP 380: Unix-Domain Socket Channels  and  Internet Protocol and UNIX Domain Sockets NIO
+Example  in   Java Platform, Standard Edition Core
+Libraries  .
+The Z Garbage Collector processes the thread stacks concurrently.
+This allows all roots in the JVM to be processed by ZGC in a concurrent phase.
+See  JEP 376: ZGC: Concurrent Thread-Stack
+Processing  and   The Z Garbage Collector  in   Java Platform, Standard Edition HotSpot Virtual Machine Garbage Collection Tuning Guide  .
+The  jpackage  tool, which was incubated in JDK 14,
+is now a permanent feature. The tool packages a Java application into a
+platform-specific package that includes the necessary dependencies. See  JEP 392: Packaging Tool  and   Java Platform, Standard Edition Packaging Tool User's
+Guide  .
+Elastic metaspace overhauls the VM-internal metaspace- and
+class-space-implementation. The unused HotSpot class-metadata (that is
+metaspace ) memory is returned to the operating system. It reduces the
+metaspace footprint and simplify the metaspace code in order to reduce
+maintenance costs. See  JEP 387: Elastic
+Metaspace .
+Preview Features and Incubator
+Modules
+See  Java Language Preview Feature  for more
+information about preview features.
+Sealed classes, a preview feature from JDK 15, is re-previewed
+in this release. Sealed classes and interfaces restrict which other classes
+or interfaces may extend or implement them. There has been several
+refinements in this release, including the introduction of character
+sequences  sealed ,  non-sealed , and
+permits  as contextual keywords. See  JEP 397: Sealed Classes (Second Preview)  and  Sealed Classes  in   Java Platform, Standard Edition Java Language Updates   guide.
+Initial iteration of an incubator module,
+jdk.incubator.vector , is provided to express vector
+computations. It reliably compiles at runtime to optimal vector hardware
+instructions on supported CPU architectures and thus achieve superior
+performance to equivalent scalar computations. See  JEP 338: Vector API (Incubator) .
+Foreign Linker API is introduced that offers statically-typed,
+pure-Java access to native code. This API, along with the Foreign-Memory
+Access API (JEP 393), will simplify the otherwise error-prone process of
+binding to a native library. See  JEP 389: Foreign Linker API (Incubator) .
+Foreign-Memory Access API allows Java programs to safely and efficiently
+access foreign memory outside of the Java heap. See  JEP 393: Foreign-Memory Access API (Third Incubator) .
+Removed APIs, Tools, and Components
+See:
+API Removed in Java SE 16
+Tools and Components Removed and Deprecated in JDK 16
+In addition, there are security related updates that you need to be aware
+of. See:  Security Updates in JDK 16 .
+Significant Changes in JDK 15
+Release
+See  JDK 15 Release Notes  for the
+complete list of new features and enhancements in JDK 15.
+The following are some of the updates in Java SE 15 and JDK 15:
+Text Blocks, first previewed in Java SE 13, is a permanent feature
+in this release and can be used without enabling preview features.
+Text blocks are multiline string literals that avoid the need
+for most escape sequences, automatically format the string in a predictable
+way, and give the developer control over the format when desired. See  JEP 378: Text Blocks  and  Programmer's Guide to Text
+Blocks .
+The Z Garbage Collector (ZGC) is ready to use in production and no
+longer an experimental feature. Enable ZGC by using the command-line option
+-XX:+UseZGC . See  JEP 377: ZGC: A Scalable Low-Latency Garbage Collector
+(Production) .
+Hidden classes are classes that cannot be used directly by the
+bytecode of other classes. Hidden classes are intended for use by frameworks
+that generate classes at run time and use them indirectly through reflection.
+See  JEP 371: Hidden Classes .
+Preview and Incubator
+Features
+See  Java Language Preview Feature  for more
+information about preview features.
+Sealed Classes is a Java language preview feature. Sealed
+classes and interfaces restrict which other classes or interfaces may extend
+or implement them. See  JEP 360: Sealed Classes
+(Preview)  and  Sealed Classes  in   Java Platform, Standard Edition Java Language Updates   guide.
+Pattern Matching for  instanceof , a preview
+feature from Java SE 14, is re-previewed for this release. This feature
+allows common logic in a program, namely the conditional extraction of
+components from objects, to be expressed more concisely and safely. See
+JEP 375: Pattern Matching for instanceof
+(Second Preview)  and  Pattern Matching for the
+instanceof  in   Java Platform, Standard Edition Java Language Updates   guide.
+Records, a preview feature from Java SE 14, is re-previewed for
+this release. Records are classes that act as transparent carriers for
+immutable data. See  JEP 384: Records (Second
+Preview)  and  Record Classes  in   Java Platform, Standard Edition Java Language Updates   guide.
+The Foreign Memory Access API allows Java programs to
+efficiently and safely access foreign memory outside of the Java heap. See
+JEP 383: Foreign-Memory Access API (Second
+Incubator) .
+Removed APIs, Tools, and Components
+See:
+APIs Removed in Java SE 15
+Tools and Components Removed and Deprecated in JDK 15
+In addition, there are security related updates that you need to be aware
+of. See:  Security Updates in JDK 15 .
+Significant Changes in JDK 14
+Release
+The following are some of the changes in Java SE 14 and JDK 14:
+Switch is extended so it can be used as either a statement or an
+expression, so that both forms can use either traditional  case ...
+:  labels (with fall through) or new  case ... ->
+labels (with no fall through), with a further new statement for yielding a value
+from a switch expression. See  JEP 361: Switch Expressions
+(Standard)  and  Java Language Changes .
+G1 is enhanced to improve allocation performance on non-uniform
+memory access (NUMA) memory systems. See  JEP 345: NUMA-Aware Memory Allocation for G1 .
+JDK Flight Recorder data is now available as a data stream allowing
+for continuous monitoring. See  JEP 349: JFR Event
+Streaming .
+New JDK-specific file mapping modes have been added so that the
+FileChannel  API can be used to create
+MappedByteBuffer  instances that refer to non-volatile (NVM)
+memory. See  JEP 352: Non-Volatile Mapped Byte
+Buffers .
+Allows currencies to be formatted with locale-specific accounting
+formats, for example, ($3.27) instead of -$3.27. See  Accounting Currency Format Support .
+Enhanced  com.sun.management.OperatingSystemMXBean
+to ensure that it reports values based on the current operating environment,
+such as a container environment. The MXBean for tools to get information on the
+operating system has been improved for container environments. See  OperatingSystemMXBean made container aware .
+Experimental, Preview, and Incubator Features
+Records  is a   Java language preview feature , which provides a compact syntax
+for declaring classes that are transparent holders for shallowly immutable
+data. See  JEP 359: Records (Preview) .
+Pattern Matching for  instanceof  is a  Java language preview feature  that simplifies the
+instanceof-and-cast  idiom. See  JEP 305: Pattern Matching for instanceof (Preview) .
+Text blocks are multi-line string literals that avoids the need
+for most escape sequences, automatically formats the string in a predictable
+way, and gives the developer control over the format when desired.  Text Blocks were introduced in JDK 13  as a  Preview Feature . Text Blocks is being previewed again
+in JDK 14 with the addition of two new escape sequences. See  JEP 368: Text Blocks (Second Preview) .
+jpackage , a simple tool for packaging
+self-contained Java applications. See  JEP 343: Packaging Tool (Incubator) .
+An API that allows Java programs to efficiently access foreign
+memory outside of the Java heap is introduced. See  JEP 370: Foreign-Memory Access API (Incubator) .
+The Z Garbage Collector (ZGC), previously available only for
+Linux, is introduced as an  experimental feature  on Windows
+and macOS. See  JEP 364: ZGC on macOS  and  JEP 365: ZGC on Windows .
+Removed APIs, Tools, and Components
+See:
+APIs Removed in Java SE 14
+Features and Components Removed in JDK 14
+In addition, there are security related updates that you need to be aware
+of. See:  Security Updates in JDK 14 .
+Significant Changes in JDK 13
+Release
+The following were some of the important enhancements in Java SE 13 and
+JDK 13:
+Dynamic CDS Archiving extends application class-data sharing
+(ApsCDS), which allows dynamic archiving of classes when the Java application
+exits. See  JEP 350: Dynamic CDS Archives .
+Text blocks were added to Java language, which provide developers
+with control over the format when desired. This is a preview language feature.
+See  JEP 355 Text Blocks (Preview)  and  JEP 12: Preview Language and VM Features .
+The  switch  expression, a preview language feature,
+was extended to be used as either a statement or an expression, so that both
+forms can use either traditional labels (with fall through) or new labels (with
+no fall through). It is used with a further new statement for yielding a value
+from a  switch  expression. See  JEP 354: Switch Expressions (Preview)  and  JEP 12: Preview Language and VM Features .
+The implementation used by  java.net.Socket  and
+java.net.ServerSocket  APIs was replaced with a simpler and
+more modern implementation that is easy to maintain and debug. See  JEP 353: Reimplement the Legacy Socket API .
+Support for Unicode 12.1. See  Unicode 12.1 .
+ZGC was enhanced to return unused heap memory to the operating
+system, which enhances the memory footprint of the applications. See  JEP 351 ZGC Uncommit Unused Memory .
+Significant Changes in JDK 12
+Release
+The following were some of the important additions and updates in Java SE
+12 and JDK 12:
+JVM Constants API was introduced to model nominal descriptions of
+key class-file and run-time artifacts, in particular constants that were
+loadable from the constant pool. See  JVM Constant API .
+The  switch  statement was extended so that it can
+be used either as a statement or an expression. This is a preview language
+feature. See  JEP 325: Switch Expressions (Preview)
+and  JEP 12: Preview Language and VM Features .
+Support for Unicode 11.0. See  Unicode 11.0 .
+Square character support was provided for the Japanese Reiwa Era,
+which began on May, 2019. See  Square character support .
+The  NumberFormat  added support for formatting a
+number in its compact form. See  Compact Number Formatting
+Support  .
+Significant Changes in JDK 11
+Release
+JDK 11 had some significant changes too. As JDK 11 is a long term
+support (LTS) release, you should be familiar with the following important changes
+in JDK 11 release:
+Oracle no longer offers JRE and Server JRE downloads;
+consequently, Auto-Update is not available anymore.
+Java Web Start, Java Plugin, and Java Control Panel are not
+available in JDK. See  Removal of the Deployment Stack .
+JavaFX is no longer included in the JDK. It is now available as a
+separate download from  https://openjfx.io/ .
+JAXB and JAX-WS are no longer bundled with JDK. See  Removal of Java EE and CORBA Modules .

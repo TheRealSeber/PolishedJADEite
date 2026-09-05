@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "run_id": "jade-8-to-11-v2",
+  "rule_id": "TLS_ANON_CIPHER_DISABLED",
+  "mode": "agent",
+  "recipe_skill": "jade-recipe-8-11-tls-anon-cipher",
+  "recipe_skill_md": ".claude/skills/java-migration-skill-registry/8-to-11/jade-recipe-8-11-tls-anon-cipher/SKILL.md",
+  "blast_class": "body-local",
+  "shard_plan_artifact": "migration-runs/jade-8-to-11-v2/artifacts/05-rule-shards-TLS_ANON_CIPHER_DISABLED.json",
+  "artifacts_dir": "migration-runs/jade-8-to-11-v2/artifacts",
+  "workspace_root": ".",
+  "verification_hint": "No .java file in the workspace matches (?:TLS|SSL)_(?:DH|ECDH)_anon_ any more, or every remaining match is proven unreachable. A JICP-S handshake between two JADE containers on JDK 11 completes without SSLHandshakeException, and all four consumers still PASS.",
+  "generated_at": "2026-09-05T04:55:24Z",
+  "task_count": 1,
+  "tasks": [
+    {
+      "task_id": "TLS_ANON_CIPHER_DISABLED-body-local-001",
+      "shard_id": "TLS_ANON_CIPHER_DISABLED-body-local-001",
+      "rule_id": "TLS_ANON_CIPHER_DISABLED",
+      "class": "body-local",
+      "parallel_safe": true,
+      "editable_files": [
+        "src/jade/src/jade/imtp/leap/JICP/JICPSPeer.java",
+        "src/jade/src/jade/imtp/leap/SSLHelper.java"
+      ],
+      "read_only_context": [
+        "src/jade/src/jade/imtp/leap/JICP/ConnectionPool.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPConnection.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPPeer.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPSConnection.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPServer.java",
+        "src/jade/src/jade/imtp/leap/JICP/MaskableJICPPeer.java",
+        "src/jade/src/jade/imtp/leap/http/HTTPBEDispatcher.java",
+        "src/jade/src/jade/imtp/leap/http/HTTPFEDispatcher.java",
+        "src/jade/src/jade/imtp/leap/http/HTTPPeer.java",
+        "src/jade/src/jade/imtp/leap/http/HTTPSClientConnection.java",
+        "src/jade/src/jade/imtp/leap/http/HTTPSPeer.java",
+        "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOJICPConnection.java",
+        "src/jade/src/jade/imtp/leap/nio/SSLEngineHelper.java",
+        "src/jade/src/jade/imtp/leap/sms/SMSBEDispatcher.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/JICPSPeer.java",
+          "line": 225
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/SSLHelper.java",
+          "line": 30
+        }
+      ],
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "graph_artifact": "migration-runs/jade-8-to-11-v2/artifacts/03.5-knowledge-graph.json",
+      "result_file": "migration-runs/jade-8-to-11-v2/artifacts/06-agent-result-TLS_ANON_CIPHER_DISABLED-TLS_ANON_CIPHER_DISABLED-body-local-001.json",
+      "checkpoint_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-8-to-11-v2/artifacts --rule-id TLS_ANON_CIPHER_DISABLED --shard-id TLS_ANON_CIPHER_DISABLED-body-local-001 --workspace . --create",
+      "verify_command": "python .claude/skills/jade-core-verification/scripts/verify_shard.py --artifacts-dir migration-runs/jade-8-to-11-v2/artifacts --rule-id TLS_ANON_CIPHER_DISABLED --shard-id TLS_ANON_CIPHER_DISABLED-body-local-001",
+      "gate_command": "python .claude/skills/jade-core-verification/scripts/gate_signatures.py --artifacts-dir migration-runs/jade-8-to-11-v2/artifacts --rule-id TLS_ANON_CIPHER_DISABLED --shard-id TLS_ANON_CIPHER_DISABLED-body-local-001 --before-graph migration-runs/jade-8-to-11-v2/artifacts/03.5-knowledge-graph.json --after-graph migration-runs/jade-8-to-11-v2/artifacts/03.5-knowledge-graph-after-TLS_ANON_CIPHER_DISABLED-body-local-001.json",
+      "record_command": "python .claude/skills/jade-core-rule-dispatcher/scripts/dispatcher.py --artifacts-dir migration-runs/jade-8-to-11-v2/artifacts --rule-id TLS_ANON_CIPHER_DISABLED --record-agent-result --shard-id TLS_ANON_CIPHER_DISABLED-body-local-001 --result-file migration-runs/jade-8-to-11-v2/artifacts/06-agent-result-TLS_ANON_CIPHER_DISABLED-TLS_ANON_CIPHER_DISABLED-body-local-001.json",
+      "accept_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-8-to-11-v2/artifacts --rule-id TLS_ANON_CIPHER_DISABLED --shard-id TLS_ANON_CIPHER_DISABLED-body-local-001 --workspace . --accept",
+      "rollback_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-8-to-11-v2/artifacts --rule-id TLS_ANON_CIPHER_DISABLED --shard-id TLS_ANON_CIPHER_DISABLED-body-local-001 --workspace . --rollback --reason \"<why>\""
+    }
+  ],
+  "warnings": []
+}

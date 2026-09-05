@@ -13,7 +13,7 @@ import tempfile
 from typing import Dict
 
 
-BUCKETS = {"1.5-to-1.6", "1.7", "1.7-to-1.8", "shared"}
+BUCKETS = {"1.5-to-1.6", "1.7", "1.7-to-1.8", "11-to-17", "shared"}
 REGISTRY_SCRIPT_PREFIX = ".claude/skills/java-migration-skill-registry"
 REQUIRED_ENTRY_FIELDS = ("skill", "script", "description")
 # Agent-mode entries (recipe-registry.json entry carrying "mode": "agent")

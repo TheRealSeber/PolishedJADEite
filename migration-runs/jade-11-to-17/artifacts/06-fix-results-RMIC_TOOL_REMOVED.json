@@ -1,0 +1,29 @@
+[
+  {
+    "task_id": "RMIC_TOOL_REMOVED-body-local-001-f000",
+    "rule_id": "RMIC_TOOL_REMOVED",
+    "file": "src/jade/build.xml",
+    "status": "NEEDS_REVIEW",
+    "match_count": 2,
+    "match_region": "lines 154-157",
+    "match_context": "jade-recipe-11-17-rmic-task-removal",
+    "diff_summary": "Removed both <rmic> elements and both JADE-FLAG:RMIC_TOOL_REMOVED comments from the end of the jade target; nothing else in the target changed.",
+    "verification_hint": "No build file in the workspace contains an <rmic element. 'ant clean lib' inside jade-ant:17 prints BUILD SUCCESSFUL and exits 0, and lib/jade.jar is produced. All consumers still PASS.",
+    "errors": [],
+    "warnings": [
+      "verify_shard.py is structurally inapplicable to this shard: editable_files is a single non-.java file (build.xml), so javac rejects it outright (\"Class names, 'build.xml', are only accepted if annotation processing is explicitly requested\"), independent of edit correctness. First invocation also hit BASELINE_JAR_NOT_FOUND (exit 3) because no prior rule commit exists yet -- this is the first rule in the chain. Substituted the recipe's own mandated verification: a real `ant clean lib` build in jade-ant:17 (BUILD SUCCESSFUL, exit 0, jade.jar produced), matching the hard rule that Docker BUILD SUCCESSFUL + exit 0 is the only accepted build proof.",
+      "NEEDS_REVIEW: diff_outside_flagged_region",
+      "NEEDS_REVIEW: multiple_matches"
+    ],
+    "applied_at": "2026-09-05T10:56:22Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-11-to-17/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "RMIC_TOOL_REMOVED-body-local-001"
+  }
+]

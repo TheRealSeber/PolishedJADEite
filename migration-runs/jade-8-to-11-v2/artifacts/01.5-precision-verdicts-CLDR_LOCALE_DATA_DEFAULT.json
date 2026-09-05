@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "rule_id": "CLDR_LOCALE_DATA_DEFAULT",
+  "sample_artifact": "01.5-precision-sample-CLDR_LOCALE_DATA_DEFAULT.json",
+  "sample_hash": "e96b64b2c6cf09b640b7d86db5a4442ad2a34b467e77dbf2d1560399f030e68a",
+  "verdicts": [
+    {
+      "hit_id": "dbd1bd49117bbdf8",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java:226 calls java.text.DateFormat.getDateTimeInstance with style constants only, so the concrete pattern is resolved from the default locale data provider. That provider switched from JRE/COMPAT to CLDR in JDK 9, which is exactly the locale-sensitive formatting the rule describes."
+    },
+    {
+      "hit_id": "3988cfa570dd1058",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/jade/tools/DummyAgent/MsgIndication.java:56 calls java.text.DateFormat.getDateTimeInstance with style constants only, so the concrete pattern is resolved from the default locale data provider. That provider switched from JRE/COMPAT to CLDR in JDK 9, which is exactly the locale-sensitive formatting the rule describes."
+    },
+    {
+      "hit_id": "c3890bdb56fa43e4",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/jade/tools/gui/ACLMessageNode.java:179 calls java.text.DateFormat.getDateTimeInstance with style constants only, so the concrete pattern is resolved from the default locale data provider. That provider switched from JRE/COMPAT to CLDR in JDK 9, which is exactly the locale-sensitive formatting the rule describes."
+    },
+    {
+      "hit_id": "09cb50e447908241",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/jade/tools/gui/ACLTracePanel.java:1729 calls java.text.DateFormat.getDateTimeInstance with style constants only, so the concrete pattern is resolved from the default locale data provider. That provider switched from JRE/COMPAT to CLDR in JDK 9, which is exactly the locale-sensitive formatting the rule describes."
+    },
+    {
+      "hit_id": "29b2c4d14768e281",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/jade/gui/TimeChooser.java:209 calls java.text.DateFormat.getDateTimeInstance with style constants only, so the concrete pattern is resolved from the default locale data provider. That provider switched from JRE/COMPAT to CLDR in JDK 9, which is exactly the locale-sensitive formatting the rule describes."
+    }
+  ]
+}

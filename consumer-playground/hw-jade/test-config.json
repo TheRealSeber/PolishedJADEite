@@ -3,7 +3,7 @@
   "description": "Full ensemble integration test: 4 hotels, 3 flights, 2 travel agencies, 1 customer running FIPA ContractNet negotiation",
   "docker_image": "${TARGET_DOCKER_IMAGE}",
   "main_class": "jade.Boot",
-  "runtime_java_version": 11,
+  "runtime_java_version": 17,
   "source_level": "11",
   "boot_args": [
     "-agents",

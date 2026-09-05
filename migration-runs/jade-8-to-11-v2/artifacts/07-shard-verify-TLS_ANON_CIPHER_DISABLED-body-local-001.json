@@ -1,0 +1,35 @@
+{
+  "baseline_jar": "migration-runs/jade-8-to-11-v2/workspace/src/jade/lib/jade.jar",
+  "baseline_jar_commit": null,
+  "compiled_file_count": 2,
+  "compiled_files": [
+    "src/jade/src/jade/imtp/leap/JICP/JICPSPeer.java",
+    "src/jade/src/jade/imtp/leap/SSLHelper.java"
+  ],
+  "docker_image": "jade-ant:11",
+  "docker_image_config": "config/docker-images.json",
+  "docker_image_registry_key": "java-11",
+  "docker_image_resolution_source": "central-registry",
+  "duration_seconds": 0.83,
+  "error_count": 0,
+  "errors": [],
+  "exit_code": 0,
+  "generated_at": "2026-09-05T01:27:54Z",
+  "javac_encoding": "ISO-8859-1",
+  "javac_log": "07-shard-verify-TLS_ANON_CIPHER_DISABLED-body-local-001.log",
+  "javac_log_excerpt": "\nNote: /ws/src/jade/src/jade/imtp/leap/SSLHelper.java uses unchecked or unsafe operations.\nNote: Recompile with -Xlint:unchecked for details.\n",
+  "javac_source": "11",
+  "javac_target": "11",
+  "rule_id": "TLS_ANON_CIPHER_DISABLED",
+  "run_id": "jade-8-to-11-v2",
+  "schema_version": 1,
+  "shard_class": "body-local",
+  "shard_id": "TLS_ANON_CIPHER_DISABLED-body-local-001",
+  "status": "PASS",
+  "warnings": [
+    {
+      "kind": "baseline_jar_commit_unknown",
+      "message": "No matching commit_hash found in 09-rule-commit-log.json for rule_id=TLS_ANON_CIPHER_DISABLED"
+    }
+  ]
+}

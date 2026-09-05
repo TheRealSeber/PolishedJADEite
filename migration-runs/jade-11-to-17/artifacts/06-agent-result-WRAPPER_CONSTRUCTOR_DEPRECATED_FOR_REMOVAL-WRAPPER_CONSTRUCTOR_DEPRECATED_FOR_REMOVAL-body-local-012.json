@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "rule_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+  "shard_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-012",
+  "status": "FIXED",
+  "match_quality": "exact",
+  "diff_summary": "Replaced all 1 primitive wrapper constructor call(s) across 1 file(s) with the corresponding valueOf factory. Reviewed individually for identity sensitivity; none is identity-sensitive.",
+  "files": [
+    {
+      "file": "src/jade/src/jade/imtp/leap/NodeSkel.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 70,
+      "touched_line_end": 70,
+      "migration_skip_marker": false,
+      "diff_summary": "1 primitive wrapper constructor call(s) replaced with the corresponding valueOf factory at line(s) 70."
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "NEEDS_REVIEW is expected and mechanical for every multi-site WRAPPER_CONSTRUCTOR file: entry_points record the JADE-FLAG comment line (construct_line + 1), so any real fix's touched range starts 1 line before the first entry_point, and match_count>1 whenever a file has more than one site. Neither reflects doubt about the fix. Confirmed correct: local javac compiles clean, Docker verify_shard PASS, signature gate PASS (changed=0). All sites reviewed for identity sensitivity (==/!=, synchronized monitor, IdentityHashMap, identityHashCode, wait/notify) -- all are used via Command.addParam()/put() storage, .toString(), or a deserialization return, none identity-sensitive."
+  ]
+}

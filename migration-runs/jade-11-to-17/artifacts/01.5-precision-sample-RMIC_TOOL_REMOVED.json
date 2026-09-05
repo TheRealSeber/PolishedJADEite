@@ -1,0 +1,97 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "\t\t<rmic classname=\"jade.imtp.rmi.NodeRMIImpl\" base=\"${build}\"/>",
+        "\t</target>",
+        ""
+      ],
+      "context_before": [
+        "\t\t\t</fileset>",
+        "\t\t</copy>",
+        "\t\t"
+      ],
+      "file": "src/jade/build.xml",
+      "hit_id": "833ca26e4381703b",
+      "line": 154,
+      "line_hash": "8bf56fd7f99fe95d",
+      "line_text": "\t\t<rmic classname=\"jade.imtp.rmi.ServiceManagerRMIImpl\" base=\"${build}\"/>",
+      "line_truncated": false,
+      "match_span": [
+        2,
+        7
+      ],
+      "match_text": "<rmic",
+      "pattern_index": 0,
+      "rank": 0
+    },
+    {
+      "context_after": [
+        "\t</target>",
+        "",
+        "\t<!--  ________________________________________________"
+      ],
+      "context_before": [
+        "\t\t</copy>",
+        "\t\t",
+        "\t\t<rmic classname=\"jade.imtp.rmi.ServiceManagerRMIImpl\" base=\"${build}\"/>"
+      ],
+      "file": "src/jade/build.xml",
+      "hit_id": "d3c2ff286698bfbd",
+      "line": 155,
+      "line_hash": "d1d91fc1336a5fd4",
+      "line_text": "\t\t<rmic classname=\"jade.imtp.rmi.NodeRMIImpl\" base=\"${build}\"/>",
+      "line_truncated": false,
+      "match_span": [
+        2,
+        7
+      ],
+      "match_text": "<rmic",
+      "pattern_index": 0,
+      "rank": 1
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-11-to-17/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "8d695ef9548e94d860155707df998021c177a557bc66d4bc254d948eb4f6f7b7",
+  "pattern_revision": 1,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "<\\s*rmic\\b",
+      "reason": "Ant <rmic> task; the rmic tool it drives was removed in JDK 15 and Ant refuses the task on JDK 15+",
+      "target_extensions": [
+        ".xml"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 1,
+    "files_with_hits": 1,
+    "hits_per_pattern": {
+      "0": 2
+    },
+    "max_hits_in_one_file": 2,
+    "population_signature": "189d3a54f0c7948d052e19bfdeef4c3b3d72b4fa1dc086e5fc68993b8fd5ca0d",
+    "total_hits": 2,
+    "truncated": false
+  },
+  "rule_description": "The RMI static stub compiler rmic was deprecated for removal in JDK 13 and removed in JDK 15. JADE's build.xml calls Ant's <rmic> task twice at the end of the 'jade' target to pregenerate JRMP stubs for jade.imtp.rmi.ServiceManagerRMIImpl and jade.imtp.rmi.NodeRMIImpl. On a JDK 17 toolchain Ant refuses the task outright with 'rmic does not exist under Java 15 and higher', so the build stops after javac has already succeeded. This is the only change in the 11-to-17 window that stops the JADE build; everything else in this manifest compiles. Both implementation classes extend java.rmi.server.UnicastRemoteObject, which has generated stubs dynamically since Java 5, so deleting the two pregeneration steps removes a build dependency without removing a runtime capability.",
+  "rule_id": "RMIC_TOOL_REMOVED",
+  "rule_name": "The rmic static stub compiler was removed in JDK 15, breaking the Ant rmic task",
+  "run_id": "jade-11-to-17",
+  "sample_size": 2,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 3,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "bdfa610736beccf3",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "CENSUS",
+  "verification_hint": "No build file in the workspace contains an <rmic element. 'ant clean lib' inside jade-ant:17 prints BUILD SUCCESSFUL and exits 0, and lib/jade.jar is produced. All consumers still PASS.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-11-to-17/workspace"
+}

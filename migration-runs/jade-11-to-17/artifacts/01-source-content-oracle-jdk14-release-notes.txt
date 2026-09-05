@@ -1,0 +1,534 @@
+Consolidated JDK 14 Release Notes
+Skip to content
+Accessibility Policy
+Menu
+QUICK LINKS
+Cloud
+Database
+Java
+AI
+SUGGESTED LINKS
+SUGGESTED SEARCHES
+Country
+Back
+Cloud Account
+Sign in to Cloud
+Sign Up for Free Cloud Tier
+Oracle Account
+Sign-In
+Create an Account
+Help
+Sign Out
+Java
+Technical Details
+Java SE
+Consolidated JDK 14 Release Notes
+Consolidated JDK 14 Release Notes
+All JDK Release Notes
+Java Development Kit 14 Release Notes
+This page contains all of the release notes for JDK 14 General Availability (GA) releases:
+JDK 14.0.2  (GA)
+JDK 14.0.1  (GA)
+JDK 14  (GA)
+Java™ SE Development Kit 14.0.2 (JDK 14.0.2)
+July 14, 2020
+The full version string for this update release is 14.0.2+12 (where "+" means "build"). The  version number is 14.0.2.
+IANA Data 2020a
+JDK 14.0.2 contains IANA time zone data version 2020a. For more information, refer to  Timezone Data Versions in the JRE Software .
+Security Baselines
+The security baselines for the Java Runtime Environment (JRE) at the  time of the release of JDK 14.0.2 are specified in the following table:
+JRE Family Version
+JRE Security Baseline             (Full Version String)
+14
+14.0.2+12
+11
+11.0.8+10
+8
+1.8.0_261-b12
+7
+1.7.0_271-b10
+Keeping the JDK up to Date
+Oracle recommends that the JDK is updated with each Critical Patch Update (CPU).  In order to determine if a release is the latest, the  Security Baseline page  can be used to determine which is the latest version for each release family.
+Critical patch updates, which contain security vulnerability fixes, are announced one year in advance on  Critical Patch Updates, Security Alerts and Bulletins . It is not recommended that this JDK (version 14.0.2) be used after the next critical patch update scheduled for October 20, 2020.
+Removed Features and Options
+security-libs/java.security    ➜   Removal of Comodo Root CA Certificate  The following expired Comodo root CA certificate has been removed from the  cacerts  keystore:
++ alias name "addtrustclass1ca [jdk]"
+Distinguished Name: CN=AddTrust Class 1 CA Root, OU=AddTrust TTP Network, O=AddTrust AB, C=SE
+See  JDK-8225069
+security-libs/java.security    ➜   Removal of DocuSign Root CA Certificate  The following expired DocuSign root CA certificate has been removed from the  cacerts  keystore:
++ alias name "keynectisrootca [jdk]"
+Distinguished Name: CN=KEYNECTIS ROOT CA, OU=ROOT, O=KEYNECTIS, C=FR
+See  JDK-8225068
+Other notes
+core-libs/java.util:collections    ➜   Better Listing of Arrays  The preferred way to copy a collection is to use a "copy constructor." For example, to copy a collection into a new ArrayList, one would write  new ArrayList<>(collection) . In certain circumstances, an additional, temporary copy of the collection's contents might be made in order to improve robustness. If the collection being copied is exceptionally large, then the application should be (aware of/monitor) the significant resources required involved in making the copy.
+JDK-8231800 (not public)
+security-libs/javax.net.ssl    ➜   Default SSLEngine Should Create in Server Role  In JDK 11 and later,  javax.net.ssl.SSLEngine  by default used client mode when handshaking. As a result, the set of default enabled protocols may differ to what is expected.  SSLEngine  would usually be used in server mode. From this JDK release onwards,  SSLEngine  will default to server mode. The  javax.net.ssl.SSLEngine.setUseClientMode​(boolean mode)  method may be used to configure the mode.
+See  JDK-8237474
+core-libs/java.io:serialization    ➜   Improved Serialization Handling  When setting a serialization filter by using  java.io.ObjectInputStream.setObjectInputFilter  the method must be called before reading any objects from the stream. If the methods  readObject  or  readUnshared  are called, the  setObjectInputFilter  method throws  IllegalStateException .
+JDK-8234836 (not public)
+Bug Fixes
+This release also contains fixes for security vulnerabilities described in the  Oracle Critical Patch Update . For a more complete list of the bug fixes included in this release, see the  JDK 14.0.2 Bug Fixes  page.
+Java™ SE Development Kit 14.0.1 (JDK 14.0.1)
+April 14, 2020
+The full version string for this update release is 14.0.1+7 (where "+" means "build"). The  version number is 14.0.1.
+IANA Data 2019c
+JDK 14.0.1 contains IANA time zone data version 2019c. For more information, refer to  Timezone Data Versions in the JRE Software .
+Security Baselines
+The security baselines for the Java Runtime Environment (JRE) at the  time of the release of JDK 14.0.1 are specified in the following table:
+JRE Family Version
+JRE Security Baseline             (Full Version String)
+14
+14.0.1+7
+11
+11.0.7+8
+8
+1.8.0_251-b08
+7
+1.7.0_261-b07
+Keeping the JDK up to Date
+Oracle recommends that the JDK is updated with each Critical Patch Update (CPU).  In order to determine if a release is the latest, the  Security Baseline page  can be used to determine which is the latest version for each release family.
+Critical patch updates, which contain security vulnerability fixes, are announced one year in advance on  Critical Patch Updates, Security Alerts and Bulletins . It is not recommended that this JDK (version 14.0.1) be used after the next critical patch update scheduled for July 14, 2020.
+Bug Fixes
+This release also contains fixes for security vulnerabilities described in the  Oracle Critical Patch Update . For a more complete list of the bug fixes included in this release, see the  JDK 14.0.1 Bug Fixes  page.
+JDK 14 Release Notes
+The following sections are included in these Release Notes:
+Introduction
+What's New in JDK 14 - New Features and Enhancements
+Removed Features and Options
+Deprecated Features and Options
+Other Notes
+Differences Between Oracle JDK and Oracle's OpenJDK
+Introduction
+These notes describe important changes, enhancements, removed APIs and features, deprecated APIs and features, and other information about JDK 14 and Java SE 14. In some cases, the descriptions provide links to additional detailed information about an issue or a change. This page does not duplicate the descriptions provided by the  Java SE 14 (JSR 389) Platform Specification , which provides informative background for all specification changes and might also include the identification of removed or deprecated APIs and features not described here. The Java SE 14 (JSR 389) specification provides links to:
+Annex 1:  The complete  Java SE 14 API Specification .
+Annex 2:  An  annotated API specification  showing the exact differences relative to Java SE 13. Informative background for these changes may be found in the list of approved Change Specification Requests for this release.
+Annex 3:  Java SE 14 Editions of  The Java Language Specification  and  The Java Virtual Machine Specification . The Java SE 14 Editions contain all corrections and clarifications made since the Java SE 13 Editions, as well as additions for new features.
+You should be aware of the content in that document as well as the items described in this page.
+The descriptions on this Release Note page also identify potential compatibility issues that you might encounter when migrating to JDK 14. The  Kinds of Compatibility  page on the OpenJDK wiki identifies three types of potential compatibility issues for Java programs used in these descriptions:
+Source:  Source compatibility preserves the ability to compile existing source code without error.
+Binary:  Binary compatibility is defined in The Java Language Specification as preserving the ability to link existing class files without error.
+Behavioral:  Behavioral compatibility includes the semantics of the code that is executed at runtime.
+See  CSRs Approved for JDK 14  for the list of CSRs closed in JDK 14 and the  Compatibility & Specification Review (CSR)  page on the OpenJDK wiki for general information about compatibility.
+IANA Data 2019c
+JDK 14 contains IANA time zone data version 2019c. For more information, refer to  Timezone Data Versions in the JRE Software .
+What's New in JDK 14 - New Features and Enhancements
+This section describes some of the enhancements in Java SE 14 and JDK 14. In some cases, the descriptions provide links to additional detailed information about an issue or a change. The APIs described here are those that are provided with the Oracle JDK. It includes a complete implementation of the Java SE 14 Platform and additional Java APIs to support developing, debugging, and monitoring Java applications. Another source of information about important enhancements and new features in Java SE 14 and JDK 14 is the  Java SE 14 ( JSR 389)  Platform Specification, which documents the changes to the specification made between Java SE 13 and Java SE 14. This document includes descriptions of those new features and enhancements that are also changes to the specification. The descriptions also identify potential compatibility issues that you might encounter when migrating to JDK 14.
+core-libs
+➜  Accounting Currency Format Support
+Currency format instances with accounting style, in which the amount is formatted in parentheses in some locales, can be obtained by calling  NumberFormat.getCurrencyInstance(Locale)  with the "u-cf-account" Unicode locale extension. For example in  Locale.US , it will format to " ($3.27) " instead of " -$3.27 ". Refer to  CLDR's accounting currency format style  for additional information.
+See  JDK-8215181
+core-libs/java.lang
+➜  JEP 359 Records (Preview)
+In JDK 14, the  Records (JEP 359)  preview feature adds a new class  java.lang.Record . The  java.lang  package is implicitly imported on demand, that is,  import java.lang.* . If code in an existing source file imports some other package on demand, for example,  import com.myapp.*; , and that other package declares a type called  Record , then code in the existing source file which refers to that type will not compile without change. To make the code compile, import the other package's  Record  type using a single-type import, for example,  import com.myapp.Record; .
+See  JDK-8222777
+core-libs/java.nio
+➜  Clarify the Specification of ReadableByteChannel.read() and Related Methods
+The specifications of the  DatagramChannel.receive() ,  FileChannel.read(ByteBuffer,long) ,  ReadableByteChannel.read() , and  ScatteringByteChannel.read()  methods have been updated in this release to specify that an  IllegalArgumentException  is thrown if (any of) the buffer parameter(s) is read-only. This change merely adjusts the specification to match existing long term behavior.
+See  JDK-8164993
+hotspot/gc
+➜  JEP 365 ZGC on Windows
+The Z Garbage Collector (ZGC) is now available as an experimental feature on Windows. To enable it, use the JVM flags  -XX:+UnlockExperimentalVMOptions -XX:+UseZGC . See  JEP 365: ZGC on Windows  for more information.
+See  JDK-8232364
+hotspot/gc
+➜  JEP 364 ZGC on macOS
+The Z Garbage Collector (ZGC) is now available as an experimental feature on macOS. To enable it, use the JVM flags  -XX:+UnlockExperimentalVMOptions -XX:+UseZGC . See  JEP 364: ZGC on macOS  for more information.
+See  JDK-8229358
+hotspot/gc
+➜  Parallel GC Improvements
+Parallel GC has adopted the same task management mechanism for scheduling parallel tasks as other collectors. This might result in significant performance improvements.
+Because of this change, the following product flags have been obsoleted:  -XX:BindGCTaskThreadsToCPUs ,  -XX:UseGCTaskAffinity , and  -XX:GCTaskTimeStampEntries .
+See  JDK-8224666
+hotspot/gc
+➜  JEP 345 NUMA-Aware Memory Allocation for G1
+The G1 garbage collector now tries to allocate and keep objects on the same NUMA node in the young generation across garbage collections. This is similar to Parallel GC NUMA awareness.
+G1 attempts to evenly distribute Humongous and Old regions across all available NUMA nodes using a strict interleave. Placement of objects copied from young to old generation is random.
+These new NUMA-Aware Memory Allocation heuristics are automatically enabled by using the  -XX:+UseNUMA  command line option. See  JEP 345: NUMA-Aware Memory Allocation for G1  for more information.
+See  JDK-8210473
+hotspot/jfr
+➜  JEP 349 JFR Event Streaming
+JDK Flight Recorder (JFR) now supports continuous monitoring of a Java application by allowing events to be consumed dynamically using a new API located in the jdk.jfr.consumer package. The feature is always enabled when using JFR, meaning recorded data up to the last second is available for both in process and out of process consumption. See  JEP 349: JFR Event Streaming  for more information.
+See  JDK-8184193
+security-libs/java.security
+➜  Weak Named Curves in TLS, CertPath, and Signed JAR Disabled by Default
+Weak named curves are disabled by default by adding them to the following  disabledAlgorithms  security properties:  jdk.tls.disabledAlgorithms ,  jdk.certpath.disabledAlgorithms , and  jdk.jar.disabledAlgorithms .  The named curves are listed below.
+With 47 weak named curves to be disabled, adding individual named curves to each  disabledAlgorithms  property would be overwhelming. To relieve this, a new security property,  jdk.disabled.namedCurves , is implemented that can list the named curves common to all of the  disabledAlgorithms  properties. To use the new property in the  disabledAlgorithms  properties, precede the full property name with the keyword  include .  Users can still add individual named curves to  disabledAlgorithms  properties separate from this new property.  No other properties can be included in the  disabledAlgorithms  properties.
+To restore the named curves, remove the  include jdk.disabled.namedCurves  either from specific or from all  disabledAlgorithms  security properties.
+To restore one or more curves, remove the specific named curve(s) from the  jdk.disabled.namedCurves  property.
+Curves that are disabled through  jdk.disabled.namedCurves  include the following:
+secp112r1, secp112r2, secp128r1, secp128r2, secp160k1, secp160r1, secp160r2, secp192k1, secp192r1, secp224k1,  secp224r1, secp256k1, sect113r1, sect113r2, sect131r1, sect131r2, sect163k1, sect163r1, sect163r2, sect193r1, sect193r2, sect233k1, sect233r1, sect239k1, sect283k1, sect283r1, sect409k1, sect409r1, sect571k1, sect571r1, X9.62 c2tnb191v1, X9.62 c2tnb191v2, X9.62 c2tnb191v3, X9.62 c2tnb239v1, X9.62 c2tnb239v2, X9.62 c2tnb239v3, X9.62 c2tnb359v1, X9.62 c2tnb431r1, X9.62 prime192v2, X9.62 prime192v3,  X9.62 prime239v1, X9.62 prime239v2, X9.62 prime239v3, brainpoolP256r1, brainpoolP320r1, brainpoolP384r1, brainpoolP512r1
+Curves that remain enabled are:  secp256r1, secp384r1, secp521r1, X25519, X448
+See  JDK-8233228
+security-libs/javax.xml.crypto
+➜  Apache Santuario Library Updated to Version 2.1.4
+The Apache Santuario library has been upgraded to version 2.1.4. As a result, a new system property  com.sun.org.apache.xml.internal.security.parser.pool-size  has been introduced.
+This new system property sets the pool size of the internal  DocumentBuilder  cache used when processing XML Signatures. The function is equivalent to the  org.apache.xml.security.parser.pool-size  system property used in Apache Santuario and has the same default value of 20.
+See  JDK-8231507
+tools/javac
+➜  Allow Discoverable javac Plugins to be Invoked by Default
+javac "plugins" can now opt-in to be started by default if not started explicitly in the options passed to  javac  from the command-line or in the  options  argument of an API invocation.  This behavior is enabled by implementing the method  Plugin.isDefault()  to return  true .
+See  JDK-8234211
+xml/jaxp
+➜  New Method to SAX ContentHandler for Handling XML Declaration
+A new method  declaration  has been added to  SAX ContentHandler  to receive notification of the XML declaration. By implementing this method, applications can receive the values of version, encoding, and standalone attributes exactly as declared in the input document.
+See  JDK-8230814
+Removed Features and Options
+This section describes the APIs, features, and options that were removed in Java SE 14 and JDK 14. The APIs described here are those that are provided with the Oracle JDK. It includes a complete implementation of the Java SE 14 Platform and additional Java APIs to support developing, debugging, and monitoring Java applications. Another source of information about important enhancements and new features in Java SE 14 and JDK 14 is the  Java SE 14 ( JSR 389)  Platform Specification, which documents changes to the specification made between Java SE 13 and Java SE 14. This document includes the identification of removed APIs and features not described here. The descriptions below might also identify potential compatibility issues that you could encounter when migrating to JDK 14. See  CSRs Approved for JDK 14  for the list of CSRs closed in JDK 14.
+core-libs/java.nio.charsets
+➜  Removal of sun.nio.cs.map System Property
+The system property  sun.nio.cs.map , added in JDK 1.4.1, has been removed. It was provided for applications to help migrate from the old definition of  Shift_JIS , which was equivalent to MS Windows codepage 932, to the one that is defined by IANA. Applications that are using the mapping property will need to designate the correct charset name based on their needs.
+See  JDK-8229960
+deploy
+➜  Removal of netscape.javascript.JSObjectgetWindow Method
+The obsolete  netscape.javascript.JSObject::getWindow  method has been removed.  This method was deprecated in JDK 9. As of JDK 11, there is no longer a useful way to use this method; it always returns  null .
+See  JDK-8222563
+hotspot/gc
+➜  JEP 363 Remove the Concurrent Mark and Sweep (CMS) Garbage Collector
+The CMS garbage collector has been removed.  -XX:UseConcMarkSweepGC  and aliases  -Xconcgc  and  -Xnoconcgc  are obsoleted as well as all CMS specific options (too many to list). See  JEP 363: Remove the Concurrent Mark Sweep (CMS) Garbage Collector  for more information.
+See  JDK-8229049
+security-libs/java.security
+➜  Removed Deprecated java.security.acl APIs
+The deprecated  java.security.acl  APIs have been removed. This includes the following classes in that package:  Acl ,  AclEntry ,  AclNotFoundException ,  Group ,  LastOwnerException ,  NotOwnerException ,  Owner , and  Permission .
+See  JDK-8191138
+security-libs/java.security
+➜  Removal of the Default keytool -keyalg Value
+The default key algorithm for the  keytool -genkeypair  and  keytool -genseckey  commands has been removed. You must now specify the key algorithm by including the  -keyalg  option when using the  -genkeypair  or  -genseckey  commands. If the  -keyalg  option is not specified, the  keytool  will terminate with the error message: "The -keyalg option must be specified".
+See  JDK-8214024
+tools/jar
+➜  JEP 367 Remove the Pack200 Tools and API
+The  pack200  and  unpack200  tools, added in JDK 5.0, have been removed. The class  java.util.jar.Pack200  and the interfaces  java.util.jar.Pack200.Packer  and  java.util.jar.Pack200.Unpacker  have also been removed. These tools and API were deprecated for removal in Java SE 11 with the express intent to remove them in a future release. In addition, in the  jar  tool, the  n  sub-option to  jar c  has been removed. See  JEP 367: Remove the Pack200 Tools and API  for more information.
+See  JDK-8232022
+Deprecated Features and Options
+Additional sources of information about the APIs, features, and options deprecated in Java SE 14 and JDK 14 include:
+The  Deprecated API  page identifies all deprecated APIs including those deprecated in Java SE 14.
+The  Java SE 14 ( JSR 389)  specification documents changes to the specification made between Java SE 13 and Java SE 14 that include the identification of deprecated APIs and features not described here.
+JEP 277: Enhanced Deprecation  provides a detailed description of the deprecation policy. You should be aware of the updated policy described in this document.
+You should be aware of the contents in those documents as well as the items described in this release notes page.
+The descriptions of deprecated APIs might include references to the deprecation warnings of  forRemoval=true  and  forRemoval=false . The  forRemoval=true  text indicates that a deprecated API might be removed from the next major release. The  forRemoval=false  text indicates that a deprecated API is not expected to be removed from the next major release but might be removed in some later release.
+The descriptions below also identify potential compatibility issues that you might encounter when migrating to JDK 14. See  CSRs Approved for JDK 14  for the list of CSRs closed in JDK 14.
+core-libs/java.lang
+➜  Thread Suspend/Resume Are Deprecated for Removal
+The following methods related to thread suspension in  java.lang.Thread  and  java.lang.ThreadGroup  have been terminally deprecated in this release:
+Thread.suspend()
+Thread.resume()
+ThreadGroup.suspend()
+ThreadGroup.resume()
+ThreadGroup.allowThreadSuspension(boolean)
+These methods will be removed in a future release.
+See  JDK-8231602
+client-libs/javax.swing
+➜  Deprecated NSWindowStyleMaskTexturedBackground
+After an upgrade of the macOS SDK used to build the JDK, the behavior of the  apple.awt.brushMetalLook  and  textured  Swing properties has changed. When these properties are set, the title of the frame is still visible.
+It is recommended that the  apple.awt.transparentTitleBar  property be set to  true  to make the title of the frame invisible again. The  apple.awt.fullWindowContent  property can also be used.
+Please note that  Textured window  support was implemented by using the  NSTexturedBackgroundWindowMask  value of  NSWindowStyleMask . However, this was deprecated in macOS 10.12 along with  NSWindowStyleMaskTexturedBackground , which was deprecated in macOS 10.14.
+For additional information, refer to the following documentation:
+apple.awt.brushMetalLook :  https://developer.apple.com/documentation/appkit/nstexturedbackgroundwindowmask?language=objc
+apple.awt.transparentTitleBar : https://developer.apple.com/documentation/appkit/nswindow/1419167-titlebarappearstransparent?language=objc
+apple.awt.fullWindowContent : https://developer.apple.com/documentation/appkit/nsfullsizecontentviewwindowmask
+See  JDK-8240995
+hotspot/gc
+➜  JEP 366 Deprecate the ParallelScavenge + SerialOld GC Combination
+The ParallelScavenge + SerialOld garbage collector combination has been deprecated. Any use of the  UseParallelOldGC  command line option, which is used to enable this garbage collection algorithm combination, will cause a deprecation warning.
+The drop-in replacement is to use the ParallelScavenge + ParallelOld garbage collector through  -XX:+UseParallelGC  on the command line.
+See  JEP 366: Deprecate the ParallelScavenge + SerialOld GC Combination  for more information.
+See  JDK-8233301
+security-libs/javax.crypto
+➜  Deprecated the Legacy Elliptic Curves for Removal
+The following named elliptic curves supported by the  SunEC  provider have been deprecated:
+brainpoolP256r1, brainpoolP320r1, brainpoolP384r1, brainpoolP512r1, secp112r1, secp112r2, secp128r1, secp128r2, secp160k1, secp160r1, secp160r2, secp192k1, secp192r1, secp224k1, secp224r1, secp256k1, sect113r1, sect113r2, sect131r1, sect131r2, sect163k1, sect163r1, sect163r2, sect193r1, sect193r2, sect233k1, sect233r1, sect239k1, sect283k1, sect283r1, sect409k1, sect409r1, sect571k1, sect571r1, X9.62 c2tnb191v1, X9.62 c2tnb191v2, X9.62 c2tnb191v3, X9.62 c2tnb239v1, X9.62 c2tnb239v2, X9.62 c2tnb239v3, X9.62 c2tnb359v1, X9.62 c2tnb431r1, X9.62 prime192v2, X9.62 prime192v3, X9.62 prime239v1, X9.62 prime239v2, X9.62 prime239v3
+The implementations of these curves are targeted to be removed in a subsequent JDK release. A small number of them may be replaced with a more modern implementation.
+See  JDK-8234924
+security-libs/javax.crypto
+➜  Deprecated the OracleUcrypto JCE Provider for Removal
+The OracleUcrypto JCE Provider and its containing module  jdk.crypto.ucrypto  have been deprecated and are subject to removal in a future version of the JDK. See  JEP 362  for more information.
+See  JDK-8234870
+Other notes
+The following notes describe additional changes and information about this release. In some cases, the following descriptions provide links to additional detailed information about an issue or a change.
+client-libs
+➜  Text Visibility Issues in macOS Dark Mode
+A number of bugs have been reported against Dark Mode on macOS which require a fix in the JavaRuntimeSupport framework (JRS); an issue has been filed with Apple:
+FB6798883: The JavaRuntimeSupport.framework does not work properly in Dark Mode
+See  JDK-8231386  and  JDK-8228555  for examples of issues caused by this bug.
+See  JDK-8228555
+core-libs
+➜  Zip File System Throws java.nio.file.NoSuchFileException When the File Does Not Exist and Is Not Being Created
+The Zip File System has been updated to throw  java.nio.file.NoSuchFileException  (a subclass of  IOException ), when  java.nio.file.FileSystems.newFileSystem  is used to create a new file system; the specified Zip or JAR file does not exist, and the Zip provider property  create  is not set to  true .
+See  JDK-8223771
+core-libs/java.io:serialization
+➜  Better Serial Filter Handling
+The  jdk.serialFilter  system property can only be set on the command line.
+If the filter has not been set on the command line, it can be set can be set with  java.io.ObjectInputFilter.Config.setSerialFilter . Setting the jdk.serialFilter with  java.lang.System.setProperty  has no effect.
+JDK-8231422 (not public)
+core-libs/java.lang
+➜  Runtime.exec and ProcessBuilder Argument Restrictions
+Runtime.exec  and  ProcessBuilder  have been updated in this release to tighten the constraints on the quoting of arguments to processes created by these APIs. The changes may impact applications on Microsoft Windows that are deployed with a security manager. The changes have no impact on applications that are run without a security manager.
+In applications where there is no security manager, there is no change in the default behavior and the new restrictions are opt-in. To enable the restrictions, set the system property  jdk.lang.Process.allowAmbiguousCommands  to  false .
+In applications where there is a security manager, the new restrictions are opt-out. To revert to the previous behavior set the system property  jdk.lang.Process.allowAmbiguousCommands  to  true .
+Applications using  Runtime.exec  or  ProcessBuilder  with a security manager to invoke  .bat  or  .cmd  and command names that do not end in " .exe " may be more restrictive in the characters accepted for arguments if they contain double-quote, "&", "|", "<", ">", or "^". The arguments passed to applications may be quoted differently than in previous versions.
+For  .exe  programs, embedded double quotes are allowed and are encoded so they are passed to Windows as literal quotes. In the case where the entire argument has been passed with quotes or must be quoted to encode special characters including space and tab, the encoding ensures they are passed to the application correctly. The restrictions are enforced if there is a security manager and the  jdk.lang.Process.allowAmbiguousCommands  property is " false " or there is no security manager and property is not " false ".
+JDK-8221858 (not public)
+core-libs/java.lang
+➜  Thread Interrupt State Is Always Available
+The specification for  java.lang.Thread::interrupt  allows for an implementation to only track the interrupt state for live threads, and previously this is what occurred. As of this release, the interrupt state of a  Thread  is always available, and if you interrupt a thread  t  before it is started, or after it has terminated, the query  t.isInterrupted()  will return true.
+See  JDK-8229516
+core-libs/java.lang
+➜  Thread.countStackFrames Changed to Unconditionally Throw UnsupportedOperationException
+The terminally deprecated method  Thread.countStackFrames  has been changed in this release to unconditionally throw  UnsupportedOperationException .
+This method will be removed in a future release.
+See  JDK-8205132
+core-libs/java.lang.invoke
+➜  MethodTypefromMethodDescriptorString Requires "getClassLoader" Permission
+MethodType::fromMethodDescriptorString  has been changed in this release. When a security manager is present and the  loader  parameter is null, it performs a RuntimePermission("getClassLoader") security permission check. This check ensures that access to the system class loader is permitted.
+Existing code that calls  MethodType.fromMethodDescriptorString(desc, null)  might get a  SecurityException  if access to the system class loader is denied. The security policy must be configured to grant the permission.  Applications running without a security manager or with a non-null loader are not affected by this change.
+See  JDK-8229785
+core-libs/java.lang.invoke
+➜  MethodHandlesprivateLookupIn Requires PRIVATE Lookup Mode
+MethodHandles::privateLookupIn  has been changed. In this release, the caller  Lookup  must have both  PRIVATE  and  MODULE  access because an application intending to share intra-module access using  MODULE  alone will inadvertently also share deep reflection to its own module.   In addition, if a  Lookup  object is created by  Lookup::in  or  MethodHandles::privateLookupIn  teleporting from one module to another module, the  MODULE  mode is dropped.  In other words,  MethodHandles::privateLookupIn  requires that the caller lookup object must be created by a member from the caller's module and not be produced by cross-module teleporting.
+For example, a lookup object  L  created by calling  MethodHandles.privateLookupIn(C.class, caller)  (where C is a class in module M1, and the caller's lookup class is in module M0) can access public members of public class D in module M2 if:
+M0 and M1 read M2, and
+D is in a package exported from M2 to at least both M0 and M1.
+If D in M2 is accessible to M0 but not to M1, lookup object  L  will fail to lookup members in D in this release, but would have succeeded in previous releases.
+See  JDK-8173978
+core-libs/java.lang.invoke
+➜  Lookupin Throws IllegalArgumentException If requestedLookupClass Is a Primitive Type or an Array Class
+java.lang.invoke.MethodHandles.Lookup::in  method throws  IllegalArgumentException  if the given  requestedLookupClass  is a primitive type, void, or an array class.  A  Lookup  object never intends to allow a lookup class of primitive type, void, or array class. Consequently, the specification of  Lookup::in  has been fixed in Java SE 14.
+See  JDK-8173975
+core-libs/java.lang.invoke
+➜  MethodHandlesprivateLookupIn Might Not Produce a Lookup With Full Privilege Access
+The  Lookup  object produced by  MethodHandles::privateLookupIn  in this release might not have full privilege access. A  Lookup  that possesses both PRIVATE and MODULE access modes is said to possess full privilege access that can be tested with the  Lookup::hasFullPrivilegeAccess  method.
+In previous releases, a  Lookup  returned from  MethodHandles::privateLookupIn  could be used to look up caller-sensitive methods. In Java SE 14, if a  Lookup  does not have full privilege access (even though it has private access mode), it might fail to look up caller-sensitive methods.
+See  JDK-8233527
+core-libs/java.net
+➜  DatagramSocket.send and MulticastSocket.send Throw IllegalArgumentException When Socket Is Not Connected and Packet Doesn't Contain Address
+The  send  methods defined by  DatagramSocket  and  MulticastSocket  have been changed to throw an  IllegalArgumentException  if the socket is not connected and the  DatagramPacket  doesn't have a socket address. Prior to this change, these methods threw a  NullPointerException .
+See  JDK-8233141
+core-libs/java.net
+➜  MulticastSocket getOption(IP_MULTICAST_IF) Returns null when outgoing interface not set
+The  MulticastSocket  method  getOption  has been changed to conform to the behavior described in  StandardSocketOptions.IP_MULTICAST_IF .  MulticastSocket.getOption(StandardSocketOptions.IP_MULTICAST_IF)  now returns  null  if no interface has been set.
+See  JDK-8233307
+core-libs/java.net
+➜  Behavior of MulticastSocket getOption/setOption for IP_MULTICAST_LOOP Conforms With the StandardSocketOptions.IP_MULTICAST_LOOP Specification
+The  MulticastSocket  methods  getOption  and  setOption  have been changed to conform to the behavior described in the  StandardSocketOptions.IP_MULTICAST_LOOP  specification.  MulticastSocket.getOption(StandardSocketOptions.IP_MULTICAST_LOOP)  now returns true if loopback mode is enabled. Setting  MulticastSocket.setOption(StandardSocketOptions.IP_MULTICAST_LOOP, true)  enables loopback mode.
+See  JDK-8233296
+core-libs/java.net
+➜  InetSocketAddress.toString Format Changes for IPv6 Literals and Unresolved Addresses
+The method  InetSocketAddress::toString  has been improved regarding the handling of IPv6 addresses. The implementation now encloses the IPv6 literal in brackets, which adheres to the specification outlined in  RFC2732 .
+Additionally, the string format for unresolved addresses has been changed. The method now represents the literal IP address with the token  <unresolved> , for example:  foo/<unresolved>:80  instead of  foo:80 . This is based on  InetAddress::toString , which returns a string of the form "hostname / literal IP address".
+To retrieve a string representation of the hostname, or the string form of the address if it doesn't have a hostname, use  InetSocketAddress::getHostString , rather than parsing the string representation.
+See  JDK-8225499
+core-libs/java.nio
+➜  DatagramChannel.disconnect Might Leave the Channel's Socket in an Unspecified State
+The  DatagramChannel  implementation has been updated in this release so that the  disconnect  method attempts to workaround Linux kernel behavior that reverts the local port to 0 after dissolving the association. The issue arises when a  DatagramChannel  is initially bound to an ephemeral port, connected (by calling its  connect  method), and then disconnected (by calling its  disconnect  method). The workaround in the  DatagramChannel::disconnect  is to attempt to re-bind the channel's socket to its original port. This usually succeeds, but if it fails, an  IOException  is thrown. This workaround has been used in the  DatagramSocket  implementation for several releases.
+As part of this change, the  javadoc  for  DatagramChannel::disconnect  has been updated with an API note to make it clear that an  IOException  might leave the channel's socket in an unspecified state. The API note also strongly recommends that the channel be closed when the  disconnect  fails.
+See  JDK-8231260
+core-libs/java.rmi
+➜  Improve Registry Support
+The  java.rmi.Remote  marker interface identifies interfaces containing methods that can be invoked remotely by using the following specification:
+Methods declared in interfaces that directly or indirectly extend  java.rmi.Remote  can be invoked remotely
+Methods declared in interfaces that do not extend  Remote  directly or indirectly CANNOT be invoked remotely
+This affects remote objects in the  java.rmi.registry.Registry  and any other remote object.
+JDK-8230967 (not public)
+core-libs/java.text
+➜  Plural Support in CompactNumberFormat
+java.text.CompactNumberFormat  is now capable of dealing with plural forms. For example, the number  2,000,000  is formatted to  "2 Millionen"  in  LONG  style, whereas  1,000,000  to  "1 Million"  in the German language.
+See  JDK-8222756
+core-libs/java.util.jar
+➜  ZipFileInputStreamskip handling of negative values
+When accessing a STORED entry within a Zip file using  ZipFileInputStream ,  a negative value may be specified in order to skip backwards within the STORED entry and  a negative value is returned indicating the number of bytes skipped backwards.  If the specified value would move beyond the beginning of the file, the position is set to the beginning of the file and a negative value is returned indicating the number of bytes moved from the current position to the beginning of the file.
+When accessing a DEFLATED entry within a Zip file using  ZipFileInflaterInputStream  and a negative value is specified to the skip method, an  IllegalArgumentException  will be thrown.
+See  JDK-8231451
+core-libs/java.util:i18n
+➜  Upgraded CLDR to v36
+Locale data based on Unicode Consortium's CLDR has been upgraded to their version 36. For the detailed locale data changes, please refer to the Unicode Consortium's CLDR release notes:
+http://cldr.unicode.org/index/downloads/cldr-36
+See  JDK-8231273
+core-libs/javax.lang.model
+➜  ExecutableElement.getReceiverType Changed to Return NOTYPE Rather Than null
+The specification for  ExecutableElement.getReceiverType  requires it to return  NOTYPE  when a receiver type is not defined. The implementation has been changed to return  NOTYPE  in this case rather than null.
+See  JDK-8222369
+core-libs/javax.naming
+➜  DnsClient TCP Socket Timeout
+The semantics of the  com.sun.jndi.dns.timeout.initial  property of the JNDI DNS provider implementation have been amended. The value of this timeout now uniformly applies to both UDP and TCP queries. Previously it applied only to UDP queries.
+See  JDK-8228580
+core-svc/java.lang.management
+➜  OperatingSystemMXBean Methods Inside a Container Return Container Specific Data
+When executing in a container, or other virtualized operating environment, the following  OperatingSystemMXBean  methods in this release return container specific information, if available. Otherwise, they return host specific data:
+getFreePhysicalMemorySize()
+getTotalPhysicalMemorySize()
+getFreeSwapSpaceSize()
+getTotalSwapSpaceSize()
+getSystemCpuLoad()
+See  JDK-8226575
+hotspot/compiler
+➜  Turned Off AOT by Default and Changed Related Flags to Experimental
+The default value of  UseAOT  has been changed from  enabled  to  disabled , and the following AOT support related flags have been changed to experimental:
+UseAOT
+PrintAOT
+AOTLibrary
+See  JDK-8227439
+hotspot/gc
+➜  Shenandoah self-fixing barriers
+Before this improvement, Shenandoah LRB barrier performance penalty for accessing forwarded objects involved resolving through the forwarding pointer, until the Update References phase fixed the affected references. A more efficient implementation ships now, where LRB self-fixes the forwarded reference on the same code path, eliminating continuous resolves for potentially hot accesses.
+Self-fixing is implemented for C1 and C2 ( JDK-8231087 ), interpreter ( JDK-8232992 ) and runtime ( JDK-8232010 ) barriers.
+See  JDK-8231087
+hotspot/gc
+➜  Epsilon warns about Xms/Xmx/AlwaysPreTouch configuration
+Many Epsilon GC users expect low latency, but may not be aware that additional configuration is needed for GCs to perform well in those conditions. It now warns about Xms/Xmx/AlwaysPreTouch configuration. These settings are not adjusted automatically, because doing so would affect startup time. These new warnings can be shunned by overriding the default logging level with -Xlog:gc=error.
+See  JDK-8232051
+hotspot/gc
+➜  Shenandoah asynchronous object/region pinning
+When dealing with JNI Get*Critical methods, Shenandoah employs object/region pinning, instead of using the GCLocker. Until now, the inefficient pinning implementation have caused real-world scalability problems on workloads that use a lot of JNI, for example gzip and graphics. This was improved, and scalability bottleneck should be resolved. This fix was also backported to 8-shenandoah and 11-shenandoah.
+See  JDK-8232575
+hotspot/gc
+➜  Epsilon does not extend TLABs to max size
+Due to a simple implementation bug, Epsilon GC did not extend the size of the issued TLABs to the max size configured by user, or set by default. This bug might have introduced performance penalties and was generally confusing during performance analysis. This is now fixed and backported to 13u and 11u. Users are advised to double-check their performance results before and after this update.
+See  JDK-8230646
+hotspot/gc
+➜  Shenandoah supports concurrent class unloading
+As of JDK 14, Shenandoah GC supports concurrent class unloading. It improves the prior stop-the-world implementation to be fully concurrent, which minimizes the class unloading work done during Final Mark pause. This also enables class unloading for the regular GC cycles by default, in addition to already enabled class unloading during degenerated and full GC cycles. This relies heavily on runtime facilities introduced in JDK 12, and therefore not available in 11-shenandoah and 8-shenandoah.
+See  JDK-8226241
+hotspot/gc
+➜  Shenandoah arraycopy improvements
+When handling Object[] arraycopy, Shenandoah used to evacuate array elements / fix references in the destination array after the copy. This is not efficient when multiple copies are done, as fixups would have to run on every copy. Plus, the fixups in the destination array do not improve the accesses to the source array.
+Unfortunately, this was the only way to deal with arraycopy until the GC API was extended. In JDK 14 with GC API improvements, Shenandoah is now able to fix up object arrays at source before the arraycopy, which improves performance and opens up other optimization opportunities.
+See  JDK-8231086
+hotspot/gc
+➜  Shenandoah supports JFR Leak Profiler
+After the recent improvements in runtime, users should now be able to use JFR Leak Profiler with Shenandoah GC. This is only available with JDK 14 onwards.
+See  JDK-8235685
+hotspot/runtime
+➜  Added -XX+AdjustStackSizeForTLS Flag
+The  glibc  library allocates some thread-local storage (TLS) in the stack of a newly created thread, leaving less stack than requested for the thread to do its work. This is particularly a problem for threads with small stack sizes. It is an inherited issue from a well-known  glibc  problem, 'Program with large TLS segments fail' [0] and has been observed in Java applications. In one of the reported JVM failure instances, the issue manifests as a  StackOverflowError  on the process reaper thread, which has a small stack size. The  java.lang.Thread  constructor enables users to specify the stack size for a new thread. The created thread may encounter the TLS problem when the specified size is too small to accommodate the on-stack TLS blocks.
+In JDK 8, a system property,  jdk.lang.processReaperUseDefaultStackSize , was introduced to address the TLS issue only for reaper threads. Setting the property gives a bigger stack size to the reaper threads.
+To address the issue for all threads, a general purpose workaround was implemented in Java which adjusts thread stack size for TLS. It can be enabled by using the  AdjustStackSizeForTLS  command-line option:
+-XX:+AdjustStackSizeForTLS
+When creating a new thread, if  AdjustStackSizeForTLS  is true, the static TLS area size is added to the user requested stack size.  AdjustStackSizeForTLS  is disabled by default.
+Reference:
+[0]  Bug 11787 - Program with large TLS segments fail
+See  JDK-8225035
+hotspot/runtime
+➜  Detailed Message in NullPointerExceptions
+A new option is available to provide more helpful  NullPointerException  messages:
+-XX:+ShowCodeDetailsInExceptionMessages
+If the option is set, on encountering a null pointer, the JVM analyzes the program to determine which reference was  null  and then provides the details as part of  NullPointerException.getMessage() . In addition to the exception message, the method, filename, and line number are also returned.
+By default, this option is disabled.
+See  JDK-8218628
+hotspot/runtime
+➜  CDS Behavior Change With Non-existent Files During Archive Creation
+In JDK 14, CDS runtime classpath validation is now more forgiving when dealing with files in the classpath that do not exist.
+At CDS archive dump time, all non-existent elements in the classpath are automatically stripped. For example, if the command is:
+java -cp nosuchfile.jar:hello.jar -Xshare:dump \
+-XX:SharedClassListFile=hello.classlist \
+-XX:SharedArchiveFile=hello.jsa
+after removing the non-existing elements, the classpath recorded in  hello.jsa  becomes  hello.jar .
+Also, at run time, when the CDS archive is loaded, all non-existent elements in the classpath are ignored. With the previous example, all of the following commands will successfully load the archive:
+(1)
+java -cp nosuchfile.jar:hello.jar -Xshare:on \
+-XX:SharedArchiveFile=hello.jsa \
+Hello
+(2)
+java -cp hello.jar -Xshare:on \
+-XX:SharedArchiveFile=hello.jsa \
+Hello
+(3)
+java -cp alsonosuchfile.jar:hello.jar -Xshare:on \
+-XX:SharedArchiveFile=hello.jsa \
+Hello
+In JDK 13 and earlier, only (1) is allowed while (2) and (3) would trigger an error.
+See  JDK-8227370
+security-libs/java.security
+➜  Exact Match Required for Trusted TLS Server Certificate
+A TLS server certificate must be an exact match of a trusted certificate on the client in order for it to be trusted when establishing a TLS connection.
+JDK-8227758 (not public)
+security-libs/java.security
+➜  New Checks on Trust Anchor Certificates
+New checks have been added to ensure that trust anchors are CA certificates and contain proper extensions. Trust anchors are used to validate certificate chains used in TLS and signed code. Trust anchor certificates must include a Basic Constraints extension with the cA field set to true. Also, if they include a Key Usage extension, the keyCertSign bit must be set.
+A new system property named  jdk.security.allowNonCaAnchor  has been introduced to restore the previous behavior, if necessary. If the property is set to the empty String or "true" (case-insensitive), trust anchor certificates can be used if they do not have proper CA extensions.
+The default value of this property, if not set, is "false".
+Note that the property does not apply to X.509 v1 certificates (since they don't support extensions).
+This property is currently used by the JDK implementation. It is not guaranteed to be supported by other Java SE implementations.
+JDK-8230318 (not public)
+security-libs/java.security
+➜  Added LuxTrust Global Root 2 Certificate
+The following root certificate has been added to the cacerts truststore:
++ LuxTrust
++ luxtrustglobalroot2ca
+DN: CN=LuxTrust Global Root 2, O=LuxTrust S.A., C=LU
+See  JDK-8232019
+security-libs/java.security
+➜  Added 4 Amazon Root CA Certificates
+The following root certificates have been added to the cacerts truststore:
++ Amazon
++ amazonrootca1
+DN: CN=Amazon Root CA 1, O=Amazon, C=US
++ amazonrootca2
+DN: CN=Amazon Root CA 2, O=Amazon, C=US
++ amazonrootca3
+DN: CN=Amazon Root CA 3, O=Amazon, C=US
++ amazonrootca4
+DN: CN=Amazon Root CA 4, O=Amazon, C=US
+See  JDK-8233223
+security-libs/javax.crypto
+➜  Protected javax.crypto.Cipher Constructor Throws IAE for Non-null Invalid Arguments
+The protected constructor of  javax.crypto.Cipher  has been changed to throw  IllegalArgumentException  instead of  NullPointerException  if the supplied arguments are deemed invalid for constructing the  Cipher  object. If the provider argument is null, the constructor will throw  NullPointerException  as before. Both exceptions are now documented in the javadoc specification of the protected constructor.
+See  JDK-8233016
+security-libs/javax.crypto
+➜  SunJCE Provider Throws NoSuchAlgorithmException for AES/GCM/PKCS5Padding
+Prior to this release, the SunJCE provider incorrectly returned a  Cipher  instance for the "AES/GCM/NoPadding" transformation when a caller requested "AES/GCM/PKCS5Padding". The SunJCE provider now throws  NoSuchAlgorithmException  when "AES/GCM/PKCS5Padding" is requested. If you are impacted by this issue, the workaround is to use "AES/GCM/NoPadding" instead.
+See  JDK-8180392
+security-libs/javax.net.ssl
+➜  Remove Obsolete NIST EC Curves from the Default TLS Algorithms
+This change removes obsolete NIST EC curves from the default Named Groups used during TLS negotiation. The curves removed are sect283k1, sect283r1, sect409k1, sect409r1, sect571k1, sect571r1, and secp256k1.
+To re-enable these curves, use the  jdk.tls.namedGroups  system property. The property contains a comma-separated list within quotation marks of enabled named groups in preference order.  For example:
+java -Djdk.tls.namedGroups="x25519, secp256r1, secp384r1, secp521r1, x448, sect283k1, sect283r1, sect409k1, sect409r1, sect571k1, sect571r1, secp256k1, ffdhe2048, ffdhe3072, ffdhe4096, ffdhe6144, ffdhe8192" ...
+JDK-8228825 (not public)
+security-libs/javax.net.ssl
+➜  Removed SSLv2Hello and SSLv3 From Default Enabled TLS Protocols
+SSLv2Hello and SSLv3 have been removed from the default enabled TLS protocols.
+After this update, if SSLv3 is removed from the  jdk.tls.disabledAlgorithms  security property, the  SSLSocket.getEnabledProtocols() ,  SSLServerSocket.getEnabledProtocols() ,  SSLEngine.getEnabledProtocols()  and  SSLParameters.getProtocols()  APIs will return "TLSv1.3, TLSv1.2, TLSv1.1, TLSv1". "SSLv3" will not be returned in this list.
+If a client or server still needs to use the SSLv3 protocol they can do so by enabling it through the  jdk.tls.client.protocols  or  jdk.tls.server.protocols  system properties or with the  SSLSocket.setEnabledProtocols() ,  SSLServerSocket.setEnabledProtocols()  and  SSLEngine.setEnabledProtocols()  APIs.
+See  JDK-8190492
+security-libs/javax.net.ssl
+➜  Stateless Resumption Enabled by Default for JSSE Server
+Server-side JSSE now operates in stateless mode by default.  As described in RFC 5077 1  for TLS 1.2 and below, and RFC 8446 2  for TLS 1.3, the TLS server sends internal session information in the form of an encrypted session ticket to a client that supports stateless.  That session ticket is presented to the server during the TLS handshake to resume the session.  This should improve the performance and memory usage of the TLS server under large workloads as the session cache will seldom be used.  Applications that depend on SSLSession to list sessions cached will not find that information in stateless mode.
+If stateless needs to be turned off, use the System property  jdk.tls.server.enableSessionTicketExtension .   Using  -Djdk.tls.server.enableSessionTicketExtension=false  on the command-line will turn off stateless and return the JSSE server to using the session cache.
+See  JDK-8228396
+security-libs/javax.security
+➜  DelegationPermission Allows Creating an Instance That Thows NPE on equals Call
+When a  DelegationPermission  object is created and the  principals  argument does not contain a pair of principals, an  IllegalArgumentException  is now thrown.
+See  JDK-8231196
+tools/javac
+➜  toString() on Annotation Objects is Consistent Between Core Reflection and javac
+Both core reflection and  javac , through annotation processing, have objects representing annotations. The  toString  output for the two kinds of annotation objects now follow the same conventions. These conventions allow the output to be used in source code.
+See  JDK-8164819
+xml/javax.xml.transform
+➜  Default ErrorListener No Longer Reports Warnings and Errors to the Console
+Prior to this release, the  javax.xml.transform.ErrorListener  specification defined that the default  ErrorListener  implementation reported warnings and errors to  System.err , and  System.out  in some cases.
+This requirement has been removed as of this release and the default  ErrorListener  now takes no action for warnings and recoverable errors; and in the case of a severe error, throws a  TransformerException .
+It is recommended that applications always register their own  ErrorListener  to ensure proper handling of warnings and errors.
+See  JDK-8228854
+Differences Between Oracle JDK and Oracle's OpenJDK
+Although we have stated the goal to have OpenJDK and Oracle JDK binaries be as close to each other as possible there remains, at least for JDK 13, several differences between the two options.
+The current differences are:
+Oracle JDK offers "installers" ( msi ,  rpm ,  deb , etc.) which not only place the JDK binaries in your system but also contain update rules and in some cases handle some common configurations like set common environmental variables (such as, JAVA_HOME in Windows) and establish file associations (such as, use  java  to launch  .jar  files). OpenJDK is offered only as compressed archive ( tar.gz  or  .zip ).
+javac   —release  for release values 9 and 10 behave differently. Oracle JDK binaries include APIs that were not added to OpenJDK binaries such as  javafx , resource management, and (pre JDK 11 changes) JFR APIs.
+Usage Logging is only available in Oracle JDK.
+Oracle JDK requires that third-party cryptographic providers be signed with a Java Cryptography Extension (JCE) Code Signing Certificate. OpenJDK continues allowing the use of unsigned third-party crypto providers.
+The output of  java -version  is different. Oracle JDK returns  java  and includes the Oracle-specific identifier. OpenJDK returns OpenJDK and does not include the Oracle-specific identifier.
+Oracle JDK is released under the  OTN License . OpenJDK is released under  GPLv2wCP . License files included with each will therefore be different.
+Oracle JDK distributes FreeType under the FreeType license and OpenJDK does so under GPLv2. The contents of  \legal\java.desktop\freetype.md  is therefore different.
+Oracle JDK has Java cup and steam icons and OpenJDK has Duke icons.
+Oracle JDK source code includes "ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms." Source code distributed with OpenJDK refers to the GPL license terms instead.
+© 2026 Oracle
+Privacy
+/
+Do Not Sell My Info
+Ad Choices
+Careers
+Subscribe to emails
+Integrity Helpline
+Resources
+Contact Us
+Facebook
+X
+LinkedIn
+YouTube

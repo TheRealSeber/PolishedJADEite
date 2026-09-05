@@ -1,0 +1,34 @@
+JEP 398: Deprecate the Applet API for Removal          JEP 398: Deprecate the Applet API for Removal    Owner  Andy Herrick    Type  Feature    Scope  SE    Status  Closed / Delivered    Release  17    Component  client-libs / java.awt    Discussion  awt dash dev at openjdk dot java dot net    Effort  S    Duration  S    Relates to   JEP 289: Deprecate the Applet API        JEP 504: Remove the Applet API     Reviewed by  Alexander Matveev, Kevin Rushforth, Philip Race, Sergey Bylokhov    Endorsed by  Kevin Rushforth    Created  2020/11/10 15:54    Updated  2025/04/02 12:47    Issue   8256145      Summary
+Deprecate the Applet API for removal.  It is essentially irrelevant since all web-browser vendors have either removed support for Java browser plug-ins or announced plans to do so.
+History
+The Applet API was previously deprecated, though not for removal, by  JEP 289  in Java 9.
+Description
+Deprecate, for removal, these classes and interfaces of the standard Java API:
+java.applet.Applet
+java.applet.AppletStub
+java.applet.AppletContext
+java.applet.AudioClip
+javax.swing.JApplet
+java.beans.AppletInitializer
+Deprecate, for removal, any API elements that reference the above classes and interfaces, including methods and fields in:
+java.beans.Beans
+javax.swing.RepaintManager
+javax.naming.Context
+Testing
+Hundreds of tests need to be either modified or removed before the Applet API is removed, but this JEP is solely about deprecation-for-removal.  We will review these tests to determine if further  @SuppressWarnings  annotations are required.
+Risks and Assumptions
+In case remaining uses of these APIs do exist, developers can suppress compiler warnings via the   @SuppressWarnings("removal")  annotation or the  -Xlint:-removal  command-line option of the  javac  compiler.
+Installing    Contributing    Sponsoring    Developers' Guide    Vulnerabilities    JDK GA/EA Builds      Mailing lists    Wiki
+·  IRC    Mastodon    Bluesky      Bylaws  ·  Census    Legal  ·  AI       Workshop        JEP Process      Source code   GitHub    Mercurial     Tools   Git    jtreg harness     Groups   (overview ,
+archive )   Adoption    Build    Client Libraries    Compatibility & Specification Review    Compiler    Conformance    Core Libraries    Governing Board    HotSpot    IDE Tooling & Support    Internationalization    Members    Networking    Porters    Quality    Security    Serviceability    Vulnerability    Web     Projects  ( overview ,
+archive )   Amber    Babylon    Brisbane    CRaC    Code Tools    Coin    Common VM Interface    Detroit    Developers' Guide    Duke    IcedTea    JDK 8 Updates    JDK 9    JDK
+(…,
+26 ,
+27 ,
+28 )   JDK Updates    JMC    Jigsaw    Lanai    Leyden    Lilliput    Loom    Memory Model Update    Multi-Language VM    Nashorn    New I/O    OpenJFX    Panama    Port: AArch32    Port: AArch64    Port: BSD    Port: Haiku    Port: MIPS    Port: Mobile    Port: PowerPC/AIX    Port: RISC-V    Port: s390x    SCTP    Shenandoah    Skara    Sumatra    Tsan    Valhalla    Wakefield    Zero    ZGC
+© 2026 Oracle Corporation and/or its affiliates
+Terms of Use
+·
+License:  GPLv2
+·  Privacy
+·  Trademarks

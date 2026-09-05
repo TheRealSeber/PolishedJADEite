@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "rule_id": "BUILD_JAVAC_SOURCE_TARGET_17",
+  "sample_artifact": "01.5-precision-sample-BUILD_JAVAC_SOURCE_TARGET_17.json",
+  "sample_hash": "605177e50e7656d28a13c4892658d83f008a0e6b8247cef95cf13fac42f07331",
+  "verdicts": [
+    {
+      "hit_id": "4ca6d49b01ebbbd1",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "javac task attribute pinning the compiler to release 11 inside the <javac> element of the 'jade' target; this is the construct the rule describes."
+    },
+    {
+      "hit_id": "511c422d265b81b8",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "javac task attribute pinning the compiler to release 11 inside the <javac> element of the 'jade' target; this is the construct the rule describes."
+    }
+  ]
+}

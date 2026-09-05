@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "rule_id": "RMIC_TOOL_REMOVED",
+  "sample_artifact": "01.5-precision-sample-RMIC_TOOL_REMOVED.json",
+  "sample_hash": "f1820a7dc2252bdc8c92ca7b43437d9091289e12479bc41591b3736733327534",
+  "verdicts": [
+    {
+      "hit_id": "833ca26e4381703b",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Ant <rmic> element in the 'jade' target; this is exactly the task that drives the rmic tool removed in JDK 15, and the JDK 17 probe build failed on this line."
+    },
+    {
+      "hit_id": "d3c2ff286698bfbd",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Ant <rmic> element in the 'jade' target; this is exactly the task that drives the rmic tool removed in JDK 15, and the JDK 17 probe build failed on this line."
+    }
+  ]
+}

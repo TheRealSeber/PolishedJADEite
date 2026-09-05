@@ -1,0 +1,88 @@
+{
+  "run_id": "jade-11-to-17",
+  "rules": [
+    "RMIC_TOOL_REMOVED",
+    "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+    "APPLET_API_DEPRECATED_FOR_REMOVAL",
+    "MULTICAST_SOCKET_GROUP_API_DEPRECATED",
+    "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL"
+  ],
+  "generated_at": "2026-09-05T10:41:25Z",
+  "decision": "Standing user choice for this run: every rule that clears the precision gate enters the queue, nothing is deferred. All five rules are PASS with queue_eligible true in 01.5-precision-report.json -- RMIC_TOOL_REMOVED 2/2 census at 1.0, WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL 30 judged of a 147-hit population at 0.9667, APPLET_API_DEPRECATED_FOR_REMOVAL 8/8 census at 1.0 (pattern revision 2), MULTICAST_SOCKET_GROUP_API_DEPRECATED 2/2 census at 1.0, and THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL 1/1 census at 1.0 (pattern revision 2). RMIC_TOOL_REMOVED (HIGH) is the only mandatory breaking change and the only thing standing between this workspace and a green build on JDK 17; the two MEDIUM and two LOW rules are deprecation work queued under the same standing choice rather than deferred. The on-disk order is by severity. The binding execution order is computed by effective_rule_order, which ranks body-local ahead of signature, so APPLET_API_DEPRECATED_FOR_REMOVAL (the only signature-class rule) runs last. BUILD_JAVAC_SOURCE_TARGET_17 is deliberately absent: it cleared the gate at 1.0 but build_audit.py had already applied source/target 17 at BUILD_GATE_READY, so queueing it would mean queueing a rule with zero remaining flags. It is recorded in the manifest's withdrawn_rules with that reasoning.",
+  "severity_grouping": {
+    "mandatory_breaking_changes": [
+      "RMIC_TOOL_REMOVED",
+      "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+      "APPLET_API_DEPRECATED_FOR_REMOVAL"
+    ],
+    "modernization_opportunities": [
+      "MULTICAST_SOCKET_GROUP_API_DEPRECATED",
+      "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL"
+    ],
+    "deferred": []
+  },
+  "graph_metadata": {
+    "status": "computed",
+    "source_artifact": "03.5-knowledge-graph.json",
+    "suggested_order": [
+      "RMIC_TOOL_REMOVED",
+      "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL",
+      "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+      "APPLET_API_DEPRECATED_FOR_REMOVAL",
+      "MULTICAST_SOCKET_GROUP_API_DEPRECATED"
+    ],
+    "direct_counts": {
+      "RMIC_TOOL_REMOVED": 1,
+      "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL": 52,
+      "APPLET_API_DEPRECATED_FOR_REMOVAL": 4,
+      "MULTICAST_SOCKET_GROUP_API_DEPRECATED": 1,
+      "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL": 1
+    },
+    "impact_counts": {
+      "RMIC_TOOL_REMOVED": 0,
+      "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL": 614,
+      "APPLET_API_DEPRECATED_FOR_REMOVAL": 14,
+      "MULTICAST_SOCKET_GROUP_API_DEPRECATED": 427,
+      "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL": 427
+    },
+    "cycles": [
+      [
+        "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+        "APPLET_API_DEPRECATED_FOR_REMOVAL",
+        "MULTICAST_SOCKET_GROUP_API_DEPRECATED"
+      ]
+    ],
+    "ordering_reasons": [
+      {
+        "rule": "RMIC_TOOL_REMOVED",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      },
+      {
+        "rule": "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      },
+      {
+        "rule": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      },
+      {
+        "rule": "APPLET_API_DEPRECATED_FOR_REMOVAL",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      },
+      {
+        "rule": "MULTICAST_SOCKET_GROUP_API_DEPRECATED",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      }
+    ],
+    "diagnostics": [
+      {
+        "kind": "cycle",
+        "rules": [
+          "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+          "APPLET_API_DEPRECATED_FOR_REMOVAL",
+          "MULTICAST_SOCKET_GROUP_API_DEPRECATED"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+JEP 407: Remove RMI Activation          JEP 407: Remove RMI Activation    Owner  Stuart Marks    Type  Feature    Scope  SE    Status  Closed / Delivered    Release  17    Component  core-libs / java.rmi    Discussion  core dash libs dash dev at mail dot openjdk dot java dot net    Effort  S    Duration  S    Relates to   JEP 385: Deprecate RMI Activation for Removal     Reviewed by  Brian Goetz, Lance Andersen, Roger Riggs    Endorsed by  Brian Goetz    Created  2021/03/13 05:41    Updated  2021/07/07 22:30    Issue   8263550      Summary
+Remove the Remote Method Invocation (RMI) Activation mechanism, while preserving the rest of RMI.
+Motivation
+The RMI Activation mechanism is obsolete and disused. It was deprecated for removal by  JEP 385  in Java SE 15. No comments were received in response to that deprecation. Please see  JEP 385  for the full background, rationale, risks, and alternatives.
+The Java EE Platform contained a technology called the   JavaBeans Activation Framework   (JAF). This was later renamed to   Jakarta Activation   as part of the  Eclipse EE4J  initiative. The JavaBeans Activation and Jakarta Activation technologies are completely unrelated to RMI Activation, and they are unaffected by the removal of RMI Activation from Java SE.
+Description
+Remove the  java.rmi.activation  package from the Java SE API specification
+Update the  RMI Specification  to remove mentions of RMI Activation
+Remove the JDK library code that implements the RMI Activation mechanism
+Remove the JDK regression tests for the RMI Activation mechanism
+Remove the JDK's  rmid  activation daemon and its documenation
+Risks and Assumptions
+No comments were received in response to the deprecation of RMI Activation by  JEP 385 . However, this does not constitute proof that there are no dependencies on RMI Activation. It is still possible that some existing system will be broken by the removal of RMI Activation. In turn, the existence of such a system is not necessarily a compelling reason to keep RMI Activation  Instead, the removal of RMI Activation serves to emphasize the need for a better mitigation plan for that system. The plan does not need to be an emergency; an existing system that uses RMI Activation will continue to run for some time on older JDK versions that have long-term or extended support.
+Installing    Contributing    Sponsoring    Developers' Guide    Vulnerabilities    JDK GA/EA Builds      Mailing lists    Wiki
+·  IRC    Mastodon    Bluesky      Bylaws  ·  Census    Legal  ·  AI       Workshop        JEP Process      Source code   GitHub    Mercurial     Tools   Git    jtreg harness     Groups   (overview ,
+archive )   Adoption    Build    Client Libraries    Compatibility & Specification Review    Compiler    Conformance    Core Libraries    Governing Board    HotSpot    IDE Tooling & Support    Internationalization    Members    Networking    Porters    Quality    Security    Serviceability    Vulnerability    Web     Projects  ( overview ,
+archive )   Amber    Babylon    Brisbane    CRaC    Code Tools    Coin    Common VM Interface    Detroit    Developers' Guide    Duke    IcedTea    JDK 8 Updates    JDK 9    JDK
+(…,
+26 ,
+27 ,
+28 )   JDK Updates    JMC    Jigsaw    Lanai    Leyden    Lilliput    Loom    Memory Model Update    Multi-Language VM    Nashorn    New I/O    OpenJFX    Panama    Port: AArch32    Port: AArch64    Port: BSD    Port: Haiku    Port: MIPS    Port: Mobile    Port: PowerPC/AIX    Port: RISC-V    Port: s390x    SCTP    Shenandoah    Skara    Sumatra    Tsan    Valhalla    Wakefield    Zero    ZGC
+© 2026 Oracle Corporation and/or its affiliates
+Terms of Use
+·
+License:  GPLv2
+·  Privacy
+·  Trademarks

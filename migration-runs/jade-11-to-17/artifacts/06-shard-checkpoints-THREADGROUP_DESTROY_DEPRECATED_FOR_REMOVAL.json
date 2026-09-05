@@ -1,0 +1,20 @@
+{
+  "repo_root": "/Users/sebastian/Desktop/myown/PolishedJADEite-1117",
+  "rule_id": "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL",
+  "run_id": "jade-11-to-17",
+  "schema_version": 1,
+  "shards": {
+    "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL-body-local-001": {
+      "created_at": "2026-09-05T10:57:03Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/core/Runtime.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T10:59:05Z"
+    }
+  },
+  "workspace_root": "migration-runs/jade-11-to-17/workspace"
+}

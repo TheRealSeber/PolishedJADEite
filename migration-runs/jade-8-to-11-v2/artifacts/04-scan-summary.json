@@ -1,0 +1,29 @@
+{
+  "run_id": "jade-8-to-11-v2",
+  "workspace": "migration-runs/jade-8-to-11-v2/workspace",
+  "total_files_scanned": 1015,
+  "total_new_flags": 382,
+  "idempotent_skips": 0,
+  "by_rule": {
+    "CLDR_LOCALE_DATA_DEFAULT": {
+      "name": "CLDR locale data is the default provider from JDK 9 on",
+      "severity": "LOW",
+      "count": 5
+    },
+    "TLS_ANON_CIPHER_DISABLED": {
+      "name": "Anonymous TLS cipher suites are disabled by default in JDK 11",
+      "severity": "MEDIUM",
+      "count": 2
+    },
+    "CORBA_REMOVAL": {
+      "name": "Remove the CORBA dependency (org.omg.*) instead of retrofitting it",
+      "severity": "HIGH",
+      "count": 375
+    }
+  },
+  "by_confidence": {
+    "0.9": 5,
+    "0.95": 2,
+    "1.0": 375
+  }
+}

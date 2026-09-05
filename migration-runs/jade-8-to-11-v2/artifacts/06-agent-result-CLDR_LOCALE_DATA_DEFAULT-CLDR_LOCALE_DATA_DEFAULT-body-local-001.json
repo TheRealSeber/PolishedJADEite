@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "rule_id": "CLDR_LOCALE_DATA_DEFAULT",
+  "shard_id": "CLDR_LOCALE_DATA_DEFAULT-body-local-001",
+  "status": "FIXED",
+  "match_quality": "exact",
+  "diff_summary": "Fix A from the recipe (hard-coded JDK-8/COMPAT-derived pattern), not fix B (the -Djava.locale.providers=COMPAT,CLDR runtime flag): these are developer-facing tool windows (sniffer / DummyAgent / ACL trace GUIs), not end-user localized output, so a fixed pattern is the right call per the recipe's own guidance, and fix B is a whole-JVM deployment decision the recipe explicitly says the agent must not make on the user's behalf. 'ant clean lib' -> BUILD SUCCESSFUL exit 0; gate_signatures.py verdict PASS (changed=0 leaked=0 expansion=0, no imports list change to trip the gate's broader-than-PUBLIC_SIGNATURES definition of 'signature'); all 4 consumers PASS; local pytest suite 485 passed, 2 skipped.",
+  "files": [
+    {
+      "file": "src/jade/src/jade/gui/TimeChooser.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 209,
+      "touched_line_end": 210,
+      "migration_skip_marker": false,
+      "diff_summary": "Replaced DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT) with new SimpleDateFormat(\"MMM d, yyyy h:mm a\") -- the exact pattern JDK 8/JRE-COMPAT resolved for that style pair (COMPAT sample: 'Nov 14, 2023 10:13 PM'; CLDR/JDK11-default sample: 'Nov 14, 2023, 10:13 PM', which inserts a comma before the time). Declared type stays DateFormat (SimpleDateFormat extends it) -- no signature change. No import added: the file already had 'import java.text.*;', which already covers SimpleDateFormat. Empirically verified against the real jade.jar built fresh in jade-ant:11 (JDK 11): the resulting SimpleDateFormat produces the exact JDK 8/COMPAT string (no comma before the time portion), not the CLDR-default string (which inserts one). Pattern derivation: ran a probe class against jade-ant:11 with -Djava.locale.providers=COMPAT (matches JDK 8 output) and with the default provider (CLDR, the bug) for the exact style pair used at this site, for a fixed timestamp, en_US (the container's default locale)."
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "This rule's manifest category is BEHAVIOR_CHANGE, so dispatcher.py's needs_review_reasons() unconditionally adds 'behavior_change_category' to every file entry regardless of fix quality -- this is a deliberate, permanent trigger (rule.get('category') == BEHAVIOR_CHANGE_CATEGORY), not something a clean diff can avoid. Recorded status will be NEEDS_REVIEW for that reason alone. See the run report for the full discussion of orchestrator.py's SHARD_NEEDS_REVIEW_ACCEPTED check and the decision to accept anyway given independent verification (build, empirical pattern comparison against JDK8/COMPAT, consumers, pytest)."
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "blast_class": "body-local",
+  "flag_index_artifact": "migration-runs/jade-11-to-17/artifacts/04-flag-index.json",
+  "flagged_files_missing_from_graph": [
+    "src/jade/build.xml"
+  ],
+  "graph_artifact": "migration-runs/jade-11-to-17/artifacts/03.5-knowledge-graph.json",
+  "graph_content_hash": "f67864ce63df80be120f91a339c8a3cc322966d38d87f24774fc19ed1fc1101d",
+  "manifest_artifact": "migration-runs/jade-11-to-17/artifacts/01-breaking-changes-manifest.json",
+  "rule_id": "RMIC_TOOL_REMOVED",
+  "run_id": "jade-11-to-17",
+  "schema_version": 1,
+  "shard_count": 1,
+  "shards": [
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/build.xml"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/build.xml",
+          "line": 155
+        },
+        {
+          "file": "src/jade/build.xml",
+          "line": 156
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-11-to-17/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [],
+      "rule_id": "RMIC_TOOL_REMOVED",
+      "shard_id": "RMIC_TOOL_REMOVED-body-local-001"
+    }
+  ],
+  "status": "OK",
+  "total_flagged_files": 1,
+  "total_flags": 2,
+  "warnings": [
+    {
+      "file": "src/jade/build.xml",
+      "kind": "flagged_file_not_in_graph",
+      "message": "Flagged file is absent from the knowledge graph; isolated shard"
+    }
+  ]
+}

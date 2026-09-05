@@ -1,0 +1,1565 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "     org.omg.CORBA.portable.OutputStream out = a.create_output_stream();",
+        "     write(out, that);",
+        "     a.read_value(out.create_input_stream(), type());"
+      ],
+      "context_before": [
+        "     org.omg.CORBA.portable.InputStream in = a.create_input_stream();",
+        "     return read(in);",
+        "   }"
+      ],
+      "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+      "hit_id": "92c870f13c5595b5",
+      "line": 166,
+      "line_hash": "8a015569af0fdf96",
+      "line_text": "   public static void insert(org.omg.CORBA.Any a, FIPA.Envelope that) {",
+      "line_truncated": false,
+      "match_span": [
+        29,
+        46
+      ],
+      "match_text": "org.omg.CORBA.Any",
+      "pattern_index": 1,
+      "rank": 0
+    },
+    {
+      "context_after": [
+        "        FIPA.ReceivedObjectHelper.write(out, value);",
+        "    }",
+        ""
+      ],
+      "context_before": [
+        "\tvalue = __arg;",
+        "    }",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/ReceivedObjectHolder.java",
+      "hit_id": "3f2d2ea1cdd25bab",
+      "line": 21,
+      "line_hash": "b5250c135e42c03f",
+      "line_text": "    public void _write(org.omg.CORBA.portable.OutputStream out) {",
+      "line_truncated": false,
+      "match_span": [
+        23,
+        58
+      ],
+      "match_text": "org.omg.CORBA.portable.OutputStream",
+      "pattern_index": 1,
+      "rank": 1
+    },
+    {
+      "context_after": [
+        "     write(out, that);",
+        "     a.read_value(out.create_input_stream(), type());",
+        "   }"
+      ],
+      "context_before": [
+        "     return read(in);",
+        "   }",
+        "   public static void insert(org.omg.CORBA.Any a, FIPA.ReceivedObject that) {"
+      ],
+      "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+      "hit_id": "466d4b4a21cd8eb5",
+      "line": 34,
+      "line_hash": "9e6c9b922e7ce914",
+      "line_text": "     org.omg.CORBA.portable.OutputStream out = a.create_output_stream();",
+      "line_truncated": false,
+      "match_span": [
+        5,
+        40
+      ],
+      "match_text": "org.omg.CORBA.portable.OutputStream",
+      "pattern_index": 1,
+      "rank": 2
+    },
+    {
+      "context_after": [
+        "          }",
+        "      return _tc;",
+        "   }"
+      ],
+      "context_before": [
+        "                 \"via\",",
+        "                 org.omg.CORBA.ORB.init().get_primitive_tc(org.omg.CORBA.TCKind.tk_string),",
+        "                 null);"
+      ],
+      "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+      "hit_id": "43ed683100f3efc2",
+      "line": 68,
+      "line_hash": "6b3b080c209db337",
+      "line_text": "             _tc = org.omg.CORBA.ORB.init().create_struct_tc(id(), \"ReceivedObject\", _members);",
+      "line_truncated": false,
+      "match_span": [
+        19,
+        41
+      ],
+      "match_text": "org.omg.CORBA.ORB.init",
+      "pattern_index": 1,
+      "rank": 3
+    },
+    {
+      "context_after": [
+        "                 null);",
+        "",
+        "               _members[2] = new org.omg.CORBA.StructMember("
+      ],
+      "context_before": [
+        "",
+        "               _members[1] = new org.omg.CORBA.StructMember(",
+        "                 \"from\","
+      ],
+      "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+      "hit_id": "cc7e936ed028dfaf",
+      "line": 184,
+      "line_hash": "2876a0dfc1e99d83",
+      "line_text": "                 org.omg.CORBA.ORB.init().create_sequence_tc((int) (1L), FIPA.AgentIDHelper.type()),",
+      "line_truncated": false,
+      "match_span": [
+        17,
+        39
+      ],
+      "match_text": "org.omg.CORBA.ORB.init",
+      "pattern_index": 1,
+      "rank": 4
+    },
+    {
+      "context_after": [
+        "     org.omg.CORBA.portable.InputStream in = a.create_input_stream();",
+        "     return read(in);",
+        "   }"
+      ],
+      "context_before": [
+        "\t}",
+        "        return that;",
+        "    }"
+      ],
+      "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+      "hit_id": "e3b1c85d7160b85c",
+      "line": 41,
+      "line_hash": "35b6d82b5d948da3",
+      "line_text": "   public static FIPA.FipaMessage extract(org.omg.CORBA.Any a) {",
+      "line_truncated": false,
+      "match_span": [
+        42,
+        59
+      ],
+      "match_text": "org.omg.CORBA.Any",
+      "pattern_index": 1,
+      "rank": 5
+    },
+    {
+      "context_after": [
+        "                 null);",
+        "",
+        "               _members[5] = new org.omg.CORBA.StructMember("
+      ],
+      "context_before": [
+        "",
+        "               _members[4] = new org.omg.CORBA.StructMember(",
+        "                 \"minutes\","
+      ],
+      "file": "src/jade/src/FIPA/DateTimeHelper.java",
+      "hit_id": "20f8f36d0ee91781",
+      "line": 72,
+      "line_hash": "a6def576114acaa4",
+      "line_text": "                 org.omg.CORBA.ORB.init().get_primitive_tc(org.omg.CORBA.TCKind.tk_short),",
+      "line_truncated": false,
+      "match_span": [
+        17,
+        39
+      ],
+      "match_text": "org.omg.CORBA.ORB.init",
+      "pattern_index": 1,
+      "rank": 6
+    },
+    {
+      "context_after": [
+        "                 \"day\",",
+        "                 org.omg.CORBA.ORB.init().get_primitive_tc(org.omg.CORBA.TCKind.tk_short),",
+        "                 null);"
+      ],
+      "context_before": [
+        "                 org.omg.CORBA.ORB.init().get_primitive_tc(org.omg.CORBA.TCKind.tk_short),",
+        "                 null);",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/DateTimeHelper.java",
+      "hit_id": "2053c1566430852f",
+      "line": 60,
+      "line_hash": "ddc22458f95332ab",
+      "line_text": "               _members[2] = new org.omg.CORBA.StructMember(",
+      "line_truncated": false,
+      "match_span": [
+        33,
+        59
+      ],
+      "match_text": "org.omg.CORBA.StructMember",
+      "pattern_index": 1,
+      "rank": 7
+    },
+    {
+      "context_after": [
+        "     org.omg.CORBA.portable.InputStream in = a.create_input_stream();",
+        "     return read(in);",
+        "   }"
+      ],
+      "context_before": [
+        "          }",
+        "          return that;",
+        "    }"
+      ],
+      "file": "src/jade/src/FIPA/PayloadHelper.java",
+      "hit_id": "a353a5731749ca01",
+      "line": 28,
+      "line_hash": "d1637c121488f01c",
+      "line_text": "   public static byte[] extract(org.omg.CORBA.Any a) {",
+      "line_truncated": false,
+      "match_span": [
+        32,
+        49
+      ],
+      "match_text": "org.omg.CORBA.Any",
+      "pattern_index": 1,
+      "rank": 8
+    },
+    {
+      "context_after": [
+        "public final class Envelope {",
+        "    //\tinstance variables",
+        "    public FIPA.AgentID[] to;"
+      ],
+      "context_before": [
+        " *   By: idltojava Java IDL 1.2 Nov 10 1997 13:52:11",
+        " */",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/Envelope.java",
+      "hit_id": "48e9bc36a87263ed",
+      "line": 8,
+      "line_hash": "da66291ac737468e",
+      "line_text": "package FIPA;",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        13
+      ],
+      "match_text": "package FIPA;",
+      "pattern_index": 2,
+      "rank": 9
+    },
+    {
+      "context_after": [
+        "\t    }",
+        "\t    that.transportBehaviour = new FIPA.Property[__length][];",
+        "\t    for (int __index = 0 ; __index < that.transportBehaviour.length ; __index += 1) {"
+      ],
+      "context_before": [
+        "\t{",
+        "\t    int __length = in.read_long();",
+        "\t    if (__length > (1L)) {"
+      ],
+      "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+      "hit_id": "e187243cf6b33eb4",
+      "line": 142,
+      "line_hash": "797c37d5de93f911",
+      "line_text": "\t        throw new org.omg.CORBA.MARSHAL(0, org.omg.CORBA.CompletionStatus.COMPLETED_MAYBE);",
+      "line_truncated": false,
+      "match_span": [
+        19,
+        40
+      ],
+      "match_text": "org.omg.CORBA.MARSHAL",
+      "pattern_index": 1,
+      "rank": 10
+    },
+    {
+      "context_after": [
+        "{",
+        "    //\tinstance variable ",
+        "    public byte[] value;"
+      ],
+      "context_before": [
+        "",
+        "package FIPA;",
+        "public final class PayloadHolder"
+      ],
+      "file": "src/jade/src/FIPA/PayloadHolder.java",
+      "hit_id": "fac447b7769b22f0",
+      "line": 10,
+      "line_hash": "540b6ec78abe9a49",
+      "line_text": "    implements org.omg.CORBA.portable.Streamable",
+      "line_truncated": false,
+      "match_span": [
+        15,
+        48
+      ],
+      "match_text": "org.omg.CORBA.portable.Streamable",
+      "pattern_index": 1,
+      "rank": 11
+    },
+    {
+      "context_after": [
+        "                 null);",
+        "",
+        "               _members[1] = new org.omg.CORBA.StructMember("
+      ],
+      "context_before": [
+        "               _members= new org.omg.CORBA.StructMember[8];",
+        "               _members[0] = new org.omg.CORBA.StructMember(",
+        "                 \"year\","
+      ],
+      "file": "src/jade/src/FIPA/DateTimeHelper.java",
+      "hit_id": "103d7409607e9f4a",
+      "line": 52,
+      "line_hash": "a6def576114acaa4",
+      "line_text": "                 org.omg.CORBA.ORB.init().get_primitive_tc(org.omg.CORBA.TCKind.tk_short),",
+      "line_truncated": false,
+      "match_span": [
+        17,
+        39
+      ],
+      "match_text": "org.omg.CORBA.ORB.init",
+      "pattern_index": 1,
+      "rank": 12
+    },
+    {
+      "context_after": [
+        "          {",
+        "              out.write_long(that.length);",
+        "              for (int __index = 0 ; __index < that.length ; __index += 1) {"
+      ],
+      "context_before": [
+        "     // It is useless to have instances of this class",
+        "     private AgentIDsHelper() { }",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/AgentIDsHelper.java",
+      "hit_id": "b16d2ca8d01ca9d3",
+      "line": 13,
+      "line_hash": "c8248569c95ec3ef",
+      "line_text": "    public static void write(org.omg.CORBA.portable.OutputStream out, FIPA.AgentID[] that)  {",
+      "line_truncated": false,
+      "match_span": [
+        29,
+        64
+      ],
+      "match_text": "org.omg.CORBA.portable.OutputStream",
+      "pattern_index": 1,
+      "rank": 13
+    },
+    {
+      "context_after": [
+        "     org.omg.CORBA.portable.InputStream in = a.create_input_stream();",
+        "     return read(in);",
+        "   }"
+      ],
+      "context_before": [
+        "          }",
+        "          return that;",
+        "    }"
+      ],
+      "file": "src/jade/src/FIPA/OptDateTimeHelper.java",
+      "hit_id": "9bb44d5c5bcdc75c",
+      "line": 38,
+      "line_hash": "3d7e54f7640ec8a6",
+      "line_text": "   public static FIPA.DateTime[] extract(org.omg.CORBA.Any a) {",
+      "line_truncated": false,
+      "match_span": [
+        41,
+        58
+      ],
+      "match_text": "org.omg.CORBA.Any",
+      "pattern_index": 1,
+      "rank": 14
+    },
+    {
+      "context_after": [
+        "        value = FIPA.MTSHelper.read(in);",
+        "    }",
+        ""
+      ],
+      "context_before": [
+        "        FIPA.MTSHelper.write(out, value);",
+        "    }",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/MTSHolder.java",
+      "hit_id": "7cb54741e64809c4",
+      "line": 25,
+      "line_hash": "d2a6e75b0dc6929a",
+      "line_text": "    public void _read(org.omg.CORBA.portable.InputStream in) {",
+      "line_truncated": false,
+      "match_span": [
+        22,
+        56
+      ],
+      "match_text": "org.omg.CORBA.portable.InputStream",
+      "pattern_index": 1,
+      "rank": 15
+    },
+    {
+      "context_after": [
+        "   synchronized public static org.omg.CORBA.TypeCode type() {",
+        "          if (_tc == null)",
+        "             _tc = org.omg.CORBA.ORB.init().create_interface_tc(id(), \"MTS\");"
+      ],
+      "context_before": [
+        "     write(out, that);",
+        "     a.read_value(out.create_input_stream(), type());",
+        "   }"
+      ],
+      "file": "src/jade/src/FIPA/MTSHelper.java",
+      "hit_id": "40644ec101e54479",
+      "line": 28,
+      "line_hash": "6663932699261248",
+      "line_text": "   private static org.omg.CORBA.TypeCode _tc;",
+      "line_truncated": false,
+      "match_span": [
+        18,
+        40
+      ],
+      "match_text": "org.omg.CORBA.TypeCode",
+      "pattern_index": 1,
+      "rank": 16
+    },
+    {
+      "context_after": [
+        "{",
+        "    //\tinstance variable ",
+        "    public FIPA.DateTime[] value;"
+      ],
+      "context_before": [
+        "",
+        "package FIPA;",
+        "public final class OptDateTimeHolder"
+      ],
+      "file": "src/jade/src/FIPA/OptDateTimeHolder.java",
+      "hit_id": "acb44311d680dbc1",
+      "line": 10,
+      "line_hash": "540b6ec78abe9a49",
+      "line_text": "    implements org.omg.CORBA.portable.Streamable",
+      "line_truncated": false,
+      "match_span": [
+        15,
+        48
+      ],
+      "match_text": "org.omg.CORBA.portable.Streamable",
+      "pattern_index": 1,
+      "rank": 17
+    },
+    {
+      "context_after": [
+        "          {",
+        "              if (that.length > (1L)) {",
+        "                  throw new org.omg.CORBA.MARSHAL(0, org.omg.CORBA.CompletionStatus.COMPLETED_MAYBE);"
+      ],
+      "context_before": [
+        "     // It is useless to have instances of this class",
+        "     private OptReceivedObjectHelper() { }",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/OptReceivedObjectHelper.java",
+      "hit_id": "d26ddf732e90b873",
+      "line": 13,
+      "line_hash": "fcd020f7bdf7ba87",
+      "line_text": "    public static void write(org.omg.CORBA.portable.OutputStream out, FIPA.ReceivedObject[] that)  {",
+      "line_truncated": false,
+      "match_span": [
+        29,
+        64
+      ],
+      "match_text": "org.omg.CORBA.portable.OutputStream",
+      "pattern_index": 1,
+      "rank": 18
+    },
+    {
+      "context_after": [
+        "                 null);",
+        "",
+        "               _members[4] = new org.omg.CORBA.StructMember("
+      ],
+      "context_before": [
+        "",
+        "               _members[3] = new org.omg.CORBA.StructMember(",
+        "                 \"hour\","
+      ],
+      "file": "src/jade/src/FIPA/DateTimeHelper.java",
+      "hit_id": "93749b050b67d6b7",
+      "line": 67,
+      "line_hash": "a6def576114acaa4",
+      "line_text": "                 org.omg.CORBA.ORB.init().get_primitive_tc(org.omg.CORBA.TCKind.tk_short),",
+      "line_truncated": false,
+      "match_span": [
+        17,
+        39
+      ],
+      "match_text": "org.omg.CORBA.ORB.init",
+      "pattern_index": 1,
+      "rank": 19
+    },
+    {
+      "context_after": [
+        "          {",
+        "              if (that.length > (1L)) {",
+        "                  throw new org.omg.CORBA.MARSHAL(0, org.omg.CORBA.CompletionStatus.COMPLETED_MAYBE);"
+      ],
+      "context_before": [
+        "     // It is useless to have instances of this class",
+        "     private OptDateTimeHelper() { }",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/OptDateTimeHelper.java",
+      "hit_id": "294356d8fa963eeb",
+      "line": 13,
+      "line_hash": "a611f0febf23b149",
+      "line_text": "    public static void write(org.omg.CORBA.portable.OutputStream out, FIPA.DateTime[] that)  {",
+      "line_truncated": false,
+      "match_span": [
+        29,
+        64
+      ],
+      "match_text": "org.omg.CORBA.portable.OutputStream",
+      "pattern_index": 1,
+      "rank": 20
+    },
+    {
+      "context_after": [
+        "          if (_tc == null)",
+        "             _tc = org.omg.CORBA.ORB.init().create_alias_tc(id(), \"OptTransportBehaviourType\", org.omg.CORBA.ORB.init().create_sequence_tc((int) (1L), org.omg.CORBA.ORB.init().create_sequence_tc(0, FIPA.PropertyHelper.type())));",
+        "      return _tc;"
+      ],
+      "context_before": [
+        "     a.read_value(out.create_input_stream(), type());",
+        "   }",
+        "   private static org.omg.CORBA.TypeCode _tc;"
+      ],
+      "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java",
+      "hit_id": "15aecb52857c29c5",
+      "line": 56,
+      "line_hash": "4093e64d33ada2eb",
+      "line_text": "   synchronized public static org.omg.CORBA.TypeCode type() {",
+      "line_truncated": false,
+      "match_span": [
+        30,
+        52
+      ],
+      "match_text": "org.omg.CORBA.TypeCode",
+      "pattern_index": 1,
+      "rank": 21
+    },
+    {
+      "context_after": [
+        "                 null);",
+        "",
+        "               _members[11] = new org.omg.CORBA.StructMember("
+      ],
+      "context_before": [
+        "",
+        "               _members[10] = new org.omg.CORBA.StructMember(",
+        "                 \"transportBehaviour\","
+      ],
+      "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+      "hit_id": "833578b7e53c49d4",
+      "line": 229,
+      "line_hash": "d801845c361c305d",
+      "line_text": "                 org.omg.CORBA.ORB.init().create_sequence_tc((int) (1L), org.omg.CORBA.ORB.init().create_sequence_tc(0, FIPA.PropertyHelper.type())),",
+      "line_truncated": false,
+      "match_span": [
+        17,
+        39
+      ],
+      "match_text": "org.omg.CORBA.ORB.init",
+      "pattern_index": 1,
+      "rank": 22
+    },
+    {
+      "context_after": [
+        "     return read(in);",
+        "   }",
+        "   public static void insert(org.omg.CORBA.Any a, FIPA.AgentID that) {"
+      ],
+      "context_before": [
+        "        return that;",
+        "    }",
+        "   public static FIPA.AgentID extract(org.omg.CORBA.Any a) {"
+      ],
+      "file": "src/jade/src/FIPA/AgentIDHelper.java",
+      "hit_id": "a9b5e160e89528ec",
+      "line": 61,
+      "line_hash": "786a881e17084916",
+      "line_text": "     org.omg.CORBA.portable.InputStream in = a.create_input_stream();",
+      "line_truncated": false,
+      "match_span": [
+        5,
+        39
+      ],
+      "match_text": "org.omg.CORBA.portable.InputStream",
+      "pattern_index": 1,
+      "rank": 23
+    },
+    {
+      "context_after": [
+        "      return _tc;",
+        "   }",
+        "   public static String id() {"
+      ],
+      "context_before": [
+        "   private static org.omg.CORBA.TypeCode _tc;",
+        "   synchronized public static org.omg.CORBA.TypeCode type() {",
+        "          if (_tc == null)"
+      ],
+      "file": "src/jade/src/FIPA/AgentIDsHelper.java",
+      "hit_id": "a3941ea1a323137f",
+      "line": 45,
+      "line_hash": "e088a34bedac7c00",
+      "line_text": "             _tc = org.omg.CORBA.ORB.init().create_alias_tc(id(), \"AgentIDs\", org.omg.CORBA.ORB.init().create_sequence_tc(0, FIPA.AgentIDHelper.type()));",
+      "line_truncated": false,
+      "match_span": [
+        19,
+        41
+      ],
+      "match_text": "org.omg.CORBA.ORB.init",
+      "pattern_index": 1,
+      "rank": 24
+    },
+    {
+      "context_after": [
+        "          if (_tc == null)",
+        "             _tc = org.omg.CORBA.ORB.init().create_alias_tc(id(), \"AgentIDs\", org.omg.CORBA.ORB.init().create_sequence_tc(0, FIPA.AgentIDHelper.type()));",
+        "      return _tc;"
+      ],
+      "context_before": [
+        "     a.read_value(out.create_input_stream(), type());",
+        "   }",
+        "   private static org.omg.CORBA.TypeCode _tc;"
+      ],
+      "file": "src/jade/src/FIPA/AgentIDsHelper.java",
+      "hit_id": "e85d35371e16735d",
+      "line": 43,
+      "line_hash": "4093e64d33ada2eb",
+      "line_text": "   synchronized public static org.omg.CORBA.TypeCode type() {",
+      "line_truncated": false,
+      "match_span": [
+        30,
+        52
+      ],
+      "match_text": "org.omg.CORBA.TypeCode",
+      "pattern_index": 1,
+      "rank": 25
+    },
+    {
+      "context_after": [
+        "                 null);",
+        "",
+        "               _members[2] = new org.omg.CORBA.StructMember("
+      ],
+      "context_before": [
+        "",
+        "               _members[1] = new org.omg.CORBA.StructMember(",
+        "                 \"from\","
+      ],
+      "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+      "hit_id": "3cbe29e0ebb87b7b",
+      "line": 51,
+      "line_hash": "e8cdb32f3005f1a8",
+      "line_text": "                 org.omg.CORBA.ORB.init().get_primitive_tc(org.omg.CORBA.TCKind.tk_string),",
+      "line_truncated": false,
+      "match_span": [
+        17,
+        39
+      ],
+      "match_text": "org.omg.CORBA.ORB.init",
+      "pattern_index": 1,
+      "rank": 26
+    },
+    {
+      "context_after": [
+        "\t    }",
+        "\t    that.from = new FIPA.AgentID[__length];",
+        "\t    for (int __index = 0 ; __index < that.from.length ; __index += 1) {"
+      ],
+      "context_before": [
+        "\t{",
+        "\t    int __length = in.read_long();",
+        "\t    if (__length > (1L)) {"
+      ],
+      "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+      "hit_id": "02a59edeb55b9f0e",
+      "line": 94,
+      "line_hash": "797c37d5de93f911",
+      "line_text": "\t        throw new org.omg.CORBA.MARSHAL(0, org.omg.CORBA.CompletionStatus.COMPLETED_MAYBE);",
+      "line_truncated": false,
+      "match_span": [
+        19,
+        40
+      ],
+      "match_text": "org.omg.CORBA.MARSHAL",
+      "pattern_index": 1,
+      "rank": 27
+    },
+    {
+      "context_after": [
+        "        return FIPA.ReceivedObjectHelper.type();",
+        "    }",
+        "}"
+      ],
+      "context_before": [
+        "        value = FIPA.ReceivedObjectHelper.read(in);",
+        "    }",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/ReceivedObjectHolder.java",
+      "hit_id": "cac72c4cba05958a",
+      "line": 29,
+      "line_hash": "fb0028a895ac0d6f",
+      "line_text": "    public org.omg.CORBA.TypeCode _type() {",
+      "line_truncated": false,
+      "match_span": [
+        11,
+        33
+      ],
+      "match_text": "org.omg.CORBA.TypeCode",
+      "pattern_index": 1,
+      "rank": 28
+    },
+    {
+      "context_after": [
+        "public class OptReceivedObjectHelper {",
+        "     // It is useless to have instances of this class",
+        "     private OptReceivedObjectHelper() { }"
+      ],
+      "context_before": [
+        " *   By: idltojava Java IDL 1.2 Nov 10 1997 13:52:11",
+        " */",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/OptReceivedObjectHelper.java",
+      "hit_id": "a4d1a85dddea7007",
+      "line": 8,
+      "line_hash": "da66291ac737468e",
+      "line_text": "package FIPA;",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        13
+      ],
+      "match_text": "package FIPA;",
+      "pattern_index": 2,
+      "rank": 29
+    },
+    {
+      "context_after": [
+        "                 \"transportBehaviour\",",
+        "                 org.omg.CORBA.ORB.init().create_sequence_tc((int) (1L), org.omg.CORBA.ORB.init().create_sequence_tc(0, FIPA.PropertyHelper.type())),",
+        "                 null);"
+      ],
+      "context_before": [
+        "                 org.omg.CORBA.ORB.init().create_sequence_tc((int) (1L), FIPA.ReceivedObjectHelper.type()),",
+        "                 null);",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+      "hit_id": "12bd879de2c9897b",
+      "line": 227,
+      "line_hash": "da67f8840818b24c",
+      "line_text": "               _members[10] = new org.omg.CORBA.StructMember(",
+      "line_truncated": false,
+      "match_span": [
+        34,
+        60
+      ],
+      "match_text": "org.omg.CORBA.StructMember",
+      "pattern_index": 1,
+      "rank": 30
+    },
+    {
+      "context_after": [
+        "              }",
+        "              out.write_long(that.length);",
+        "              for (int __index = 0 ; __index < that.length ; __index += 1) {"
+      ],
+      "context_before": [
+        "    public static void write(org.omg.CORBA.portable.OutputStream out, FIPA.DateTime[] that)  {",
+        "          {",
+        "              if (that.length > (1L)) {"
+      ],
+      "file": "src/jade/src/FIPA/OptDateTimeHelper.java",
+      "hit_id": "3fc6b621903cea83",
+      "line": 16,
+      "line_hash": "e5208c4d97392ada",
+      "line_text": "                  throw new org.omg.CORBA.MARSHAL(0, org.omg.CORBA.CompletionStatus.COMPLETED_MAYBE);",
+      "line_truncated": false,
+      "match_span": [
+        28,
+        49
+      ],
+      "match_text": "org.omg.CORBA.MARSHAL",
+      "pattern_index": 1,
+      "rank": 31
+    },
+    {
+      "context_after": [
+        "     return read(in);",
+        "   }",
+        "   public static void insert(org.omg.CORBA.Any a, FIPA.AgentID[] that) {"
+      ],
+      "context_before": [
+        "          return that;",
+        "    }",
+        "   public static FIPA.AgentID[] extract(org.omg.CORBA.Any a) {"
+      ],
+      "file": "src/jade/src/FIPA/OptAgentIDHelper.java",
+      "hit_id": "f545cb568d84967e",
+      "line": 39,
+      "line_hash": "786a881e17084916",
+      "line_text": "     org.omg.CORBA.portable.InputStream in = a.create_input_stream();",
+      "line_truncated": false,
+      "match_span": [
+        5,
+        39
+      ],
+      "match_text": "org.omg.CORBA.portable.InputStream",
+      "pattern_index": 1,
+      "rank": 32
+    },
+    {
+      "context_after": [
+        "        return FIPA.PayloadHelper.type();",
+        "    }",
+        "}"
+      ],
+      "context_before": [
+        "        value = FIPA.PayloadHelper.read(in);",
+        "    }",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/PayloadHolder.java",
+      "hit_id": "93f750d301c547f3",
+      "line": 29,
+      "line_hash": "fb0028a895ac0d6f",
+      "line_text": "    public org.omg.CORBA.TypeCode _type() {",
+      "line_truncated": false,
+      "match_span": [
+        11,
+        33
+      ],
+      "match_text": "org.omg.CORBA.TypeCode",
+      "pattern_index": 1,
+      "rank": 33
+    },
+    {
+      "context_after": [
+        "    //\tinstance variable ",
+        "    public FIPA.FipaMessage value;",
+        "    //\tconstructors "
+      ],
+      "context_before": [
+        "",
+        "package FIPA;",
+        "public final class FipaMessageHolder"
+      ],
+      "file": "src/jade/src/FIPA/FipaMessageHolder.java",
+      "hit_id": "a8e02ef5b84c0960",
+      "line": 10,
+      "line_hash": "8b108df3e7651044",
+      "line_text": "     implements org.omg.CORBA.portable.Streamable{",
+      "line_truncated": false,
+      "match_span": [
+        16,
+        49
+      ],
+      "match_text": "org.omg.CORBA.portable.Streamable",
+      "pattern_index": 1,
+      "rank": 34
+    },
+    {
+      "context_after": [
+        "          FIPA.ReceivedObject[] that;",
+        "          {",
+        "              int __length = in.read_long();"
+      ],
+      "context_before": [
+        "              }",
+        "          }",
+        "    }"
+      ],
+      "file": "src/jade/src/FIPA/OptReceivedObjectHelper.java",
+      "hit_id": "613c2756cda2f665",
+      "line": 24,
+      "line_hash": "99ce2aa2d270f61a",
+      "line_text": "    public static FIPA.ReceivedObject[] read(org.omg.CORBA.portable.InputStream in) {",
+      "line_truncated": false,
+      "match_span": [
+        45,
+        79
+      ],
+      "match_text": "org.omg.CORBA.portable.InputStream",
+      "pattern_index": 1,
+      "rank": 35
+    },
+    {
+      "context_after": [
+        "                 null);",
+        "",
+        "               _members[1] = new org.omg.CORBA.StructMember("
+      ],
+      "context_before": [
+        "               _members= new org.omg.CORBA.StructMember[5];",
+        "               _members[0] = new org.omg.CORBA.StructMember(",
+        "                 \"by\","
+      ],
+      "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+      "hit_id": "6a293e3b7747773c",
+      "line": 46,
+      "line_hash": "e8cdb32f3005f1a8",
+      "line_text": "                 org.omg.CORBA.ORB.init().get_primitive_tc(org.omg.CORBA.TCKind.tk_string),",
+      "line_truncated": false,
+      "match_span": [
+        17,
+        39
+      ],
+      "match_text": "org.omg.CORBA.ORB.init",
+      "pattern_index": 1,
+      "rank": 36
+    },
+    {
+      "context_after": [
+        "\t    }",
+        "\t    that.date = new FIPA.DateTime[__length];",
+        "\t    for (int __index = 0 ; __index < that.date.length ; __index += 1) {"
+      ],
+      "context_before": [
+        "\t{",
+        "\t    int __length = in.read_long();",
+        "\t    if (__length > (1L)) {"
+      ],
+      "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+      "hit_id": "22bcb266a91217df",
+      "line": 108,
+      "line_hash": "797c37d5de93f911",
+      "line_text": "\t        throw new org.omg.CORBA.MARSHAL(0, org.omg.CORBA.CompletionStatus.COMPLETED_MAYBE);",
+      "line_truncated": false,
+      "match_span": [
+        19,
+        40
+      ],
+      "match_text": "org.omg.CORBA.MARSHAL",
+      "pattern_index": 1,
+      "rank": 37
+    },
+    {
+      "context_after": [
+        "                 null);",
+        "",
+        "               _members[4] = new org.omg.CORBA.StructMember("
+      ],
+      "context_before": [
+        "",
+        "               _members[3] = new org.omg.CORBA.StructMember(",
+        "                 \"aclRepresentation\","
+      ],
+      "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+      "hit_id": "fb83fcc7ee4a10dc",
+      "line": 194,
+      "line_hash": "e8cdb32f3005f1a8",
+      "line_text": "                 org.omg.CORBA.ORB.init().get_primitive_tc(org.omg.CORBA.TCKind.tk_string),",
+      "line_truncated": false,
+      "match_span": [
+        17,
+        39
+      ],
+      "match_text": "org.omg.CORBA.ORB.init",
+      "pattern_index": 1,
+      "rank": 38
+    },
+    {
+      "context_after": [
+        "     org.omg.CORBA.portable.InputStream in = a.create_input_stream();",
+        "     return read(in);",
+        "   }"
+      ],
+      "context_before": [
+        "          }",
+        "          return that;",
+        "    }"
+      ],
+      "file": "src/jade/src/FIPA/OptAgentIDHelper.java",
+      "hit_id": "d714b4de9bfeb969",
+      "line": 38,
+      "line_hash": "bc3e26dbcc9c8792",
+      "line_text": "   public static FIPA.AgentID[] extract(org.omg.CORBA.Any a) {",
+      "line_truncated": false,
+      "match_span": [
+        40,
+        57
+      ],
+      "match_text": "org.omg.CORBA.Any",
+      "pattern_index": 1,
+      "rank": 39
+    },
+    {
+      "context_after": [
+        "{",
+        "    //\tinstance variable ",
+        "    public FIPA.Envelope[] value;"
+      ],
+      "context_before": [
+        "",
+        "package FIPA;",
+        "public final class EnvelopesHolder"
+      ],
+      "file": "src/jade/src/FIPA/EnvelopesHolder.java",
+      "hit_id": "4f9a0a400ac3fe2c",
+      "line": 10,
+      "line_hash": "540b6ec78abe9a49",
+      "line_text": "    implements org.omg.CORBA.portable.Streamable",
+      "line_truncated": false,
+      "match_span": [
+        15,
+        48
+      ],
+      "match_text": "org.omg.CORBA.portable.Streamable",
+      "pattern_index": 1,
+      "rank": 40
+    },
+    {
+      "context_after": [
+        "                 \"intendedReceiver\",",
+        "                 org.omg.CORBA.ORB.init().create_sequence_tc(0, FIPA.AgentIDHelper.type()),",
+        "                 null);"
+      ],
+      "context_before": [
+        "                 org.omg.CORBA.ORB.init().create_sequence_tc(0, org.omg.CORBA.ORB.init().get_primitive_tc(org.omg.CORBA.TCKind.tk_string)),",
+        "                 null);",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+      "hit_id": "13cfbdf516195102",
+      "line": 217,
+      "line_hash": "089926213c7ec797",
+      "line_text": "               _members[8] = new org.omg.CORBA.StructMember(",
+      "line_truncated": false,
+      "match_span": [
+        33,
+        59
+      ],
+      "match_text": "org.omg.CORBA.StructMember",
+      "pattern_index": 1,
+      "rank": 41
+    },
+    {
+      "context_after": [
+        "        FIPA.AgentID that = new FIPA.AgentID();",
+        "\tthat.name = in.read_string();",
+        "\t{"
+      ],
+      "context_before": [
+        "\t    }",
+        "\t}",
+        "    }"
+      ],
+      "file": "src/jade/src/FIPA/AgentIDHelper.java",
+      "hit_id": "9734286e2f5f88f9",
+      "line": 34,
+      "line_hash": "045e742e3c29efd0",
+      "line_text": "    public static FIPA.AgentID read(org.omg.CORBA.portable.InputStream in) {",
+      "line_truncated": false,
+      "match_span": [
+        36,
+        70
+      ],
+      "match_text": "org.omg.CORBA.portable.InputStream",
+      "pattern_index": 1,
+      "rank": 42
+    },
+    {
+      "context_after": [
+        "public class MTSHelper {",
+        "     // It is useless to have instances of this class",
+        "     private MTSHelper() { }"
+      ],
+      "context_before": [
+        " *   By: idltojava Java IDL 1.2 Nov 10 1997 13:52:11",
+        " */",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/MTSHelper.java",
+      "hit_id": "7eb658f52d2a7c49",
+      "line": 8,
+      "line_hash": "da66291ac737468e",
+      "line_text": "package FIPA;",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        13
+      ],
+      "match_text": "package FIPA;",
+      "pattern_index": 2,
+      "rank": 43
+    },
+    {
+      "context_after": [
+        "public class EnvelopeHelper {",
+        "     // It is useless to have instances of this class",
+        "     private EnvelopeHelper() { }"
+      ],
+      "context_before": [
+        " *   By: idltojava Java IDL 1.2 Nov 10 1997 13:52:11",
+        " */",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+      "hit_id": "6daa473b57549aac",
+      "line": 8,
+      "line_hash": "da66291ac737468e",
+      "line_text": "package FIPA;",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        13
+      ],
+      "match_text": "package FIPA;",
+      "pattern_index": 2,
+      "rank": 44
+    },
+    {
+      "context_after": [
+        "        FIPA.FipaMessage that = new FIPA.FipaMessage();",
+        "\t{",
+        "\t    int __length = in.read_long();"
+      ],
+      "context_before": [
+        "\t    out.write_octet_array(that.messageBody, 0, that.messageBody.length);",
+        "\t}",
+        "    }"
+      ],
+      "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+      "hit_id": "807943044c5891f4",
+      "line": 25,
+      "line_hash": "04c01ea51b6f6a3c",
+      "line_text": "    public static FIPA.FipaMessage read(org.omg.CORBA.portable.InputStream in) {",
+      "line_truncated": false,
+      "match_span": [
+        40,
+        74
+      ],
+      "match_text": "org.omg.CORBA.portable.InputStream",
+      "pattern_index": 1,
+      "rank": 45
+    },
+    {
+      "context_after": [
+        "    //\tconstructors",
+        "    public Property() { }",
+        "    public Property(String __keyword, org.omg.CORBA.Any __value) {"
+      ],
+      "context_before": [
+        "public final class Property {",
+        "    //\tinstance variables",
+        "    public String keyword;"
+      ],
+      "file": "src/jade/src/FIPA/Property.java",
+      "hit_id": "2be4ad160da95786",
+      "line": 12,
+      "line_hash": "93a39d2eb96f8e34",
+      "line_text": "    public org.omg.CORBA.Any value;",
+      "line_truncated": false,
+      "match_span": [
+        11,
+        28
+      ],
+      "match_text": "org.omg.CORBA.Any",
+      "pattern_index": 1,
+      "rank": 46
+    },
+    {
+      "context_after": [
+        "     org.omg.CORBA.portable.InputStream in = a.create_input_stream();",
+        "     return read(in);",
+        "   }"
+      ],
+      "context_before": [
+        "          that = in.read_string();",
+        "          return that;",
+        "    }"
+      ],
+      "file": "src/jade/src/FIPA/URLHelper.java",
+      "hit_id": "c7d69efb5fe16a9a",
+      "line": 21,
+      "line_hash": "d91778c49ef92fbc",
+      "line_text": "   public static String extract(org.omg.CORBA.Any a) {",
+      "line_truncated": false,
+      "match_span": [
+        32,
+        49
+      ],
+      "match_text": "org.omg.CORBA.Any",
+      "pattern_index": 1,
+      "rank": 47
+    },
+    {
+      "context_after": [
+        "          super();",
+        "          _set_delegate(d);",
+        "    }"
+      ],
+      "context_before": [
+        "\textends org.omg.CORBA.portable.ObjectImpl",
+        "    \timplements FIPA.MTS {",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/_MTSStub.java",
+      "hit_id": "8b4337bb2a0cf6c4",
+      "line": 13,
+      "line_hash": "1a2357be2d27d2d9",
+      "line_text": "    public _MTSStub(org.omg.CORBA.portable.Delegate d) {",
+      "line_truncated": false,
+      "match_span": [
+        20,
+        51
+      ],
+      "match_text": "org.omg.CORBA.portable.Delegate",
+      "pattern_index": 1,
+      "rank": 48
+    },
+    {
+      "context_after": [
+        "\t    }",
+        "\t    that.received = new FIPA.ReceivedObject[__length];",
+        "\t    for (int __index = 0 ; __index < that.received.length ; __index += 1) {"
+      ],
+      "context_before": [
+        "\t{",
+        "\t    int __length = in.read_long();",
+        "\t    if (__length > (1L)) {"
+      ],
+      "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+      "hit_id": "80fc784397bb18e4",
+      "line": 132,
+      "line_hash": "797c37d5de93f911",
+      "line_text": "\t        throw new org.omg.CORBA.MARSHAL(0, org.omg.CORBA.CompletionStatus.COMPLETED_MAYBE);",
+      "line_truncated": false,
+      "match_span": [
+        19,
+        40
+      ],
+      "match_text": "org.omg.CORBA.MARSHAL",
+      "pattern_index": 1,
+      "rank": 49
+    },
+    {
+      "context_after": [
+        "                 \"milliseconds\",",
+        "                 org.omg.CORBA.ORB.init().get_primitive_tc(org.omg.CORBA.TCKind.tk_short),",
+        "                 null);"
+      ],
+      "context_before": [
+        "                 org.omg.CORBA.ORB.init().get_primitive_tc(org.omg.CORBA.TCKind.tk_short),",
+        "                 null);",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/DateTimeHelper.java",
+      "hit_id": "b860cc4eaf77c51c",
+      "line": 80,
+      "line_hash": "72cb60373157644c",
+      "line_text": "               _members[6] = new org.omg.CORBA.StructMember(",
+      "line_truncated": false,
+      "match_span": [
+        33,
+        59
+      ],
+      "match_text": "org.omg.CORBA.StructMember",
+      "pattern_index": 1,
+      "rank": 50
+    },
+    {
+      "context_after": [
+        "                 null);",
+        "",
+        "               _members[2] = new org.omg.CORBA.StructMember("
+      ],
+      "context_before": [
+        "",
+        "               _members[1] = new org.omg.CORBA.StructMember(",
+        "                 \"month\","
+      ],
+      "file": "src/jade/src/FIPA/DateTimeHelper.java",
+      "hit_id": "eb79287eb1c43cce",
+      "line": 57,
+      "line_hash": "a6def576114acaa4",
+      "line_text": "                 org.omg.CORBA.ORB.init().get_primitive_tc(org.omg.CORBA.TCKind.tk_short),",
+      "line_truncated": false,
+      "match_span": [
+        17,
+        39
+      ],
+      "match_text": "org.omg.CORBA.ORB.init",
+      "pattern_index": 1,
+      "rank": 51
+    },
+    {
+      "context_after": [
+        "      return _tc;",
+        "   }",
+        "   public static String id() {"
+      ],
+      "context_before": [
+        "   private static org.omg.CORBA.TypeCode _tc;",
+        "   synchronized public static org.omg.CORBA.TypeCode type() {",
+        "          if (_tc == null)"
+      ],
+      "file": "src/jade/src/FIPA/EnvelopesHelper.java",
+      "hit_id": "5ed3d9a772d90a92",
+      "line": 45,
+      "line_hash": "6024367dafb1041c",
+      "line_text": "             _tc = org.omg.CORBA.ORB.init().create_alias_tc(id(), \"Envelopes\", org.omg.CORBA.ORB.init().create_sequence_tc(0, FIPA.EnvelopeHelper.type()));",
+      "line_truncated": false,
+      "match_span": [
+        19,
+        41
+      ],
+      "match_text": "org.omg.CORBA.ORB.init",
+      "pattern_index": 1,
+      "rank": 52
+    },
+    {
+      "context_after": [
+        "               _members[0] = new org.omg.CORBA.StructMember(",
+        "                 \"messageEnvelopes\",",
+        "                 org.omg.CORBA.ORB.init().create_sequence_tc(0, FIPA.EnvelopeHelper.type()),"
+      ],
+      "context_before": [
+        "       int _memberCount = 2;",
+        "       org.omg.CORBA.StructMember[] _members = null;",
+        "          if (_tc == null) {"
+      ],
+      "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+      "hit_id": "b71ac170e4776f0a",
+      "line": 55,
+      "line_hash": "42f71bc683fbd3b1",
+      "line_text": "               _members= new org.omg.CORBA.StructMember[2];",
+      "line_truncated": false,
+      "match_span": [
+        29,
+        55
+      ],
+      "match_text": "org.omg.CORBA.StructMember",
+      "pattern_index": 1,
+      "rank": 53
+    },
+    {
+      "context_after": [
+        "                 \"month\",",
+        "                 org.omg.CORBA.ORB.init().get_primitive_tc(org.omg.CORBA.TCKind.tk_short),",
+        "                 null);"
+      ],
+      "context_before": [
+        "                 org.omg.CORBA.ORB.init().get_primitive_tc(org.omg.CORBA.TCKind.tk_short),",
+        "                 null);",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/DateTimeHelper.java",
+      "hit_id": "044da2d247c75208",
+      "line": 55,
+      "line_hash": "9b183371fe36afc4",
+      "line_text": "               _members[1] = new org.omg.CORBA.StructMember(",
+      "line_truncated": false,
+      "match_span": [
+        33,
+        59
+      ],
+      "match_text": "org.omg.CORBA.StructMember",
+      "pattern_index": 1,
+      "rank": 54
+    },
+    {
+      "context_after": [
+        "{",
+        "    //\tinstance variable ",
+        "    public FIPA.Property[] value;"
+      ],
+      "context_before": [
+        "",
+        "package FIPA;",
+        "public final class TransportBehaviourTypeHolder"
+      ],
+      "file": "src/jade/src/FIPA/TransportBehaviourTypeHolder.java",
+      "hit_id": "473ed57fb346f842",
+      "line": 10,
+      "line_hash": "540b6ec78abe9a49",
+      "line_text": "    implements org.omg.CORBA.portable.Streamable",
+      "line_truncated": false,
+      "match_span": [
+        15,
+        48
+      ],
+      "match_text": "org.omg.CORBA.portable.Streamable",
+      "pattern_index": 1,
+      "rank": 55
+    },
+    {
+      "context_after": [
+        "      return _tc;",
+        "   }",
+        "   public static String id() {"
+      ],
+      "context_before": [
+        "   private static org.omg.CORBA.TypeCode _tc;",
+        "   synchronized public static org.omg.CORBA.TypeCode type() {",
+        "          if (_tc == null)"
+      ],
+      "file": "src/jade/src/FIPA/stringsHelper.java",
+      "hit_id": "d0fc8f10f899e763",
+      "line": 45,
+      "line_hash": "e48caac1cae58647",
+      "line_text": "             _tc = org.omg.CORBA.ORB.init().create_alias_tc(id(), \"strings\", org.omg.CORBA.ORB.init().create_sequence_tc(0, org.omg.CORBA.ORB.init().get_primitive_tc(org.omg.CORBA.TCKind.tk_string)));",
+      "line_truncated": false,
+      "match_span": [
+        19,
+        41
+      ],
+      "match_text": "org.omg.CORBA.ORB.init",
+      "pattern_index": 1,
+      "rank": 56
+    },
+    {
+      "context_after": [
+        "public final class OptTransportBehaviourTypeHolder",
+        "    implements org.omg.CORBA.portable.Streamable",
+        "{"
+      ],
+      "context_before": [
+        " *   By: idltojava Java IDL 1.2 Nov 10 1997 13:52:11",
+        " */",
+        ""
+      ],
+      "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHolder.java",
+      "hit_id": "bb3f476edbf99060",
+      "line": 8,
+      "line_hash": "da66291ac737468e",
+      "line_text": "package FIPA;",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        13
+      ],
+      "match_text": "package FIPA;",
+      "pattern_index": 2,
+      "rank": 57
+    },
+    {
+      "context_after": [
+        "      return _tc;",
+        "   }",
+        "   public static String id() {"
+      ],
+      "context_before": [
+        "   private static org.omg.CORBA.TypeCode _tc;",
+        "   synchronized public static org.omg.CORBA.TypeCode type() {",
+        "          if (_tc == null)"
+      ],
+      "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java",
+      "hit_id": "a13d05af8ecb54b4",
+      "line": 58,
+      "line_hash": "ed7b405783673558",
+      "line_text": "             _tc = org.omg.CORBA.ORB.init().create_alias_tc(id(), \"OptTransportBehaviourType\", org.omg.CORBA.ORB.init().create_sequence_tc((int) (1L), org.omg.CORBA.ORB.init().create_sequence_tc(0, FIPA.PropertyHelper.type())));",
+      "line_truncated": false,
+      "match_span": [
+        19,
+        41
+      ],
+      "match_text": "org.omg.CORBA.ORB.init",
+      "pattern_index": 1,
+      "rank": 58
+    },
+    {
+      "context_after": [
+        "\t    }",
+        "\t    out.write_long(that.date.length);",
+        "\t    for (int __index = 0 ; __index < that.date.length ; __index += 1) {"
+      ],
+      "context_before": [
+        "\tout.write_string(that.payloadEncoding);",
+        "\t{",
+        "\t    if (that.date.length > (1L)) {"
+      ],
+      "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+      "hit_id": "8846627ddaf8a879",
+      "line": 35,
+      "line_hash": "797c37d5de93f911",
+      "line_text": "\t        throw new org.omg.CORBA.MARSHAL(0, org.omg.CORBA.CompletionStatus.COMPLETED_MAYBE);",
+      "line_truncated": false,
+      "match_span": [
+        19,
+        40
+      ],
+      "match_text": "org.omg.CORBA.MARSHAL",
+      "pattern_index": 1,
+      "rank": 59
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-8-to-11-v2/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "d9c0f481009dbb6d809172352ada7636ea71eeee9c204fac0d75d820fd6481da",
+  "pattern_revision": 2,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "^\\s*import\\s+org\\.omg\\.[A-Za-z_][A-Za-z0-9_.]*\\s*;",
+      "reason": "import of a CORBA package removed from the JDK by JEP 320; the import itself no longer resolves on JDK 11",
+      "target_extensions": [
+        ".java"
+      ]
+    },
+    {
+      "index": 1,
+      "pattern": "\\borg\\.omg\\.[A-Za-z_][A-Za-z0-9_.]*",
+      "reason": "use of a fully qualified org.omg.* (CORBA) type removed from the JDK by JEP 320",
+      "target_extensions": [
+        ".java"
+      ]
+    },
+    {
+      "index": 2,
+      "pattern": "^\\s*package\\s+FIPA\\s*;",
+      "reason": "file belongs to the idlj-generated FIPA IDL stub package, which exists only to carry the CORBA stubs for src/fipa.idl and is removed together with them",
+      "target_extensions": [
+        ".java"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 1015,
+    "files_with_hits": 43,
+    "hits_per_pattern": {
+      "0": 0,
+      "1": 333,
+      "2": 42
+    },
+    "max_hits_in_one_file": 44,
+    "population_signature": "b756bbdc5bd9b57ab7d7f1c312a3a1a3be16fe43b38e5f3c5057e80635332044",
+    "total_hits": 375,
+    "truncated": false
+  },
+  "rule_description": "Java SE 11 removes the java.corba module (JEP 320). The org.omg.CORBA, org.omg.CosNaming, org.omg.PortableServer and related packages no longer exist in the JDK runtime image, so any source referencing org.omg.* fails to compile on JDK 11. JEP 320 states there will be no standalone CORBA unless third parties take over maintenance, and that RMI-IIOP has no standalone version at all. In JADE the whole CORBA surface is one component: the idlj-generated IDL stub package FIPA (42 files generated from src/fipa.idl) plus the single IIOP message transport jade/mtp/iiop/MessageTransportProtocol.java, which is the only file in the workspace that imports package FIPA. The knowledge graph shows zero incoming edges into that component from the other 972 workspace files, and the default MTP selected by jade/core/ProfileImpl.java is jade.mtp.http.MessageTransportProtocol. The dependency is therefore deleted, not re-supplied from an external jar. Because the fix is deletion of a whole component, the rule flags two constructs: (1) a source reference to a removed org.omg.* type, and (2) membership of the generated FIPA stub package itself, which exists only to carry those references. Five of the 42 generated files carry no org.omg reference of their own (AgentID, DateTime, Envelope, FipaMessage, ReceivedObject) yet cannot survive the deletion of their siblings: FipaMessage declares a FIPA.Envelope[] field and ReceivedObject a FIPA.DateTime field. Construct (2) is what makes the component complete in the flag index, and therefore complete in the shard plan.",
+  "rule_id": "CORBA_REMOVAL",
+  "rule_name": "Remove the CORBA dependency (org.omg.*) instead of retrofitting it",
+  "run_id": "jade-8-to-11-v2",
+  "sample_size": 60,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 3,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 60,
+    "seed": "dea8a17fe275215e",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "SAMPLED",
+  "verification_hint": "After removal no file under the workspace matches \\borg\\.omg\\. or ^package FIPA; , the src/jade/src/FIPA directory, src/jade/src/jade/mtp/iiop and src/jade/src/fipa.idl are gone, build.xml has no idlj target and no FIPA include, 'ant clean jade' on JDK 11 in the jade-ant:11 image prints BUILD SUCCESSFUL with exit 0, and all four consumers still PASS. jade.jar must no longer contain FIPA/*.class.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-8-to-11-v2/workspace"
+}

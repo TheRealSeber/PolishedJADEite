@@ -1,0 +1,308 @@
+{
+  "schema_version": 1,
+  "rule_id": "CORBA_REMOVAL",
+  "sample_artifact": "01.5-precision-sample-CORBA_REMOVAL.json",
+  "sample_hash": "6a5750e75f5b587f8def84c748702394756cd00445adbdd49124b74701326906",
+  "verdicts": [
+    {
+      "hit_id": "92c870f13c5595b5",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/EnvelopeHelper.java:166 names org.omg.CORBA.Any, the CORBA self-describing value type removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "3f2d2ea1cdd25bab",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/ReceivedObjectHolder.java:21 names org.omg.CORBA.portable.OutputStream, a CDR stream type that lived in the java.corba module removed by JEP 320. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "466d4b4a21cd8eb5",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/ReceivedObjectHelper.java:34 names org.omg.CORBA.portable.OutputStream, a CDR stream type that lived in the java.corba module removed by JEP 320. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "43ed683100f3efc2",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/ReceivedObjectHelper.java:68 calls org.omg.CORBA.ORB.init(), the ORB bootstrap removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "cc7e936ed028dfaf",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/EnvelopeHelper.java:184 calls org.omg.CORBA.ORB.init(), the ORB bootstrap removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "e3b1c85d7160b85c",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/FipaMessageHelper.java:41 names org.omg.CORBA.Any, the CORBA self-describing value type removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "20f8f36d0ee91781",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/DateTimeHelper.java:72 calls org.omg.CORBA.ORB.init(), the ORB bootstrap removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "2053c1566430852f",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/DateTimeHelper.java:60 uses org.omg.CORBA.StructMember, a TypeCode helper class removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "a353a5731749ca01",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/PayloadHelper.java:28 names org.omg.CORBA.Any, the CORBA self-describing value type removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "48e9bc36a87263ed",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "src/jade/src/FIPA/Envelope.java declares 'package FIPA;' and carries the idltojava banner 'From: FIPA.IDL'. It is a member of the generated CORBA IDL stub package, the second construct this rule describes: the component that exists only to carry the org.omg references and is removed with them. All 42 matches of this pattern are under src/jade/src/FIPA/ and there are zero matches anywhere else in the 1015-file workspace."
+    },
+    {
+      "hit_id": "e187243cf6b33eb4",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/EnvelopeHelper.java:142 throws org.omg.CORBA.MARSHAL, a CORBA system exception removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "fac447b7769b22f0",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/PayloadHolder.java:10 implements org.omg.CORBA.portable.Streamable, the CORBA marshalling interface removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "103d7409607e9f4a",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/DateTimeHelper.java:52 calls org.omg.CORBA.ORB.init(), the ORB bootstrap removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "b16d2ca8d01ca9d3",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/AgentIDsHelper.java:13 names org.omg.CORBA.portable.OutputStream, a CDR stream type that lived in the java.corba module removed by JEP 320. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "9bb44d5c5bcdc75c",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/OptDateTimeHelper.java:38 names org.omg.CORBA.Any, the CORBA self-describing value type removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "7cb54741e64809c4",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/MTSHolder.java:25 names org.omg.CORBA.portable.InputStream, a CDR stream type that lived in the java.corba module removed by JEP 320. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "40644ec101e54479",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/MTSHelper.java:28 names org.omg.CORBA.TypeCode, the CORBA runtime type descriptor removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "acb44311d680dbc1",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/OptDateTimeHolder.java:10 implements org.omg.CORBA.portable.Streamable, the CORBA marshalling interface removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "d26ddf732e90b873",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/OptReceivedObjectHelper.java:13 names org.omg.CORBA.portable.OutputStream, a CDR stream type that lived in the java.corba module removed by JEP 320. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "93749b050b67d6b7",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/DateTimeHelper.java:67 calls org.omg.CORBA.ORB.init(), the ORB bootstrap removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "294356d8fa963eeb",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/OptDateTimeHelper.java:13 names org.omg.CORBA.portable.OutputStream, a CDR stream type that lived in the java.corba module removed by JEP 320. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "15aecb52857c29c5",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java:56 names org.omg.CORBA.TypeCode, the CORBA runtime type descriptor removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "833578b7e53c49d4",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/EnvelopeHelper.java:229 calls org.omg.CORBA.ORB.init(), the ORB bootstrap removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "a9b5e160e89528ec",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/AgentIDHelper.java:61 names org.omg.CORBA.portable.InputStream, a CDR stream type that lived in the java.corba module removed by JEP 320. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "a3941ea1a323137f",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/AgentIDsHelper.java:45 calls org.omg.CORBA.ORB.init(), the ORB bootstrap removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "e85d35371e16735d",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/AgentIDsHelper.java:43 names org.omg.CORBA.TypeCode, the CORBA runtime type descriptor removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "3cbe29e0ebb87b7b",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/ReceivedObjectHelper.java:51 calls org.omg.CORBA.ORB.init(), the ORB bootstrap removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "02a59edeb55b9f0e",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/EnvelopeHelper.java:94 throws org.omg.CORBA.MARSHAL, a CORBA system exception removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "cac72c4cba05958a",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/ReceivedObjectHolder.java:29 names org.omg.CORBA.TypeCode, the CORBA runtime type descriptor removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "a4d1a85dddea7007",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "src/jade/src/FIPA/OptReceivedObjectHelper.java declares 'package FIPA;' and carries the idltojava banner 'From: FIPA.IDL'. It is a member of the generated CORBA IDL stub package, the second construct this rule describes: the component that exists only to carry the org.omg references and is removed with them. All 42 matches of this pattern are under src/jade/src/FIPA/ and there are zero matches anywhere else in the 1015-file workspace."
+    },
+    {
+      "hit_id": "12bd879de2c9897b",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/EnvelopeHelper.java:227 uses org.omg.CORBA.StructMember, a TypeCode helper class removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "3fc6b621903cea83",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/OptDateTimeHelper.java:16 throws org.omg.CORBA.MARSHAL, a CORBA system exception removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "f545cb568d84967e",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/OptAgentIDHelper.java:39 names org.omg.CORBA.portable.InputStream, a CDR stream type that lived in the java.corba module removed by JEP 320. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "93f750d301c547f3",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/PayloadHolder.java:29 names org.omg.CORBA.TypeCode, the CORBA runtime type descriptor removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "a8e02ef5b84c0960",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/FipaMessageHolder.java:10 implements org.omg.CORBA.portable.Streamable, the CORBA marshalling interface removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "613c2756cda2f665",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/OptReceivedObjectHelper.java:24 names org.omg.CORBA.portable.InputStream, a CDR stream type that lived in the java.corba module removed by JEP 320. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "6a293e3b7747773c",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/ReceivedObjectHelper.java:46 calls org.omg.CORBA.ORB.init(), the ORB bootstrap removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "22bcb266a91217df",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/EnvelopeHelper.java:108 throws org.omg.CORBA.MARSHAL, a CORBA system exception removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "fb83fcc7ee4a10dc",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/EnvelopeHelper.java:194 calls org.omg.CORBA.ORB.init(), the ORB bootstrap removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "d714b4de9bfeb969",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/OptAgentIDHelper.java:38 names org.omg.CORBA.Any, the CORBA self-describing value type removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "4f9a0a400ac3fe2c",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/EnvelopesHolder.java:10 implements org.omg.CORBA.portable.Streamable, the CORBA marshalling interface removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "13cfbdf516195102",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/EnvelopeHelper.java:217 uses org.omg.CORBA.StructMember, a TypeCode helper class removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "9734286e2f5f88f9",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/AgentIDHelper.java:34 names org.omg.CORBA.portable.InputStream, a CDR stream type that lived in the java.corba module removed by JEP 320. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "7eb658f52d2a7c49",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "src/jade/src/FIPA/MTSHelper.java declares 'package FIPA;' and carries the idltojava banner 'From: FIPA.IDL'. It is a member of the generated CORBA IDL stub package, the second construct this rule describes: the component that exists only to carry the org.omg references and is removed with them. All 42 matches of this pattern are under src/jade/src/FIPA/ and there are zero matches anywhere else in the 1015-file workspace."
+    },
+    {
+      "hit_id": "6daa473b57549aac",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "src/jade/src/FIPA/EnvelopeHelper.java declares 'package FIPA;' and carries the idltojava banner 'From: FIPA.IDL'. It is a member of the generated CORBA IDL stub package, the second construct this rule describes: the component that exists only to carry the org.omg references and is removed with them. All 42 matches of this pattern are under src/jade/src/FIPA/ and there are zero matches anywhere else in the 1015-file workspace."
+    },
+    {
+      "hit_id": "807943044c5891f4",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/FipaMessageHelper.java:25 names org.omg.CORBA.portable.InputStream, a CDR stream type that lived in the java.corba module removed by JEP 320. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "2be4ad160da95786",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/Property.java:12 names org.omg.CORBA.Any, the CORBA self-describing value type removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "c7d69efb5fe16a9a",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/URLHelper.java:21 names org.omg.CORBA.Any, the CORBA self-describing value type removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "8b4337bb2a0cf6c4",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/_MTSStub.java:13 names org.omg.CORBA.portable.Delegate, the ORB stub delegation interface removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "80fc784397bb18e4",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/EnvelopeHelper.java:132 throws org.omg.CORBA.MARSHAL, a CORBA system exception removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "b860cc4eaf77c51c",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/DateTimeHelper.java:80 uses org.omg.CORBA.StructMember, a TypeCode helper class removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "eb79287eb1c43cce",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/DateTimeHelper.java:57 calls org.omg.CORBA.ORB.init(), the ORB bootstrap removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "5ed3d9a772d90a92",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/EnvelopesHelper.java:45 calls org.omg.CORBA.ORB.init(), the ORB bootstrap removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "b71ac170e4776f0a",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/FipaMessageHelper.java:55 uses org.omg.CORBA.StructMember, a TypeCode helper class removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "044da2d247c75208",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/DateTimeHelper.java:55 uses org.omg.CORBA.StructMember, a TypeCode helper class removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "473ed57fb346f842",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/TransportBehaviourTypeHolder.java:10 implements org.omg.CORBA.portable.Streamable, the CORBA marshalling interface removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "d0fc8f10f899e763",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/stringsHelper.java:45 calls org.omg.CORBA.ORB.init(), the ORB bootstrap removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "bb3f476edbf99060",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "src/jade/src/FIPA/OptTransportBehaviourTypeHolder.java declares 'package FIPA;' and carries the idltojava banner 'From: FIPA.IDL'. It is a member of the generated CORBA IDL stub package, the second construct this rule describes: the component that exists only to carry the org.omg references and is removed with them. All 42 matches of this pattern are under src/jade/src/FIPA/ and there are zero matches anywhere else in the 1015-file workspace."
+    },
+    {
+      "hit_id": "a13d05af8ecb54b4",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java:58 calls org.omg.CORBA.ORB.init(), the ORB bootstrap removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    },
+    {
+      "hit_id": "8846627ddaf8a879",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live Java code at src/jade/src/FIPA/EnvelopeHelper.java:35 throws org.omg.CORBA.MARSHAL, a CORBA system exception removed from the JDK with the java.corba module. This is exactly the construct the rule describes: a source reference to a removed org.omg.* CORBA API."
+    }
+  ]
+}

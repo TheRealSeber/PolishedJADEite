@@ -1,0 +1,20 @@
+{
+  "repo_root": "/Users/sebastian/Desktop/myown/PolishedJADEite-1117",
+  "rule_id": "RMIC_TOOL_REMOVED",
+  "run_id": "jade-11-to-17",
+  "schema_version": 1,
+  "shards": {
+    "RMIC_TOOL_REMOVED-body-local-001": {
+      "created_at": "2026-09-05T10:54:16Z",
+      "files": [
+        {
+          "file": "src/jade/build.xml"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T10:56:45Z"
+    }
+  },
+  "workspace_root": "migration-runs/jade-11-to-17/workspace"
+}

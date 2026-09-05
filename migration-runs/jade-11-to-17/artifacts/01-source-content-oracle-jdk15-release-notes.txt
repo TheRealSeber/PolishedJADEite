@@ -1,0 +1,556 @@
+Consolidated JDK 15 Release Notes
+Skip to content
+Accessibility Policy
+Menu
+QUICK LINKS
+Cloud
+Database
+Java
+AI
+SUGGESTED LINKS
+SUGGESTED SEARCHES
+Country
+Back
+Cloud Account
+Sign in to Cloud
+Sign Up for Free Cloud Tier
+Oracle Account
+Sign-In
+Create an Account
+Help
+Sign Out
+Java
+Technical Details
+Java SE
+Consolidated JDK 15 Release Notes
+Consolidated JDK 15 Release Notes
+All JDK Release Notes
+Java Development Kit 15 Release Notes
+This page contains all of the release notes for JDK 15 General Availability (GA) releases:
+JDK 15.0.2  (GA)
+JDK 15.0.1  (GA)
+JDK 15  (GA)
+Java™ SE Development Kit 15.0.2 (JDK 15.0.2)
+January 19, 2021
+The full version string for this update release is 15.0.2+7 (where "+" means "build"). The  version number is 15.0.2.
+IANA Data 2020d
+JDK 15.0.2 contains IANA time zone data version 2020d. For more information, refer to  Timezone Data Versions in the JRE Software .
+Security Baselines
+The security baselines for the Java Runtime Environment (JRE) at the  time of the release of JDK 15.0.2 are specified in the following table:
+JRE Family Version
+JRE Security Baseline             (Full Version String)
+15
+15.0.2+7
+11
+11.0.10+8
+8
+1.8.0_281-b09
+7
+1.7.0_291-b09
+Keeping the JDK up to Date
+Oracle recommends that the JDK is updated with each Critical Patch Update (CPU).  In order to determine if a release is the latest, the  Security Baseline page  can be used to determine which is the latest version for each release family.
+Critical patch updates, which contain security vulnerability fixes, are announced one year in advance on  Critical Patch Updates, Security Alerts and Bulletins . It is not recommended that this JDK (version 15.0.2) be used after the next critical patch update scheduled for April 20, 2021.
+Other notes
+core-libs/java.time    ➜   JDK time-zone data upgraded to tzdata2020d
+The JDK update incorporates tzdata2020d. The main change is
+Palestine ends DST earlier than predicted, on 2020-10-24.
+Please refer to  https://mm.icann.org/pipermail/tz-announce/2020-October/000062.html  for more information.
+See  JDK-8255226
+core-libs/java.time    ➜   JDK time-zone data upgraded to tzdata2020c
+The JDK update incorporates tzdata2020c. The main change is
+Fiji starts DST later than usual, on 2020-12-20.
+Please refer to  https://mm.icann.org/pipermail/tz-announce/2020-October/000060.html  for more information.
+See  JDK-8254982
+core-libs/java.time    ➜   US/Pacific-New Zone Name Removed as Part of tzdata2020b
+Following the JDK's update to tzdata2020b, the long-obsolete files named  pacificnew  and  systemv  have been removed. As a result, the "US/Pacific-New" Zone name declared in the  pacificnew  data file is no longer available for use.
+Information regarding this update can be viewed at  https://mm.icann.org/pipermail/tz-announce/2020-October/000059.html
+See  JDK-8254177
+Bug Fixes
+This release also contains fixes for security vulnerabilities described in the  Oracle Critical Patch Update . For a more complete list of the bug fixes included in this release, see the  JDK 15.0.2 Bug Fixes  page.
+Java™ SE Development Kit 15.0.1 (JDK 15.0.1)
+October 20, 2020
+The full version string for this update release is 15.0.1+9 (where "+" means "build"). The  version number is 15.0.1.
+IANA Data 2020a
+JDK 15.0.1 contains IANA time zone data version 2020a. For more information, refer to  Timezone Data Versions in the JRE Software .
+Security Baselines
+The security baselines for the Java Runtime Environment (JRE) at the  time of the release of JDK 15.0.1 are specified in the following table:
+JRE Family Version
+JRE Security Baseline             (Full Version String)
+15
+15.0.1+9
+11
+11.0.9+7
+8
+1.8.0_271-b09
+7
+1.7.0_281-b06
+Keeping the JDK up to Date
+Oracle recommends that the JDK is updated with each Critical Patch Update (CPU).  In order to determine if a release is the latest, the  Security Baseline page  can be used to determine which is the latest version for each release family.
+Critical patch updates, which contain security vulnerability fixes, are announced one year in advance on  Critical Patch Updates, Security Alerts and Bulletins . It is not recommended that this JDK (version 15.0.1) be used after the next critical patch update scheduled for January 19, 2021.
+New Features
+security-libs/javax.net.ssl    ➜   Improve Certificate Chain Handling  A new system property,  jdk.tls.maxHandshakeMessageSize , has been added to set the maximum allowed size for the handshake message in TLS/DTLS handshaking. The default value of the system property is 32768  (32 kilobytes).
+A new system property,  jdk.tls.maxCertificateChainLength , has been added to set the maximum allowed length of the certificate chain in TLS/DTLS handshaking. The default value of the system property is 10.
+JDK-8245417 (not public)
+Other notes
+core-libs/javax.naming    ➜   Added Property to Control LDAP Authentication Mechanisms Allowed to Authenticate Over Clear Connections  A new environment property,
+jdk.jndi.ldap.mechsAllowedToSendCredentials , has been added to
+control which LDAP authentication mechanisms are allowed to send
+credentials over  clear  LDAP connections - a connection not secured
+with TLS. An  encrypted  LDAP connection is a connection opened
+by using  ldaps  scheme, or a connection opened by using  ldap  scheme
+and then upgraded to TLS with a STARTTLS extended operation.
+The value of the property, which is by default not set, is a comma
+separated list of the mechanism names that are permitted to authenticate
+over a  clear  connection. If a value is not specified for the property, then all mechanisms
+are allowed. If the specified value is an empty list, then no mechanisms are
+allowed (except  for  none  and  anonymous ). The default value for this property is 'null'
+( i.e.  System.getProperty("jdk.jndi.ldap.mechsAllowedToSendCredentials")  returns 'null'). To explicitly permit all mechanisms to authenticate over a  clear  connection, the property
+value can be set to  "all" . If a connection is downgraded from
+encrypted  to  clear , then only the mechanisms that are explicitly permitted are allowed.
+The property can be supplied to the LDAP context environment map, or
+set globally as a system property. When both are supplied, the
+environment map takes precedence.
+Note:  none  and  anonymous  authentication mechanisms are exempted
+from these rules and are always allowed regardless of the property value.
+JDK-8237990 (not public)
+security-libs/java.security    ➜   Added 3 SSL Corporation Root CA Certificates  The following root certificates have been added to the cacerts truststore:
++ SSL Corporation
++ sslrootrsaca
+DN: CN=SSL.com Root Certification Authority RSA, O=SSL Corporation, L=Houston, ST=Texas, C=US
++ sslrootevrsaca
+DN: CN=SSL.com EV Root Certification Authority RSA R2, O=SSL Corporation, L=Houston, ST=Texas, C=US
++ sslrooteccca
+DN: CN=SSL.com Root Certification Authority ECC, O=SSL Corporation, L=Houston, ST=Texas, C=US
+See  JDK-8243320
+security-libs/java.security    ➜   Added Entrust Root Certification Authority - G4 certificate  The following root certificate has been added to the cacerts truststore:
++ Entrust
++ entrustrootcag4
+DN: CN=Entrust Root Certification Authority - G4, OU="(c) 2015 Entrust, Inc. - for authorized use only",
+OU=See www.entrust.net/legal-terms, O="Entrust, Inc.", C=US
+See  JDK-8243321
+core-libs/java.io:serialization    ➜   Enhanced Support of Proxy Class  The deserialization of  java.lang.reflect.Proxy  objects can be limited by setting the system property  jdk.serialProxyInterfaceLimit .
+The limit is the maximum number of interfaces allowed per Proxy in the stream.
+Setting the limit to zero prevents any Proxies from being deserialized including Annotations, a limit of less than 2 might interfere with RMI operations.
+JDK-8236862 (not public)
+Bug Fixes
+This release also contains fixes for security vulnerabilities described in the  Oracle Critical Patch Update . For a more complete list of the bug fixes included in this release, see the  JDK 15.0.1 Bug Fixes  page.
+JDK 15 Release Notes
+The following sections are included in these Release Notes:
+Introduction
+What's New in JDK 15 - New Features and Enhancements
+Removed Features and Options
+Deprecated Features and Options
+Other Notes
+Differences Between Oracle JDK and Oracle's OpenJDK
+Introduction
+These notes describe important changes, enhancements, removed APIs and features, deprecated APIs and features, and other information about JDK 15 and Java SE 15. In some cases, the descriptions provide links to additional detailed information about an issue or a change. This page does not duplicate the descriptions provided by the Java SE 15 ( JSR 390) Platform Specification, which provides informative background for all specification changes and might also include the identification of removed or deprecated APIs and features not described here. The Java SE 15 ( JSR 390) specification provides links to:
+Annex 1:  The complete  Java SE 15 API Specification .
+Annex 2:  An  annotated API specification  showing the exact differences relative to Java SE 15. Informative background for these changes may be found in the list of approved Change Specification Requests for this release.
+Annex 3:  Java SE 15 Editions of  The Java Language Specification  and  The Java Virtual Machine Specification . The Java SE 15 Editions contain all corrections and clarifications made since the Java SE 14 Editions, as well as additions for new features.
+You should be aware of the content in that document as well as the items described in this page.
+The descriptions on this Release Note page also identify potential compatibility issues that you might encounter when migrating to JDK 15. The  Kinds of Compatibility  page on the OpenJDK wiki identifies three types of potential compatibility issues for Java programs used in these descriptions:
+Source:  Source compatibility preserves the ability to compile existing source code without error.
+Binary:  Binary compatibility is defined in The Java Language Specification as preserving the ability to link existing class files without error.
+Behavioral:  Behavioral compatibility includes the semantics of the code that is executed at runtime.
+See  CSRs Approved for JDK 15  for the list of CSRs closed in JDK 15 and the  Compatibility & Specification Review (CSR)  page on the OpenJDK wiki for general information about compatibility.
+IANA Data 2020a
+JDK 15 contains IANA time zone data version 2020a. For more information, refer to  Timezone Data Versions in the JRE Software .
+TOP
+What's New in JDK 15 - New Features and Enhancements
+This section describes some of the enhancements in Java SE 15 and JDK 15. In some cases, the descriptions provide links to additional detailed information about an issue or a change. The APIs described here are those that are provided with the Oracle JDK. It includes a complete implementation of the Java SE 15 Platform and additional Java APIs to support developing, debugging, and monitoring Java applications.  Another source of information about important enhancements and new features in Java SE 15 and JDK 15 is the  Java SE 15 ( JSR 390)  Platform Specification, which documents the changes to the specification made between Java SE 14 and Java SE 15. This document includes descriptions of those new features and enhancements that are also changes to the specification. The descriptions also identify potential compatibility issues that you might encounter when migrating to JDK 15.
+core-libs/java.lang
+➜   Added isEmpty Default Method to CharSequence
+java.lang.CharSequence  has been updated in this release to define a default  isEmpty  method that tests if a character sequence is empty.  Testing for, and filtering out, empty  String s and other  CharSequence s is a common occurrence in code and  CharSequence::isEmpty  can be used as a method reference.  Classes that implement  java.lang.CharSequence  and another interface that defines  isEmpty  method should be aware of this addition as they may need to be modified to override the  isEmpty  method.
+See  JDK-8215401
+core-libs/java.lang
+➜   Support for Unicode 13.0
+This release upgrades Unicode support to 13.0, which includes the following:
+The  java.lang.Character  class supports Unicode Character Database of 13.0 level, which 13.0 adds 5,930 characters, for a total of 143,859 characters. These additions include 4 new scripts, for a total of 154 scripts, as well as 55 new emoji characters.
+The  java.text.Bidi  and  java.text.Normalizer  classes support 13.0 level of Unicode Standard Annexes, #9 and #15, respectively.
+The  java.util.regex  package supports Extended Grapheme Clusters based on 13.0 level of Unicode Standard Annex #29
+For more detail about Unicode 13.0, refer to the  Unicode Consortium's release note .
+See  JDK-8239383
+core-libs/java.lang.invoke
+➜   JEP 371 Hidden Classes
+JEP 371  introduces hidden classes in Java 15.  Hidden classes have the following implications to existing code:
+Class::getName  traditionally returns a binary name, but for a hidden class it returns a string that contains an ASCII forward slash ( / ) and is therefore not a binary name. Programs that assume the returned string is a binary name might need to be updated to handle hidden classes. That said, the longstanding practice of  Unsafe::defineAnonymousClass  was to define classes whose names were not binary names, so some programs may already handle such names successfully.
+Class::descriptorString  and  MethodType::descriptorString  returns a string that contains a ASCII dot ( . )  for a hidden class and therefore is not a type descriptor conforming to JVMS 4.3.   Programs that assume the returned string is a type descriptor that conforms to JVMS 4.3 might need to be updated to handle hidden classes.
+Class::getNestMembers  is changed to not throw an exception when it fails to validate a nest membership of any member listed in  NestMembers  attribute. Instead,  Class::getNestMembers  returns the nest host and the members listed in the host's  NestMembers  attribute that are successfully resolved and determined to have the same nest host as this class. (This means it may return fewer members that listed in  NestMembers  attribute.) Existing code that expects  LinkageError  when there is a bad nest membership might be impacted.
+The nestmate test in the JVM is changed to throw only  IllegalAccessError  when the nest membership is invalid. Some historical understanding is necessary:
+In Java 8, every access control failure was signaled with  IllegalAccessError  (IAE). Moreover, if a given access check failed with IAE once, then the same check would fail with IAE every time.
+In Java 11, the introduction of nest mates (JEP 181) meant that an access control failure could be signaled either with  IllegalAccessError  or, if nest membership was invalid,  LinkageError . Still, if a given access check failed with a specific exception, then the same check would always fail with the same exception.
+In Java 15, the introduction of  Lookup::defineHiddenClass  implies that the nest host of the lookup class must be determined eagerly, when the hidden class is defined as a nestmate of the lookup class. Both  Lookup::defineHiddenClass  and  Class::getNestHost  both determine the nest host of a class in a more resilient manner than the JVM did in Java 11; namely, the API simply treats a class as self-hosted if its purported nest membership is invalid. For consistency with the API, the JVM no longer throws  LinkageError  when a class's nest membership is invalid, and instead treats the class as self-hosted. This means that the JVM only throws IAE from access control (because a self-hosted class will not permit any other class to access its private members). This is the behavior expected by the vast majority of user code.
+JVM TI  GetClassSignature  returns a string that contains a ASCII dot ( . )  for a hidden class.  JVM TI agents might need updating for hidden classes if they assume the returned string from  GetClassSignature  is a type descriptor conforming to JVMS 4.3.
+See  JDK-8238358
+core-libs/java.net
+➜   Added Support for SO_INCOMING_NAPI_ID Support
+A new JDK-specific socket option  SO_INCOMING_NAPI_ID  has been added to  jdk.net.ExtendedSocketOptions  in this release. The socket option is Linux specific and allows applications to query the NAPI (New API) ID of the underlying device queue associated with its socket connection and take advantage of the Application Device Queue (ADQ) feature of high performance Network Interface Card (NIC) devices.
+See  JDK-8243099
+core-libs/java.util:collections
+➜   Specialized Implementations of TreeMap Methods
+The TreeMap class now provides overriding implementations of the  putIfAbsent ,  computeIfAbsent ,  computeIfPresent ,  compute , and  merge  methods. The new implementations provide a performance improvement. However, if the function provided to the  compute-  or  merge  methods modifies the map, ConcurrentModificationException may be thrown, because the function that is provided to these methods is prohibited from modifying the map. If a ConcurrentModificationException occurs, the function must either be changed to avoid modifying the map, or the surrounding code should be rewritten to replace uses of the  compute-  and  merge  methods with conventional Map methods such as  get  and  put .
+See  JDK-8227666  for further information.
+See  JDK-8176894
+core-svc/javax.management
+➜   Added Ability to Configure Third Port for Remote JMX
+JMX supports (explicit) remote network access through the configuration of two network ports (either from the command line or in a property file), by setting the following properties:
+com.sun.management.jmxremote.port=<port#>
+com.sun.management.jmxremote.rmi.port=<port#>
+Note: If it is not specified, the second port will default to the first.
+A third local port is also opened to accept (local) JMX connections. This port previously had its number selected at random, which could cause port collisions.
+However, it is now possible to configure the third JMX port (local only) by using:
+com.sun.management.jmxremote.local.port=<port#>
+See  JDK-8234484
+core-svc/tools
+➜   New Option Added to jstatd for Specifying RMI Connector Port Number
+A new  -r <port>  option has been added to the  jstatd  command to specify the RMI connector port number. If a port number is not specified, a random available port is used.
+See  JDK-8196729
+core-svc/tools
+➜   New Option Added to jcmd for Writing a gzipped Heap Dump
+A new integer option  gz  has been added to the  GC.heap_dump  diagnostic command. If it is specified, it will enable the gzip compression of the written heap dump. The supplied value is the compression level. It can range from 1 (fastest) to 9 (slowest, but best compression). The recommended level is 1.
+See  JDK-8237354
+tools/javac
+➜   JEP 378 Text Blocks
+Text blocks have been added to the Java language. A text block is a multi-line string literal that avoids the need for most escape sequences, automatically formats the string in a predictable way, and gives the developer control over the format when desired.
+See  JDK-8236934
+hotspot/svc-agent
+➜   New Options Added to jhsdb for debugd Mode
+Three new options have been added to the  jhsdb  command for the debugd mode:
+--rmiport <port>  is used to specify a RMI connector port number. If a port number is not specified, a random available port is used.
+--registryport <port>  is used to specify a RMI registry port number. This option overrides the system property  sun.jvm.hotspot.rmi.port . If a port number is not specified, the system property is used. If the system property is not set, the default port 1099 is used.
+--hostname <hostname>  is used to specify a RMI connector host name. The value could be a hostname or an IPv4/IPv6 address. This option overrides the system property  java.rmi.server.hostname . If a host name not specified, the system property is used. If the system property is not set, a system host name is used.
+See  JDK-8196751
+install/install
+➜   Oracle JDK Installer for Windows Provides Executables (javac, etc) in a Path Reachable From Any Command Prompt
+The Oracle JDK installer for Windows provides  java.exe ,  javaw.exe ,  javac.exe , and  jshell.exe  commands in a system location so that users can run Java applications without needing to provide the path to the Oracle JDK's installation folder.
+JDK-8222383 (not public)
+security-libs/java.security
+➜   Added Revocation Checking to jarsigner
+A new  -revCheck  option has been added to the  jarsigner  command to enable revocation checking of certificates.
+See  JDK-8242060
+security-libs/java.security
+➜   Tools Warn If Weak Algorithms Are Used
+The  keytool  and  jarsigner  tools have been updated to warn users when weak cryptographic algorithms are used in keys, certificates, and signed JARs before they are disabled. The weak algorithms are set in the  jdk.security.legacyAlgorithms  security property in the  java.security  configuration file. In this release, the tools issue warnings for the SHA-1 hash algorithm and 1024-bit RSA/DSA keys.
+See  JDK-8172404
+security-libs/javax.crypto
+➜   SunJCE Provider Supports SHA-3 Based Hmac Algorithms
+The SunJCE provider has been enhanced to support HmacSHA3-224, HmacSHA3-256, HmacSHA3-384, and HmacSHA3-512. Implementations for these algorithms are available under the Mac and KeyGenerator services. The Mac service generates the keyed-hash and the KeyGenerator service generates the key for the Mac.
+See  JDK-8172680
+security-libs/javax.net.ssl
+➜   New System Properties to Configure the TLS Signature Schemes
+Two new system properties have been added to customize the TLS signature schemes in JDK.  jdk.tls.client.SignatureSchemes  has been added for the TLS client side, and  jdk.tls.server.SignatureSchemes  has been added for the server side.
+Each system property contains a comma-separated list of supported signature scheme names specifying the signature schemes that could be used for the TLS connections.
+The names are described in the  Java Security Standard Algorithm Names Specification   section of the  Java Platform, Standard Edition Security Developer’s Guide .
+See  JDK-8242141
+security-libs/javax.net.ssl
+➜   Support for certificate_authorities Extension
+The "certificate_authorities" extension is an optional extension introduced in TLS 1.3. It is used to indicate the certificate authorities (CAs) that an endpoint supports and should be used by the receiving endpoint to guide certificate selection.
+With this JDK release, the "certificate_authorities" extension is supported for TLS 1.3 in both the client and the server sides.  This extension is always present for client certificate selection, while it is optional for server certificate selection.
+Applications can enable this extension for server certificate selection by setting the  jdk.tls.client.enableCAExtension  system property to  true .  The default value of the property is  false .
+Note that if the client trusts more CAs than the size limit of the extension (less than 2^16 bytes), the extension is not enabled.  Also, some server implementations do not allow handshake messages to exceed 2^14 bytes.  Consequently, there may be interoperability issues when  jdk.tls.client.enableCAExtension  is set to  true  and the client trusts more CAs than the server implementation limit.
+See  JDK-8206925
+security-libs/org.ietf.jgss:krb5
+➜   Support for canonicalize in krb5.conf
+The 'canonicalize' flag in the  krb5.conf file  is now supported by the JDK Kerberos implementation. When set to  true ,  RFC 6806  name canonicalization is requested by clients in TGT requests to KDC services (AS protocol). Otherwise, and by default, it is not requested.
+The new default behavior is different from JDK 14 and previous releases where name canonicalization was always requested by clients in TGT requests to KDC services (provided that support for  RFC 6806  was not explicitly disabled with the  sun.security.krb5.disableReferrals  system or security properties).
+See  JDK-8239385
+security-libs/org.ietf.jgss:krb5
+➜   Support cross-realm MSSFU
+The support for the Kerberos MSSFU extensions [1] is now extended to cross-realm environments.
+By leveraging on the Kerberos cross-realm referrals enhancement, introduced in the context of  JDK-8215032 , the 'S4U2Self' and 'S4U2Proxy' extensions may be used to impersonate user and service principals located on different realms.
+[1] - https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-sfu/3bff5864-8135-400e-bdd9-33b552051d94
+See  JDK-8005819
+TOP
+Removed Features and Options
+This section describes the APIs, features, and options that were removed in Java SE 15 and JDK 15. The APIs described here are those that are provided with the Oracle JDK. It includes a complete implementation of the Java SE 15 Platform and additional Java APIs to support developing, debugging, and monitoring Java applications. Another source of information about important enhancements and new features in Java SE 15 and JDK 15 is the  Java SE 15 ( JSR 390)  Platform Specification, which documents changes to the specification made between Java SE 14 and Java SE 15. This document includes the identification of removed APIs and features not described here. The descriptions below might also identify potential compatibility issues that you could encounter when migrating to JDK 15. See  CSRs Approved for JDK 15  for the list of CSRs closed in JDK 15.
+core-libs/java.net
+➜   Removal of Terminally Deprecated Solaris-specific SO_FLOW_SLA Socket Option
+In this release, in conjunction with the removal of the Solaris port in JEP381 ( JDK-8241787  ), the JDK-specific socket option  jdk.net.ExtendedSocketOptions.SO_FLOW_SLA , which is only relevant to sockets on Solaris, and its supporting classes  SocketFlow  and  SocketFlow.Status , have been removed.
+See  JDK-8244582
+core-libs/java.rmi
+➜   Removal of RMI Static Stub Compiler (rmic)
+The RMI static stub compiler  rmic  has been removed.
+The  rmic  tool is obsolete and has been deprecated for removal since JDK 13.
+See  JDK-8225319
+core-svc/javax.management
+➜   Removal of Deprecated Constant RMIConnectorServer.CREDENTIAL_TYPES
+The terminally deprecated constant  javax.management.remote.rmi.RMIConnectorServer.CREDENTIAL_TYPE  has been removed. A filter pattern can be specified instead by using  RMIConnectorServer.CREDENTIALS_FILTER_PATTERN .
+See  JDK-8213222
+core-libs/jdk.nashorn
+➜   Removal of Nashorn JavaScript Engine
+The Nashorn JavaScript script engine, its APIs, and the  jjs  tool have been removed. The engine, the APIs, and the tool were deprecated for removal in Java 11 with the express intent to remove them in a future release.
+See  JDK-8236933
+hotspot/gc
+➜   Obsolete -XXUseAdaptiveGCBoundary
+The VM option  UseAdaptiveGCBoundary  is obsolete.  Use of this option will produce an obsolete option warning but will otherwise be ignored.
+This option was previously disabled by default, and enabling it only had an effect when also using  -XX:+UseParallelGC .  Enabling it was intended to provide a performance benefit for some applications. However, it has been disabled by default for a long time because of crashes and performance regressions.
+See  JDK-8228991
+security-libs/java.security
+➜   Removal of Comodo Root CA Certificate
+The following expired Comodo root CA certificate has been removed from the  cacerts  keystore:
++ alias name "addtrustclass1ca [jdk]"
+Distinguished Name: CN=AddTrust Class 1 CA Root, OU=AddTrust TTP Network, O=AddTrust AB, C=SE
+See  JDK-8225069
+security-libs/java.security
+➜   Removal of DocuSign Root CA Certificate
+The following expired DocuSign root CA certificate has been removed from the  cacerts  keystore:
++ alias name "keynectisrootca [jdk]"
+Distinguished Name: CN=KEYNECTIS ROOT CA, OU=ROOT, O=KEYNECTIS, C=FR
+See  JDK-8225068
+security-libs/javax.net.ssl
+➜   Retired the Deprecated SSLSession.getPeerCertificateChain() Method Implementation
+The implementation of the deprecated  SSLSession.getPeerCertificateChain()  method has been removed from the JDK in the SunJSSE provider and the HTTP client implementation.  The default implementation of this method has been changed to throw UnsupportedOperationException.
+SSLSession.getPeerCertificateChain()  is a deprecated method and will be removed in a future release.  To mitigate the removal compatibility impact, applications should use the  SSLSession.getPeerCertificates()  method instead.  For service providers,  please remove this method from the existing implementation, and do not support this method in any new implementation.
+See  JDK-8241039
+security-libs/javax.net.ssl
+➜   Removal of com.sun.net.ssl.internal.ssl.Provider Name
+The legacy SunJSSE provider name, "com.sun.net.ssl.internal.ssl.Provider" has been removed and should no longer be used.  The "SunJSSE" name should be used instead. For example,  SSLContext.getInstance("TLS", "SunJSSE") .
+See  JDK-8219989
+TOP
+Deprecated Features and Options
+Additional sources of information about the APIs, features, and options deprecated in Java SE 15 and JDK 15 include:
+The  Deprecated API  page identifies all deprecated APIs including those deprecated in Java SE 15.
+The  Java SE 15 ( JSR 390)  specification documents changes to the specification made between Java SE 14 and Java SE 15 that include the identification of deprecated APIs and features not described here.
+JEP 277: Enhanced Deprecation  provides a detailed description of the deprecation policy. You should be aware of the updated policy described in this document.
+You should be aware of the contents in those documents as well as the items described in this release notes page.
+The descriptions of deprecated APIs might include references to the deprecation warnings of  forRemoval=true  and  forRemoval=false . The  forRemoval=true  text indicates that a deprecated API might be removed from the next major release. The  forRemoval=false  text indicates that a deprecated API is not expected to be removed from the next major release but might be removed in some later release.
+The descriptions below also identify potential compatibility issues that you might encounter when migrating to JDK 15. See  CSRs Approved for JDK 15  for the list of CSRs closed in JDK 15.
+core-libs/java.rmi
+➜   Deprecated RMI Activation for Removal
+The RMI Activation mechanism has been deprecated and may be removed in a future version of the platform. RMI Activation is an obsolete part of RMI that has been optional since Java 8. It allows RMI server JVMs to be started ("activated") upon receipt of a request from a client, instead of requiring RMI server JVMs to be running continuously. Other parts of RMI are not deprecated. See  JEP 385  for further information.
+See  JDK-8245068
+docs
+➜   Deprecated NSWindowStyleMaskTexturedBackground
+After an upgrade of the macOS SDK used to build the JDK, the behavior of the  apple.awt.brushMetalLook  and  textured  Swing properties has changed. When these properties are set, the title of the frame is still visible.
+It is recommended that the  apple.awt.transparentTitleBar  property be set to  true  to make the title of the frame invisible again. The  apple.awt.fullWindowContent  property can also be used.
+Please note that  Textured window  support was implemented by using the  NSTexturedBackgroundWindowMask  value of  NSWindowStyleMask . However, this was deprecated in macOS 10.12 along with  NSWindowStyleMaskTexturedBackground , which was deprecated in macOS 10.14.
+For additional information, refer to the following documentation:
+apple.awt.brushMetalLook :  https://developer.apple.com/documentation/appkit/nstexturedbackgroundwindowmask?language=objc
+apple.awt.transparentTitleBar : https://developer.apple.com/documentation/appkit/nswindow/1419167-titlebarappearstransparent?language=objc
+apple.awt.fullWindowContent : https://developer.apple.com/documentation/appkit/nsfullsizecontentviewwindowmask
+See  JDK-8240995
+hotspot/gc
+➜   Deprecated -XXForceNUMA Option
+The VM option  ForceNUMA  is deprecated. Use of this option will produce a deprecation warning. This option will be removed in a future release.
+This option has always been disabled by default. It exists to support testing of NUMA-related code paths when running on a single node / UMA platform.
+See  JDK-8243628
+hotspot/runtime
+➜   Disabled Biased-locking and Deprecated Biased-locking Flags
+Biased locking has been disabled by default in this release. In addition, the VM option  UseBiasedLocking  along with the VM options  BiasedLockingStartupDelay ,  BiasedLockingBulkRebiasThreshold ,  BiasedLockingBulkRevokeThreshold ,  BiasedLockingDecayTime  and  UseOptoBiasInlining  have been deprecated. The options will continue to work as intended but will generate a deprecation warning when they are used.
+Biased locking might affect performance on applications that exhibit significant amounts of uncontended synchronization, such as applications that rely on older Java Collections APIs that synchronize on every access.  Hashtable  and  Vector  are examples of these APIs. Use  -XX:+BiasedLocking  on the command line to re-enable biased locking. Report any significant performance regressions to Oracle with biased locking disabled.
+See  JDK-8231264
+security-libs/javax.crypto
+➜   Disabled Native SunEC Implementation by Default
+The SunEC crypto provider no longer advertises curves that are not implemented by using modern formulas and techniques.  Arbitrary and named curves, listed at the bottom of this note, are disabled.  Commonly used named curves, secp256r1, secp384r1, secp521r1, x25519, and x448, remain supported and enabled by SunEC because they use modern techniques.  Applications that still require the disabled curves from the SunEC provider can re-enable them by setting the System property  jdk.sunec.disableNative  to  false . For example:  java -Djdk.sunec.disableNative=false ... .
+If this property is set to any other value, the curves will remain disabled.   Exceptions thrown when the curves are disabled will contain the message  Legacy SunEC curve disabled , followed by the name of the curve. Methods affected by the change are  KeyPair.generateKeyPair() ,  KeyAgreement.generateSecret() ,  Signature.verify() , and  Signature.sign() . These methods throw the same exception class they had before when the curve was not supported.
+The following curves are disabled:  secp112r1, secp112r2, secp128r1, secp128r2, secp160k1, secp160r1, secp160r2, secp192k1, secp192r1, secp224k1, secp224r1, secp256k1, sect113r1, sect113r2, sect131r1, sect131r2, sect163k1, sect163r1, sect163r2, sect193r1, sect193r2, sect233k1, sect233r1, sect239k1, sect283k1, sect283r1, sect409k1, sect409r1, sect571k1, sect571r1, X9.62 c2tnb191v1, X9.62 c2tnb191v2, X9.62 c2tnb191v3, X9.62 c2tnb239v1, X9.62 c2tnb239v2, X9.62 c2tnb239v3, X9.62 c2tnb359v1, X9.62 c2tnb431r1, X9.62 prime192v2, X9.62 prime192v3, X9.62 prime239v1, X9.62 prime239v2, X9.62 prime239v3, brainpoolP256r1 brainpoolP320r1, brainpoolP384r1, brainpoolP512r1
+See  JDK-8237219
+security-libs/jdk.security
+➜   Added forRemoval=true to Previously Deprecated ContentSigner APIs
+The  ContentSigner  and  ContentSignerParameters  classes in the  com.sun.jarsigner  package support alternative signers and have been deprecated with  forRemoval=true .  When the  -altsigner  or  -altsignerpath  options are specified, the  jarsigner  tool produces a warning that these options are deprecated and will be removed.
+See  JDK-8242260
+TOP
+Other notes
+client-libs
+➜   Workaround for Windows GDI API's memory restrictions
+It has been found that some Windows GDI functions don't support all types of Java heap memory allocation schemes. This problem can cause repaint issues and printing bugs. It has been worked around by allocating temporary buffers off heap.
+See: https://support.microsoft.com/en-us/help/4567569/gdi-apis-may-fail-when-large-pages-or-vad-spanning-is-used
+See  JDK-8240654
+client-libs/java.awt
+➜   java.awt.Robot.delay() Method Completes With Interrupt Status Set When Interrupted
+When it is interrupted, the implementation of the  java.awt.Robot.delay()  method has been changed to complete with the interrupt status set.
+If a thread is interrupted while waiting in the  java.awt.Robot.delay()  method, then this method returns immediately with the interrupt status set. If the interrupted status is already set, this method returns immediately with the interrupt status set.
+See  JDK-8210231
+core-libs/java.io:serialization
+➜   Improved Serialization Handling
+When setting a serialization filter by using  java.io.ObjectInputStream.setObjectInputFilter  the method must be called before reading any objects from the stream. If the methods  readObject  or  readUnshared  are called, the  setObjectInputFilter  method throws  IllegalStateException .
+JDK-8234836 (not public)
+core-libs/java.lang
+➜   Optimized Empty Substring Handling
+The implementation of  String.substring  and related methods  stripLeading  and  stripTrailing  have changed in this release to avoid redundantly creating a new empty String. This may impact code that depends on unspecified behaviour and the identity of empty sub-strings.
+See  JDK-8240094
+core-libs/java.lang.invoke
+➜   LookupdefineClass Links the Class
+Lookup::defineClass  is specified to throw  LinkageError  if a linkage error occurs, but the implementation was not actually linking the class.  In this release, the implementation has been changed to link the class before returning, so conforming to the specification.   If  Lookup::defineClass  is called to define a class that fails linking,  LinkageError  will be thrown.
+See  JDK-8238195
+core-libs/java.net
+➜   DatagramSocketdisconnect Allows an Implementation to Throw UncheckedIOException
+Previously,  DatagramChannel::disconnect  threw an  IOException  while  DatagramSocket::disconnect  did not. As a result, the  DatagramChannel::socket  adapter, which calls  DatagramChannel::disconnect , catches the thrown  IOException  and rethrows it as an  Error . However, this was undocumented behavior and not user-friendly.
+The  DatagramChannel::socket  adapter has been changed to throw an  UncheckedIOException , and the specification of  DatagramSocket::disconnect  has been updated to document that an implementation may now throw an  UncheckedIOException . This ensures consistency in behavior between  DatagramSocket ,  DatagramChannel , and  DatagramChannel::socket  adapter.
+See  JDK-8235783
+core-libs/java.net
+➜   java.net.HttpClient Does Not Override Protocols Specified in SSLContext Default Parameters
+During the setup of new connections,  java.net.http.HttpClient  now uses the default set of protocols provided by the  SSLContext  when negotiating the TLS handshake. In the absence of  any  SSLParameter s explicitly supplied to the  HttpClient.builder , the  HttpClient  has been updated to no longer override any default-selected protocols in the SSLContext. As a result, the actual TLS version that is negotiated might differ from that of previous releases, or it might even succeed or fail to negotiate when it previously might not have.
+See  JDK-8239594
+core-libs/java.net
+➜   Filtering and Ordering of Addresses Returned by Alternative Hosts File Name Service Provider
+In this release, the behavior of  InetAddress.getAllByName  has been modified when the alternative hosts file name service is selected .
+The JDK allows specifying an alternative host's file name service by using the  jdk.net.hosts.file  system property. The implementation of the alternative name service has been changed to take into account the values of the  java.net.preferIPv4Stack  and  java.net.preferIPv6Addresses  system properties. This affects the results returned by  InetAddress.getAllByName  when the host's file name service is selected.
+For details about  java.net.preferIPv4Stack  and  java.net.preferIPv6Addresses , see  Networking Properties  in the API documentation.
+See  JDK-8244958
+core-libs/java.net
+➜   DatagramPacket.getPort() Returns 0 When the Port Is Not Set
+In this release, the default port number for a datagram packet has been changed to 0. Previously, this value was -1, which was undocumented. The port can be retrieved by using  DatagramPacket::getPort .
+See  JDK-8237890
+core-libs/java.nio.charsets
+➜   Modified the MS950 charset Encoder's Conversion Table
+In this release, some of the one-way byte-to-char mappings have been aligned with the preferred mappings provided by the  Unicode Consortium .
+See  JDK-8232161
+core-libs/java.text
+➜   Support Monetary Grouping Separator in DecimalFormat/DecimalFormatSymbols
+DecimalFormat/DecimalFormatSymbols classes are now capable of dealing with grouping separators for currency values. For example, the monetary grouping separator for the German language used in Austria (the de-AT locale) is '.', whereas the monetary grouping separator in other German locales is ' '.
+See  JDK-8227313
+core-libs/java.time
+➜   localizedBy() Overrides Localized Values With Default Values
+java.time.format.DateTimeFormatter.localizedBy(Locale)  method now honors the default locale values, such as  Chronology and/or  DecimalStyle  of the specified locale argument.
+For example, in previous JDK releases:
+jshell> DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
+.localizedBy(Locale.forLanguageTag("fa"))
+.format(LocalDate.now())
+$3 ==> "جمعه 1 مهٔ 2020"
+the numbers are in Arabic (Western) numerals.
+In JDK 15:
+jshell> DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
+.localizedBy(Locale.forLanguageTag("fa"))
+.format(LocalDate.now())
+$3 ==> "جمعه ۱ مهٔ ۲۰۲۰"
+the numbers are in Extended Arabic-Indic numerals because it is the default numbering system for the Farsi locale.
+See  JDK-8244245
+core-libs/java.time
+➜   ValueRange.of(long, long, long) Does Not Throw IAE on Invalid Inputs
+java.time.temporal.ValueRange.of()  methods are now correctly throwing an InvalidArgumentException on given invalid arguments. For example,  of(5, 2, 10)  which is invalid because the  minimum  is greater than the  smallest maximum , now throws the exception.
+See  JDK-8239520
+core-libs/java.util.jar
+➜   Performance Improvement for InflaterOutputStream.write
+InflaterOutputStream(OutputStream out, Inflater infl, int bufLen)  allows for specifying the  decompressor and buffer size to be used.
+InflaterOutputStream.write(byte[] b, int off, int len)  was writing data using a max buffer size of 512 bytes.
+Starting with JDK 15 the buffer size specified via  InflaterOutputStream(OutputStream out, Inflater infl, int bufLen)  will be used in  calls to  InflaterOutputStream.write(byte[] b, int off, int len) .  If the buffer size is not specified when invoking the  InflaterOutputStream  constructor, it will default to 512 bytes.
+See  JDK-8242848
+core-libs/java.util.regex    ➜   Incorrect behavior matching Unicode linebreaks
+The change  JDK-8235812  in Java 15 introduced incorrect behavior for matching of the  \R  Unicode linebreak sequence when using the  java.util.regex.Pattern  API. The  \R  sequence should match CR (U+000D) or LF (U+000A) individually, but it should not match an individual CR if it occurs in a CRLF sequence. An example of the erroneous behavior is that the pattern  \R{2}  matches a CRLF sequence, but it should not. A possible workaround is to match linebreaks using individual characters instead of  \R , using negative lookahead to prevent matching of an individual CR within a CRLF sequence. To do this, replace the  \R  sequence with the following:
+(?:(\u000D\u000A)|((?!\u000D\u000A)[\000A\u000B\u000C\u000D\u0085\u2028\u2029]))
+A simpler sequence can be used if matching all of the Unicode-specified linebreak characters is not required, or if special treatment for the CRLF sequence is not required.
+See  JDK-8258259
+core-libs/java.util.regex
+➜   Case Insensitive Matching Doesn't Work Correctly for Some Character Classes
+The Java regular expression engine supports the case insensitive mode.  When this mode is turned on, the engine is supposed to match the input text without regard to the case of the characters it consists of.
+However, the current implementation of matching against some named character classes (those that are encoded with \p{name} or \P{name} constructs) fails to respect the case insensitive mode.
+This fix makes these character classes behave consistently with respect to case sensitivity.  When the regular expression engine operates in the case insensitive mode, the named character classes will match the input characters without regard to their case: lower case, upper case, or title case.
+See  JDK-8214245
+core-libs/java.util:collections
+➜   Better Listing of Arrays
+The preferred way to copy a collection is to use a "copy constructor." For example, to copy a collection into a new ArrayList, one would write  new ArrayList<>(collection) . In certain circumstances, an additional, temporary copy of the collection's contents might be made in order to improve robustness. If the collection being copied is exceptionally large, then the application should be (aware of/monitor) the significant resources required involved in making the copy.
+JDK-8231800 (not public)
+core-libs/java.util:collections    ➜   TreeMap.computeIfAbsent Mishandles Existing Entries Whose Values Are null
+Enhancement  JDK-8176894  inadvertently introduced erroneous behavior in the  TreeMap.computeIfAbsent  method. The other  TreeMap  methods that were modified by this enhancement are unaffected. The erroneous behavior is that, if the map contains an existing mapping whose value is null, the  computeIfAbsent  method immediately returns null. To conform with the specification,  computeIfAbsent  should instead call the mapping function and update the map with the function's result.
+See  JDK-8259622
+core-libs/java.util:i18n
+➜   Support for CLDR version 37
+Locale data based on Unicode Consortium's CLDR has been upgraded to their version 37. For the detailed locale data changes, please refer to the Unicode Consortium's CLDR release notes:
+http://cldr.unicode.org/index/downloads/cldr-37
+See  JDK-8239480
+core-libs/java.util:i18n
+➜   Localized Time Zone Name Inconsistency Between English and Other Locales
+English time zone names provided by the CLDR locale provider are now correctly synthesized following the CLDR spec, rather than substituted from the COMPAT provider. For example, SHORT style names are no longer synthesized abbreviations of LONG style names, but instead produce GMT offset formats.
+See  JDK-8236548
+tools/jpackage
+➜   [macos] Support for Notarizing jpackage app-image and dmg
+jpackage cannot create packages on macOS that are suitable for notarization.
+See  JDK-8237490
+hotspot/compiler
+➜   Flags Controlling C1 Inlining Have New Names
+A number of flags controlling inlining in the C1 and C2 compilers have been split up into separate flags. The C2 compiler keeps the flags with the old names, and the C1 compiler gets the new flags.
+Old flags now only controlling C2
+MaxInlineLevel
+MaxRecursiveInlineLevel
+MaxInlineSize
+MaxTrivialSize
+InlineSmallCode
+FreqInlineSize
+New flags for C1 that replace the old ones
+C1MaxInlineLevel
+C1MaxRecursiveInlineLevel
+C1MaxInlineSize
+C1MaxTrivialSize
+Deprecation
+If the old flags are used in a JDK build without the C2 compiler, a deprecation warning will be printed.
+See  JDK-8235673
+hotspot/gc
+➜   Improved Ergonomics for G1 Heap Region Size
+The default heap region size calculation has been changed to return larger regions by default. The calculation still aims to have 2048 regions, but two aspects have changed:
+Only the maximum heap size is considered. The old calculation also took the initial heap size into consideration, but this can give unexpected behavior when no heap size is set.
+The region size is rounded up to the nearest power of 2 instead of down. This will return larger region sizes in cases where the maximum heap size is not a power of 2.
+These changes improve startup and runtime performance.
+See  JDK-8241670
+hotspot/gc
+➜   JEP 377 ZGC A Scalable Low-Latency Garbage Collector (Production)
+The Z Garbage Collector (ZGC) is now ready for use in production and no longer marked as an experimental feature. ZGC is enabled by using the  -XX:+UseZGC  command-line option (using  -XX:+UnlockExperimentalVMOptions  is no longer needed).
+See  JEP 377  for more details.
+See  JDK-8209683
+hotspot/gc
+➜   Disabling large pages on Windows
+-XX:+UseLargePages has no effect on Windows in this release. It was found that GDI APIs used by java2d don't support large pages. The JVM detects this problem and both warns about this and reverts to using small pages. See: https://support.microsoft.com/en-us/help/4567569/gdi-apis-may-fail-when-large-pages-or-vad-spanning-is-used
+See  JDK-8245000
+hotspot/gc
+➜   Disabling NUMA Interleaving on Windows
+-XX:+UseNUMAInterleaving has no effect on Windows in this release. It was found that GDI APIs used by java2d don't support the memory reservation scheme used for NUMA interleaving. The JVM detects this problem and both warns about this and turns off NUMA interleaving. See: https://support.microsoft.com/en-us/help/4567569/gdi-apis-may-fail-when-large-pages-or-vad-spanning-is-used
+See  JDK-8245002
+hotspot/runtime
+➜   Field Layout Computation Changed
+The way that field layout is computed has been changed, with more aggressive optimizations to avoid unused gaps in instances. These new optimizations can be disabled by using a new VM option  -XX:-UseEmptySlotsInSupers .
+For a limited time, it is possible to continue to use the old code to compute field layout with a new VM option  -XX:-UseNewFieldLayout . However, this option has been deprecated in JDK 15 and the old code will be removed in a future release.
+See  JDK-8237767
+hotspot/runtime
+➜   Enable ShowCodeDetailsInExceptionMessages by default
+The default of the flag ShowCodeDetailsInExceptionMessages was changed to 'true'.  The helpful NullPointerException messages of  JEP 358  are now printed by default.  The messages contain snippets of the code where the NullPointerException was raised.
+App deployers should  double check the output of their web applications and similar usage scenarios.
+The NullPointerException message could be included in application error messages or be displayed by other means in the app. This could give remote attackers valuable hints about a potential vulnerable state of the software components being used.
+An example message is 'Cannot read field "c" because "a.b" is null'. The attacker knows that field b of a contains null which might be unintended and offer an opportunity for an attack. For more details of what the message can contain see the above mentioned  JEP 358 .
+See  JDK-8233014
+security-libs/java.security
+➜   Signature and SignatureSpi Get Parameter Methods May Return null When Unsupported
+Signature.getParameters()  and  SignatureSpi.engineGetParameters()  may return null if the underlying provider does not support returning the parameters as AlgorithmParameters. For further details, see the Signature and SignatureSpi method descriptions.
+See  JDK-8243424
+security-libs/javax.crypto:pkcs11
+➜   SunPKCS11 Initialization With NSS When External FIPS Modules Are in Security Modules Database
+The SunPKCS11 security provider can now be initialized with NSS when FIPS-enabled external modules are configured in the Security Modules Database (NSSDB). Before this change, when such a library was configured for NSS in non-FIPS mode, the SunPKCS11 provider would throw a RuntimeException with the message "FIPS flag set for non-internal module".
+This change allows the JDK to work properly with recent NSS releases in GNU/Linux operating systems when the system-wide FIPS policy is turned on.
+See  JDK-8238555
+security-libs/javax.net.ssl
+➜   Default SSLEngine Should Create in Server Role
+In JDK 11 and later,  javax.net.ssl.SSLEngine  by default used client mode when handshaking. As a result, the set of default enabled protocols may differ to what is expected.  SSLEngine  would usually be used in server mode. From this JDK release onwards,  SSLEngine  will default to server mode. The  javax.net.ssl.SSLEngine.setUseClientMode​(boolean mode)  method may be used to configure the mode.
+See  JDK-8237474
+tools/javac
+➜   JEP 375 Pattern Matching for instanceof (Second Preview)
+Pattern matching for the  instanceof  operator is a  preview feature  of the Java language in JDK 15. Pattern matching allows common logic in a Java program to be expressed more concisely and safely, namely the conditional extraction of components from objects. Preview features must not be used in production, but feedback from Java developers on the usability of preview features is welcome.
+See  JDK-8235186
+tools/javadoc(tool)
+➜   Standard Doclet Index Files Compression
+The Standard Doclet no longer generates pre-compressed index files. Decisions about compression are now left to the underlying means of delivery (for example, application layer protocols such as HTTP).
+See  JDK-8237909
+TOP
+Differences Between Oracle JDK and Oracle's OpenJDK
+Although we have stated the goal to have OpenJDK and Oracle JDK binaries be as close to each other as possible there remain several differences between the two options.
+The current differences are:
+Oracle JDK offers "installers" ( msi ,  rpm ,  deb , etc.) which not only place the JDK binaries in your system but also contain update rules and in some cases handle some common configurations like set common environmental variables (such as, JAVA_HOME in Windows) and establish file associations (such as, use  java  to launch  .jar  files). OpenJDK is offered only as compressed archive ( tar.gz  or  .zip ).
+Usage Logging is only available in Oracle JDK.
+Oracle JDK requires that third-party cryptographic providers be signed with a Java Cryptography Extension (JCE) Code Signing Certificate. OpenJDK continues allowing the use of unsigned third-party crypto providers.
+The output of  java -version  is different. Oracle JDK returns  java  and includes the Oracle-specific identifier. OpenJDK returns OpenJDK and does not include the Oracle-specific identifier.
+Oracle JDK is released under the  OTN License . OpenJDK is released under  GPLv2wCP . License files included with each will therefore be different.
+Oracle JDK distributes FreeType under the FreeType license and OpenJDK does so under GPLv2. The contents of  \legal\java.desktop\freetype.md  is therefore different.
+Oracle JDK has Java cup and steam icons and OpenJDK has Duke icons.
+Oracle JDK source code includes "ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms." Source code distributed with OpenJDK refers to the GPL license terms instead.
+© 2026 Oracle
+Privacy
+/
+Do Not Sell My Info
+Ad Choices
+Careers
+Subscribe to emails
+Integrity Helpline
+Resources
+Contact Us
+Facebook
+X
+LinkedIn
+YouTube

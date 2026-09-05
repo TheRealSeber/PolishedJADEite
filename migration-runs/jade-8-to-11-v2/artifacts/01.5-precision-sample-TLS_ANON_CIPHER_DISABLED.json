@@ -1,0 +1,97 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "",
+        "\t\t\tString[] ecs = sss.getEnabledCipherSuites();",
+        "\t\t\t//DEBUG"
+      ],
+      "context_before": [
+        "\t\t// Initialize the SSLServerSocket to disable authentication",
+        "\t\ttry {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review"
+      ],
+      "file": "src/jade/src/jade/imtp/leap/JICP/JICPSPeer.java",
+      "hit_id": "51827f4fd387fa85",
+      "line": 224,
+      "line_hash": "970fadd26783ad81",
+      "line_text": "\t\t\tsss.setEnabledCipherSuites(new String[] {\"SSL_DH_anon_WITH_RC4_128_MD5\"});",
+      "line_truncated": false,
+      "match_span": [
+        45,
+        73
+      ],
+      "match_text": "SSL_DH_anon_WITH_RC4_128_MD5",
+      "pattern_index": 0,
+      "rank": 0
+    },
+    {
+      "context_after": [
+        "",
+        "\tpublic static String[] getSupportedKeys() {",
+        "\t\treturn (String[]) supportedKeys.toArray(new String[0]);"
+      ],
+      "context_before": [
+        "\t * use this to indicate which cipher suites we support",
+        "\t */",
+        "\tpublic static final List supportedKeys ="
+      ],
+      "file": "src/jade/src/jade/imtp/leap/SSLHelper.java",
+      "hit_id": "13de15412491c780",
+      "line": 29,
+      "line_hash": "78059cd853b1d2b0",
+      "line_text": "\t\tCollections.unmodifiableList(Arrays.asList(new String[] {\"TLS_ECDH_anon_WITH_AES_128_CBC_SHA\"}));",
+      "line_truncated": false,
+      "match_span": [
+        60,
+        94
+      ],
+      "match_text": "TLS_ECDH_anon_WITH_AES_128_CBC_SHA",
+      "pattern_index": 0,
+      "rank": 1
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-8-to-11-v2/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "85d9ec37142817923edade4d181374c58c8f1a8631d2e991a757b675a0ccf63d",
+  "pattern_revision": 1,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "(?:TLS|SSL)_(?:DH|ECDH)_anon_[A-Za-z0-9_]+",
+      "reason": "hard-coded anonymous TLS cipher suite; disabled by the default jdk.tls.disabledAlgorithms value in JDK 11 and never negotiated even when set explicitly",
+      "target_extensions": [
+        ".java"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 1015,
+    "files_with_hits": 2,
+    "hits_per_pattern": {
+      "0": 2
+    },
+    "max_hits_in_one_file": 1,
+    "population_signature": "444d747c3dba6d9a7855a60dc7d3488cd40ecbb0a39b9ec709843cd5e68070b8",
+    "total_hits": 2,
+    "truncated": false
+  },
+  "rule_description": "In JDK 11 the java.security property jdk.tls.disabledAlgorithms has the default value 'SSLv3, TLSv1, TLSv1.1, DTLSv1.0, RC4, DES, MD5withRSA, DH keySize < 1024, EC keySize < 224, 3DES_EDE_CBC, anon, NULL, ECDH, include jdk.disabled.namedCurves'. The 'anon' entry disables every anonymous key-exchange cipher suite (DH_anon, ECDH_anon), and the JSSE guide states these algorithms will not be negotiated for TLS/DTLS connections even if they are enabled explicitly by an application. JADE hard-codes anonymous suites in two places, so an SSLServerSocket configured with them raises an SSLHandshakeException at runtime on JDK 11 instead of completing an unauthenticated handshake.",
+  "rule_id": "TLS_ANON_CIPHER_DISABLED",
+  "rule_name": "Anonymous TLS cipher suites are disabled by default in JDK 11",
+  "run_id": "jade-8-to-11-v2",
+  "sample_size": 2,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 3,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "a832e3df06f86e95",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "CENSUS",
+  "verification_hint": "No .java file in the workspace matches (?:TLS|SSL)_(?:DH|ECDH)_anon_ any more, or every remaining match is proven unreachable. A JICP-S handshake between two JADE containers on JDK 11 completes without SSLHandshakeException, and all four consumers still PASS.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-8-to-11-v2/workspace"
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "rule_id": "APPLET_API_DEPRECATED_FOR_REMOVAL",
+  "shard_id": "APPLET_API_DEPRECATED_FOR_REMOVAL-signature-001",
+  "status": "NEEDS_REVIEW",
+  "match_quality": "exact",
+  "diff_summary": "Per the recipe's explicit scope: only the one mechanical, no-judgment change was made -- removed the unused `import java.applet.*;` from DFGUI.java (confirmed no java.applet type is referenced anywhere else in that file). The other 3 flagged files (AppletBoot.java extends Applet; DFApplet.java extends Applet; DFAppletCommunicator.java imports/fields/constructs an Applet parameter) are left completely untouched -- the retire-or-suppress decision the recipe names is a product decision, not a mechanical migration step, and is escalated here rather than made unilaterally: (1) retire the applet subtree (delete jade.AppletBoot, jade.tools.applet, the DF-Applet ontology and its GUI wiring, and DFapplet.html), or (2) keep it, accept the JDK17 deprecation warning, and annotate the four affected declarations @SuppressWarnings(\"removal\") to make the acknowledgement explicit. javac -Xlint:removal on the full 16-file shard confirms the 4 removal warnings are unchanged (still present, at the 3 untouched files) and there are 0 compile errors.",
+  "files": [
+    {
+      "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 37,
+      "touched_line_end": 38,
+      "migration_skip_marker": false,
+      "diff_summary": "Removed the unused `import java.applet.*;` (line 37) and its JADE-FLAG comment (line 38). No other line in this file references anything from java.applet."
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "Declared NEEDS_REVIEW directly (not FIXED-promoted): the substantive part of this rule -- what to do about AppletBoot.java, DFApplet.java, and DFAppletCommunicator.java's real Applet dependency -- is a product decision per the recipe ('the retire-or-suppress decision is escalated') and was not made. Only the one authorized mechanical cleanup (DFGUI.java's unused wildcard import) was applied.",
+    "gate_signatures.py initially REJECTed this shard (exit 2) because the canonical 03.5-knowledge-graph.json before-graph was stale -- it still predated the already-ACCEPTED MULTICAST_SOCKET_GROUP_API_DEPRECATED shard's edit, so that file's import-list change reappeared as a false leak here too. Fixed by rebuilding the graph from the current (post-MULTICAST) workspace and refreshing 03.5-knowledge-graph.json before re-gating this shard (rollback + re-checkpoint + re-apply the same DFGUI.java edit). The re-run gate is a clean PASS (changed=1, leaked=0)."
+  ]
+}

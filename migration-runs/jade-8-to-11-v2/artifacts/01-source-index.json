@@ -1,0 +1,65 @@
+{
+  "run_id": "jade-8-to-11-v2",
+  "sources": [
+    {
+      "source_label": "jep320-remove-ee-corba",
+      "source_url": "https://openjdk.org/jeps/320",
+      "fetch_status": "success",
+      "error_type": null,
+      "error_message": null,
+      "content_hash": "ce2f96e716c15d839e29ab2a09d3a14248d3e685c6b08c56272f1d271974c8c2",
+      "content_length": 30168,
+      "http_status": 200,
+      "fetched_at": "2026-09-05T00:37:56Z",
+      "source_tier": "official",
+      "is_official": true,
+      "policy_status": "allowed",
+      "content_snippet": "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=us-ascii\" /><meta http-equiv=\"Content-Type\" content=\"text/html; charset=us-ascii\" /><title>JEP 320: Remove the Java EE and CORBA Modules</title><link rel=\"shortcut icon\" href=\"/images/nanoduke.ico\" /><link rel=\"stylesheet\" type=\"text/css\" href=\"/page.css\" /><script type=\"text/javascript\" src=\"/page.js\"><noscript></noscript></script><script src=\"https://cdn.usefathom.com/script.js\" data-site=\"KCYJJPZX\" defer=\"yes\"></script><style type=\"text/css\" xml:space=\"preserve\">\n      TABLE { border-collapse: collapse; padding: 0px; margin: 1em 0 1em 2em; }\n      TR:first-child TH, TR:first-child TD { padding-top: 0; }\n      TH, TD { padding: 0px; padding-top: .5ex; vertical-align: baseline; text-align: left; }\n      TD + TD, TH + TH { padding-left: 1em; }\n      TD:first-child, TH:first-child, TD.jep { text-align: right; }\n      TABLE.head TD:first-child { font-style: italic; padding-left: 2em; white-space: nowrap; }\n      PRE { padding-left: 2em; margin: 1ex 0; font-size: inherit; }\n      TABLE PRE { padding-left: 0; margin: 0; }\n      TABLE.jeps TD:first-child + TD,\n      TABLE.jeps TD:first-child + TD + TD { padding-left: .5em; }\n      TABLE.jeps TD:first-child,\n      TABLE.jeps TD:first-child + TD,\n      TABLE.jeps TD:first-child + TD + TD { font-size: smaller; }\n      TABLE.jeps TD.cl { font-size: smaller; padding-right: 0; text-align: right; }\n      TABLE.jeps TD.cm { font-size: smaller; padding-left: .1em; padding-right: .1em; }\n      TABLE.jeps TD.cr { font-size: smaller; padding-left: 0; }\n      TABLE.jeps TD.z { padding-left: 0; padding-right: 0; }\n      TABLE.head TD { padding-top: 0; }\n    </style></head><body><div id=\"main\"><h1>JEP 320: Remove the Java EE and CORBA Modules</h1><table class=\"head\"><tr><td>Owner</td><td>Lance Andersen</td></tr><tr><td>Ty"
+    },
+    {
+      "source_label": "oracle-migrate-removed-ee-corba",
+      "source_url": "https://docs.oracle.com/en/java/javase/11/migrate/removed-java-ee-and-corba-modules.html",
+      "fetch_status": "success",
+      "error_type": null,
+      "error_message": null,
+      "content_hash": "1b013a9a1a026cc018be3252f901c98bc7b2363a73c5f415643e1202b473e73a",
+      "content_length": 33753,
+      "http_status": 200,
+      "fetched_at": "2026-09-05T00:37:57Z",
+      "source_tier": "official",
+      "is_official": true,
+      "policy_status": "allowed",
+      "content_snippet": "<!DOCTYPE html><html lang=\"en\"><head>\n        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n        \n        <link rel=\"stylesheet\" href=\"/sp_common/site-template/ohc-site-template/css/site.css\">\n        \n        <script data-main=\"/sp_common/site-template/ohc-site-template/js/site-config\" src=\"/sp_common/site-template/requirejs/require.js\"></script>\n\t\t<script>\n        if(window.require === undefined) {\n          document.write('<script data-main=\"sp_common/site-template/ohc-site-template/js/site-config\" src=\"sp_common/site-template/requirejs/require.js\"><\\/script>');\n          document.write('<link href=\"sp_common/site-template/ohc-site-template/css/site.css\" rel=\"stylesheet\">');\n        }\n        </script>\n        <link rel=\"shortcut icon\" href=\"/sp_common/site-template/ohc-common/img/favicon.ico\">\n        \n                <title>JDK 26 Documentation - Home</title>\n                <meta name=\"description\" content=\"The documentation for JDK 26 includes developer guides, API documentation, and release notes.\">\n                <meta property=\"og:description\" content=\"The documentation for JDK 26 includes developer guides, API documentation, and release notes.\">\n                <meta property=\"og:site_name\" content=\"Oracle Help Center\">\n                <meta name=\"generator\" content=\"Oracle Interface Page Generator 1.7.07.20\">\n                <meta property=\"og:title\" content=\"JDK 26 Documentation - Home\">\n                \n                \n                <link rel=\"schema.dcterms\" href=\"http://purl.org/dc/terms/\">\n                <meta name=\"dcterms.created\" content=\"2026-04-01T21:19:12.395Z\">\n                \n                <meta name=\"dcterms.dateCopyrighted\" content=\"2026\">\n                <meta name=\"dcterms.category\" content=\"java\">\n                <meta name=\"dcterms.product\" content=\"en/java/javase/26"
+    },
+    {
+      "source_label": "oracle-migrate-index",
+      "source_url": "https://docs.oracle.com/en/java/javase/11/migrate/index.html",
+      "fetch_status": "success",
+      "error_type": null,
+      "error_message": null,
+      "content_hash": "ef4d6e2a5f253596d3d27b45b958d6d63247f1d0b30bafdcb41367c3103f8677",
+      "content_length": 149491,
+      "http_status": 200,
+      "fetched_at": "2026-09-05T00:37:58Z",
+      "source_tier": "official",
+      "is_official": true,
+      "policy_status": "allowed",
+      "content_snippet": "<!DOCTYPE html\n  SYSTEM \"about:legacy-compat\">\n<html lang=\"en-US\" class=\"letter-style\">\n   <head>\n      <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n      <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n      <title>Java Platform, Standard Edition Oracle JDK Migration Guide, Release 11</title>\n      <meta property=\"og:site_name\" content=\"Oracle Help Center\">\n      <meta property=\"og:title\" content=\"Oracle JDK Migration Guide\">\n      <meta property=\"og:description\" content=\"This guide details the JDK Migration process.\">\n      <link rel=\"stylesheet\" href=\"/sp_common/book-template/ohc-book-template/css/book.css\">\n      <link rel=\"shortcut icon\" href=\"/sp_common/book-template/ohc-common/img/favicon.ico\">\n      <meta name=\"application-name\" content=\"Oracle JDK Migration Guide\">\n      <meta name=\"generator\" content=\"DITA Open Toolkit version 1.8.5 (Mode = letter-style)\">\n      <link rel=\"alternate\" href=\"migration-guide.pdf\" title=\"PDF File\" type=\"application/pdf\">\n      <meta name=\"description\" content=\"This guide details the JDK Migration process.\">\n      <meta name=\"robots\" content=\"all\">\n      <link rel=\"schema.dcterms\" href=\"http://purl.org/dc/terms/\">\n      <meta name=\"dcterms.created\" content=\"2021-10-18T22:38:06-07:00\">\n      \n      <meta name=\"dcterms.dateCopyrighted\" content=\"2017, 2021\">\n      <meta name=\"dcterms.category\" content=\"java\">\n      <meta name=\"dcterms.identifier\" content=\"E94894-04\">\n      \n      <meta name=\"dcterms.product\" content=\"en/java/javase/11\">\n      <meta name=\"dcterms.release\" content=\"11\">\n      <script>\n        document.write('<style type=\"text/css\">');\n        document.write('body > .noscript, body > .noscript ~ * { visibility: hidden; }');\n        document.write('</style>');\n     </script>\n      <script data-main=\"/sp_common/book-template/ohc-book-template/js/book-config\" src=\"/sp_common/book-template/requirejs/require.js\"></scrip"
+    },
+    {
+      "source_label": "oracle-jsse-jdk11-guide",
+      "source_url": "https://docs.oracle.com/en/java/javase/11/security/java-secure-socket-extension-jsse-reference-guide.html",
+      "fetch_status": "success",
+      "error_type": null,
+      "error_message": null,
+      "content_hash": "48c45afe9ad69219d3f5e3f8d0187c17c8574f14946c16dcabb05e63e53486fe",
+      "content_length": 711257,
+      "http_status": 200,
+      "fetched_at": "2026-09-05T00:37:58Z",
+      "source_tier": "official",
+      "is_official": true,
+      "policy_status": "allowed",
+      "content_snippet": "<!DOCTYPE html\n  SYSTEM \"about:legacy-compat\">\n<html xml:lang=\"en-us\" lang=\"en-us\">\n   <head>\n      <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n      <meta name=\"DC.Type\" content=\"topic\">\n      <meta name=\"DC.Title\" content=\"Java Secure Socket Extension (JSSE) Reference Guide\">\n      <meta name=\"abstract\" content=\"The Java Secure Socket Extension (JSSE) enables secure Internet communications. It provides a framework and an implementation for a Java version of the TLS and DTLS protocols and includes functionality for data encryption, server authentication, message integrity, and optional client authentication.\">\n      <meta name=\"description\" content=\"The Java Secure Socket Extension (JSSE) enables secure Internet communications. It provides a framework and an implementation for a Java version of the TLS and DTLS protocols and includes functionality for data encryption, server authentication, message integrity, and optional client authentication.\">\n      <meta name=\"DC.Publisher\" content=\"March2026\">\n      <meta name=\"DC.Format\" content=\"XHTML\">\n      <meta name=\"DC.Identifier\" content=\"GUID-93DEEE16-0B70-40E5-BBE7-55C3FD432345\">\n      <meta name=\"DC.Language\" content=\"en-US\">\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n      <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n      <meta name=\"abstract\" content=\"The Java Secure Socket Extension (JSSE) enables secure Internet communications. It provides a framework and an implementation for a Java version of the TLS and DTLS protocols and includes functionality for data encryption, server authentication, message integrity, and optional client authentication.\">\n      <meta name=\"description\" content=\"The Java Secure Socket Extension (JSSE) enables secure Internet communications. It provides a framework and an implementation for a Java version of the TLS and DTLS protocols and includes functionality for data encryption, server authentication, message integrity, a"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
   "java-8": "frekele/ant:1.10.3-jdk8",
   "java-11": "jade-ant:11",
-  "java-17": "eclipse-temurin:17-jre"
+  "java-17": "jade-ant:17"
 }

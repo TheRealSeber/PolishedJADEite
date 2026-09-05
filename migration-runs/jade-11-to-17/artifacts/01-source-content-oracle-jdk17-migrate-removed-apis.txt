@@ -1,0 +1,136 @@
+Removed APIs
+Previous
+Next
+JavaScript must be enabled to correctly display this content
+Oracle JDK Migration Guide
+Removed APIs
+4  Removed APIs
+This section provides details about Java SE APIs that were removed in JDK 17, JDK 16,
+JDK 15, JDK 14, JDK 13, JDK 12, and JDK 11 releases.
+Run  jdeprscan --release 17 -l --for-removal  to get the list
+of APIs that are marked for removal in JDK 17.
+Note: The jdeprscan tool is available since
+JDK 9.  If you want to print the list of APIs for a different JDK version, then replace
+the release number with 9 or later.
+API Removed in Java SE 17
+Packages   java.rmi.activation ()
+Classes
+java.rmi.activation.Activatable ()
+java.rmi.activation.ActivationDesc ()
+java.rmi.activation.ActivationGroup ()
+java.rmi.activation.ActivationGroup_Stub ()
+java.rmi.activation.ActivationGroupDesc ()
+java.rmi.activation.ActivationGroupID ()
+java.rmi.activation.ActivationID ()
+java.rmi.activation.ActivationInstantiator ()
+java.rmi.activation.ActivationMonitor ()
+java.rmi.activation.ActivationSystem ()
+java.rmi.activation.Activator ()
+API Removed in Java SE 16
+Constructor   javax.tools.ToolProvider.<init>()
+APIs Removed in Java SE 15
+The following APIs have been removed in Java SE 15.
+Fields   java.management.rmi.RMIConnectorServer.CREDENTIAL_TYPES
+Constructors   java.lang.invoke.ConstantBootstraps.<init>
+java.lang.reflect.Modifier.<init>
+APIs Removed in Java SE 14
+The following APIs have been removed in Java SE 14.
+Packages  java.security.acl
+Interfaces   java.security.acl.Acl
+java.security.acl.AclEntry
+java.security.acl.Group
+java.security.acl.Owner
+java.security.acl.Permission
+java.util.jar.Pack200.Packer
+java.util.jar.Pack200.Unpacker
+Classes  java.util.jar.Pack200
+APIs Removed in Java SE 13
+The following APIs were removed in Java SE 13. Both of these APIs were deprecated and
+marked for removal with JDK 9. Both have been superseded by
+JVM-specific tracing mechanisms. See  JVMTM
+Tool Interface  specification.
+java.lang.Runtime.traceInstructions(boolean)
+java.lang.Runtime.traceMethodCalls(boolean)
+APIs Removed in Java SE 12
+The following APIs were removed in Java SE 12.
+java.io.FileInputStream.finalize()
+java.io.FileOutputStream.finalize()
+java.util.zip.Deflater.finalize()
+java.util.zip.Inflater.finalize()
+java.util.zip.ZipFile.finalize()
+APIs Removed in JDK 11
+The following APIs were removed in JDK 11. Many of these APIs were deprecated in
+previous releases and have been replaced by newer APIs.     javax.security.auth.Policy
+java.lang.Runtime.runFinalizersOnExit(boolean)
+java.lang.SecurityManager.checkAwtEventQueueAccess()
+java.lang.SecurityManager.checkMemberAccess(java.lang.Class,int)
+java.lang.SecurityManager.checkSystemClipboardAccess()
+java.lang.SecurityManager.checkTopLevelWindow(java.lang.Object)
+java.lang.System.runFinalizersOnExit(boolean)
+java.lang.Thread.destroy()
+java.lang.Thread.stop(java.lang.Throwable)
+APIs Removed in JDK 10
+The following common DOM APIs were removed in JDK 10.     com.sun.java.browser.plugin2.DOM    sun.plugin.dom.DOMObject
+APIs Removed JDK 9
+The following are some important APIs that have been removed from JDK 10 and JDK 9
+releases.
+Removed java.* APIs
+The Java team is committed to backward compatibility. If an application runs in JDK 8, then it will run on JDK 9 and later releases as long as it uses APIs that are supported and intended for external use.
+These include:
+JCP standard,  java.* ,  javax.*
+JDK-specific APIs, some  com.sun.* , some  jdk.*
+Supported APIs can be removed from the JDK, but only with notice. Find out if your
+code is using deprecated APIs by running the static analysis
+tool  jdeprscan .
+java.*  APIs that were removed in JDK 9 include the previously deprecated methods from the  java.util.logging.LogManager  and  java.util.jar.Pack200  packages:
+java.util.logging.LogManager.addPropertyChangeListener
+java.util.logging.LogManager.removePropertyChangeListener
+java.util.jar.Pack200.Packer.addPropertyChangeListener
+java.util.jar.Pack200.Packer.removePropertyChangeListener
+java.util.jar.Pack200.Unpacker.addPropertyChangeListener
+java.util.jar.Pack200.Unpacker.removePropertyChangeListener
+Removal and Future Removal of sun.misc and sun.reflect APIs
+Unlike the  java.*  APIs, almost all of the  sun.*  APIs are unsupported, JDK-internal APIs, and may go away at any time.
+A few  sun.*  APIs were removed in JDK 9. Notably,
+sun.misc.BASE64Encoder  and  sun.misc.BASE64Decoder  were
+removed. Instead, use the supported   java.util.Base64   class, which
+was added in JDK 8.
+If you use these APIs, you may wish to migrate to their supported replacements:
+sun.misc.Unsafe  The functionality of many of the methods in this class is available by using variable handles, see  JEP 193: Variable Handles .
+sun.reflect.Reflection::getCallerClass(int)  Instead, use the stack-walking API, see   JEP 259: Stack-Walking API .
+See  JEP 260: Encapsulate Most Internal APIs .
+java.awt.peer Not Accessible
+The  java.awt.peer  and  java.awt.dnd.peer  packages aren’t accessible, starting in JDK 9. The packages were never part of the Java SE API, despite being in the  java.*  namespace.
+All methods in the Java SE API that refer to types defined in these packages were removed from JDK 9. Code that calls a method that previously accepted or returned a type defined in these packages no longer compiles or runs.
+There are two common uses of the  java.awt.peer  classes. You should replace them as follows:
+To see if a peer has been set yet:  if (component.getPeer() != null) { .. }  Replace this with  Component.isDisplayable()  from the JDK 1.1 API:  public boolean isDisplayable() {
+return getPeer() != null;
+To test if a component is lightweight:  if (component.getPeer() instanceof LightweightPeer) ..  Replace this with  Component.isLightweight()  from the JDK 1.2 API:  public boolean isLightweight() {
+return getPeer() instanceof LightweightPeer;
+Removed com.sun.image.codec.jpeg Package
+The nonstandard package  com.sun.image.codec.jpeg  has been removed. Use the Java Image I/O API instead.
+The  com.sun.image.codec.jpeg  package was added in JDK 1.2 as a nonstandard way of controlling the loading and saving of JPEG format image files. It has never been part of the platform specification.
+In JDK 1.4, the Java Image I/O API was added as a standard API, residing in the  javax.imageio  package. It provides a standard mechanism for controlling the loading and saving of sampled image formats and requires all compliant Java SE implementations to support JPEG based on the Java Image I/O specification.
+Removed Tools Support for Compact Profiles
+Starting in JDK 9, you can choose to build and run your application against any subset of the modules in the Java runtime image, without needing to rely on predefined profiles.
+Profiles, introduced in Java SE 8, define subsets of the Java SE Platform API that can reduce the static size of the Java runtime on devices that have limited storage capacity. The tools in JDK 8 support three profiles,  compact1 ,  compact2 , and  compact3 . For the API composition of each profile, see  Detailed Profile Composition  and  API Reference  in the JDK 8 documentation.
+In JDK 8, you use the  -profile  option to specify the profile when running the  javac  and  java  commands. Starting in JDK 9, the  -profile  option is supported by  javac  only in conjunction with the  --release 8  option, and isn’t supported by  java .
+JDK 9 and later releases let you choose the modules that are used at compile and run time. By specifying modules with the new  --limit-modules  option, you can obtain the same APIs that are in the compact profiles. This option is supported by both the  javac  and  java  commands, as shown in the following examples:
+javac --limit-modules java.base,java.logging MyApp.java
+java --limit-modules java.base,java.logging MyApp
+The packages specified for each profile in Java SE 8 are exported, collectively, by the following sets of modules:
+For the  compact1  profile:  java.base ,  java.logging ,  java.scripting
+For the  compact2  profile:  java.base ,  java.logging ,  java.scripting ,  java.rmi ,  java.sql ,  java.xml
+For the  compact3  profile:  java.base ,  java.logging ,  java.scripting ,  java.rmi ,  java.sql ,  java.xml ,  java.compiler ,  java.instrument ,  java.management ,  java.naming ,  java.prefs ,  java.security.jgss ,  java.security.sasl ,  java.sql.rowset ,  java.xml.crypto
+You can use the  jdeps  tool to do a static analysis of the Java
+packages that are being used in your source code. This gives you the set of modules that
+you need to execute your application. If you had been using the
+compact3  profile, for example, then you may see that you don’t need
+to include that entire set of modules when you build your application. See   jdeps   in   Java Development Kit Tool Specifications  .
+See  JEP 200: The Modular JDK .
+Use CLDR Locale Data by Default
+Starting in JDK 9, the Unicode Consortium's Common Locale Data Repository (CLDR) data is enabled as the default locale data, so that you can use standard locale data without any further action.
+In JDK 8, although CLDR locale data is bundled with the JRE, it isn’t enabled by default.
+Code that uses locale-sensitive services such as date, time, and number formatting may produce different results with the CLDR locale data. Remember that even  System.out.printf()  is locale-aware.
+To enable behavior compatible with JDK 8, set the system property  java.locale.providers  to a value with  COMPAT  ahead of  CLDR , for example,  java.locale.providers=COMPAT,CLDR .
+See  CLDR Locale Data Enabled by Default  in the   Java Platform, Standard Edition Internationalization Guide   and  JEP 252: Use CLDR Locale Data by Default .

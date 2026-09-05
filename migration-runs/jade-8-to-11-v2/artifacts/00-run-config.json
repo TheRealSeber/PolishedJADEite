@@ -1,0 +1,20 @@
+{
+  "run_id": "jade-8-to-11-v2",
+  "baseline_path": "migration-runs/jade-1.7-to-1.8/workspace",
+  "workspace_path": "migration-runs/jade-8-to-11-v2/workspace",
+  "artifacts_path": "migration-runs/jade-8-to-11-v2/artifacts",
+  "source_version": "8",
+  "target_version": "11",
+  "precision_gate": {
+    "enabled": true,
+    "min_precision": 0.9,
+    "sample_size": 30,
+    "max_sample_size": 120,
+    "context_lines": 3,
+    "undecidable_max_ratio": 0.2,
+    "max_revisions": 3,
+    "seed_scope": "rule+pattern",
+    "manifest_evidence": "digest",
+    "on_reject": "REWRITE_PATTERN"
+  }
+}

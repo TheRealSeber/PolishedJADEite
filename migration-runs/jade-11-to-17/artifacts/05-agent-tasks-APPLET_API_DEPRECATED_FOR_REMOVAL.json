@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "run_id": "jade-11-to-17",
+  "rule_id": "APPLET_API_DEPRECATED_FOR_REMOVAL",
+  "mode": "agent",
+  "recipe_skill": "jade-recipe-11-17-applet-api-removal",
+  "recipe_skill_md": ".claude/skills/java-migration-skill-registry/11-to-17/jade-recipe-11-17-applet-api-removal/SKILL.md",
+  "blast_class": "signature",
+  "shard_plan_artifact": "migration-runs/jade-11-to-17/artifacts/05-rule-shards-APPLET_API_DEPRECATED_FOR_REMOVAL.json",
+  "artifacts_dir": "migration-runs/jade-11-to-17/artifacts",
+  "workspace_root": "migration-runs/jade-11-to-17/workspace",
+  "verification_hint": "Recompiling on jade-ant:17 with -Xlint:removal reports zero '[removal] Applet in java.applet' warnings, down from four, and no .java file imports java.applet. The build still exits 0 and all consumers PASS.",
+  "generated_at": "2026-09-05T10:44:46Z",
+  "task_count": 1,
+  "tasks": [
+    {
+      "task_id": "APPLET_API_DEPRECATED_FOR_REMOVAL-signature-001",
+      "shard_id": "APPLET_API_DEPRECATED_FOR_REMOVAL-signature-001",
+      "rule_id": "APPLET_API_DEPRECATED_FOR_REMOVAL",
+      "class": "signature",
+      "parallel_safe": false,
+      "editable_files": [
+        "src/jade/src/jade/AppletBoot.java",
+        "src/jade/src/jade/tools/applet/DFApplet.java",
+        "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+        "src/jade/src/jade/tools/applet/FIPAAppletRequestProto.java",
+        "src/jade/src/jade/tools/applet/JADEAppletRequestProto.java",
+        "src/jade/src/jade/tools/dfgui/DFGUI.java",
+        "src/jade/src/jade/tools/dfgui/DFGUIAboutAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUICloseGuiAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUIDeregisterAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUIExitDFAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUIFederateAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUIModifyAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUIRefreshAppletAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUIRegisterAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUISearchAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUIViewAction.java"
+      ],
+      "read_only_context": [],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/AppletBoot.java",
+          "line": 29
+        },
+        {
+          "file": "src/jade/src/jade/AppletBoot.java",
+          "line": 43
+        },
+        {
+          "file": "src/jade/src/jade/tools/applet/DFApplet.java",
+          "line": 28
+        },
+        {
+          "file": "src/jade/src/jade/tools/applet/DFApplet.java",
+          "line": 46
+        },
+        {
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "line": 27
+        },
+        {
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "line": 59
+        },
+        {
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "line": 81
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "line": 38
+        }
+      ],
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED",
+        "SEQUENTIAL_EXECUTION_REQUIRED",
+        "SIGNATURE_CHANGES_CONFINED_TO_EDITABLE_FILES"
+      ],
+      "graph_artifact": "migration-runs/jade-11-to-17/artifacts/03.5-knowledge-graph.json",
+      "result_file": "migration-runs/jade-11-to-17/artifacts/06-agent-result-APPLET_API_DEPRECATED_FOR_REMOVAL-APPLET_API_DEPRECATED_FOR_REMOVAL-signature-001.json",
+      "checkpoint_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-11-to-17/artifacts --rule-id APPLET_API_DEPRECATED_FOR_REMOVAL --shard-id APPLET_API_DEPRECATED_FOR_REMOVAL-signature-001 --workspace migration-runs/jade-11-to-17/workspace --create",
+      "verify_command": "python .claude/skills/jade-core-verification/scripts/verify_shard.py --artifacts-dir migration-runs/jade-11-to-17/artifacts --rule-id APPLET_API_DEPRECATED_FOR_REMOVAL --shard-id APPLET_API_DEPRECATED_FOR_REMOVAL-signature-001",
+      "gate_command": "python .claude/skills/jade-core-verification/scripts/gate_signatures.py --artifacts-dir migration-runs/jade-11-to-17/artifacts --rule-id APPLET_API_DEPRECATED_FOR_REMOVAL --shard-id APPLET_API_DEPRECATED_FOR_REMOVAL-signature-001 --before-graph migration-runs/jade-11-to-17/artifacts/03.5-knowledge-graph.json --after-graph migration-runs/jade-11-to-17/artifacts/03.5-knowledge-graph-after-APPLET_API_DEPRECATED_FOR_REMOVAL-signature-001.json",
+      "record_command": "python .claude/skills/jade-core-rule-dispatcher/scripts/dispatcher.py --artifacts-dir migration-runs/jade-11-to-17/artifacts --rule-id APPLET_API_DEPRECATED_FOR_REMOVAL --record-agent-result --shard-id APPLET_API_DEPRECATED_FOR_REMOVAL-signature-001 --result-file migration-runs/jade-11-to-17/artifacts/06-agent-result-APPLET_API_DEPRECATED_FOR_REMOVAL-APPLET_API_DEPRECATED_FOR_REMOVAL-signature-001.json",
+      "accept_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-11-to-17/artifacts --rule-id APPLET_API_DEPRECATED_FOR_REMOVAL --shard-id APPLET_API_DEPRECATED_FOR_REMOVAL-signature-001 --workspace migration-runs/jade-11-to-17/workspace --accept",
+      "rollback_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-11-to-17/artifacts --rule-id APPLET_API_DEPRECATED_FOR_REMOVAL --shard-id APPLET_API_DEPRECATED_FOR_REMOVAL-signature-001 --workspace migration-runs/jade-11-to-17/workspace --rollback --reason \"<why>\""
+    }
+  ],
+  "warnings": []
+}

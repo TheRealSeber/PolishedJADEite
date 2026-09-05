@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "rule_id": "MULTICAST_SOCKET_GROUP_API_DEPRECATED",
+  "sample_artifact": "01.5-precision-sample-MULTICAST_SOCKET_GROUP_API_DEPRECATED.json",
+  "sample_hash": "e09ad51610c6704225496bdae56ffe3c0110466af8caa650ba4681996ce867ae",
+  "verdicts": [
+    {
+      "hit_id": "277182f6bc30b41d",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Call on the private java.net.MulticastSocket field through the deprecated InetAddress overload; javac on JDK 17 emits the matching deprecation warning for this line."
+    },
+    {
+      "hit_id": "ce19fdf98a07985c",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Call on the private java.net.MulticastSocket field through the deprecated InetAddress overload; javac on JDK 17 emits the matching deprecation warning for this line."
+    }
+  ]
+}

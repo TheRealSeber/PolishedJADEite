@@ -1,0 +1,134 @@
+{
+  "policy": {
+    "max_revisions": 3,
+    "min_precision": 0.9,
+    "on_reject": "REWRITE_PATTERN",
+    "sample_size": 30,
+    "source": "00-run-config.json#precision_gate",
+    "undecidable_max_ratio": 0.2
+  },
+  "rules": {
+    "CLDR_LOCALE_DATA_DEFAULT": {
+      "counterexamples": [],
+      "effective_min_precision": 0.9,
+      "false_positive": 0,
+      "false_positive_classes": {},
+      "judged": 5,
+      "manifest_rule_hash": "b0bdf6fb10effc13186c72fedc7c19599eb1f998974775e7d44895358e895067",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 1.0,
+      "pattern_revision": 1,
+      "per_pattern": {
+        "0": {
+          "judged": 5,
+          "precision": 1.0,
+          "true_positive": 5
+        }
+      },
+      "population": {
+        "files_with_hits": 5,
+        "total_hits": 5
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-CLDR_LOCALE_DATA_DEFAULT.json",
+      "sample_hash": "e96b64b2c6cf09b640b7d86db5a4442ad2a34b467e77dbf2d1560399f030e68a",
+      "status": "PASS",
+      "true_positive": 5,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-CLDR_LOCALE_DATA_DEFAULT.json",
+      "verdicts_hash": "bad098fda34df657d6a164fd52a9645d819b869fdc148b63a129abc97398db4a",
+      "wilson_95": [
+        0.5655,
+        1.0
+      ]
+    },
+    "CORBA_REMOVAL": {
+      "counterexamples": [],
+      "effective_min_precision": 0.9,
+      "false_positive": 0,
+      "false_positive_classes": {},
+      "judged": 60,
+      "manifest_rule_hash": "d9c0f481009dbb6d809172352ada7636ea71eeee9c204fac0d75d820fd6481da",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 1.0,
+      "pattern_revision": 2,
+      "per_pattern": {
+        "1": {
+          "judged": 55,
+          "precision": 1.0,
+          "true_positive": 55
+        },
+        "2": {
+          "judged": 5,
+          "precision": 1.0,
+          "true_positive": 5
+        }
+      },
+      "population": {
+        "files_with_hits": 43,
+        "total_hits": 375
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-CORBA_REMOVAL.json",
+      "sample_hash": "6a5750e75f5b587f8def84c748702394756cd00445adbdd49124b74701326906",
+      "status": "PASS",
+      "true_positive": 60,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-CORBA_REMOVAL.json",
+      "verdicts_hash": "432f0c2e7e824d4b78f118d6fbe5a1084fcf4cd7f5f35ab91358de1fcdec0be1",
+      "wilson_95": [
+        0.9398,
+        1.0
+      ]
+    },
+    "TLS_ANON_CIPHER_DISABLED": {
+      "counterexamples": [],
+      "effective_min_precision": 0.9,
+      "false_positive": 0,
+      "false_positive_classes": {},
+      "judged": 2,
+      "manifest_rule_hash": "85d9ec37142817923edade4d181374c58c8f1a8631d2e991a757b675a0ccf63d",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 1.0,
+      "pattern_revision": 1,
+      "per_pattern": {
+        "0": {
+          "judged": 2,
+          "precision": 1.0,
+          "true_positive": 2
+        }
+      },
+      "population": {
+        "files_with_hits": 2,
+        "total_hits": 2
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-TLS_ANON_CIPHER_DISABLED.json",
+      "sample_hash": "200209c4f7ac03ab15d92f4291af870185ece46a4f61e4fa30920b2880e3508c",
+      "status": "PASS",
+      "true_positive": 2,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-TLS_ANON_CIPHER_DISABLED.json",
+      "verdicts_hash": "2cb2cd9c74462b70e9469c1d58b5d080cbf53cba9ed6312873c1c4b5111f7dd0",
+      "wilson_95": [
+        0.3424,
+        1.0
+      ]
+    }
+  },
+  "run_id": "jade-8-to-11-v2",
+  "schema_version": 1,
+  "summary": {
+    "abandoned": 0,
+    "inconclusive": 0,
+    "no_population": 0,
+    "overridden": 0,
+    "passed": 3,
+    "rejected": 0,
+    "rules_total": 3
+  },
+  "warnings": []
+}

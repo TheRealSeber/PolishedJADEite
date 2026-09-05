@@ -1,0 +1,38 @@
+{
+  "baseline_jar": "migration-runs/jade-11-to-17/workspace/src/jade/lib/jade.jar",
+  "baseline_jar_commit": null,
+  "compiled_file_count": 1,
+  "compiled_files": [
+    "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringProxy.java"
+  ],
+  "docker_image": "jade-ant:17",
+  "docker_image_config": "config/docker-images.json",
+  "docker_image_registry_key": "java-17",
+  "docker_image_resolution_source": "central-registry",
+  "duration_seconds": 0.47,
+  "error_count": 0,
+  "errors": [],
+  "exit_code": 0,
+  "generated_at": "2026-09-05T11:09:57Z",
+  "javac_encoding": "ISO-8859-1",
+  "javac_log": "07-shard-verify-WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-007.log",
+  "javac_log_excerpt": "\n",
+  "javac_source": "17",
+  "javac_target": "17",
+  "rule_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+  "run_id": "jade-11-to-17",
+  "schema_version": 1,
+  "shard_class": "body-local",
+  "shard_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL-body-local-007",
+  "status": "PASS",
+  "warnings": [
+    {
+      "kind": "baseline_jar_commit_unknown",
+      "message": "No matching commit_hash found in 09-rule-commit-log.json for rule_id=WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL"
+    },
+    {
+      "kind": "empty_read_only_context",
+      "message": "shard declares no read_only_context files"
+    }
+  ]
+}

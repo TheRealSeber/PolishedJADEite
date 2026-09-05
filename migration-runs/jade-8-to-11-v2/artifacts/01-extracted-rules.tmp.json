@@ -1,0 +1,194 @@
+[
+  {
+    "id": "CORBA_REMOVAL",
+    "name": "Remove the CORBA dependency (org.omg.*) instead of retrofitting it",
+    "description": "Java SE 11 removes the java.corba module (JEP 320). The org.omg.CORBA, org.omg.CosNaming, org.omg.PortableServer and related packages no longer exist in the JDK runtime image, so any source referencing org.omg.* fails to compile on JDK 11. JEP 320 states there will be no standalone CORBA unless third parties take over maintenance, and that RMI-IIOP has no standalone version at all. In JADE the whole CORBA surface is one component: the idlj-generated IDL stub package FIPA (42 files generated from src/fipa.idl) plus the single IIOP message transport jade/mtp/iiop/MessageTransportProtocol.java, which is the only file in the workspace that imports package FIPA. The knowledge graph shows zero incoming edges into that component from the other 972 workspace files, and the default MTP selected by jade/core/ProfileImpl.java is jade.mtp.http.MessageTransportProtocol. The dependency is therefore deleted, not re-supplied from an external jar. Because the fix is deletion of a whole component, the rule flags two constructs: (1) a source reference to a removed org.omg.* type, and (2) membership of the generated FIPA stub package itself, which exists only to carry those references. Five of the 42 generated files carry no org.omg reference of their own (AgentID, DateTime, Envelope, FipaMessage, ReceivedObject) yet cannot survive the deletion of their siblings: FipaMessage declares a FIPA.Envelope[] field and ReceivedObject a FIPA.DateTime field. Construct (2) is what makes the component complete in the flag index, and therefore complete in the shard plan.",
+    "fix_strategy": "recipe:jade-recipe-8-11-corba-removal",
+    "severity": "HIGH",
+    "category": "API_REMOVAL",
+    "blast_class": "signature",
+    "blast_class_evidence": {
+      "classification": "signature",
+      "reason": "org.omg types appear in return types and parameter types of public methods of the generated FIPA Helper/Holder classes, so no fix can stay inside a method body.",
+      "witnesses": [
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 70,
+          "code": "synchronized public static org.omg.CORBA.TypeCode type() {",
+          "note": "org.omg.CORBA.TypeCode is the return type of a public static method"
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 13,
+          "code": "public static void write(org.omg.CORBA.portable.OutputStream out, FIPA.AgentID that) {",
+          "note": "org.omg.CORBA.portable.OutputStream is a public method parameter type"
+        },
+        {
+          "file": "src/jade/src/jade/mtp/iiop/MessageTransportProtocol.java",
+          "line": 42,
+          "code": "import FIPA.*;",
+          "note": "the only importer of the generated FIPA package anywhere in the workspace"
+        }
+      ],
+      "graph_evidence": {
+        "artifact": "migration-runs/jade-8-to-11/artifacts/03.5-knowledge-graph.json",
+        "incoming_edges_from_rest_of_workspace": 0,
+        "component_files": 43,
+        "workspace_files": 1015,
+        "note": "The org.omg component is a pure leaf of the knowledge graph: no imports, extends, implements, calls or type_refs edges enter it from the remaining 972 files. It cannot be split into independently verifiable parallel shards, which is why it is classified signature and planned as a single coherent shard."
+      },
+      "component_completeness": {
+        "note": "Pattern 2 (package FIPA;) matches exactly 42 files, every one of them under src/jade/src/FIPA/, and zero files anywhere else in the 1015-file workspace. It exists because plan_shards.py derives editable_files from flagged files plus their one-hop dependents; with the org.omg patterns alone, FIPA/DateTime.java and FIPA/ReceivedObject.java fell outside the shard entirely and FIPA/FipaMessage.java landed in read_only_context, so the shard could not delete the component it was planned for and FipaMessage.java would have been left referencing a deleted FIPA.Envelope.",
+        "measured_before": {
+          "shard_editable_files": 40,
+          "component_files": 43,
+          "outside_shard": [
+            "src/jade/src/FIPA/DateTime.java",
+            "src/jade/src/FIPA/FipaMessage.java",
+            "src/jade/src/FIPA/ReceivedObject.java"
+          ]
+        }
+      }
+    },
+    "match_pattern": "\\borg\\.omg\\.[A-Za-z_]",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "^\\s*import\\s+org\\.omg\\.[A-Za-z_][A-Za-z0-9_.]*\\s*;",
+        "target_extensions": [
+          ".java"
+        ],
+        "reason": "import of a CORBA package removed from the JDK by JEP 320; the import itself no longer resolves on JDK 11",
+        "confidence": 1.0
+      },
+      {
+        "type": "regex",
+        "pattern": "\\borg\\.omg\\.[A-Za-z_][A-Za-z0-9_.]*",
+        "target_extensions": [
+          ".java"
+        ],
+        "reason": "use of a fully qualified org.omg.* (CORBA) type removed from the JDK by JEP 320",
+        "confidence": 1.0
+      },
+      {
+        "type": "regex",
+        "pattern": "^\\s*package\\s+FIPA\\s*;",
+        "target_extensions": [
+          ".java"
+        ],
+        "reason": "file belongs to the idlj-generated FIPA IDL stub package, which exists only to carry the CORBA stubs for src/fipa.idl and is removed together with them",
+        "confidence": 1.0
+      }
+    ],
+    "evidence_ref": "jep320-remove-ee-corba::lines 20-25, 32, 38-39, 69-72",
+    "evidence_hash": "ce2f96e716c15d839e29ab2a09d3a14248d3e685c6b08c56272f1d271974c8c2",
+    "confidence": 1.0,
+    "pattern_revision": 2,
+    "verification_hint": "After removal no file under the workspace matches \\borg\\.omg\\. or ^package FIPA; , the src/jade/src/FIPA directory, src/jade/src/jade/mtp/iiop and src/jade/src/fipa.idl are gone, build.xml has no idlj target and no FIPA include, 'ant clean jade' on JDK 11 in the jade-ant:11 image prints BUILD SUCCESSFUL with exit 0, and all four consumers still PASS. jade.jar must no longer contain FIPA/*.class."
+  },
+  {
+    "id": "TLS_ANON_CIPHER_DISABLED",
+    "name": "Anonymous TLS cipher suites are disabled by default in JDK 11",
+    "description": "In JDK 11 the java.security property jdk.tls.disabledAlgorithms has the default value 'SSLv3, TLSv1, TLSv1.1, DTLSv1.0, RC4, DES, MD5withRSA, DH keySize < 1024, EC keySize < 224, 3DES_EDE_CBC, anon, NULL, ECDH, include jdk.disabled.namedCurves'. The 'anon' entry disables every anonymous key-exchange cipher suite (DH_anon, ECDH_anon), and the JSSE guide states these algorithms will not be negotiated for TLS/DTLS connections even if they are enabled explicitly by an application. JADE hard-codes anonymous suites in two places, so an SSLServerSocket configured with them raises an SSLHandshakeException at runtime on JDK 11 instead of completing an unauthenticated handshake.",
+    "fix_strategy": "recipe:jade-recipe-8-11-tls-anon-cipher",
+    "severity": "MEDIUM",
+    "category": "BEHAVIOR_CHANGE",
+    "blast_class": "body-local",
+    "blast_class_evidence": {
+      "classification": "body-local",
+      "reason": "Both occurrences are String literals inside a String[] initializer. The declared types (List, String[]) and every method signature around them stay identical, so the edit never leaves the enclosing declaration.",
+      "witnesses": [
+        {
+          "file": "src/jade/src/jade/imtp/leap/SSLHelper.java",
+          "line": 29,
+          "code": "Collections.unmodifiableList(Arrays.asList(new String[] {\"TLS_ECDH_anon_WITH_AES_128_CBC_SHA\"}));",
+          "note": "static field initializer; the surrounding accessor getSupportedKeys() still returns String[]"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/JICPSPeer.java",
+          "line": 224,
+          "code": "sss.setEnabledCipherSuites(new String[] {\"SSL_DH_anon_WITH_RC4_128_MD5\"});",
+          "note": "argument to javax.net.ssl.SSLServerSocket.setEnabledCipherSuites(String[]); the JDK signature is unchanged in Java 11"
+        }
+      ],
+      "escalation_condition": "If the accepted fix replaces anonymous suites with authenticated ones, the JICP peer needs key material and the change stops being body-local; that is an architectural decision reserved for the user, and the recipe must stop and report it rather than invent a keystore."
+    },
+    "match_pattern": "(?:TLS|SSL)_(?:DH|ECDH)_anon_[A-Za-z0-9_]+",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "(?:TLS|SSL)_(?:DH|ECDH)_anon_[A-Za-z0-9_]+",
+        "target_extensions": [
+          ".java"
+        ],
+        "reason": "hard-coded anonymous TLS cipher suite; disabled by the default jdk.tls.disabledAlgorithms value in JDK 11 and never negotiated even when set explicitly",
+        "confidence": 0.95
+      }
+    ],
+    "evidence_ref": "oracle-jsse-jdk11-guide::lines 1432-1442, 1449-1454",
+    "evidence_hash": "48c45afe9ad69219d3f5e3f8d0187c17c8574f14946c16dcabb05e63e53486fe",
+    "confidence": 0.95,
+    "pattern_revision": 1,
+    "verification_hint": "No .java file in the workspace matches (?:TLS|SSL)_(?:DH|ECDH)_anon_ any more, or every remaining match is proven unreachable. A JICP-S handshake between two JADE containers on JDK 11 completes without SSLHandshakeException, and all four consumers still PASS."
+  },
+  {
+    "id": "CLDR_LOCALE_DATA_DEFAULT",
+    "name": "CLDR locale data is the default provider from JDK 9 on",
+    "description": "Starting in JDK 9 the Unicode Consortium CLDR data is the default locale data provider; in JDK 8 CLDR was bundled but not enabled. Code that uses locale-sensitive services such as date, time and number formatting can therefore produce different output on JDK 11 than on JDK 8. JADE formats message timestamps through DateFormat.getDateTimeInstance(style, style), which resolves its pattern from the default locale provider, so sniffer and DummyAgent timestamps change shape between JDK 8 and JDK 11. Oracle documents two remedies: set java.locale.providers=COMPAT,CLDR, or stop relying on the provider by stating the pattern explicitly.",
+    "fix_strategy": "recipe:jade-recipe-8-11-cldr-locale-data",
+    "severity": "LOW",
+    "category": "BEHAVIOR_CHANGE",
+    "blast_class": "body-local",
+    "blast_class_evidence": {
+      "classification": "body-local",
+      "reason": "Every occurrence is the initializer of a java.text.DateFormat variable or field. Replacing DateFormat.getDateTimeInstance(...) with an explicit SimpleDateFormat keeps the declared type DateFormat, so no field type, no method signature and no caller changes; the alternative fix is a JVM system property and touches no source at all.",
+      "witnesses": [
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/MsgIndication.java",
+          "line": 56,
+          "code": "private static DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+          "line": 1729,
+          "code": "private static DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLMessageNode.java",
+          "line": 179,
+          "code": "private static DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 226,
+          "code": "DateFormat df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);"
+        },
+        {
+          "file": "src/jade/src/jade/gui/TimeChooser.java",
+          "line": 209,
+          "code": "DateFormat df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);"
+        }
+      ],
+      "graph_evidence": {
+        "note": "All five sites are local variables or private static fields; none is exposed through a public API, so the blast radius stops at the declaring file."
+      }
+    },
+    "match_pattern": "\\bDateFormat\\.getDateTimeInstance\\s*\\(",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "\\bDateFormat\\.getDateTimeInstance\\s*\\(",
+        "target_extensions": [
+          ".java"
+        ],
+        "reason": "locale-sensitive date/time formatting whose pattern comes from the default locale provider, which switched from JRE/COMPAT to CLDR in JDK 9",
+        "confidence": 0.9
+      }
+    ],
+    "evidence_ref": "oracle-migrate-index::lines 355-360",
+    "evidence_hash": "ef4d6e2a5f253596d3d27b45b958d6d63247f1d0b30bafdcb41367c3103f8677",
+    "confidence": 0.9,
+    "pattern_revision": 1,
+    "verification_hint": "Either every flagged site states its own pattern (SimpleDateFormat with an explicit pattern string) and no DateFormat.getDateTimeInstance( call remains flagged, or the run records an explicit java.locale.providers=COMPAT,CLDR decision. Formatted timestamps must be identical on JDK 8 and JDK 11 for the same input, and all four consumers still PASS."
+  }
+]

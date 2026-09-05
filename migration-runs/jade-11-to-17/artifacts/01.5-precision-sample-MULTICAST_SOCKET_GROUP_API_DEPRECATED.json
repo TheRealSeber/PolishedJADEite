@@ -1,0 +1,97 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "\t\t\tsocket.setTimeToLive(mcast.ttl);",
+        "\t\t} catch (IOException ioe) {",
+        "\t\t\tthrow new ProfileException(\"Error setting up multicast socket\", ioe);"
+      ],
+      "context_before": [
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review",
+        "\t\t\tsocket = new MulticastSocket(mcast.port);",
+        "\t"
+      ],
+      "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
+      "hit_id": "277182f6bc30b41d",
+      "line": 50,
+      "line_hash": "57b0e2ce299be5ea",
+      "line_text": "\t\t\tsocket.joinGroup(mcastGroupAddress);",
+      "line_truncated": false,
+      "match_span": [
+        9,
+        20
+      ],
+      "match_text": ".joinGroup(",
+      "pattern_index": 0,
+      "rank": 0
+    },
+    {
+      "context_after": [
+        "\t\t\t\t} catch (IOException e) {",
+        "\t\t\t\t\tlogger.log(Logger.FINER, \"Error leaving multicast group\", e);",
+        "\t\t\t\t}"
+      ],
+      "context_before": [
+        "\t\t\tif (socket != null) {",
+        "\t\t\t\ttry {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review"
+      ],
+      "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
+      "hit_id": "ce19fdf98a07985c",
+      "line": 67,
+      "line_hash": "57ea5734f9343b5e",
+      "line_text": "\t\t\t\t\tsocket.leaveGroup(mcastGroupAddress);",
+      "line_truncated": false,
+      "match_span": [
+        11,
+        23
+      ],
+      "match_text": ".leaveGroup(",
+      "pattern_index": 0,
+      "rank": 1
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-11-to-17/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "d4a0ed8807ddd833dd93e20f70e2aad13bcbe91d5dbd16e362385db052d0e4b8",
+  "pattern_revision": 1,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "\\.(?:join|leave)Group\\s*\\(",
+      "reason": "deprecated MulticastSocket.joinGroup/leaveGroup(InetAddress) overload; JDK 17 moved multicast onto DatagramSocket",
+      "target_extensions": [
+        ".java"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 972,
+    "files_with_hits": 1,
+    "hits_per_pattern": {
+      "0": 2
+    },
+    "max_hits_in_one_file": 2,
+    "population_signature": "e47cb1999c4b93b94c7ce5cda4696e6a8b0a7d1b9762d8e167bf24c8578adbbc",
+    "total_hits": 2,
+    "truncated": false
+  },
+  "rule_description": "JDK 17 (JDK-8237352) added joinGroup/leaveGroup to java.net.DatagramSocket and states that the MulticastSocket API 'works as before, although most of its methods are deprecated'. JADE's main-container discovery listener joins and leaves the multicast group through the two deprecated InetAddress overloads. Behaviour on 17 is unchanged -- this is a plain deprecation, not a removal and not a semantic change -- so the rule is LOW.",
+  "rule_id": "MULTICAST_SOCKET_GROUP_API_DEPRECATED",
+  "rule_name": "MulticastSocket.joinGroup(InetAddress)/leaveGroup(InetAddress) deprecated in JDK 17",
+  "run_id": "jade-11-to-17",
+  "sample_size": 2,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 3,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "eff31eeea7384b2a",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "CENSUS",
+  "verification_hint": "Recompiling on jade-ant:17 reports no '[deprecation] joinGroup(InetAddress)' or 'leaveGroup(InetAddress) in MulticastSocket' warnings. A two-container JADE platform still discovers its main container over multicast.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-11-to-17/workspace"
+}

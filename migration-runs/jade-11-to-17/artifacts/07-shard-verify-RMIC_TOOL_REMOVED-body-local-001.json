@@ -1,0 +1,38 @@
+{
+  "baseline_jar": "migration-runs/jade-11-to-17/workspace/src/jade/lib/jade.jar",
+  "baseline_jar_commit": null,
+  "compiled_file_count": 1,
+  "compiled_files": [
+    "src/jade/build.xml"
+  ],
+  "docker_image": "jade-ant:17",
+  "docker_image_config": "config/docker-images.json",
+  "docker_image_registry_key": "java-17",
+  "docker_image_resolution_source": "central-registry",
+  "duration_seconds": 0.45,
+  "error_count": 0,
+  "errors": [],
+  "exit_code": 2,
+  "generated_at": "2026-09-05T10:55:20Z",
+  "javac_encoding": "ISO-8859-1",
+  "javac_log": "07-shard-verify-RMIC_TOOL_REMOVED-body-local-001.log",
+  "javac_log_excerpt": "\nerror: invalid flag: /ws/src/jade/build.xml\nUsage: javac <options> <source files>\nuse --help for a list of possible options\n",
+  "javac_source": "17",
+  "javac_target": "17",
+  "rule_id": "RMIC_TOOL_REMOVED",
+  "run_id": "jade-11-to-17",
+  "schema_version": 1,
+  "shard_class": "body-local",
+  "shard_id": "RMIC_TOOL_REMOVED-body-local-001",
+  "status": "FAIL",
+  "warnings": [
+    {
+      "kind": "baseline_jar_commit_unknown",
+      "message": "No matching commit_hash found in 09-rule-commit-log.json for rule_id=RMIC_TOOL_REMOVED"
+    },
+    {
+      "kind": "empty_read_only_context",
+      "message": "shard declares no read_only_context files"
+    }
+  ]
+}

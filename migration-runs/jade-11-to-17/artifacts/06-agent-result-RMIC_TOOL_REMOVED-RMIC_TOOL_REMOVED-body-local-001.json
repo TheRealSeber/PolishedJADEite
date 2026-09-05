@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "rule_id": "RMIC_TOOL_REMOVED",
+  "shard_id": "RMIC_TOOL_REMOVED-body-local-001",
+  "status": "FIXED",
+  "match_quality": "exact",
+  "diff_summary": "Deleted the two <rmic> pregeneration steps (build.xml:154 ServiceManagerRMIImpl, build.xml:156 NodeRMIImpl) and their two injected JADE-FLAG comments (155, 157). No excludes, classpath, or target-dependency changes. Verified with a real Docker build: `ant clean lib` in jade-ant:17 -> BUILD SUCCESSFUL, exit 0, lib/jade.jar produced (2905098 bytes). No `<rmic` remains anywhere in the workspace.",
+  "files": [
+    {
+      "file": "src/jade/build.xml",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 154,
+      "touched_line_end": 157,
+      "migration_skip_marker": false,
+      "diff_summary": "Removed both <rmic> elements and both JADE-FLAG:RMIC_TOOL_REMOVED comments from the end of the jade target; nothing else in the target changed."
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "verify_shard.py is structurally inapplicable to this shard: editable_files is a single non-.java file (build.xml), so javac rejects it outright (\"Class names, 'build.xml', are only accepted if annotation processing is explicitly requested\"), independent of edit correctness. First invocation also hit BASELINE_JAR_NOT_FOUND (exit 3) because no prior rule commit exists yet -- this is the first rule in the chain. Substituted the recipe's own mandated verification: a real `ant clean lib` build in jade-ant:17 (BUILD SUCCESSFUL, exit 0, jade.jar produced), matching the hard rule that Docker BUILD SUCCESSFUL + exit 0 is the only accepted build proof."
+  ]
+}

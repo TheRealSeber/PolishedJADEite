@@ -46,6 +46,20 @@ Apply ONE `rule_id` to ALL flagged files → verify compile + semantic gates →
     on an incompatible JDK is forbidden.  Build failures caused by JDK version
     mismatches must be solved via the Docker-isolated build environment, not source
     mutilation.
+
+    **Deletion is not exclusion.** A rule whose accepted fix is to *remove* a
+    dependency (e.g. `CORBA_REMOVAL`'s removal variant, `jade-recipe-8-11-corba-removal`)
+    may delete the affected source files outright, delete the build-file targets and
+    references that named them, and delete generator inputs (e.g. `fipa.idl`) they were
+    produced from — provided every reference to the deleted files, anywhere in the
+    workspace, is also resolved (no dangling `import`, no surviving build-file mention,
+    no `@see`/`@link` to a removed type). What this rule forbids is narrower: hiding a
+    file that still exists in the tree from the compiler via an `excludes` pattern (or
+    equivalent) so the build passes while the incompatible source is still there,
+    untouched, uncounted. The workspace stops being "a faithful copy of the baseline" the
+    moment a rule's own fix is to prune part of it on purpose; faithfulness after that
+    means the *build files* faithfully reflect what remains, not that every original file
+    is still on disk.
 12. **Container agnosticism** — never hardcode JDK versions or Docker images in consumer
     test configs, recipes, or core scripts. Resolve container images from the central
     registry (`config/docker-images.json`) using run-config target version and dynamic placeholders.

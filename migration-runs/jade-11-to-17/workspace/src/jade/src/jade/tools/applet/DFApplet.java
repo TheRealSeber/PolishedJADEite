@@ -25,7 +25,6 @@ package jade.tools.applet;
 
 import jade.tools.dfgui.*;
 import java.applet.Applet;
-// JADE-FLAG:APPLET_API_DEPRECATED_FOR_REMOVAL java.applet import, or a bare Applet type in a supertype / field / parameter position; revision 1 matched the bare token anywhere and caught 10 javadoc mentions of the 'DF-Applet' ontology, so revision 2 requires a type position 0.9
 
 /**
  * This applet is a client of SocketProxyAgent and executes an applet
@@ -43,8 +42,8 @@ import java.applet.Applet;
  //HTML Code:
  //<applet code = DFApplet.class width = 200 height=100></applet>
 
- public class DFApplet extends Applet {
-// JADE-FLAG:APPLET_API_DEPRECATED_FOR_REMOVAL java.applet import, or a bare Applet type in a supertype / field / parameter position; revision 1 matched the bare token anywhere and caught 10 javadoc mentions of the 'DF-Applet' ontology, so revision 2 requires a type position 0.9
+ @SuppressWarnings("removal") // java.applet.Applet is deprecated for removal (JEP 398, JDK 17); see REVIEW_REQUIRED.md APPLET_API_DEPRECATED_FOR_REMOVAL
+public class DFApplet extends Applet {
 
   public void init() {
   

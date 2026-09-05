@@ -26,7 +26,6 @@ package jade;
 //#MIDP_EXCLUDE_FILE
 	
 import java.applet.Applet;
-// JADE-FLAG:APPLET_API_DEPRECATED_FOR_REMOVAL java.applet import, or a bare Applet type in a supertype / field / parameter position; revision 1 matched the bare token anywhere and caught 10 javadoc mentions of the 'DF-Applet' ontology, so revision 2 requires a type position 0.9
 
 import jade.core.MicroRuntime;
 import jade.util.leap.Properties;
@@ -40,8 +39,8 @@ import jade.util.leap.Properties;
    <br>
    @author Giovanni Caire - TILAB
  */
+@SuppressWarnings("removal") // java.applet.Applet is deprecated for removal (JEP 398, JDK 17); see REVIEW_REQUIRED.md APPLET_API_DEPRECATED_FOR_REMOVAL
 public class AppletBoot extends Applet implements Runnable {
-// JADE-FLAG:APPLET_API_DEPRECATED_FOR_REMOVAL java.applet import, or a bare Applet type in a supertype / field / parameter position; revision 1 matched the bare token anywhere and caught 10 javadoc mentions of the 'DF-Applet' ontology, so revision 2 requires a type position 0.9
 
   // Start-up the JADE runtime system
   public void init() {

@@ -25,5 +25,74 @@
     },
     "mode": "agent",
     "shard_id": "APPLET_API_DEPRECATED_FOR_REMOVAL-signature-001"
+  },
+  {
+    "task_id": "APPLET_API_DEPRECATED_FOR_REMOVAL-review-appletboot",
+    "rule_id": "APPLET_API_DEPRECATED_FOR_REMOVAL",
+    "file": "src/jade/src/jade/AppletBoot.java",
+    "status": "FIXED",
+    "match_count": 2,
+    "match_region": "lines 28-43",
+    "match_context": "jade-recipe-11-17-applet-review",
+    "diff_summary": "Run-owner decision (retire-vs-suppress escalation, see REVIEW_REQUIRED.md): kept the applet subtree, added @SuppressWarnings(\"removal\") on the class declaration (public class AppletBoot extends Applet implements Runnable). java.applet.Applet is deprecated for removal (JEP 398, JDK 17) but not yet removed; suppressing documents the known hazard without deleting live, still-functioning DF-Applet functionality. Removed the two now-resolved JADE-FLAG:APPLET_API_DEPRECATED_FOR_REMOVAL markers (import line, class-declaration line).",
+    "verification_hint": "javac -Xlint:removal: AppletBoot.java's [removal] warning is gone (was 1 of the original 5, now suppressed). Real Docker build (jade-ant:17, ant clean lib) still BUILD SUCCESSFUL; jade.jar rebuilt. All 4 runtime consumers PASS.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-09-05T13:45:00Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-11-to-17/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "APPLET_API_DEPRECATED_FOR_REMOVAL-review-001"
+  },
+  {
+    "task_id": "APPLET_API_DEPRECATED_FOR_REMOVAL-review-dfapplet",
+    "rule_id": "APPLET_API_DEPRECATED_FOR_REMOVAL",
+    "file": "src/jade/src/jade/tools/applet/DFApplet.java",
+    "status": "FIXED",
+    "match_count": 2,
+    "match_region": "lines 27-46",
+    "match_context": "jade-recipe-11-17-applet-review",
+    "diff_summary": "Run-owner decision (retire-vs-suppress escalation, see REVIEW_REQUIRED.md): kept the applet subtree, added @SuppressWarnings(\"removal\") on the class declaration (public class DFApplet extends Applet). Removed the two now-resolved JADE-FLAG:APPLET_API_DEPRECATED_FOR_REMOVAL markers (import line, class-declaration line).",
+    "verification_hint": "javac -Xlint:removal: DFApplet.java's [removal] warning is gone. Real Docker build (jade-ant:17, ant clean lib) still BUILD SUCCESSFUL. All 4 runtime consumers PASS.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-09-05T13:45:00Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-11-to-17/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "APPLET_API_DEPRECATED_FOR_REMOVAL-review-001"
+  },
+  {
+    "task_id": "APPLET_API_DEPRECATED_FOR_REMOVAL-review-dfappletcommunicator",
+    "rule_id": "APPLET_API_DEPRECATED_FOR_REMOVAL",
+    "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+    "status": "FIXED",
+    "match_count": 3,
+    "match_region": "lines 26-82",
+    "match_context": "jade-recipe-11-17-applet-review",
+    "diff_summary": "Run-owner decision (retire-vs-suppress escalation, see REVIEW_REQUIRED.md): kept the applet subtree, added @SuppressWarnings(\"removal\") on the class declaration (public class DFAppletCommunicator implements DFGUIAdapter). Covers both the private Applet a; field and the DFAppletCommunicator(Applet applet) constructor. Removed the three now-resolved JADE-FLAG:APPLET_API_DEPRECATED_FOR_REMOVAL markers (import line, field line, constructor line).",
+    "verification_hint": "javac -Xlint:removal: DFAppletCommunicator.java's two [removal] warnings (field, constructor) are gone. Real Docker build (jade-ant:17, ant clean lib) still BUILD SUCCESSFUL. All 4 runtime consumers PASS.",
+    "errors": [],
+    "warnings": [],
+    "applied_at": "2026-09-05T13:45:00Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-11-to-17/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "APPLET_API_DEPRECATED_FOR_REMOVAL-review-001"
   }
 ]

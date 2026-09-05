@@ -44,3 +44,7 @@
 - `CORBA_REMOVAL-signature-001` src/jade/src/FIPA/stringsHelper.java -- Deleted whole file (61 lines): idlj-generated FIPA IDL stub depending on the removed org.omg.CORBA.* API.
 - `CORBA_REMOVAL-signature-001` src/jade/src/FIPA/stringsHolder.java -- Deleted whole file (37 lines): idlj-generated FIPA IDL stub depending on the removed org.omg.CORBA.* API.
 - `CORBA_REMOVAL-signature-001` src/jade/src/jade/mtp/iiop/MessageTransportProtocol.java -- Deleted whole file (1120 lines): jade.mtp.iiop MTP, the sole importer of the removed FIPA.* stub package.
+
+## TLS_ANON_CIPHER_DISABLED
+- `TLS_ANON_CIPHER_DISABLED-body-local-001` src/jade/src/jade/imtp/leap/SSLHelper.java -- getSupportedKeys checks jdk.tls.disabledAlgorithms once and logs that every declared suite is anonymous and unusable on this JDK, naming the two ways out.
+- `TLS_ANON_CIPHER_DISABLED-body-local-001` src/jade/src/jade/imtp/leap/JICP/JICPSPeer.java -- Stops hard-coding SSL_DH_anon_WITH_RC4_128_MD5, disabled twice over on JDK 11 by both the anon and RC4 entries, and defers to SSLHelper so one place owns the suite list.

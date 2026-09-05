@@ -1,0 +1,1587 @@
+{
+  "schema_version": 1,
+  "run_id": "jade-8-to-11-v2",
+  "rule_id": "CORBA_REMOVAL",
+  "mode": "agent",
+  "recipe_skill": "jade-recipe-8-11-corba-removal",
+  "recipe_skill_md": ".claude/skills/java-migration-skill-registry/8-to-11/jade-recipe-8-11-corba-removal/SKILL.md",
+  "blast_class": "signature",
+  "shard_plan_artifact": "migration-runs/jade-8-to-11-v2/artifacts/05-rule-shards-CORBA_REMOVAL.json",
+  "artifacts_dir": "migration-runs/jade-8-to-11-v2/artifacts",
+  "workspace_root": ".",
+  "verification_hint": "After removal no file under the workspace matches \\borg\\.omg\\. or ^package FIPA; , the src/jade/src/FIPA directory, src/jade/src/jade/mtp/iiop and src/jade/src/fipa.idl are gone, build.xml has no idlj target and no FIPA include, 'ant clean jade' on JDK 11 in the jade-ant:11 image prints BUILD SUCCESSFUL with exit 0, and all four consumers still PASS. jade.jar must no longer contain FIPA/*.class.",
+  "generated_at": "2026-09-05T02:11:43Z",
+  "task_count": 1,
+  "tasks": [
+    {
+      "task_id": "CORBA_REMOVAL-signature-001",
+      "shard_id": "CORBA_REMOVAL-signature-001",
+      "rule_id": "CORBA_REMOVAL",
+      "class": "signature",
+      "parallel_safe": false,
+      "editable_files": [
+        "src/jade/src/FIPA/AgentID.java",
+        "src/jade/src/FIPA/AgentIDHelper.java",
+        "src/jade/src/FIPA/AgentIDHolder.java",
+        "src/jade/src/FIPA/AgentIDsHelper.java",
+        "src/jade/src/FIPA/AgentIDsHolder.java",
+        "src/jade/src/FIPA/DateTime.java",
+        "src/jade/src/FIPA/DateTimeHelper.java",
+        "src/jade/src/FIPA/DateTimeHolder.java",
+        "src/jade/src/FIPA/Envelope.java",
+        "src/jade/src/FIPA/EnvelopeHelper.java",
+        "src/jade/src/FIPA/EnvelopeHolder.java",
+        "src/jade/src/FIPA/EnvelopesHelper.java",
+        "src/jade/src/FIPA/EnvelopesHolder.java",
+        "src/jade/src/FIPA/FipaMessage.java",
+        "src/jade/src/FIPA/FipaMessageHelper.java",
+        "src/jade/src/FIPA/FipaMessageHolder.java",
+        "src/jade/src/FIPA/MTS.java",
+        "src/jade/src/FIPA/MTSHelper.java",
+        "src/jade/src/FIPA/MTSHolder.java",
+        "src/jade/src/FIPA/OptAgentIDHelper.java",
+        "src/jade/src/FIPA/OptAgentIDHolder.java",
+        "src/jade/src/FIPA/OptDateTimeHelper.java",
+        "src/jade/src/FIPA/OptDateTimeHolder.java",
+        "src/jade/src/FIPA/OptReceivedObjectHelper.java",
+        "src/jade/src/FIPA/OptReceivedObjectHolder.java",
+        "src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java",
+        "src/jade/src/FIPA/OptTransportBehaviourTypeHolder.java",
+        "src/jade/src/FIPA/PayloadHelper.java",
+        "src/jade/src/FIPA/PayloadHolder.java",
+        "src/jade/src/FIPA/Property.java",
+        "src/jade/src/FIPA/PropertyHelper.java",
+        "src/jade/src/FIPA/PropertyHolder.java",
+        "src/jade/src/FIPA/ReceivedObject.java",
+        "src/jade/src/FIPA/ReceivedObjectHelper.java",
+        "src/jade/src/FIPA/ReceivedObjectHolder.java",
+        "src/jade/src/FIPA/TransportBehaviourTypeHelper.java",
+        "src/jade/src/FIPA/TransportBehaviourTypeHolder.java",
+        "src/jade/src/FIPA/URLHelper.java",
+        "src/jade/src/FIPA/_MTSImplBase.java",
+        "src/jade/src/FIPA/_MTSStub.java",
+        "src/jade/src/FIPA/stringsHelper.java",
+        "src/jade/src/FIPA/stringsHolder.java",
+        "src/jade/src/jade/mtp/iiop/MessageTransportProtocol.java"
+      ],
+      "read_only_context": [],
+      "entry_points": [
+        {
+          "file": "src/jade/src/FIPA/AgentID.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 35
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 61
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 62
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 65
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 66
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 70
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 71
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 73
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 75
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 76
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 78
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 81
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 83
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 86
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 89
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 92
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 94
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHelper.java",
+          "line": 96
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHolder.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHolder.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHolder.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHolder.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDHolder.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDsHelper.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDsHelper.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDsHelper.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDsHelper.java",
+          "line": 33
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDsHelper.java",
+          "line": 34
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDsHelper.java",
+          "line": 37
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDsHelper.java",
+          "line": 38
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDsHelper.java",
+          "line": 43
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDsHelper.java",
+          "line": 44
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDsHelper.java",
+          "line": 46
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDsHolder.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDsHolder.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDsHolder.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDsHolder.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/AgentIDsHolder.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTime.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 24
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 36
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 37
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 40
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 41
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 45
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 46
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 48
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 50
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 51
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 53
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 56
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 58
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 61
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 63
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 66
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 68
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 71
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 73
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 76
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 78
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 81
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 83
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 86
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 88
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHelper.java",
+          "line": 90
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHolder.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHolder.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHolder.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHolder.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/DateTimeHolder.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/Envelope.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 23
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 36
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 57
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 66
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 83
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 95
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 109
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 133
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 143
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 163
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 164
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 167
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 168
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 172
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 173
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 175
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 177
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 178
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 180
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 183
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 185
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 188
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 190
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 193
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 195
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 198
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 200
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 203
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 205
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 208
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 210
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 213
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 215
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 218
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 220
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 223
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 225
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 228
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 230
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 233
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 235
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHelper.java",
+          "line": 237
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHolder.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHolder.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHolder.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHolder.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopeHolder.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopesHelper.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopesHelper.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopesHelper.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopesHelper.java",
+          "line": 33
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopesHelper.java",
+          "line": 34
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopesHelper.java",
+          "line": 37
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopesHelper.java",
+          "line": 38
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopesHelper.java",
+          "line": 43
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopesHelper.java",
+          "line": 44
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopesHelper.java",
+          "line": 46
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopesHolder.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopesHolder.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopesHolder.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopesHolder.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/EnvelopesHolder.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessage.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+          "line": 42
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+          "line": 43
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+          "line": 46
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+          "line": 47
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+          "line": 51
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+          "line": 52
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+          "line": 54
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+          "line": 56
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+          "line": 57
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+          "line": 59
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+          "line": 62
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+          "line": 64
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHelper.java",
+          "line": 66
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHolder.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHolder.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHolder.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHolder.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/FipaMessageHolder.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/MTS.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/MTS.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHelper.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHelper.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHelper.java",
+          "line": 17
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHelper.java",
+          "line": 20
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHelper.java",
+          "line": 21
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHelper.java",
+          "line": 24
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHelper.java",
+          "line": 25
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHelper.java",
+          "line": 29
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHelper.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHelper.java",
+          "line": 32
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHelper.java",
+          "line": 38
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHelper.java",
+          "line": 39
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHelper.java",
+          "line": 45
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHelper.java",
+          "line": 47
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHolder.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHolder.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHolder.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHolder.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/MTSHolder.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHelper.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHelper.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHelper.java",
+          "line": 17
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHelper.java",
+          "line": 25
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHelper.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHelper.java",
+          "line": 39
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHelper.java",
+          "line": 40
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHelper.java",
+          "line": 43
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHelper.java",
+          "line": 44
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHelper.java",
+          "line": 49
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHelper.java",
+          "line": 50
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHelper.java",
+          "line": 52
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHolder.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHolder.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHolder.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHolder.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/OptAgentIDHolder.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHelper.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHelper.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHelper.java",
+          "line": 17
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHelper.java",
+          "line": 25
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHelper.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHelper.java",
+          "line": 39
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHelper.java",
+          "line": 40
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHelper.java",
+          "line": 43
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHelper.java",
+          "line": 44
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHelper.java",
+          "line": 49
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHelper.java",
+          "line": 50
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHelper.java",
+          "line": 52
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHolder.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHolder.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHolder.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHolder.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/OptDateTimeHolder.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHelper.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHelper.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHelper.java",
+          "line": 17
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHelper.java",
+          "line": 25
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHelper.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHelper.java",
+          "line": 39
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHelper.java",
+          "line": 40
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHelper.java",
+          "line": 43
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHelper.java",
+          "line": 44
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHelper.java",
+          "line": 49
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHelper.java",
+          "line": 50
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHelper.java",
+          "line": 52
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHolder.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHolder.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHolder.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHolder.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/OptReceivedObjectHolder.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java",
+          "line": 17
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java",
+          "line": 28
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java",
+          "line": 33
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java",
+          "line": 46
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java",
+          "line": 47
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java",
+          "line": 50
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java",
+          "line": 51
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java",
+          "line": 56
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java",
+          "line": 57
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHelper.java",
+          "line": 59
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHolder.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHolder.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHolder.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHolder.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/OptTransportBehaviourTypeHolder.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/PayloadHelper.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/PayloadHelper.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/PayloadHelper.java",
+          "line": 20
+        },
+        {
+          "file": "src/jade/src/FIPA/PayloadHelper.java",
+          "line": 29
+        },
+        {
+          "file": "src/jade/src/FIPA/PayloadHelper.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/PayloadHelper.java",
+          "line": 33
+        },
+        {
+          "file": "src/jade/src/FIPA/PayloadHelper.java",
+          "line": 34
+        },
+        {
+          "file": "src/jade/src/FIPA/PayloadHelper.java",
+          "line": 39
+        },
+        {
+          "file": "src/jade/src/FIPA/PayloadHelper.java",
+          "line": 40
+        },
+        {
+          "file": "src/jade/src/FIPA/PayloadHelper.java",
+          "line": 42
+        },
+        {
+          "file": "src/jade/src/FIPA/PayloadHolder.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/PayloadHolder.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/PayloadHolder.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/PayloadHolder.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/PayloadHolder.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/Property.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/Property.java",
+          "line": 13
+        },
+        {
+          "file": "src/jade/src/FIPA/Property.java",
+          "line": 16
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHelper.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHelper.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHelper.java",
+          "line": 18
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHelper.java",
+          "line": 24
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHelper.java",
+          "line": 25
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHelper.java",
+          "line": 28
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHelper.java",
+          "line": 29
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHelper.java",
+          "line": 33
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHelper.java",
+          "line": 34
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHelper.java",
+          "line": 36
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHelper.java",
+          "line": 38
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHelper.java",
+          "line": 39
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHelper.java",
+          "line": 41
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHelper.java",
+          "line": 44
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHelper.java",
+          "line": 46
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHelper.java",
+          "line": 48
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHolder.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHolder.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHolder.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHolder.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/PropertyHolder.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObject.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 21
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 31
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 34
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 35
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 39
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 40
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 42
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 44
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 45
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 47
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 50
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 52
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 55
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 60
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 62
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 65
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 67
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHelper.java",
+          "line": 69
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHolder.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHolder.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHolder.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHolder.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/ReceivedObjectHolder.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/TransportBehaviourTypeHelper.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/TransportBehaviourTypeHelper.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/TransportBehaviourTypeHelper.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/TransportBehaviourTypeHelper.java",
+          "line": 33
+        },
+        {
+          "file": "src/jade/src/FIPA/TransportBehaviourTypeHelper.java",
+          "line": 34
+        },
+        {
+          "file": "src/jade/src/FIPA/TransportBehaviourTypeHelper.java",
+          "line": 37
+        },
+        {
+          "file": "src/jade/src/FIPA/TransportBehaviourTypeHelper.java",
+          "line": 38
+        },
+        {
+          "file": "src/jade/src/FIPA/TransportBehaviourTypeHelper.java",
+          "line": 43
+        },
+        {
+          "file": "src/jade/src/FIPA/TransportBehaviourTypeHelper.java",
+          "line": 44
+        },
+        {
+          "file": "src/jade/src/FIPA/TransportBehaviourTypeHelper.java",
+          "line": 46
+        },
+        {
+          "file": "src/jade/src/FIPA/TransportBehaviourTypeHolder.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/TransportBehaviourTypeHolder.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/TransportBehaviourTypeHolder.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/TransportBehaviourTypeHolder.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/TransportBehaviourTypeHolder.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/URLHelper.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/URLHelper.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/URLHelper.java",
+          "line": 17
+        },
+        {
+          "file": "src/jade/src/FIPA/URLHelper.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/URLHelper.java",
+          "line": 23
+        },
+        {
+          "file": "src/jade/src/FIPA/URLHelper.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/URLHelper.java",
+          "line": 27
+        },
+        {
+          "file": "src/jade/src/FIPA/URLHelper.java",
+          "line": 32
+        },
+        {
+          "file": "src/jade/src/FIPA/URLHelper.java",
+          "line": 33
+        },
+        {
+          "file": "src/jade/src/FIPA/URLHelper.java",
+          "line": 35
+        },
+        {
+          "file": "src/jade/src/FIPA/_MTSImplBase.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/_MTSImplBase.java",
+          "line": 10
+        },
+        {
+          "file": "src/jade/src/FIPA/_MTSImplBase.java",
+          "line": 27
+        },
+        {
+          "file": "src/jade/src/FIPA/_MTSImplBase.java",
+          "line": 31
+        },
+        {
+          "file": "src/jade/src/FIPA/_MTSImplBase.java",
+          "line": 32
+        },
+        {
+          "file": "src/jade/src/FIPA/_MTSImplBase.java",
+          "line": 34
+        },
+        {
+          "file": "src/jade/src/FIPA/_MTSImplBase.java",
+          "line": 39
+        },
+        {
+          "file": "src/jade/src/FIPA/_MTSImplBase.java",
+          "line": 40
+        },
+        {
+          "file": "src/jade/src/FIPA/_MTSImplBase.java",
+          "line": 45
+        },
+        {
+          "file": "src/jade/src/FIPA/_MTSStub.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/_MTSStub.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/_MTSStub.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/_MTSStub.java",
+          "line": 29
+        },
+        {
+          "file": "src/jade/src/FIPA/_MTSStub.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/FIPA/stringsHelper.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/stringsHelper.java",
+          "line": 14
+        },
+        {
+          "file": "src/jade/src/FIPA/stringsHelper.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/stringsHelper.java",
+          "line": 33
+        },
+        {
+          "file": "src/jade/src/FIPA/stringsHelper.java",
+          "line": 34
+        },
+        {
+          "file": "src/jade/src/FIPA/stringsHelper.java",
+          "line": 37
+        },
+        {
+          "file": "src/jade/src/FIPA/stringsHelper.java",
+          "line": 38
+        },
+        {
+          "file": "src/jade/src/FIPA/stringsHelper.java",
+          "line": 43
+        },
+        {
+          "file": "src/jade/src/FIPA/stringsHelper.java",
+          "line": 44
+        },
+        {
+          "file": "src/jade/src/FIPA/stringsHelper.java",
+          "line": 46
+        },
+        {
+          "file": "src/jade/src/FIPA/stringsHolder.java",
+          "line": 9
+        },
+        {
+          "file": "src/jade/src/FIPA/stringsHolder.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/FIPA/stringsHolder.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/FIPA/stringsHolder.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/FIPA/stringsHolder.java",
+          "line": 30
+        },
+        {
+          "file": "src/jade/src/jade/mtp/iiop/MessageTransportProtocol.java",
+          "line": 40
+        },
+        {
+          "file": "src/jade/src/jade/mtp/iiop/MessageTransportProtocol.java",
+          "line": 41
+        },
+        {
+          "file": "src/jade/src/jade/mtp/iiop/MessageTransportProtocol.java",
+          "line": 386
+        },
+        {
+          "file": "src/jade/src/jade/mtp/iiop/MessageTransportProtocol.java",
+          "line": 570
+        }
+      ],
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED",
+        "SEQUENTIAL_EXECUTION_REQUIRED",
+        "SIGNATURE_CHANGES_CONFINED_TO_EDITABLE_FILES"
+      ],
+      "graph_artifact": "migration-runs/jade-8-to-11-v2/artifacts/03.5-knowledge-graph.json",
+      "result_file": "migration-runs/jade-8-to-11-v2/artifacts/06-agent-result-CORBA_REMOVAL-CORBA_REMOVAL-signature-001.json",
+      "checkpoint_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-8-to-11-v2/artifacts --rule-id CORBA_REMOVAL --shard-id CORBA_REMOVAL-signature-001 --workspace . --create",
+      "verify_command": "python .claude/skills/jade-core-verification/scripts/verify_shard.py --artifacts-dir migration-runs/jade-8-to-11-v2/artifacts --rule-id CORBA_REMOVAL --shard-id CORBA_REMOVAL-signature-001",
+      "gate_command": "python .claude/skills/jade-core-verification/scripts/gate_signatures.py --artifacts-dir migration-runs/jade-8-to-11-v2/artifacts --rule-id CORBA_REMOVAL --shard-id CORBA_REMOVAL-signature-001 --before-graph migration-runs/jade-8-to-11-v2/artifacts/03.5-knowledge-graph.json --after-graph migration-runs/jade-8-to-11-v2/artifacts/03.5-knowledge-graph-after-CORBA_REMOVAL-signature-001.json",
+      "record_command": "python .claude/skills/jade-core-rule-dispatcher/scripts/dispatcher.py --artifacts-dir migration-runs/jade-8-to-11-v2/artifacts --rule-id CORBA_REMOVAL --record-agent-result --shard-id CORBA_REMOVAL-signature-001 --result-file migration-runs/jade-8-to-11-v2/artifacts/06-agent-result-CORBA_REMOVAL-CORBA_REMOVAL-signature-001.json",
+      "accept_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-8-to-11-v2/artifacts --rule-id CORBA_REMOVAL --shard-id CORBA_REMOVAL-signature-001 --workspace . --accept",
+      "rollback_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-8-to-11-v2/artifacts --rule-id CORBA_REMOVAL --shard-id CORBA_REMOVAL-signature-001 --workspace . --rollback --reason \"<why>\""
+    }
+  ],
+  "warnings": []
+}

@@ -1,42 +1,26 @@
 {
   "run_id": "jade-8-to-11-v2",
   "rules": [
-    "CORBA_REMOVAL",
-    "TLS_ANON_CIPHER_DISABLED",
-    "CLDR_LOCALE_DATA_DEFAULT"
+    "CORBA_REMOVAL"
   ],
   "generated_at": "2026-09-05T00:50:00Z",
-  "decision": "Standing user choice for this run: every rule that clears the precision gate enters the queue, nothing is deferred. All three rules scored pattern_precision 1.0 with status PASS and queue_eligible true in 01.5-precision-report.json (CORBA_REMOVAL 60/60 judged out of a 333-hit population, TLS_ANON_CIPHER_DISABLED 2/2 census, CLDR_LOCALE_DATA_DEFAULT 5/5 census). CORBA_REMOVAL (HIGH) and TLS_ANON_CIPHER_DISABLED (MEDIUM) are mandatory breaking changes; CLDR_LOCALE_DATA_DEFAULT (LOW) is queued rather than deferred under the same standing choice. The on-disk order here is by severity; the binding execution order is computed by effective_rule_order, which ranks body-local ahead of signature, so the two body-local rules run before CORBA_REMOVAL.",
+  "decision": "Standing user choice for this run: every rule that clears the precision gate enters the queue, nothing is deferred. All three rules scored pattern_precision 1.0 with status PASS and queue_eligible true in 01.5-precision-report.json (CORBA_REMOVAL 60/60 judged out of a 333-hit population, TLS_ANON_CIPHER_DISABLED 2/2 census, CLDR_LOCALE_DATA_DEFAULT 5/5 census). CORBA_REMOVAL (HIGH) and TLS_ANON_CIPHER_DISABLED (MEDIUM) are mandatory breaking changes; CLDR_LOCALE_DATA_DEFAULT (LOW) is queued rather than deferred under the same standing choice. The on-disk order here is by severity; the binding execution order is computed by effective_rule_order, which ranks body-local ahead of signature, so the two body-local rules run before CORBA_REMOVAL. REVISION: TLS_ANON_CIPHER_DISABLED was removed from the queue and deferred. Its only mechanical fix strips the 'anon' token from jdk.tls.disabledAlgorithms at runtime, re-enabling unauthenticated cipher suites. That is a security policy decision for the maintainers, not a migration transform, so the shard was reverted to baseline and the rule deferred. See 05-deferred-TLS_ANON_CIPHER_DISABLED.json. REVISION 2: CLDR_LOCALE_DATA_DEFAULT was also removed and deferred. Its fix hard-codes the JDK 8 COMPAT date pattern, which keeps output byte-identical across locale providers but drops locale sensitivity in the GUI tools. The recipe itself recorded NEEDS_REVIEW on all five sites; raising that to FIXED to satisfy the gate would be exactly the fabricated status the pipeline forbids. Work preserved on tag wip/tls-cldr-changes.",
   "graph_metadata": {
     "status": "computed",
     "source_artifact": "03.5-knowledge-graph.json",
     "suggested_order": [
-      "CORBA_REMOVAL",
-      "TLS_ANON_CIPHER_DISABLED",
-      "CLDR_LOCALE_DATA_DEFAULT"
+      "CORBA_REMOVAL"
     ],
     "direct_counts": {
-      "CORBA_REMOVAL": 43,
-      "TLS_ANON_CIPHER_DISABLED": 2,
-      "CLDR_LOCALE_DATA_DEFAULT": 5
+      "CORBA_REMOVAL": 43
     },
     "impact_counts": {
-      "CORBA_REMOVAL": 35,
-      "TLS_ANON_CIPHER_DISABLED": 429,
-      "CLDR_LOCALE_DATA_DEFAULT": 76
+      "CORBA_REMOVAL": 35
     },
     "cycles": [],
     "ordering_reasons": [
       {
         "rule": "CORBA_REMOVAL",
-        "reason": "binding dependency order \u2014 dependent transforms first"
-      },
-      {
-        "rule": "TLS_ANON_CIPHER_DISABLED",
-        "reason": "binding dependency order \u2014 dependent transforms first"
-      },
-      {
-        "rule": "CLDR_LOCALE_DATA_DEFAULT",
         "reason": "binding dependency order \u2014 dependent transforms first"
       }
     ],

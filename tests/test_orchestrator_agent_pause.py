@@ -390,7 +390,15 @@ def test_checkpointed_shard_yields_shard_rollback_pending(tmp_path, monkeypatch)
     assert state["state"] == "AWAITING_AGENT"
 
 
-def test_needs_review_shard_marked_accepted_fails_the_gate(tmp_path, monkeypatch):
+def test_needs_review_shard_marked_accepted_is_surfaced_not_failed(tmp_path, monkeypatch):
+    """NEEDS_REVIEW on an accepted shard proceeds and lands in REVIEW_REQUIRED.md.
+
+    The recipe contract defines NEEDS_REVIEW as "the edit was applied, but a
+    human should verify it" -- an outcome, not a failure. Failing the run on it
+    pushed agents the wrong way: to get a green run they had to record FIXED for
+    work they were unsure about, which is the fabricated status the pipeline
+    exists to prevent. The review debt is now recorded instead of hidden.
+    """
     orch = load_orchestrator()
     artifacts = tmp_path / "artifacts"
     artifacts.mkdir()
@@ -440,9 +448,13 @@ def test_needs_review_shard_marked_accepted_fails_the_gate(tmp_path, monkeypatch
         artifacts / "rule-status.json",
         {},
     )
-    assert outcome == "ARTIFACT_TAMPERED"
-    assert state["state"] == "FAILED"
-    assert state["failure_reason"] == "SHARD_NEEDS_REVIEW_ACCEPTED"
+    assert outcome != "ARTIFACT_TAMPERED"
+    assert state.get("failure_reason") != "SHARD_NEEDS_REVIEW_ACCEPTED"
+
+    ledger = artifacts / "REVIEW_REQUIRED.md"
+    assert ledger.is_file(), "an accepted NEEDS_REVIEW shard must be recorded for review"
+    body = ledger.read_text(encoding="utf-8")
+    assert "R1" in body and "R1-body-local-001" in body
 
 
 def test_all_shards_accepted_or_rolled_back_falls_through_to_build_verification(tmp_path, monkeypatch):

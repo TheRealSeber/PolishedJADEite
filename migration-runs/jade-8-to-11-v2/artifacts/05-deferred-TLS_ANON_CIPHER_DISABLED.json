@@ -1,0 +1,8 @@
+{
+  "rule_id": "TLS_ANON_CIPHER_DISABLED",
+  "reason": "Security policy decision for the maintainers: the only mechanical fix re-enables unauthenticated cipher suites by stripping the anon token from jdk.tls.disabledAlgorithms at runtime",
+  "files_modified": 0,
+  "flags_rewritten": 0,
+  "files": [],
+  "deferred_at": "2026-09-05T02:12:40Z"
+}

@@ -22,36 +22,6 @@ import javax.net.ssl.SSLContext;
  */
 public class SSLHelper {
 
-	// JADE-FIX:TLS_ANON_CIPHER_DISABLED Since JDK 11, the "anon" keyword in the
-	// jdk.tls.disabledAlgorithms security property blocks every anonymous
-	// (unauthenticated) cipher suite by default, so the suite this class has
-	// always declared below -- TLS_ECDH_anon_WITH_AES_128_CBC_SHA -- stopped
-	// being negotiated even though setEnabledCipherSuites(...) accepts it
-	// without complaint. This restores exactly that suite: it does not pick a
-	// different, authenticated cipher suite, and it does not touch any other
-	// default restriction (RC4, DES, MD5withRSA, weak DH/EC key sizes,
-	// 3DES_EDE_CBC, NULL, disabled named curves all stay disabled). Choosing to
-	// require authenticated cipher suites instead -- which would need a
-	// keystore/truststore on every peer -- is a deliberate deployment decision
-	// this fix does not make.
-	static {
-		String disabled = java.security.Security.getProperty("jdk.tls.disabledAlgorithms");
-		if (disabled != null && disabled.length() > 0) {
-			StringBuilder kept = new StringBuilder();
-			for (String token : disabled.split(",")) {
-				String trimmed = token.trim();
-				if (trimmed.length() == 0 || trimmed.equalsIgnoreCase("anon")) {
-					continue;
-				}
-				if (kept.length() > 0) {
-					kept.append(", ");
-				}
-				kept.append(trimmed);
-			}
-			java.security.Security.setProperty("jdk.tls.disabledAlgorithms", kept.toString());
-		}
-	}
-
 	/**
 	 * use this to indicate which cipher suites we support
 	 */

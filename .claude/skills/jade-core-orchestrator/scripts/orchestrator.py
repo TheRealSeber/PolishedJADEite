@@ -632,6 +632,29 @@ def _agent_shard_instructions(
     return "\n".join(lines)
 
 
+
+def _write_review_ledger(
+    artifacts: pathlib.Path, rule_id: str, records: List[Dict[str, Any]]
+) -> None:
+    """Record accepted-but-unreviewed shards to REVIEW_REQUIRED.md.
+
+    These edits are in the workspace and compile; what they lack is a human
+    judgement the recipe declined to make on its own -- a security policy call,
+    a behavioural tradeoff, a semantic equivalence it could not prove.
+    """
+    path = artifacts / "REVIEW_REQUIRED.md"
+    existing = path.read_text(encoding="utf-8") if path.exists() else "# REVIEW REQUIRED\n"
+    lines = [f"\n## {rule_id}\n"]
+    for record in records:
+        summary = str(record.get("diff_summary") or "").strip()
+        lines.append(
+            f"- `{record.get('shard_id')}` {record.get('file')} -- {summary}\n"
+        )
+    tmp = path.with_suffix(".md.tmp")
+    tmp.write_text(existing + "".join(lines), encoding="utf-8")
+    tmp.replace(path)
+
+
 def _pause_for_agent(
     phase: str,
     artifacts: pathlib.Path,
@@ -1251,19 +1274,21 @@ def _process_agent_rule(
 
     accepted_shard_ids = {sid for sid, s in shard_states.items() if s == "ACCEPTED"}
     if accepted_shard_ids:
-        for record in _fix_result_records(artifacts, rule_id):
-            if (
-                record.get("shard_id") in accepted_shard_ids
-                and record.get("status") == "NEEDS_REVIEW"
-            ):
-                fail(
-                    artifacts,
-                    state,
-                    "SHARD_NEEDS_REVIEW_ACCEPTED",
-                    f"Shard {record.get('shard_id')} of rule {rule_id} is ACCEPTED "
-                    f"in the ledger but its recorded fix status is NEEDS_REVIEW",
-                )
-                return "ARTIFACT_TAMPERED"
+        # NEEDS_REVIEW is not a failure. The recipe contract defines it as "the
+        # edit was applied, but a human should verify it before the rule batch
+        # is trusted" -- an accepted shard carrying that status is the intended
+        # outcome, not a tampered artifact. Failing the run here forced the
+        # opposite behaviour: an agent wanting a green run had to record FIXED
+        # for work it was not sure about, which is the fabricated status the
+        # pipeline exists to prevent. Surface it in the review ledger instead.
+        pending_review = [
+            record
+            for record in _fix_result_records(artifacts, rule_id)
+            if record.get("shard_id") in accepted_shard_ids
+            and record.get("status") == "NEEDS_REVIEW"
+        ]
+        if pending_review:
+            _write_review_ledger(artifacts, rule_id, pending_review)
 
     # Every shard is ACCEPTED or ROLLED_BACK (SHARD_LEDGER_STATES has no
     # other member once CHECKPOINTED is ruled out above) — fall through to

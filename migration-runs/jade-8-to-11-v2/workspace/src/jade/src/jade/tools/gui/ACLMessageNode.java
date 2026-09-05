@@ -176,14 +176,7 @@ public class ACLMessageNode extends DefaultMutableTreeNode {
   }
 
 
-  // JADE-FIX:CLDR_LOCALE_DATA_DEFAULT DateFormat.getDateTimeInstance(SHORT, MEDIUM)
-  // resolved to a different pattern once JDK 9 made CLDR the default locale
-  // data provider (JRE/COMPAT gave "M/d/yy h:mm:ss a", e.g. "11/14/23
-  // 10:13:20 PM"; CLDR gives "M/d/yy, h:mm:ss a", inserting a comma: "11/14/23,
-  // 10:13:20 PM"). Hard-coding the JDK 8/COMPAT pattern keeps the declared
-  // type DateFormat (SimpleDateFormat extends it) and makes the output
-  // identical regardless of which provider is active.
-  private static DateFormat dateFormat = new SimpleDateFormat("M/d/yy h:mm:ss a");
+  private static DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);
   private Date theDate = new Date();
   private ACLMessage theMessage;
   private String direction;

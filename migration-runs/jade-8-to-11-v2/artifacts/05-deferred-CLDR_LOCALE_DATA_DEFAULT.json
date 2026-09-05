@@ -1,0 +1,8 @@
+{
+  "rule_id": "CLDR_LOCALE_DATA_DEFAULT",
+  "reason": "Hard-coding the COMPAT date pattern keeps output stable but drops locale sensitivity in the GUI tools; a maintainer decision",
+  "files_modified": 0,
+  "flags_rewritten": 0,
+  "files": [],
+  "deferred_at": "2026-09-05T02:14:03Z"
+}

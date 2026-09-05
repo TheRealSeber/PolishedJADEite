@@ -1,0 +1,5 @@
+{
+  "code": "SHARD_NEEDS_REVIEW_ACCEPTED",
+  "message": "Shard CORBA_REMOVAL-signature-001 of rule CORBA_REMOVAL is ACCEPTED in the ledger but its recorded fix status is NEEDS_REVIEW",
+  "updated_at": "2026-09-05T02:14:09Z"
+}

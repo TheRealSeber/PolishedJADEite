@@ -19,6 +19,16 @@ import re
 import sys
 from typing import Optional
 
+# shared/lib/java_source.py holds the comment/string-literal aware source
+# classifier (contract owned by jade-core: classify_lines / is_live_code /
+# strip_comments_and_strings). Resolve it relative to this file so the
+# recipe works regardless of the caller's cwd.
+_SHARED_LIB_DIR = pathlib.Path(__file__).resolve().parents[3] / "shared" / "lib"
+if str(_SHARED_LIB_DIR) not in sys.path:
+    sys.path.insert(0, str(_SHARED_LIB_DIR))
+
+import java_source  # noqa: E402  (path set up above)
+
 # Match start of branch:  if (variableName.equals("literalString"))
 _IF_EQUALS_RE = re.compile(
     r"^\s*if\s*\(\s*(\w+)\.equals\s*\(\s*\"((?:[^\"\\]|\\.)*)\"\s*\)\s*\)(\s*\{?)\s*$"
@@ -106,7 +116,7 @@ def _scan_sequential_if_return(
         elif vn != var_name:
             break
         literal = m.group(2)
-        has_brace = m.group(3).rstrip() == "{"
+        has_brace = m.group(3).strip() == "{"
 
         # Check next non-flag line for a return/throw/break statement
         ni = _skip_ws_flags(lines, i + 1)
@@ -160,7 +170,7 @@ def _scan_if_else_chain(
     if not m:
         return branches, None, None
     var_name = m.group(1)
-    has_brace = m.group(3).rstrip() == "{"
+    has_brace = m.group(3).strip() == "{"
     branches.append((m.group(2), start_idx))
 
     # Skip over first branch body
@@ -172,7 +182,7 @@ def _scan_if_else_chain(
         em = _ELSE_IF_EQUALS_RE.match(s)
         if em and em.group(1) == var_name:
             branches.append((em.group(2), i))
-            has_brace_e = em.group(3).rstrip() == "{"
+            has_brace_e = em.group(3).strip() == "{"
             i = _find_block_end(lines, i, has_brace_e)
             i = _skip_ws_flags(lines, i)
             continue
@@ -338,6 +348,26 @@ def main() -> int:
 
     var_name = if_m.group(1)
 
+    # Defect (c) guard: the flagged if-statement may sit inside a comment
+    # (e.g. dead/commented-out code) rather than live source. Check BEFORE
+    # any pattern matching or file mutation — a comment match makes zero edits.
+    source_text = "".join(lines)
+    if not java_source.is_live_code(source_text, candidate + 1):
+        print(
+            json.dumps(
+                {
+                    "status": "SKIPPED",
+                    "changes": 0,
+                    "warnings": [
+                        "Flagged if-statement is not live code (inside a comment) — no edits made"
+                    ],
+                    "errors": [],
+                    "diff_summary": "SKIPPED — flagged location is inside a comment, zero edits",
+                }
+            )
+        )
+        return 0
+
     # Try Pattern A: sequential if-return
     result_a = _scan_sequential_if_return(lines, candidate)
     if result_a is not None:
@@ -404,6 +434,28 @@ def main() -> int:
     return 0
 
 
+_RETURN_OR_THROW_RE = re.compile(r"^(return\b|throw\b)")
+
+
+def _ends_with_return_or_throw(body_lines: list[str]) -> bool:
+    """True when the last non-blank statement in *body_lines* is a
+    return/throw. A trailing break after such a statement is unreachable
+    code (javac: "unreachable statement"), so callers must omit it."""
+    for raw in reversed(body_lines):
+        s = raw.strip()
+        if s == "":
+            continue
+        return bool(_RETURN_OR_THROW_RE.match(s))
+    return False
+
+
+def _strip_flag_lines(body_lines: list[str]) -> list[str]:
+    """Drop any embedded JADE-FLAG:STRINGS_IN_SWITCH line from a captured
+    branch body — those markers belong to the chain being replaced (defect
+    b), not to the generated switch case."""
+    return [bl for bl in body_lines if not _FLAG_RE.match(bl.strip())]
+
+
 def _build_switch(
     lines: list[str],
     start_idx: int,
@@ -434,6 +486,7 @@ def _build_switch(
                 if depth > 0:
                     body.append(lines[bi])
                 bi += 1
+            body = _strip_flag_lines(body)
             for bl in body:
                 switch_lines.append(f"{base_indent}    {bl.lstrip()}")
         else:
@@ -450,7 +503,10 @@ def _build_switch(
                 body.append(lines[bi])  # the semicolon line
             for bl in body:
                 switch_lines.append(f"{base_indent}    {bl.lstrip()}")
-        switch_lines.append(f"{base_indent}    break;\n")
+        # Defect (a): a case body that already ends in return/throw must not
+        # get a trailing break — javac rejects it as an unreachable statement.
+        if not _ends_with_return_or_throw(body):
+            switch_lines.append(f"{base_indent}    break;\n")
 
     if else_idx is not None:
         switch_lines.append(f"{base_indent}default:\n")
@@ -466,12 +522,16 @@ def _build_switch(
                 if depth > 0:
                     body.append(lines[bi])
                 bi += 1
+            body = _strip_flag_lines(body)
             for bl in body:
                 switch_lines.append(f"{base_indent}    {bl.lstrip()}")
         else:
             bi = else_idx + 1
             body = []
             while bi < len(lines) and ";" not in lines[bi]:
+                if _FLAG_RE.match(lines[bi].strip()):
+                    bi += 1
+                    continue
                 body.append(lines[bi])
                 bi += 1
             if bi < len(lines):
@@ -481,15 +541,13 @@ def _build_switch(
 
     switch_lines.append(f"{base_indent}}}\n")
 
-    # Remove JADE-FLAG:STRINGS_IN_SWITCH lines only from the converted range
+    # Defect (b): the original if/else-if chain occupies lines[start_idx:end_idx]
+    # (JADE-FLAG comments included) and must be REPLACED by switch_lines, not
+    # kept alongside it — so that range is dropped entirely from the output.
     before = lines[:start_idx]
-    middle = lines[start_idx:end_idx]
     after = lines[end_idx:]
 
-    # Remove flag lines from the middle range
-    middle = [l for l in middle if "JADE-FLAG:STRINGS_IN_SWITCH" not in l]
-
-    return "".join(before + middle + switch_lines + after)
+    return "".join(before + switch_lines + after)
 
 
 if __name__ == "__main__":

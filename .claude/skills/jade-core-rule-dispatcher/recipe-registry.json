@@ -61,5 +61,11 @@
     "skill_md": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-1.5-1.6-arrays-copyof-full/SKILL.md",
     "description": "Replace the full-array System.arraycopy idiom with java.util.Arrays.copyOf",
     "mode": "agent"
+  },
+  "TRY_WITH_RESOURCES": {
+    "skill": "jade-recipe-1.7-try-with-resources",
+    "skill_md": ".claude/skills/java-migration-skill-registry/1.7/jade-recipe-1.7-try-with-resources/SKILL.md",
+    "description": "Convert manual open/close to try-with-resources only where the resource is Closeable, closed on every path, and unused after the block",
+    "mode": "agent"
   }
 }

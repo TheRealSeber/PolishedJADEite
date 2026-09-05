@@ -1,0 +1,35 @@
+{
+  "run_id": "jade-1.7-to-1.8-v2",
+  "workspace": "migration-runs/jade-1.7-to-1.8-v2/workspace",
+  "total_files_scanned": 1016,
+  "total_new_flags": 404,
+  "idempotent_skips": 0,
+  "by_rule": {
+    "BUILD_DOCLINT_STRICT": {
+      "name": "javadoc DocLint enabled by default in JDK 8",
+      "severity": "LOW",
+      "count": 2
+    },
+    "BUILD_RMIC_DEPRECATED": {
+      "name": "rmic deprecated for removal",
+      "severity": "LOW",
+      "count": 2
+    },
+    "LAMBDA_CONVERSION": {
+      "name": "Convert anonymous SAM classes to lambda expressions",
+      "severity": "LOW",
+      "count": 399
+    },
+    "JDBC_ODBC_BRIDGE_REMOVED": {
+      "name": "JDBC-ODBC Bridge removed from the JDK",
+      "severity": "HIGH",
+      "count": 1
+    }
+  },
+  "by_confidence": {
+    "0.75": 2,
+    "0.85": 2,
+    "0.8": 399,
+    "0.9": 1
+  }
+}

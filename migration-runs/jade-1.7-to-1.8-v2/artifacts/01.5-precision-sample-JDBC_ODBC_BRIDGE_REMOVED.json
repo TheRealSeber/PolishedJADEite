@@ -1,0 +1,72 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "// JADE-FLAG:JDBC_ODBC_BRIDGE_REMOVED sun.jdbc.odbc.JdbcOdbcDriver (the JDBC-ODBC Bridge) is removed from the JDK as of Java SE 8; Class.forName on this name throws ClassNotFoundException. 0.9",
+        "\t",
+        "\t/**"
+      ],
+      "context_before": [
+        "\t/**",
+        "\t * Used database driver",
+        "\t */"
+      ],
+      "file": "src/jade/src/jade/domain/KBManagement/DBKB.java",
+      "hit_id": "081796cd1e5e2f60",
+      "line": 57,
+      "line_hash": "3783ab8fc82bfe61",
+      "line_text": "\tprotected String driver = \"sun.jdbc.odbc.JdbcOdbcDriver\";",
+      "line_truncated": false,
+      "match_span": [
+        28,
+        56
+      ],
+      "match_text": "sun.jdbc.odbc.JdbcOdbcDriver",
+      "pattern_index": 0,
+      "rank": 0
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "aff9ce0f85be5ea22925d294066838cb4bbd781bf00130e028e7170558054a80",
+  "pattern_revision": 1,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "sun\\.jdbc\\.odbc\\.JdbcOdbcDriver",
+      "reason": "sun.jdbc.odbc.JdbcOdbcDriver (the JDBC-ODBC Bridge) is removed from the JDK as of Java SE 8; Class.forName on this name throws ClassNotFoundException.",
+      "target_extensions": [
+        ".java"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 1015,
+    "files_with_hits": 1,
+    "hits_per_pattern": {
+      "0": 1
+    },
+    "max_hits_in_one_file": 1,
+    "population_signature": "eb4c7de7fd7ebc5a849bf55ff74a565c082e78b8dfeb19a5130716ba2c0eae7a",
+    "total_hits": 1,
+    "truncated": false
+  },
+  "rule_description": "Starting with JDK 8, the JDBC-ODBC Bridge (sun.jdbc.odbc.JdbcOdbcDriver) is no longer included with the JDK. It was always a transitional, unsupported product bundled with select JDKs, never the JRE. Code that names this driver class must switch to a vendor-supplied or commercial JDBC driver -- there is no drop-in replacement class.",
+  "rule_id": "JDBC_ODBC_BRIDGE_REMOVED",
+  "rule_name": "JDBC-ODBC Bridge removed from the JDK",
+  "run_id": "jade-1.7-to-1.8-v2",
+  "sample_size": 1,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 3,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "f10214e9f54821da",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "CENSUS",
+  "verification_hint": "No mechanical rewrite exists -- there is no bridge-equivalent driver class. Verify the default driver string is no longer 'sun.jdbc.odbc.JdbcOdbcDriver' and that DBKB callers are documented as needing an explicit setDriver()/constructor-supplied JDBC driver before running on Java 8.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-1.7-to-1.8-v2/workspace"
+}

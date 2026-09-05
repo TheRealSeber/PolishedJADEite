@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "run_id": "jade-1.7-to-1.8-v2",
+  "rule_id": "JDBC_ODBC_BRIDGE_REMOVED",
+  "mode": "agent",
+  "recipe_skill": "jade-recipe-1.7-1.8-jdbc-odbc-bridge",
+  "recipe_skill_md": ".claude/skills/java-migration-skill-registry/1.7-to-1.8/jade-recipe-1.7-1.8-jdbc-odbc-bridge/SKILL.md",
+  "blast_class": "body-local",
+  "shard_plan_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/05-rule-shards-JDBC_ODBC_BRIDGE_REMOVED.json",
+  "artifacts_dir": "migration-runs/jade-1.7-to-1.8-v2/artifacts",
+  "workspace_root": "migration-runs/jade-1.7-to-1.8-v2/workspace",
+  "verification_hint": "No mechanical rewrite exists -- there is no bridge-equivalent driver class. Verify the default driver string is no longer 'sun.jdbc.odbc.JdbcOdbcDriver' and that DBKB callers are documented as needing an explicit setDriver()/constructor-supplied JDBC driver before running on Java 8.",
+  "generated_at": "2026-09-05T02:47:55Z",
+  "task_count": 1,
+  "tasks": [
+    {
+      "task_id": "JDBC_ODBC_BRIDGE_REMOVED-body-local-001",
+      "shard_id": "JDBC_ODBC_BRIDGE_REMOVED-body-local-001",
+      "rule_id": "JDBC_ODBC_BRIDGE_REMOVED",
+      "class": "body-local",
+      "parallel_safe": true,
+      "editable_files": [
+        "src/jade/src/jade/domain/KBManagement/DBKB.java"
+      ],
+      "read_only_context": [
+        "src/jade/src/jade/domain/DFDBKB.java",
+        "src/jade/src/jade/domain/DFKBFactory.java",
+        "src/jade/src/jade/domain/DFMemKB.java",
+        "src/jade/src/jade/domain/KBSubscriptionManager.java",
+        "src/jade/src/jade/domain/df.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/domain/KBManagement/DBKB.java",
+          "line": 58
+        }
+      ],
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "graph_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "result_file": "migration-runs/jade-1.7-to-1.8-v2/artifacts/06-agent-result-JDBC_ODBC_BRIDGE_REMOVED-JDBC_ODBC_BRIDGE_REMOVED-body-local-001.json",
+      "checkpoint_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-1.7-to-1.8-v2/artifacts --rule-id JDBC_ODBC_BRIDGE_REMOVED --shard-id JDBC_ODBC_BRIDGE_REMOVED-body-local-001 --workspace migration-runs/jade-1.7-to-1.8-v2/workspace --create",
+      "verify_command": "python .claude/skills/jade-core-verification/scripts/verify_shard.py --artifacts-dir migration-runs/jade-1.7-to-1.8-v2/artifacts --rule-id JDBC_ODBC_BRIDGE_REMOVED --shard-id JDBC_ODBC_BRIDGE_REMOVED-body-local-001",
+      "gate_command": "python .claude/skills/jade-core-verification/scripts/gate_signatures.py --artifacts-dir migration-runs/jade-1.7-to-1.8-v2/artifacts --rule-id JDBC_ODBC_BRIDGE_REMOVED --shard-id JDBC_ODBC_BRIDGE_REMOVED-body-local-001 --before-graph migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json --after-graph migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph-after-JDBC_ODBC_BRIDGE_REMOVED-body-local-001.json",
+      "record_command": "python .claude/skills/jade-core-rule-dispatcher/scripts/dispatcher.py --artifacts-dir migration-runs/jade-1.7-to-1.8-v2/artifacts --rule-id JDBC_ODBC_BRIDGE_REMOVED --record-agent-result --shard-id JDBC_ODBC_BRIDGE_REMOVED-body-local-001 --result-file migration-runs/jade-1.7-to-1.8-v2/artifacts/06-agent-result-JDBC_ODBC_BRIDGE_REMOVED-JDBC_ODBC_BRIDGE_REMOVED-body-local-001.json",
+      "accept_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-1.7-to-1.8-v2/artifacts --rule-id JDBC_ODBC_BRIDGE_REMOVED --shard-id JDBC_ODBC_BRIDGE_REMOVED-body-local-001 --workspace migration-runs/jade-1.7-to-1.8-v2/workspace --accept",
+      "rollback_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-1.7-to-1.8-v2/artifacts --rule-id JDBC_ODBC_BRIDGE_REMOVED --shard-id JDBC_ODBC_BRIDGE_REMOVED-body-local-001 --workspace migration-runs/jade-1.7-to-1.8-v2/workspace --rollback --reason \"<why>\""
+    }
+  ],
+  "warnings": []
+}

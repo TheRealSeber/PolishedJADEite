@@ -1,0 +1,97 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "<!-- JADE-FLAG:BUILD_DOCLINT_STRICT Ant <javadoc> targets that do not already pass -Xdoclint:none will fail the build under JDK 8's stricter default javadoc checker (JEP 172). 0.75 -->",
+        "\t</target>",
+        "\t"
+      ],
+      "context_before": [
+        "\t\t<!-- generate new javadoc documentation -->",
+        "\t\t<javadoc destdir=\"${doc}/api\" author=\"true\" windowtitle=\"JADE ${version} API Reference\" sourcepath=\"${src}\" use=\"true\" packagenames=\"jade.core, jade.core.behaviours, jade.core.event, jade.lang.acl, jade.domain, jade.domain.FIPAAgentManagement, jade.domain.JADEAgentManagement, jade.domain.mobility, jade.proto, jade.gui, jade.wrapper.gateway, jade.wrapper, jade.domain.DFGUIManagement, jade.domain.introspection, jade.content, jade.content.abs, jade.content.acl, jade.content.lang, jade.content.lang.j, jade.content.lang.leap, jade.content.lang.sl, jade.content.onto, jade.content.onto.basic, jade.content.schema, jade.content.schema.facets, jade.util, jade.util.leap, jade.mtp, jade.mtp.iiop jade.mtp.http jade.mtp.http.https\"/>",
+        "<!-- JADE-FLAG:BUILD_DOCLINT_STRICT Ant <javadoc> targets that do not already pass -Xdoclint:none will fail the build under JDK 8's stricter default javadoc checker (JEP 172). 0.75 -->"
+      ],
+      "file": "src/jade/build.xml",
+      "hit_id": "34690bce9216851e",
+      "line": 229,
+      "line_hash": "bca7aec54256257a",
+      "line_text": "\t\t<javadoc destdir=\"${doc}/tools/sniffer/html/jdoc\" author=\"true\" windowtitle=\"JADE ${version} Sniffer Reference\" sourcepath=\"${src}\" packagenames=\"jade.tools.sniffer\"/>",
+      "line_truncated": false,
+      "match_span": [
+        2,
+        169
+      ],
+      "match_text": "<javadoc destdir=\"${doc}/tools/sniffer/html/jdoc\" author=\"true\" windowtitle=\"JADE ${version} Sniffer Reference\" sourcepath=\"${src}\" packagenames=\"jade.tools.sniffer\"/>",
+      "pattern_index": 0,
+      "rank": 0
+    },
+    {
+      "context_after": [
+        "<!-- JADE-FLAG:BUILD_DOCLINT_STRICT Ant <javadoc> targets that do not already pass -Xdoclint:none will fail the build under JDK 8's stricter default javadoc checker (JEP 172). 0.75 -->",
+        "\t\t<javadoc destdir=\"${doc}/tools/sniffer/html/jdoc\" author=\"true\" windowtitle=\"JADE ${version} Sniffer Reference\" sourcepath=\"${src}\" packagenames=\"jade.tools.sniffer\"/>",
+        "<!-- JADE-FLAG:BUILD_DOCLINT_STRICT Ant <javadoc> targets that do not already pass -Xdoclint:none will fail the build under JDK 8's stricter default javadoc checker (JEP 172). 0.75 -->"
+      ],
+      "context_before": [
+        "\t\t<!-- clean the doc/api directory -->",
+        "\t\t<delete dir=\"${doc}/api\" excludes=\"javalogo52x88.gif\" includeEmptyDirs=\"true\"/>",
+        "\t\t<!-- generate new javadoc documentation -->"
+      ],
+      "file": "src/jade/build.xml",
+      "hit_id": "9b5f7fd966090fdb",
+      "line": 227,
+      "line_hash": "4a7c2de2345ee6fa",
+      "line_text": "\t\t<javadoc destdir=\"${doc}/api\" author=\"true\" windowtitle=\"JADE ${version} API Reference\" sourcepath=\"${src}\" use=\"true\" packagenames=\"jade.core, jade.core.behaviours, jade.core.event, jade.lang.acl, jade.domain, jade.domain.FIPAAgentManagement, jade.domain.JADEAgentManagement, jade.domain.mobility, jade.proto, jade.gui, jade.wrapper.gateway, jade.wrapper, jade.domain.DFGUIManagement, jade.domain.",
+      "line_truncated": true,
+      "match_span": [
+        2,
+        731
+      ],
+      "match_text": "<javadoc destdir=\"${doc}/api\" author=\"true\" windowtitle=\"JADE ${version} API Reference\" sourcepath=\"${src}\" use=\"true\" packagenames=\"jade.core, jade.core.behaviours, jade.core.event, jade.lang.acl, jade.domain, jade.domain.FIPAAgentManagement, jade.domain.JADEAgentManagement, jade.domain.mobility, jade.proto, jade.gui, jade.wrapper.gateway, jade.wrapper, jade.domain.DFGUIManagement, jade.domain.in…",
+      "pattern_index": 0,
+      "rank": 1
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "9dbddd77a619dfb9c83b6183d95e5a2f1107fbb9d70c23cf07edb4cf787c3adb",
+  "pattern_revision": 1,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "<javadoc\\b(?:(?!Xdoclint)[^>])*/?>",
+      "reason": "Ant <javadoc> targets that do not already pass -Xdoclint:none will fail the build under JDK 8's stricter default javadoc checker (JEP 172).",
+      "target_extensions": [
+        ".xml"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 1,
+    "files_with_hits": 1,
+    "hits_per_pattern": {
+      "0": 2
+    },
+    "max_hits_in_one_file": 2,
+    "population_signature": "88c17e12a5ba86dc614e7a1fba474f1c06bcf8ee5d46a8f7178bd26a56a49bc4",
+    "total_hits": 2,
+    "truncated": false
+  },
+  "rule_description": "JEP 172 (DocLint) bundles a Javadoc comment checker into the javadoc tool and enables it by default starting with JDK 8. Malformed HTML or missing tags in Javadoc comments that previously produced at most a warning now fail the javadoc build outright, unless -Xdoclint:none (or a narrower -Xdoclint:<group> selection) is passed.",
+  "rule_id": "BUILD_DOCLINT_STRICT",
+  "rule_name": "javadoc DocLint enabled by default in JDK 8",
+  "run_id": "jade-1.7-to-1.8-v2",
+  "sample_size": 2,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 3,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "1da637fc24046d9d",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "CENSUS",
+  "verification_hint": "Run `ant doc` under the JDK 8 Docker image; verify it no longer fails on malformed Javadoc comments once -Xdoclint:none (or a documented narrower flag) is present on both <javadoc> elements.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-1.7-to-1.8-v2/workspace"
+}

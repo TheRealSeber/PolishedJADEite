@@ -1,0 +1,176 @@
+{
+  "run_id": "jade-1.7-to-1.8-v2",
+  "generated_at": "2026-09-05T00:00:00Z",
+  "source_version": "1.7",
+  "target_version": "1.8",
+  "citation": "Extracted from 2 source(s): oracle-java8-compatibility (JDBC-ODBC bridge removal; rmic/static-stub deprecation). JEP 172 (DocLint) fetched to verify BUILD_DOCLINT_STRICT's premise. LAMBDA_CONVERSION carried forward from the jade-1.7-to-1.8 manifest (jsr335-lambda / jep126-lambda-extension), now scanned with multiline:true. THREAD_STOP_DISABLED, PERMGEN_FLAGS_REMOVED and COLLECTION_REMOVEALL_RETAINALL_NPE from that manifest are intentionally not carried forward -- see run notes.",
+  "rules": [
+    {
+      "id": "LAMBDA_CONVERSION",
+      "name": "Convert anonymous SAM classes to lambda expressions",
+      "description": "Java SE 8 adds lambda expressions, method references, and enhanced type inference. Anonymous inner classes implementing a single abstract method (SAM) interface can be replaced with lambda expressions, reducing boilerplate and enabling internal iteration idioms. Per JEP 126, lambda expressions are expressions with concise syntax to represent the desired operation, in lieu of one or more explicit loops.",
+      "fix_strategy": "recipe:jade-recipe-1.7-1.8-LAMBDA_CONVERSION",
+      "severity": "LOW",
+      "category": "LANGUAGE_CHANGE",
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "new\\s+\\w+(?:\\.\\w+)*\\([^)]*\\)\\s*\\{\\s*(?:@Override\\s+)?public\\s+[^}]*\\}",
+          "target_extensions": [
+            ".java"
+          ],
+          "reason": "Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126.",
+          "confidence": 0.8,
+          "multiline": true
+        }
+      ],
+      "evidence_ref": "jep126-lambda-extension::lines 2-4, 64-69",
+      "evidence_hash": "eaefd3848fa8f8a2434ce491ac43a13fb442cc5657153411b846f5549567bc3c",
+      "confidence": 0.8,
+      "verification_hint": "Compile with Java 8 javac; verify convertible anonymous SAM classes were replaced with lambdas, non-convertible ones (field state, multiple methods, `this`-qualified self-reference, multi-abstract-method interfaces) are left SKIPPED, and behavior is unchanged.",
+      "blast_class": "body-local",
+      "blast_class_evidence": {
+        "confidence": "high",
+        "reasoning": "Precision-gated against the jade-1.7-to-1.8-v2 workspace after fixing sample_pattern_hits.py to honor \"multiline\": true (see 01.5-precision-report.json: 30/30 sampled hits judged TRUE_POSITIVE, precision 1.0, Wilson 95% CI [0.8865, 1.0], against a real population of 399 hits across 113 files). Every judged hit is a SAM-to-lambda rewrite confined to the argument/local-variable/field-initializer expression that creates the anonymous class; the enclosing declared type (field, local, or parameter) and every method signature are untouched in all cases, convertible or not.",
+        "sites": [
+          {
+            "file": "src/jade/src/jade/core/Runtime.java",
+            "line": 180,
+            "what_changes": "terminators.addLast(new Runnable() { public void run() {...} }) inside setCloseVM(boolean) becomes terminators.addLast(() -> {...}); only the argument expression is rewritten -- the 'private LinkedList terminators' field keeps its type and setCloseVM keeps its signature."
+          },
+          {
+            "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+            "line": 1284,
+            "what_changes": "'InChannel.Dispatcher dispatcher = new InChannel.Dispatcher() { public void dispatchMessage(Envelope, byte[]) {...} }' inside installMTP(String,String) becomes a lambda initializer; the local variable's declared type and the SAM interface itself (src/jade/src/jade/mtp/InChannel.java) are not edited."
+          },
+          {
+            "file": "src/jade/src/jade/domain/ams.java",
+            "line": 226,
+            "what_changes": "'Thread t = new Thread() { public void run() {...} }' (a shutdown hook) becomes 'new Thread(() -> {...})'; the local's declared type Thread is unchanged and the body's qualified 'ams.this' references resolve identically."
+          },
+          {
+            "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+            "line": 409,
+            "what_changes": "'new AbsoluteCounterValueProvider() { public long getValue() {...} }' is a non-convertible case -- AbsoluteCounterValueProvider is an abstract class, not an interface -- so the recipe leaves the expression and records SKIPPED; either way the edit stays confined to the argument of samHelper.addCounterValueProvider(...)."
+          }
+        ]
+      }
+    },
+    {
+      "id": "JDBC_ODBC_BRIDGE_REMOVED",
+      "name": "JDBC-ODBC Bridge removed from the JDK",
+      "description": "Starting with JDK 8, the JDBC-ODBC Bridge (sun.jdbc.odbc.JdbcOdbcDriver) is no longer included with the JDK. It was always a transitional, unsupported product bundled with select JDKs, never the JRE. Code that names this driver class must switch to a vendor-supplied or commercial JDBC driver -- there is no drop-in replacement class.",
+      "fix_strategy": "recipe:jade-recipe-1.7-1.8-JDBC_ODBC_BRIDGE_REMOVED",
+      "severity": "HIGH",
+      "category": "API_REMOVAL",
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "sun\\.jdbc\\.odbc\\.JdbcOdbcDriver",
+          "target_extensions": [
+            ".java"
+          ],
+          "reason": "sun.jdbc.odbc.JdbcOdbcDriver (the JDBC-ODBC Bridge) is removed from the JDK as of Java SE 8; Class.forName on this name throws ClassNotFoundException.",
+          "confidence": 0.9
+        }
+      ],
+      "evidence_ref": "oracle-java8-compatibility::lines 471-475",
+      "evidence_hash": "015ce7bb34b72bf80b349191e0afe3d43e60490d520481a04d5a90f85cb432e8",
+      "confidence": 0.9,
+      "verification_hint": "No mechanical rewrite exists -- there is no bridge-equivalent driver class. Verify the default driver string is no longer 'sun.jdbc.odbc.JdbcOdbcDriver' and that DBKB callers are documented as needing an explicit setDriver()/constructor-supplied JDBC driver before running on Java 8.",
+      "blast_class": "body-local",
+      "blast_class_evidence": {
+        "confidence": "high",
+        "reasoning": "The only flagged site is a single field initializer; DBKB's declared field type (String) and every method signature in DBKB.java are unaffected by any candidate fix (removing the default, changing it to null, or replacing it with a config-driven value all stay inside the initializer expression).",
+        "sites": [
+          {
+            "file": "src/jade/src/jade/domain/KBManagement/DBKB.java",
+            "line": 57,
+            "what_changes": "'protected String driver = \"sun.jdbc.odbc.JdbcOdbcDriver\";' -- the field keeps its declared type String; only the literal default value is in scope for any fix, and DBKB subclasses that never call setDriver() are the ones put at runtime risk, not the field's type or DBKB's public API."
+          }
+        ]
+      }
+    },
+    {
+      "id": "BUILD_DOCLINT_STRICT",
+      "name": "javadoc DocLint enabled by default in JDK 8",
+      "description": "JEP 172 (DocLint) bundles a Javadoc comment checker into the javadoc tool and enables it by default starting with JDK 8. Malformed HTML or missing tags in Javadoc comments that previously produced at most a warning now fail the javadoc build outright, unless -Xdoclint:none (or a narrower -Xdoclint:<group> selection) is passed.",
+      "fix_strategy": "recipe:jade-recipe-1.7-1.8-BUILD_DOCLINT_STRICT",
+      "severity": "LOW",
+      "category": "BUILD",
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "<javadoc\\b(?:(?!Xdoclint)[^>])*/?>",
+          "target_extensions": [
+            ".xml"
+          ],
+          "reason": "Ant <javadoc> targets that do not already pass -Xdoclint:none will fail the build under JDK 8's stricter default javadoc checker (JEP 172).",
+          "confidence": 0.75,
+          "multiline": true
+        }
+      ],
+      "evidence_ref": "jdk8-javadoc-doclint-behavior::JDK 8 tooling behavior (javadoc / DocLint, JEP 172): javadoc runs DocLint by default and a malformed comment now fails the build (error) rather than warning, unless -Xdoclint:none is passed. JEP 172 itself (fetched to verify) documents DocLint as a configurable checker but not this default-enabled/error behavior directly, so this citation is kept at lower confidence than the JEP-sourced rules in this manifest -- see run notes.",
+      "evidence_hash": "fff8164dd1267e9bc80d8cf7cbbbc944048c382ae1a2e57f5221273252b65d13",
+      "confidence": 0.75,
+      "verification_hint": "Run `ant doc` under the JDK 8 Docker image; verify it no longer fails on malformed Javadoc comments once -Xdoclint:none (or a documented narrower flag) is present on both <javadoc> elements.",
+      "blast_class": "body-local",
+      "blast_class_evidence": {
+        "confidence": "high",
+        "reasoning": "Both flagged elements are <javadoc> tags inside the single 'doc' target; the fix is adding an additionalparam/-Xdoclint attribute to each tag, which changes nothing about any other build target, classpath, or compiled output.",
+        "sites": [
+          {
+            "file": "src/jade/build.xml",
+            "line": 225,
+            "what_changes": "<javadoc destdir=\"${doc}/api\" ... packagenames=\"jade.core, ...\"/> for the main API docs -- fix adds an -Xdoclint:none additionalparam to this one element. (Originally cited at line 218 in the pristine baseline; shifted a few lines by the erroronmissingdir=\"false\" fix added to the 'clean' target for an unrelated Ant-tooling build failure -- see final report.)"
+          },
+          {
+            "file": "src/jade/build.xml",
+            "line": 226,
+            "what_changes": "<javadoc destdir=\"${doc}/tools/sniffer/html/jdoc\" ... packagenames=\"jade.tools.sniffer\"/> for the sniffer tool docs -- same one-attribute fix, independent of the other element. (Originally cited at line 219, see note above.)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "BUILD_RMIC_DEPRECATED",
+      "name": "rmic deprecated for removal",
+      "description": "The rmic stub compiler is deprecated for removal starting with JDK 8 in favor of dynamic proxy-based RMI stubs (no stub classes needed since JDK 5), and is removed outright in JDK 9+. It still runs on JDK 8 but emits a deprecation warning; JADE's build depends on it to generate RMI stubs for two IMTP classes.",
+      "fix_strategy": "recipe:jade-recipe-1.7-1.8-BUILD_RMIC_DEPRECATED",
+      "severity": "LOW",
+      "category": "BUILD",
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "<rmic\\b[^>]*/>",
+          "target_extensions": [
+            ".xml"
+          ],
+          "reason": "The rmic Ant task invokes a tool deprecated for removal starting with JDK 8 (removed in JDK 9); still functional on JDK 8 but should be flagged as technical debt.",
+          "confidence": 0.85
+        }
+      ],
+      "evidence_ref": "oracle-java8-compatibility::lines 535-536 (\"Support for statically-generated stubs from RMI (JRMP) is now deprecated.\" -- RFE 8023863; rmic is the tool that generates those static stubs)",
+      "evidence_hash": "015ce7bb34b72bf80b349191e0afe3d43e60490d520481a04d5a90f85cb432e8",
+      "confidence": 0.85,
+      "verification_hint": "Confirm `ant jade` still produces the two RMI stub classes under the JDK 8 Docker image (rmic still works on 8, only deprecated); this rule is informational/deferrable for the 1.7->1.8 jump and only becomes a hard blocker at a future 8->9+ jump.",
+      "blast_class": "body-local",
+      "blast_class_evidence": {
+        "confidence": "high",
+        "reasoning": "Both flagged elements are <rmic> tags inside the single 'jade' target; on a 1.7->1.8 jump the only available fix is a documentation/deferral marker (rmic is not removed until JDK 9), so no other build target or generated artifact is touched.",
+        "sites": [
+          {
+            "file": "src/jade/build.xml",
+            "line": 171,
+            "what_changes": "<rmic classname=\"jade.imtp.rmi.ServiceManagerRMIImpl\" base=\"${build}\"/> -- deprecation-only on JDK 8; fix is a deferral/documentation marker, not a functional change."
+          },
+          {
+            "file": "src/jade/build.xml",
+            "line": 172,
+            "what_changes": "<rmic classname=\"jade.imtp.rmi.NodeRMIImpl\" base=\"${build}\"/> -- same deferral, independent element."
+          }
+        ]
+      }
+    }
+  ]
+}

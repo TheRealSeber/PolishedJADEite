@@ -1,0 +1,12 @@
+{
+  "rule_id": "JDBC_ODBC_BRIDGE_REMOVED",
+  "sample_hash": "1685b5064c0b690fe5a2939143bf602b81ddfcfb6d1f5ac2a30257cd3f00c04f",
+  "schema_version": 1,
+  "verdicts": [
+    {
+      "hit_id": "081796cd1e5e2f60",
+      "reason": "Exact literal match of the removed driver class name 'sun.jdbc.odbc.JdbcOdbcDriver' in DBKB.java:57's field initializer -- this is precisely the JDBC-ODBC Bridge class the rule targets, not a comment, string-unrelated mention, or already-migrated form.",
+      "verdict": "TRUE_POSITIVE"
+    }
+  ]
+}

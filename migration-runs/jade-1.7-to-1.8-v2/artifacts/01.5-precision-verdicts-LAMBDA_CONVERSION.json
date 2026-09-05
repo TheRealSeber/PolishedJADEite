@@ -1,0 +1,157 @@
+{
+  "rule_id": "LAMBDA_CONVERSION",
+  "sample_hash": "3f27c27a09da53b8416fee525ffbbd8a683f667d4d876033f71591e55b12e789",
+  "schema_version": 1,
+  "verdicts": [
+    {
+      "hit_id": "0654641442d9eba0",
+      "reason": "Genuine anonymous inner class instantiation `new CounterValueProvider(...) { ... }` at src/jade/src/jade/core/JVM.java:45, immediately overriding method `getValue` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "769d8b3a225a0baa",
+      "reason": "Genuine anonymous inner class instantiation `new Runnable(...) { ... }` at src/jade/src/jade/tools/rma/MainWindow.java:290, immediately overriding method `run` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "9f0067c94c6100cc",
+      "reason": "Genuine anonymous inner class instantiation `new Thread(...) { ... }` at src/jade/src/jade/domain/ams.java:412, immediately overriding method `run` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "a6a5e0ec43784758",
+      "reason": "Genuine anonymous inner class instantiation `new ActionListener(...) { ... }` at src/jade/src/jade/gui/AclGui.java:388, immediately overriding method `actionPerformed` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "71e22b921db5a614",
+      "reason": "Genuine anonymous inner class instantiation `new CounterValueProvider(...) { ... }` at src/jade/src/jade/imtp/leap/nio/BEManagementService.java:440, immediately overriding method `getValue` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "10bbe7e883f401df",
+      "reason": "Genuine anonymous inner class instantiation `new java.awt.event.ActionListener(...) { ... }` at src/jade/src/jade/tools/gui/ACLPanel.java:551, immediately overriding method `actionPerformed` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "06c1e11784e6a681",
+      "reason": "Genuine anonymous inner class instantiation `new java.awt.event.ItemListener(...) { ... }` at src/jade/src/jade/tools/gui/ACLComboBox.java:84, immediately overriding method `itemStateChanged` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "73c0df408bb53444",
+      "reason": "Genuine anonymous inner class instantiation `new ConnectionFactory(...) { ... }` at src/jade/src/jade/imtp/leap/http/HTTPPeer.java:64, immediately overriding method `createConnection` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "787524097aa2d0fd",
+      "reason": "Genuine anonymous inner class instantiation `new java.awt.event.ActionListener(...) { ... }` at src/jade/src/jade/tools/gui/ACLPropertyList.java:500, immediately overriding method `actionPerformed` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "cf6f6735e6f752af",
+      "reason": "Genuine anonymous inner class instantiation `new Runnable(...) { ... }` at src/jade/src/jade/tools/rma/MainWindow.java:176, immediately overriding method `run` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "43dd99ef5bd29888",
+      "reason": "Genuine anonymous inner class instantiation `new ActionListener(...) { ... }` at src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java:358, immediately overriding method `actionPerformed` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "87612a7b496e9278",
+      "reason": "Genuine anonymous inner class instantiation `new java.awt.event.ActionListener(...) { ... }` at src/jade/src/jade/tools/gui/ACLPropertyList.java:262, immediately overriding method `actionPerformed` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "c1d163a17358fbc7",
+      "reason": "Genuine anonymous inner class instantiation `new ActionListener(...) { ... }` at src/jade/src/jade/gui/ConstraintDlg.java:204, immediately overriding method `actionPerformed` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "f7e1e3e0cfa2afef",
+      "reason": "Genuine anonymous inner class instantiation `new java.awt.event.MouseAdapter(...) { ... }` at src/jade/src/jade/tools/gui/ACLPanel.java:664, immediately overriding method `mouseClicked` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "16e4542a8163868e",
+      "reason": "Genuine anonymous inner class instantiation `new Thread(...) { ... }` at src/jade/src/jade/core/FullResourceManager.java:97, immediately overriding method `run` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "23f9a2f8bb23a011",
+      "reason": "Genuine anonymous inner class instantiation `new ConnectionFactory(...) { ... }` at src/jade/src/jade/imtp/leap/JICP/JICPPeer.java:159, immediately overriding method `createConnection` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "12b80b641bf43bfe",
+      "reason": "Genuine anonymous inner class instantiation `new java.awt.event.ActionListener(...) { ... }` at src/jade/src/jade/tools/testagent/TestAgentFrame.java:498, immediately overriding method `actionPerformed` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "9c92879d79d99f71",
+      "reason": "Genuine anonymous inner class instantiation `new java.awt.event.ActionListener(...) { ... }` at src/jade/src/jade/tools/testagent/TestAgentFrame.java:813, immediately overriding method `actionPerformed` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "b0109a8f48e31762",
+      "reason": "Genuine anonymous inner class instantiation `new Timer(...) { ... }` at src/jade/src/jade/imtp/leap/nio/NIOHTTPBEDispatcher.java:592, immediately overriding method `doTimeOut` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "d05d64691cad94ca",
+      "reason": "Genuine anonymous inner class instantiation `new RemoteDFRequester(...) { ... }` at src/jade/src/jade/domain/df.java:1291, immediately overriding method `onEnd` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "297a505aa730af45",
+      "reason": "Genuine anonymous inner class instantiation `new Runnable(...) { ... }` at src/jade/src/jade/core/messaging/MessageManager.java:237, immediately overriding method `run` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "a4b19a9902181f6b",
+      "reason": "Genuine anonymous inner class instantiation `new FileFilter(...) { ... }` at src/jade/src/jade/core/messaging/FileMessageStorage.java:112, immediately overriding method `accept` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "7783d90390181b9b",
+      "reason": "Genuine anonymous inner class instantiation `new OneShotBehaviour(...) { ... }` at src/jade/src/jade/domain/ams.java:1544, immediately overriding method `action` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "6411b43c425532a1",
+      "reason": "Genuine anonymous inner class instantiation `new ActionListener(...) { ... }` at src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java:373, immediately overriding method `actionPerformed` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "06fa77d0c0b098e5",
+      "reason": "Genuine anonymous inner class instantiation `new Runnable(...) { ... }` at src/jade/src/jade/tools/rma/MainWindow.java:235, immediately overriding method `run` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "126898ac937e7665",
+      "reason": "Genuine anonymous inner class instantiation `new Thread(...) { ... }` at src/jade/src/jade/domain/ams.java:289, immediately overriding method `run` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "3848b98317debb2c",
+      "reason": "Genuine anonymous inner class instantiation `new MouseAdapter(...) { ... }` at src/jade/src/jade/tools/dfgui/DFGUI.java:466, immediately overriding method `mouseClicked` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "c99b3ac617fc32f6",
+      "reason": "Genuine anonymous inner class instantiation `new WindowAdapter(...) { ... }` at src/jade/src/jade/gui/TreeHelp.java:79, immediately overriding method `windowClosing` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "08235ebb163a5063",
+      "reason": "Genuine anonymous inner class instantiation `new java.awt.event.ActionListener(...) { ... }` at src/jade/src/jade/tools/testagent/TestAgentFrame.java:715, immediately overriding method `actionPerformed` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "2daf4c4da88f738d",
+      "reason": "Genuine anonymous inner class instantiation `new AbsoluteCounterValueProvider(...) { ... }` at src/jade/src/jade/core/messaging/MessagingService.java:479, immediately overriding method `getValue` as the first member of the class body -- exactly the SAM/adapter-override construct this rule targets for lambda-conversion review, whether the eventual per-site fix is FIXED (true SAM) or SKIPPED (multi-method adapter/class).",
+      "verdict": "TRUE_POSITIVE"
+    }
+  ]
+}

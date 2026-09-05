@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "run_id": "jade-1.7-to-1.8-v2",
+  "rule_id": "BUILD_RMIC_DEPRECATED",
+  "mode": "agent",
+  "recipe_skill": "jade-recipe-1.7-1.8-build-rmic-deprecated",
+  "recipe_skill_md": ".claude/skills/java-migration-skill-registry/1.7-to-1.8/jade-recipe-1.7-1.8-build-rmic-deprecated/SKILL.md",
+  "blast_class": "body-local",
+  "shard_plan_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/05-rule-shards-BUILD_RMIC_DEPRECATED.json",
+  "artifacts_dir": "migration-runs/jade-1.7-to-1.8-v2/artifacts",
+  "workspace_root": "migration-runs/jade-1.7-to-1.8-v2/workspace",
+  "verification_hint": "Confirm `ant jade` still produces the two RMI stub classes under the JDK 8 Docker image (rmic still works on 8, only deprecated); this rule is informational/deferrable for the 1.7->1.8 jump and only becomes a hard blocker at a future 8->9+ jump.",
+  "generated_at": "2026-09-05T02:47:55Z",
+  "task_count": 1,
+  "tasks": [
+    {
+      "task_id": "BUILD_RMIC_DEPRECATED-body-local-001",
+      "shard_id": "BUILD_RMIC_DEPRECATED-body-local-001",
+      "rule_id": "BUILD_RMIC_DEPRECATED",
+      "class": "body-local",
+      "parallel_safe": true,
+      "editable_files": [
+        "src/jade/build.xml"
+      ],
+      "read_only_context": [],
+      "entry_points": [
+        {
+          "file": "src/jade/build.xml",
+          "line": 172
+        },
+        {
+          "file": "src/jade/build.xml",
+          "line": 173
+        }
+      ],
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "graph_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "result_file": "migration-runs/jade-1.7-to-1.8-v2/artifacts/06-agent-result-BUILD_RMIC_DEPRECATED-BUILD_RMIC_DEPRECATED-body-local-001.json",
+      "checkpoint_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-1.7-to-1.8-v2/artifacts --rule-id BUILD_RMIC_DEPRECATED --shard-id BUILD_RMIC_DEPRECATED-body-local-001 --workspace migration-runs/jade-1.7-to-1.8-v2/workspace --create",
+      "verify_command": "python .claude/skills/jade-core-verification/scripts/verify_shard.py --artifacts-dir migration-runs/jade-1.7-to-1.8-v2/artifacts --rule-id BUILD_RMIC_DEPRECATED --shard-id BUILD_RMIC_DEPRECATED-body-local-001",
+      "gate_command": "python .claude/skills/jade-core-verification/scripts/gate_signatures.py --artifacts-dir migration-runs/jade-1.7-to-1.8-v2/artifacts --rule-id BUILD_RMIC_DEPRECATED --shard-id BUILD_RMIC_DEPRECATED-body-local-001 --before-graph migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json --after-graph migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph-after-BUILD_RMIC_DEPRECATED-body-local-001.json",
+      "record_command": "python .claude/skills/jade-core-rule-dispatcher/scripts/dispatcher.py --artifacts-dir migration-runs/jade-1.7-to-1.8-v2/artifacts --rule-id BUILD_RMIC_DEPRECATED --record-agent-result --shard-id BUILD_RMIC_DEPRECATED-body-local-001 --result-file migration-runs/jade-1.7-to-1.8-v2/artifacts/06-agent-result-BUILD_RMIC_DEPRECATED-BUILD_RMIC_DEPRECATED-body-local-001.json",
+      "accept_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-1.7-to-1.8-v2/artifacts --rule-id BUILD_RMIC_DEPRECATED --shard-id BUILD_RMIC_DEPRECATED-body-local-001 --workspace migration-runs/jade-1.7-to-1.8-v2/workspace --accept",
+      "rollback_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-1.7-to-1.8-v2/artifacts --rule-id BUILD_RMIC_DEPRECATED --shard-id BUILD_RMIC_DEPRECATED-body-local-001 --workspace migration-runs/jade-1.7-to-1.8-v2/workspace --rollback --reason \"<why>\""
+    }
+  ],
+  "warnings": [
+    {
+      "file": "src/jade/build.xml",
+      "kind": "flagged_file_not_in_graph",
+      "message": "Flagged file is absent from the knowledge graph; isolated shard"
+    }
+  ]
+}

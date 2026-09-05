@@ -42,8 +42,27 @@
   },
   "LAMBDA_CONVERSION": {
     "skill": "jade-recipe-1.7-1.8-lambda-conversion",
-    "script": ".claude/skills/java-migration-skill-registry/1.7-to-1.8/jade-recipe-1.7-1.8-lambda-conversion/scripts/apply.py",
-    "description": "Convert anonymous SAM classes to Java 8 lambda expressions"
+    "skill_md": ".claude/skills/java-migration-skill-registry/1.7-to-1.8/jade-recipe-1.7-1.8-lambda-conversion/SKILL.md",
+    "description": "Convert anonymous SAM classes to Java 8 lambda expressions; SKIP non-convertible cases (field state, multiple methods, unqualified this, multi-abstract-method types)",
+    "mode": "agent"
+  },
+  "JDBC_ODBC_BRIDGE_REMOVED": {
+    "skill": "jade-recipe-1.7-1.8-jdbc-odbc-bridge",
+    "skill_md": ".claude/skills/java-migration-skill-registry/1.7-to-1.8/jade-recipe-1.7-1.8-jdbc-odbc-bridge/SKILL.md",
+    "description": "Review the removed sun.jdbc.odbc.JdbcOdbcDriver default; no mechanical replacement exists",
+    "mode": "agent"
+  },
+  "BUILD_DOCLINT_STRICT": {
+    "skill": "jade-recipe-1.7-1.8-build-doclint-strict",
+    "skill_md": ".claude/skills/java-migration-skill-registry/1.7-to-1.8/jade-recipe-1.7-1.8-build-doclint-strict/SKILL.md",
+    "description": "Add -Xdoclint:none to Ant <javadoc> elements so JDK 8's default-on DocLint does not fail the doc build",
+    "mode": "agent"
+  },
+  "BUILD_RMIC_DEPRECATED": {
+    "skill": "jade-recipe-1.7-1.8-build-rmic-deprecated",
+    "skill_md": ".claude/skills/java-migration-skill-registry/1.7-to-1.8/jade-recipe-1.7-1.8-build-rmic-deprecated/SKILL.md",
+    "description": "Defer (do not remove) rmic Ant task uses deprecated for removal starting with JDK 8",
+    "mode": "agent"
   },
   "CORBA_REMOVAL": {
     "skill": "jade-recipe-8-11-corba-retrofit",

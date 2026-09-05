@@ -1,0 +1,797 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "\t\t\t\t\t\t\t\t@Override",
+        "\t\t\t\t\t\t\t\tpublic long getValue() {"
+      ],
+      "context_before": [
+        "\t\t\t\t\t\t\t\t}",
+        "\t\t\t\t\t\t\t});",
+        "\t\t\t\t\t\t\t"
+      ],
+      "file": "src/jade/src/jade/core/JVM.java",
+      "hit_id": "0654641442d9eba0",
+      "line": 45,
+      "line_hash": "56bbb711a4f6d96e",
+      "line_text": "\t\t\t\t\t\t\thelper.addCounterValueProvider(\"threads\"+suffix, new CounterValueProvider() {",
+      "line_truncated": false,
+      "match_span": [
+        56,
+        85
+      ],
+      "match_text": "new CounterValueProvider() {\n\t\t\t\t\t\t\t\t@Override\n\t\t\t\t\t\t\t\tpublic long getValue() {\n\t\t\t\t\t\t\t\t\tThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();\n\t\t\t\t\t\t\t\t\treturn threadMXBean.getThreadCount();\n\t\t\t\t\t\t\t\t}",
+      "pattern_index": 0,
+      "rank": 0
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "\t\t\tpublic void run(){",
+        "\t\t\t\tPopupMenuPlatform menu = new PopupMenuPlatform(actPro);"
+      ],
+      "context_before": [
+        "\t}",
+        "",
+        "\tpublic void addRemotePlatformFolder(){"
+      ],
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "hit_id": "769d8b3a225a0baa",
+      "line": 290,
+      "line_hash": "dbc01007d9383db9",
+      "line_text": "\t\tRunnable addIt = new Runnable(){",
+      "line_truncated": false,
+      "match_span": [
+        19,
+        35
+      ],
+      "match_text": "new Runnable(){\n\t\t\tpublic void run(){\n\t\t\t\tPopupMenuPlatform menu = new PopupMenuPlatform(actPro);\n\t\t\t\ttree.treeAgent.setNewPopupMenu(AgentTree.REMOTE_PLATFORMS_FOLDER_TYPE, menu);\n\t\t\t\ttree.treeAgent.addRemotePlatformsFolderNode();\n\n\t\t\t}",
+      "pattern_index": 0,
+      "rank": 1
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "\t\t\tpublic void run() {",
+        "\t\t\t\ttry {"
+      ],
+      "context_before": [
+        "\t\t\te.printStackTrace();",
+        "\t\t}",
+        ""
+      ],
+      "file": "src/jade/src/jade/domain/ams.java",
+      "hit_id": "9f0067c94c6100cc",
+      "line": 412,
+      "line_hash": "04af6abba9a64055",
+      "line_text": "\t\tThread auxThread = new Thread() {",
+      "line_truncated": false,
+      "match_span": [
+        21,
+        36
+      ],
+      "match_text": "new Thread() {\n\t\t\tpublic void run() {\n\t\t\t\ttry {\n// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review\n\t\t\t\t\tmyPlatform.killContainer(cid, requesterPrincipal, requesterCredentials);\n\t\t\t\t}",
+      "pattern_index": 0,
+      "rank": 2
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "\t\t\t{",
+        "\t\t\t\tpublic void actionPerformed(ActionEvent e)"
+      ],
+      "context_before": [
+        "\t\t\tlastSelectedIndex = protocol.getSelectedIndex();",
+        "\t\t\tlastSelectedItem = (String) protocol.getSelectedItem();",
+        "\t\t\tput(aclPanel,protocol, 1, 12, 2, 1, true);"
+      ],
+      "file": "src/jade/src/jade/gui/AclGui.java",
+      "hit_id": "a6a5e0ec43784758",
+      "line": 388,
+      "line_hash": "816609cc47a81d99",
+      "line_text": "\t\t\tprotocol.addActionListener( new ActionListener()",
+      "line_truncated": false,
+      "match_span": [
+        31,
+        52
+      ],
+      "match_text": "new ActionListener()\n\t\t\t{\n\t\t\t\tpublic void actionPerformed(ActionEvent e)\n\t\t\t\t{    \n\t\t\t\t\tString param = (String) protocol.getSelectedItem();\n\n\t\t\t\t\t// BEFORE THE CURRENT SELECTION THE JComboBox WAS NON EDITABLE (a FIPA protocol or null was selected)\n\t\t\t\t\tif (!protocol.isEditable()) \n\t\t\t\t\t{\n\t\t\t\t\t\t// If a user defined protocol has just been selected --> set editable to true\n\t\t\t\t\t\tif (fipaProtocolArray…",
+      "pattern_index": 0,
+      "rank": 3
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "\t\t\t\t\tpublic long getValue() {",
+        "\t\t\t\t\t\treturn dropDownCounter;"
+      ],
+      "context_before": [
+        "\t\t\t\t\t\treturn false;",
+        "\t\t\t\t\t}",
+        "\t\t\t\t});"
+      ],
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "hit_id": "71e22b921db5a614",
+      "line": 440,
+      "line_hash": "8a08432ed73dce57",
+      "line_text": "\t\t\t\tsamHelper.addCounterValueProvider(\"Drop_Down_Count\", new CounterValueProvider() {",
+      "line_truncated": false,
+      "match_span": [
+        57,
+        86
+      ],
+      "match_text": "new CounterValueProvider() {\n\t\t\t\t\tpublic long getValue() {\n\t\t\t\t\t\treturn dropDownCounter;\n\t\t\t\t\t}",
+      "pattern_index": 0,
+      "rank": 4
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "        public void actionPerformed(ActionEvent e) {",
+        "          senderButton_actionPerformed(e);"
+      ],
+      "context_before": [
+        "    senderButton.setIcon(zoomIcon);",
+        "    senderButton.setMargin(new Insets(0, 0, 0, 0));",
+        "    senderButton.addActionListener("
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+      "hit_id": "10bbe7e883f401df",
+      "line": 551,
+      "line_hash": "f1f38bae2884b522",
+      "line_text": "      new java.awt.event.ActionListener() {",
+      "line_truncated": false,
+      "match_span": [
+        6,
+        44
+      ],
+      "match_text": "new java.awt.event.ActionListener() {\n        public void actionPerformed(ActionEvent e) {\n          senderButton_actionPerformed(e);\n        }",
+      "pattern_index": 0,
+      "rank": 5
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "        public void itemStateChanged(ItemEvent e) {",
+        "          performativeItemStateChanged();"
+      ],
+      "context_before": [
+        "    UIManager.put(\"ComboBox.disabledForeground\", foreGround);",
+        "    UIManager.put(\"ComboBox.disabledBackground\", Color.white);",
+        "    this.addItemListener("
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLComboBox.java",
+      "hit_id": "06c1e11784e6a681",
+      "line": 84,
+      "line_hash": "c2aeeaf19e3f8e4f",
+      "line_text": "      new java.awt.event.ItemListener() {",
+      "line_truncated": false,
+      "match_span": [
+        6,
+        42
+      ],
+      "match_text": "new java.awt.event.ItemListener() {\n        public void itemStateChanged(ItemEvent e) {\n          performativeItemStateChanged();\n        }",
+      "pattern_index": 0,
+      "rank": 6
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "\t\t\tpublic Connection createConnection(Socket s) {",
+        "\t\t\t\treturn new HTTPServerConnection(s);"
+      ],
+      "context_before": [
+        "     Re-define the getConnectionFactory",
+        "   */",
+        "  public ConnectionFactory getConnectionFactory() {"
+      ],
+      "file": "src/jade/src/jade/imtp/leap/http/HTTPPeer.java",
+      "hit_id": "73c0df408bb53444",
+      "line": 64,
+      "line_hash": "cb2ef108e48f04fb",
+      "line_text": "    return new ConnectionFactory() {",
+      "line_truncated": false,
+      "match_span": [
+        11,
+        37
+      ],
+      "match_text": "new ConnectionFactory() {\n\t\t\tpublic Connection createConnection(Socket s) {\n\t\t\t\treturn new HTTPServerConnection(s);\n\t\t\t}",
+      "pattern_index": 0,
+      "rank": 7
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "          public void actionPerformed(ActionEvent e) {",
+        "            okButton_actionPerformed(e);"
+      ],
+      "context_before": [
+        "      okButton.setFont(new java.awt.Font(\"Dialog\", 0, 12));",
+        "      okButton.setText(\"ok\");",
+        "      okButton.addActionListener("
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLPropertyList.java",
+      "hit_id": "787524097aa2d0fd",
+      "line": 500,
+      "line_hash": "55a17978e8f8fc62",
+      "line_text": "        new java.awt.event.ActionListener() {",
+      "line_truncated": false,
+      "match_span": [
+        8,
+        46
+      ],
+      "match_text": "new java.awt.event.ActionListener() {\n          public void actionPerformed(ActionEvent e) {\n            okButton_actionPerformed(e);\n          }",
+      "pattern_index": 0,
+      "rank": 8
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "",
+        "\t\t\tpublic void run() {"
+      ],
+      "context_before": [
+        "\tpublic void removeContainer(final String name) {",
+        "",
+        "\t\t// Remove a container from the tree model"
+      ],
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "hit_id": "cf6f6735e6f752af",
+      "line": 176,
+      "line_hash": "e9a9bde6f2abb26b",
+      "line_text": "\t\tRunnable removeIt = new Runnable() {",
+      "line_truncated": false,
+      "match_span": [
+        22,
+        39
+      ],
+      "match_text": "new Runnable() {\n\n\t\t\tpublic void run() {\n\t\t\t\ttree.treeAgent.removeContainerNode(name);\n\t\t\t\tcontainerNames.remove(name);\n\t\t\t\tmanageDlg.setData(containerNames, addresses);\n\t\t\t}",
+      "pattern_index": 0,
+      "rank": 9
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "        public void actionPerformed(ActionEvent e) {",
+        "          Integer i = new Integer(timeUnitEdit.getText());"
+      ],
+      "context_before": [
+        "    B1.setBackground(Color.white);",
+        "    B1.setFont(new java.awt.Font(\"Dialog\", 0, 11));",
+        "    B1.addActionListener("
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+      "hit_id": "43dd99ef5bd29888",
+      "line": 358,
+      "line_hash": "52a1682ab7c2baab",
+      "line_text": "      new ActionListener() {",
+      "line_truncated": false,
+      "match_span": [
+        6,
+        29
+      ],
+      "match_text": "new ActionListener() {\n        public void actionPerformed(ActionEvent e) {\n          Integer i = new Integer(timeUnitEdit.getText());\n          int ii = i.intValue() + 1;\n          if (ii <= limit) {\n            timeUnitEdit.setText(String.valueOf(ii));\n          }",
+      "pattern_index": 0,
+      "rank": 10
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "        public void actionPerformed(ActionEvent e) {",
+        "          viewButton_actionPerformed(e);"
+      ],
+      "context_before": [
+        "    viewButton.setMargin(new Insets(0, 0, 0, 0));",
+        "    viewButton.setText(\"v\");",
+        "    viewButton.addActionListener("
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLPropertyList.java",
+      "hit_id": "87612a7b496e9278",
+      "line": 262,
+      "line_hash": "f1f38bae2884b522",
+      "line_text": "      new java.awt.event.ActionListener() {",
+      "line_truncated": false,
+      "match_span": [
+        6,
+        44
+      ],
+      "match_text": "new java.awt.event.ActionListener() {\n        public void actionPerformed(ActionEvent e) {\n          viewButton_actionPerformed(e);\n        }",
+      "pattern_index": 0,
+      "rank": 11
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "\t\t{",
+        "\t\t\tpublic void actionPerformed(ActionEvent e)"
+      ],
+      "context_before": [
+        "\t\t",
+        "\t\t// Cancel Button",
+        "\t\tJButton cancelB = new JButton(\"Cancel\");"
+      ],
+      "file": "src/jade/src/jade/gui/ConstraintDlg.java",
+      "hit_id": "c1d163a17358fbc7",
+      "line": 204,
+      "line_hash": "7b44f986c1c4149a",
+      "line_text": "\t\tcancelB.addActionListener(new ActionListener()",
+      "line_truncated": false,
+      "match_span": [
+        28,
+        49
+      ],
+      "match_text": "new ActionListener()\n\t\t{\n\t\t\tpublic void actionPerformed(ActionEvent e)\n \t\t\t\t{\n \t\t\t\t\tString param = e.getActionCommand();\n \t\t\t\t\tif(param == \"Cancel\")\n \t\t\t\t\t{\n            constraints = null; \n \t\t\t\t\t\tdispose(); \n \t\t\t\t\t}",
+      "pattern_index": 0,
+      "rank": 12
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "        public void mouseClicked(MouseEvent e) {",
+        "          envFromTextField_mouseClicked(e);"
+      ],
+      "context_before": [
+        "    envFromTextField.setFont(new java.awt.Font(\"Dialog\", 0, 11));",
+        "    envFromTextField.setDisabledTextColor(Color.black);",
+        "    envFromTextField.addMouseListener("
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+      "hit_id": "f7e1e3e0cfa2afef",
+      "line": 664,
+      "line_hash": "ec239db2a1592c6f",
+      "line_text": "      new java.awt.event.MouseAdapter() {",
+      "line_truncated": false,
+      "match_span": [
+        6,
+        42
+      ],
+      "match_text": "new java.awt.event.MouseAdapter() {\n        public void mouseClicked(MouseEvent e) {\n          envFromTextField_mouseClicked(e);\n        }",
+      "pattern_index": 0,
+      "rank": 13
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "\t\t\t\tpublic void run() {",
+        "\t\t\t\t\ttry {"
+      ],
+      "context_before": [
+        "\t\tterminating = true;",
+        "\t\t",
+        "\t\tif (!disableThreadGroupInterrupt) {"
+      ],
+      "file": "src/jade/src/jade/core/FullResourceManager.java",
+      "hit_id": "16e4542a8163868e",
+      "line": 97,
+      "line_hash": "98a40056fa69c068",
+      "line_text": "\t\t\tThread t = new Thread() {",
+      "line_truncated": false,
+      "match_span": [
+        14,
+        29
+      ],
+      "match_text": "new Thread() {\n\t\t\t\tpublic void run() {\n\t\t\t\t\ttry {\n// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review\n\t\t\t\t\t\tThread.sleep(threadGroupInterruptTimeout);\n\t\t\t\t\t}",
+      "pattern_index": 0,
+      "rank": 14
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "\t\t\tpublic Connection createConnection(Socket s) {",
+        "\t\t\t\treturn new JICPConnection(s);"
+      ],
+      "context_before": [
+        "     ConnectionFactory",
+        "\t */",
+        "\tpublic ConnectionFactory getConnectionFactory() {"
+      ],
+      "file": "src/jade/src/jade/imtp/leap/JICP/JICPPeer.java",
+      "hit_id": "23f9a2f8bb23a011",
+      "line": 159,
+      "line_hash": "b8d24ed80a6e668b",
+      "line_text": "\t\treturn new ConnectionFactory() {",
+      "line_truncated": false,
+      "match_span": [
+        9,
+        35
+      ],
+      "match_text": "new ConnectionFactory() {\n\t\t\tpublic Connection createConnection(Socket s) {\n\t\t\t\treturn new JICPConnection(s);\n\t\t\t}",
+      "pattern_index": 0,
+      "rank": 15
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "        public void actionPerformed(ActionEvent e) {",
+        "          pingLausanneMenuItem_actionPerformed(e);"
+      ],
+      "context_before": [
+        "    pingLausanneMenuItem.setMnemonic('P');",
+        "    pingLausanneMenuItem.setText(\"Ping to Lausanne \");",
+        "    pingLausanneMenuItem.addActionListener("
+      ],
+      "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+      "hit_id": "12b80b641bf43bfe",
+      "line": 498,
+      "line_hash": "f1f38bae2884b522",
+      "line_text": "      new java.awt.event.ActionListener() {",
+      "line_truncated": false,
+      "match_span": [
+        6,
+        44
+      ],
+      "match_text": "new java.awt.event.ActionListener() {\n        public void actionPerformed(ActionEvent e) {\n          pingLausanneMenuItem_actionPerformed(e);\n        }",
+      "pattern_index": 0,
+      "rank": 16
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "        public void actionPerformed(ActionEvent e) {",
+        "          saveMsgMenuItem_actionPerformed(e);"
+      ],
+      "context_before": [
+        "    loadMsgMenuItem.setMnemonic('L');",
+        "    loadMsgMenuItem.setBackground(Color.white);",
+        "    saveMsgMenuItem.addActionListener("
+      ],
+      "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+      "hit_id": "9c92879d79d99f71",
+      "line": 813,
+      "line_hash": "f1f38bae2884b522",
+      "line_text": "      new java.awt.event.ActionListener() {",
+      "line_truncated": false,
+      "match_span": [
+        6,
+        44
+      ],
+      "match_text": "new java.awt.event.ActionListener() {\n        public void actionPerformed(ActionEvent e) {\n          saveMsgMenuItem_actionPerformed(e);\n        }",
+      "pattern_index": 0,
+      "rank": 17
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "\t\t\tpublic void doTimeOut(Timer t) {",
+        "\t\t\t\tsynchronized (NIOHTTPBEDispatcher.this) {"
+      ],
+      "context_before": [
+        "\tprivate void activateMaxDisconnectionTimer() {",
+        "\t\t// Set the disconnection timer",
+        "\t\tlong now = System.currentTimeMillis();"
+      ],
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPBEDispatcher.java",
+      "hit_id": "b0109a8f48e31762",
+      "line": 592,
+      "line_hash": "1d8714cf53f39532",
+      "line_text": "\t\tmaxDisconnectionTimer = new Timer(now + maxDisconnectionTime, new TimerListener() {",
+      "line_truncated": false,
+      "match_span": [
+        26,
+        86
+      ],
+      "match_text": "new Timer(now + maxDisconnectionTime, new TimerListener() {\n\t\t\tpublic void doTimeOut(Timer t) {\n\t\t\t\tsynchronized (NIOHTTPBEDispatcher.this) {\n\t\t\t\t\tif (frontEndStatus != CONNECTED) {\n\t\t\t\t\t\tmyLogger.log(Logger.WARNING, myID+\" - Max disconnection timeout expired.\");\n\t\t\t\t\t\t// The remote FrontEnd is probably down --> notify up.\n\t\t\t\t\t\thandlePeerSelfTermination();\n\t\t\t\t\t}",
+      "pattern_index": 0,
+      "rank": 18
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "\t\t\tpublic int onEnd() {",
+        "\t\t\t\tsendPendingNotification(action, getResult());"
+      ],
+      "context_before": [
+        "\t\tSearch s = new Search();",
+        "\t\ts.setDescription(action.getDescription());",
+        "\t\ts.setConstraints(action.getConstraints());"
+      ],
+      "file": "src/jade/src/jade/domain/df.java",
+      "hit_id": "d05d64691cad94ca",
+      "line": 1291,
+      "line_hash": "4aef3e39109d7604",
+      "line_text": "\t\tBehaviour b = new RemoteDFRequester(remoteDF, s) {",
+      "line_truncated": false,
+      "match_span": [
+        16,
+        53
+      ],
+      "match_text": "new RemoteDFRequester(remoteDF, s) {\n\t\t\tpublic int onEnd() {\n\t\t\t\tsendPendingNotification(action, getResult());\n\t\t\t\treturn 0;\n\t\t\t}",
+      "pattern_index": 0,
+      "rank": 19
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "",
+        "\t\t\t\tpublic void run() {"
+      ],
+      "context_before": [
+        "\t\t\t}",
+        "\t\t\t",
+        "\t\t\t// When the JADE Runtime terminates stop all deliverers."
+      ],
+      "file": "src/jade/src/jade/core/messaging/MessageManager.java",
+      "hit_id": "297a505aa730af45",
+      "line": 237,
+      "line_hash": "2d597eb040a3c5b4",
+      "line_text": "\t\t\tjade.core.Runtime.instance().invokeOnTermination(new Runnable() {",
+      "line_truncated": false,
+      "match_span": [
+        52,
+        69
+      ],
+      "match_text": "new Runnable() {\n\n\t\t\t\tpublic void run() {\n\t\t\t\t\tshutdown();\n\t\t\t\t}",
+      "pattern_index": 0,
+      "rank": 20
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "",
+        "\t\t\tpublic boolean accept(File f) {"
+      ],
+      "context_before": [
+        "\t\tll.loadStarted(\"\");",
+        "",
+        "\t\t// Scan all its valid subdirectories."
+      ],
+      "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+      "hit_id": "a4b19a9902181f6b",
+      "line": 112,
+      "line_hash": "94edfc022bb5069b",
+      "line_text": "\t\tFile[] subdirs = baseDir.listFiles(new FileFilter() {",
+      "line_truncated": false,
+      "match_span": [
+        37,
+        56
+      ],
+      "match_text": "new FileFilter() {\n\n\t\t\tpublic boolean accept(File f) {\n\t\t\t\treturn f.isDirectory() && f.getName().startsWith(RECEIVER_PREFIX);\n\t\t\t}",
+      "pattern_index": 0,
+      "rank": 21
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "\t\t\tpublic void action() {",
+        "\t\t\t\tACLMessage notification = null;"
+      ],
+      "context_before": [
+        "\t to perform certain actions (createAgent, killContainer) asynchronously",
+        "\t */",
+        "\tprivate void sendFailureNotification(final Concept action, final Object key, final FIPAException fe) {"
+      ],
+      "file": "src/jade/src/jade/domain/ams.java",
+      "hit_id": "7783d90390181b9b",
+      "line": 1544,
+      "line_hash": "5b0dbcde5fcb7033",
+      "line_text": "\t\taddBehaviour(new OneShotBehaviour(this) {",
+      "line_truncated": false,
+      "match_span": [
+        15,
+        44
+      ],
+      "match_text": "new OneShotBehaviour(this) {\n\t\t\tpublic void action() {\n\t\t\t\tACLMessage notification = null;\n\t\t\t\tif (action instanceof CreateAgent) {\n\t\t\t\t\tnotification = (ACLMessage) pendingNewAgents.remove(key);\n\t\t\t\t}",
+      "pattern_index": 0,
+      "rank": 22
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "        public void actionPerformed(ActionEvent e) {",
+        "          Integer i = new Integer(timeUnitEdit.getText());"
+      ],
+      "context_before": [
+        "    B2.setBackground(Color.white);",
+        "    B2.setFont(new java.awt.Font(\"Dialog\", 0, 11));",
+        "    B2.addActionListener("
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+      "hit_id": "6411b43c425532a1",
+      "line": 373,
+      "line_hash": "52a1682ab7c2baab",
+      "line_text": "      new ActionListener() {",
+      "line_truncated": false,
+      "match_span": [
+        6,
+        29
+      ],
+      "match_text": "new ActionListener() {\n        public void actionPerformed(ActionEvent e) {\n          Integer i = new Integer(timeUnitEdit.getText());\n          int ii = i.intValue() - 1;\n          int inf_limit = (timeUnitLabel.equalsIgnoreCase(\"Hour:\") || timeUnitLabel.equalsIgnoreCase(\"Min:\") || timeUnitLabel.equalsIgnoreCase(\"Sec:\") ? 0 : 1);\n          if (ii >= inf_limit) {\n            timeUnitEdit.setText(S…",
+      "pattern_index": 0,
+      "rank": 23
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "\t\t\tpublic void run() {",
+        "\t\t\t\tString agentName = agentID.getName();"
+      ],
+      "context_before": [
+        "\tpublic void moveAgent(final String fromContainer, final String toContainer, final AID agentID) {",
+        "",
+        "\t\t// Move an agent from a container node to another"
+      ],
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "hit_id": "06fa77d0c0b098e5",
+      "line": 235,
+      "line_hash": "438b3ca72fc5ba8d",
+      "line_text": "\t\tRunnable moveIt = new Runnable() {",
+      "line_truncated": false,
+      "match_span": [
+        20,
+        37
+      ],
+      "match_text": "new Runnable() {\n\t\t\tpublic void run() {\n\t\t\t\tString agentName = agentID.getName();\n\t\t\t\ttree.treeAgent.moveAgentNode(fromContainer, toContainer, agentName);\n\t\t\t}",
+      "pattern_index": 0,
+      "rank": 24
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "\t\t\tpublic void run() {",
+        "\t\t\t\ttry {"
+      ],
+      "context_before": [
+        "\t\tfinal Credentials initialCredentials = ca.getInitialCredentials();",
+        "",
+        "\t\t// Do the job in a separated thread to avoid deadlock"
+      ],
+      "file": "src/jade/src/jade/domain/ams.java",
+      "hit_id": "126898ac937e7665",
+      "line": 289,
+      "line_hash": "04af6abba9a64055",
+      "line_text": "\t\tThread auxThread = new Thread() {",
+      "line_truncated": false,
+      "match_span": [
+        21,
+        36
+      ],
+      "match_text": "new Thread() {\n\t\t\tpublic void run() {\n\t\t\t\ttry {\n// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review\n\t\t\t\t\tmyPlatform.create(agentName, className, args, container, owner, initialCredentials, requesterPrincipal, requesterCredentials);\n\t\t\t\t}",
+      "pattern_index": 0,
+      "rank": 25
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "\t\t{",
+        "\t\t\tpublic void mouseClicked(MouseEvent e)"
+      ],
+      "context_before": [
+        "\t\tc = parentTable.getColumn(parentTable.getColumnName(2));",
+        "\t\tc.setHeaderValue(\"Resolvers\");",
+        ""
+      ],
+      "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+      "hit_id": "3848b98317debb2c",
+      "line": 466,
+      "line_hash": "5e10cca0a1aa2947",
+      "line_text": "\t\tMouseListener mouseListenerParent = new MouseAdapter()",
+      "line_truncated": false,
+      "match_span": [
+        38,
+        57
+      ],
+      "match_text": "new MouseAdapter()\n\t\t{\n\t\t\tpublic void mouseClicked(MouseEvent e)\n\t\t\t{\n\t\t\t\tif (e.getClickCount() >= 1)\n\t\t\t\t\tchildrenTable.clearSelection();\n\t\t\t\tif (e.getClickCount() == 2)\n\t\t\t\t{\n\t\t\t\t\tDFGUIViewAction ac = new DFGUIViewAction(DFGUI.this);\n\t\t\t\t\tac.actionPerformed(new ActionEvent((Object)this, 0, \"View\"));\n\t\t\t\t\n\t\t\t\t}",
+      "pattern_index": 0,
+      "rank": 26
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "            public void windowClosing(WindowEvent e) {",
+        "                disposeAsync();"
+      ],
+      "context_before": [
+        "        super(owner,title);",
+        "        //setTitle(title);",
+        "        // added for reply to window closing"
+      ],
+      "file": "src/jade/src/jade/gui/TreeHelp.java",
+      "hit_id": "c99b3ac617fc32f6",
+      "line": 79,
+      "line_hash": "39ea4c4ac5d1d43e",
+      "line_text": "        addWindowListener(new WindowAdapter() {",
+      "line_truncated": false,
+      "match_span": [
+        26,
+        48
+      ],
+      "match_text": "new WindowAdapter() {\n            public void windowClosing(WindowEvent e) {\n                disposeAsync();\n            }",
+      "pattern_index": 0,
+      "rank": 27
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "        public void actionPerformed(ActionEvent e) {",
+        "          saveMenuItem_actionPerformed(e);"
+      ],
+      "context_before": [
+        "    saveMenuItem.setFont(new java.awt.Font(\"Dialog\", 0, 12));",
+        "    saveMenuItem.setText(\"save message\");",
+        "    saveMenuItem.addActionListener("
+      ],
+      "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+      "hit_id": "08235ebb163a5063",
+      "line": 715,
+      "line_hash": "f1f38bae2884b522",
+      "line_text": "      new java.awt.event.ActionListener() {",
+      "line_truncated": false,
+      "match_span": [
+        6,
+        44
+      ],
+      "match_text": "new java.awt.event.ActionListener() {\n        public void actionPerformed(ActionEvent e) {\n          saveMenuItem_actionPerformed(e);\n        }",
+      "pattern_index": 0,
+      "rank": 28
+    },
+    {
+      "context_after": [
+        "// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8",
+        "\t\t\t\t\t\t@Override",
+        "\t\t\t\t\t\tpublic long getValue() {"
+      ],
+      "context_before": [
+        "\t\t\t\t\t\t\treturn myMessageManager.getSlowDeliveryCnt();",
+        "\t\t\t\t\t\t}",
+        "\t\t\t\t\t});"
+      ],
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "hit_id": "2daf4c4da88f738d",
+      "line": 479,
+      "line_hash": "e36681f7a8aa0af0",
+      "line_text": "\t\t\t\t\tsamHelper.addCounterValueProvider(\"Message-Manager-veryslow-delivery-count#\"+myContainer.getID().getName(), new AbsoluteCounterValueProvider() {",
+      "line_truncated": false,
+      "match_span": [
+        113,
+        150
+      ],
+      "match_text": "new AbsoluteCounterValueProvider() {\n\t\t\t\t\t\t@Override\n\t\t\t\t\t\tpublic long getValue() {\n\t\t\t\t\t\t\treturn myMessageManager.getVerySlowDeliveryCnt();\n\t\t\t\t\t\t}",
+      "pattern_index": 0,
+      "rank": 29
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "94d0f91fc926847a7e0209dac105d358d4198a4e9d9bda71892d03b7def5dd7c",
+  "pattern_revision": 1,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "new\\s+\\w+(?:\\.\\w+)*\\([^)]*\\)\\s*\\{\\s*(?:@Override\\s+)?public\\s+[^}]*\\}",
+      "reason": "Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126.",
+      "target_extensions": [
+        ".java"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 1015,
+    "files_with_hits": 113,
+    "hits_per_pattern": {
+      "0": 399
+    },
+    "max_hits_in_one_file": 42,
+    "population_signature": "ded39a105aec6f2d63ed80195fb95d0b9ee68f19dfc0db0910cd0e0386acc763",
+    "total_hits": 399,
+    "truncated": false
+  },
+  "rule_description": "Java SE 8 adds lambda expressions, method references, and enhanced type inference. Anonymous inner classes implementing a single abstract method (SAM) interface can be replaced with lambda expressions, reducing boilerplate and enabling internal iteration idioms. Per JEP 126, lambda expressions are expressions with concise syntax to represent the desired operation, in lieu of one or more explicit loops.",
+  "rule_id": "LAMBDA_CONVERSION",
+  "rule_name": "Convert anonymous SAM classes to lambda expressions",
+  "run_id": "jade-1.7-to-1.8-v2",
+  "sample_size": 30,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 3,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "8a2fc6c919c5cee7",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "SAMPLED",
+  "verification_hint": "Compile with Java 8 javac; verify convertible anonymous SAM classes were replaced with lambdas, non-convertible ones (field state, multiple methods, `this`-qualified self-reference, multi-abstract-method interfaces) are left SKIPPED, and behavior is unchanged.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-1.7-to-1.8-v2/workspace"
+}

@@ -1,0 +1,8 @@
+{"ts": "2026-09-05T02:46:25Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T02:46:25Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs/jade-1.7-to-1.8-v2/workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T02:47:01Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Paused for agent input \u2014 see AWAITING_AGENT.md", "artifacts": ["AWAITING_AGENT.md"]}
+{"ts": "2026-09-05T02:47:59Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T02:47:59Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs/jade-1.7-to-1.8-v2/workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T02:48:00Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Processing rule BUILD_DOCLINT_STRICT", "artifacts": ["05-rule-batch-status.json"]}
+{"ts": "2026-09-05T02:48:00Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Paused for agent input \u2014 see AWAITING_AGENT.md", "artifacts": ["AWAITING_AGENT.md"]}
+{"ts": "2026-09-05T02:48:00Z", "phase": "AWAITING_AGENT", "status": "ERROR", "message": "Run terminated: AWAITING_AGENT", "artifacts": ["00-run-state.json", "PROGRESS.md"]}

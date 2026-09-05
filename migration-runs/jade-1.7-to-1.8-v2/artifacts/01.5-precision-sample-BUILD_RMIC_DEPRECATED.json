@@ -1,0 +1,97 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "<!-- JADE-FLAG:BUILD_RMIC_DEPRECATED The rmic Ant task invokes a tool deprecated for removal starting with JDK 8 (removed in JDK 9); still functional on JDK 8 but should be flagged as technical debt. 0.85 -->",
+        "\t</target>",
+        ""
+      ],
+      "context_before": [
+        "\t\t",
+        "\t\t<rmic classname=\"jade.imtp.rmi.ServiceManagerRMIImpl\" base=\"${build}\"/>",
+        "<!-- JADE-FLAG:BUILD_RMIC_DEPRECATED The rmic Ant task invokes a tool deprecated for removal starting with JDK 8 (removed in JDK 9); still functional on JDK 8 but should be flagged as technical debt. 0.85 -->"
+      ],
+      "file": "src/jade/build.xml",
+      "hit_id": "7b5b69c5dd7ac480",
+      "line": 173,
+      "line_hash": "d1d91fc1336a5fd4",
+      "line_text": "\t\t<rmic classname=\"jade.imtp.rmi.NodeRMIImpl\" base=\"${build}\"/>",
+      "line_truncated": false,
+      "match_span": [
+        2,
+        63
+      ],
+      "match_text": "<rmic classname=\"jade.imtp.rmi.NodeRMIImpl\" base=\"${build}\"/>",
+      "pattern_index": 0,
+      "rank": 0
+    },
+    {
+      "context_after": [
+        "<!-- JADE-FLAG:BUILD_RMIC_DEPRECATED The rmic Ant task invokes a tool deprecated for removal starting with JDK 8 (removed in JDK 9); still functional on JDK 8 but should be flagged as technical debt. 0.85 -->",
+        "\t\t<rmic classname=\"jade.imtp.rmi.NodeRMIImpl\" base=\"${build}\"/>",
+        "<!-- JADE-FLAG:BUILD_RMIC_DEPRECATED The rmic Ant task invokes a tool deprecated for removal starting with JDK 8 (removed in JDK 9); still functional on JDK 8 but should be flagged as technical debt. 0.85 -->"
+      ],
+      "context_before": [
+        "\t\t\t</fileset>",
+        "\t\t</copy>",
+        "\t\t"
+      ],
+      "file": "src/jade/build.xml",
+      "hit_id": "f9005529e341fcba",
+      "line": 171,
+      "line_hash": "8bf56fd7f99fe95d",
+      "line_text": "\t\t<rmic classname=\"jade.imtp.rmi.ServiceManagerRMIImpl\" base=\"${build}\"/>",
+      "line_truncated": false,
+      "match_span": [
+        2,
+        73
+      ],
+      "match_text": "<rmic classname=\"jade.imtp.rmi.ServiceManagerRMIImpl\" base=\"${build}\"/>",
+      "pattern_index": 0,
+      "rank": 1
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "a11263ba3e630d11c4d83259725de665e4b864dee18039862b43a4efac244056",
+  "pattern_revision": 1,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "<rmic\\b[^>]*/>",
+      "reason": "The rmic Ant task invokes a tool deprecated for removal starting with JDK 8 (removed in JDK 9); still functional on JDK 8 but should be flagged as technical debt.",
+      "target_extensions": [
+        ".xml"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 1,
+    "files_with_hits": 1,
+    "hits_per_pattern": {
+      "0": 2
+    },
+    "max_hits_in_one_file": 2,
+    "population_signature": "83043bc2e3c9ee81d4cc5e039d1ac411254fbe8b7f7aae7c0256299b4771e7a0",
+    "total_hits": 2,
+    "truncated": false
+  },
+  "rule_description": "The rmic stub compiler is deprecated for removal starting with JDK 8 in favor of dynamic proxy-based RMI stubs (no stub classes needed since JDK 5), and is removed outright in JDK 9+. It still runs on JDK 8 but emits a deprecation warning; JADE's build depends on it to generate RMI stubs for two IMTP classes.",
+  "rule_id": "BUILD_RMIC_DEPRECATED",
+  "rule_name": "rmic deprecated for removal",
+  "run_id": "jade-1.7-to-1.8-v2",
+  "sample_size": 2,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 3,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "9eac477190087338",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "CENSUS",
+  "verification_hint": "Confirm `ant jade` still produces the two RMI stub classes under the JDK 8 Docker image (rmic still works on 8, only deprecated); this rule is informational/deferrable for the 1.7->1.8 jump and only becomes a hard blocker at a future 8->9+ jump.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-1.7-to-1.8-v2/workspace"
+}

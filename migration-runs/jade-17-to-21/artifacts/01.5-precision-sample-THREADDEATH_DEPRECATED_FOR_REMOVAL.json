@@ -1,0 +1,72 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "\t\t\t\tthreadState = INTERRUPTED_STATE;",
+        "\t\t\t\tmyLogger.log(Logger.WARNING, \"Threaded behaviour \"+myBehaviour.getBehaviourName()+\" stopped before termination\");",
+        "\t\t\t\t// ThreadDeath errors should always be propagated so that the top level handler can perform the necessary clean up"
+      ],
+      "context_before": [
+        "\t\t\t\tthreadState = INTERRUPTED_STATE;",
+        "\t\t\t\tmyLogger.log(Logger.WARNING, \"Threaded behaviour \"+myBehaviour.getBehaviourName()+\" interrupted before termination\");",
+        "\t\t\t}"
+      ],
+      "file": "src/jade/src/jade/core/behaviours/ThreadedBehaviourFactory.java",
+      "hit_id": "b11347f754f75e1b",
+      "line": 404,
+      "line_hash": "11d82981994326b9",
+      "line_text": "\t\t\tcatch (ThreadDeath td) {",
+      "line_truncated": false,
+      "match_span": [
+        10,
+        21
+      ],
+      "match_text": "ThreadDeath",
+      "pattern_index": 0,
+      "rank": 0
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-17-to-21/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "de1da79e3ff5fe0d1683ae7ff050175272a477eba84d734589e2e7f4e2db0f37",
+  "pattern_revision": 1,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "\\bThreadDeath\\b",
+      "reason": "java.lang.ThreadDeath, deprecated for removal in JDK 20 and no longer raisable by the runtime",
+      "target_extensions": [
+        ".java"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 972,
+    "files_with_hits": 1,
+    "hits_per_pattern": {
+      "0": 1
+    },
+    "max_hits_in_one_file": 1,
+    "population_signature": "8b7a1844934310fde465a1843b722eb9aa2d0fb4710e9b3dfd8176d9ad53d03f",
+    "total_hits": 1,
+    "truncated": false
+  },
+  "rule_description": "JDK 20 changed Thread.stop() to throw UnsupportedOperationException and, as the release note puts it in the following sentence, deprecated java.lang.ThreadDeath for removal as part of the same change. ThreadDeath was only ever raised by Thread.stop(), so from JDK 20 nothing in the runtime can produce one and the catch clause in ThreadedBehaviourFactory is unreachable.",
+  "rule_id": "THREADDEATH_DEPRECATED_FOR_REMOVAL",
+  "rule_name": "java.lang.ThreadDeath is deprecated for removal since JDK 20 and can no longer be thrown by the runtime",
+  "run_id": "jade-17-to-21",
+  "sample_size": 1,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 3,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "893d766e8063af5d",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "CENSUS",
+  "verification_hint": "ant clean lib inside jade-ant:21 with -Xlint:removal reports zero 'ThreadDeath in java.lang has been deprecated and marked for removal' warnings, down from one. Build exits 0, all consumers PASS; jrba drives the threaded behaviour path this file implements.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-17-to-21/workspace"
+}

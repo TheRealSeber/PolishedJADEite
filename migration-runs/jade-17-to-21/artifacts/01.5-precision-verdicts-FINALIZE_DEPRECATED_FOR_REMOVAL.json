@@ -1,0 +1,32 @@
+{
+  "rule_id": "FINALIZE_DEPRECATED_FOR_REMOVAL",
+  "sample_artifact": "01.5-precision-sample-FINALIZE_DEPRECATED_FOR_REMOVAL.json",
+  "sample_hash": "9861e765e21c50f9d312cd78bf5a83e286d589fb57f6d4227a5a681c66304119",
+  "verdicts": [
+    {
+      "hit_id": "d8526768673ae007",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Server.java:119 calls finalize() explicitly from a finally block. An explicit finalizer invocation is exactly what this rule removes, and the call site must move with the body."
+    },
+    {
+      "hit_id": "34ac4543536a70ed",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "JarClassLoader.java:213 is the super.finalize() call inside that override. It disappears with the override and is part of the same edit."
+    },
+    {
+      "hit_id": "7a51233f26434eb9",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Connection.java:239 declares protected void finalize(), an override of the terminally deprecated Object method."
+    },
+    {
+      "hit_id": "b2ad471111b75484",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Server.java:143 declares protected void finalize(); its body is live cleanup reached from the finally block at line 119."
+    },
+    {
+      "hit_id": "12426ff9abbd04e5",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "JarClassLoader.java:207 declares protected void finalize() throws Throwable, an override of the Object method JEP 421 annotated @Deprecated(forRemoval=true) in JDK 18."
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "\t\t}",
+        "\t}",
+        ""
+      ],
+      "context_before": [
+        "\t\t\t}",
+        "\t\t}",
+        "\t\tfinally {"
+      ],
+      "file": "src/jade/src/jade/tools/SocketProxyAgent/Server.java",
+      "hit_id": "d8526768673ae007",
+      "line": 119,
+      "line_hash": "3463998626dd5a45",
+      "line_text": "\t\t\tfinalize();",
+      "line_truncated": false,
+      "match_span": [
+        3,
+        14
+      ],
+      "match_text": "finalize();",
+      "pattern_index": 1,
+      "rank": 0
+    },
+    {
+      "context_after": [
+        "\t}",
+        "",
+        "}"
+      ],
+      "context_before": [
+        "\t\t// Close the JarFile.",
+        "\t\t//_jarFile.close();",
+        "\t\t"
+      ],
+      "file": "src/jade/src/jade/core/management/JarClassLoader.java",
+      "hit_id": "34ac4543536a70ed",
+      "line": 213,
+      "line_hash": "e0a88be5df287128",
+      "line_text": "\t\tsuper.finalize();",
+      "line_truncated": false,
+      "match_span": [
+        8,
+        19
+      ],
+      "match_text": "finalize();",
+      "pattern_index": 1,
+      "rank": 1
+    },
+    {
+      "context_after": [
+        "\t\tif (!closed) {",
+        "\t\t\tclose();",
+        "\t\t}"
+      ],
+      "context_before": [
+        "\t}",
+        "",
+        ""
+      ],
+      "file": "src/jade/src/jade/tools/SocketProxyAgent/Connection.java",
+      "hit_id": "7a51233f26434eb9",
+      "line": 239,
+      "line_hash": "6c4215539ecb981d",
+      "line_text": "\tprotected void finalize() {",
+      "line_truncated": false,
+      "match_span": [
+        11,
+        25
+      ],
+      "match_text": "void finalize(",
+      "pattern_index": 0,
+      "rank": 2
+    },
+    {
+      "context_after": [
+        "\t\tcloseDown();",
+        "",
+        "\t\ttry\t{"
+      ],
+      "context_before": [
+        "\t/**",
+        "\t * try to clean up on GC",
+        "\t */"
+      ],
+      "file": "src/jade/src/jade/tools/SocketProxyAgent/Server.java",
+      "hit_id": "b2ad471111b75484",
+      "line": 143,
+      "line_hash": "6c4215539ecb981d",
+      "line_text": "\tprotected void finalize() {",
+      "line_truncated": false,
+      "match_span": [
+        11,
+        25
+      ],
+      "match_text": "void finalize(",
+      "pattern_index": 0,
+      "rank": 3
+    },
+    {
+      "context_after": [
+        "\t\t",
+        "\t\tclose();",
+        "\t\t// Close the JarFile."
+      ],
+      "context_before": [
+        "\t * if it has not explicitly done before by using the provided ",
+        "\t * close() method.",
+        "\t */"
+      ],
+      "file": "src/jade/src/jade/core/management/JarClassLoader.java",
+      "hit_id": "12426ff9abbd04e5",
+      "line": 207,
+      "line_hash": "1c68b789fe4051a7",
+      "line_text": "\tprotected void finalize() throws Throwable {",
+      "line_truncated": false,
+      "match_span": [
+        11,
+        25
+      ],
+      "match_text": "void finalize(",
+      "pattern_index": 0,
+      "rank": 4
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-17-to-21/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "b888be5464c3c1bc7ceb092ea2d12eb1dac68b01ec57d8f11a3047723b3dce67",
+  "pattern_revision": 1,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "void\\s+finalize\\s*\\(",
+      "reason": "override of Object.finalize(), deprecated for removal by JEP 421 in JDK 18",
+      "target_extensions": [
+        ".java"
+      ]
+    },
+    {
+      "index": 1,
+      "pattern": "\\bfinalize\\s*\\(\\s*\\)\\s*;",
+      "reason": "explicit invocation of a finalizer, including super.finalize(); the call site has to move with the override",
+      "target_extensions": [
+        ".java"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 972,
+    "files_with_hits": 3,
+    "hits_per_pattern": {
+      "0": 3,
+      "1": 2
+    },
+    "max_hits_in_one_file": 2,
+    "population_signature": "97ef8c69f1157d2fb853f8c7c830c30bd33e324f2687d125d2277df9e0388cc5",
+    "total_hits": 5,
+    "truncated": false
+  },
+  "rule_description": "JEP 421 terminally deprecated finalization in JDK 18 by annotating finalize() with @Deprecated(forRemoval=true). These four sites are the only warnings in the tree that changed category between 17 and 21: plain [deprecation] on 17, [removal] on 21. Every finalizer here wraps a cleanup method that already exists, so the transform is to delete the override and keep the cleanup reachable. Server.java is the exception -- its finalizer body is live code called explicitly from a finally block.",
+  "rule_id": "FINALIZE_DEPRECATED_FOR_REMOVAL",
+  "rule_name": "Object.finalize() overrides are deprecated for removal since JDK 18",
+  "run_id": "jade-17-to-21",
+  "sample_size": 5,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 3,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "1eb13600a984e395",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "CENSUS",
+  "verification_hint": "ant clean lib inside jade-ant:21 with -Xlint:removal -Xmaxwarns 100000 reports zero 'finalize() in Object has been deprecated and marked for removal' warnings, down from four. Build exits 0, all consumers PASS.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-17-to-21/workspace"
+}

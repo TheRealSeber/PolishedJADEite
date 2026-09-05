@@ -1,0 +1,159 @@
+{
+  "rule_id": "JEP400_FILE_IO_DEFAULT_CHARSET",
+  "sample_artifact": "01.5-precision-sample-JEP400_FILE_IO_DEFAULT_CHARSET.json",
+  "sample_hash": "dbafa668924d6e2083dc8c9d34cae6c348f0f4d01d6c26fa7992f964818972df",
+  "verdicts": [
+    {
+      "hit_id": "6923b35e57acce93",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/core/messaging/FileMessageStorage.java:136 constructs a java.io.FileReader with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "553748992c3f1323",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/tools/SocketProxyAgent/SocketProxyAgent.java:102 constructs a java.io.FileReader with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "3a666507a3ceee09",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/gui/AclGui.java:615 constructs a java.io.FileReader with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "f04d9bc59c143064",
+      "verdict": "FALSE_POSITIVE",
+      "false_positive_class": "RIGHT_CONSTRUCT_WRONG_CONTEXT",
+      "reason": "JadeBridge.java:171 wraps socket.getOutputStream(), not a file. The socket is opened at line 158 and written at :174. Changing its encoding is part of the deferred wire-format decision, not this rule."
+    },
+    {
+      "hit_id": "203d2be73d0a36cc",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/core/sam/DefaultSAMInfoHandlerImpl.java:193 constructs a java.io.PrintStream over a File with no charset argument, which JEP 400 switched from the platform default to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "bbcdc28a23605dbd",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/core/messaging/FileMessageStorage.java:214 constructs a java.io.FileWriter with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "802112a213a174df",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/core/messaging/FileMessageStorage.java:295 constructs a java.io.FileWriter with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "bba646a16076c0c2",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/util/AccessControlList.java:254 constructs a java.io.FileReader with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "ae4237bf78706a0b",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/tools/DummyAgent/DummyAgentGui.java:251 constructs a java.io.FileWriter with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "b1fd16f395763693",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/tools/DummyAgent/DummyAgentGui.java:217 constructs a java.io.FileReader with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "c9c6b144d7ec9c09",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/util/AccessControlList.java:343 constructs a java.io.FileWriter with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "8a347d654662f5a7",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/core/messaging/FileMessageStorage.java:247 constructs a java.io.FileReader with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "5f3db8ec4c46fdcf",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/util/AccessControlList.java:264 constructs a java.io.FileReader with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "8da244396e96b9c7",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/tools/DummyAgent/DummyAgentGui.java:342 constructs a java.io.FileWriter with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "a1024e5508251826",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/tools/gui/ACLPanel.java:224 constructs a java.io.FileWriter with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "11a525317eab46b1",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/tools/gui/ACLPanel.java:260 constructs a java.io.FileReader with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "ec517b52fb06c190",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Logger.java:487 wraps new FileOutputStream(logfile, true), so the destination is a file on disk written and re-read by this process. Charset-less PrintStream, squarely in scope."
+    },
+    {
+      "hit_id": "ab11000455e6008f",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/tools/gui/ACLTracePanel.java:432 constructs a java.io.FileReader with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "0785a525d9ae27c6",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/tools/sniffer/Sniffer.java:567 constructs a java.io.FileReader with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "b03d5f5c5319c793",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/tools/rma/MainPanel.java:174 constructs a java.io.FileReader with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "7f683e8df5cbe786",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/core/messaging/FileMessageStorage.java:259 constructs a java.io.FileWriter with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "4656513e05ebdec4",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/util/AccessControlList.java:354 constructs a java.io.FileWriter with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "5fdfd9ad80b7ce17",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/tools/DummyAgent/DummyAgentGui.java:294 constructs a java.io.FileReader with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "5b887d058c18896f",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/tools/gui/ACLTracePanel.java:324 constructs a java.io.FileWriter with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "77771cc78bbee258",
+      "verdict": "FALSE_POSITIVE",
+      "false_positive_class": "RIGHT_CONSTRUCT_WRONG_CONTEXT",
+      "reason": "DFAppletCommunicator.java:96 wraps s.getOutputStream() where s is a Socket opened at line 91. Same wire-format question as the ACL and JICP codecs, deliberately outside this rule's scope."
+    },
+    {
+      "hit_id": "1bbcb265b8c35b3b",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/core/sam/DefaultSAMInfoHandlerImpl.java:129 constructs a java.io.PrintStream over a File with no charset argument, which JEP 400 switched from the platform default to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "99fb23cdcc6394cd",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/domain/ams.java:1480 constructs a java.io.FileWriter with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "0de8578944ded057",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/core/messaging/FileMessageStorage.java:208 constructs a java.io.FileReader with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "9542524a6427a91e",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/core/sam/DefaultSAMInfoHandlerImpl.java:162 constructs a java.io.PrintStream over a File with no charset argument, which JEP 400 switched from the platform default to UTF-8 in JDK 18."
+    },
+    {
+      "hit_id": "dfbcab82a375a5f6",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "jade/tools/gui/ACLTracePanel.java:378 constructs a java.io.FileWriter with no Charset argument. JEP 400 changed this constructor from the platform default charset to UTF-8 in JDK 18."
+    }
+  ]
+}

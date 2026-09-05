@@ -1,0 +1,64 @@
+{
+  "blast_class": "signature",
+  "flag_index_artifact": "migration-runs/jade-17-to-21/artifacts/04-flag-index.json",
+  "flagged_files_missing_from_graph": [],
+  "graph_artifact": "migration-runs/jade-17-to-21/artifacts/03.5-knowledge-graph.json",
+  "graph_content_hash": "5ec48bf3a1fa0de3b917752f860890706ed32100937f8ffeeb9869657b7a7821",
+  "manifest_artifact": "migration-runs/jade-17-to-21/artifacts/01-breaking-changes-manifest.json",
+  "rule_id": "FINALIZE_DEPRECATED_FOR_REMOVAL",
+  "run_id": "jade-17-to-21",
+  "schema_version": 1,
+  "shard_count": 1,
+  "shards": [
+    {
+      "class": "signature",
+      "editable_files": [
+        "src/jade/src/jade/core/management/CodeLocator.java",
+        "src/jade/src/jade/core/management/JarClassLoader.java",
+        "src/jade/src/jade/tools/SocketProxyAgent/Connection.java",
+        "src/jade/src/jade/tools/SocketProxyAgent/Server.java",
+        "src/jade/src/jade/tools/SocketProxyAgent/SocketProxyAgent.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/core/management/JarClassLoader.java",
+          "line": 208
+        },
+        {
+          "file": "src/jade/src/jade/core/management/JarClassLoader.java",
+          "line": 215
+        },
+        {
+          "file": "src/jade/src/jade/tools/SocketProxyAgent/Connection.java",
+          "line": 241
+        },
+        {
+          "file": "src/jade/src/jade/tools/SocketProxyAgent/Server.java",
+          "line": 120
+        },
+        {
+          "file": "src/jade/src/jade/tools/SocketProxyAgent/Server.java",
+          "line": 144
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-17-to-21/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED",
+        "SEQUENTIAL_EXECUTION_REQUIRED",
+        "SIGNATURE_CHANGES_CONFINED_TO_EDITABLE_FILES"
+      ],
+      "parallel_safe": false,
+      "read_only_context": [
+        "src/jade/src/jade/core/management/AgentManagementService.java",
+        "src/jade/src/jade/core/mobility/AgentMobilityService.java"
+      ],
+      "rule_id": "FINALIZE_DEPRECATED_FOR_REMOVAL",
+      "shard_id": "FINALIZE_DEPRECATED_FOR_REMOVAL-signature-001"
+    }
+  ],
+  "status": "OK",
+  "total_flagged_files": 3,
+  "total_flags": 5,
+  "warnings": []
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "rule_id": "THREADDEATH_DEPRECATED_FOR_REMOVAL",
+  "shard_id": "THREADDEATH_DEPRECATED_FOR_REMOVAL-body-local-001",
+  "status": "FIXED",
+  "match_quality": "exact",
+  "diff_summary": "The single flagged site is closed and no reference to java.lang.ThreadDeath remains anywhere in the tree. Shard compile in jade-ant:21 at source 21: 1 file, 0 errors, exit 0. Signature gate: 0 changed nodes, 0 leaks -- removing a catch clause changes no declaration.",
+  "files": [
+    {
+      "file": "src/jade/src/jade/core/behaviours/ThreadedBehaviourFactory.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 404,
+      "touched_line_end": 410,
+      "migration_skip_marker": false,
+      "diff_summary": "Deleted the 'catch (ThreadDeath td)' clause together with its body and the comment that explained the rethrow. ThreadDeath was only ever raised by Thread.stop(), which JDK 20 changed to throw UnsupportedOperationException, so the runtime can no longer produce one and the clause was unreachable. The surrounding clauses are untouched and keep their order: catch (InterruptedException ie), catch (Agent.Interrupted ae), catch (Throwable t)."
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "One behavioural difference remains, in a case the JDK no longer produces: a ThreadDeath thrown by hand would previously set INTERRUPTED_STATE, log a WARNING and be rethrown, and will now fall to the catch (Throwable t) clause, which sets ERROR_STATE and prints a stack trace instead of rethrowing. No code in the tree throws ThreadDeath."
+  ]
+}

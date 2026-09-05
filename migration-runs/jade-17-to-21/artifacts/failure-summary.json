@@ -1,0 +1,5 @@
+{
+  "code": "SHARD_LEDGER_INVALID",
+  "message": "shard ledger keys ['FINALIZE_DEPRECATED_FOR_REMOVAL-body-local-001', 'FINALIZE_DEPRECATED_FOR_REMOVAL-signature-001'] do not match plan shard_ids ['FINALIZE_DEPRECATED_FOR_REMOVAL-signature-001']",
+  "updated_at": "2026-09-05T16:34:20Z"
+}

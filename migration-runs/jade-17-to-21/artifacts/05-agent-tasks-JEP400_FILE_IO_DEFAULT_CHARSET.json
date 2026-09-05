@@ -1,0 +1,358 @@
+{
+  "schema_version": 1,
+  "run_id": "jade-17-to-21",
+  "rule_id": "JEP400_FILE_IO_DEFAULT_CHARSET",
+  "mode": "agent",
+  "recipe_skill": "jade-recipe-17-21-file-io-charset",
+  "recipe_skill_md": ".claude/skills/java-migration-skill-registry/17-to-21/jade-recipe-17-21-file-io-charset/SKILL.md",
+  "blast_class": "body-local",
+  "shard_plan_artifact": "migration-runs/jade-17-to-21/artifacts/05-rule-shards-JEP400_FILE_IO_DEFAULT_CHARSET.json",
+  "artifacts_dir": "migration-runs/jade-17-to-21/artifacts",
+  "workspace_root": "migration-runs/jade-17-to-21/workspace",
+  "verification_hint": "ant clean lib inside jade-ant:21 prints BUILD SUCCESSFUL and exits 0, all four consumers PASS, and every remaining charset-less FileReader/FileWriter/PrintStream site is either socket-backed or named in the shard result with a reason.",
+  "generated_at": "2026-09-05T16:21:33Z",
+  "task_count": 1,
+  "tasks": [
+    {
+      "task_id": "JEP400_FILE_IO_DEFAULT_CHARSET-body-local-001",
+      "shard_id": "JEP400_FILE_IO_DEFAULT_CHARSET-body-local-001",
+      "rule_id": "JEP400_FILE_IO_DEFAULT_CHARSET",
+      "class": "body-local",
+      "parallel_safe": true,
+      "editable_files": [
+        "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+        "src/jade/src/jade/core/messaging/MessagingService.java",
+        "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+        "src/jade/src/jade/domain/ams.java",
+        "src/jade/src/jade/gui/AclGui.java",
+        "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+        "src/jade/src/jade/tools/SocketProxyAgent/Connection.java",
+        "src/jade/src/jade/tools/SocketProxyAgent/JadeBridge.java",
+        "src/jade/src/jade/tools/SocketProxyAgent/SocketProxyAgent.java",
+        "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+        "src/jade/src/jade/tools/gui/ACLPanel.java",
+        "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+        "src/jade/src/jade/tools/rma/MainPanel.java",
+        "src/jade/src/jade/tools/sniffer/Sniffer.java",
+        "src/jade/src/jade/tools/sniffer/WriteMessageListAction.java",
+        "src/jade/src/jade/util/AccessControlList.java",
+        "src/jade/src/jade/util/Logger.java"
+      ],
+      "read_only_context": [
+        "src/jade/src/jade/Boot.java",
+        "src/jade/src/jade/MicroBoot.java",
+        "src/jade/src/jade/content/lang/sl/SimpleSLCodec.java",
+        "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+        "src/jade/src/jade/content/onto/ClassDiscover.java",
+        "src/jade/src/jade/content/onto/Ontology.java",
+        "src/jade/src/jade/content/schema/ObjectSchemaImpl.java",
+        "src/jade/src/jade/core/Agent.java",
+        "src/jade/src/jade/core/AgentContainerImpl.java",
+        "src/jade/src/jade/core/BackEndContainer.java",
+        "src/jade/src/jade/core/BackEndManager.java",
+        "src/jade/src/jade/core/BaseNode.java",
+        "src/jade/src/jade/core/BaseService.java",
+        "src/jade/src/jade/core/ContainerTable.java",
+        "src/jade/src/jade/core/ExtendedMessageQueue.java",
+        "src/jade/src/jade/core/FrontEndContainer.java",
+        "src/jade/src/jade/core/InternalMessageQueue.java",
+        "src/jade/src/jade/core/MainContainerImpl.java",
+        "src/jade/src/jade/core/MainDetectionManager.java",
+        "src/jade/src/jade/core/MicroRuntime.java",
+        "src/jade/src/jade/core/MulticastMainDetectionListener.java",
+        "src/jade/src/jade/core/PlatformManagerImpl.java",
+        "src/jade/src/jade/core/Runtime.java",
+        "src/jade/src/jade/core/ServiceManagerImpl.java",
+        "src/jade/src/jade/core/TimerDispatcher.java",
+        "src/jade/src/jade/core/VersionManager.java",
+        "src/jade/src/jade/core/behaviours/BaseInitiator.java",
+        "src/jade/src/jade/core/behaviours/FSMBehaviour.java",
+        "src/jade/src/jade/core/behaviours/OntologyServer.java",
+        "src/jade/src/jade/core/behaviours/OutcomeManager.java",
+        "src/jade/src/jade/core/behaviours/ThreadedBehaviourFactory.java",
+        "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+        "src/jade/src/jade/core/faultRecovery/FaultRecoveryService.java",
+        "src/jade/src/jade/core/management/AgentManagementService.java",
+        "src/jade/src/jade/core/management/BEAgentManagementService.java",
+        "src/jade/src/jade/core/management/JarClassLoader.java",
+        "src/jade/src/jade/core/messaging/IncomingEncodingFilter.java",
+        "src/jade/src/jade/core/messaging/MessageManager.java",
+        "src/jade/src/jade/core/messaging/MomMessagingService.java",
+        "src/jade/src/jade/core/messaging/OutBox.java",
+        "src/jade/src/jade/core/messaging/OutgoingEncodingFilter.java",
+        "src/jade/src/jade/core/messaging/PersistentDeliveryService.java",
+        "src/jade/src/jade/core/messaging/TopicManagementService.java",
+        "src/jade/src/jade/core/mobility/AgentMobilityService.java",
+        "src/jade/src/jade/core/mobility/MobileAgentClassLoader.java",
+        "src/jade/src/jade/core/nodeMonitoring/BlockingNodeFailureMonitor.java",
+        "src/jade/src/jade/core/nodeMonitoring/UDPMonitorClient.java",
+        "src/jade/src/jade/core/nodeMonitoring/UDPMonitorServer.java",
+        "src/jade/src/jade/core/nodeMonitoring/UDPNodeFailureMonitor.java",
+        "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringService.java",
+        "src/jade/src/jade/core/replication/AddressNotificationService.java",
+        "src/jade/src/jade/core/replication/AgentReplicationHandle.java",
+        "src/jade/src/jade/core/replication/AgentReplicationService.java",
+        "src/jade/src/jade/core/replication/GlobalReplicationInfo.java",
+        "src/jade/src/jade/core/replication/MainReplicationHandle.java",
+        "src/jade/src/jade/core/replication/MainReplicationService.java",
+        "src/jade/src/jade/core/resource/ResourceManagementService.java",
+        "src/jade/src/jade/core/sam/Poller.java",
+        "src/jade/src/jade/core/sam/SAMService.java",
+        "src/jade/src/jade/domain/AMSEventQueueFeeder.java",
+        "src/jade/src/jade/domain/AMSFipaAgentManagementBehaviour.java",
+        "src/jade/src/jade/domain/AMSJadeAgentManagementBehaviour.java",
+        "src/jade/src/jade/domain/DFDBKB.java",
+        "src/jade/src/jade/domain/DFFipaAgentManagementBehaviour.java",
+        "src/jade/src/jade/domain/DFIteratedSearchManagementBehaviour.java",
+        "src/jade/src/jade/domain/DFSubscriber.java",
+        "src/jade/src/jade/domain/KBManagement/DBKB.java",
+        "src/jade/src/jade/domain/KBManagement/KB.java",
+        "src/jade/src/jade/domain/KBManagement/MemKB.java",
+        "src/jade/src/jade/domain/KBSubscriptionManager.java",
+        "src/jade/src/jade/domain/RequestManagementBehaviour.java",
+        "src/jade/src/jade/domain/df.java",
+        "src/jade/src/jade/imtp/leap/BackEndSkel.java",
+        "src/jade/src/jade/imtp/leap/BackEndStub.java",
+        "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+        "src/jade/src/jade/imtp/leap/JICP/BIBEDispatcher.java",
+        "src/jade/src/jade/imtp/leap/JICP/BIFEDispatcher.java",
+        "src/jade/src/jade/imtp/leap/JICP/FrontEndDispatcher.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPClient.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPConnection.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPPacket.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPSConnection.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPSPeer.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPServer.java",
+        "src/jade/src/jade/imtp/leap/LEAPIMTPManager.java",
+        "src/jade/src/jade/imtp/leap/MicroStub.java",
+        "src/jade/src/jade/imtp/leap/NodeLEAP.java",
+        "src/jade/src/jade/imtp/leap/NodeSkel.java",
+        "src/jade/src/jade/imtp/leap/NodeStub.java",
+        "src/jade/src/jade/imtp/leap/SSLHelper.java",
+        "src/jade/src/jade/imtp/leap/Stub.java",
+        "src/jade/src/jade/imtp/leap/http/HTTPBEDispatcher.java",
+        "src/jade/src/jade/imtp/leap/http/HTTPFEDispatcher.java",
+        "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+        "src/jade/src/jade/imtp/leap/nio/BackEndDispatcher.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOBEDispatcher.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOHTTPBEDispatcher.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOHTTPConnection.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOHTTPHelper.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOHTTPSConnection.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOHelper.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOJICPConnection.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOJICPSConnection.java",
+        "src/jade/src/jade/imtp/leap/nio/SSLEngineHelper.java",
+        "src/jade/src/jade/imtp/leap/sms/PhoneBasedSMSManager.java",
+        "src/jade/src/jade/imtp/leap/sms/SMSBEDispatcher.java",
+        "src/jade/src/jade/imtp/leap/sms/SMSManager.java",
+        "src/jade/src/jade/imtp/rmi/RMIIMTPManager.java",
+        "src/jade/src/jade/mtp/http/HTTPIO.java",
+        "src/jade/src/jade/mtp/http/HTTPServer.java",
+        "src/jade/src/jade/mtp/http/KeepAlive.java",
+        "src/jade/src/jade/mtp/http/XMLCodec.java",
+        "src/jade/src/jade/proto/SimpleAchieveREInitiator.java",
+        "src/jade/src/jade/proto/SubscriptionResponder.java",
+        "src/jade/src/jade/tools/DummyAgent/DummyAgent.java",
+        "src/jade/src/jade/tools/DummyAgent/MsgIndication.java",
+        "src/jade/src/jade/tools/SocketProxyAgent/Server.java",
+        "src/jade/src/jade/tools/SocketProxyAgent/WaitAnswersBehaviour.java",
+        "src/jade/src/jade/tools/ToolAgent.java",
+        "src/jade/src/jade/tools/ToolNotifier.java",
+        "src/jade/src/jade/tools/applet/AppletRequestProto.java",
+        "src/jade/src/jade/tools/applet/DFApplet.java",
+        "src/jade/src/jade/tools/applet/FIPAAppletRequestProto.java",
+        "src/jade/src/jade/tools/applet/JADEAppletRequestProto.java",
+        "src/jade/src/jade/tools/dfgui/AgentNameTableModel.java",
+        "src/jade/src/jade/tools/dfgui/DFGUI.java",
+        "src/jade/src/jade/tools/dfgui/DFGUIModifyAction.java",
+        "src/jade/src/jade/tools/gui/ACLFrame.java",
+        "src/jade/src/jade/tools/gui/EnvCommentsTextArea.java",
+        "src/jade/src/jade/tools/introspector/Introspector.java",
+        "src/jade/src/jade/tools/introspector/gui/GuiProperties.java",
+        "src/jade/src/jade/tools/introspector/gui/MainBarListener.java",
+        "src/jade/src/jade/tools/introspector/gui/TablePopupMenuListener.java",
+        "src/jade/src/jade/tools/logging/JavaLoggingLogManagerImpl.java",
+        "src/jade/src/jade/tools/logging/LogHelperAgent.java",
+        "src/jade/src/jade/tools/logging/gui/ContainerLogWindow.java",
+        "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java",
+        "src/jade/src/jade/tools/rma/ActionProcessor.java",
+        "src/jade/src/jade/tools/rma/CustomAction.java",
+        "src/jade/src/jade/tools/rma/MainWindow.java",
+        "src/jade/src/jade/tools/rma/ShowDFGuiAction.java",
+        "src/jade/src/jade/tools/rma/ToolBar.java",
+        "src/jade/src/jade/tools/rma/rma.java",
+        "src/jade/src/jade/tools/sniffer/DisplayLogFileAction.java",
+        "src/jade/src/jade/tools/sniffer/DoNotSnifferAction.java",
+        "src/jade/src/jade/tools/sniffer/DoSnifferAction.java",
+        "src/jade/src/jade/tools/sniffer/ExitAction.java",
+        "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+        "src/jade/src/jade/tools/sniffer/MainWindow.java",
+        "src/jade/src/jade/tools/sniffer/PanelCanvas.java",
+        "src/jade/src/jade/tools/sniffer/PopNoSniffAgent.java",
+        "src/jade/src/jade/tools/sniffer/PopShowAgent.java",
+        "src/jade/src/jade/tools/sniffer/PopSniffAgent.java",
+        "src/jade/src/jade/tools/sniffer/ShowOnlyAction.java",
+        "src/jade/src/jade/tools/sniffer/ViewMessage.java",
+        "src/jade/src/jade/tools/sniffer/WriteLogFileAction.java",
+        "src/jade/src/jade/tools/testagent/TestAgent.java",
+        "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+        "src/jade/src/jade/util/ExtendedProperties.java",
+        "src/jade/src/jade/util/RWLock.java",
+        "src/jade/src/jade/util/leap/EnumIterator.java",
+        "src/jade/src/jade/wrapper/gateway/DynamicJadeGateway.java",
+        "src/jade/src/jade/wrapper/gateway/GatewayAgent.java",
+        "src/jade/src/jade/wrapper/gateway/GatewayBehaviour.java",
+        "src/jade/src/jade/wrapper/gateway/SplitJadeGateway.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+          "line": 137
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+          "line": 209
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+          "line": 215
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+          "line": 248
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+          "line": 260
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+          "line": 296
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+          "line": 349
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+          "line": 130
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+          "line": 163
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+          "line": 194
+        },
+        {
+          "file": "src/jade/src/jade/domain/ams.java",
+          "line": 1481
+        },
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 616
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+          "line": 218
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+          "line": 252
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+          "line": 295
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+          "line": 343
+        },
+        {
+          "file": "src/jade/src/jade/tools/SocketProxyAgent/Connection.java",
+          "line": 76
+        },
+        {
+          "file": "src/jade/src/jade/tools/SocketProxyAgent/JadeBridge.java",
+          "line": 172
+        },
+        {
+          "file": "src/jade/src/jade/tools/SocketProxyAgent/SocketProxyAgent.java",
+          "line": 103
+        },
+        {
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "line": 97
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+          "line": 225
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+          "line": 261
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+          "line": 325
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+          "line": 379
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+          "line": 433
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainPanel.java",
+          "line": 175
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
+          "line": 568
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/WriteMessageListAction.java",
+          "line": 71
+        },
+        {
+          "file": "src/jade/src/jade/util/AccessControlList.java",
+          "line": 255
+        },
+        {
+          "file": "src/jade/src/jade/util/AccessControlList.java",
+          "line": 265
+        },
+        {
+          "file": "src/jade/src/jade/util/AccessControlList.java",
+          "line": 344
+        },
+        {
+          "file": "src/jade/src/jade/util/AccessControlList.java",
+          "line": 355
+        },
+        {
+          "file": "src/jade/src/jade/util/Logger.java",
+          "line": 488
+        }
+      ],
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "graph_artifact": "migration-runs/jade-17-to-21/artifacts/03.5-knowledge-graph.json",
+      "result_file": "migration-runs/jade-17-to-21/artifacts/06-agent-result-JEP400_FILE_IO_DEFAULT_CHARSET-JEP400_FILE_IO_DEFAULT_CHARSET-body-local-001.json",
+      "checkpoint_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-17-to-21/artifacts --rule-id JEP400_FILE_IO_DEFAULT_CHARSET --shard-id JEP400_FILE_IO_DEFAULT_CHARSET-body-local-001 --workspace migration-runs/jade-17-to-21/workspace --create",
+      "verify_command": "python .claude/skills/jade-core-verification/scripts/verify_shard.py --artifacts-dir migration-runs/jade-17-to-21/artifacts --rule-id JEP400_FILE_IO_DEFAULT_CHARSET --shard-id JEP400_FILE_IO_DEFAULT_CHARSET-body-local-001",
+      "gate_command": "python .claude/skills/jade-core-verification/scripts/gate_signatures.py --artifacts-dir migration-runs/jade-17-to-21/artifacts --rule-id JEP400_FILE_IO_DEFAULT_CHARSET --shard-id JEP400_FILE_IO_DEFAULT_CHARSET-body-local-001 --before-graph migration-runs/jade-17-to-21/artifacts/03.5-knowledge-graph.json --after-graph migration-runs/jade-17-to-21/artifacts/03.5-knowledge-graph-after-JEP400_FILE_IO_DEFAULT_CHARSET-body-local-001.json",
+      "record_command": "python .claude/skills/jade-core-rule-dispatcher/scripts/dispatcher.py --artifacts-dir migration-runs/jade-17-to-21/artifacts --rule-id JEP400_FILE_IO_DEFAULT_CHARSET --record-agent-result --shard-id JEP400_FILE_IO_DEFAULT_CHARSET-body-local-001 --result-file migration-runs/jade-17-to-21/artifacts/06-agent-result-JEP400_FILE_IO_DEFAULT_CHARSET-JEP400_FILE_IO_DEFAULT_CHARSET-body-local-001.json",
+      "accept_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-17-to-21/artifacts --rule-id JEP400_FILE_IO_DEFAULT_CHARSET --shard-id JEP400_FILE_IO_DEFAULT_CHARSET-body-local-001 --workspace migration-runs/jade-17-to-21/workspace --accept",
+      "rollback_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-17-to-21/artifacts --rule-id JEP400_FILE_IO_DEFAULT_CHARSET --shard-id JEP400_FILE_IO_DEFAULT_CHARSET-body-local-001 --workspace migration-runs/jade-17-to-21/workspace --rollback --reason \"<why>\""
+    }
+  ],
+  "warnings": []
+}

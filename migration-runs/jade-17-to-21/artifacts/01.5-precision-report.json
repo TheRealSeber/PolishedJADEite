@@ -1,0 +1,158 @@
+{
+  "policy": {
+    "max_revisions": 3,
+    "min_precision": 0.7,
+    "on_reject": "REWRITE_PATTERN",
+    "sample_size": 30,
+    "source": "00-run-config.json#precision_gate",
+    "undecidable_max_ratio": 0.2
+  },
+  "rules": {
+    "FINALIZE_DEPRECATED_FOR_REMOVAL": {
+      "counterexamples": [],
+      "effective_min_precision": 0.7,
+      "false_positive": 0,
+      "false_positive_classes": {},
+      "judged": 5,
+      "manifest_rule_hash": "b888be5464c3c1bc7ceb092ea2d12eb1dac68b01ec57d8f11a3047723b3dce67",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 1.0,
+      "pattern_revision": 1,
+      "per_pattern": {
+        "0": {
+          "judged": 3,
+          "precision": 1.0,
+          "true_positive": 3
+        },
+        "1": {
+          "judged": 2,
+          "precision": 1.0,
+          "true_positive": 2
+        }
+      },
+      "population": {
+        "files_with_hits": 3,
+        "total_hits": 5
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-FINALIZE_DEPRECATED_FOR_REMOVAL.json",
+      "sample_hash": "9861e765e21c50f9d312cd78bf5a83e286d589fb57f6d4227a5a681c66304119",
+      "status": "PASS",
+      "true_positive": 5,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-FINALIZE_DEPRECATED_FOR_REMOVAL.json",
+      "verdicts_hash": "9d3be51f750d29f28221332809d889da28509845ea9ed164c221a2c3029d6c07",
+      "wilson_95": [
+        0.5655,
+        1.0
+      ]
+    },
+    "JEP400_FILE_IO_DEFAULT_CHARSET": {
+      "counterexamples": [
+        {
+          "false_positive_class": "RIGHT_CONSTRUCT_WRONG_CONTEXT",
+          "file": "src/jade/src/jade/tools/SocketProxyAgent/JadeBridge.java",
+          "hit_id": "f04d9bc59c143064",
+          "line": 171,
+          "line_text": "\t\tPrintStream out = new PrintStream(socket.getOutputStream());",
+          "reason": "JadeBridge.java:171 wraps socket.getOutputStream(), not a file. The socket is opened at line 158 and written at :174. Changing its encoding is part of the deferred wire-format decision, not this rule."
+        },
+        {
+          "false_positive_class": "RIGHT_CONSTRUCT_WRONG_CONTEXT",
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "hit_id": "77771cc78bbee258",
+          "line": 96,
+          "line_text": "    out = new PrintStream(s.getOutputStream(),true);",
+          "reason": "DFAppletCommunicator.java:96 wraps s.getOutputStream() where s is a Socket opened at line 91. Same wire-format question as the ACL and JICP codecs, deliberately outside this rule's scope."
+        }
+      ],
+      "effective_min_precision": 0.7,
+      "false_positive": 2,
+      "false_positive_classes": {
+        "RIGHT_CONSTRUCT_WRONG_CONTEXT": 2
+      },
+      "judged": 30,
+      "manifest_rule_hash": "0258d6c8a8460e6ed2e481340c1e05ae8ec41d74a2799812941a27f6cbb17a2b",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 0.9333,
+      "pattern_revision": 1,
+      "per_pattern": {
+        "0": {
+          "judged": 24,
+          "precision": 1.0,
+          "true_positive": 24
+        },
+        "1": {
+          "judged": 6,
+          "precision": 0.6667,
+          "true_positive": 4
+        }
+      },
+      "population": {
+        "files_with_hits": 17,
+        "total_hits": 33
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-JEP400_FILE_IO_DEFAULT_CHARSET.json",
+      "sample_hash": "dbafa668924d6e2083dc8c9d34cae6c348f0f4d01d6c26fa7992f964818972df",
+      "status": "PASS",
+      "true_positive": 28,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-JEP400_FILE_IO_DEFAULT_CHARSET.json",
+      "verdicts_hash": "dc7ab5518b1b12ad1c26e5d1db7c0ff67f628760a287e154a22b8a291ae29830",
+      "wilson_95": [
+        0.7868,
+        0.9815
+      ]
+    },
+    "THREADDEATH_DEPRECATED_FOR_REMOVAL": {
+      "counterexamples": [],
+      "effective_min_precision": 0.7,
+      "false_positive": 0,
+      "false_positive_classes": {},
+      "judged": 1,
+      "manifest_rule_hash": "de1da79e3ff5fe0d1683ae7ff050175272a477eba84d734589e2e7f4e2db0f37",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 1.0,
+      "pattern_revision": 1,
+      "per_pattern": {
+        "0": {
+          "judged": 1,
+          "precision": 1.0,
+          "true_positive": 1
+        }
+      },
+      "population": {
+        "files_with_hits": 1,
+        "total_hits": 1
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-THREADDEATH_DEPRECATED_FOR_REMOVAL.json",
+      "sample_hash": "c5583bd96f0f99a3219bd9277c27c6c787437c9850d6df8f3be16154b1f7a0c3",
+      "status": "PASS",
+      "true_positive": 1,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-THREADDEATH_DEPRECATED_FOR_REMOVAL.json",
+      "verdicts_hash": "8c6388563117e99e3338fa0e203e3ea8ce48465919d2958c95562896493f8725",
+      "wilson_95": [
+        0.2065,
+        1.0
+      ]
+    }
+  },
+  "run_id": "jade-17-to-21",
+  "schema_version": 1,
+  "summary": {
+    "abandoned": 0,
+    "inconclusive": 0,
+    "no_population": 0,
+    "overridden": 0,
+    "passed": 3,
+    "rejected": 0,
+    "rules_total": 3
+  },
+  "warnings": []
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "rule_id": "FINALIZE_DEPRECATED_FOR_REMOVAL",
+  "shard_id": "FINALIZE_DEPRECATED_FOR_REMOVAL-signature-001",
+  "status": "FIXED",
+  "match_quality": "exact",
+  "diff_summary": "All 5 flagged sites closed; zero JADE-FLAG:FINALIZE markers remain in the tree. Three finalizers were removed and one explicit finalizer call site was rewritten. Each deletion was preceded by locating the normal-path cleanup it duplicates: JarClassLoader.close() is called from CodeLocator.removeAgent at CodeLocator.java:113, and Connection.close() is called from Connection.java:216 and :234 and from Server.java:163. Server.java was NOT deleted -- its finalizer body is live cleanup reached from the finally block of run(), so the method was renamed to cleanup() and the call site updated. This shard is class=signature after the first attempt was planned body-local and correctly rejected by the signature gate: removing a declared member is a signature change even when nothing calls it. The re-planned shard carries the dependency closure, and the gate now reports 2 changed nodes and 0 leaks. Shard compile in jade-ant:21 at source 21: 5 files, 0 errors, exit 0.",
+  "files": [
+    {
+      "file": "src/jade/src/jade/core/management/JarClassLoader.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 202,
+      "touched_line_end": 216,
+      "migration_skip_marker": false,
+      "diff_summary": "Deleted the finalize() override and the javadoc that documented it (15 lines). The body was close() followed by super.finalize(); close() is public and is called from CodeLocator.java:113 when an agent is removed, which is the path the deleted javadoc itself described as 'if it has not explicitly done before by using the provided close() method'."
+    },
+    {
+      "file": "src/jade/src/jade/tools/SocketProxyAgent/Connection.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 239,
+      "touched_line_end": 245,
+      "migration_skip_marker": false,
+      "diff_summary": "Deleted the finalize() override whose body was 'if (!closed) { close(); }'. close() sets closed=true at line 275 and is already reached from Connection.java:216, Connection.java:234 and Server.java:163."
+    },
+    {
+      "file": "src/jade/src/jade/tools/SocketProxyAgent/Server.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 118,
+      "touched_line_end": 147,
+      "migration_skip_marker": false,
+      "diff_summary": "Renamed finalize() to cleanup() and rewrote its javadoc, which had read 'try to clean up on GC' and was wrong: run() calls the method explicitly from its finally block, so the body always ran on the normal path and never depended on the collector. Updated that call site from finalize() to cleanup(). The body is unchanged."
+    },
+    {
+      "file": "src/jade/src/jade/core/management/CodeLocator.java",
+      "match_count": 0,
+      "changes": 0,
+      "touched_line_start": 0,
+      "touched_line_end": 0,
+      "migration_skip_marker": false,
+      "diff_summary": "In the shard as the dependency closure of JarClassLoader. Not edited: it calls close(), never finalize()."
+    },
+    {
+      "file": "src/jade/src/jade/tools/SocketProxyAgent/SocketProxyAgent.java",
+      "match_count": 0,
+      "changes": 0,
+      "touched_line_start": 0,
+      "touched_line_end": 0,
+      "migration_skip_marker": false,
+      "diff_summary": "In the shard as the dependency closure of Server. Not edited: it calls closeDown() at line 187, never finalize()."
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "Deleting a finalizer removes a garbage-collection-time safety net, which is the intent of JEP 421 and still a behaviour change. Each deletion was checked against a normal-path close/closeDown call before it was made; the three call sites are named in the per-file summaries.",
+    "Server.cleanup() is protected, so a subclass outside this tree that overrode finalize() to extend the old behaviour would no longer be called by run(). No subclass of Server exists in the tree."
+  ]
+}

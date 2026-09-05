@@ -1,0 +1,22 @@
+{
+  "run_id": "jade-17-to-21",
+  "status": "OK",
+  "build_system": "ant",
+  "build_file": "migration-runs/jade-17-to-21/workspace/src/jade/build.xml",
+  "source_version": "17",
+  "target_version": "21",
+  "build_exit_code": 0,
+  "docker_image": "jade-ant:21",
+  "error_count": 0,
+  "applied_fixes_count": 0,
+  "pending_fixes_count": 0,
+  "dependency_risk_level": "NONE",
+  "dependency_blockers_count": 0,
+  "dependency_warnings_count": 0,
+  "dependency_upgrade_candidates_count": 0,
+  "env": {
+    "docker": "available"
+  },
+  "jade_jar_built": true,
+  "updated_at": "2026-09-05T16:34:15Z"
+}

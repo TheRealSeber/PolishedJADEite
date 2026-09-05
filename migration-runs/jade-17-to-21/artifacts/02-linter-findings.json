@@ -1,0 +1,21 @@
+{
+  "run_id": "jade-17-to-21",
+  "source_version": "17",
+  "target_version": "21",
+  "workspace_path": "migration-runs/jade-17-to-21/workspace",
+  "openrewrite": {
+    "available": false,
+    "version": null,
+    "recipes": []
+  },
+  "pmd": {
+    "available": false,
+    "version": null,
+    "violations": []
+  },
+  "checkstyle": {
+    "available": false,
+    "version": null,
+    "violations": []
+  }
+}

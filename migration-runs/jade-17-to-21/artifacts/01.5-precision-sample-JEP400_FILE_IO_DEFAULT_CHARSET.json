@@ -1,0 +1,806 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "",
+        "\t\t\t\t// Read the number of copies",
+        "\t\t\t\tString strHowMany = in.readLine();"
+      ],
+      "context_before": [
+        "\t\t\t\tFile toRead = files[j];",
+        "",
+        "\t\t\t\t// Read the file content"
+      ],
+      "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+      "hit_id": "6923b35e57acce93",
+      "line": 136,
+      "line_hash": "168fa704febe3e10",
+      "line_text": "\t\t\t\tBufferedReader in = new BufferedReader(new FileReader(toRead));",
+      "line_truncated": false,
+      "match_span": [
+        43,
+        58
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 0
+    },
+    {
+      "context_after": [
+        "\t\t\t\t}",
+        "\t\t\t\tlogger.log( Logger.CONFIG, \"reading configuration from \" + configSource );",
+        ""
+      ],
+      "context_before": [
+        "\t\t\t\t}",
+        "\t\t\t\telse {",
+        "\t\t\t\t\tconfigSource = \"file \\\"\"+fileName + \"\\\"\";"
+      ],
+      "file": "src/jade/src/jade/tools/SocketProxyAgent/SocketProxyAgent.java",
+      "hit_id": "553748992c3f1323",
+      "line": 102,
+      "line_hash": "4641f108916b998b",
+      "line_text": "\t\t\t\t\treader = new FileReader( fileName ); ",
+      "line_truncated": false,
+      "match_span": [
+        14,
+        29
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 1
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\t\tEnumeration receivers = receiverListPanel.getContent();",
+        "\t\t\t\t\t\tsetMsg( aclParser.parse(aclMsgFile) );",
+        "\t\t\t\t\t\tif ( receivers.hasMoreElements() ) {"
+      ],
+      "context_before": [
+        "\t\t\t\t\ttry {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review",
+        "\t\t\t\t\t\tjava.io.File f = (java.io.File)(fileItor.next());"
+      ],
+      "file": "src/jade/src/jade/gui/AclGui.java",
+      "hit_id": "3a666507a3ceee09",
+      "line": 615,
+      "line_hash": "62d816ae0a3df192",
+      "line_text": "\t\t\t\t\t\tFileReader aclMsgFile = new FileReader(f);",
+      "line_truncated": false,
+      "match_span": [
+        30,
+        45
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 2
+    },
+    {
+      "context_after": [
+        "\t\tDataInputStream in = new DataInputStream(socket.getInputStream());",
+        "",
+        "\t\tout.println(aMsg);  // send the message"
+      ],
+      "context_before": [
+        "\t\t}",
+        "",
+        "\t\tACLMessage response = null;"
+      ],
+      "file": "src/jade/src/jade/tools/SocketProxyAgent/JadeBridge.java",
+      "hit_id": "f04d9bc59c143064",
+      "line": 171,
+      "line_hash": "a245b11a6e163b07",
+      "line_text": "\t\tPrintStream out = new PrintStream(socket.getOutputStream());",
+      "line_truncated": false,
+      "match_span": [
+        20,
+        36
+      ],
+      "match_text": "new PrintStream(",
+      "pattern_index": 1,
+      "rank": 3
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\tStringBuffer sb = new StringBuffer(\"Time-stamp\");",
+        "\t\t\t\t\tfor (String field : summaryFields) {",
+        "\t\t\t\t\t\tsb.append(csvSeparator+field);"
+      ],
+      "context_before": [
+        "\t\t\t\t\t// This is the first time we write the summary --> Initialize the file",
+        "\t\t\t\t\tmyLogger.log(Logger.INFO, \"Creating CSV file for SAM Summary\");",
+        "\t\t\t\t\tFile f = createFile(\"Summary\");"
+      ],
+      "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+      "hit_id": "203d2be73d0a36cc",
+      "line": 193,
+      "line_hash": "6b4fd19d206ee96e",
+      "line_text": "\t\t\t\t\tsummaryFile = new PrintStream(f);",
+      "line_truncated": false,
+      "match_span": [
+        19,
+        35
+      ],
+      "match_text": "new PrintStream(",
+      "pattern_index": 1,
+      "rank": 4
+    },
+    {
+      "context_after": [
+        "\t\t\ttry {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review",
+        "\t\t\t\tcounter++;"
+      ],
+      "context_before": [
+        "\t\ttry {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review",
+        "\t\t\tlong counter = Long.parseLong(s);"
+      ],
+      "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+      "hit_id": "bbcdc28a23605dbd",
+      "line": 214,
+      "line_hash": "756bd98a0fc1583e",
+      "line_text": "\t\t\tBufferedWriter out = new BufferedWriter(new FileWriter(tmp));",
+      "line_truncated": false,
+      "match_span": [
+        43,
+        58
+      ],
+      "match_text": "new FileWriter(",
+      "pattern_index": 0,
+      "rank": 5
+    },
+    {
+      "context_after": [
+        "",
+        "\t\t\t// Write the number of message copies (of course is 1 to begin with)",
+        "\t\t\tout.write(\"1\", 0, 1);"
+      ],
+      "context_before": [
+        "\t\ttry {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review",
+        "\t\t\ttoStore.createNewFile();"
+      ],
+      "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+      "hit_id": "802112a213a174df",
+      "line": 295,
+      "line_hash": "2c26119c5a3db1c5",
+      "line_text": "\t\t\tout = new BufferedWriter(new FileWriter(toStore));",
+      "line_truncated": false,
+      "match_span": [
+        28,
+        43
+      ],
+      "match_text": "new FileWriter(",
+      "pattern_index": 0,
+      "rank": 6
+    },
+    {
+      "context_after": [
+        "\t\tint n=0;",
+        "\t\twhile (( in.readLine()) != null) { n++; }",
+        "\t\tin.close();"
+      ],
+      "context_before": [
+        "\t\tInternalACL iacl;",
+        "",
+        "\t\t// count number of lines "
+      ],
+      "file": "src/jade/src/jade/util/AccessControlList.java",
+      "hit_id": "bba646a16076c0c2",
+      "line": 254,
+      "line_hash": "b8873ee2c38bf259",
+      "line_text": "\t\tBufferedReader in = new BufferedReader(new FileReader(fileName));",
+      "line_truncated": false,
+      "match_span": [
+        41,
+        56
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 7
+    },
+    {
+      "context_after": [
+        "            // Note the save/read functionality uses default US-ASCII charset",
+        "\t\t\t\t\t  StringACLCodec codec = new StringACLCodec(null,f);",
+        "\t\t\t\t  \tACLMessage ACLmsg = currentMsgGui.getMsg();"
+      ],
+      "context_before": [
+        "",
+        "\t\t\t\t  try {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review"
+      ],
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "hit_id": "ae4237bf78706a0b",
+      "line": 251,
+      "line_hash": "6bb194999d1bf7a7",
+      "line_text": "\t\t\t\t    FileWriter f = new FileWriter(fileName);",
+      "line_truncated": false,
+      "match_span": [
+        23,
+        38
+      ],
+      "match_text": "new FileWriter(",
+      "pattern_index": 0,
+      "rank": 8
+    },
+    {
+      "context_after": [
+        "          currentMsgGui.setMsg(codec.decode());",
+        "\t\t\t\t}",
+        "\t\t\t\tcatch(FileNotFoundException e1) {"
+      ],
+      "context_before": [
+        "\t\t\t\ttry {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review",
+        "          // Note the save/read functionality uses default US-ASCII charset"
+      ],
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "hit_id": "b1fd16f395763693",
+      "line": 217,
+      "line_hash": "4af3d0854abbb2ad",
+      "line_text": "          StringACLCodec codec = new StringACLCodec(new FileReader(fileName),null);",
+      "line_truncated": false,
+      "match_span": [
+        52,
+        67
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 9
+    },
+    {
+      "context_after": [
+        " out.println(",
+        "\t\"\\n\"",
+        "\t+\"user:\\n\""
+      ],
+      "context_before": [
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review",
+        " PrintWriter out;",
+        ""
+      ],
+      "file": "src/jade/src/jade/util/AccessControlList.java",
+      "hit_id": "c9c6b144d7ec9c09",
+      "line": 343,
+      "line_hash": "5540cc38f2dd8feb",
+      "line_text": " out = new PrintWriter(new BufferedWriter(new FileWriter(blackFilename)));",
+      "line_truncated": false,
+      "match_span": [
+        42,
+        57
+      ],
+      "match_text": "new FileWriter(",
+      "pattern_index": 0,
+      "rank": 10
+    },
+    {
+      "context_after": [
+        "\t\tFile tmp = File.createTempFile(\"JADE\", \".tmp\");",
+        "\t\tString s = in.readLine();",
+        "\t\ttry {"
+      ],
+      "context_before": [
+        "",
+        "\tprivate void decrementCounter(File f) throws IOException {",
+        ""
+      ],
+      "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+      "hit_id": "8a347d654662f5a7",
+      "line": 247,
+      "line_hash": "5e319881d4540ced",
+      "line_text": "\t\tBufferedReader in = new BufferedReader(new FileReader(f));",
+      "line_truncated": false,
+      "match_span": [
+        41,
+        56
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 11
+    },
+    {
+      "context_after": [
+        "\t\tString str;",
+        "\t\tint pos=0;",
+        "\t\twhile ((str = in.readLine()) != null) {"
+      ],
+      "context_before": [
+        "\t\tiacl.fileName = fileName; // just used for debugging",
+        "",
+        "\t\tlogger.log(Logger.FINER, \"Opening acc.control list file:\"+fileName+\" (\"+n+\" lines)\");"
+      ],
+      "file": "src/jade/src/jade/util/AccessControlList.java",
+      "hit_id": "5f3db8ec4c46fdcf",
+      "line": 264,
+      "line_hash": "ab9b820904256b64",
+      "line_text": "\t\tin = new BufferedReader(new FileReader(fileName));",
+      "line_truncated": false,
+      "match_span": [
+        26,
+        41
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 12
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\t// Write the number of messages in the queue",
+        "\t\t\t\t\ttry",
+        "\t\t\t\t\t{"
+      ],
+      "context_before": [
+        "",
+        "\t\t\t\ttry",
+        "\t\t\t\t{"
+      ],
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "hit_id": "8da244396e96b9c7",
+      "line": 342,
+      "line_hash": "a5459ff42437e607",
+      "line_text": "\t\t\t\t\tBufferedWriter out = new BufferedWriter(new FileWriter(fileName));",
+      "line_truncated": false,
+      "match_span": [
+        45,
+        60
+      ],
+      "match_text": "new FileWriter(",
+      "pattern_index": 0,
+      "rank": 13
+    },
+    {
+      "context_after": [
+        "        StringACLCodec codec = new StringACLCodec(null, f);",
+        "        codec.write(itsMsg);",
+        "        f.close();"
+      ],
+      "context_before": [
+        "",
+        "      try {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review"
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+      "hit_id": "a1024e5508251826",
+      "line": 224,
+      "line_hash": "66e84aab624f21e2",
+      "line_text": "        FileWriter f = new FileWriter(fileName);",
+      "line_truncated": false,
+      "match_span": [
+        23,
+        38
+      ],
+      "match_text": "new FileWriter(",
+      "pattern_index": 0,
+      "rank": 14
+    },
+    {
+      "context_after": [
+        "        ACLMessage msg = codec.decode();",
+        "        this.setItsMsg(msg);",
+        "      }"
+      ],
+      "context_before": [
+        "",
+        "      try {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review"
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+      "hit_id": "11a525317eab46b1",
+      "line": 260,
+      "line_hash": "77178c3628ebdf82",
+      "line_text": "        StringACLCodec codec = new StringACLCodec(new FileReader(fileName), null);",
+      "line_truncated": false,
+      "match_span": [
+        50,
+        65
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 15
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\tprivate java.text.SimpleDateFormat hourFormatter = new java.text.SimpleDateFormat(\"HH:mm:ss\");",
+        "",
+        "\t\t\t\t\tpublic void println(String s) {"
+      ],
+      "context_before": [
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review",
+        "\t\t\t\tjava.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(\"ddMMyyyy\");",
+        "\t\t\t\tString logfile = logprefix + sdf.format(new java.util.Date()) + \".txt\";"
+      ],
+      "file": "src/jade/src/jade/util/Logger.java",
+      "hit_id": "ec517b52fb06c190",
+      "line": 487,
+      "line_hash": "a542e517ed9ef5a0",
+      "line_text": "\t\t\t\treturn new PrintStream(new FileOutputStream(logfile, true)) {",
+      "line_truncated": false,
+      "match_span": [
+        11,
+        27
+      ],
+      "match_text": "new PrintStream(",
+      "pattern_index": 1,
+      "rank": 16
+    },
+    {
+      "context_after": [
+        "        BufferedReader br = new BufferedReader(f);",
+        "        String line = br.readLine();",
+        "        String direction;"
+      ],
+      "context_before": [
+        "      try {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review",
+        "        clearACLModel();"
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+      "hit_id": "ab11000455e6008f",
+      "line": 432,
+      "line_hash": "033451baf5f32133",
+      "line_text": "        FileReader f = new FileReader(fileName);",
+      "line_truncated": false,
+      "match_span": [
+        23,
+        38
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 17
+    },
+    {
+      "context_after": [
+        "\t\t\tboolean eof = false;",
+        "\t\t\twhile (!eof) {",
+        "\t\t\t\tString line = in.readLine();"
+      ],
+      "context_before": [
+        "\t\tBufferedReader in = null;",
+        "\t\ttry {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review"
+      ],
+      "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
+      "hit_id": "0785a525d9ae27c6",
+      "line": 567,
+      "line_hash": "f928207b5dceeb56",
+      "line_text": "\t\t\tin = new BufferedReader(new FileReader(aFileName));",
+      "line_truncated": false,
+      "match_span": [
+        27,
+        42
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 18
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\tACLMessage msg = aclParser.parse(aclMsgFile);",
+        "",
+        "\t\t\t\t\tmsg.clearAllReceiver();"
+      ],
+      "context_before": [
+        "\t\t\t\ttry {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review",
+        "\t\t\t\t\tjava.io.File f = (java.io.File)(fileItor.next());"
+      ],
+      "file": "src/jade/src/jade/tools/rma/MainPanel.java",
+      "hit_id": "b03d5f5c5319c793",
+      "line": 174,
+      "line_hash": "43d81e67562b218d",
+      "line_text": "\t\t\t\t\tFileReader aclMsgFile = new FileReader(f);",
+      "line_truncated": false,
+      "match_span": [
+        29,
+        44
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 19
+    },
+    {
+      "context_after": [
+        "\t\t\t\ttry {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review",
+        "\t\t\t\t\ts = Long.toString(counter);"
+      ],
+      "context_before": [
+        "\t\t\t\tf.delete();",
+        "\t\t\t}",
+        "\t\t\telse {"
+      ],
+      "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+      "hit_id": "7f683e8df5cbe786",
+      "line": 259,
+      "line_hash": "09522adc5ff1db6b",
+      "line_text": "\t\t\t\tBufferedWriter out = new BufferedWriter(new FileWriter(tmp));",
+      "line_truncated": false,
+      "match_span": [
+        44,
+        59
+      ],
+      "match_text": "new FileWriter(",
+      "pattern_index": 0,
+      "rank": 20
+    },
+    {
+      "context_after": [
+        " out.println(",
+        "\t\"\\n\"",
+        "\t+\"user:\\n\""
+      ],
+      "context_before": [
+        "\t+\"\t.+?  \\n\"",
+        " );",
+        " out.flush(); out.close();"
+      ],
+      "file": "src/jade/src/jade/util/AccessControlList.java",
+      "hit_id": "4656513e05ebdec4",
+      "line": 354,
+      "line_hash": "bb9b3acc0225fdbd",
+      "line_text": " out = new PrintWriter(new BufferedWriter(new FileWriter(whiteFilename)));",
+      "line_truncated": false,
+      "match_span": [
+        42,
+        57
+      ],
+      "match_text": "new FileWriter(",
+      "pattern_index": 0,
+      "rank": 21
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\t// Read the number of messages in the queue",
+        "\t\t\t\t\tint n = -1;",
+        "\t\t\t\t\ttry"
+      ],
+      "context_before": [
+        "",
+        "\t\t\t\ttry",
+        "\t\t\t\t{"
+      ],
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "hit_id": "5fdfd9ad80b7ce17",
+      "line": 294,
+      "line_hash": "e14f5340fa01acf7",
+      "line_text": "\t\t\t\t\tBufferedReader inp = new BufferedReader(new FileReader(fileName));",
+      "line_truncated": false,
+      "match_span": [
+        45,
+        60
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 22
+    },
+    {
+      "context_after": [
+        "        StringACLCodec codec = new StringACLCodec(null, f);",
+        "        // ACLMessage ACLmsg = currentMsgGui.getMsg();",
+        "        codec.write(currentACL);"
+      ],
+      "context_before": [
+        "",
+        "      try {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review"
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+      "hit_id": "5b887d058c18896f",
+      "line": 324,
+      "line_hash": "66e84aab624f21e2",
+      "line_text": "        FileWriter f = new FileWriter(fileName);",
+      "line_truncated": false,
+      "match_span": [
+        23,
+        38
+      ],
+      "match_text": "new FileWriter(",
+      "pattern_index": 0,
+      "rank": 23
+    },
+    {
+      "context_after": [
+        "    ",
+        "   ",
+        "  } catch (IOException e) {e.printStackTrace(); a.stop();}"
+      ],
+      "context_before": [
+        "    \tlogger.log(Logger.CONFIG,\"DFAppletClient connected to local port \"+s.getLocalPort()+\" and remote port \"+s.getPort());",
+        "    in = new DataInputStream(s.getInputStream());",
+        "    parser = new ACLParser(in);"
+      ],
+      "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+      "hit_id": "77771cc78bbee258",
+      "line": 96,
+      "line_hash": "d70de386450b41d4",
+      "line_text": "    out = new PrintStream(s.getOutputStream(),true);",
+      "line_truncated": false,
+      "match_span": [
+        10,
+        26
+      ],
+      "match_text": "new PrintStream(",
+      "pattern_index": 1,
+      "rank": 24
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\tstream.println(\"Time-stamp\"+csvSeparator+\"Average-value\"+csvSeparator+\"N-samples\");",
+        "\t\t\t\t\tentityFiles.put(entityName, stream);",
+        "\t\t\t\t}"
+      ],
+      "context_before": [
+        "\t\t\t\t\t// This is the first time we get a measure for this entity --> Initialize the file",
+        "\t\t\t\t\tmyLogger.log(Logger.INFO, \"Creating CSV file for measures of entity \"+entityName);",
+        "\t\t\t\t\tFile f = createFile(entityName);"
+      ],
+      "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+      "hit_id": "1bbcb265b8c35b3b",
+      "line": 129,
+      "line_hash": "373413cf502ca532",
+      "line_text": "\t\t\t\t\tstream = new PrintStream(f);",
+      "line_truncated": false,
+      "match_span": [
+        14,
+        30
+      ],
+      "match_text": "new PrintStream(",
+      "pattern_index": 1,
+      "rank": 25
+    },
+    {
+      "context_after": [
+        "\t\t\tf.write(description.toString());",
+        "\t\t\tf.write('\\n');",
+        "\t\t\tf.flush();"
+      ],
+      "context_before": [
+        "\t\t//Write the APDescription file.",
+        "\t\ttry {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review"
+      ],
+      "file": "src/jade/src/jade/domain/ams.java",
+      "hit_id": "99fb23cdcc6394cd",
+      "line": 1480,
+      "line_hash": "e8d1e1621b4c5da6",
+      "line_text": "\t\t\tFileWriter f = new FileWriter(getProperty(Profile.FILE_DIR, \"\") + \"APDescription.txt\");",
+      "line_truncated": false,
+      "match_span": [
+        18,
+        33
+      ],
+      "match_text": "new FileWriter(",
+      "pattern_index": 0,
+      "rank": 26
+    },
+    {
+      "context_after": [
+        "\t\tFile tmp = File.createTempFile(\"JADE\", \".tmp\");",
+        "\t\tString s = in.readLine();",
+        "\t\ttry {"
+      ],
+      "context_before": [
+        "\t}",
+        "",
+        "\tprivate void incrementCounter(File f) throws IOException {"
+      ],
+      "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+      "hit_id": "0de8578944ded057",
+      "line": 208,
+      "line_hash": "5e319881d4540ced",
+      "line_text": "\t\tBufferedReader in = new BufferedReader(new FileReader(f));",
+      "line_truncated": false,
+      "match_span": [
+        41,
+        56
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 27
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\tstream.println(\"Time-stamp\"+csvSeparator+\"Value\"+csvSeparator+\"Total-value\");",
+        "\t\t\t\t\tci = new CounterInfo(stream);",
+        "\t\t\t\t\tcounters.put(counterName, ci);"
+      ],
+      "context_before": [
+        "\t\t\t\t\t// This is the first time we get a value for this counter --> Initialize its csv file",
+        "\t\t\t\t\tmyLogger.log(Logger.INFO, \"Creating CSV file for values of counter \"+counterName);",
+        "\t\t\t\t\tFile f = createFile(counterName);"
+      ],
+      "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+      "hit_id": "9542524a6427a91e",
+      "line": 162,
+      "line_hash": "70c05659416d4edc",
+      "line_text": "\t\t\t\t\tPrintStream stream = new PrintStream(f);",
+      "line_truncated": false,
+      "match_span": [
+        26,
+        42
+      ],
+      "match_text": "new PrintStream(",
+      "pattern_index": 1,
+      "rank": 28
+    },
+    {
+      "context_after": [
+        "        BufferedWriter bw = new BufferedWriter(f);",
+        "        int size = aclModel.getChildCount(this.aclRoot);",
+        "        for (int i = 0; i < size; i++) {"
+      ],
+      "context_before": [
+        "",
+        "      try {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review"
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+      "hit_id": "dfbcab82a375a5f6",
+      "line": 378,
+      "line_hash": "66e84aab624f21e2",
+      "line_text": "        FileWriter f = new FileWriter(fileName);",
+      "line_truncated": false,
+      "match_span": [
+        23,
+        38
+      ],
+      "match_text": "new FileWriter(",
+      "pattern_index": 0,
+      "rank": 29
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-17-to-21/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "0258d6c8a8460e6ed2e481340c1e05ae8ec41d74a2799812941a27f6cbb17a2b",
+  "pattern_revision": 1,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "new\\s+(?:FileReader|FileWriter)\\s*\\(",
+      "reason": "java.io FileReader/FileWriter constructor with no Charset argument; JEP 400 changed it from the platform default to UTF-8 in JDK 18",
+      "target_extensions": [
+        ".java"
+      ]
+    },
+    {
+      "index": 1,
+      "pattern": "new\\s+PrintStream\\s*\\(",
+      "reason": "java.io PrintStream constructor with no charset argument; same JEP 400 change. Socket-backed instances are excluded by the recipe as wire format",
+      "target_extensions": [
+        ".java"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 972,
+    "files_with_hits": 17,
+    "hits_per_pattern": {
+      "0": 26,
+      "1": 7
+    },
+    "max_hits_in_one_file": 6,
+    "population_signature": "048e17fc6f2290f4cbae8d42e8327a2a959cf17eaa1dcf7b37ac75628a30bc36",
+    "total_hits": 33,
+    "truncated": false
+  },
+  "rule_description": "JEP 400 changed Charset.defaultCharset() to return UTF-8 from JDK 18, and with it every java.io constructor that encodes or decodes without an explicit charset. The JEP names them: InputStreamReader, FileReader, OutputStreamWriter, FileWriter and PrintStream. Nothing breaks and nothing warns -- the code compiles identically on 17 and 21 -- but a file written by a JDK 17 JVM on a windows-1252 host and read by a JDK 21 JVM is silently corrupted, which is the exact hazard the JEP describes. This rule covers only the sites where JADE writes a file it later reads back itself: persisted messages, fault recovery state, log and CSV output. Sites whose stream comes from a socket carry the same question as the ACL and JICP wire codecs and are deliberately excluded; that is a protocol compatibility decision for the maintainer.",
+  "rule_id": "JEP400_FILE_IO_DEFAULT_CHARSET",
+  "rule_name": "File readers, writers and print streams without an explicit charset switched from the platform default to UTF-8 in JDK 18",
+  "run_id": "jade-17-to-21",
+  "sample_size": 30,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 3,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "6159742cf563d527",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "SAMPLED",
+  "verification_hint": "ant clean lib inside jade-ant:21 prints BUILD SUCCESSFUL and exits 0, all four consumers PASS, and every remaining charset-less FileReader/FileWriter/PrintStream site is either socket-backed or named in the shard result with a reason.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-17-to-21/workspace"
+}

@@ -1,0 +1,228 @@
+Removed Tools and Components
+Previous
+Next
+JavaScript must be enabled to correctly display this content
+Oracle JDK Migration Guide
+Removed Tools and Components
+5  Removed Tools and Components
+The following section lists tools and components that are experimental, obsolete, or
+no longer used and have been removed from the JDK.
+Tools and Components Removed and
+Deprecated in JDK 17
+Deprecate the Applet
+API for Removal
+The Applet API has been deprecated for removal as all
+web-browser vendors have either removed support for Java browser
+plug-ins or announced plans to do so. See  JEP 398: Deprecate the Applet API for
+Removal .
+Removed RMI Activation
+The Remote Method Invocation (RMI) Activation mechanism has
+been removed. However, the rest of RMI is preserved. See  JEP 407: Remove RMI Activation .
+Tools and Components Removed and
+Deprecated in JDK 16
+Removal of
+Experimental Features AOT and Graal JIT
+The Java Ahead-of-Time compilation experimental tool
+jaotc  and Java-based Graal JIT compiler
+have been removed. See   Removal of experimental
+features AOT and Graal JIT .
+Removed Root
+Certificates with 1024-bit Keys
+The root certificates with weak 1024-bit RSA public keys have
+been removed from the  cacerts  keystore. For
+details, see  Remove root certificates with
+1024-bit keys .
+Removal of Legacy
+Elliptic Curves
+The SunEC provider no longer supports the following elliptic
+curves that were deprecated in JDK 14.
+secp112r1, secp112r2, secp128r1, secp128r2, secp160k1, secp160r1, secp160r2,
+secp192k1, secp192r1, secp224k1, secp224r1, secp256k1, sect1
+To continue using any of these curves, find third-party
+alternatives. See  Remove the legacy
+elliptic curves .
+Deprecated Tracing Flags Are Obsolete and Must Be Replaced With
+Unified Logging Equivalents
+When Unified Logging was added in Java 9, several tracing flags were
+deprecated and mapped to their unified logging equivalent. These
+flags are now obsolete and you must explicitly replace the use of
+these flags with their unified logging equivalent.
+Obsolete Tracing Flag
+Unified Logging Replacement
+-XX:+TraceClassLoading
+-Xlog:class+load=info
+-XX:+TraceClassUnloading
+-Xlog:class+unload=info
+-XX:+TraceExceptions
+-Xlog:exceptions=info
+See   Obsolete the long term deprecated
+and aliased Trace flags .
+Tools and Components Removed and
+Deprecated in JDK 15
+Removal of Nashorn JavaScript
+Engine
+Nashorn JavaScript script engine and APIs, and the  jjs  tool have
+been removed in JDK 15. The engine,  APIs, and tool were deprecated
+for removal in Java 11. See  JEP 372: Remove the Nashorn
+JavaScript Engine .
+Removal of RMI Static Stub Compiler (rmic) Tool
+The RMI static stub compiler (rmic) tool has been removed. The rmic tool
+was deprecated for removal in JDK 13. See  Remove rmic from the set of
+supported tools .
+Disable and Deprecate Biased Locking
+The biased locking is disabled by default and all related command-line
+options have been deprecated. See  JEP 374: Disable and Deprecate Biased
+Locking .
+Deprecate RMI Activation for Removal
+The RMI Activation mechanism has been deprecated and may be removed in a
+future version of the platform. See  JEP 385: Deprecate RMI Activation for
+Removal .
+Features and Components Removed in
+JDK 14
+Remove the Concurrent Mark Sweep
+(CMS) Garbage Collector
+The CMS garbage collector has been removed. See  JEP 363: Remove the Concurrent Mark Sweep (CMS) Garbage
+Collector .
+Removal of Pack200 Tools and
+API
+The Pack200 tools and API were deprecated in JDK 11 and have been removed in JDK
+14.
+The  pack200  and  unpack200  tools, and
+Pack200  in  java.util.jar.Pack200  package have
+been removed .
+See  JEP
+367: Remove the Pack200 Tools and API .
+Tools and Components Removed in
+JDK 13
+Removal of Old
+Features from  javadoc  Tool
+The following four features have been removed from the  javadoc
+tool:
+Support for generating API documentation using HTML 4
+Support for the old  javadoc  API
+Support for generating documentation using HTML frames
+Support for the  --no-module-directories  options
+For details about removed  javadoc  features, see  JDK-8215608 : Remove old javadoc
+features .
+See  Removed Features and Options of JDK 13 Release
+Notes  for list of removed tools and components.
+Tools and Components Removed in
+JDK 12
+To know more about the tools and components that are removed in JDK 12, see  Removed Features and Options in JDK 12 .
+Tools and Components Removed in
+JDK 11
+Removal of the Deployment
+Stack
+Java deployment technologies were deprecated in JDK 9 and removed in JDK 11.
+Java applet and Web Start functionality, including the Java plug-in, the
+Java Applet Viewer, Java Control Panel, and Java Web Start, along with
+javaws  tool, have been removed in JDK 11.
+See  Remove Java Deployment Technologies .
+Removal of Java EE and CORBA Modules
+In JDK 11, the Java EE and CORBA modules were removed. These modules were deprecated
+for removal in JDK 9.
+The removed modules were:
+java.xml.ws : Java API for XML Web
+Services (JAX-WS), Web Services Metadata for the Java Platform, and SOAP with
+Attachments for Java (SAAJ)
+java.xml.bind : Java Architecture for
+XML Binding (JAXB)
+java.xml.ws.annotation : The subset of
+the JSR-250 Common Annotations defined by Java SE to support web services
+java.corba : CORBA
+java.transaction : The subset of the
+Java Transaction API defined by Java SE to support CORBA Object Transaction
+Services
+java.activation : JavaBeans
+Activation Framework
+java.se.ee : Aggregator module for the
+six modules above
+jdk.xml.ws : Tools for JAX-WS
+jdk.xml.bind : Tools for JAXB
+Existing code with references to classes in these APIs will not compile
+without changes to the build. Similarly, code on the class path with references to
+classes in these APIs will fail with  NoDefClassFoundError  or
+ClassNotFoundException  unless changes are made in how the
+application is deployed.
+See  JEP 320: Remove the
+Java EE and CORBA Modules  to get more information about possible
+replacements for the modules.
+Note: You can download JAXB and JAX-WS
+from Maven.
+Removal of Tools and Components
+Main Tools
+appletviewer   See  JDK-8200146 : Remove the appletviewer
+launcher .
+CORBA Tools
+idlj
+orbd
+servertool
+tnamesrv
+In addition, the  rmic  (the RMI compiler) no longer
+supports the  -idl  or  -iiop  options. See  JDK 11 Release Notes .
+Java Web Services Tools
+schemagen
+wsgen
+wsimport
+xjc
+Java Deployment Tools
+javapackager
+javaws  See  Removal of JavaFX from JDK .
+Monitoring Tools
+jmc : In JDK 11, JMC is available as a standalone
+package and not bundled in the JDK.
+See  Removal of JMC from JDK  and  Java Mission Control .
+JVM-MANAGEMENT-MIB.mib
+The specification for JVM monitoring and management through SNMP
+JVM-MANAGEMENT-MIB.mib  has been removed. See  Removal of JVM-MANAGEMENT-MIB.mib .
+SNMP Agent
+The  jdk.snmp  module has been removed. See  Removal
+of SNMP Agent .
+Oracle Desktop Specific Removals
+Oracle JDK T2K font rasterizer has been removed.
+Lucida Fonts: Oracle JDK no longer ships any fonts and relies
+entirely on fonts installed on the operating system. See  Removal of Lucida Fonts from Oracle JDK .
+Tools and Components Removed in
+JDK 9 and JDK 10
+This list includes tools and components that are no longer bundled with the JDK.
+Removed Native-Header Generation Tool (javah)
+The  javah  tool has been superseded by superior functionality in  javac . It was removed in JDK 10.
+Since JDK 8,  javac  provides the ability to write native header files at the time that Java source code is compiled, thereby eliminating the need for a separate tool.
+Instead of  javah , use   javac -h
+Removed JavaDB
+JavaDB, which was a rebranding of Apache Derby, is no longer included in the JDK.
+JavaDB was bundled with JDK 7 and JDK 8. It was found in the  db  directory of the JDK installation directory.
+You can download and install Apache Derby from  Apache Derby Downloads .
+Removed  the JVM TI hprof Agent
+The  hprof  agent library has been removed.
+The  hprof  agent was written as demonstration code for the  JVM Tool Interface  and wasn’t intended to be a production tool. The useful features of the  hprof  agent have been superseded by better alternatives, including some that are included in the JDK.
+For creating heap dumps in the  hprof  format, use a diagnostic command ( jcmd ) or the  jmap  tool:
+Diagnostic command:  jcmd  <pid>
+GC.heap_dump . See   jcmd  .
+jmap:  jmap -dump . See   jmap  .
+For CPU profiler capabilities, use the Java Flight Recorder, which is bundled with the JDK.
+See  JEP 240: Remove the JVM TI hprof Agent .
+Removed the jhat Tool
+The  jhat  tool was an  experimental, unsupported heap visualization tool added in JDK 6. Superior heap visualizers and analyzers have been available for many years.
+Removed  java-rmi.exe and java-rmi.cgi Launchers
+The launchers  java-rmi.exe  from Windows and  java-rmi.cgi  from Linux and Solaris have been removed.
+java-rmi.cgi  was in  $JAVA_HOME/bin  on
+Linux.
+java-rmi.exe  was in  $JAVA_HOME/bin  on Windows.
+These launchers were added to the JDK to facilitate use of the RMI CGI proxy mechanism, which was deprecated in JDK 8.
+The alternative of using a servlet to proxy RMI over HTTP has been available, and even preferred, for several years. See  Java RMI and Object Serialization.
+Removed Support for the IIOP Transport from the JMX RMIConnector
+The IIOP transport support from the JMX RMI Connector along with its supporting classes have been removed from the JDK.
+In JDK 8, support for the IIOP transport was downgraded from required to optional. This was the first step in a multirelease effort to remove support for the IIOP transport from the JMX Remote API. In JDK 9, support for IIOP was removed completely.
+Public API changes include:
+The  javax.management.remote.rmi.RMIIIOPServerImpl  class has been deprecated. Upon invocation, all its methods and constructors throw  java.lang.UnsupportedOperationException  with an explanatory message.
+Two classes,  org.omg.stub.javax.management.rmi._RMIConnection_Stub , and  org.omg.stub.javax.management.rmi._RMIConnection_Tie , aren’t generated.
+Dropped Windows 32–bit Client VM
+The Windows 32–bit client VM is no longer available. Only a server VM is offered.
+JDK 8 and earlier releases offered both a client JVM and a server JVM for Windows 32-bit systems. JDK 9 and later releases offer only a server JVM, which is tuned to maximize peak operating speed.
+Removed Java VisualVM
+Java VisualVM is a tool that provides information about code running on a Java Virtual Machine. The  jvisualvm  tool was provided with JDK 6, JDK 7, and JDK 8.
+Java VisualVM is no longer bundled with the JDK, but you can get it from the  VisualVM open source project site .
+Removed native2ascii Tool
+The  native2ascii  tool has been removed from the JDK. Because JDK 9 and later releases support UTF-8 based properties resource bundles, the conversion tool for UTF-8 based properties resource bundles to ISO-8859-1 is no longer needed.
+See  UTF-8 Properties Files  in   Java Platform, Standard Edition Internationalization Guide  .

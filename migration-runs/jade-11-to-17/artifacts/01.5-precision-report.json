@@ -1,0 +1,245 @@
+{
+  "policy": {
+    "max_revisions": 3,
+    "min_precision": 0.7,
+    "on_reject": "REWRITE_PATTERN",
+    "sample_size": 30,
+    "source": "00-run-config.json#precision_gate",
+    "undecidable_max_ratio": 0.2
+  },
+  "rules": {
+    "APPLET_API_DEPRECATED_FOR_REMOVAL": {
+      "counterexamples": [],
+      "effective_min_precision": 0.7,
+      "false_positive": 0,
+      "false_positive_classes": {},
+      "judged": 8,
+      "manifest_rule_hash": "76e3b9309a95b7ef7e3ecdacff4c42a40a1ffc0877e61de05a572d1abc3cac0a",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 1.0,
+      "pattern_revision": 2,
+      "per_pattern": {
+        "0": {
+          "judged": 8,
+          "precision": 1.0,
+          "true_positive": 8
+        }
+      },
+      "population": {
+        "files_with_hits": 4,
+        "total_hits": 8
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-APPLET_API_DEPRECATED_FOR_REMOVAL.json",
+      "sample_hash": "3dd308bcde0322072c5c7f297b7735145bdbd3968ff06c08928faff5a41bc88b",
+      "status": "PASS",
+      "true_positive": 8,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-APPLET_API_DEPRECATED_FOR_REMOVAL.json",
+      "verdicts_hash": "28d79c90b67018c39accfe3a3714c853c4e0ae064df8e62afc50c53c617eb4a1",
+      "wilson_95": [
+        0.6756,
+        1.0
+      ]
+    },
+    "BUILD_JAVAC_SOURCE_TARGET_17": {
+      "counterexamples": [],
+      "effective_min_precision": 0.7,
+      "false_positive": 0,
+      "false_positive_classes": {},
+      "judged": 2,
+      "manifest_rule_hash": "e7abf2a367c84a8c7f7992918f190cabcad2ee34765b51979fc406753f67f45d",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 1.0,
+      "pattern_revision": 1,
+      "per_pattern": {
+        "0": {
+          "judged": 2,
+          "precision": 1.0,
+          "true_positive": 2
+        }
+      },
+      "population": {
+        "files_with_hits": 1,
+        "total_hits": 2
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-BUILD_JAVAC_SOURCE_TARGET_17.json",
+      "sample_hash": "605177e50e7656d28a13c4892658d83f008a0e6b8247cef95cf13fac42f07331",
+      "status": "PASS",
+      "true_positive": 2,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-BUILD_JAVAC_SOURCE_TARGET_17.json",
+      "verdicts_hash": "b3e8e7f226b7e6d94cbca109cbe2e9e2a4b9d3507dbc6c46cc4ddf578a8cb2e9",
+      "wilson_95": [
+        0.3424,
+        1.0
+      ]
+    },
+    "MULTICAST_SOCKET_GROUP_API_DEPRECATED": {
+      "counterexamples": [],
+      "effective_min_precision": 0.7,
+      "false_positive": 0,
+      "false_positive_classes": {},
+      "judged": 2,
+      "manifest_rule_hash": "d4a0ed8807ddd833dd93e20f70e2aad13bcbe91d5dbd16e362385db052d0e4b8",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 1.0,
+      "pattern_revision": 1,
+      "per_pattern": {
+        "0": {
+          "judged": 2,
+          "precision": 1.0,
+          "true_positive": 2
+        }
+      },
+      "population": {
+        "files_with_hits": 1,
+        "total_hits": 2
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-MULTICAST_SOCKET_GROUP_API_DEPRECATED.json",
+      "sample_hash": "e09ad51610c6704225496bdae56ffe3c0110466af8caa650ba4681996ce867ae",
+      "status": "PASS",
+      "true_positive": 2,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-MULTICAST_SOCKET_GROUP_API_DEPRECATED.json",
+      "verdicts_hash": "51fa01625f5483487b1f26dd65896ff02cfe94d33b8704a0cabb1d8739bb2b05",
+      "wilson_95": [
+        0.3424,
+        1.0
+      ]
+    },
+    "RMIC_TOOL_REMOVED": {
+      "counterexamples": [],
+      "effective_min_precision": 0.7,
+      "false_positive": 0,
+      "false_positive_classes": {},
+      "judged": 2,
+      "manifest_rule_hash": "8d695ef9548e94d860155707df998021c177a557bc66d4bc254d948eb4f6f7b7",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 1.0,
+      "pattern_revision": 1,
+      "per_pattern": {
+        "0": {
+          "judged": 2,
+          "precision": 1.0,
+          "true_positive": 2
+        }
+      },
+      "population": {
+        "files_with_hits": 1,
+        "total_hits": 2
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-RMIC_TOOL_REMOVED.json",
+      "sample_hash": "f1820a7dc2252bdc8c92ca7b43437d9091289e12479bc41591b3736733327534",
+      "status": "PASS",
+      "true_positive": 2,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-RMIC_TOOL_REMOVED.json",
+      "verdicts_hash": "16d4eab3b9ca5b7592a6cbd6e080485cf926dd60f0eb596da0140be27afa6880",
+      "wilson_95": [
+        0.3424,
+        1.0
+      ]
+    },
+    "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL": {
+      "counterexamples": [],
+      "effective_min_precision": 0.7,
+      "false_positive": 0,
+      "false_positive_classes": {},
+      "judged": 1,
+      "manifest_rule_hash": "ad35c2ac22e72aea2b33e390ad8cc5d1be492c7dcc48c16ed202caec6128c4ef",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 1.0,
+      "pattern_revision": 2,
+      "per_pattern": {
+        "0": {
+          "judged": 1,
+          "precision": 1.0,
+          "true_positive": 1
+        }
+      },
+      "population": {
+        "files_with_hits": 1,
+        "total_hits": 1
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL.json",
+      "sample_hash": "47ce203634407566863238ea0c02fc9c1a0b25ec80564b284f21ed861fc3e720",
+      "status": "PASS",
+      "true_positive": 1,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL.json",
+      "verdicts_hash": "02cc51972784da6801c27567c293268d600a04522716a0cffe5198d8d837240d",
+      "wilson_95": [
+        0.2065,
+        1.0
+      ]
+    },
+    "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL": {
+      "counterexamples": [
+        {
+          "false_positive_class": "COMMENT_OR_STRING",
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+          "hit_id": "194f6af7b1dd8e88",
+          "line": 448,
+          "line_text": "             colorCounter = new Integer(colorCounter.intValue() + 1);",
+          "reason": "Inside the block comment opened at MMCanvas.java:427 ('/*if (mess.getConversationId() ...'); javac emits no removal warning for this line and java_source.classify_lines reports 'comment'."
+        }
+      ],
+      "effective_min_precision": 0.7,
+      "false_positive": 1,
+      "false_positive_classes": {
+        "COMMENT_OR_STRING": 1
+      },
+      "judged": 30,
+      "manifest_rule_hash": "12c54551a67ef8abb3db2acb1439ed14627948ed9e46c2dbdefe3947eff62102",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 0.9667,
+      "pattern_revision": 1,
+      "per_pattern": {
+        "0": {
+          "judged": 30,
+          "precision": 0.9667,
+          "true_positive": 29
+        }
+      },
+      "population": {
+        "files_with_hits": 52,
+        "total_hits": 147
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL.json",
+      "sample_hash": "944e256faf213bf0e80e6427064f83b2aa1c5f9a82667a6e3f3faf4509976721",
+      "status": "PASS",
+      "true_positive": 29,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL.json",
+      "verdicts_hash": "8926454be90cc4896ef601ee910d89bbf72cb8de99d74cb93ad617b0dd8f4ec3",
+      "wilson_95": [
+        0.8333,
+        0.9941
+      ]
+    }
+  },
+  "run_id": "jade-11-to-17",
+  "schema_version": 1,
+  "summary": {
+    "abandoned": 0,
+    "inconclusive": 0,
+    "no_population": 0,
+    "overridden": 0,
+    "passed": 6,
+    "rejected": 0,
+    "rules_total": 6
+  },
+  "warnings": []
+}

@@ -1,0 +1,72 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "\t\t\t}",
+        "\t\t\tcatch(IllegalThreadStateException itse) {",
+        "\t\t\t\tmyLogger.log(Logger.WARNING, \"Time-critical threads still active: \");"
+      ],
+      "context_before": [
+        "\t\t\t//#MIDP_EXCLUDE_BEGIN",
+        "\t\t\ttry {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review"
+      ],
+      "file": "src/jade/src/jade/core/Runtime.java",
+      "hit_id": "f9ae7419d68663b0",
+      "line": 297,
+      "line_hash": "2427c6ffc10d5f45",
+      "line_text": "\t\t\t\tcriticalThreads.destroy();",
+      "line_truncated": false,
+      "match_span": [
+        4,
+        28
+      ],
+      "match_text": "criticalThreads.destroy(",
+      "pattern_index": 0,
+      "rank": 0
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-11-to-17/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "ad35c2ac22e72aea2b33e390ad8cc5d1be492c7dcc48c16ed202caec6128c4ef",
+  "pattern_revision": 2,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "(?<![\\w.$])(?:criticalThreads|agentThreads|systemAgentThreads)\\s*\\.\\s*(?:destroy|isDestroyed|stop|setDaemon|isDaemon|suspend|resume)\\s*\\(",
+      "reason": "terminally deprecated ThreadGroup member invoked on one of the workspace's own ThreadGroup-typed fields (FullResourceManager.java:39-42, Runtime.java:73). Revision 1 was the untyped '\\.destroy\\(\\)' and caught two java.applet.Applet.destroy() calls; a line-based regex cannot resolve the receiver's type, so revision 2 enumerates the ThreadGroup-typed receivers actually declared in this tree. The limitation is deliberate and recorded: a ThreadGroup held in a differently named variable would not be flagged, which is why the verification hint checks with javac rather than with this regex",
+      "target_extensions": [
+        ".java"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 972,
+    "files_with_hits": 1,
+    "hits_per_pattern": {
+      "0": 1
+    },
+    "max_hits_in_one_file": 1,
+    "population_signature": "6bc1f091b84d0ecfb4fef69759cf539efa64482a5edbd71784ee43407c9a2593",
+    "total_hits": 1,
+    "truncated": false
+  },
+  "rule_description": "JDK 16 terminally deprecated ThreadGroup.stop, destroy, isDestroyed, setDaemon and isDaemon, stating that the API and mechanism for destroying a ThreadGroup is inherently flawed and will be removed in a future release. jade.core.Runtime calls destroy() on its time-critical ThreadGroup during shutdown, inside a try/catch that already tolerates IllegalThreadStateException and a finally that nulls the field. On JDK 17 the call still works, so nothing is broken today; the fix is to drop the call and keep the field reset, which is what the JDK's own guidance amounts to. The pattern is receiver-enumerated rather than general: 'x.destroy()' cannot be resolved to ThreadGroup by a line-based scanner, and the untyped form scored 0.33 against the 0.7 gate.",
+  "rule_id": "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL",
+  "rule_name": "ThreadGroup.destroy() terminally deprecated in JDK 16",
+  "run_id": "jade-11-to-17",
+  "sample_size": 1,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 3,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "11c0ac9b388d528b",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "CENSUS",
+  "verification_hint": "Recompiling on jade-ant:17 with -Xlint:removal reports no '[removal] destroy() in ThreadGroup' warning. A JADE container still shuts down cleanly and all consumers PASS.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-11-to-17/workspace"
+}

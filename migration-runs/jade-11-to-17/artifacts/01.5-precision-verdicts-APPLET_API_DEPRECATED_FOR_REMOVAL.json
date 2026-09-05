@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "rule_id": "APPLET_API_DEPRECATED_FOR_REMOVAL",
+  "sample_artifact": "01.5-precision-sample-APPLET_API_DEPRECATED_FOR_REMOVAL.json",
+  "sample_hash": "3dd308bcde0322072c5c7f297b7735145bdbd3968ff06c08928faff5a41bc88b",
+  "verdicts": [
+    {
+      "hit_id": "cab43a7a5dcf477f",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Real java.applet dependency in a type position: an import of the java.applet package, an 'extends Applet' supertype, or a bare Applet field or constructor-parameter declaration."
+    },
+    {
+      "hit_id": "0eea2b95b1ff6f86",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Real java.applet dependency in a type position: an import of the java.applet package, an 'extends Applet' supertype, or a bare Applet field or constructor-parameter declaration."
+    },
+    {
+      "hit_id": "1f0fbcfdbf0f3821",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Real java.applet dependency in a type position: an import of the java.applet package, an 'extends Applet' supertype, or a bare Applet field or constructor-parameter declaration."
+    },
+    {
+      "hit_id": "7c6f7edb3afaf52d",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Real java.applet dependency in a type position: an import of the java.applet package, an 'extends Applet' supertype, or a bare Applet field or constructor-parameter declaration."
+    },
+    {
+      "hit_id": "92591b48b777b0be",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Real java.applet dependency in a type position: an import of the java.applet package, an 'extends Applet' supertype, or a bare Applet field or constructor-parameter declaration."
+    },
+    {
+      "hit_id": "e810c8305a13b0ca",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Real java.applet dependency in a type position: an import of the java.applet package, an 'extends Applet' supertype, or a bare Applet field or constructor-parameter declaration."
+    },
+    {
+      "hit_id": "9944391423a1e0e2",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Real java.applet dependency in a type position: an import of the java.applet package, an 'extends Applet' supertype, or a bare Applet field or constructor-parameter declaration."
+    },
+    {
+      "hit_id": "4f39b955c0c5899d",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Real java.applet dependency in a type position: an import of the java.applet package, an 'extends Applet' supertype, or a bare Applet field or constructor-parameter declaration."
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "\t\t\t   source=\"11\"",
+        "\t\t       excludes=\"demo/**,examples/**,test/**\" >",
+        "\t\t</javac>"
+      ],
+      "context_before": [
+        "\t\t       debug=\"${javac.debug}\" ",
+        "\t\t       debuglevel=\"lines,vars,source\" ",
+        "\t\t       deprecation=\"on\" "
+      ],
+      "file": "src/jade/build.xml",
+      "hit_id": "4ca6d49b01ebbbd1",
+      "line": 141,
+      "line_hash": "aa760ae467de8afb",
+      "line_text": "\t\t\t   target=\"11\"",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        17
+      ],
+      "match_text": "\t\t\t   target=\"11\"",
+      "pattern_index": 0,
+      "rank": 0
+    },
+    {
+      "context_after": [
+        "\t\t       excludes=\"demo/**,examples/**,test/**\" >",
+        "\t\t</javac>",
+        "\t\t"
+      ],
+      "context_before": [
+        "\t\t       debuglevel=\"lines,vars,source\" ",
+        "\t\t       deprecation=\"on\" ",
+        "\t\t\t   target=\"11\""
+      ],
+      "file": "src/jade/build.xml",
+      "hit_id": "511c422d265b81b8",
+      "line": 142,
+      "line_hash": "797ffc5c18d19553",
+      "line_text": "\t\t\t   source=\"11\"",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        17
+      ],
+      "match_text": "\t\t\t   source=\"11\"",
+      "pattern_index": 0,
+      "rank": 1
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-11-to-17/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "e7abf2a367c84a8c7f7992918f190cabcad2ee34765b51979fc406753f67f45d",
+  "pattern_revision": 1,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "^\\s*(?:source|target)\\s*=\\s*\"11\"\\s*$",
+      "reason": "javac source/target still pinned to the source version of this jump; the run targets 17",
+      "target_extensions": [
+        ".xml"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 1,
+    "files_with_hits": 1,
+    "hits_per_pattern": {
+      "0": 2
+    },
+    "max_hits_in_one_file": 2,
+    "population_signature": "c260661ae3376ad04a4fac2b2ef1b2c1769e77c93664586f1a5d25b8eda6e539",
+    "total_hits": 2,
+    "truncated": false
+  },
+  "rule_description": "The javac task in build.xml pins source=\"11\" and target=\"11\". JDK 17 still accepts those values -- the Oracle migration guide lists 17, 16, 15, 14, 13, 12, 11, 10, 9, 8 and 7 as supported -source/-target values, and a probe build on jade-ant:17 compiled all 972 sources with zero errors at source/target 11. This rule is therefore NOT a build blocker and must not be described as one. What it fixes is that the artifact produced by a run whose target_version is 17 would otherwise still be a Java 11 artifact (class file major version 55), so the jump would be nominal. JEP 182 retires -source/-target values on a 'one plus three back' schedule, which is why 11 has a shelf life rather than a permanent home.",
+  "rule_id": "BUILD_JAVAC_SOURCE_TARGET_17",
+  "rule_name": "javac source/target still pinned at 11 after the jump to 17",
+  "run_id": "jade-11-to-17",
+  "sample_size": 2,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 3,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "243c4311612b9b5f",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "CENSUS",
+  "verification_hint": "build.xml carries source=\"17\" and target=\"17\". 'ant clean lib' on jade-ant:17 exits 0 with BUILD SUCCESSFUL, and 'javap -v' on a class inside the produced jade.jar reports major version 61.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-11-to-17/workspace"
+}

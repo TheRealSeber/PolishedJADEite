@@ -1,0 +1,4 @@
+{"ts": "2026-09-05T10:32:41Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T10:32:42Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs/jade-11-to-17/workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T10:32:42Z", "phase": "MANIFEST_READY", "status": "OK", "message": "Paused for agent input \u2014 see AWAITING_AGENT.md", "artifacts": ["AWAITING_AGENT.md"]}
+{"ts": "2026-09-05T10:32:42Z", "phase": "AWAITING_AGENT", "status": "ERROR", "message": "Run terminated: AWAITING_AGENT", "artifacts": ["00-run-state.json", "PROGRESS.md"]}

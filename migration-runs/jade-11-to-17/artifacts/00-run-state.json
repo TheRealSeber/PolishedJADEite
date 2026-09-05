@@ -1,0 +1,8 @@
+{
+  "run_id": "jade-11-to-17",
+  "state": "AWAITING_AGENT",
+  "current_rule_id": null,
+  "updated_at": "2026-09-05T10:32:42Z",
+  "failure_reason": null,
+  "awaiting_phase": "MANIFEST_READY"
+}

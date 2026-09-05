@@ -1,0 +1,247 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "",
+        "  public void init() {",
+        "  "
+      ],
+      "context_before": [
+        " //HTML Code:",
+        " //<applet code = DFApplet.class width = 200 height=100></applet>",
+        ""
+      ],
+      "file": "src/jade/src/jade/tools/applet/DFApplet.java",
+      "hit_id": "cab43a7a5dcf477f",
+      "line": 45,
+      "line_hash": "9d7e27dcdad5eab4",
+      "line_text": " public class DFApplet extends Applet {",
+      "line_truncated": false,
+      "match_span": [
+        23,
+        37
+      ],
+      "match_text": "extends Applet",
+      "pattern_index": 0,
+      "rank": 0
+    },
+    {
+      "context_after": [
+        "import java.io.DataInputStream;",
+        "import java.io.PrintStream;",
+        "import java.io.IOException;"
+      ],
+      "context_before": [
+        "",
+        "package jade.tools.applet;",
+        ""
+      ],
+      "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+      "hit_id": "0eea2b95b1ff6f86",
+      "line": 26,
+      "line_hash": "84660e173e501139",
+      "line_text": "import java.applet.Applet;",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        18
+      ],
+      "match_text": "import java.applet",
+      "pattern_index": 0,
+      "rank": 1
+    },
+    {
+      "context_after": [
+        "",
+        "  // Start-up the JADE runtime system",
+        "  public void init() {"
+      ],
+      "context_before": [
+        "   <br>",
+        "   @author Giovanni Caire - TILAB",
+        " */"
+      ],
+      "file": "src/jade/src/jade/AppletBoot.java",
+      "hit_id": "1f0fbcfdbf0f3821",
+      "line": 42,
+      "line_hash": "782b1fab462fdf7f",
+      "line_text": "public class AppletBoot extends Applet implements Runnable {",
+      "line_truncated": false,
+      "match_span": [
+        24,
+        38
+      ],
+      "match_text": "extends Applet",
+      "pattern_index": 0,
+      "rank": 2
+    },
+    {
+      "context_after": [
+        "",
+        "/**",
+        " * This applet is a client of SocketProxyAgent and executes an applet"
+      ],
+      "context_before": [
+        "package jade.tools.applet;",
+        "",
+        "import jade.tools.dfgui.*;"
+      ],
+      "file": "src/jade/src/jade/tools/applet/DFApplet.java",
+      "hit_id": "7c6f7edb3afaf52d",
+      "line": 27,
+      "line_hash": "84660e173e501139",
+      "line_text": "import java.applet.Applet;",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        18
+      ],
+      "match_text": "import java.applet",
+      "pattern_index": 0,
+      "rank": 3
+    },
+    {
+      "context_after": [
+        "    try {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review",
+        ""
+      ],
+      "context_before": [
+        "   * Finally, gets the value of the parameter <code>JADEAddress</code>",
+        "   * from the HTML file.",
+        "   */"
+      ],
+      "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+      "hit_id": "92591b48b777b0be",
+      "line": 80,
+      "line_hash": "a5292e344b12cb20",
+      "line_text": "  public DFAppletCommunicator(Applet applet) {",
+      "line_truncated": false,
+      "match_span": [
+        30,
+        44
+      ],
+      "match_text": "Applet applet)",
+      "pattern_index": 0,
+      "rank": 4
+    },
+    {
+      "context_after": [
+        "  private DataInputStream in;",
+        "  private PrintStream out;",
+        "  private final static int DEFAULT_PORT = 6789;"
+      ],
+      "context_before": [
+        "",
+        "public class DFAppletCommunicator implements DFGUIAdapter{",
+        "  "
+      ],
+      "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+      "hit_id": "e810c8305a13b0ca",
+      "line": 58,
+      "line_hash": "91c8895797af2e2d",
+      "line_text": "\tprivate Applet a;",
+      "line_truncated": false,
+      "match_span": [
+        9,
+        18
+      ],
+      "match_text": "Applet a;",
+      "pattern_index": 0,
+      "rank": 5
+    },
+    {
+      "context_after": [
+        "",
+        "// Import required Jade classes",
+        "import jade.domain.*;"
+      ],
+      "context_before": [
+        "import jade.util.leap.Iterator;",
+        "import jade.util.leap.List;",
+        "import java.util.HashMap;"
+      ],
+      "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+      "hit_id": "9944391423a1e0e2",
+      "line": 37,
+      "line_hash": "ef6a85d0888a1ce1",
+      "line_text": "import java.applet.*;",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        18
+      ],
+      "match_text": "import java.applet",
+      "pattern_index": 0,
+      "rank": 6
+    },
+    {
+      "context_after": [
+        "",
+        "import jade.core.MicroRuntime;",
+        "import jade.util.leap.Properties;"
+      ],
+      "context_before": [
+        "",
+        "//#MIDP_EXCLUDE_FILE",
+        "\t"
+      ],
+      "file": "src/jade/src/jade/AppletBoot.java",
+      "hit_id": "4f39b955c0c5899d",
+      "line": 28,
+      "line_hash": "84660e173e501139",
+      "line_text": "import java.applet.Applet;",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        18
+      ],
+      "match_text": "import java.applet",
+      "pattern_index": 0,
+      "rank": 7
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-11-to-17/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "76e3b9309a95b7ef7e3ecdacff4c42a40a1ffc0877e61de05a572d1abc3cac0a",
+  "pattern_revision": 2,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "import\\s+java\\.applet\\b|\\bextends\\s+Applet\\b|(?<![-\\w.$])Applet\\s+[a-z]\\w*\\s*[;,)]",
+      "reason": "java.applet import, or a bare Applet type in a supertype / field / parameter position; revision 1 matched the bare token anywhere and caught 10 javadoc mentions of the 'DF-Applet' ontology, so revision 2 requires a type position",
+      "target_extensions": [
+        ".java"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 972,
+    "files_with_hits": 4,
+    "hits_per_pattern": {
+      "0": 8
+    },
+    "max_hits_in_one_file": 3,
+    "population_signature": "a174994a79e99b2b3d91670487cc1a3e393fb0cb9437f517bc4cb86446fe444f",
+    "total_hits": 8,
+    "truncated": false
+  },
+  "rule_description": "JEP 398 (JDK 17) deprecates java.applet.Applet, AppletStub, AppletContext, AudioClip, javax.swing.JApplet and java.beans.AppletInitializer for removal, on the grounds that browser vendors have dropped the Java plug-in. JADE carries an applet entry point (jade.AppletBoot) and an applet-hosted DF GUI client (jade.tools.applet). Compiling on JDK 17 produces four [removal] warnings for Applet; the code still compiles and the classes still load, so nothing is broken today. What the rule records is that this subtree has no supported deployment target left and is on the removal list for a future release.",
+  "rule_id": "APPLET_API_DEPRECATED_FOR_REMOVAL",
+  "rule_name": "java.applet.Applet deprecated for removal in JDK 17",
+  "run_id": "jade-11-to-17",
+  "sample_size": 8,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 3,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "a9f3080e858cac31",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "CENSUS",
+  "verification_hint": "Recompiling on jade-ant:17 with -Xlint:removal reports zero '[removal] Applet in java.applet' warnings, down from four, and no .java file imports java.applet. The build still exits 0 and all consumers PASS.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-11-to-17/workspace"
+}

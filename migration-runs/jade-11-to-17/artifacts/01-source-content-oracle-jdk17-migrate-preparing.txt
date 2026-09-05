@@ -1,0 +1,97 @@
+Preparing For Migration
+Previous
+Next
+JavaScript must be enabled to correctly display this content
+Oracle JDK Migration Guide
+Preparing For Migration
+6  Preparing For Migration
+The following sections will help you successfully migrate your application:
+Download the Latest JDK
+Run Your Program Before Recompiling
+Update Third-Party Libraries
+Compile Your Application if Needed
+Run jdeps on Your Code
+Download the Latest JDK
+Download and install the latest JDK release from  Java SE Downloads .
+Run Your Program Before Recompiling
+Try running your application on the latest JDK release (JDK  17 ). Most code and libraries should work on JDK  17  without any changes, but there may be some libraries that
+need to be upgraded.
+Note:
+Migrating is an iterative process. You’ll probably find it best to try running your
+program (this task) first, then complete these three tasks in parallel:
+Update Third-Party Libraries
+Compile Your Application if Needed
+Run jdeps on Your Code
+When you run your application, look for warnings from the JVM about obsolete VM options. If the VM fails to start, then look for  Removed GC Options .
+If your application starts successfully, look carefully at your tests and ensure that the behavior is the same as on the JDK version you have been using. For example, a few early adopters have noticed that their dates and currencies are formatted differently. See  Use CLDR Locale Data by Default .
+To make your code work on the latest JDK release, understand the new features and changes in each of the JDK release.
+For detailed information about the new features and changes in JDK
+17, see  What's New in JDK 17 - New
+Features and Enhancements .
+For detailed information about the new features and changes in JDK
+16, see  What's New in JDK 16 - New
+Features and Enhancements .
+For detailed information about the new features and changes in JDK
+15, see  What's New in JDK 15 - New
+Features and Enhancements .
+For detailed information about the new features and changes in JDK
+14, see  What's New in JDK 14 - New
+Features and Enhancements .
+For detailed information about the new features and changes in
+JDK 13, see  What's New in JDK 13 - New
+Features and Enhancements .
+For detailed information about the new features and changes in JDK 12, see  What's New in JDK 12 - New Features and Enhancements .
+For detailed information about the new features and changes in JDK 11, see  What’s New in JDK 11 - New Features and
+Enhancements .
+For detailed information about the new features and changes in JDK 10, see  What’s New in JDK 10 .
+For a comprehensive list of all of the new features of JDK 9, see  What's New in JDK 9 .
+For detailed information about the changes in JDK 9, see  JDK 9 Release Notes .
+Even if your program appears to run successfully, you should complete the rest of the steps in this guide and review the list of issues.
+Update Third-Party Libraries
+For every tool and third-party library that you use, you may need to have an updated version that supports the latest JDK release.
+Check the websites for your third-party libraries and your tool vendors for a version of each library or tool that’s designed to work on the latest JDK. If one exists, then download and install the new version.
+If you use Maven or Gradle to build your application, then make sure to upgrade to a recent version that supports the latest JDK version.
+If you use an IDE to develop your applications, then it might help in migrating the existing code. The NetBeans, Eclipse, and IntelliJ IDEs all have versions available that include support for the latest JDK.
+You can see the status of the testing of many Free Open Source Software (FOSS)  projects with OpenJDK builds at  Quality Outreach  on the OpenJDK wiki.
+Compile Your Application if Needed
+Compiling your code with the latest JDK compiler will ease migration to future releases since the code may depend on APIs and features, which have been identified as problematic. However, it is not strictly necessary.
+If you need to compile your code with JDK 11 and later compilers, then take note of the following:
+If you use the underscore character  ("_")  as a one-character
+identifier in source code, then your code won’t compile in JDK 11 and later
+releases. It generates a warning in JDK 8, and an error, starting from JDK 9.
+As an example:   static Object _ = new Object();   This code generates the following error message from the compiler:   MyClass.java:2: error: as of release 9, '_' is a keyword, and may not be used as a legal identifier.
+If you use the  -source  and  -target  options with  javac , then check the values that you use.
+The supported  -source/-target   values are 17 (the default), 16, 15,
+14, 13, 12, 11, 10, 9, 8, and 7.
+In JDK 8,  -source  and  -target  values of 1.5/5 and earlier were deprecated, and caused a warning. In JDK 9 and above, those values cause an error.
+>javac -source 5 -target 5 Sample.java
+warning: [options] bootstrap class path not set in conjunction with -source 5
+error: Source option 5 is no longer supported. Use 6 or later.
+error: Target option 1.5 is no longer supported. Use 1.6 or later.   Use the new  --release  flag instead of the  -source
+and  -target  options. See  javac  in   Java Development Kit Tool Specifications  .
+The valid arguments for the  --release  flag follow the same policy as for  -source  and  -target , one plus three back.
+The  javac  can recognize and process class files of all previous JDKs, going all the way back to JDK 1.0.2 class files.
+See  JEP 182: Policy for Retiring javac -source and -target Options .
+Critical internal JDK APIs such as  sun.misc.Unsafe  are still accessible in JDK 11 and later, but most of the JDK’s internal APIs are not accessible at compile time. You may get compilation errors that indicate that your application or its libraries are dependent on internal APIs.
+To identify the dependencies, run the Java Dependency Analysis tool. See  Run jdeps on Your Code . If possible, update your code to use the supported replacement APIs.
+You may use the   --add-exports   and   --add-opens    options as a temporary
+workaround to compile source code with references
+to JDK internal classes. See  JEP 261: Module
+System  and  Strong Encapsulation in the JDK  for more information about these options.
+You may see more deprecation warnings than previously.
+Run jdeps on Your Code
+Run the  jdeps  tool on your application to see what packages and classes your applications and libraries depend on. If you use internal APIs, then  jdeps  may suggest replacements to help you to update your code.
+To look for dependencies on internal JDK APIs, run  jdeps  with the  -jdkinternals  option. For example, if you run  jdeps  on a class that calls  sun.misc.BASE64Encoder , you’ll see:
+> jdeps -jdkinternals Sample.class
+Sample.class -> JDK removed internal API
+Sample  -> sun.misc.BASE64Encoder  JDK internal API (JDK removed internal API)
+Warning: JDK internal APIs are unsupported and private to JDK implementation that are
+subject to be removed or changed incompatibly and could break your application.
+Please modify your code to eliminate dependency on any JDK internal APIs.
+For the most recent update on JDK internal API replacements, please check:
+https://wiki.openjdk.java.net/display/JDK8/Java+Dependency+Analysis+Tool
+JDK Internal API                         Suggested Replacement
+----------------                         ---------------------
+sun.misc.BASE64Encoder                   Use java.util.Base64 @since 1.8   If you use Maven, there’s a  jdeps   plugin available.
+For  jdeps  syntax, see   jdeps   in the   Java Development Kit Tool Specifications  .
+Keep in mind that  jdeps  is a static analysis tool, and static analysis of code might not provide a complete list of dependencies. If the code uses reflection to call an internal API, then  jdeps  doesn’t warn you.

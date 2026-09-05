@@ -5,5 +5,17 @@
   "artifacts_path": "migration-runs/jade-11-to-17/artifacts",
   "source_version": "11",
   "target_version": "17",
-  "baseline_rationale": "Chains from the CORBA-removal variant of 8-to-11, not from the retrofit on master. Starting from the retrofit would carry the vendored GlassFish ORB into 17, which is the dependency the sponsors asked to be removed."
+  "baseline_rationale": "Chains from the CORBA-removal variant of 8-to-11, not from the retrofit on master. Starting from the retrofit would carry the vendored GlassFish ORB into 17, which is the dependency the sponsors asked to be removed.",
+  "precision_gate": {
+    "enabled": true,
+    "min_precision": 0.7,
+    "sample_size": 30,
+    "max_sample_size": 120,
+    "context_lines": 3,
+    "undecidable_max_ratio": 0.2,
+    "max_revisions": 3,
+    "seed_scope": "rule+pattern",
+    "manifest_evidence": "digest",
+    "on_reject": "REWRITE_PATTERN"
+  }
 }

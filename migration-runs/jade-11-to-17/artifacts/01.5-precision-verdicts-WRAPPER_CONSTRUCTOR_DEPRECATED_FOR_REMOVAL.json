@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "rule_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+  "sample_artifact": "01.5-precision-sample-WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL.json",
+  "sample_hash": "944e256faf213bf0e80e6427064f83b2aa1c5f9a82667a6e3f3faf4509976721",
+  "verdicts": [
+    {
+      "hit_id": "4e6765e36aee2938",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "fda743c7a509b1fd",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "b6be4db3322845fd",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "7b46cd0545937efc",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "7a43727b24ba3465",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "17db5b8b9cf894d9",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "b35ce45be730a664",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "b92de7a4030466f3",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "f2bc98838204b6a6",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "a20a58d7da37806c",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "194f6af7b1dd8e88",
+      "verdict": "FALSE_POSITIVE",
+      "reason": "Inside the block comment opened at MMCanvas.java:427 ('/*if (mess.getConversationId() ...'); javac emits no removal warning for this line and java_source.classify_lines reports 'comment'.",
+      "false_positive_class": "COMMENT_OR_STRING"
+    },
+    {
+      "hit_id": "98071b0744d6d8ab",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "27b2fa2be2e017ca",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "3e78a7293b0d74d0",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "7d47c29e27b01b04",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "0baa7b6e2337e304",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "1a7fad8d18c2fde7",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "bd22c34166559c7c",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "046d7f14a9fabd41",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "d9c21a60dd00d102",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "b0a4839cb634eda4",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "2bf59a64d1fabee8",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "74f6552a94987cd0",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "e0a04073f74d62b5",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "ed9c52403a563cbd",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "d97c35f5248444e3",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "0a94ab5e8b230124",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "a5c0c990f085a999",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "ad92adf0a245170c",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    },
+    {
+      "hit_id": "95b88d9f46117826",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Live call to a primitive wrapper constructor; javac on JDK 17 emits '[removal] ... has been deprecated and marked for removal' for this exact file and line."
+    }
+  ]
+}

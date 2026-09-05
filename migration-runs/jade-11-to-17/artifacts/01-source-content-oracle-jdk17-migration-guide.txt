@@ -1,0 +1,22 @@
+Getting Started
+Previous
+Next
+JavaScript must be enabled to correctly display this content
+Oracle JDK Migration Guide
+Getting Started
+1  Getting Started
+The guide highlights the significant changes and enhancements done in JDK
+17 .
+This guide contains the following sections:
+Significant Changes in the JDK
+Security Updates
+Removed APIs
+Removed Tools and Components
+Preparing For Migration
+Migrating From JDK 8 to Later JDK Releases
+Next Steps
+Note:
+Check the  Oracle JDK Certified System Configurations  for the
+latest supported platforms and operating system versions.
+See  Removed APIs, Tools, and
+Components  before you start the migration process.

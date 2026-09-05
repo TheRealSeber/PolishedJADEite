@@ -1,0 +1,284 @@
+[
+  {
+    "id": "RMIC_TOOL_REMOVED",
+    "name": "The rmic static stub compiler was removed in JDK 15, breaking the Ant rmic task",
+    "description": "The RMI static stub compiler rmic was deprecated for removal in JDK 13 and removed in JDK 15. JADE's build.xml calls Ant's <rmic> task twice at the end of the 'jade' target to pregenerate JRMP stubs for jade.imtp.rmi.ServiceManagerRMIImpl and jade.imtp.rmi.NodeRMIImpl. On a JDK 17 toolchain Ant refuses the task outright with 'rmic does not exist under Java 15 and higher', so the build stops after javac has already succeeded. This is the only change in the 11-to-17 window that stops the JADE build; everything else in this manifest compiles. Both implementation classes extend java.rmi.server.UnicastRemoteObject, which has generated stubs dynamically since Java 5, so deleting the two pregeneration steps removes a build dependency without removing a runtime capability.",
+    "fix_strategy": "recipe:jade-recipe-11-17-rmic-task-removal",
+    "severity": "HIGH",
+    "category": "BUILD",
+    "blast_class": "body-local",
+    "blast_class_evidence": {
+      "classification": "body-local",
+      "reason": "Both sites are standalone <rmic/> elements inside the 'jade' Ant target. Deleting them changes no Java declaration, no Ant property and no other target's dependency list, so nothing outside the enclosing target has to be edited.",
+      "witnesses": [
+        {
+          "file": "src/jade/build.xml",
+          "line": 154,
+          "code": "<rmic classname=\"jade.imtp.rmi.ServiceManagerRMIImpl\" base=\"${build}\"/>",
+          "note": "jade.imtp.rmi.ServiceManagerRMIImpl extends UnicastRemoteObject (ServiceManagerRMIImpl.java:46); dynamic stubs replace the static ones"
+        },
+        {
+          "file": "src/jade/build.xml",
+          "line": 155,
+          "code": "<rmic classname=\"jade.imtp.rmi.NodeRMIImpl\" base=\"${build}\"/>",
+          "note": "jade.imtp.rmi.NodeRMIImpl extends UnicastRemoteObject (NodeRMIImpl.java:38); same reasoning"
+        }
+      ],
+      "escalation_condition": "If a consumer loads a pregenerated *_Stub class by name instead of letting UnicastRemoteObject export the object, dynamic stubs will not cover it and the recipe must stop and report rather than delete."
+    },
+    "match_pattern": "<\\s*rmic\\b",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "<\\s*rmic\\b",
+        "target_extensions": [
+          ".xml"
+        ],
+        "reason": "Ant <rmic> task; the rmic tool it drives was removed in JDK 15 and Ant refuses the task on JDK 15+",
+        "confidence": 0.98
+      }
+    ],
+    "evidence_ref": "oracle-jdk15-release-notes::lines 271-273",
+    "evidence_hash": "d21f96c22483f3c091010fb01a27f3b17340ce5f26c147add7bbc038a24e77db",
+    "confidence": 0.98,
+    "pattern_revision": 1,
+    "verification_hint": "No build file in the workspace contains an <rmic element. 'ant clean lib' inside jade-ant:17 prints BUILD SUCCESSFUL and exits 0, and lib/jade.jar is produced. All consumers still PASS."
+  },
+  {
+    "id": "BUILD_JAVAC_SOURCE_TARGET_17",
+    "name": "javac source/target still pinned at 11 after the jump to 17",
+    "description": "The javac task in build.xml pins source=\"11\" and target=\"11\". JDK 17 still accepts those values -- the Oracle migration guide lists 17, 16, 15, 14, 13, 12, 11, 10, 9, 8 and 7 as supported -source/-target values, and a probe build on jade-ant:17 compiled all 972 sources with zero errors at source/target 11. This rule is therefore NOT a build blocker and must not be described as one. What it fixes is that the artifact produced by a run whose target_version is 17 would otherwise still be a Java 11 artifact (class file major version 55), so the jump would be nominal. JEP 182 retires -source/-target values on a 'one plus three back' schedule, which is why 11 has a shelf life rather than a permanent home.",
+    "fix_strategy": "recipe:jade-recipe-11-17-javac-source-target",
+    "severity": "MEDIUM",
+    "category": "BUILD",
+    "blast_class": "body-local",
+    "blast_class_evidence": {
+      "classification": "body-local",
+      "reason": "Two attribute values inside a single <javac> element. No Java declaration changes; the compiler is asked for a newer class-file version of the same sources.",
+      "witnesses": [
+        {
+          "file": "src/jade/build.xml",
+          "line": 141,
+          "code": "target=\"11\"",
+          "note": "javac task attribute; probe build at target=\"17\" produced 0 errors and 315 warnings"
+        },
+        {
+          "file": "src/jade/build.xml",
+          "line": 142,
+          "code": "source=\"11\"",
+          "note": "javac task attribute; JADE uses no identifier named 'record', 'yield' or '_' so no restricted-identifier break at source 17"
+        }
+      ],
+      "escalation_condition": "If a consumer in consumer-playground still runs on a JDK older than 17, raising target to 17 makes jade.jar unloadable there (UnsupportedClassVersionError). The recipe must confirm every consumer image is java-17 before applying, and stop otherwise."
+    },
+    "match_pattern": "^\\s*(?:source|target)\\s*=\\s*\"11\"\\s*$",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "^\\s*(?:source|target)\\s*=\\s*\"11\"\\s*$",
+        "target_extensions": [
+          ".xml"
+        ],
+        "reason": "javac source/target still pinned to the source version of this jump; the run targets 17",
+        "confidence": 0.95
+      }
+    ],
+    "evidence_ref": "oracle-jdk17-migrate-preparing::lines 63-65, 72",
+    "evidence_hash": "0d1cbd27d9cc0e1c0b66e2d1e0eec6991ae0c786fd15f77da3acf69290492394",
+    "confidence": 0.95,
+    "pattern_revision": 1,
+    "verification_hint": "build.xml carries source=\"17\" and target=\"17\". 'ant clean lib' on jade-ant:17 exits 0 with BUILD SUCCESSFUL, and 'javap -v' on a class inside the produced jade.jar reports major version 61."
+  },
+  {
+    "id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+    "name": "Primitive wrapper constructors deprecated for removal in JDK 16",
+    "description": "JEP 390 (JDK 16) designated the primitive wrapper classes as value-based and deprecated their constructors for removal. Compiling JADE on JDK 17 with -Xlint:removal produces 144 removal warnings for new Boolean/Integer/Long/Double/Float/Character calls -- the single largest terminally-deprecated surface in the codebase. The code still compiles and runs on 17; the exposure is that these constructors are the ones scheduled to disappear. The fix is the documented replacement, the corresponding valueOf factory.",
+    "fix_strategy": "recipe:jade-recipe-11-17-wrapper-valueof",
+    "severity": "MEDIUM",
+    "category": "DEPRECATION",
+    "blast_class": "body-local",
+    "blast_class_evidence": {
+      "classification": "body-local",
+      "reason": "Every hit is an expression inside a method body, field initializer or argument list. new Integer(x) and Integer.valueOf(x) have the same static type, so no field type, method signature or return type changes and no caller outside the enclosing declaration is affected.",
+      "witnesses": [
+        {
+          "file": "src/jade/src/jade/BootHelper.java",
+          "line": 89,
+          "code": "returnState.push(new Integer(BETWEENTOKENS));",
+          "note": "argument to java.util.Stack.push(Object); the parameter type stays Object either way"
+        },
+        {
+          "file": "src/jade/src/jade/content/abs/AbsPrimitive.java",
+          "line": 85,
+          "code": "new Integer(value)",
+          "note": "value stored into an Object-typed slot of an abstract descriptor; declared types unchanged"
+        },
+        {
+          "file": "src/jade/src/jade/core/ProfileImpl.java",
+          "line": 108,
+          "code": "new Boolean(...)",
+          "note": "Boolean.valueOf returns the interned TRUE/FALSE instances; see escalation_condition"
+        }
+      ],
+      "escalation_condition": "valueOf may return a cached, shared instance where the constructor always returned a fresh one. Any site that compares wrappers with ==, uses one as a synchronization monitor, or stores one in an IdentityHashMap changes behaviour. The recipe must leave such a site untouched and report it instead of converting it."
+    },
+    "match_pattern": "\\bnew\\s+(?:java\\.lang\\.)?(?:Boolean|Byte|Character|Double|Float|Integer|Long|Short)\\s*\\(",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "\\bnew\\s+(?:java\\.lang\\.)?(?:Boolean|Byte|Character|Double|Float|Integer|Long|Short)\\s*\\(",
+        "target_extensions": [
+          ".java"
+        ],
+        "reason": "primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory",
+        "confidence": 0.95
+      }
+    ],
+    "evidence_ref": "oracle-jdk16-release-notes::lines 184-186",
+    "evidence_hash": "ed06a957eb372c10047e5e32ae3ee044a8bfb309f36bdb93a9582b43b87f4e6b",
+    "confidence": 0.95,
+    "pattern_revision": 1,
+    "verification_hint": "Recompiling on jade-ant:17 with -Xlint:removal -Xmaxwarns 100000 reports zero '[removal] ... in Boolean/Integer/Long/Double/Float/Character has been deprecated and marked for removal' warnings, down from 144. All consumers still PASS."
+  },
+  {
+    "id": "APPLET_API_DEPRECATED_FOR_REMOVAL",
+    "name": "java.applet.Applet deprecated for removal in JDK 17",
+    "description": "JEP 398 (JDK 17) deprecates java.applet.Applet, AppletStub, AppletContext, AudioClip, javax.swing.JApplet and java.beans.AppletInitializer for removal, on the grounds that browser vendors have dropped the Java plug-in. JADE carries an applet entry point (jade.AppletBoot) and an applet-hosted DF GUI client (jade.tools.applet). Compiling on JDK 17 produces four [removal] warnings for Applet; the code still compiles and the classes still load, so nothing is broken today. What the rule records is that this subtree has no supported deployment target left and is on the removal list for a future release.",
+    "fix_strategy": "recipe:jade-recipe-11-17-applet-api-removal",
+    "severity": "MEDIUM",
+    "category": "DEPRECATION",
+    "blast_class": "signature",
+    "blast_class_evidence": {
+      "classification": "signature",
+      "reason": "Two of the sites are 'extends Applet' on public classes and two are a field type and a constructor parameter type. Removing the Applet dependency changes the supertype of AppletBoot and DFApplet and the declared type of DFAppletCommunicator's field and constructor parameter, so every caller and subclass has to move with it.",
+      "witnesses": [
+        {
+          "file": "src/jade/src/jade/AppletBoot.java",
+          "line": 42,
+          "code": "public class AppletBoot extends Applet implements Runnable {",
+          "note": "supertype; init()/destroy() are Applet lifecycle overrides and getCodeBase()/getParameter() are inherited Applet methods"
+        },
+        {
+          "file": "src/jade/src/jade/tools/applet/DFApplet.java",
+          "line": 45,
+          "code": "public class DFApplet extends Applet {",
+          "note": "supertype; its init() constructs DFAppletCommunicator(this), so the two classes have to change together"
+        },
+        {
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "line": 80,
+          "code": "public DFAppletCommunicator(Applet applet) {",
+          "note": "public constructor parameter type; also the field 'private Applet a;' at line 58"
+        }
+      ],
+      "escalation_condition": "Deleting the applet subtree is a product decision, not a compiler one: jade.tools.dfgui.DFGUI and the DFAppletOntology in jade.domain are wired to it, and jade/tools/applet/DFapplet.html is a shipped artifact. The recipe must present the dependency set and stop rather than delete on its own authority."
+    },
+    "match_pattern": "import\\s+java\\.applet\\b|\\bextends\\s+Applet\\b|(?<![-\\w.$])Applet\\s+[a-z]\\w*\\s*[;,)]",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "import\\s+java\\.applet\\b|\\bextends\\s+Applet\\b|(?<![-\\w.$])Applet\\s+[a-z]\\w*\\s*[;,)]",
+        "target_extensions": [
+          ".java"
+        ],
+        "reason": "java.applet import, or a bare Applet type in a supertype / field / parameter position; revision 1 matched the bare token anywhere and caught 10 javadoc mentions of the 'DF-Applet' ontology, so revision 2 requires a type position",
+        "confidence": 0.9
+      }
+    ],
+    "evidence_ref": "jep398-applet-api-deprecation::lines 2, 6-12",
+    "evidence_hash": "3ea965afd3b2ae4c4cd7d1882adb6378c83edc8406b3580590cb4febd98fcc17",
+    "confidence": 0.95,
+    "pattern_revision": 2,
+    "verification_hint": "Recompiling on jade-ant:17 with -Xlint:removal reports zero '[removal] Applet in java.applet' warnings, down from four, and no .java file imports java.applet. The build still exits 0 and all consumers PASS."
+  },
+  {
+    "id": "MULTICAST_SOCKET_GROUP_API_DEPRECATED",
+    "name": "MulticastSocket.joinGroup(InetAddress)/leaveGroup(InetAddress) deprecated in JDK 17",
+    "description": "JDK 17 (JDK-8237352) added joinGroup/leaveGroup to java.net.DatagramSocket and states that the MulticastSocket API 'works as before, although most of its methods are deprecated'. JADE's main-container discovery listener joins and leaves the multicast group through the two deprecated InetAddress overloads. Behaviour on 17 is unchanged -- this is a plain deprecation, not a removal and not a semantic change -- so the rule is LOW.",
+    "fix_strategy": "recipe:jade-recipe-11-17-multicast-group-api",
+    "severity": "LOW",
+    "category": "DEPRECATION",
+    "blast_class": "body-local",
+    "blast_class_evidence": {
+      "classification": "body-local",
+      "reason": "Both calls are statements inside methods of MulticastMainDetectionListener, on a private MulticastSocket field. The replacement overload takes a SocketAddress and a NetworkInterface; the field type and both enclosing method signatures stay as they are.",
+      "witnesses": [
+        {
+          "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
+          "line": 50,
+          "code": "socket.joinGroup(mcastGroupAddress);",
+          "note": "inside the constructor's setup block; 'socket' is the private MulticastSocket field declared at line 28"
+        },
+        {
+          "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java",
+          "line": 67,
+          "code": "socket.leaveGroup(mcastGroupAddress);",
+          "note": "inside stop(); paired with the joinGroup above, so the two must move together"
+        }
+      ],
+      "escalation_condition": "joinGroup(SocketAddress, NetworkInterface) needs an interface argument where the deprecated overload used the system default. Passing null preserves today's behaviour; naming a specific interface is a deployment decision and the recipe must not invent one."
+    },
+    "match_pattern": "\\.(?:join|leave)Group\\s*\\(",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "\\.(?:join|leave)Group\\s*\\(",
+        "target_extensions": [
+          ".java"
+        ],
+        "reason": "deprecated MulticastSocket.joinGroup/leaveGroup(InetAddress) overload; JDK 17 moved multicast onto DatagramSocket",
+        "confidence": 0.9
+      }
+    ],
+    "evidence_ref": "oracle-jdk17-release-notes::lines 4144-4146",
+    "evidence_hash": "922e445a8f7f313353a1e6028940838ebebf741c72e7aa4b4e74bd1d69fa4a19",
+    "confidence": 0.9,
+    "pattern_revision": 1,
+    "verification_hint": "Recompiling on jade-ant:17 reports no '[deprecation] joinGroup(InetAddress)' or 'leaveGroup(InetAddress) in MulticastSocket' warnings. A two-container JADE platform still discovers its main container over multicast."
+  },
+  {
+    "id": "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL",
+    "name": "ThreadGroup.destroy() terminally deprecated in JDK 16",
+    "description": "JDK 16 terminally deprecated ThreadGroup.stop, destroy, isDestroyed, setDaemon and isDaemon, stating that the API and mechanism for destroying a ThreadGroup is inherently flawed and will be removed in a future release. jade.core.Runtime calls destroy() on its time-critical ThreadGroup during shutdown, inside a try/catch that already tolerates IllegalThreadStateException and a finally that nulls the field. On JDK 17 the call still works, so nothing is broken today; the fix is to drop the call and keep the field reset, which is what the JDK's own guidance amounts to. The pattern is receiver-enumerated rather than general: 'x.destroy()' cannot be resolved to ThreadGroup by a line-based scanner, and the untyped form scored 0.33 against the 0.7 gate.",
+    "fix_strategy": "recipe:jade-recipe-11-17-threadgroup-destroy",
+    "severity": "LOW",
+    "category": "DEPRECATION",
+    "blast_class": "body-local",
+    "blast_class_evidence": {
+      "classification": "body-local",
+      "reason": "One statement inside jade.core.Runtime's shutdown path. The enclosing try/catch/finally already handles the failure case and the finally clause performs the only effect that matters (criticalThreads = null), so removing the statement changes no declaration and no caller.",
+      "witnesses": [
+        {
+          "file": "src/jade/src/jade/core/Runtime.java",
+          "line": 297,
+          "code": "criticalThreads.destroy();",
+          "note": "javac on JDK 17 flags exactly this line: '[removal] destroy() in ThreadGroup has been deprecated and marked for removal'"
+        },
+        {
+          "file": "src/jade/src/jade/core/Runtime.java",
+          "line": 73,
+          "code": "private ThreadGroup criticalThreads;",
+          "note": "the receiver's declared type -- this is what separates the site from the two Applet.destroy() calls in DFAppletCommunicator"
+        }
+      ],
+      "escalation_condition": "The catch branch logs 'Time-critical threads still active' and calls criticalThreads.list(). If that diagnostic is relied on operationally, removing destroy() removes the only thing that triggers it; the recipe must keep the log or report the loss rather than silently drop it."
+    },
+    "match_pattern": "(?<![\\w.$])(?:criticalThreads|agentThreads|systemAgentThreads)\\s*\\.\\s*(?:destroy|isDestroyed|stop|setDaemon|isDaemon|suspend|resume)\\s*\\(",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "(?<![\\w.$])(?:criticalThreads|agentThreads|systemAgentThreads)\\s*\\.\\s*(?:destroy|isDestroyed|stop|setDaemon|isDaemon|suspend|resume)\\s*\\(",
+        "target_extensions": [
+          ".java"
+        ],
+        "reason": "terminally deprecated ThreadGroup member invoked on one of the workspace's own ThreadGroup-typed fields (FullResourceManager.java:39-42, Runtime.java:73). Revision 1 was the untyped '\\.destroy\\(\\)' and caught two java.applet.Applet.destroy() calls; a line-based regex cannot resolve the receiver's type, so revision 2 enumerates the ThreadGroup-typed receivers actually declared in this tree. The limitation is deliberate and recorded: a ThreadGroup held in a differently named variable would not be flagged, which is why the verification hint checks with javac rather than with this regex",
+        "confidence": 0.95
+      }
+    ],
+    "evidence_ref": "oracle-jdk16-release-notes::lines 366-369",
+    "evidence_hash": "ed06a957eb372c10047e5e32ae3ee044a8bfb309f36bdb93a9582b43b87f4e6b",
+    "confidence": 0.9,
+    "pattern_revision": 2,
+    "verification_hint": "Recompiling on jade-ant:17 with -Xlint:removal reports no '[removal] destroy() in ThreadGroup' warning. A JADE container still shuts down cleanly and all consumers PASS."
+  }
+]

@@ -1,0 +1,797 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "                } else {",
+        "                    token.append(ch);",
+        "                }"
+      ],
+      "context_before": [
+        "                } else if (ch == '\\\\') {",
+        "                    state = ESCAPE;",
+        ""
+      ],
+      "file": "src/jade/src/jade/BootHelper.java",
+      "hit_id": "4e6765e36aee2938",
+      "line": 140,
+      "line_hash": "9901306db51b87ce",
+      "line_text": "                    returnState.push(new Integer(STRINGTOKEN));",
+      "line_truncated": false,
+      "match_span": [
+        37,
+        49
+      ],
+      "match_text": "new Integer(",
+      "pattern_index": 0,
+      "rank": 0
+    },
+    {
+      "context_after": [
+        "                                \"Disable Mobility\",",
+        "                                false));",
+        "        return pv;"
+      ],
+      "context_before": [
+        "                                false));",
+        "        pv.add(new PropertyType(BootProfileImpl.NOMOBILITY_KEY,",
+        "                                PropertyType.BOOLEAN_TYPE,"
+      ],
+      "file": "src/jade/src/jade/BootGUI.java",
+      "hit_id": "fda743c7a509b1fd",
+      "line": 642,
+      "line_hash": "0c31d3d484721b5c",
+      "line_text": "                                new Boolean(theProperties.getBooleanProperty(BootProfileImpl.NOMOBILITY_KEY,false)).toString(),",
+      "line_truncated": false,
+      "match_span": [
+        32,
+        44
+      ],
+      "match_text": "new Boolean(",
+      "pattern_index": 0,
+      "rank": 1
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\t}",
+        "\t\t\t\t}",
+        "\t\t\t\telse if (destClass == Float.class ||"
+      ],
+      "context_before": [
+        "\t\t\t\t\t\tdestValue = new Long(((Integer)srcValue).longValue());",
+        "\t\t\t\t\t} ",
+        "\t\t\t\t\telse if (srcClass == String.class) {"
+      ],
+      "file": "src/jade/src/jade/content/onto/BasicOntology.java",
+      "hit_id": "b6be4db3322845fd",
+      "line": 534,
+      "line_hash": "2a28de8b7780dd93",
+      "line_text": "\t\t\t\t\t\tdestValue = new Long(Long.parseLong((String)srcValue));",
+      "line_truncated": false,
+      "match_span": [
+        18,
+        27
+      ],
+      "match_text": "new Long(",
+      "pattern_index": 0,
+      "rank": 2
+    },
+    {
+      "context_after": [
+        "            \t\t  constraints.setMaxDepth(d);",
+        "            \t\telse",
+        "            \t\t\t{"
+      ],
+      "context_before": [
+        "            \t{",
+        "            \t\tLong d = Long.valueOf(depth);",
+        "            \t\t"
+      ],
+      "file": "src/jade/src/jade/gui/ConstraintDlg.java",
+      "hit_id": "7b46cd0545937efc",
+      "line": 160,
+      "line_hash": "4479960ea9590305",
+      "line_text": "            \t\tif(d.compareTo(new Long(0)) >= 0)",
+      "line_truncated": false,
+      "match_span": [
+        29,
+        38
+      ],
+      "match_text": "new Long(",
+      "pattern_index": 0,
+      "rank": 3
+    },
+    {
+      "context_after": [
+        "      int ss = I.intValue();",
+        "",
+        "      Calendar cal = new GregorianCalendar(YY, MM - 1, DD, hh, mm, ss);"
+      ],
+      "context_before": [
+        "      int hh = I.intValue();",
+        "      I = new Integer(min.getText());",
+        "      int mm = I.intValue();"
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+      "hit_id": "7a43727b24ba3465",
+      "line": 287,
+      "line_hash": "437e25c2a0fc67e1",
+      "line_text": "      I = new Integer(sec.getText());",
+      "line_truncated": false,
+      "match_span": [
+        10,
+        22
+      ],
+      "match_text": "new Integer(",
+      "pattern_index": 0,
+      "rank": 4
+    },
+    {
+      "context_after": [
+        "\t\t// New globally unique search-id unless already present",
+        "\t\tString searchId = constraints.getSearchId();",
+        "\t\tif (searchId == null) {"
+      ],
+      "context_before": [
+        "\t\t// Max-depth decreased by 1",
+        "\t\tnewConstr.setMaxDepth(new Long ((long) (maxDep - 1)));",
+        "\t\t// Max-results decreased by the number of items found locally"
+      ],
+      "file": "src/jade/src/jade/domain/df.java",
+      "hit_id": "17db5b8b9cf894d9",
+      "line": 765,
+      "line_hash": "a30bc8fbdc8620f8",
+      "line_text": "\t\tnewConstr.setMaxResults(new Long((long) (maxRes - localResults.size())));",
+      "line_truncated": false,
+      "match_span": [
+        26,
+        35
+      ],
+      "match_text": "new Long(",
+      "pattern_index": 0,
+      "rank": 5
+    },
+    {
+      "context_after": [
+        "\t\t}",
+        "",
+        "\t\tEventRecord er = new EventRecord(da, localContainer);"
+      ],
+      "context_before": [
+        "\t\tda.setAgent(agentID);",
+        "\t\tda.setWhere(cid);",
+        "\t\tif (ev.getContainerRemoved()) {"
+      ],
+      "file": "src/jade/src/jade/domain/AMSEventQueueFeeder.java",
+      "hit_id": "b35ce45be730a664",
+      "line": 83,
+      "line_hash": "4c011c89ca16592d",
+      "line_text": "\t\t\tda.setContainerRemoved(new Boolean(true));",
+      "line_truncated": false,
+      "match_span": [
+        26,
+        38
+      ],
+      "match_text": "new Boolean(",
+      "pattern_index": 0,
+      "rank": 6
+    },
+    {
+      "context_after": [
+        "\t\t\t\tSkeleton s = (Skeleton) skeletons.get(id);",
+        "\t\t\t\tif (s != null) {",
+        "\t\t\t\t\tresponse = s.processCommand(command);"
+      ],
+      "context_before": [
+        "\t\t\t\t",
+        "\t\t\t\t// If this is a normal Command, let the proper Skeleton",
+        "\t\t\t\t// process it."
+      ],
+      "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+      "hit_id": "b92de7a4030466f3",
+      "line": 962,
+      "line_hash": "eb7a2fc1f89c6a84",
+      "line_text": "\t\t\t\tInteger id = new Integer(command.getObjectID());",
+      "line_truncated": false,
+      "match_span": [
+        17,
+        29
+      ],
+      "match_text": "new Integer(",
+      "pattern_index": 0,
+      "rank": 7
+    },
+    {
+      "context_after": [
+        "    searchConstraints.setMaxResults(new Long(100));",
+        "",
+        "    Search search = new Search();"
+      ],
+      "context_before": [
+        "",
+        "    AMSAgentDescription amsAgentDescription = new AMSAgentDescription();",
+        "    SearchConstraints searchConstraints = new SearchConstraints();"
+      ],
+      "file": "src/jade/src/jade/tools/testagent/TestAgent.java",
+      "hit_id": "f2bc98838204b6a6",
+      "line": 163,
+      "line_hash": "9c047998549d322f",
+      "line_text": "    searchConstraints.setMaxDepth(new Long(100));",
+      "line_truncated": false,
+      "match_span": [
+        34,
+        43
+      ],
+      "match_text": "new Long(",
+      "pattern_index": 0,
+      "rank": 8
+    },
+    {
+      "context_after": [
+        "\t\t}",
+        "\t\telse {",
+        "\t\t\t// No escaping"
+      ],
+      "context_before": [
+        "\t\t//#MIDP_EXCLUDE_END",
+        "\t\t//#J2ME_INCLUDE_END",
+        "\t\tif (escapeChar.length() > 0) {"
+      ],
+      "file": "src/jade/src/jade/core/Specifier.java",
+      "hit_id": "a20a58d7da37806c",
+      "line": 157,
+      "line_hash": "137b9345cc03d944",
+      "line_text": "\t\t\treturn new Character(escapeChar.charAt(0));",
+      "line_truncated": false,
+      "match_span": [
+        10,
+        24
+      ],
+      "match_text": "new Character(",
+      "pattern_index": 0,
+      "rank": 9
+    },
+    {
+      "context_after": [
+        "             colorIndex = colorCounter;",
+        "             //System.out.println(\"Making new:\" + colorIndex);",
+        "           }"
+      ],
+      "context_before": [
+        "",
+        "           // If not, then we get the next color value.",
+        "           if (colorIndex.intValue() == -1) {"
+      ],
+      "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+      "hit_id": "194f6af7b1dd8e88",
+      "line": 448,
+      "line_hash": "c1769f4a8aa35f75",
+      "line_text": "             colorCounter = new Integer(colorCounter.intValue() + 1);",
+      "line_truncated": false,
+      "match_span": [
+        28,
+        40
+      ],
+      "match_text": "new Integer(",
+      "pattern_index": 0,
+      "rank": 10
+    },
+    {
+      "context_after": [
+        "                } else {",
+        "                    token.append(ch);",
+        "                }"
+      ],
+      "context_before": [
+        "                } else if (ch == '\\\\') {",
+        "                    state = ESCAPE;",
+        ""
+      ],
+      "file": "src/jade/src/jade/BootHelper.java",
+      "hit_id": "98071b0744d6d8ab",
+      "line": 124,
+      "line_hash": "d55a749ffcbaeaa8",
+      "line_text": "                    returnState.push(new Integer(WORDTOKEN));",
+      "line_truncated": false,
+      "match_span": [
+        37,
+        49
+      ],
+      "match_text": "new Integer(",
+      "pattern_index": 0,
+      "rank": 11
+    },
+    {
+      "context_after": [
+        "      int mm = I.intValue();",
+        "      I = new Integer(sec.getText());",
+        "      int ss = I.intValue();"
+      ],
+      "context_before": [
+        "      int DD = I.intValue();",
+        "      I = new Integer(hour.getText());",
+        "      int hh = I.intValue();"
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+      "hit_id": "27b2fa2be2e017ca",
+      "line": 285,
+      "line_hash": "b6a818776161eca8",
+      "line_text": "      I = new Integer(min.getText());",
+      "line_truncated": false,
+      "match_span": [
+        10,
+        22
+      ],
+      "match_text": "new Integer(",
+      "pattern_index": 0,
+      "rank": 12
+    },
+    {
+      "context_after": [
+        "                                \"Select to launch the RMA Gui\",",
+        "                                false));",
+        "                             "
+      ],
+      "context_before": [
+        "                                        ",
+        "        pv.add(new PropertyType(BootProfileImpl.GUI_KEY,",
+        "                                PropertyType.BOOLEAN_TYPE,"
+      ],
+      "file": "src/jade/src/jade/BootGUI.java",
+      "hit_id": "3e78a7293b0d74d0",
+      "line": 594,
+      "line_hash": "74b79537cff05d5e",
+      "line_text": "                                new Boolean(theProperties.getBooleanProperty(BootProfileImpl.GUI_KEY, false)).toString(),",
+      "line_truncated": false,
+      "match_span": [
+        32,
+        44
+      ],
+      "match_text": "new Boolean(",
+      "pattern_index": 0,
+      "rank": 13
+    },
+    {
+      "context_after": [
+        "\t\tcmd.addParam(new Integer(pingDelay));",
+        "\t\tcmd.addParam(new Long(key));",
+        ""
+      ],
+      "context_before": [
+        "\t\tGenericCommand cmd = new GenericCommand(H_ACTIVATEUDP, UDPNodeMonitoringService.NAME, null);",
+        "\t\tcmd.addParam(label);",
+        "\t\tcmd.addParam(host);"
+      ],
+      "file": "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringProxy.java",
+      "hit_id": "7d47c29e27b01b04",
+      "line": 20,
+      "line_hash": "2b9b1e839f7fc3dd",
+      "line_text": "\t\tcmd.addParam(new Integer(port));",
+      "line_truncated": false,
+      "match_span": [
+        15,
+        27
+      ],
+      "match_text": "new Integer(",
+      "pattern_index": 0,
+      "rank": 14
+    },
+    {
+      "context_after": [
+        "                                \"Disable all external MTPs on this container\",",
+        "                                false));",
+        "                                         "
+      ],
+      "context_before": [
+        "                                       ",
+        "        pv.add(new PropertyType(BootProfileImpl.NOMTP_KEY,",
+        "                                PropertyType.BOOLEAN_TYPE,"
+      ],
+      "file": "src/jade/src/jade/BootGUI.java",
+      "hit_id": "0baa7b6e2337e304",
+      "line": 625,
+      "line_hash": "867f77d9491a4512",
+      "line_text": "                                new Boolean(theProperties.getBooleanProperty(BootProfileImpl.NOMTP_KEY, false)).toString(),",
+      "line_truncated": false,
+      "match_span": [
+        32,
+        44
+      ],
+      "match_text": "new Boolean(",
+      "pattern_index": 0,
+      "rank": 15
+    },
+    {
+      "context_after": [
+        "\t\t\t}",
+        "\t\t}",
+        "\t\t"
+      ],
+      "context_before": [
+        "\t\t\t\t// If the name is already in the GADT, throws NameClashException",
+        "\t\t\t\tbornAgent(agentID, cid, null, ownership, false);",
+        "\t\t\t\t// Since bornAgent() succeeded, directly apply forceReplacement on replicated Main Containers "
+      ],
+      "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java",
+      "hit_id": "1a7fad8d18c2fde7",
+      "line": 772,
+      "line_hash": "fa18def388886610",
+      "line_text": "\t\t\t\treplicationHandle.invokeReplicatedMethod(\"bornAgent\", new Object[]{agentID, cid, null, ownership, new Boolean(true)});",
+      "line_truncated": false,
+      "match_span": [
+        102,
+        114
+      ],
+      "match_text": "new Boolean(",
+      "pattern_index": 0,
+      "rank": 16
+    },
+    {
+      "context_after": [
+        "\t\t\t}",
+        "\t\t\tcatch (Exception e) {",
+        "\t\t\t}"
+      ],
+      "context_before": [
+        "\t\t\t// Long",
+        "\t\t\ttry {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review"
+      ],
+      "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
+      "hit_id": "bd22c34166559c7c",
+      "line": 194,
+      "line_hash": "d9ba08ed7171f698",
+      "line_text": "\t\t\t\treturn new Long(Long.parseLong(val));",
+      "line_truncated": false,
+      "match_span": [
+        11,
+        20
+      ],
+      "match_text": "new Long(",
+      "pattern_index": 0,
+      "rank": 17
+    },
+    {
+      "context_after": [
+        "                    \tconstraints.setMaxResults(r);              \t",
+        "\t\t\t\t\telse{",
+        "\t\t\t\t\t\tJOptionPane.showMessageDialog(null,\"The max result must be positive !!!.\",\"Error Message\",JOptionPane.ERROR_MESSAGE); "
+      ],
+      "context_before": [
+        "                      * The max result must be a positive value. It's initialized to 100.",
+        "                     */",
+        "                    Long r = Long.valueOf(result);"
+      ],
+      "file": "src/jade/src/jade/gui/ConstraintDlg.java",
+      "hit_id": "046d7f14a9fabd41",
+      "line": 175,
+      "line_hash": "5b02e03b42ac9ba9",
+      "line_text": "\t\t\t\t\tif(r.compareTo(new Long(0)) >= 0)",
+      "line_truncated": false,
+      "match_span": [
+        20,
+        29
+      ],
+      "match_text": "new Long(",
+      "pattern_index": 0,
+      "rank": 18
+    },
+    {
+      "context_after": [
+        "\t\t}",
+        "\t\tif (myLogger.isLoggable(Logger.FINE)) {",
+        "\t\t\tmyLogger.log(Logger.FINE, \"Registering skeleton \"+skeleton+\" for remotized object \"+remotizedObject+\". ID is \"+id);"
+      ],
+      "context_before": [
+        "\t\t\tsetPlatformManager((PlatformManager) remotizedObject);",
+        "\t\t}",
+        "\t\telse {"
+      ],
+      "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+      "hit_id": "d9c21a60dd00d102",
+      "line": 751,
+      "line_hash": "ac54e52e50d972d9",
+      "line_text": "\t\t\tid = new Integer((int) (System.currentTimeMillis() & 0xffffff));",
+      "line_truncated": false,
+      "match_span": [
+        8,
+        20
+      ],
+      "match_text": "new Integer(",
+      "pattern_index": 0,
+      "rank": 19
+    },
+    {
+      "context_after": [
+        "\t/**",
+        "\t Searches for data contained within a <b>DF</b> agent. ",
+        "\t @param a is the Agent requesting the search "
+      ],
+      "context_before": [
+        "\t}",
+        "\t",
+        "\t// constant used to set max results of SearchConstraints"
+      ],
+      "file": "src/jade/src/jade/domain/DFService.java",
+      "hit_id": "b0a4839cb634eda4",
+      "line": 342,
+      "line_hash": "a64ba8e4276fd9c9",
+      "line_text": "\tprivate static Long MINUSONE = new Long(-1);",
+      "line_truncated": false,
+      "match_span": [
+        32,
+        41
+      ],
+      "match_text": "new Long(",
+      "pattern_index": 0,
+      "rank": 20
+    },
+    {
+      "context_after": [
+        "\t\t\tCommand res = theDispatcher.dispatchCommand(remoteTAs, cmd);",
+        "\t\t\t",
+        "\t\t\t// Check whether an exception occurred in the remote container"
+      ],
+      "context_before": [
+        "\t\t\tCommand cmd = new Command(ADD_SLICE, remoteID);",
+        "\t\t\tcmd.addParam(service);",
+        "\t\t\tcmd.addParam(dsc);"
+      ],
+      "file": "src/jade/src/jade/imtp/leap/PlatformManagerStub.java",
+      "hit_id": "2bf59a64d1fabee8",
+      "line": 152,
+      "line_hash": "9db94dc33d0f25ce",
+      "line_text": "\t\t\tcmd.addParam(new Boolean(propagated));",
+      "line_truncated": false,
+      "match_span": [
+        16,
+        28
+      ],
+      "match_text": "new Boolean(",
+      "pattern_index": 0,
+      "rank": 21
+    },
+    {
+      "context_after": [
+        "      int MM = I.intValue();",
+        "      I = new Integer(day.getText());",
+        "      int DD = I.intValue();"
+      ],
+      "context_before": [
+        "      Integer I;",
+        "      I = new Integer(year.getText());",
+        "      int YY = I.intValue();"
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+      "hit_id": "74f6552a94987cd0",
+      "line": 279,
+      "line_hash": "a2ce25cbec054ebc",
+      "line_text": "      I = new Integer(month.getText());",
+      "line_truncated": false,
+      "match_span": [
+        10,
+        22
+      ],
+      "match_text": "new Integer(",
+      "pattern_index": 0,
+      "rank": 22
+    },
+    {
+      "context_after": [
+        "\t} ",
+        "\t//#MIDP_EXCLUDE_END",
+        ""
+      ],
+      "context_before": [
+        "\tpublic void set(double value) {",
+        "\t\tif (!getTypeName().equals(BasicOntology.FLOAT))",
+        "\t\t\tthrow new IllegalArgumentException(\"Wrong type\");"
+      ],
+      "file": "src/jade/src/jade/content/abs/AbsPrimitive.java",
+      "hit_id": "e0a04073f74d62b5",
+      "line": 213,
+      "line_hash": "a73d577d1d6af061",
+      "line_text": "\t\tthis.value = new Double(value);",
+      "line_truncated": false,
+      "match_span": [
+        15,
+        26
+      ],
+      "match_text": "new Double(",
+      "pattern_index": 0,
+      "rank": 23
+    },
+    {
+      "context_after": [
+        "\t",
+        "\t\t\tNode n = getNode();",
+        "\t\t\tObject result = n.accept(cmd);"
+      ],
+      "context_before": [
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review",
+        "\t\t\tGenericCommand cmd = new GenericCommand(H_DEACTIVATEUDP, UDPNodeMonitoringService.NAME, null);",
+        "\t\t\tcmd.addParam(label);"
+      ],
+      "file": "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringProxy.java",
+      "hit_id": "ed9c52403a563cbd",
+      "line": 44,
+      "line_hash": "119d1d6e72ce9ba5",
+      "line_text": "\t\t\tcmd.addParam(new Long(key));",
+      "line_truncated": false,
+      "match_span": [
+        16,
+        25
+      ],
+      "match_text": "new Long(",
+      "pattern_index": 0,
+      "rank": 24
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\t",
+        "\t\t\t\t\tresult = gCmd;",
+        "\t\t\t\t}"
+      ],
+      "context_before": [
+        "\t\t\t\t\tgCmd.addParam(instance);",
+        "\t\t\t\t\tgCmd.addParam(classSiteName);",
+        "\t\t\t\t\tgCmd.addParam(new Boolean(isCloned));"
+      ],
+      "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java",
+      "hit_id": "d97c35f5248444e3",
+      "line": 904,
+      "line_hash": "c87bdc06d2ddbf3a",
+      "line_text": "\t\t\t\t\tgCmd.addParam(new Boolean(startIt));",
+      "line_truncated": false,
+      "match_span": [
+        19,
+        31
+      ],
+      "match_text": "new Boolean(",
+      "pattern_index": 0,
+      "rank": 25
+    },
+    {
+      "context_after": [
+        "                    val=AbsPrimitive.wrap(d2);",
+        "                  } catch (NumberFormatException e) { //should never happen",
+        "                    e.printStackTrace();"
+      ],
+      "context_before": [
+        "                   try {",
+        "// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review",
+        "                    // J2ME incompatible d2=Double.parseDouble(t.image); "
+      ],
+      "file": "src/jade/src/jade/content/lang/sl/ExtendedSLParser.java",
+      "hit_id": "0a94ab5e8b230124",
+      "line": 928,
+      "line_hash": "729884034476c0e0",
+      "line_text": "                    d2=(new Double(t.image)).doubleValue();",
+      "line_truncated": false,
+      "match_span": [
+        24,
+        35
+      ],
+      "match_text": "new Double(",
+      "pattern_index": 0,
+      "rank": 26
+    },
+    {
+      "context_after": [
+        "\t}",
+        "\t",
+        "\t/**"
+      ],
+      "context_before": [
+        "\t\t/*#ALL_INCLUDE_BEGIN",
+        "\t\t props = new Properties();",
+        "\t\t #ALL_INCLUDE_END*/"
+      ],
+      "file": "src/jade/src/jade/core/ProfileImpl.java",
+      "hit_id": "a5c0c990f085a999",
+      "line": 108,
+      "line_hash": "6f1403904bd1f48c",
+      "line_text": "\t\tprops.setProperty(Profile.MAIN, (new Boolean(isMain)).toString()); // set to a main/non-main container",
+      "line_truncated": false,
+      "match_span": [
+        35,
+        47
+      ],
+      "match_text": "new Boolean(",
+      "pattern_index": 0,
+      "rank": 27
+    },
+    {
+      "context_after": [
+        "",
+        "\t\tNode n = getNode();",
+        "\t\tObject result = n.accept(cmd);"
+      ],
+      "context_before": [
+        "\t\tcmd.addParam(host);",
+        "\t\tcmd.addParam(new Integer(port));",
+        "\t\tcmd.addParam(new Integer(pingDelay));"
+      ],
+      "file": "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringProxy.java",
+      "hit_id": "ad92adf0a245170c",
+      "line": 22,
+      "line_hash": "c69c6579de1230e0",
+      "line_text": "\t\tcmd.addParam(new Long(key));",
+      "line_truncated": false,
+      "match_span": [
+        15,
+        24
+      ],
+      "match_text": "new Long(",
+      "pattern_index": 0,
+      "rank": 28
+    },
+    {
+      "context_after": [
+        "\t\t\t}",
+        "\t\t\t// String",
+        "\t\t\treturn val;"
+      ],
+      "context_before": [
+        "\t\t\t}",
+        "\t\t\tif (val.equals(\"false\")) {",
+        "// JADE-MODERNIZATION-DEFERRED:STRINGS_IN_SWITCH Java 7 added String support in switch statements. if-else chains comparing String equality with .equals() can be converted to switch statements for improved readability and performance. 1.0 (complex chain -- manual review recommended)"
+      ],
+      "file": "src/jade/src/jade/content/frame/SLFrameCodec.java",
+      "hit_id": "95b88d9f46117826",
+      "line": 222,
+      "line_hash": "3e12c310fac539c8",
+      "line_text": "\t\t\t\treturn new Boolean(false);",
+      "line_truncated": false,
+      "match_span": [
+        11,
+        23
+      ],
+      "match_text": "new Boolean(",
+      "pattern_index": 0,
+      "rank": 29
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-11-to-17/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "12c54551a67ef8abb3db2acb1439ed14627948ed9e46c2dbdefe3947eff62102",
+  "pattern_revision": 1,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "\\bnew\\s+(?:java\\.lang\\.)?(?:Boolean|Byte|Character|Double|Float|Integer|Long|Short)\\s*\\(",
+      "reason": "primitive wrapper constructor; deprecated for removal by JEP 390 in JDK 16, replace with the valueOf factory",
+      "target_extensions": [
+        ".java"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 972,
+    "files_with_hits": 52,
+    "hits_per_pattern": {
+      "0": 147
+    },
+    "max_hits_in_one_file": 14,
+    "population_signature": "617f7f8b8f40cb2e82fdd24262785d6ae334e819e849fd18bdd1b8d644ecc2f6",
+    "total_hits": 147,
+    "truncated": false
+  },
+  "rule_description": "JEP 390 (JDK 16) designated the primitive wrapper classes as value-based and deprecated their constructors for removal. Compiling JADE on JDK 17 with -Xlint:removal produces 144 removal warnings for new Boolean/Integer/Long/Double/Float/Character calls -- the single largest terminally-deprecated surface in the codebase. The code still compiles and runs on 17; the exposure is that these constructors are the ones scheduled to disappear. The fix is the documented replacement, the corresponding valueOf factory.",
+  "rule_id": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+  "rule_name": "Primitive wrapper constructors deprecated for removal in JDK 16",
+  "run_id": "jade-11-to-17",
+  "sample_size": 30,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 3,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "9d0194a4d0fb8c98",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "SAMPLED",
+  "verification_hint": "Recompiling on jade-ant:17 with -Xlint:removal -Xmaxwarns 100000 reports zero '[removal] ... in Boolean/Integer/Long/Double/Float/Character has been deprecated and marked for removal' warnings, down from 144. All consumers still PASS.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-11-to-17/workspace"
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "rule_id": "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL",
+  "sample_artifact": "01.5-precision-sample-THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL.json",
+  "sample_hash": "47ce203634407566863238ea0c02fc9c1a0b25ec80564b284f21ed861fc3e720",
+  "verdicts": [
+    {
+      "hit_id": "f9ae7419d68663b0",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "criticalThreads is declared 'private ThreadGroup' at Runtime.java:73, so this is ThreadGroup.destroy(); javac on JDK 17 emits '[removal] destroy() in ThreadGroup' for this exact line."
+    }
+  ]
+}

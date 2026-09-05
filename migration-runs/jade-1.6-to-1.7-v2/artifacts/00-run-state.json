@@ -1,0 +1,7 @@
+{
+  "run_id": "jade-1.6-to-1.7-v2",
+  "state": "FAILED",
+  "current_rule_id": null,
+  "updated_at": "2026-09-05T00:47:31Z",
+  "failure_reason": "ARTIFACT_MISSING"
+}

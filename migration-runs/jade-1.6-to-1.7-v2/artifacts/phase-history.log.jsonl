@@ -8,3 +8,15 @@
 {"ts": "2026-09-05T01:19:16Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
 {"ts": "2026-09-05T01:19:16Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs/jade-1.6-to-1.7-v2/workspace", "artifacts": ["00-run-state.json"]}
 {"ts": "2026-09-05T01:19:19Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Paused for agent input \u2014 see AWAITING_AGENT.md", "artifacts": ["AWAITING_AGENT.md"]}
+{"ts": "2026-09-05T02:22:57Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T02:22:57Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs/jade-1.6-to-1.7-v2/workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T02:22:58Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Processing rule DIAMOND_OPERATOR", "artifacts": ["05-rule-batch-status.json"]}
+{"ts": "2026-09-05T02:22:58Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule DIAMOND_OPERATOR", "artifacts": ["rule-status.json", "07-build.log"]}
+{"ts": "2026-09-05T02:22:58Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Processing rule STRINGS_IN_SWITCH", "artifacts": ["05-rule-batch-status.json"]}
+{"ts": "2026-09-05T02:22:58Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule STRINGS_IN_SWITCH", "artifacts": ["rule-status.json", "07-build.log"]}
+{"ts": "2026-09-05T02:22:58Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Processing rule TRY_WITH_RESOURCES", "artifacts": ["05-rule-batch-status.json"]}
+{"ts": "2026-09-05T02:22:58Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule TRY_WITH_RESOURCES", "artifacts": ["rule-status.json", "07-build.log"]}
+{"ts": "2026-09-05T02:24:14Z", "phase": "FAILED", "status": "ERROR", "message": "Run terminated: FAILED", "artifacts": ["00-run-state.json", "PROGRESS.md"]}
+{"ts": "2026-09-05T02:27:00Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T02:27:00Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs/jade-1.6-to-1.7-v2/workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T02:28:15Z", "phase": "FAILED", "status": "ERROR", "message": "Run terminated: FAILED", "artifacts": ["00-run-state.json", "PROGRESS.md"]}

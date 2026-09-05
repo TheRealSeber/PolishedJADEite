@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "rule_id": "LAMBDA_CONVERSION",
+  "shard_id": "LAMBDA_CONVERSION-body-local-008",
+  "status": "SKIPPED",
+  "match_quality": "exact",
+  "diff_summary": "TablePanel.java has 2 sites, both non-convertible. (1) new AbstractTableModel(){...} overrides 6 methods (getColumnCount/getRowCount/getValueAt/getColumnName/getColumnClass/setValueAt) -- multi-method, not SAM. (2) new DefaultTableCellRenderer(){ public void setValue(Object value){...} } -- DefaultTableCellRenderer is a concrete class (not an interface); lambdas can only implement functional interfaces, never extend a class, so this is not convertible regardless of the single-method override. Both markers replaced with JADE-MODERNIZATION-DEFERRED naming the reason; no code behavior touched. Verified by compiling in Docker (frekele/ant:1.10.3-jdk8) -- PASS, 0 errors; comment-only edits produce zero knowledge-graph diff.",
+  "files": [
+    {
+      "file": "src/jade/src/jade/tools/rma/TablePanel.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 92,
+      "touched_line_end": 92,
+      "migration_skip_marker": true,
+      "diff_summary": "AbstractTableModel multi-method override (6 methods) -- not SAM. Marker swapped to JADE-MODERNIZATION-DEFERRED."
+    },
+    {
+      "file": "src/jade/src/jade/tools/rma/TablePanel.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 106,
+      "touched_line_end": 106,
+      "migration_skip_marker": true,
+      "diff_summary": "DefaultTableCellRenderer is a concrete class -- lambdas cannot target classes. Marker swapped to JADE-MODERNIZATION-DEFERRED."
+    }
+  ],
+  "errors": [],
+  "warnings": []
+}

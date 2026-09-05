@@ -1,0 +1,58 @@
+[
+  {
+    "task_id": "BUILD_DOCLINT_STRICT-body-local-001-f000",
+    "rule_id": "BUILD_DOCLINT_STRICT",
+    "file": "src/jade/build.xml",
+    "status": "NEEDS_REVIEW",
+    "match_count": 1,
+    "match_region": "lines 226-226",
+    "match_context": "jade-recipe-1.7-1.8-build-doclint-strict",
+    "diff_summary": "javadoc destdir=\"${doc}/api\" (API reference target): added additionalparam=\"-Xdoclint:none\"; removed the JADE-FLAG:BUILD_DOCLINT_STRICT marker comment for this element.",
+    "verification_hint": "Run `ant doc` under the JDK 8 Docker image; verify it no longer fails on malformed Javadoc comments once -Xdoclint:none (or a documented narrower flag) is present on both <javadoc> elements.",
+    "errors": [],
+    "warnings": [
+      "verify_shard.py exit=2: javac invoked against src/jade/build.xml (not a .java file) fails with 'invalid flag: /ws/src/jade/build.xml' -- structural shard/tool mismatch, not a real compile or DocLint error. See 07-shard-verify-BUILD_DOCLINT_STRICT-body-local-001.json and its .log.",
+      "Independent verification performed out-of-band: `docker run --rm -v <workspace>/src/jade:/workspace -w /workspace frekele/ant:1.10.3-jdk8 ant doc -q` with the fix applied => BUILD SUCCESSFUL, 'ant exited 0'.",
+      "Counterfactual measured: the same `ant doc` run WITHOUT the fix (additionalparam removed) ALSO returns BUILD SUCCESSFUL / exit 0 under this exact Ant/JDK8 image, because Ant's <javadoc> task defaults failonerror to false -- the javadoc tool's own DocLint/HTML errors are logged but do not fail the Ant build here. The fix is still correct and worth keeping (suppresses the errors outright, portable to stricter failonerror configurations), but the rule's predicted build-breakage does not reproduce in this repo's actual build environment.",
+      "NEEDS_REVIEW: low_final_confidence"
+    ],
+    "applied_at": "2026-09-05T02:57:42Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "BUILD_DOCLINT_STRICT-body-local-001"
+  },
+  {
+    "task_id": "BUILD_DOCLINT_STRICT-body-local-001-f001",
+    "rule_id": "BUILD_DOCLINT_STRICT",
+    "file": "src/jade/build.xml",
+    "status": "NEEDS_REVIEW",
+    "match_count": 1,
+    "match_region": "lines 227-227",
+    "match_context": "jade-recipe-1.7-1.8-build-doclint-strict",
+    "diff_summary": "javadoc destdir=\"${doc}/tools/sniffer/html/jdoc\" (Sniffer reference target): added additionalparam=\"-Xdoclint:none\"; removed the JADE-FLAG:BUILD_DOCLINT_STRICT marker comment for this element.",
+    "verification_hint": "Run `ant doc` under the JDK 8 Docker image; verify it no longer fails on malformed Javadoc comments once -Xdoclint:none (or a documented narrower flag) is present on both <javadoc> elements.",
+    "errors": [],
+    "warnings": [
+      "verify_shard.py exit=2: javac invoked against src/jade/build.xml (not a .java file) fails with 'invalid flag: /ws/src/jade/build.xml' -- structural shard/tool mismatch, not a real compile or DocLint error. See 07-shard-verify-BUILD_DOCLINT_STRICT-body-local-001.json and its .log.",
+      "Independent verification performed out-of-band: `docker run --rm -v <workspace>/src/jade:/workspace -w /workspace frekele/ant:1.10.3-jdk8 ant doc -q` with the fix applied => BUILD SUCCESSFUL, 'ant exited 0'.",
+      "Counterfactual measured: the same `ant doc` run WITHOUT the fix (additionalparam removed) ALSO returns BUILD SUCCESSFUL / exit 0 under this exact Ant/JDK8 image, because Ant's <javadoc> task defaults failonerror to false -- the javadoc tool's own DocLint/HTML errors are logged but do not fail the Ant build here. The fix is still correct and worth keeping (suppresses the errors outright, portable to stricter failonerror configurations), but the rule's predicted build-breakage does not reproduce in this repo's actual build environment.",
+      "NEEDS_REVIEW: low_final_confidence"
+    ],
+    "applied_at": "2026-09-05T02:57:42Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "BUILD_DOCLINT_STRICT-body-local-001"
+  }
+]

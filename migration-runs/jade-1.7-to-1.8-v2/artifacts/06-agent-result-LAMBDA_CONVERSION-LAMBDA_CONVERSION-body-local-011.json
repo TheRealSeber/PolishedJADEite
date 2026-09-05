@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "rule_id": "LAMBDA_CONVERSION",
+  "shard_id": "LAMBDA_CONVERSION-body-local-011",
+  "status": "SKIPPED",
+  "match_quality": "exact",
+  "diff_summary": "PlatformControllerImpl.java has 2 sites, both non-convertible. (1) new AgentManagerListenerAdapter(){ public void removedContainer(...){...} } -- AgentManagerListenerAdapter implements AgentManager.Listener with 13 dummy-body methods (documented in-file as 'a dummy implementation of all the methods'); overriding just one is still a multi-method adapter, not SAM. (2) new jade.wrapper.PlatformEvent(){...} overriding all 3 of PlatformEvent's abstract methods (getAgentGUID, getPlatformName, getEventType) -- confirmed by reading PlatformEvent.java, a genuine multi-abstract-method interface. Both markers replaced with JADE-MODERNIZATION-DEFERRED naming the reason; anonymous classes untouched. Verified by compiling in Docker (frekele/ant:1.10.3-jdk8) -- PASS, 0 errors; comment-only edits produce zero knowledge-graph diff.",
+  "files": [
+    {
+      "file": "src/jade/src/jade/wrapper/PlatformControllerImpl.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 46,
+      "touched_line_end": 46,
+      "migration_skip_marker": true,
+      "diff_summary": "AgentManagerListenerAdapter multi-method adapter class (13 dummy methods) -- not SAM. Marker swapped to JADE-MODERNIZATION-DEFERRED."
+    },
+    {
+      "file": "src/jade/src/jade/wrapper/PlatformControllerImpl.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 229,
+      "touched_line_end": 229,
+      "migration_skip_marker": true,
+      "diff_summary": "PlatformEvent is a 3-abstract-method interface (confirmed in PlatformEvent.java) -- not SAM. Marker swapped to JADE-MODERNIZATION-DEFERRED."
+    }
+  ],
+  "errors": [],
+  "warnings": []
+}

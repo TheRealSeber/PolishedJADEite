@@ -89,7 +89,7 @@ class TablePanel extends JPanel {
 
     // Create a model of the data.
     dataModel = new AbstractTableModel() {
-// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8
+// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION AbstractTableModel is overridden here with 6 methods (getColumnCount/getRowCount/getValueAt/getColumnName/getColumnClass/setValueAt) -- a multi-method override, not a single-abstract-method case.
       public int getColumnCount() { return names.length; }
       public int getRowCount() { return data.length;}
       public Object getValueAt(int row, int col) {return data[row][col];}
@@ -104,7 +104,7 @@ class TablePanel extends JPanel {
 
     // Show colors by rendering them in their own color.
     DefaultTableCellRenderer colorRenderer = new DefaultTableCellRenderer() {
-// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8
+// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION DefaultTableCellRenderer is a concrete class, not an interface -- lambdas can only implement functional interfaces, never extend a class, regardless of how many methods are overridden.
       public void setValue(Object value) {
 	if (value instanceof Color) {
 	  Color c = (Color)value;

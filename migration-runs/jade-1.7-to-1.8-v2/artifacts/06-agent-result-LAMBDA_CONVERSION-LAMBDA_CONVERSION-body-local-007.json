@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "rule_id": "LAMBDA_CONVERSION",
+  "shard_id": "LAMBDA_CONVERSION-body-local-007",
+  "status": "SKIPPED",
+  "match_quality": "exact",
+  "diff_summary": "AboutBoxAction.java (introspector): new WindowAdapter(){ public void windowClosing(WindowEvent e){...} }. WindowAdapter is a multi-method adapter class (windowOpened/windowClosing/windowClosed/windowIconified/windowDeiconified/windowActivated/windowDeactivated) -- overriding only windowClosing does not make it single-abstract-method, and this is exactly the recipe's own named non-convertible example. JADE-FLAG marker replaced with JADE-MODERNIZATION-DEFERRED naming the reason; the anonymous class itself is untouched. Verified by compiling in Docker (frekele/ant:1.10.3-jdk8) -- PASS, 0 errors; the comment-only edit produces zero knowledge-graph diff (changed=0).",
+  "files": [
+    {
+      "file": "src/jade/src/jade/tools/introspector/gui/AboutBoxAction.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 75,
+      "touched_line_end": 75,
+      "migration_skip_marker": true,
+      "diff_summary": "WindowAdapter multi-method adapter class -- not a SAM type. Marker swapped to JADE-MODERNIZATION-DEFERRED; anonymous class body untouched."
+    }
+  ],
+  "errors": [],
+  "warnings": []
+}

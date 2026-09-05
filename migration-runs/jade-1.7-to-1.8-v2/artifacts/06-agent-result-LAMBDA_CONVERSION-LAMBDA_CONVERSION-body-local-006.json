@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "rule_id": "LAMBDA_CONVERSION",
+  "shard_id": "LAMBDA_CONVERSION-body-local-006",
+  "status": "FIXED",
+  "match_quality": "exact",
+  "diff_summary": "SMSManagerGui.java: new ActionListener(){ public void actionPerformed(ActionEvent e){...} } (single method, no fields, no other overrides, no bare this) -> (ActionEvent e) -> {...} lambda; body preserved exactly, including the pre-existing JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES marker for the unrelated rule inside it (left untouched). Verified by compiling in Docker (frekele/ant:1.10.3-jdk8) -- PASS, 0 errors. gate_signatures.py PASS (no external callers leaked).",
+  "files": [
+    {
+      "file": "src/jade/src/jade/imtp/leap/sms/SMSManagerGui.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 64,
+      "touched_line_end": 64,
+      "migration_skip_marker": false,
+      "diff_summary": "new ActionListener(){public void actionPerformed(ActionEvent e){...}} -> (ActionEvent e) -> {...}; JADE-FLAG marker removed."
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "verify_shard.py warnings: baseline_jar_commit_unknown, empty_read_only_context. Neither affects the PASS verdict."
+  ]
+}

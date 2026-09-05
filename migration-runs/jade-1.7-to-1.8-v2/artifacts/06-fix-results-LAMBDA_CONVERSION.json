@@ -1,0 +1,379 @@
+[
+  {
+    "task_id": "LAMBDA_CONVERSION-body-local-002-f000",
+    "rule_id": "LAMBDA_CONVERSION",
+    "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+    "status": "NEEDS_REVIEW",
+    "match_count": 1,
+    "match_region": "lines 80-80",
+    "match_context": "jade-recipe-1.7-1.8-lambda-conversion",
+    "diff_summary": "clear(): new FilenameFilter(){public boolean accept(File,String){...}} (single method, no fields, no other overrides) -> (File dir, String name) -> {...} lambda; JADE-FLAG marker removed.",
+    "verification_hint": "Compile with Java 8 javac; verify convertible anonymous SAM classes were replaced with lambdas, non-convertible ones (field state, multiple methods, `this`-qualified self-reference, multi-abstract-method interfaces) are left SKIPPED, and behavior is unchanged.",
+    "errors": [],
+    "warnings": [
+      "verify_shard.py warnings: baseline_jar_commit_unknown (no matching commit_hash for LAMBDA_CONVERSION in 09-rule-commit-log.json yet -- this is the rule's first accepted shard), empty_read_only_context (shard declares none). Neither affects the PASS verdict.",
+      "NEEDS_REVIEW: low_final_confidence"
+    ],
+    "applied_at": "2026-09-05T03:08:23Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "LAMBDA_CONVERSION-body-local-002"
+  },
+  {
+    "task_id": "LAMBDA_CONVERSION-body-local-002-f001",
+    "rule_id": "LAMBDA_CONVERSION",
+    "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+    "status": "NEEDS_REVIEW",
+    "match_count": 1,
+    "match_region": "lines 91-91",
+    "match_context": "jade-recipe-1.7-1.8-lambda-conversion",
+    "diff_summary": "SKIPPED: java_source.is_live_code() is False for this site -- it sits inside a /*#DOTNET_INCLUDE_BEGIN ... #DOTNET_INCLUDE_END*/ block comment (dead alternate-implementation code, not compiled). No edit made; not even the marker comment was touched, to avoid disturbing inactive template code.",
+    "verification_hint": "Compile with Java 8 javac; verify convertible anonymous SAM classes were replaced with lambdas, non-convertible ones (field state, multiple methods, `this`-qualified self-reference, multi-abstract-method interfaces) are left SKIPPED, and behavior is unchanged.",
+    "errors": [],
+    "warnings": [
+      "verify_shard.py warnings: baseline_jar_commit_unknown (no matching commit_hash for LAMBDA_CONVERSION in 09-rule-commit-log.json yet -- this is the rule's first accepted shard), empty_read_only_context (shard declares none). Neither affects the PASS verdict.",
+      "NEEDS_REVIEW: low_final_confidence",
+      "NEEDS_REVIEW: migration_skip_marker"
+    ],
+    "applied_at": "2026-09-05T03:08:23Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "LAMBDA_CONVERSION-body-local-002"
+  },
+  {
+    "task_id": "LAMBDA_CONVERSION-body-local-002-f002",
+    "rule_id": "LAMBDA_CONVERSION",
+    "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+    "status": "NEEDS_REVIEW",
+    "match_count": 1,
+    "match_region": "lines 204-204",
+    "match_context": "jade-recipe-1.7-1.8-lambda-conversion",
+    "diff_summary": "getAllNodes(): new FilenameFilter(){public boolean accept(File,String){return name.endsWith(end);}} -> (File dir, String name) -> {return name.endsWith(end);} lambda; JADE-FLAG marker removed.",
+    "verification_hint": "Compile with Java 8 javac; verify convertible anonymous SAM classes were replaced with lambdas, non-convertible ones (field state, multiple methods, `this`-qualified self-reference, multi-abstract-method interfaces) are left SKIPPED, and behavior is unchanged.",
+    "errors": [],
+    "warnings": [
+      "verify_shard.py warnings: baseline_jar_commit_unknown (no matching commit_hash for LAMBDA_CONVERSION in 09-rule-commit-log.json yet -- this is the rule's first accepted shard), empty_read_only_context (shard declares none). Neither affects the PASS verdict.",
+      "NEEDS_REVIEW: low_final_confidence"
+    ],
+    "applied_at": "2026-09-05T03:08:23Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "LAMBDA_CONVERSION-body-local-002"
+  },
+  {
+    "task_id": "LAMBDA_CONVERSION-body-local-002-f003",
+    "rule_id": "LAMBDA_CONVERSION",
+    "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+    "status": "NEEDS_REVIEW",
+    "match_count": 1,
+    "match_region": "lines 212-212",
+    "match_context": "jade-recipe-1.7-1.8-lambda-conversion",
+    "diff_summary": "SKIPPED: same as the line-91 site -- java_source.is_live_code() is False, inside the same /*#DOTNET_INCLUDE_BEGIN...#DOTNET_INCLUDE_END*/ dead block. No edit made.",
+    "verification_hint": "Compile with Java 8 javac; verify convertible anonymous SAM classes were replaced with lambdas, non-convertible ones (field state, multiple methods, `this`-qualified self-reference, multi-abstract-method interfaces) are left SKIPPED, and behavior is unchanged.",
+    "errors": [],
+    "warnings": [
+      "verify_shard.py warnings: baseline_jar_commit_unknown (no matching commit_hash for LAMBDA_CONVERSION in 09-rule-commit-log.json yet -- this is the rule's first accepted shard), empty_read_only_context (shard declares none). Neither affects the PASS verdict.",
+      "NEEDS_REVIEW: low_final_confidence",
+      "NEEDS_REVIEW: migration_skip_marker"
+    ],
+    "applied_at": "2026-09-05T03:08:23Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "LAMBDA_CONVERSION-body-local-002"
+  },
+  {
+    "task_id": "LAMBDA_CONVERSION-body-local-007-f000",
+    "rule_id": "LAMBDA_CONVERSION",
+    "file": "src/jade/src/jade/tools/introspector/gui/AboutBoxAction.java",
+    "status": "SKIPPED",
+    "match_count": 1,
+    "match_region": "lines 75-75",
+    "match_context": "jade-recipe-1.7-1.8-lambda-conversion",
+    "diff_summary": "WindowAdapter multi-method adapter class -- not a SAM type. Marker swapped to JADE-MODERNIZATION-DEFERRED; anonymous class body untouched.",
+    "verification_hint": "Compile with Java 8 javac; verify convertible anonymous SAM classes were replaced with lambdas, non-convertible ones (field state, multiple methods, `this`-qualified self-reference, multi-abstract-method interfaces) are left SKIPPED, and behavior is unchanged.",
+    "errors": [],
+    "warnings": [
+      "NEEDS_REVIEW: low_final_confidence",
+      "NEEDS_REVIEW: migration_skip_marker"
+    ],
+    "applied_at": "2026-09-05T03:14:06Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "LAMBDA_CONVERSION-body-local-007"
+  },
+  {
+    "task_id": "LAMBDA_CONVERSION-body-local-008-f000",
+    "rule_id": "LAMBDA_CONVERSION",
+    "file": "src/jade/src/jade/tools/rma/TablePanel.java",
+    "status": "SKIPPED",
+    "match_count": 1,
+    "match_region": "lines 92-92",
+    "match_context": "jade-recipe-1.7-1.8-lambda-conversion",
+    "diff_summary": "AbstractTableModel multi-method override (6 methods) -- not SAM. Marker swapped to JADE-MODERNIZATION-DEFERRED.",
+    "verification_hint": "Compile with Java 8 javac; verify convertible anonymous SAM classes were replaced with lambdas, non-convertible ones (field state, multiple methods, `this`-qualified self-reference, multi-abstract-method interfaces) are left SKIPPED, and behavior is unchanged.",
+    "errors": [],
+    "warnings": [
+      "NEEDS_REVIEW: low_final_confidence",
+      "NEEDS_REVIEW: migration_skip_marker"
+    ],
+    "applied_at": "2026-09-05T03:14:56Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [
+        "src/jade/src/jade/tools/rma/MainPanel.java"
+      ],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "LAMBDA_CONVERSION-body-local-008"
+  },
+  {
+    "task_id": "LAMBDA_CONVERSION-body-local-008-f001",
+    "rule_id": "LAMBDA_CONVERSION",
+    "file": "src/jade/src/jade/tools/rma/TablePanel.java",
+    "status": "SKIPPED",
+    "match_count": 1,
+    "match_region": "lines 106-106",
+    "match_context": "jade-recipe-1.7-1.8-lambda-conversion",
+    "diff_summary": "DefaultTableCellRenderer is a concrete class -- lambdas cannot target classes. Marker swapped to JADE-MODERNIZATION-DEFERRED.",
+    "verification_hint": "Compile with Java 8 javac; verify convertible anonymous SAM classes were replaced with lambdas, non-convertible ones (field state, multiple methods, `this`-qualified self-reference, multi-abstract-method interfaces) are left SKIPPED, and behavior is unchanged.",
+    "errors": [],
+    "warnings": [
+      "NEEDS_REVIEW: low_final_confidence",
+      "NEEDS_REVIEW: migration_skip_marker"
+    ],
+    "applied_at": "2026-09-05T03:14:56Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [
+        "src/jade/src/jade/tools/rma/MainPanel.java"
+      ],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "LAMBDA_CONVERSION-body-local-008"
+  },
+  {
+    "task_id": "LAMBDA_CONVERSION-body-local-009-f000",
+    "rule_id": "LAMBDA_CONVERSION",
+    "file": "src/jade/src/jade/tools/sniffer/AboutBoxAction.java",
+    "status": "SKIPPED",
+    "match_count": 1,
+    "match_region": "lines 71-71",
+    "match_context": "jade-recipe-1.7-1.8-lambda-conversion",
+    "diff_summary": "WindowAdapter multi-method adapter class -- not a SAM type. Marker swapped to JADE-MODERNIZATION-DEFERRED.",
+    "verification_hint": "Compile with Java 8 javac; verify convertible anonymous SAM classes were replaced with lambdas, non-convertible ones (field state, multiple methods, `this`-qualified self-reference, multi-abstract-method interfaces) are left SKIPPED, and behavior is unchanged.",
+    "errors": [],
+    "warnings": [
+      "NEEDS_REVIEW: low_final_confidence",
+      "NEEDS_REVIEW: migration_skip_marker"
+    ],
+    "applied_at": "2026-09-05T03:15:35Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "LAMBDA_CONVERSION-body-local-009"
+  },
+  {
+    "task_id": "LAMBDA_CONVERSION-body-local-010-f000",
+    "rule_id": "LAMBDA_CONVERSION",
+    "file": "src/jade/src/jade/util/PrintStreamSplitter.java",
+    "status": "SKIPPED",
+    "match_count": 1,
+    "match_region": "lines 49-49",
+    "match_context": "jade-recipe-1.7-1.8-lambda-conversion",
+    "diff_summary": "OutputStream is an abstract class, not an interface -- lambdas cannot target classes even with a single abstract method. Marker swapped to JADE-MODERNIZATION-DEFERRED.",
+    "verification_hint": "Compile with Java 8 javac; verify convertible anonymous SAM classes were replaced with lambdas, non-convertible ones (field state, multiple methods, `this`-qualified self-reference, multi-abstract-method interfaces) are left SKIPPED, and behavior is unchanged.",
+    "errors": [],
+    "warnings": [
+      "NEEDS_REVIEW: low_final_confidence",
+      "NEEDS_REVIEW: migration_skip_marker"
+    ],
+    "applied_at": "2026-09-05T03:16:14Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [
+        "src/jade/src/jade/imtp/leap/SSLHelper.java"
+      ],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "LAMBDA_CONVERSION-body-local-010"
+  },
+  {
+    "task_id": "LAMBDA_CONVERSION-body-local-011-f000",
+    "rule_id": "LAMBDA_CONVERSION",
+    "file": "src/jade/src/jade/wrapper/PlatformControllerImpl.java",
+    "status": "SKIPPED",
+    "match_count": 1,
+    "match_region": "lines 46-46",
+    "match_context": "jade-recipe-1.7-1.8-lambda-conversion",
+    "diff_summary": "AgentManagerListenerAdapter multi-method adapter class (13 dummy methods) -- not SAM. Marker swapped to JADE-MODERNIZATION-DEFERRED.",
+    "verification_hint": "Compile with Java 8 javac; verify convertible anonymous SAM classes were replaced with lambdas, non-convertible ones (field state, multiple methods, `this`-qualified self-reference, multi-abstract-method interfaces) are left SKIPPED, and behavior is unchanged.",
+    "errors": [],
+    "warnings": [
+      "NEEDS_REVIEW: low_final_confidence",
+      "NEEDS_REVIEW: migration_skip_marker"
+    ],
+    "applied_at": "2026-09-05T03:17:00Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [
+        "src/jade/src/jade/core/MicroAgentControllerImpl.java"
+      ],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "LAMBDA_CONVERSION-body-local-011"
+  },
+  {
+    "task_id": "LAMBDA_CONVERSION-body-local-011-f001",
+    "rule_id": "LAMBDA_CONVERSION",
+    "file": "src/jade/src/jade/wrapper/PlatformControllerImpl.java",
+    "status": "SKIPPED",
+    "match_count": 1,
+    "match_region": "lines 229-229",
+    "match_context": "jade-recipe-1.7-1.8-lambda-conversion",
+    "diff_summary": "PlatformEvent is a 3-abstract-method interface (confirmed in PlatformEvent.java) -- not SAM. Marker swapped to JADE-MODERNIZATION-DEFERRED.",
+    "verification_hint": "Compile with Java 8 javac; verify convertible anonymous SAM classes were replaced with lambdas, non-convertible ones (field state, multiple methods, `this`-qualified self-reference, multi-abstract-method interfaces) are left SKIPPED, and behavior is unchanged.",
+    "errors": [],
+    "warnings": [
+      "NEEDS_REVIEW: diff_outside_flagged_region",
+      "NEEDS_REVIEW: low_final_confidence",
+      "NEEDS_REVIEW: migration_skip_marker"
+    ],
+    "applied_at": "2026-09-05T03:17:00Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [
+        "src/jade/src/jade/core/MicroAgentControllerImpl.java"
+      ],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "LAMBDA_CONVERSION-body-local-011"
+  },
+  {
+    "task_id": "LAMBDA_CONVERSION-body-local-004-f000",
+    "rule_id": "LAMBDA_CONVERSION",
+    "file": "src/jade/src/jade/imtp/leap/nio/StuckSimulator.java",
+    "status": "NEEDS_REVIEW",
+    "match_count": 1,
+    "match_region": "lines 12-12",
+    "match_context": "jade-recipe-1.7-1.8-lambda-conversion",
+    "diff_summary": "new Thread(){public void run(){...}} -> new Thread(() -> {...}); JADE-FLAG marker removed.",
+    "verification_hint": "Compile with Java 8 javac; verify convertible anonymous SAM classes were replaced with lambdas, non-convertible ones (field state, multiple methods, `this`-qualified self-reference, multi-abstract-method interfaces) are left SKIPPED, and behavior is unchanged.",
+    "errors": [],
+    "warnings": [
+      "verify_shard.py warnings: baseline_jar_commit_unknown, empty_read_only_context. Neither affects the PASS verdict.",
+      "NEEDS_REVIEW: low_final_confidence"
+    ],
+    "applied_at": "2026-09-05T03:17:56Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "LAMBDA_CONVERSION-body-local-004"
+  },
+  {
+    "task_id": "LAMBDA_CONVERSION-body-local-005-f000",
+    "rule_id": "LAMBDA_CONVERSION",
+    "file": "src/jade/src/jade/imtp/leap/sms/PhoneBasedSMSManager.java",
+    "status": "NEEDS_REVIEW",
+    "match_count": 1,
+    "match_region": "lines 79-79",
+    "match_context": "jade-recipe-1.7-1.8-lambda-conversion",
+    "diff_summary": "new Thread(){public void run(){...}} -> new Thread(() -> {...}); JADE-FLAG marker removed.",
+    "verification_hint": "Compile with Java 8 javac; verify convertible anonymous SAM classes were replaced with lambdas, non-convertible ones (field state, multiple methods, `this`-qualified self-reference, multi-abstract-method interfaces) are left SKIPPED, and behavior is unchanged.",
+    "errors": [],
+    "warnings": [
+      "verify_shard.py warnings: baseline_jar_commit_unknown, empty_read_only_context. Neither affects the PASS verdict.",
+      "NEEDS_REVIEW: low_final_confidence"
+    ],
+    "applied_at": "2026-09-05T03:18:51Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "LAMBDA_CONVERSION-body-local-005"
+  },
+  {
+    "task_id": "LAMBDA_CONVERSION-body-local-006-f000",
+    "rule_id": "LAMBDA_CONVERSION",
+    "file": "src/jade/src/jade/imtp/leap/sms/SMSManagerGui.java",
+    "status": "NEEDS_REVIEW",
+    "match_count": 1,
+    "match_region": "lines 64-64",
+    "match_context": "jade-recipe-1.7-1.8-lambda-conversion",
+    "diff_summary": "new ActionListener(){public void actionPerformed(ActionEvent e){...}} -> (ActionEvent e) -> {...}; JADE-FLAG marker removed.",
+    "verification_hint": "Compile with Java 8 javac; verify convertible anonymous SAM classes were replaced with lambdas, non-convertible ones (field state, multiple methods, `this`-qualified self-reference, multi-abstract-method interfaces) are left SKIPPED, and behavior is unchanged.",
+    "errors": [],
+    "warnings": [
+      "verify_shard.py warnings: baseline_jar_commit_unknown, empty_read_only_context. Neither affects the PASS verdict.",
+      "NEEDS_REVIEW: low_final_confidence"
+    ],
+    "applied_at": "2026-09-05T03:19:36Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "LAMBDA_CONVERSION-body-local-006"
+  }
+]

@@ -68,7 +68,7 @@ public class AboutBoxAction extends AbstractAction{
     final AboutFrame f = new AboutFrame(gui,"About SNIFFER");
 
     f.addWindowListener(new WindowAdapter() {
-// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8
+// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION WindowAdapter is a multi-method adapter class (7 overridable callbacks); overriding only windowClosing here does not make it a single-abstract-method type -- not lambda-convertible.
             public void windowClosing(WindowEvent e) {
                 f.disposeAsync();
             }

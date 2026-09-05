@@ -46,7 +46,7 @@ public class PrintStreamSplitter extends PrintStream {
     */
 	public PrintStreamSplitter(PrintStream s1, PrintStream s2) throws IOException {
 		super(new OutputStream() {
-// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8
+// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION OutputStream is an abstract class, not an interface -- lambdas can only implement functional interfaces, never extend/subclass a class, even though write(int) is its only abstract method.
 			public void write(int b) throws IOException {
 			}
 		} );

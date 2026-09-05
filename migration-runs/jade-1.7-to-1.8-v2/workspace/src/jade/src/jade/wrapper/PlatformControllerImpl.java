@@ -43,7 +43,7 @@ class PlatformControllerImpl implements PlatformController {
 		myMain = m;
 		platformState = PlatformState.PLATFORM_STATE_READY;
 		myMain.addListener(new AgentManagerListenerAdapter() {
-// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8
+// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION AgentManagerListenerAdapter is a multi-method adapter class implementing AgentManager.Listener (13 dummy-body methods); overriding only removedContainer here does not make it single-abstract-method -- not lambda-convertible.
 			public void removedContainer(jade.core.event.PlatformEvent ev) {
 				ContainerID cid = ev.getContainer();
 				try {
@@ -226,7 +226,7 @@ class PlatformControllerImpl implements PlatformController {
 					// The local main container is terminating -->
 					// The whole platform is terminating
 					myListener.killedPlatform(new jade.wrapper.PlatformEvent() {
-// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8
+// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION PlatformEvent declares 3 abstract methods (getAgentGUID, getPlatformName, getEventType), all overridden here -- a multi-abstract-method interface, not lambda-convertible.
 						public String getAgentGUID() {
 							return null;
 						}

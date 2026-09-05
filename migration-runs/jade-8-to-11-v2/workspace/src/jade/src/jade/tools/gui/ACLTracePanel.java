@@ -1726,8 +1726,14 @@ public class ACLTracePanel extends JPanel {
   public final static String DIRECTION_IN = "in";
   public final static String DIRECTION_OUT = "out";
 
-  private static DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);
-// JADE-FLAG:CLDR_LOCALE_DATA_DEFAULT locale-sensitive date/time formatting whose pattern comes from the default locale provider, which switched from JRE/COMPAT to CLDR in JDK 9 0.9
+  // JADE-FIX:CLDR_LOCALE_DATA_DEFAULT DateFormat.getDateTimeInstance(SHORT, MEDIUM)
+  // resolved to a different pattern once JDK 9 made CLDR the default locale
+  // data provider (JRE/COMPAT gave "M/d/yy h:mm:ss a", e.g. "11/14/23
+  // 10:13:20 PM"; CLDR gives "M/d/yy, h:mm:ss a", inserting a comma: "11/14/23,
+  // 10:13:20 PM"). Hard-coding the JDK 8/COMPAT pattern keeps the declared
+  // type DateFormat (SimpleDateFormat extends it) and makes the output
+  // identical regardless of which provider is active.
+  private static DateFormat dateFormat = new SimpleDateFormat("M/d/yy h:mm:ss a");
   JLabel jLabel1 = new JLabel();
   ButtonGroup sortingButtonGroup = new ButtonGroup();
   JComboBox sortComboBox = new JComboBox();

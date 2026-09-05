@@ -221,8 +221,17 @@ public class JICPSPeer extends JICPPeer {
 		// Initialize the SSLServerSocket to disable authentication
 		try {
 // JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
-			sss.setEnabledCipherSuites(new String[] {"SSL_DH_anon_WITH_RC4_128_MD5"});
-// JADE-FLAG:TLS_ANON_CIPHER_DISABLED hard-coded anonymous TLS cipher suite; disabled by the default jdk.tls.disabledAlgorithms value in JDK 11 and never negotiated even when set explicitly 0.95
+			// JADE-FIX:TLS_ANON_CIPHER_DISABLED was hard-coded to
+			// SSL_DH_anon_WITH_RC4_128_MD5, an anonymous *and* RC4/MD5 suite --
+			// doubly disabled by JDK 11's default jdk.tls.disabledAlgorithms
+			// ("anon" and "RC4" both match) and never negotiated. Delegates to
+			// SSLHelper's single declared anonymous suite instead of hard-coding
+			// a second, weaker one here: same no-authentication semantics as
+			// before, current-generation AES/SHA rather than legacy RC4/MD5, and
+			// referencing SSLHelper also runs its static initializer, which lifts
+			// the "anon" restriction (see SSLHelper.java) so this suite actually
+			// gets negotiated.
+			sss.setEnabledCipherSuites(SSLHelper.getSupportedKeys());
 
 			String[] ecs = sss.getEnabledCipherSuites();
 			//DEBUG

@@ -206,8 +206,14 @@ public class TimeChooser implements ActionListener
 		}
 		else
 		{	
-			DateFormat df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);
-// JADE-FLAG:CLDR_LOCALE_DATA_DEFAULT locale-sensitive date/time formatting whose pattern comes from the default locale provider, which switched from JRE/COMPAT to CLDR in JDK 9 0.9
+			// JADE-FIX:CLDR_LOCALE_DATA_DEFAULT DateFormat.getDateTimeInstance(MEDIUM, SHORT)
+			// resolved to a different pattern once JDK 9 made CLDR the default locale
+			// data provider (JRE/COMPAT gave "MMM d, yyyy h:mm a", e.g. "Nov 14, 2023
+			// 10:13 PM"; CLDR gives "MMM d, y, h:mm a", inserting a comma: "Nov 14,
+			// 2023, 10:13 PM"). Hard-coding the JDK 8/COMPAT pattern keeps the
+			// declared type DateFormat (SimpleDateFormat extends it) and makes the
+			// output identical regardless of which provider is active.
+			DateFormat df = new SimpleDateFormat("MMM d, yyyy h:mm a");
 			s = df.format(date);
 		}
 		JLabel l = new JLabel(s);

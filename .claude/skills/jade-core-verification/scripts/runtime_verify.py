@@ -61,8 +61,14 @@ def write_json(path: pathlib.Path, payload: Dict[str, Any]) -> None:
 
 
 def version_key(raw: str) -> str:
+    """Normalise a JDK version string to the form javac accepts on the
+    command line: bare major ("11", "17", ...) for JDK 9+, where the
+    "-source"/"-target 1.X" spelling was dropped, and the legacy "1.X" form
+    only for the JDK 5-8 releases that predate the change."""
     parts = raw.replace("_", ".").split(".")
     numeric = [int(x) for x in parts if x.isdigit()]
+    if len(numeric) == 1 and numeric[0] >= 9:
+        return str(numeric[0])
     if len(numeric) == 1 and numeric[0] >= 5:
         return f"1.{numeric[0]}"
     if len(numeric) >= 2 and numeric[0] == 1:

@@ -2,12 +2,12 @@
   "run_id": "jade-8-to-11-v2",
   "state": "AWAITING_AGENT",
   "current_rule_id": "TLS_ANON_CIPHER_DISABLED",
-  "updated_at": "2026-09-05T00:55:44Z",
+  "updated_at": "2026-09-05T01:31:41Z",
   "failure_reason": null,
   "artifact_hashes": {
     "01-breaking-changes-manifest.json": "f045c8fd4f7d58bc64f6f8ebf2976f1c3b60d36df63d271f3285898d1e604031",
     "02-tooling-scout-report.json": "4dc0a2284029dcebe6b28de2f8cf992ddd31e38bab611b49c663d108e89839c1",
-    "03-build-audit.json": "a77baa4e13db93ada1ec90b8fa062cabd4c115d0615cce522ea204cc76bc475a",
+    "03-build-audit.json": "cecc6f2224736c87f1ac54b5a9352815cdd49171d275493b95345cc957a5b6c8",
     "03.5-knowledge-graph.json": "fd2dd874d34bfdca4b89b1d9aee045d0bf935993bee2a28a74eee36e48455f1e",
     "04-flag-index.json": "b01ae1e9e788147fb3e34745d095a47101b92b7c3819d8556a23213dcb5ba6db"
   },

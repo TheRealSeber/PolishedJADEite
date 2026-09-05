@@ -177,9 +177,14 @@ def java_major(version: str) -> int:
 
 
 def version_key(raw: str) -> str:
-    """Normalise '1.5' and '5' to '1.5'."""
+    """Normalise a JDK version string: '5' and '1.5' both become '1.5' (the
+    pre-JDK-9 -source/-target spelling); '9' and above stay bare ('9', '11',
+    '17', ...), matching what javac has accepted since the "1.X" spelling was
+    dropped at JDK 9."""
     parts = raw.replace("_", ".").split(".")
     numeric = [int(x) for x in parts if x.isdigit()]
+    if len(numeric) == 1 and numeric[0] >= 9:
+        return str(numeric[0])
     if len(numeric) == 1 and numeric[0] >= 5:
         return f"1.{numeric[0]}"
     if len(numeric) >= 2 and numeric[0] == 1:

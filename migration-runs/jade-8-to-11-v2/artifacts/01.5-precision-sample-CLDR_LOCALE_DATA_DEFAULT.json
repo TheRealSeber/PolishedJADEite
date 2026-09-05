@@ -1,0 +1,172 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "      s = df.format(date);",
+        "    }",
+        "    JLabel l = new JLabel(s);"
+      ],
+      "context_before": [
+        "    }",
+        "",
+        "    else {"
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+      "hit_id": "dbd1bd49117bbdf8",
+      "line": 226,
+      "line_hash": "c8381cf1571bf743",
+      "line_text": "      DateFormat df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);",
+      "line_truncated": false,
+      "match_span": [
+        22,
+        53
+      ],
+      "match_text": "DateFormat.getDateTimeInstance(",
+      "pattern_index": 0,
+      "rank": 0
+    },
+    {
+      "context_after": [
+        "",
+        "\tMsgIndication()",
+        "\t{"
+      ],
+      "context_before": [
+        "\t//logging",
+        "\tprivate static Logger logger = Logger.getMyLogger(MsgIndication.class.getName());",
+        ""
+      ],
+      "file": "src/jade/src/jade/tools/DummyAgent/MsgIndication.java",
+      "hit_id": "3988cfa570dd1058",
+      "line": 56,
+      "line_hash": "0eb4f11000a83b8d",
+      "line_text": "\tprivate static DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);",
+      "line_truncated": false,
+      "match_span": [
+        32,
+        63
+      ],
+      "match_text": "DateFormat.getDateTimeInstance(",
+      "pattern_index": 0,
+      "rank": 1
+    },
+    {
+      "context_after": [
+        "  private Date theDate = new Date();",
+        "  private ACLMessage theMessage;",
+        "  private String direction;"
+      ],
+      "context_before": [
+        "  }",
+        "",
+        ""
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLMessageNode.java",
+      "hit_id": "c3890bdb56fa43e4",
+      "line": 179,
+      "line_hash": "5c0cdc05062e97c2",
+      "line_text": "  private static DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);",
+      "line_truncated": false,
+      "match_span": [
+        41,
+        72
+      ],
+      "match_text": "DateFormat.getDateTimeInstance(",
+      "pattern_index": 0,
+      "rank": 2
+    },
+    {
+      "context_after": [
+        "  JLabel jLabel1 = new JLabel();",
+        "  ButtonGroup sortingButtonGroup = new ButtonGroup();",
+        "  JComboBox sortComboBox = new JComboBox();"
+      ],
+      "context_before": [
+        "  public final static String DIRECTION_IN = \"in\";",
+        "  public final static String DIRECTION_OUT = \"out\";",
+        ""
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+      "hit_id": "09cb50e447908241",
+      "line": 1729,
+      "line_hash": "5c0cdc05062e97c2",
+      "line_text": "  private static DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);",
+      "line_truncated": false,
+      "match_span": [
+        41,
+        72
+      ],
+      "match_text": "DateFormat.getDateTimeInstance(",
+      "pattern_index": 0,
+      "rank": 3
+    },
+    {
+      "context_after": [
+        "\t\t\ts = df.format(date);",
+        "\t\t}",
+        "\t\tJLabel l = new JLabel(s);"
+      ],
+      "context_before": [
+        "\t\t}",
+        "\t\telse",
+        "\t\t{\t"
+      ],
+      "file": "src/jade/src/jade/gui/TimeChooser.java",
+      "hit_id": "29b2c4d14768e281",
+      "line": 209,
+      "line_hash": "010c33bace7dc8b8",
+      "line_text": "\t\t\tDateFormat df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);",
+      "line_truncated": false,
+      "match_span": [
+        19,
+        50
+      ],
+      "match_text": "DateFormat.getDateTimeInstance(",
+      "pattern_index": 0,
+      "rank": 4
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-8-to-11-v2/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "b0bdf6fb10effc13186c72fedc7c19599eb1f998974775e7d44895358e895067",
+  "pattern_revision": 1,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "\\bDateFormat\\.getDateTimeInstance\\s*\\(",
+      "reason": "locale-sensitive date/time formatting whose pattern comes from the default locale provider, which switched from JRE/COMPAT to CLDR in JDK 9",
+      "target_extensions": [
+        ".java"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 1015,
+    "files_with_hits": 5,
+    "hits_per_pattern": {
+      "0": 5
+    },
+    "max_hits_in_one_file": 1,
+    "population_signature": "4720f2eebe8e2fe2079aa6faced94ebffd371529d6f8bc6b832f00498f6502c8",
+    "total_hits": 5,
+    "truncated": false
+  },
+  "rule_description": "Starting in JDK 9 the Unicode Consortium CLDR data is the default locale data provider; in JDK 8 CLDR was bundled but not enabled. Code that uses locale-sensitive services such as date, time and number formatting can therefore produce different output on JDK 11 than on JDK 8. JADE formats message timestamps through DateFormat.getDateTimeInstance(style, style), which resolves its pattern from the default locale provider, so sniffer and DummyAgent timestamps change shape between JDK 8 and JDK 11. Oracle documents two remedies: set java.locale.providers=COMPAT,CLDR, or stop relying on the provider by stating the pattern explicitly.",
+  "rule_id": "CLDR_LOCALE_DATA_DEFAULT",
+  "rule_name": "CLDR locale data is the default provider from JDK 9 on",
+  "run_id": "jade-8-to-11-v2",
+  "sample_size": 5,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 3,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "3a0c97bf477c3397",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "CENSUS",
+  "verification_hint": "Either every flagged site states its own pattern (SimpleDateFormat with an explicit pattern string) and no DateFormat.getDateTimeInstance( call remains flagged, or the run records an explicit java.locale.providers=COMPAT,CLDR decision. Formatted timestamps must be identical on JDK 8 and JDK 11 for the same input, and all four consumers still PASS.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-8-to-11-v2/workspace"
+}

@@ -1,0 +1,24 @@
+{"ts": "2026-09-05T00:37:40Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T00:37:40Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs/jade-8-to-11-v2/workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T00:37:40Z", "phase": "MANIFEST_READY", "status": "OK", "message": "Paused for agent input \u2014 see AWAITING_AGENT.md", "artifacts": ["AWAITING_AGENT.md"]}
+{"ts": "2026-09-05T00:37:40Z", "phase": "AWAITING_AGENT", "status": "ERROR", "message": "Run terminated: AWAITING_AGENT", "artifacts": ["00-run-state.json", "PROGRESS.md"]}
+{"ts": "2026-09-05T00:45:54Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T00:45:54Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs/jade-8-to-11-v2/workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T00:45:57Z", "phase": "FAILED", "status": "ERROR", "message": "Run terminated: FAILED", "artifacts": ["00-run-state.json", "PROGRESS.md"]}
+{"ts": "2026-09-05T00:48:49Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T00:48:49Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs/jade-8-to-11-v2/workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T00:48:58Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Paused for agent input \u2014 see AWAITING_AGENT.md", "artifacts": ["AWAITING_AGENT.md"]}
+{"ts": "2026-09-05T00:53:14Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T00:53:14Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs/jade-8-to-11-v2/workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T00:53:18Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Paused for agent input \u2014 see AWAITING_AGENT.md", "artifacts": ["AWAITING_AGENT.md"]}
+{"ts": "2026-09-05T00:55:03Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T00:55:03Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs/jade-8-to-11-v2/workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T00:55:08Z", "phase": "FAILED", "status": "ERROR", "message": "Run terminated: FAILED", "artifacts": ["00-run-state.json", "PROGRESS.md"]}
+{"ts": "2026-09-05T00:55:13Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T00:55:13Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs/jade-8-to-11-v2/workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T00:55:23Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Paused for agent input \u2014 see AWAITING_AGENT.md", "artifacts": ["AWAITING_AGENT.md"]}
+{"ts": "2026-09-05T00:55:43Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T00:55:43Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs/jade-8-to-11-v2/workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T00:55:44Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Processing rule TLS_ANON_CIPHER_DISABLED", "artifacts": ["05-rule-batch-status.json"]}
+{"ts": "2026-09-05T00:55:44Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Paused for agent input \u2014 see AWAITING_AGENT.md", "artifacts": ["AWAITING_AGENT.md"]}
+{"ts": "2026-09-05T00:55:44Z", "phase": "AWAITING_AGENT", "status": "ERROR", "message": "Run terminated: AWAITING_AGENT", "artifacts": ["00-run-state.json", "PROGRESS.md"]}

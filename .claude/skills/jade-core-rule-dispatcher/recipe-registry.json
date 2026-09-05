@@ -46,9 +46,10 @@
     "description": "Convert anonymous SAM classes to Java 8 lambda expressions"
   },
   "CORBA_REMOVAL": {
-    "skill": "jade-recipe-8-11-corba-retrofit",
-    "script": ".claude/skills/java-migration-skill-registry/8-to-11/jade-recipe-8-11-corba-retrofit/scripts/apply.py",
-    "description": "Retrofit removed org.omg.* (CORBA) modules with GlassFish CORBA jars + classpath for Java 11"
+    "skill": "jade-recipe-8-11-corba-removal",
+    "skill_md": ".claude/skills/java-migration-skill-registry/8-to-11/jade-recipe-8-11-corba-removal/SKILL.md",
+    "description": "Delete the CORBA dependency: remove the generated FIPA IDL stubs, the jade.mtp.iiop transport and their build.xml wiring, instead of retrofitting an external ORB",
+    "mode": "agent"
   },
   "STRING_ISEMPTY_ADOPTION": {
     "skill": "jade-recipe-1.5-1.6-string-isempty",
@@ -60,6 +61,19 @@
     "skill": "jade-recipe-1.5-1.6-arrays-copyof-full",
     "skill_md": ".claude/skills/java-migration-skill-registry/1.5-to-1.6/jade-recipe-1.5-1.6-arrays-copyof-full/SKILL.md",
     "description": "Replace the full-array System.arraycopy idiom with java.util.Arrays.copyOf",
+    "mode": "agent"
+  },
+  "_comment_corba_variants": "CORBA_REMOVAL has two mutually exclusive recipes. This branch (work/jump-811) maps it to jade-recipe-8-11-corba-removal (mode agent), which deletes the generated FIPA IDL stubs and the IIOP MTP. The fallback path, used by the jade-8-to-11 run on master, is jade-recipe-8-11-corba-retrofit (mode script, .claude/skills/java-migration-skill-registry/8-to-11/jade-recipe-8-11-corba-retrofit/scripts/apply.py), which adds GlassFish CORBA jars to the classpath and changes no source. That recipe is left untouched on disk. To switch back, replace the CORBA_REMOVAL entry with {skill, script, description} pointing at it and drop the mode key. Never run both against the same workspace.",
+  "TLS_ANON_CIPHER_DISABLED": {
+    "skill": "jade-recipe-8-11-tls-anon-cipher",
+    "skill_md": ".claude/skills/java-migration-skill-registry/8-to-11/jade-recipe-8-11-tls-anon-cipher/SKILL.md",
+    "description": "Resolve hard-coded anonymous TLS cipher suites (DH_anon/ECDH_anon) disabled by the JDK 11 default jdk.tls.disabledAlgorithms",
+    "mode": "agent"
+  },
+  "CLDR_LOCALE_DATA_DEFAULT": {
+    "skill": "jade-recipe-8-11-cldr-locale-data",
+    "skill_md": ".claude/skills/java-migration-skill-registry/8-to-11/jade-recipe-8-11-cldr-locale-data/SKILL.md",
+    "description": "Make date/time formatting independent of the default locale data provider, which switched from JRE/COMPAT to CLDR in JDK 9",
     "mode": "agent"
   }
 }

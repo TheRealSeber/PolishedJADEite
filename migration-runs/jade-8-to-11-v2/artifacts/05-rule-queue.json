@@ -1,0 +1,45 @@
+{
+  "run_id": "jade-8-to-11-v2",
+  "rules": [
+    "CORBA_REMOVAL",
+    "TLS_ANON_CIPHER_DISABLED",
+    "CLDR_LOCALE_DATA_DEFAULT"
+  ],
+  "generated_at": "2026-09-05T00:50:00Z",
+  "decision": "Standing user choice for this run: every rule that clears the precision gate enters the queue, nothing is deferred. All three rules scored pattern_precision 1.0 with status PASS and queue_eligible true in 01.5-precision-report.json (CORBA_REMOVAL 60/60 judged out of a 333-hit population, TLS_ANON_CIPHER_DISABLED 2/2 census, CLDR_LOCALE_DATA_DEFAULT 5/5 census). CORBA_REMOVAL (HIGH) and TLS_ANON_CIPHER_DISABLED (MEDIUM) are mandatory breaking changes; CLDR_LOCALE_DATA_DEFAULT (LOW) is queued rather than deferred under the same standing choice. The on-disk order here is by severity; the binding execution order is computed by effective_rule_order, which ranks body-local ahead of signature, so the two body-local rules run before CORBA_REMOVAL.",
+  "graph_metadata": {
+    "status": "computed",
+    "source_artifact": "03.5-knowledge-graph.json",
+    "suggested_order": [
+      "CORBA_REMOVAL",
+      "TLS_ANON_CIPHER_DISABLED",
+      "CLDR_LOCALE_DATA_DEFAULT"
+    ],
+    "direct_counts": {
+      "CORBA_REMOVAL": 43,
+      "TLS_ANON_CIPHER_DISABLED": 2,
+      "CLDR_LOCALE_DATA_DEFAULT": 5
+    },
+    "impact_counts": {
+      "CORBA_REMOVAL": 35,
+      "TLS_ANON_CIPHER_DISABLED": 429,
+      "CLDR_LOCALE_DATA_DEFAULT": 76
+    },
+    "cycles": [],
+    "ordering_reasons": [
+      {
+        "rule": "CORBA_REMOVAL",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      },
+      {
+        "rule": "TLS_ANON_CIPHER_DISABLED",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      },
+      {
+        "rule": "CLDR_LOCALE_DATA_DEFAULT",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      }
+    ],
+    "diagnostics": []
+  }
+}

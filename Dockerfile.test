@@ -3,6 +3,13 @@ FROM python:3.13-slim
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
+# git is a runtime dependency of the tests, not a convenience: the shard
+# checkpoint ledger and the manifest golden-compare shell out to it. Without it
+# 12 tests fail with FileNotFoundError: 'git' and read as real regressions.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends git \
+    && rm -rf /var/lib/apt/lists/*
+
 # Core test dependencies (mirror the local dev environment).
 RUN pip install --no-cache-dir \
         pytest \

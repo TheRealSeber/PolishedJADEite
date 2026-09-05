@@ -345,13 +345,11 @@ public class ExtendedProperties extends Properties {
 				String importFile = doSubstitutions(aValue.toString());
 				try {
 					// Try in the classpath first
-					InputStream stream = getClass().getClassLoader().getResourceAsStream(importFile);
-					if (stream == null) {
-						// Not found: try in the file system
-						stream = new FileInputStream(importFile);
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
+					InputStream classpathStream = getClass().getClassLoader().getResourceAsStream(importFile);
+					// Not found in the classpath: try in the file system
+					try (InputStream stream = (classpathStream != null) ? classpathStream : new FileInputStream(importFile)) {
+						load(stream);
 					}
-					load(stream);
 				} catch (IOException ioe) {
 					logger.log(Logger.WARNING, "Cannot import properties from import-file "+importFile);
 				}

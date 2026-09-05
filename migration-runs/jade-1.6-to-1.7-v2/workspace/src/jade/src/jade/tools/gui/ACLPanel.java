@@ -217,12 +217,9 @@ public class ACLPanel extends JPanel {
         fileName = fileName + ".acl";
       }
 
-      try {
-        FileWriter f = new FileWriter(fileName);
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
+      try (FileWriter f = new FileWriter(fileName)) {
         StringACLCodec codec = new StringACLCodec(null, f);
         codec.write(itsMsg);
-        f.close();
       }
       catch (FileNotFoundException e3) {
         if(logger.isLoggable(Logger.WARNING))
@@ -253,9 +250,8 @@ public class ACLPanel extends JPanel {
       currentDir = chooser.getCurrentDirectory();
       String fileName = chooser.getSelectedFile().getAbsolutePath();
 
-      try {
-        StringACLCodec codec = new StringACLCodec(new FileReader(fileName), null);
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
+      try (FileReader fr = new FileReader(fileName)) {
+        StringACLCodec codec = new StringACLCodec(fr, null);
         ACLMessage msg = codec.decode();
         this.setItsMsg(msg);
       }
@@ -269,6 +265,10 @@ public class ACLPanel extends JPanel {
         	logger.log(Logger.WARNING,"Wrong ACL Message in file: " + fileName);
         // e2.printStackTrace();
         JOptionPane.showMessageDialog(null, "Wrong ACL Message in file: " + fileName + "\n" + e2.getMessage(), "Error Message", JOptionPane.ERROR_MESSAGE);
+      }
+      catch (IOException e6) {
+        if(logger.isLoggable(Logger.WARNING))
+        	logger.log(Logger.WARNING,"IO Exception: " + fileName);
       }
     }
   }

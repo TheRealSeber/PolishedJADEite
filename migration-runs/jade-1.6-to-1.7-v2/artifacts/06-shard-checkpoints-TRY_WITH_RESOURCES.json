@@ -1,0 +1,172 @@
+{
+  "repo_root": "/Users/sebastian/Desktop/myown/PolishedJADEite-1617",
+  "rule_id": "TRY_WITH_RESOURCES",
+  "run_id": "jade-1.6-to-1.7-v2",
+  "schema_version": 1,
+  "shards": {
+    "TRY_WITH_RESOURCES-body-local-001": {
+      "created_at": "2026-09-05T02:09:41Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/BootGUI.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/MainDetectionManager.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/MulticastMainDetectionListener.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/behaviours/LoaderBehaviour.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/management/JarClassLoader.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessagingService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/nodeMonitoring/UDPMonitorServer.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/resource/ResourceManagementService.java"
+        },
+        {
+          "file": "src/jade/src/jade/domain/DFDBKB.java"
+        },
+        {
+          "file": "src/jade/src/jade/domain/ams.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/JICPConnection.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/JICPPeer.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/SSLHelper.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/sms/PhoneBasedSMSManager.java"
+        },
+        {
+          "file": "src/jade/src/jade/mtp/http/HTTPServer.java"
+        },
+        {
+          "file": "src/jade/src/jade/mtp/http/KeepAlive.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/SocketProxyAgent/JadeBridge.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/SocketProxyAgent/Server.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/SocketProxyAgent/SocketProxyAgent.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPanel.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainPanel.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/DisplayLogFileAction.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/Sniffer.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/WriteLogFileAction.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/WriteMessageListAction.java"
+        },
+        {
+          "file": "src/jade/src/jade/util/AccessControlList.java"
+        },
+        {
+          "file": "src/jade/src/jade/util/ExtendedProperties.java"
+        },
+        {
+          "file": "src/jade/src/jade/util/Logger.java"
+        },
+        {
+          "file": "src/jade/src/jade/util/PerDayFileLogger.java"
+        },
+        {
+          "file": "src/jade/src/jade/util/leap/Properties.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T02:12:42Z"
+    },
+    "TRY_WITH_RESOURCES-body-local-002": {
+      "created_at": "2026-09-05T02:15:24Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/mtp/http/https/FriendListAuthentication.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T02:17:25Z"
+    },
+    "TRY_WITH_RESOURCES-body-local-003": {
+      "created_at": "2026-09-05T02:15:38Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/mtp/http/https/KeyStoreKeyManager.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T02:17:25Z"
+    },
+    "TRY_WITH_RESOURCES-body-local-004": {
+      "created_at": "2026-09-05T02:15:50Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/mtp/http/https/StrongAuthentication.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T02:17:25Z"
+    },
+    "TRY_WITH_RESOURCES-body-local-005": {
+      "created_at": "2026-09-05T02:16:07Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/mtp/iiop/MessageTransportProtocol.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T02:17:25Z"
+    }
+  },
+  "workspace_root": "migration-runs/jade-1.6-to-1.7-v2/workspace"
+}

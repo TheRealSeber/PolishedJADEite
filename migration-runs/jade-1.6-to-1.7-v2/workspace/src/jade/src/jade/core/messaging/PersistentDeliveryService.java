@@ -449,8 +449,7 @@ public class PersistentDeliveryService extends BaseService {
 	
 	private Service.Slice[] getStorageEnabledSlices() throws ServiceException {
 		if (storageEnabledSliceNames != null) {
-			List<Service.Slice> ss = new ArrayList<Service.Slice>(storageEnabledSliceNames.length);
-// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
+			List<Service.Slice> ss = new ArrayList<>(storageEnabledSliceNames.length);
 			for (int i = 0; i < storageEnabledSliceNames.length; ++i) {
 				try {
 					Service.Slice s = getSlice(storageEnabledSliceNames[i]);

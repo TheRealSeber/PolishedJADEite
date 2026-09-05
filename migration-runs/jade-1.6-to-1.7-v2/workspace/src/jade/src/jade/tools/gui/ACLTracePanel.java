@@ -317,13 +317,10 @@ public class ACLTracePanel extends JPanel {
       currentDir = chooser.getCurrentDirectory();
       String fileName = chooser.getSelectedFile().getAbsolutePath();
 
-      try {
-        FileWriter f = new FileWriter(fileName);
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
+      try (FileWriter f = new FileWriter(fileName)) {
         StringACLCodec codec = new StringACLCodec(null, f);
         // ACLMessage ACLmsg = currentMsgGui.getMsg();
         codec.write(currentACL);
-        f.close();
 
       }
       catch (FileNotFoundException e3) {
@@ -371,10 +368,8 @@ public class ACLTracePanel extends JPanel {
         fileName = fileName + ".trc";
       }
 
-      try {
-        FileWriter f = new FileWriter(fileName);
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
-        BufferedWriter bw = new BufferedWriter(f);
+      try (FileWriter f = new FileWriter(fileName);
+           BufferedWriter bw = new BufferedWriter(f)) {
         int size = aclModel.getChildCount(this.aclRoot);
         for (int i = 0; i < size; i++) {
           System.out.println("aclModel: " + aclModel.getChild(this.aclRoot, i).getClass());
@@ -391,8 +386,6 @@ public class ACLTracePanel extends JPanel {
           bw.newLine();
         }
         bw.flush();
-        bw.close();
-        f.close();
 
       }
       catch (FileNotFoundException e3) {
@@ -426,9 +419,8 @@ public class ACLTracePanel extends JPanel {
 
       try {
         clearACLModel();
-        FileReader f = new FileReader(fileName);
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
-        BufferedReader br = new BufferedReader(f);
+        try (FileReader f = new FileReader(fileName);
+             BufferedReader br = new BufferedReader(f)) {
         String line = br.readLine();
         String direction;
         String theTime;
@@ -450,9 +442,8 @@ public class ACLTracePanel extends JPanel {
           this.addMessageNode(direction, theTime, theMsg);
 
         }
-        br.close();
-        f.close();
 
+      }
       }
       catch (FileNotFoundException e3) {
         if(logger.isLoggable(Logger.WARNING))

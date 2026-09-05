@@ -271,56 +271,51 @@ public class ACLTimeChooserDialog implements ActionListener {
    */
   public void actionPerformed(ActionEvent e) {
     String command = e.getActionCommand();
-    if (command.equals("Set")) {
-      Integer I;
-      I = new Integer(year.getText());
-      int YY = I.intValue();
-      I = new Integer(month.getText());
-      int MM = I.intValue();
-      I = new Integer(day.getText());
-      int DD = I.intValue();
-      I = new Integer(hour.getText());
-      int hh = I.intValue();
-      I = new Integer(min.getText());
-      int mm = I.intValue();
-      I = new Integer(sec.getText());
-      int ss = I.intValue();
+    switch (command) {
+    case "Set":
+        Integer I;
+        I = new Integer(year.getText());
+        int YY = I.intValue();
+        I = new Integer(month.getText());
+        int MM = I.intValue();
+        I = new Integer(day.getText());
+        int DD = I.intValue();
+        I = new Integer(hour.getText());
+        int hh = I.intValue();
+        I = new Integer(min.getText());
+        int mm = I.intValue();
+        I = new Integer(sec.getText());
+        int ss = I.intValue();
 
-      Calendar cal = new GregorianCalendar(YY, MM - 1, DD, hh, mm, ss);
-      date = cal.getTime();
+        Calendar cal = new GregorianCalendar(YY, MM - 1, DD, hh, mm, ss);
+        date = cal.getTime();
 
-      retVal = OK;
-      dlg.dispose();
+        retVal = OK;
+        dlg.dispose();
+        break;
+    case "Reset":
+        date = null;
+        retVal = OK;
+        dlg.dispose();
+        break;
+    case "Cancel":
+        retVal = CANCEL;
+        dlg.dispose();
+        break;
+    case "Close":
+        dlg.dispose();
+        break;
+    case "Absolute":
+        absButton.setSelected(true);
+        relButton.setSelected(false);
+        mode = ABSOLUTE;
+        break;
+    case "Relative":
+        relButton.setSelected(true);
+        absButton.setSelected(false);
+        mode = RELATIVE;
+        break;
     }
-    else if (command.equals("Reset")) {
-// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
-      date = null;
-      retVal = OK;
-      dlg.dispose();
-    }
-    else if (command.equals("Cancel")) {
-// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
-      retVal = CANCEL;
-      dlg.dispose();
-    }
-    else if (command.equals("Close")) {
-// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
-      dlg.dispose();
-    }
-
-    else if (command.equals("Absolute")) {
-// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
-      absButton.setSelected(true);
-      relButton.setSelected(false);
-      mode = ABSOLUTE;
-    }
-    else if (command.equals("Relative")) {
-// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
-      relButton.setSelected(true);
-      absButton.setSelected(false);
-      mode = RELATIVE;
-    }
-
   }
 
 

@@ -267,43 +267,27 @@ class FSPersistentStorage implements PersistentStorage {
 		file.createNewFile();
 		//#DOTNET_EXCLUDE_END
 		
-		FileOutputStream fos = null;
-		try {
-			fos = new FileOutputStream(file);
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
+		try (FileOutputStream fos = new FileOutputStream(file)) {
 			fos.write(content);
-		} 
-		finally {
-			if (fos != null) {
-				fos.close();
-			}
 		}
 	}
 
 	private byte[] readContent(File file) throws IOException {
-		FileInputStream fis = null;
 		int length = (int) file.length();
 		if (length > 0) {
 			byte[] content = new byte[length];
-			try {
-				fis = new FileInputStream(file);
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
+			try (FileInputStream fis = new FileInputStream(file)) {
 				int cnt = 0;
 				int n;
 				do {
 					n = fis.read(content, cnt, length-cnt);
 					if (n == -1) {
 						throw new EOFException("EOF reading packet data");
-					} 
+					}
 					cnt += n;
-				} 
+				}
 				while (cnt < length);
 				return content;
-			}
-			finally {
-				if (fis != null) {
-					fis.close();
-				}
 			}
 		}
 		else {

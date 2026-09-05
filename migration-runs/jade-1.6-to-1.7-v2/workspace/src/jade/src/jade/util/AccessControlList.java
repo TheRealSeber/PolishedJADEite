@@ -247,42 +247,40 @@ public class AccessControlList {
 
 		InternalACL iacl;
 
-		// count number of lines 
-		BufferedReader in = new BufferedReader(new FileReader(fileName));
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
+		// count number of lines
 		int n=0;
-		while (( in.readLine()) != null) { n++; }
-		in.close();
+		try (BufferedReader in = new BufferedReader(new FileReader(fileName))) {
+			while (( in.readLine()) != null) { n++; }
+		}
 		// create properly dimensioned arrays
 		iacl = new InternalACL( n+1 );
 
 		iacl.fileName = fileName; // just used for debugging
 
 		logger.log(Logger.FINER, "Opening acc.control list file:"+fileName+" ("+n+" lines)");
-		in = new BufferedReader(new FileReader(fileName));
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
-		String str;
-		int pos=0;
-		while ((str = in.readLine()) != null) {
-			pos++;
-			str=str.trim();
-			if (str.startsWith("#")) {
-				continue;
-			}
-			// if encountered a section header
-			if (str.endsWith(":")) {
-				iacl.sectionName[ pos ] = str.substring(0, str.length()-1);
-				continue;
-			}
+		try (BufferedReader in = new BufferedReader(new FileReader(fileName))) {
+			String str;
+			int pos=0;
+			while ((str = in.readLine()) != null) {
+				pos++;
+				str=str.trim();
+				if (str.startsWith("#")) {
+					continue;
+				}
+				// if encountered a section header
+				if (str.endsWith(":")) {
+					iacl.sectionName[ pos ] = str.substring(0, str.length()-1);
+					continue;
+				}
 
-			// prepare pattern (from the pattern at this line)
-			try {
-				iacl.pat[ pos ] = Pattern.compile(str);
-			} catch (PatternSyntaxException pse) {
-				logger.log(Logger.WARNING, "Error in expression acc.control list file:"+fileName+" (line:"+pos+")");
+				// prepare pattern (from the pattern at this line)
+				try {
+					iacl.pat[ pos ] = Pattern.compile(str);
+				} catch (PatternSyntaxException pse) {
+					logger.log(Logger.WARNING, "Error in expression acc.control list file:"+fileName+" (line:"+pos+")");
+				}
 			}
 		}
-		in.close();
 
 		return iacl;
 	}// end file2iacl

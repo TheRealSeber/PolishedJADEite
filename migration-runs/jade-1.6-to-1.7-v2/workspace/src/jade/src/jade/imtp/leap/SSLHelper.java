@@ -123,8 +123,9 @@ public class SSLHelper {
 			// open keystore
 			char[] passphrase = System.getProperty("javax.net.ssl.keyStorePassword").toCharArray();
 			KeyStore ks = KeyStore.getInstance("JKS");
-			ks.load(new FileInputStream(System.getProperty("javax.net.ssl.keyStore")), passphrase);
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
+			try (FileInputStream ksStream = new FileInputStream(System.getProperty("javax.net.ssl.keyStore"))) {
+				ks.load(ksStream, passphrase);
+			}
 			// init KeyManager
 			KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
 			kmf.init(ks, passphrase);

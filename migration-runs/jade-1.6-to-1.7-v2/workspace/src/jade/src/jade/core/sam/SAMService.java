@@ -64,10 +64,8 @@ public class SAMService extends BaseService {
 
 	public static final String AGENTS_TO_MONITOR = "jade_core_sam_SAMService_agentstomonitor";
 	
-	private List<EntityInfo> monitoredEntities = new ArrayList<EntityInfo>();
-// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
-	private List<CounterInfo> monitoredCounters = new ArrayList<CounterInfo>();
-// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
+	private List<EntityInfo> monitoredEntities = new ArrayList<>();
+	private List<CounterInfo> monitoredCounters = new ArrayList<>();
 	
 	private Poller poller;
 
@@ -81,8 +79,7 @@ public class SAMService extends BaseService {
 	private AgentContainer myContainer;
 	
 	private Timer samTimer;
-	private List<MediatedMeasureProvider> providers = new ArrayList<MediatedMeasureProvider>();
-// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
+	private List<MediatedMeasureProvider> providers = new ArrayList<>();
 	private MediatedMeasureProvider[] providersArray;
 	
 	private String[] agentsToMonitor;
@@ -269,8 +266,7 @@ public class SAMService extends BaseService {
 	private Map<String, AverageMeasure> getEntityMeasures() {
 		// Mutual exclusion with modifications of entities/providers
 		synchronized (myHelper) {
-			Map<String, AverageMeasure> entityMeasures = new HashMap<String, AverageMeasure>();
-// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
+			Map<String, AverageMeasure> entityMeasures = new HashMap<>();
 			for (EntityInfo info : monitoredEntities) {
 				entityMeasures.put(info.getName(), info.getMeasure());
 			}
@@ -281,8 +277,7 @@ public class SAMService extends BaseService {
 	private Map<String, Long> getCounterValues() {
 		// Mutual exclusion with modifications of counters/providers
 		synchronized (myHelper) {
-			Map<String, Long> counterValues = new HashMap<String, Long>();
-// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
+			Map<String, Long> counterValues = new HashMap<>();
 			for (CounterInfo info : monitoredCounters) {
 				counterValues.put(info.getName(), info.getValue());
 			}
@@ -386,8 +381,7 @@ public class SAMService extends BaseService {
 	 */
 	private class EntityInfo {
 		private String name;
-		private List<AverageMeasureProvider> providers = new ArrayList<AverageMeasureProvider>();
-// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
+		private List<AverageMeasureProvider> providers = new ArrayList<>();
 		
 		EntityInfo(String name) {
 			this.name = name;
@@ -433,10 +427,8 @@ public class SAMService extends BaseService {
 	 */
 	private class CounterInfo {
 		private String name;
-		private List<CounterValueProvider> providers = new ArrayList<CounterValueProvider>();
-// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
-		private List<Long> previousTotalValues = new ArrayList<Long>();
-// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
+		private List<CounterValueProvider> providers = new ArrayList<>();
+		private List<Long> previousTotalValues = new ArrayList<>();
 		
 		CounterInfo(String name) {
 			this.name = name;

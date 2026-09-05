@@ -512,8 +512,7 @@ class MessageManager {
 		System.out.println(stringify(gm));
 		
 		MultipleGenericMessage mgm = new MultipleGenericMessage(200);
-		List<GenericMessage> l = new ArrayList<GenericMessage>();
-// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
+		List<GenericMessage> l = new ArrayList<>();
 		l.add(gm);
 		l.add(gm);
 		mgm.setMessages(l);

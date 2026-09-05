@@ -39,8 +39,7 @@ class SingletonResourceManagementHelper {
 	}
 	
 	private SingletonResourceManagementHelper() {
-		helpers = new ArrayList<ResourceManagementHelper>();
-// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
+		helpers = new ArrayList<>();
 	}
 
 	public void addHelper(ResourceManagementHelper helper) {

@@ -50,7 +50,6 @@ import jade.util.Logger;
 
  public class WriteMessageListAction extends FixedAction implements Serializable {
 
-private PrintWriter out;
 private MainPanel mainPanel;
  private static Logger logger = Logger.getMyLogger(WriteMessageListAction.class.getName());
 
@@ -66,15 +65,14 @@ private MainPanel mainPanel;
      int returnVal = fileDialog.showSaveDialog(null);
      if(returnVal == JFileChooser.APPROVE_OPTION){
        String fileName = fileDialog.getSelectedFile().getAbsolutePath();
-       out = new PrintWriter(new BufferedWriter(new FileWriter(fileName)));
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
+       try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(fileName)))) {
        MessageList msgList = mainPanel.panelcan.canvMess.getMessageList();
        Iterator it = msgList.getMessages();
        while(it.hasNext()) {
 	 Message curMsg = (Message)it.next();
 	 out.println(curMsg.toString());
        }
-      out.close();
+      }
       if(logger.isLoggable(Logger.INFO))
       	logger.log(Logger.INFO,"Message List File Written.");
    }

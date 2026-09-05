@@ -513,21 +513,20 @@ public class AclGui extends JPanel
 							if(logger.isLoggable(Logger.SEVERE))
 								logger.log(Logger.WARNING,"Incorrect date format"); }
 					}
-					if (command.equals("Set"))
-					{
-						if (t.showEditTimeDlg(null) == TimeChooser.OK)
-						{
-							replyByDate = t.getDate();
-							if (replyByDate == null)
-								replyBy.setText("");
-							else
-								replyBy.setText(ISO8601.toString(replyByDate));
-						}
-					}
-					else if (command.equals("View"))
-// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
-					{         
-						t.showViewTimeDlg(null);
+					switch (command) {
+					case "Set":
+					    if (t.showEditTimeDlg(null) == TimeChooser.OK)
+					    {
+					    replyByDate = t.getDate();
+					    if (replyByDate == null)
+					    replyBy.setText("");
+					    else
+					    replyBy.setText(ISO8601.toString(replyByDate));
+					    }
+					    break;
+					case "View":
+					    t.showViewTimeDlg(null);
+					    break;
 					}
 				} // END actionPerformed(ActionEvent e)
 			} // END anonymous class
@@ -602,18 +601,18 @@ public class AclGui extends JPanel
 				{
 					try {
 						java.io.File f = (java.io.File)(fileItor.next());
-						FileReader aclMsgFile = new FileReader(f);
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
-						Enumeration receivers = receiverListPanel.getContent();
-						setMsg( aclParser.parse(aclMsgFile) );
-						if ( receivers.hasMoreElements() ) {
-							if(logger.isLoggable(Logger.FINE))
-								logger.log(Logger.FINE,"revert to saved list");
-							ArrayList list = new ArrayList();
-							while(receivers.hasMoreElements()) {
-								list.add(receivers.nextElement());
+						try (FileReader aclMsgFile = new FileReader(f)) {
+							Enumeration receivers = receiverListPanel.getContent();
+							setMsg( aclParser.parse(aclMsgFile) );
+							if ( receivers.hasMoreElements() ) {
+								if(logger.isLoggable(Logger.FINE))
+									logger.log(Logger.FINE,"revert to saved list");
+								ArrayList list = new ArrayList();
+								while(receivers.hasMoreElements()) {
+									list.add(receivers.nextElement());
+								}
+								receiverListPanel.resetContent(list.iterator());
 							}
-							receiverListPanel.resetContent(list.iterator());
 						}
 					}
 					catch (IOException exc) {
@@ -769,21 +768,20 @@ public class AclGui extends JPanel
 							if(logger.isLoggable(Logger.WARNING))
 								logger.log(Logger.WARNING,"Incorrect date format"); }
 					}
-					if (command.equals("Set"))
-					{
-						if (t.showEditTimeDlg(null) == TimeChooser.OK)
-						{
-							dateDate = t.getDate();
-							if (dateDate == null)
-								date.setText("");
-							else
-								date.setText(ISO8601.toString(dateDate));
-						}
-					}
-					else if (command.equals("View"))
-// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
-					{         
-						t.showViewTimeDlg(null);
+					switch (command) {
+					case "Set":
+					    if (t.showEditTimeDlg(null) == TimeChooser.OK)
+					    {
+					    dateDate = t.getDate();
+					    if (dateDate == null)
+					    date.setText("");
+					    else
+					    date.setText(ISO8601.toString(dateDate));
+					    }
+					    break;
+					case "View":
+					    t.showViewTimeDlg(null);
+					    break;
 					}
 				}
 			} );
@@ -852,21 +850,20 @@ public class AclGui extends JPanel
 							if(logger.isLoggable(Logger.WARNING))
 								logger.log(Logger.WARNING,"Incorrect date format"); }
 					}
-					if (command.equals("Set"))
-					{
-						if (t.showEditTimeDlg(null) == TimeChooser.OK)
-						{
-							dateRecDate = t.getDate();
-							if (dateRecDate == null)
-								dateRec.setText("");
-							else
-								dateRec.setText(ISO8601.toString(dateRecDate));
-						}
-					}
-					else if (command.equals("View"))
-// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
-					{         
-						t.showViewTimeDlg(null);
+					switch (command) {
+					case "Set":
+					    if (t.showEditTimeDlg(null) == TimeChooser.OK)
+					    {
+					    dateRecDate = t.getDate();
+					    if (dateRecDate == null)
+					    dateRec.setText("");
+					    else
+					    dateRec.setText(ISO8601.toString(dateRecDate));
+					    }
+					    break;
+					case "View":
+					    t.showViewTimeDlg(null);
+					    break;
 					}
 				}
 			} );
@@ -1219,7 +1216,7 @@ public class AclGui extends JPanel
 		if((param = msg.getProtocol()) == null)
 			protocol.setSelectedItem("Null");
 		else if (param.equals("") || param.equalsIgnoreCase("Null"))
-// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
+// JADE-MODERNIZATION-DEFERRED:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH (complex chain -- manual review recommended)
 			protocol.setSelectedItem("Null");
 		else
 		{

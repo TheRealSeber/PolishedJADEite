@@ -209,10 +209,9 @@ class DummyAgentGui extends JFrame
 				  currentDir = chooser.getCurrentDirectory();
 				  String fileName = chooser.getSelectedFile().getAbsolutePath();
 
-				try {
+				try (FileReader fr = new FileReader(fileName)) {
           // Note the save/read functionality uses default US-ASCII charset
-          StringACLCodec codec = new StringACLCodec(new FileReader(fileName),null);
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
+          StringACLCodec codec = new StringACLCodec(fr,null);
           currentMsgGui.setMsg(codec.decode());
 				}
 				catch(FileNotFoundException e1) {
@@ -224,6 +223,10 @@ class DummyAgentGui extends JFrame
 						logger.log(Logger.WARNING,"Wrong ACL Message in file: " +fileName);
 					// e2.printStackTrace(); 
 					JOptionPane.showMessageDialog(null,"Wrong ACL Message in file: "+ fileName +"\n"+ e2.getMessage(),"Error Message",JOptionPane.ERROR_MESSAGE);
+				}
+				catch (IOException e5) {
+					if(logger.isLoggable(Logger.WARNING))
+						logger.log(Logger.WARNING,"IO Exception: " + fileName);
 				}
 			  } 
 	  	}
@@ -244,14 +247,11 @@ class DummyAgentGui extends JFrame
 			  	currentDir = chooser.getCurrentDirectory();
 			  	String fileName = chooser.getSelectedFile().getAbsolutePath();
 
-				  try {
-				    FileWriter f = new FileWriter(fileName);
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
+				  try (FileWriter f = new FileWriter(fileName)) {
             // Note the save/read functionality uses default US-ASCII charset
 					  StringACLCodec codec = new StringACLCodec(null,f);
 				  	ACLMessage ACLmsg = currentMsgGui.getMsg();
 				  	codec.write(ACLmsg);
-            f.close();
 				  }
 				  catch(FileNotFoundException e3) { 
 				  if(logger.isLoggable(Logger.WARNING))
@@ -287,10 +287,8 @@ class DummyAgentGui extends JFrame
 				currentDir = chooser.getCurrentDirectory();
 				String fileName = chooser.getSelectedFile().getAbsolutePath();
 
-				try
+				try (BufferedReader inp = new BufferedReader(new FileReader(fileName)))
 				{
-					BufferedReader inp = new BufferedReader(new FileReader(fileName));
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 					// Read the number of messages in the queue
 					int n = -1;
 					try
@@ -336,10 +334,8 @@ class DummyAgentGui extends JFrame
 				currentDir = chooser.getCurrentDirectory();
 				String fileName = chooser.getSelectedFile().getAbsolutePath();
 
-				try
+				try (BufferedWriter out = new BufferedWriter(new FileWriter(fileName)))
 				{
-					BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
 					// Write the number of messages in the queue
 					try
 					{

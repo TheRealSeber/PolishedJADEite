@@ -201,15 +201,12 @@ public class BootGUI extends JDialog {
 
                             propertyFileName = fileName;
 
-                            try {
-                                FileOutputStream out =
-                                    new FileOutputStream(fileName);
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
-				// do not save -conf=true otherwise 
+                            try (FileOutputStream out =
+                                    new FileOutputStream(fileName)) {
+				// do not save -conf=true otherwise
 				// -conf <fileName starts the GUI again
 				propToSave.put(BootProfileImpl.CONF_KEY,"false");
                                 propToSave.store(out, TITLE);
-                                out.close();
 
                                 outProp = propToSave;
 
@@ -287,13 +284,10 @@ public class BootGUI extends JDialog {
                                         fileName = fileName.concat(".conf");
                                     }
 
-                                    try {
-                                        FileOutputStream out =
-                                            new FileOutputStream(fileName);
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
+                                    try (FileOutputStream out =
+                                            new FileOutputStream(fileName)) {
 
                                         propToSave.store(out, TITLE);
-                                        out.close();
                                     } catch (FileNotFoundException e1) {
                                         System.out.println(
                                             "File not found exception");
@@ -533,11 +527,9 @@ public class BootGUI extends JDialog {
      */
     ExtendedProperties readPropertiesFromFile(String fileName) throws FileNotFoundException, IOException {
         ExtendedProperties p = new ExtendedProperties();
-        FileInputStream in = new FileInputStream(fileName);
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
-
-        p.load(in);
-        in.close();
+        try (FileInputStream in = new FileInputStream(fileName)) {
+            p.load(in);
+        }
 
         return p;
     }

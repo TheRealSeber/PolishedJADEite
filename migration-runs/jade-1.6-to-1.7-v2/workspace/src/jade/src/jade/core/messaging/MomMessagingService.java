@@ -31,13 +31,11 @@ public abstract class MomMessagingService extends MessagingService {
 	
 	protected String myLocation;
 	// We need synchronized access --> Hashtable
-	private Map<AID, String> locationsCache = new Hashtable<AID, String>();
-// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
+	private Map<AID, String> locationsCache = new Hashtable<>();
 	private long deliveryCnt = 0;
 	protected boolean active;
 	
-	private Map<String, DeliveryContext> ongoingDeliveries = new HashMap<String, DeliveryContext>();
-// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
+	private Map<String, DeliveryContext> ongoingDeliveries = new HashMap<>();
 	
 	private long deliveryCompletionTimeout = 60000;  // 1 min
 	

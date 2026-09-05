@@ -453,9 +453,8 @@ public class Sniffer extends ToolAgent {
 		} else {
 			String fileName = locateFile("sniffer.properties");
 			if (fileName != null) {
-				try {
-					properties.load(new FileInputStream(fileName));
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
+				try (FileInputStream propStream = new FileInputStream(fileName)) {
+					properties.load(propStream);
 				} catch (IOException ioe) {
 					// ignore - Properties not processed
 				}

@@ -122,10 +122,9 @@ public class Properties extends Hashtable {
   	//#MIDP_EXCLUDE_BEGIN
     try {
       // Search the file system
-      InputStream in = new FileInputStream(storage); 
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
-      load(in);
-      in.close();
+      try (InputStream in = new FileInputStream(storage)) {
+        load(in);
+      }
     }
     catch(IOException ioe) {
     	// Search the classpath
@@ -159,10 +158,9 @@ public class Properties extends Hashtable {
    */
   public void store(String storage) throws IOException {
   	//#J2ME_EXCLUDE_BEGIN
-    OutputStream out = new FileOutputStream(storage);
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
-    super.store(out, HEADER);
-    out.close();
+    try (OutputStream out = new FileOutputStream(storage)) {
+      super.store(out, HEADER);
+    }
   	//#J2ME_EXCLUDE_END
   	/*#PJAVA_INCLUDE_BEGIN
     OutputStream out = new FileOutputStream(storage);

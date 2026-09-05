@@ -45,8 +45,7 @@ public class NIOJICPConnection extends Connection {
 	public NIOJICPConnection() {
 		socketData = ByteBuffer.allocateDirect(INITIAL_BUFFER_SIZE); 
 		payloadBuf = ByteBuffer.allocateDirect(INITIAL_BUFFER_SIZE);
-		transformers = new LinkedList<BufferTransformerInfo>();
-// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
+		transformers = new LinkedList<>();
 	}
 	
 	// This constructor is only used by the NIOJICPConnectionWrapper that,

@@ -53,21 +53,20 @@ public class TablePopupMenuListener implements ActionListener {
     model = (MessageTableModel)(tpm.getTable().getModel());
     selectedRow = tpm.getTable().getSelectedRow();
     String name = ((JMenuItem)evt.getSource()).getName();
-    if(name.equals("view")) {
-      if((selectedRow >= 0) && (selectedRow < model.getRowCount())) {
-	ACLMessage m = (ACLMessage)model.getValueAt(selectedRow, 0);
+    switch (name) {
+    case "view":
+        if((selectedRow >= 0) && (selectedRow < model.getRowCount())) {
+        ACLMessage m = (ACLMessage)model.getValueAt(selectedRow, 0);
         if(m != null) AclGui.showMsgInDialog(m, null);
-      }
+        }
+        break;
+    case "remove":
+        model.removeRow(selectedRow);
+        break;
+    case "clear":
+        model.clearRows();
+        break;
     }
-    else if(name.equals("remove")) {
-// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
-      model.removeRow(selectedRow);
-    }
-    else if(name.equals("clear")) {
-// JADE-FLAG:STRINGS_IN_SWITCH Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\.equals\s*\(\s*"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED. HIGH
-      model.clearRows();
-    }
-
   }
 
 }

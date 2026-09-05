@@ -153,8 +153,7 @@ public class JadeBridge {
 		if ( logger.isLoggable( Logger.FINE ) ) {
 			logger.log( Logger.FINE, "msg to send:"+aMsg);
 		}
-		Socket socket = new Socket(host, port); // open socket to gateway
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
+		try (Socket socket = new Socket(host, port)) { // open socket to gateway
 
 		if (timeout > 0) {
 			socket.setSoTimeout((int) timeout);    //Wait before timing out
@@ -215,11 +214,10 @@ public class JadeBridge {
 			}
 		}
 
-		socket.close();
-
 		if ( logger.isLoggable( Logger.FINE ) ) {
 			logger.log( Logger.FINE, "returning...");
 		}
 		return response;
+		}
 	}
 }

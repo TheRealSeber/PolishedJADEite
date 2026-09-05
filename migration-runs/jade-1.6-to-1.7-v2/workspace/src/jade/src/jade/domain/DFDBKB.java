@@ -300,16 +300,16 @@ public class DFDBKB extends DBKB {
 		try {
 			// get the datatype with the highest precision from the meta data information
 			DatabaseMetaData md = getConnectionWrapper().getConnection().getMetaData();
-			ResultSet typeInfo = md.getTypeInfo();
-// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
-			long maxPrecision = -1;
-			while (typeInfo.next()) {
-				long jdbcType = Long.parseLong(typeInfo.getString("DATA_TYPE"));
-				long precision = Long.parseLong(typeInfo.getString("PRECISION"));
-				
-				if (jdbcType == Types.LONGVARCHAR && precision > maxPrecision) {
-					maxPrecision = precision;
-					bestMatch = typeInfo.getString("TYPE_NAME");
+			try (ResultSet typeInfo = md.getTypeInfo()) {
+				long maxPrecision = -1;
+				while (typeInfo.next()) {
+					long jdbcType = Long.parseLong(typeInfo.getString("DATA_TYPE"));
+					long precision = Long.parseLong(typeInfo.getString("PRECISION"));
+
+					if (jdbcType == Types.LONGVARCHAR && precision > maxPrecision) {
+						maxPrecision = precision;
+						bestMatch = typeInfo.getString("TYPE_NAME");
+					}
 				}
 			}
 		} catch (SQLException e) {
@@ -348,24 +348,22 @@ public class DFDBKB extends DBKB {
 		
 		logger.log(Logger.INFO, "Cleaning DF tables...");
 		
-		Statement stmt = getConnectionWrapper().getConnection().createStatement();
-// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
-		
-		dropTable(stmt, SUBSCRIPTION); 
-		dropTable(stmt, SERVICEPROTOCOL);
-		dropTable(stmt, SERVICEONTOLOGY);
-		dropTable(stmt, SERVICELANGUAGE);
-		dropTable(stmt, SERVICEPROPERTY);
-		dropTable(stmt, SERVICE);
-		dropTable(stmt, LANGUAGE);
-		dropTable(stmt, ONTOLOGY);
-		dropTable(stmt, PROTOCOL);
-		dropTable(stmt, AGENTUSERDEFSLOT);
-		dropTable(stmt, AGENTRESOLVER);   
-		dropTable(stmt, AGENTADDRESS);
-		dropTable(stmt, DFAGENTDESCR); 
-		
-		stmt.close();
+		try (Statement stmt = getConnectionWrapper().getConnection().createStatement()) {
+
+			dropTable(stmt, SUBSCRIPTION);
+			dropTable(stmt, SERVICEPROTOCOL);
+			dropTable(stmt, SERVICEONTOLOGY);
+			dropTable(stmt, SERVICELANGUAGE);
+			dropTable(stmt, SERVICEPROPERTY);
+			dropTable(stmt, SERVICE);
+			dropTable(stmt, LANGUAGE);
+			dropTable(stmt, ONTOLOGY);
+			dropTable(stmt, PROTOCOL);
+			dropTable(stmt, AGENTUSERDEFSLOT);
+			dropTable(stmt, AGENTRESOLVER);
+			dropTable(stmt, AGENTADDRESS);
+			dropTable(stmt, DFAGENTDESCR);
+		}
 	}
 	
 	/**
@@ -374,26 +372,13 @@ public class DFDBKB extends DBKB {
 	 * @param name name of the table
 	 */
 	protected boolean tableExists(String name) {
-		Statement stmt = null;
-// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
-		
-		try {
-			stmt = getConnectionWrapper().getConnection().createStatement();
+		try (Statement stmt = getConnectionWrapper().getConnection().createStatement()) {
 			stmt.execute("SELECT COUNT(*) FROM "+name);
 			return true;
-			
+
 		} catch (SQLException e) {
 			// table doesn't exist
 			return false;
-		} finally {
-			if (stmt != null) {
-				try{
-					stmt.close();
-				}
-				catch(SQLException see) {
-					see.printStackTrace();
-				}
-			}  
 		}
 	}
 	
@@ -406,37 +391,25 @@ public class DFDBKB extends DBKB {
 	 */
 	protected void createTable(String name, String[] entries) {
 		if (!tableExists(name)) {
-			Statement stmt = null;
-// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
-
 			try {
 				Connection conn = getConnectionWrapper().getConnection();
-				stmt = conn.createStatement();
-				
-				String sql = "CREATE TABLE " + name + " (";
-				for (int i = 0; i < entries.length; i++) {
-					sql += entries[i];
-					if (i < entries.length - 1)
-						sql += ", ";
-					else
-						sql += ")";
+				try (Statement stmt = conn.createStatement()) {
+
+					String sql = "CREATE TABLE " + name + " (";
+					for (int i = 0; i < entries.length; i++) {
+						sql += entries[i];
+						if (i < entries.length - 1)
+							sql += ", ";
+						else
+							sql += ")";
+					}
+					stmt.executeUpdate(sql);
+					conn.commit();
 				}
-				stmt.executeUpdate(sql);
-				conn.commit();
-				
+
 			} catch (SQLException e) {
-				if(logger.isLoggable(Logger.SEVERE)) 
+				if(logger.isLoggable(Logger.SEVERE))
 					logger.log(Logger.SEVERE, "Error creating table '"+name+"'", e);
-				
-			} finally {
-				if (stmt != null) {
-					try{
-						stmt.close();
-					}
-					catch(SQLException see) {
-						see.printStackTrace();
-					}
-				}
 			}
 		}
 	}
@@ -445,39 +418,27 @@ public class DFDBKB extends DBKB {
 	 * Adds explicit indices to the database to speed up queries
 	 */
 	protected void createIndices() {
-		Statement stmt = null;
-// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
-		
 		try {
 			Connection conn = getConnectionWrapper().getConnection();
-			stmt = conn.createStatement();
-			stmt.execute("CREATE INDEX dfagentDescrIdx ON dfagentdescr( aid )");
-			stmt.execute("CREATE INDEX leaseIdx ON dfagentdescr( lease )");
-			stmt.execute("CREATE INDEX agentAddressIdx ON agentaddress( aid )");
-			stmt.execute("CREATE INDEX agentResolverIdx ON agentresolver( aid )");
-			stmt.execute("CREATE INDEX agentUserdefslotIdx ON agentuserdefslot( aid )");
-			stmt.execute("CREATE INDEX serviceLanguageIdx ON servicelanguage( serviceid )"); 
-			stmt.execute("CREATE INDEX serviceProtocolIdx ON serviceprotocol( serviceid )"); 
-			stmt.execute("CREATE INDEX serviceOntologyIdx ON serviceontology( serviceid )"); 
-			stmt.execute("CREATE INDEX servicePropertyIdx ON serviceproperty( serviceid )");
-			stmt.execute("CREATE INDEX ontologyIdx ON ontology( descrid )");
-			stmt.execute("CREATE INDEX protocolIdx ON ontology( descrid )");
-			stmt.execute("CREATE INDEX languageIdx ON ontology( descrid )");
-			conn.commit();
-			
-		} catch (SQLException e) {
-			if(logger.isLoggable(Logger.FINE)) 
-				logger.log(Logger.FINE, "Indices for DF tables couldn't be created", e);
-			
-		} finally {
-			if (stmt != null) {
-				try{
-					stmt.close();
-				}
-				catch(SQLException see) {
-					see.printStackTrace();
-				}
+			try (Statement stmt = conn.createStatement()) {
+				stmt.execute("CREATE INDEX dfagentDescrIdx ON dfagentdescr( aid )");
+				stmt.execute("CREATE INDEX leaseIdx ON dfagentdescr( lease )");
+				stmt.execute("CREATE INDEX agentAddressIdx ON agentaddress( aid )");
+				stmt.execute("CREATE INDEX agentResolverIdx ON agentresolver( aid )");
+				stmt.execute("CREATE INDEX agentUserdefslotIdx ON agentuserdefslot( aid )");
+				stmt.execute("CREATE INDEX serviceLanguageIdx ON servicelanguage( serviceid )");
+				stmt.execute("CREATE INDEX serviceProtocolIdx ON serviceprotocol( serviceid )");
+				stmt.execute("CREATE INDEX serviceOntologyIdx ON serviceontology( serviceid )");
+				stmt.execute("CREATE INDEX servicePropertyIdx ON serviceproperty( serviceid )");
+				stmt.execute("CREATE INDEX ontologyIdx ON ontology( descrid )");
+				stmt.execute("CREATE INDEX protocolIdx ON ontology( descrid )");
+				stmt.execute("CREATE INDEX languageIdx ON ontology( descrid )");
+				conn.commit();
 			}
+
+		} catch (SQLException e) {
+			if(logger.isLoggable(Logger.FINE))
+				logger.log(Logger.FINE, "Indices for DF tables couldn't be created", e);
 		}
 	}
 	
@@ -673,10 +634,10 @@ public class DFDBKB extends DBKB {
 		PreparedStatements pss = getPreparedStatements();
 
 		pss.stm_selAgentResolverAIDs.setString(1, aid);
-		ResultSet rs = pss.stm_selAgentResolverAIDs.executeQuery();
-// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
-		while(rs.next()){
-			res.add(rs.getString(1));
+		try (ResultSet rs = pss.stm_selAgentResolverAIDs.executeQuery()) {
+			while(rs.next()){
+				res.add(rs.getString(1));
+			}
 		}
 		return res;
 	}
@@ -943,26 +904,23 @@ public class DFDBKB extends DBKB {
 		
 		// Get the names of all DFDs matching the template
 		String select = null;
-		ResultSet rs = null;
-// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
-		Statement s = null;
-// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
-		
+
 		try {
 			select = createSelect((DFAgentDescription) template);
-					
-			s = getConnectionWrapper().getConnection().createStatement();
-			if (maxResult >= 0) {
-				s.setMaxRows(maxResult);
-				s.setFetchSize(maxResult);
+
+			try (Statement s = getConnectionWrapper().getConnection().createStatement()) {
+				if (maxResult >= 0) {
+					s.setMaxRows(maxResult);
+					s.setFetchSize(maxResult);
+				}
+				try (ResultSet rs = s.executeQuery(select)) {
+					while(rs.next()) {
+						String aidS = rs.getString("aid");
+						matchingAIDs.add(aidS);
+					}
+				}
 			}
-			rs = s.executeQuery(select);
-			
-			while(rs.next()) { 
-				String aidS = rs.getString("aid");
-				matchingAIDs.add(aidS);
-			}			
-		} 
+		}
 		catch(SQLException sqle) {
 			// Let it through
 			throw sqle;
@@ -970,10 +928,6 @@ public class DFDBKB extends DBKB {
 		catch(Exception e) {
 			logger.log(Logger.SEVERE, "Couldn't create the SQL SELECT statement.", e);
 			throw new SQLException("Couldn't create the SQL SELECT statement. "+e.getMessage());
-		}
-		finally {
-			closeResultSet(rs);
-			closeStatement(s);
 		}
 		
 		// For each matching AID reconstruct the complete DFD
@@ -1115,35 +1069,35 @@ public class DFDBKB extends DBKB {
 	 * @throws SQLException
 	 */
 	private AID getAID(String aidN) throws SQLException {
-		
-		ResultSet rs = null;
-// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
+
 		AID id = new AID(aidN, AID.ISGUID);
 
 		PreparedStatements pss = getPreparedStatements();
 		// AID addresses
 		pss.stm_selAgentAddresses.setString(1, aidN);
-		rs = pss.stm_selAgentAddresses.executeQuery();
-		while(rs.next()){
-			id.addAddresses(rs.getString(1));
+		try (ResultSet rs = pss.stm_selAgentAddresses.executeQuery()) {
+			while(rs.next()){
+				id.addAddresses(rs.getString(1));
+			}
 		}
-		
-		// AID resolvers 
+
+		// AID resolvers
 		Collection resolvers = getResolverAIDs(aidN);
 		Iterator iter = resolvers.iterator();
 		while (iter.hasNext()) {
 			id.addResolvers(getAID((String)iter.next()));
 		}
-		
+
 		// AID User defined slots
 		pss.stm_selAgentUserDefSlot.setString(1, aidN);
-		rs = pss.stm_selAgentUserDefSlot.executeQuery();
-		while(rs.next()) {
-			String key = rs.getString("slotkey");
-			String value = rs.getString("slotval");
-			id.addUserDefinedSlot(key, value);
+		try (ResultSet rs = pss.stm_selAgentUserDefSlot.executeQuery()) {
+			while(rs.next()) {
+				String key = rs.getString("slotkey");
+				String value = rs.getString("slotval");
+				id.addUserDefinedSlot(key, value);
+			}
 		}
-		
+
 		return id;
 	}
 	
@@ -1293,12 +1247,11 @@ public class DFDBKB extends DBKB {
 		else {
 			PreparedStatements pss = getPreparedStatements();
 			pss.stm_selOntologies.setString(1, descrId);
-			ResultSet rs = pss.stm_selOntologies.executeQuery();
-// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
-			while(rs.next()){
-				dfd.addOntologies(rs.getString(ONTOLOGY));
+			try (ResultSet rs = pss.stm_selOntologies.executeQuery()) {
+				while(rs.next()){
+					dfd.addOntologies(rs.getString(ONTOLOGY));
+				}
 			}
-			closeResultSet(rs);
 		}
 	}
 
@@ -1315,12 +1268,11 @@ public class DFDBKB extends DBKB {
 		else {
 			PreparedStatements pss = getPreparedStatements();
 			pss.stm_selLanguages.setString(1, descrId);
-			ResultSet rs = pss.stm_selLanguages.executeQuery();
-// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
-			while(rs.next()){
-				dfd.addLanguages(rs.getString(LANGUAGE));
+			try (ResultSet rs = pss.stm_selLanguages.executeQuery()) {
+				while(rs.next()){
+					dfd.addLanguages(rs.getString(LANGUAGE));
+				}
 			}
-			closeResultSet(rs);
 		}
 	}
 
@@ -1337,12 +1289,11 @@ public class DFDBKB extends DBKB {
 		else {
 			PreparedStatements pss = getPreparedStatements();
 			pss.stm_selProtocols.setString(1, descrId);
-			ResultSet rs = pss.stm_selProtocols.executeQuery();
-// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
-			while(rs.next()){
-				dfd.addProtocols(rs.getString(PROTOCOL));
+			try (ResultSet rs = pss.stm_selProtocols.executeQuery()) {
+				while(rs.next()){
+					dfd.addProtocols(rs.getString(PROTOCOL));
+				}
 			}
-			closeResultSet(rs);
 		}
 	}
 
@@ -1354,12 +1305,12 @@ public class DFDBKB extends DBKB {
 		PreparedStatements pss = getPreparedStatements();
 		// check whether there exists a DF description for the agent
 		pss.stm_selNrOfDescrForAID.setString(1, aid);
-		ResultSet rs = pss.stm_selNrOfDescrForAID.executeQuery();
-// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		int found = 0;
-		if (rs.next())
-			found = Integer.parseInt(rs.getString(1));
-		
+		try (ResultSet rs = pss.stm_selNrOfDescrForAID.executeQuery()) {
+			if (rs.next())
+				found = Integer.parseInt(rs.getString(1));
+		}
+
 		// no description found --> delete
 		if (found == 0) {
 			// user definded slots
@@ -1389,35 +1340,33 @@ public class DFDBKB extends DBKB {
 	 * @throws SQLException
 	 */
 	private void removeServices(String descrId) throws SQLException {
-		ResultSet rs = null;
-// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		PreparedStatements pss = getPreparedStatements();
 		pss.stm_selServiceId.setString(1, descrId);
-		rs = pss.stm_selServiceId.executeQuery();
-		
+
 		boolean executeBatch = false;
-		while (rs.next()) {
-			String serviceId = rs.getString("id");
-			
-			pss.stm_delServiceLanguage.setString(1, serviceId);
-			pss.stm_delServiceLanguage.addBatch();
-			
-			pss.stm_delServiceOntology.setString(1, serviceId);
-			pss.stm_delServiceOntology.addBatch();
-			
-			pss.stm_delServiceProtocol.setString(1, serviceId);
-			pss.stm_delServiceProtocol.addBatch();
-			
-			pss.stm_delServiceProperty.setString(1, serviceId);
-			pss.stm_delServiceProperty.addBatch();
-			
-			pss.stm_delService.setString(1, descrId);
-			pss.stm_delService.addBatch();
-			
-			executeBatch = true;
+		try (ResultSet rs = pss.stm_selServiceId.executeQuery()) {
+			while (rs.next()) {
+				String serviceId = rs.getString("id");
+
+				pss.stm_delServiceLanguage.setString(1, serviceId);
+				pss.stm_delServiceLanguage.addBatch();
+
+				pss.stm_delServiceOntology.setString(1, serviceId);
+				pss.stm_delServiceOntology.addBatch();
+
+				pss.stm_delServiceProtocol.setString(1, serviceId);
+				pss.stm_delServiceProtocol.addBatch();
+
+				pss.stm_delServiceProperty.setString(1, serviceId);
+				pss.stm_delServiceProperty.addBatch();
+
+				pss.stm_delService.setString(1, descrId);
+				pss.stm_delService.addBatch();
+
+				executeBatch = true;
+			}
 		}
-		rs.close();
-		
+
 		if (executeBatch) {
 			pss.stm_delServiceLanguage.executeBatch();
 			pss.stm_delServiceOntology.executeBatch();
@@ -1646,16 +1595,15 @@ public class DFDBKB extends DBKB {
 	
 	private boolean isMultiValueProperty(String propKey) throws SQLException {
 		int found = 0;
-		ResultSet rs = null;
-// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
 		try {
 			PreparedStatements pss = getPreparedStatements();
 			pss.stm_selNrOfPropForKey.setString(1, propKey+MULTI_VALUE_PROPERTY_SEPARATOR+"1");
-			rs = pss.stm_selNrOfPropForKey.executeQuery();
-			if (rs.next()) {
-				found = Integer.parseInt(rs.getString(1));
+			try (ResultSet rs = pss.stm_selNrOfPropForKey.executeQuery()) {
+				if (rs.next()) {
+					found = Integer.parseInt(rs.getString(1));
+				}
 			}
-		} 
+		}
 		catch(SQLException sqle) {
 			// Let it through
 			throw sqle;
@@ -1663,9 +1611,6 @@ public class DFDBKB extends DBKB {
 		catch(Exception e) {
 			logger.log(Logger.SEVERE, "Couldn't create the SQL SELECT statement.", e);
 			throw new SQLException("Couldn't create the SQL SELECT statement. "+e.getMessage());
-		}
-		finally {
-			closeResultSet(rs);
 		}
 		return found > 0;
 	}
@@ -1689,25 +1634,20 @@ public class DFDBKB extends DBKB {
 	 * Removes DF registrations whose lease time has expired.
 	 */
 	private void cleanExpiredRegistrations(){
-		
-		ResultSet rs = null;
-// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
+
 		long currTime = System.currentTimeMillis();
 		try{
 			PreparedStatements pss = getPreparedStatements();
 			pss.stm_selExpiredDescr.setString(1, String.valueOf(currTime));
-			rs = pss.stm_selExpiredDescr.executeQuery();
-			
-			while(rs.next()){
-				remove(rs.getString("aid"));
+			try (ResultSet rs = pss.stm_selExpiredDescr.executeQuery()) {
+				while(rs.next()){
+					remove(rs.getString("aid"));
+				}
 			}
 		}
 		catch(SQLException se){
 			if(logger.isLoggable(Logger.WARNING))
 				logger.log(Logger.WARNING, "Error cleaning expired DF registrations", se);
-			
-		} finally {
-			closeResultSet(rs);
 		}
 	}
 	
@@ -1767,24 +1707,18 @@ public class DFDBKB extends DBKB {
 	public Enumeration getSubscriptions(){
 		Vector subscriptions = new Vector();
 		StringACLCodec codec = new StringACLCodec();
-		ResultSet rs = null;
-// JADE-FLAG:TRY_WITH_RESOURCES Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates. HIGH
-		
-		try {
-			rs = getPreparedStatements().stm_selSubscriptions.executeQuery();
+
+		try (ResultSet rs = getPreparedStatements().stm_selSubscriptions.executeQuery()) {
 			while (rs.next()) {
 				String base64Str = rs.getString("aclm");
 				String aclmStr = new String(Base64.decodeBase64(base64Str.getBytes("US-ASCII")), "US-ASCII");
 				ACLMessage aclm = codec.decode(aclmStr.getBytes(), ACLCodec.DEFAULT_CHARSET);
 				subscriptions.add(sr.createSubscription(aclm));
 			}
-			
+
 		} catch (Exception e) {
 			if(logger.isLoggable(Logger.SEVERE))
 				logger.log(Logger.SEVERE, "Error retrieving subscriptions from the database", e);
-			
-		} finally {
-			closeResultSet(rs);
 		}
 		return subscriptions.elements();
 	}

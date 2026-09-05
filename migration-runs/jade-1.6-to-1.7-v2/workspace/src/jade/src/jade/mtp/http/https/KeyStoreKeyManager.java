@@ -67,8 +67,9 @@ public class KeyStoreKeyManager implements HTTPSKeyManager {
 		String keyfile = profile.getParameter(PREFIX + "keyStoreFile", "");
 		String storetype = profile.getParameter(PREFIX + "keyStoreType", "JKS");
 		KeyStore ks = KeyStore.getInstance(storetype);
-		ks.load(new FileInputStream(keyfile),pass.toCharArray());
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
+		try (FileInputStream ksStream = new FileInputStream(keyfile)) {
+			ks.load(ksStream, pass.toCharArray());
+		}
 		alias = ((String)ks.aliases().nextElement());
 		privateKey = (PrivateKey)ks.getKey(alias, pass.toCharArray());
 		Certificate[] certs = ks.getCertificateChain(alias);

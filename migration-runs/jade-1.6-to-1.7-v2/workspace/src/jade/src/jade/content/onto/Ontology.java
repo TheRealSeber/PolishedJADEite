@@ -1064,8 +1064,7 @@ public class Ontology implements Serializable {
 	}
 
 	public static List<ObjectSchema> getReferencedSchemas(ObjectSchema rootSchema) throws OntologyException {
-		List<ObjectSchema> schemas = new ArrayList<ObjectSchema>();
-// JADE-FLAG:DIAMOND_OPERATOR Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context. HIGH
+		List<ObjectSchema> schemas = new ArrayList<>();
 		addReferencedSchemas(rootSchema, schemas);
 		return schemas;
 	}

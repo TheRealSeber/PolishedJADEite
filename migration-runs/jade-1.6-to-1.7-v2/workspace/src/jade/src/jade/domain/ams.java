@@ -1443,13 +1443,10 @@ public class ams extends Agent /*implements AgentManager.Listener*/ {
 	 */
 	private void writeAPDescription(APDescription description) {
 		//Write the APDescription file.
-		try {
-			FileWriter f = new FileWriter(getProperty(Profile.FILE_DIR, "") + "APDescription.txt");
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
+		try (FileWriter f = new FileWriter(getProperty(Profile.FILE_DIR, "") + "APDescription.txt")) {
 			f.write(description.toString());
 			f.write('\n');
 			f.flush();
-			f.close();
 		} catch (java.io.IOException ioe) {
 			ioe.printStackTrace();
 		}

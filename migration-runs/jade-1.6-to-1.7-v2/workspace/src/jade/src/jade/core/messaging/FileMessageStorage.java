@@ -210,9 +210,7 @@ class FileMessageStorage implements MessageStorage {
 		String s = in.readLine();
 		try {
 			long counter = Long.parseLong(s);
-			BufferedWriter out = new BufferedWriter(new FileWriter(tmp));
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
-			try {
+			try (BufferedWriter out = new BufferedWriter(new FileWriter(tmp))) {
 				counter++;
 				s = Long.toString(counter);
 				out.write(s, 0, s.length());
@@ -225,9 +223,6 @@ class FileMessageStorage implements MessageStorage {
 					s = in.readLine();
 				}
 			}
-			finally {
-				out.close();
-			}    
 		}
 		catch(NumberFormatException nfe) {
 			nfe.printStackTrace();
@@ -287,18 +282,15 @@ class FileMessageStorage implements MessageStorage {
 
 	private void createMessageFile(File toStore, GenericMessage msg, AID receiver) throws IOException {
 
-		BufferedWriter out = null;
-		try {
-			toStore.createNewFile();
-			out = new BufferedWriter(new FileWriter(toStore));
-// JADE-FLAG:TRY_WITH_RESOURCES Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource. HIGH
+		toStore.createNewFile();
+		try (BufferedWriter out = new BufferedWriter(new FileWriter(toStore))) {
 
 			// Write the number of message copies (of course is 1 to begin with)
 			out.write("1", 0, 1);
 			out.newLine();
 
 			// NL (23/01/04) Now write a serialized GenericMessage
-			ByteArrayOutputStream ostream = new ByteArrayOutputStream(); 
+			ByteArrayOutputStream ostream = new ByteArrayOutputStream();
 			ObjectOutputStream p = new ObjectOutputStream(ostream);
 			p.writeObject(msg);
 			String strMessage = new String(Base64.encodeBase64(ostream.toByteArray()), "US-ASCII");
@@ -314,11 +306,6 @@ class FileMessageStorage implements MessageStorage {
 		}
 		catch (NoClassDefFoundError er) {
 			myLogger.log(Logger.WARNING, "*********** Cannot store message: the Persistent Delivery FileMessageStorage requires the commons-codec jar file to be in the classpath ***********");
-		}
-		finally {
-			if(out != null) {
-				out.close();
-			}
 		}
 	}
 

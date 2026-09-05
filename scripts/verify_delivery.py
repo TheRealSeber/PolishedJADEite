@@ -23,8 +23,11 @@ import argparse
 import collections
 import json
 import pathlib
+import re
 import sys
 from typing import Any, Dict, List
+
+JADE_FLAG_RE = re.compile(r"JADE-FLAG:([A-Z][A-Z0-9_]*)")
 
 TERMINAL_OK = "DONE"
 RESOLVED_STATUSES = {"FIXED", "SKIPPED", "DEFERRED", "NEEDS_REVIEW", "FAILED"}
@@ -49,6 +52,16 @@ def flags_by_rule(artifacts: pathlib.Path) -> Dict[str, int]:
 
 
 def results_by_rule(artifacts: pathlib.Path) -> Dict[str, Dict[str, int]]:
+    """Tally fix-result records per rule, weighted by ``match_count``.
+
+    A shard's fix-result record is filed per *file*, not per flagged site --
+    a multi-site file (the common case once a rule has more than a handful of
+    call sites) gets one record whose ``match_count`` covers every site the
+    shard touched. Counting records instead of ``match_count`` compares file
+    granularity against the line-granularity of 04-flag-index.json and
+    manufactures a false "unresolved" gap for every rule whose shards ever
+    grouped more than one site per file.
+    """
     out: Dict[str, Dict[str, int]] = {}
     for path in sorted(artifacts.glob("06-fix-results-*.json")):
         rule = path.name[len("06-fix-results-") : -len(".json")]
@@ -56,7 +69,10 @@ def results_by_rule(artifacts: pathlib.Path) -> Dict[str, Dict[str, int]]:
         for record in read_json(path):
             status = record.get("status")
             if status in RESOLVED_STATUSES:
-                tally[status] += 1
+                count = record.get("match_count", 1)
+                if not isinstance(count, int) or count < 1:
+                    count = 1
+                tally[status] += count
         out[rule] = dict(tally)
     return out
 
@@ -91,13 +107,25 @@ def deleted_source_files(run: pathlib.Path, artifacts: pathlib.Path) -> int:
     return missing
 
 
-def leftover_markers(run: pathlib.Path) -> int:
+def leftover_markers(run: pathlib.Path, own_rules: "set[str]") -> int:
+    """Count JADE-FLAG markers this run's own rules are responsible for.
+
+    A baseline workspace can carry marker comments left by earlier, unrelated
+    migration jumps (e.g. a jade-8-to-11 rule's markers surviving into the
+    jade-11-to-17 baseline). Counting every "JADE-FLAG:" string regardless of
+    which rule raised it blames this run for cleanup work that was never in
+    its manifest. Scope the count to rule ids this run actually raised flags
+    for (from 04-flag-index.json, passed in as ``own_rules``).
+    """
     workspace = run / "workspace"
     if not workspace.is_dir():
         return 0
     total = 0
     for source in workspace.rglob("*.java"):
-        total += source.read_text(encoding="utf-8", errors="replace").count("JADE-FLAG:")
+        text = source.read_text(encoding="utf-8", errors="replace")
+        for match in JADE_FLAG_RE.finditer(text):
+            if match.group(1) in own_rules:
+                total += 1
     return total
 
 
@@ -143,7 +171,7 @@ def main(argv: List[str] | None = None) -> int:
             note = f"UNRESOLVED: {flags - total}"
         print(f"  {rule:34s} {flags:7d} {total:9d}  {note}")
 
-    markers = leftover_markers(run)
+    markers = leftover_markers(run, set(raised))
     print()
     print(f"  JADE-FLAG markers left in workspace: {markers}")
     if deleted:

@@ -1,0 +1,266 @@
+{
+  "run_id": "jade-1.6-to-1.7-v2",
+  "generated_at": "2026-09-05T01:07:01Z",
+  "source_version": "1.6",
+  "target_version": "1.7",
+  "citation": "Extracted from 2 source(s): oracle-java7-language, oracle-java7-compat",
+  "rules": [
+    {
+      "id": "DIAMOND_OPERATOR",
+      "name": "Java 7 diamond operator for generic instance creation",
+      "description": "A generic constructor call spells out its type arguments explicitly (new HashMap<String, Object>()). Java 7 infers them from the assignment context, so the argument list can be replaced by the empty diamond <>. The pattern matches a 'new' expression carrying a non-empty type-argument list immediately before its constructor parentheses.",
+      "fix_strategy": "recipe:jade-recipe-1.7-diamond-operator",
+      "severity": "MEDIUM",
+      "category": "LANGUAGE_CHANGE",
+      "match_pattern": "\\bnew\\s+\\w+\\s*<[A-Za-z0-9_$<>\\s,?.]+>\\s*\\(",
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "\\bnew\\s+\\w+\\s*<[A-Za-z0-9_$<>\\s,?.]+>\\s*\\(",
+          "target_extensions": [
+            ".java"
+          ],
+          "reason": "Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context.",
+          "confidence": "HIGH"
+        }
+      ],
+      "evidence_ref": "oracle-java7-language::lines 18-19",
+      "evidence_hash": "74465a28639a10309a488b58691845fbc335841b64d48dd2fcf0e047ab0a9835",
+      "confidence": 1.0,
+      "pattern_revision": 1,
+      "verification_hint": "After the fix the right-hand side reads new X<>(...) while the declared type on the left is byte-identical to before. javac -source 1.7 must compile with no 'cannot infer type arguments' error.",
+      "blast_class": "body-local",
+      "blast_class_evidence": {
+        "confidence": "high",
+        "reasoning": "The edit rewrites only the type-argument list of a constructor call on the right-hand side of an initializer or an argument expression. The declared type of the field/local on the left, every method signature, and every implements/extends clause stay byte-identical, so no other compilation unit is forced to change. Confirmed on the previous run: all 39 applied DIAMOND_OPERATOR diffs touched only the RHS expression.",
+        "sites": [
+          {
+            "file": "migration-runs/jade-1.6-to-1.7-v2/workspace/src/jade/src/jade/core/sam/SAMService.java",
+            "line": 68,
+            "what_changes": "Field initializer: 'private List<CounterInfo> monitoredCounters = new ArrayList<CounterInfo>()' loses only the constructor's type arguments; the field's declared type List<CounterInfo> is untouched, so every reader of the field elsewhere keeps compiling."
+          },
+          {
+            "file": "migration-runs/jade-1.6-to-1.7-v2/workspace/src/jade/src/jade/core/sam/SAMInfo.java",
+            "line": 131,
+            "what_changes": "Local variable initializer inside a private static method: only 'new HashMap<String, AverageMeasure>()' is erased to 'new HashMap<>()'; the local's declared type and the enclosing method signature do not move."
+          }
+        ]
+      },
+      "pattern_precision": {
+        "value": 1.0,
+        "status": "PASS",
+        "judged": 30,
+        "true_positive": 30,
+        "false_positive": 0,
+        "undecidable": 0,
+        "sample_size": 30,
+        "population_total_hits": 58,
+        "wilson_95": [
+          0.8865,
+          1.0
+        ],
+        "effective_min_precision": 0.7,
+        "pattern_revision": 1,
+        "seed": "92657adbbc248165",
+        "sample_artifact": "01.5-precision-sample-DIAMOND_OPERATOR.json",
+        "sample_hash": "0db06760f2a2ec303ef1868f5da9db7d53f816950ce785f54628d4c07ab81240",
+        "verdicts_artifact": "01.5-precision-verdicts-DIAMOND_OPERATOR.json",
+        "verdicts_hash": "2050e33711ebebe15aed53012c60be2ee39091e8300a7125696facf48369ea45",
+        "report_artifact": "01.5-precision-report.json",
+        "false_positive_classes": {},
+        "counterexamples": []
+      },
+      "queue_eligible": true
+    },
+    {
+      "id": "STRINGS_IN_SWITCH",
+      "name": "Java 7 String in switch — if/else-if chain over String constants",
+      "description": "A branch of an if / else-if chain tests a String-valued expression against a string literal with .equals(). Java 7 permits String in a switch selector, so a chain of such branches over one receiver collapses into a switch with case labels. The pattern deliberately matches only the 'else if' head of a branch (so a lone, unchained if is never flagged), requires a string-literal argument (so an .equals() against an arbitrary object is never flagged), and rejects a negated condition.",
+      "fix_strategy": "recipe:jade-recipe-1.7-strings-in-switch",
+      "severity": "MEDIUM",
+      "category": "LANGUAGE_CHANGE",
+      "match_pattern": "\\belse\\s+if\\s*\\(\\s*(?!!)[^;{]*?\\.\\s*equals\\s*\\(\\s*\\\"[^\\\"]*\\\"\\s*\\)",
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "\\belse\\s+if\\s*\\(\\s*(?!!)[^;{]*?\\.\\s*equals\\s*\\(\\s*\\\"[^\\\"]*\\\"\\s*\\)",
+          "target_extensions": [
+            ".java"
+          ],
+          "reason": "Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\\.equals\\s*\\(\\s*\"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED.",
+          "confidence": "HIGH"
+        }
+      ],
+      "evidence_ref": "oracle-java7-language::lines 16-17",
+      "evidence_hash": "74465a28639a10309a488b58691845fbc335841b64d48dd2fcf0e047ab0a9835",
+      "confidence": 1.0,
+      "pattern_revision": 1,
+      "verification_hint": "After the fix the chain is a single switch on the same receiver, every former branch body is preserved verbatim under its case label, no 'break;' follows an unconditional 'return', and the else-fallthrough becomes 'default'. javac must report no unreachable statement.",
+      "blast_class": "body-local",
+      "blast_class_evidence": {
+        "confidence": "high",
+        "reasoning": "Every flagged branch sits inside a method or an anonymous-listener body and is rewritten into a switch in the same body. No field type, parameter type, return type or throws clause is part of the edit, so no caller has to change.",
+        "sites": [
+          {
+            "file": "migration-runs/jade-1.6-to-1.7-v2/workspace/src/jade/src/jade/gui/TimeChooser.java",
+            "line": 276,
+            "what_changes": "Five-branch chain (lines 276-297) over the local String 'command' inside an ActionListener body; it becomes 'switch (command) { case \"Reset\": ... }'. The listener's actionPerformed(ActionEvent) signature is outside the edit."
+          },
+          {
+            "file": "migration-runs/jade-1.6-to-1.7-v2/workspace/src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+            "line": 295,
+            "what_changes": "Same five-label shape (lines 295-313) over 'command'; each branch body (dlg.dispose(), retVal assignments) moves verbatim under a case label, and nothing outside the method body is touched."
+          }
+        ]
+      },
+      "pattern_precision": {
+        "value": 0.8889,
+        "status": "PASS",
+        "judged": 18,
+        "true_positive": 16,
+        "false_positive": 2,
+        "undecidable": 0,
+        "sample_size": 18,
+        "population_total_hits": 18,
+        "wilson_95": [
+          0.672,
+          0.969
+        ],
+        "effective_min_precision": 0.7,
+        "pattern_revision": 1,
+        "seed": "91a849b0bcd4d750",
+        "sample_artifact": "01.5-precision-sample-STRINGS_IN_SWITCH.json",
+        "sample_hash": "362a67f05cc32c8a2cb837248c5ac177cc2c03d54f6a3680138137bd5ecf18ea",
+        "verdicts_artifact": "01.5-precision-verdicts-STRINGS_IN_SWITCH.json",
+        "verdicts_hash": "71816027266278a617f98d2f5e46fc671fd7f332a05859085868951398d28792",
+        "report_artifact": "01.5-precision-report.json",
+        "false_positive_classes": {
+          "RIGHT_CONSTRUCT_WRONG_CONTEXT": 2
+        },
+        "counterexamples": [
+          {
+            "false_positive_class": "RIGHT_CONSTRUCT_WRONG_CONTEXT",
+            "file": "src/jade/src/jade/gui/AclGui.java",
+            "hit_id": "3674ab53e3c3a9c5",
+            "line": 1217,
+            "line_text": "\t\telse if (param.equals(\"\") || param.equalsIgnoreCase(\"Null\"))",
+            "reason": "The preceding branch tests ((param = msg.getProtocol()) == null), not a String equals, and this condition is a disjunction with equalsIgnoreCase, so no switch case label can express it."
+          },
+          {
+            "false_positive_class": "RIGHT_CONSTRUCT_WRONG_CONTEXT",
+            "file": "src/jade/src/jade/imtp/leap/MicroStub.java",
+            "hit_id": "2244942321e6a7d7",
+            "line": 75,
+            "line_text": "\t\t\t\telse if (((String) r.getParamAt(1)).equals(\"jade.core.IMTPException\")) {",
+            "reason": "The preceding branch is if(!((Boolean) r.getParamAt(0)).booleanValue()), a boolean test, not a String equals, so this else-if is a lone String comparison and not a convertible chain."
+          }
+        ]
+      },
+      "queue_eligible": true
+    },
+    {
+      "id": "TRY_WITH_RESOURCES",
+      "name": "Java 7 try-with-resources — manually released external resource",
+      "description": "An external auto-closeable resource is acquired at this line: a java.io file stream/reader/writer, a java.net socket, a java.util.zip / java.util.jar archive, or a java.sql Statement/ResultSet. Pre-Java-7 code has to release it itself with an explicit close(), normally in a finally block, or it leaks; Java 7 try-with-resources closes it automatically when the block exits. The pattern flags the acquisition site - the line a conversion has to move into the try header - whether the resource is bound to a local variable or created inline as a call argument. In-memory streams (ByteArrayInputStream/OutputStream, StringReader/Writer), whose close() is a documented no-op and which are never a try-with-resources target, are deliberately excluded, as are cached java.sql PreparedStatement fields. An acquisition whose resource is stored in a field, and therefore deliberately outlives the method, is NOT this construct.",
+      "fix_strategy": "recipe:jade-recipe-1.7-try-with-resources",
+      "severity": "MEDIUM",
+      "category": "LANGUAGE_CHANGE",
+      "match_pattern": "\\bnew\\s+(?:java\\.io\\.|java\\.net\\.|java\\.util\\.zip\\.|java\\.util\\.jar\\.)?(?:FileInputStream|FileOutputStream|FileReader|FileWriter|RandomAccessFile|ZipFile|ZipInputStream|ZipOutputStream|JarFile|JarInputStream|Socket|ServerSocket|DatagramSocket|MulticastSocket)\\s*\\(",
+      "patterns": [
+        {
+          "type": "regex",
+          "pattern": "\\bnew\\s+(?:java\\.io\\.|java\\.net\\.|java\\.util\\.zip\\.|java\\.util\\.jar\\.)?(?:FileInputStream|FileOutputStream|FileReader|FileWriter|RandomAccessFile|ZipFile|ZipInputStream|ZipOutputStream|JarFile|JarInputStream|Socket|ServerSocket|DatagramSocket|MulticastSocket)\\s*\\(",
+          "target_extensions": [
+            ".java"
+          ],
+          "reason": "Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource.",
+          "confidence": "HIGH"
+        },
+        {
+          "type": "regex",
+          "pattern": "^(?!\\s*(?:private|public|protected|static|final)\\b)\\s*(?:java\\.sql\\.)?(?:Statement|PreparedStatement|CallableStatement|ResultSet)\\s+\\w+\\s*=",
+          "target_extensions": [
+            ".java"
+          ],
+          "reason": "Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates.",
+          "confidence": "HIGH"
+        }
+      ],
+      "evidence_ref": "oracle-java7-language::lines 22-23",
+      "evidence_hash": "74465a28639a10309a488b58691845fbc335841b64d48dd2fcf0e047ab0a9835",
+      "confidence": 1.0,
+      "pattern_revision": 1,
+      "verification_hint": "After the fix the resource is declared inside the try's parentheses, the manual close() call is gone, and any nested try/catch that existed only to swallow that close()'s exception is either removed (when the enclosing catch already covers it) or preserved explicitly. javac -source 1.7 must accept the resource type, which proves it implements AutoCloseable.",
+      "blast_class": "body-local",
+      "blast_class_evidence": {
+        "confidence": "high",
+        "reasoning": "The conversion moves a local declaration into the try header of the same method body and deletes the matching close() statement. No signature, field type or import changes; the recipe's own invariants forbid a signature edit. The one behavioural risk (a previously swallowed close() exception now propagating) is confined to the same method, which is why the recipe is mode: agent and reports NEEDS_REVIEW instead of guessing.",
+        "sites": [
+          {
+            "file": "migration-runs/jade-1.6-to-1.7-v2/workspace/src/jade/src/jade/tools/gui/ACLTracePanel.java",
+            "line": 374,
+            "what_changes": "'FileWriter f = new FileWriter(fileName); BufferedWriter bw = new BufferedWriter(f);' (lines 374-375) move into the try header; the manual 'bw.close(); f.close();' at lines 392-393 disappears. The enclosing method body is the whole blast radius."
+          },
+          {
+            "file": "migration-runs/jade-1.6-to-1.7-v2/workspace/src/jade/src/jade/util/leap/Properties.java",
+            "line": 125,
+            "what_changes": "'InputStream in = new FileInputStream(storage);' inside load(String) becomes the try's resource; 'in.close();' at line 127 is dropped. The public 'void load(String storage) throws IOException' signature is unchanged."
+          }
+        ]
+      },
+      "pattern_precision": {
+        "value": 0.9,
+        "status": "PASS",
+        "judged": 30,
+        "true_positive": 27,
+        "false_positive": 3,
+        "undecidable": 0,
+        "sample_size": 30,
+        "population_total_hits": 90,
+        "wilson_95": [
+          0.7438,
+          0.9654
+        ],
+        "effective_min_precision": 0.7,
+        "pattern_revision": 1,
+        "seed": "36f1f4fd3bb5c77b",
+        "sample_artifact": "01.5-precision-sample-TRY_WITH_RESOURCES.json",
+        "sample_hash": "4d2d46ec6424e454a7c7a0c576a4ccf55fe6692cb16f9a1463fe1b76b84a4a64",
+        "verdicts_artifact": "01.5-precision-verdicts-TRY_WITH_RESOURCES.json",
+        "verdicts_hash": "1bacf7747aafca3e0059c9ccf4ee1d64e168435062fbcb441150ac9b16b55f58",
+        "report_artifact": "01.5-precision-report.json",
+        "false_positive_classes": {
+          "COMMENT_OR_STRING": 1,
+          "RIGHT_CONSTRUCT_WRONG_CONTEXT": 2
+        },
+        "counterexamples": [
+          {
+            "false_positive_class": "RIGHT_CONSTRUCT_WRONG_CONTEXT",
+            "file": "src/jade/src/jade/imtp/leap/JICP/JICPConnection.java",
+            "hit_id": "6d541068dd23e505",
+            "line": 88,
+            "line_text": "\t\t\t\tsc = new Socket();",
+            "reason": "sc is the field 'protected Socket sc' declared at JICPConnection.java:58; the socket is owned by the connection object and closed in its own close() method, so it deliberately outlives this method."
+          },
+          {
+            "false_positive_class": "COMMENT_OR_STRING",
+            "file": "src/jade/src/jade/mtp/http/HTTPServer.java",
+            "hit_id": "15d20058209c40fc",
+            "line": 103,
+            "line_text": "\t\t\t server = new ServerSocket(port);",
+            "reason": "HTTPServer.java:103 sits inside the /*#PJAVA_INCLUDE_BEGIN ... #PJAVA_INCLUDE_END*/ block comment; java_source.is_live_code() returns False for this line, so it is not compiled code at all."
+          },
+          {
+            "false_positive_class": "RIGHT_CONSTRUCT_WRONG_CONTEXT",
+            "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+            "hit_id": "430e31accdbe6129",
+            "line": 89,
+            "line_text": "    Socket s = new Socket(a.getCodeBase().getHost(), DEFAULT_PORT);",
+            "reason": "The socket's stream is stored in the field 'private DataInputStream in' (line 59), so the socket must stay open after this method returns and cannot be scoped to a try-with-resources block here."
+          }
+        ]
+      },
+      "queue_eligible": true
+    }
+  ]
+}

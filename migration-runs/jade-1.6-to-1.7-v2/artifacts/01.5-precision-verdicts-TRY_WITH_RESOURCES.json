@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "rule_id": "TRY_WITH_RESOURCES",
+  "sample_artifact": "01.5-precision-sample-TRY_WITH_RESOURCES.json",
+  "sample_hash": "4d2d46ec6424e454a7c7a0c576a4ccf55fe6692cb16f9a1463fe1b76b84a4a64",
+  "verdicts": [
+    {
+      "hit_id": "00c23f5b1048f98b",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local java.sql.Statement declared null at DFDBKB:375, assigned inside the try and released by an explicit close in the finally."
+    },
+    {
+      "hit_id": "1d762cdb38684e79",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local java.sql.ResultSet acquired from DatabaseMetaData.getTypeInfo(); ResultSet was retrofitted to AutoCloseable in Java 7."
+    },
+    {
+      "hit_id": "cc5ed2a86652a3f2",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "FileInputStream created inline as a KeyStore.load argument and never closed - the leaking acquisition form try-with-resources exists to fix."
+    },
+    {
+      "hit_id": "6d83f5a8f2df8dc8",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local FileReader bound to aclMsgFile and never closed anywhere in the loop; an external file handle acquired here."
+    },
+    {
+      "hit_id": "fdb3b0994f6cd19c",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "FileInputStream created inline as a KeyStore.load argument and never closed; external file resource acquired on this line."
+    },
+    {
+      "hit_id": "4bbaf03737f0738c",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Two local java.sql.ResultSet declarations opened later in the try and closed manually; both are AutoCloseable in Java 7."
+    },
+    {
+      "hit_id": "47eefca451dbcb2d",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local BufferedWriter over a FileWriter on a chosen file path, released by an explicit close later in the method."
+    },
+    {
+      "hit_id": "c29a17c5fb86b3cd",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local java.sql.Statement declared null in createIndices, assigned from conn.createStatement() and closed by hand."
+    },
+    {
+      "hit_id": "15d20058209c40fc",
+      "verdict": "FALSE_POSITIVE",
+      "false_positive_class": "COMMENT_OR_STRING",
+      "reason": "HTTPServer.java:103 sits inside the /*#PJAVA_INCLUDE_BEGIN ... #PJAVA_INCLUDE_END*/ block comment; java_source.is_live_code() returns False for this line, so it is not compiled code at all."
+    },
+    {
+      "hit_id": "4a70a4f324f97b08",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local java.sql.ResultSet from PreparedStatement.executeQuery(), released through the helper closeResultSet(rs)."
+    },
+    {
+      "hit_id": "e4e5321eea5826a2",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local BufferedReader over a FileReader on a chosen file path; an external file handle acquired and closed manually."
+    },
+    {
+      "hit_id": "6d541068dd23e505",
+      "verdict": "FALSE_POSITIVE",
+      "false_positive_class": "RIGHT_CONSTRUCT_WRONG_CONTEXT",
+      "reason": "sc is the field 'protected Socket sc' declared at JICPConnection.java:58; the socket is owned by the connection object and closed in its own close() method, so it deliberately outlives this method."
+    },
+    {
+      "hit_id": "65265eac68f17dd0",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local PrintWriter (declared 'PrintWriter f = null' at line 322) wrapping a FileWriter, closed explicitly at line 353."
+    },
+    {
+      "hit_id": "2797b7455a34ed2f",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local FileInputStream on a chosen file, wrapped by an ObjectInputStream and closed by hand further down the try."
+    },
+    {
+      "hit_id": "0a2f605a1f421160",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local FileWriter on a chosen file path, released by the explicit f.close() three lines later."
+    },
+    {
+      "hit_id": "5fc0c24d7a4a707c",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local BufferedReader over a FileReader on the message-store file, closed manually inside incrementCounter."
+    },
+    {
+      "hit_id": "349871de5d478ac9",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "FileInputStream created inline as a Properties.load argument and never closed - the leaking acquisition form of this construct."
+    },
+    {
+      "hit_id": "430e31accdbe6129",
+      "verdict": "FALSE_POSITIVE",
+      "false_positive_class": "RIGHT_CONSTRUCT_WRONG_CONTEXT",
+      "reason": "The socket's stream is stored in the field 'private DataInputStream in' (line 59), so the socket must stay open after this method returns and cannot be scoped to a try-with-resources block here."
+    },
+    {
+      "hit_id": "b7ce023ed259f654",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Continuation line of 'FileOutputStream out =' at BootGUI.java:205; a local file output stream released by an explicit close."
+    },
+    {
+      "hit_id": "a9d0791884abe4d6",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Assignment to the local 'MulticastSocket socket = null' declared two lines above and closed in the enclosing finally."
+    },
+    {
+      "hit_id": "269411dab726f12a",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local java.sql.ResultSet from PreparedStatement.executeQuery() in removeAID, released manually."
+    },
+    {
+      "hit_id": "276baa34bf661114",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local java.net.Socket opened to the gateway inside sendACL and closed by hand at the end of the same method."
+    },
+    {
+      "hit_id": "609e4289c227d974",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local PrintWriter over BufferedWriter over FileWriter on a chosen file, closed explicitly a few lines later."
+    },
+    {
+      "hit_id": "fe81dbe6d8009a37",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local java.sql.ResultSet declared null in removeServices, assigned from executeQuery() and closed manually."
+    },
+    {
+      "hit_id": "06c8c64ba157a32f",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local ZipInputStream, a java.util.zip Closeable holding an inflater, which loadFromZip never closes."
+    },
+    {
+      "hit_id": "3a90522f1f8716cf",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local java.sql.Statement declared null and closed by hand alongside the ResultSet declared just above it."
+    },
+    {
+      "hit_id": "ef0480b1f46dc828",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local FileInputStream on the given file name, released by the explicit in.close() three lines later."
+    },
+    {
+      "hit_id": "dec1ab863ed3dee2",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local FileReader wrapped by a BufferedReader; both are closed by hand at the end of this try block."
+    },
+    {
+      "hit_id": "5dcf9d5f04a551e8",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Local FileWriter wrapped by a BufferedWriter; the manual 'bw.close(); f.close();' pair sits at lines 392-393."
+    },
+    {
+      "hit_id": "8887d8ab9cb7c2cf",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "FileReader created inline as a StringACLCodec constructor argument and never closed; an external file handle acquired here."
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "rule_id": "STRINGS_IN_SWITCH",
+  "sample_artifact": "01.5-precision-sample-STRINGS_IN_SWITCH.json",
+  "sample_hash": "362a67f05cc32c8a2cb837248c5ac177cc2c03d54f6a3680138137bd5ecf18ea",
+  "verdicts": [
+    {
+      "hit_id": "b676777e9177c1cf",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Branch 3 of a five-label chain on the local String command inside ACLTimeChooserDialog.actionPerformed. Part of an if/else-if chain over one String receiver compared to string literals; convertible to a switch."
+    },
+    {
+      "hit_id": "c156af0f064d4d10",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Branch 4 of the five-label chain on the local String command in TimeChooser.actionPerformed. Part of an if/else-if chain over one String receiver compared to string literals; convertible to a switch."
+    },
+    {
+      "hit_id": "7793ec5ff0e1ca08",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Second branch of if (command.equals(\"Set\")) / else if (command.equals(\"View\")) at AclGui.java:516-529. Part of an if/else-if chain over one String receiver compared to string literals; convertible to a switch."
+    },
+    {
+      "hit_id": "2244942321e6a7d7",
+      "verdict": "FALSE_POSITIVE",
+      "false_positive_class": "RIGHT_CONSTRUCT_WRONG_CONTEXT",
+      "reason": "The preceding branch is if(!((Boolean) r.getParamAt(0)).booleanValue()), a boolean test, not a String equals, so this else-if is a lone String comparison and not a convertible chain."
+    },
+    {
+      "hit_id": "3674ab53e3c3a9c5",
+      "verdict": "FALSE_POSITIVE",
+      "false_positive_class": "RIGHT_CONSTRUCT_WRONG_CONTEXT",
+      "reason": "The preceding branch tests ((param = msg.getProtocol()) == null), not a String equals, and this condition is a disjunction with equalsIgnoreCase, so no switch case label can express it."
+    },
+    {
+      "hit_id": "c1c9229d7eb769c4",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Last branch of the five-label chain on command in ACLTimeChooserDialog.actionPerformed. Part of an if/else-if chain over one String receiver compared to string literals; convertible to a switch."
+    },
+    {
+      "hit_id": "8ce4d0d4f84aed84",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Third branch of the view/remove/clear chain on the local String name in TablePopupMenuListener. Part of an if/else-if chain over one String receiver compared to string literals; convertible to a switch."
+    },
+    {
+      "hit_id": "cf9848ffff0c9ce3",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "First else-if of the five-label chain on command in ACLTimeChooserDialog.actionPerformed. Part of an if/else-if chain over one String receiver compared to string literals; convertible to a switch."
+    },
+    {
+      "hit_id": "efff19e7b1dc99be",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Second branch of if (command.equals(\"Set\")) / else if (command.equals(\"View\")) at AclGui.java:770-784. Part of an if/else-if chain over one String receiver compared to string literals; convertible to a switch."
+    },
+    {
+      "hit_id": "56ed527fde091026",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "First else-if of the five-label chain on the local String command in TimeChooser.actionPerformed. Part of an if/else-if chain over one String receiver compared to string literals; convertible to a switch."
+    },
+    {
+      "hit_id": "8d1313cdf5ffc8eb",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Branch 4 of the five-label chain on command in ACLTimeChooserDialog.actionPerformed. Part of an if/else-if chain over one String receiver compared to string literals; convertible to a switch."
+    },
+    {
+      "hit_id": "5d9eccf395c32538",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Last branch of the five-label chain on command in TimeChooser.actionPerformed. Part of an if/else-if chain over one String receiver compared to string literals; convertible to a switch."
+    },
+    {
+      "hit_id": "e1323da8b5777af2",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Second branch of if (command.equals(\"Set\")) / else if (command.equals(\"View\")) at AclGui.java:855-866. Part of an if/else-if chain over one String receiver compared to string literals; convertible to a switch."
+    },
+    {
+      "hit_id": "52b5756a4c3a5527",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Branch 3 of the five-label chain on the local String command in TimeChooser.actionPerformed. Part of an if/else-if chain over one String receiver compared to string literals; convertible to a switch."
+    },
+    {
+      "hit_id": "ebf844f6a981b174",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Branch 5 of the five-label chain on command in ACLTimeChooserDialog.actionPerformed. Part of an if/else-if chain over one String receiver compared to string literals; convertible to a switch."
+    },
+    {
+      "hit_id": "9d9b893335b2e3ce",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Second branch of the view/remove/clear chain on the local String name in TablePopupMenuListener. Part of an if/else-if chain over one String receiver compared to string literals; convertible to a switch."
+    },
+    {
+      "hit_id": "51f9970fc9b93a08",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Second branch of if(source.getName().equals(\"on\")) / else if(...equals(\"off\")); one receiver expression, two string literals. Part of an if/else-if chain over one String receiver compared to string literals; convertible to a switch."
+    },
+    {
+      "hit_id": "bc69c1a30d903941",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Branch 5 of the five-label chain on command in TimeChooser.actionPerformed. Part of an if/else-if chain over one String receiver compared to string literals; convertible to a switch."
+    }
+  ]
+}

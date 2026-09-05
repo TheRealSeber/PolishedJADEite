@@ -1,0 +1,866 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "\t\t",
+        "\t\ttry {",
+        "\t\t\tstmt = getConnectionWrapper().getConnection().createStatement();",
+        "\t\t\tstmt.execute(\"SELECT COUNT(*) FROM \"+name);"
+      ],
+      "context_before": [
+        "\t * ",
+        "\t * @param name name of the table",
+        "\t */",
+        "\tprotected boolean tableExists(String name) {"
+      ],
+      "file": "src/jade/src/jade/domain/DFDBKB.java",
+      "hit_id": "00c23f5b1048f98b",
+      "line": 375,
+      "line_hash": "61624f9528e6910e",
+      "line_text": "\t\tStatement stmt = null;",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        18
+      ],
+      "match_text": "\t\tStatement stmt =",
+      "pattern_index": 1,
+      "rank": 0
+    },
+    {
+      "context_after": [
+        "\t\t\tlong maxPrecision = -1;",
+        "\t\t\twhile (typeInfo.next()) {",
+        "\t\t\t\tlong jdbcType = Long.parseLong(typeInfo.getString(\"DATA_TYPE\"));",
+        "\t\t\t\tlong precision = Long.parseLong(typeInfo.getString(\"PRECISION\"));"
+      ],
+      "context_before": [
+        "\t\tString bestMatch = DEFAULT_LONGVARCHAR_TYPE;",
+        "\t\ttry {",
+        "\t\t\t// get the datatype with the highest precision from the meta data information",
+        "\t\t\tDatabaseMetaData md = getConnectionWrapper().getConnection().getMetaData();"
+      ],
+      "file": "src/jade/src/jade/domain/DFDBKB.java",
+      "hit_id": "1d762cdb38684e79",
+      "line": 303,
+      "line_hash": "e5cafe4f8109a3c9",
+      "line_text": "\t\t\tResultSet typeInfo = md.getTypeInfo();",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        23
+      ],
+      "match_text": "\t\t\tResultSet typeInfo =",
+      "pattern_index": 1,
+      "rank": 1
+    },
+    {
+      "context_after": [
+        "    TrustManagerFactory tmf = ",
+        "      TrustManagerFactory.getInstance(\"SunX509\");",
+        "    tmf.init(ks);",
+        "    _tm = (X509TrustManager)tmf.getTrustManagers()[0];"
+      ],
+      "context_before": [
+        "    KeyStore ks = KeyStore.getInstance(\"JKS\");",
+        "    String s = File.separator;",
+        "    String javaHome = System.getProperty(\"java.home\");",
+        "    String defaultTs = javaHome + s + \"lib\" + s + \"security\"+ s +\"cacerts\";"
+      ],
+      "file": "src/jade/src/jade/mtp/http/https/StrongAuthentication.java",
+      "hit_id": "cc5ed2a86652a3f2",
+      "line": 77,
+      "line_hash": "70f96bd95449d897",
+      "line_text": "    ks.load(new FileInputStream(defaultTs), null);",
+      "line_truncated": false,
+      "match_span": [
+        12,
+        32
+      ],
+      "match_text": "new FileInputStream(",
+      "pattern_index": 0,
+      "rank": 2
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\t\tEnumeration receivers = receiverListPanel.getContent();",
+        "\t\t\t\t\t\tsetMsg( aclParser.parse(aclMsgFile) );",
+        "\t\t\t\t\t\tif ( receivers.hasMoreElements() ) {",
+        "\t\t\t\t\t\t\tif(logger.isLoggable(Logger.FINE))"
+      ],
+      "context_before": [
+        "\t\t\t\twhile (fileItor.hasNext())",
+        "\t\t\t\t{",
+        "\t\t\t\t\ttry {",
+        "\t\t\t\t\t\tjava.io.File f = (java.io.File)(fileItor.next());"
+      ],
+      "file": "src/jade/src/jade/gui/AclGui.java",
+      "hit_id": "6d83f5a8f2df8dc8",
+      "line": 604,
+      "line_hash": "62d816ae0a3df192",
+      "line_text": "\t\t\t\t\t\tFileReader aclMsgFile = new FileReader(f);",
+      "line_truncated": false,
+      "match_span": [
+        30,
+        45
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 3
+    },
+    {
+      "context_after": [
+        "\t\talias = ((String)ks.aliases().nextElement());",
+        "\t\tprivateKey = (PrivateKey)ks.getKey(alias, pass.toCharArray());",
+        "\t\tCertificate[] certs = ks.getCertificateChain(alias);",
+        "\t\tcert = new X509Certificate[certs.length];"
+      ],
+      "context_before": [
+        "\t\tString pass = profile.getParameter(PREFIX+\"keyStorePass\", \"\");",
+        "\t\tString keyfile = profile.getParameter(PREFIX + \"keyStoreFile\", \"\");",
+        "\t\tString storetype = profile.getParameter(PREFIX + \"keyStoreType\", \"JKS\");",
+        "\t\tKeyStore ks = KeyStore.getInstance(storetype);"
+      ],
+      "file": "src/jade/src/jade/mtp/http/https/KeyStoreKeyManager.java",
+      "hit_id": "fdb3b0994f6cd19c",
+      "line": 70,
+      "line_hash": "4c6ec2e4a468325d",
+      "line_text": "\t\tks.load(new FileInputStream(keyfile),pass.toCharArray());",
+      "line_truncated": false,
+      "match_span": [
+        10,
+        30
+      ],
+      "match_text": "new FileInputStream(",
+      "pattern_index": 0,
+      "rank": 4
+    },
+    {
+      "context_after": [
+        "\t\tResultSet rsS = null;",
+        "\t\tString descrId = null;",
+        "\t\t",
+        "\t\ttry{"
+      ],
+      "context_before": [
+        "\tprivate DFAgentDescription getDFD(String aidN, Map allLanguages, Map allOntologies, Map allProtocols) throws SQLException {",
+        "\t\tDFAgentDescription dfd = null;",
+        "\t\tAID id = null;",
+        "\t\t"
+      ],
+      "file": "src/jade/src/jade/domain/DFDBKB.java",
+      "hit_id": "4bbaf03737f0738c",
+      "line": 1149,
+      "line_hash": "46db6a077f6e02bd",
+      "line_text": "\t\tResultSet rs = null;",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        16
+      ],
+      "match_text": "\t\tResultSet rs =",
+      "pattern_index": 1,
+      "rank": 5
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\t// Write the number of messages in the queue",
+        "\t\t\t\t\ttry",
+        "\t\t\t\t\t{",
+        "\t\t\t\t\t\tout.write(String.valueOf(queuedMsgListModel.getSize()));"
+      ],
+      "context_before": [
+        "\t\t\t\tString fileName = chooser.getSelectedFile().getAbsolutePath();",
+        "",
+        "\t\t\t\ttry",
+        "\t\t\t\t{"
+      ],
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "hit_id": "47eefca451dbcb2d",
+      "line": 338,
+      "line_hash": "a5459ff42437e607",
+      "line_text": "\t\t\t\t\tBufferedWriter out = new BufferedWriter(new FileWriter(fileName));",
+      "line_truncated": false,
+      "match_span": [
+        45,
+        60
+      ],
+      "match_text": "new FileWriter(",
+      "pattern_index": 0,
+      "rank": 6
+    },
+    {
+      "context_after": [
+        "\t\t",
+        "\t\ttry {",
+        "\t\t\tConnection conn = getConnectionWrapper().getConnection();",
+        "\t\t\tstmt = conn.createStatement();"
+      ],
+      "context_before": [
+        "\t/**",
+        "\t * Adds explicit indices to the database to speed up queries",
+        "\t */",
+        "\tprotected void createIndices() {"
+      ],
+      "file": "src/jade/src/jade/domain/DFDBKB.java",
+      "hit_id": "c29a17c5fb86b3cd",
+      "line": 444,
+      "line_hash": "61624f9528e6910e",
+      "line_text": "\t\tStatement stmt = null;",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        18
+      ],
+      "match_text": "\t\tStatement stmt =",
+      "pattern_index": 1,
+      "rank": 7
+    },
+    {
+      "context_after": [
+        "\t\t\t #PJAVA_INCLUDE_END*/",
+        "\t\t}",
+        "\t\tcatch (IOException ioe) {",
+        "\t\t\tif (changePortIfBusy) {"
+      ],
+      "context_before": [
+        "\t\t\t//#PJAVA_EXCLUDE_BEGIN ",
+        "\t\t\tserver = HTTPSocketFactory.getInstance().createServerSocket(address, port);",
+        "\t\t\t//#PJAVA_EXCLUDE_END",
+        "\t\t\t/*#PJAVA_INCLUDE_BEGIN"
+      ],
+      "file": "src/jade/src/jade/mtp/http/HTTPServer.java",
+      "hit_id": "15d20058209c40fc",
+      "line": 103,
+      "line_hash": "11ace6458fcd86e5",
+      "line_text": "\t\t\t server = new ServerSocket(port);",
+      "line_truncated": false,
+      "match_span": [
+        13,
+        30
+      ],
+      "match_text": "new ServerSocket(",
+      "pattern_index": 0,
+      "rank": 8
+    },
+    {
+      "context_after": [
+        "\t\trs.next();",
+        "\t\tlong recordCount = rs.getLong(1);",
+        "\t\tcloseResultSet(rs);",
+        "\t\tif (recordCount < MAX_PRELOAD_CNT) {"
+      ],
+      "context_before": [
+        "\t}",
+        "\t",
+        "\tprivate Map preloadIdValueTable(PreparedStatement cntStm, PreparedStatement stm) throws SQLException {",
+        "\t\tMap m = null;"
+      ],
+      "file": "src/jade/src/jade/domain/DFDBKB.java",
+      "hit_id": "4a70a4f324f97b08",
+      "line": 997,
+      "line_hash": "b82f96f5878a249c",
+      "line_text": "\t\tResultSet rs = cntStm.executeQuery();",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        16
+      ],
+      "match_text": "\t\tResultSet rs =",
+      "pattern_index": 1,
+      "rank": 9
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\t// Read the number of messages in the queue",
+        "\t\t\t\t\tint n = -1;",
+        "\t\t\t\t\ttry",
+        "\t\t\t\t\t{"
+      ],
+      "context_before": [
+        "\t\t\t\tString fileName = chooser.getSelectedFile().getAbsolutePath();",
+        "",
+        "\t\t\t\ttry",
+        "\t\t\t\t{"
+      ],
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "hit_id": "e4e5321eea5826a2",
+      "line": 290,
+      "line_hash": "e14f5340fa01acf7",
+      "line_text": "\t\t\t\t\tBufferedReader inp = new BufferedReader(new FileReader(fileName));",
+      "line_truncated": false,
+      "match_span": [
+        45,
+        60
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 10
+    },
+    {
+      "context_after": [
+        "\t\t\t\tif (bindHost != null || bindPort > 0) {",
+        "\t\t\t\t\t// Local binding explicitly specified",
+        "\t\t\t\t\tmyLogger.log(Logger.INFO, \"Binding JICPConnection with bindHost=\"+bindHost+\" and bindPort=\"+bindPort);",
+        "\t\t\t\t\tif (bindHost != null) {"
+      ],
+      "context_before": [
+        "\t\tint bindExceptionCnt = 0;",
+        "\t\twhile (true) {",
+        "\t\t\ttry { ",
+        "\t\t\t\t//#PJAVA_EXCLUDE_BEGIN"
+      ],
+      "file": "src/jade/src/jade/imtp/leap/JICP/JICPConnection.java",
+      "hit_id": "6d541068dd23e505",
+      "line": 88,
+      "line_hash": "680352c8309a8d12",
+      "line_text": "\t\t\t\tsc = new Socket();",
+      "line_truncated": false,
+      "match_span": [
+        9,
+        20
+      ],
+      "match_text": "new Socket(",
+      "pattern_index": 0,
+      "rank": 11
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\tsb = new StringBuffer(\"MTP addresses:\");",
+        "\t\t\t\t}",
+        "\t\t\t\tf.println(mtpAddrs[0]);",
+        "\t\t\t\tsb.append(\"\\n\");"
+      ],
+      "context_before": [
+        "\t\t\t\tMTPDescriptor mtp = s.installMTP(addressURL, className);",
+        "\t\t\t\tString[] mtpAddrs = mtp.getAddresses();",
+        "\t\t\t\tif (f == null) { ",
+        "\t\t\t\t\tString fileName = myProfile.getParameter(Profile.FILE_DIR, \"\") + \"MTPs-\" + myContainer.getID().getName() + \".txt\";"
+      ],
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "hit_id": "65265eac68f17dd0",
+      "line": 343,
+      "line_hash": "c03401156bfb07c9",
+      "line_text": "\t\t\t\t\tf = new PrintWriter(new FileWriter(fileName));",
+      "line_truncated": false,
+      "match_span": [
+        25,
+        40
+      ],
+      "match_text": "new FileWriter(",
+      "pattern_index": 0,
+      "rank": 12
+    },
+    {
+      "context_after": [
+        "      ObjectInputStream p = new ObjectInputStream(istream);",
+        "      mainPanel.panelcan.canvAgent.setAgentList((AgentList)p.readObject());",
+        "      mainPanel.panelcan.canvMess.setMessageList((MessageList)p.readObject());",
+        "      p.close();"
+      ],
+      "context_before": [
+        "    JFileChooser fileDialog = new JFileChooser();",
+        "    int returnVal = fileDialog.showOpenDialog(null);",
+        "    if(returnVal == JFileChooser.APPROVE_OPTION){",
+        "      String fileName = fileDialog.getSelectedFile().getAbsolutePath();"
+      ],
+      "file": "src/jade/src/jade/tools/sniffer/DisplayLogFileAction.java",
+      "hit_id": "2797b7455a34ed2f",
+      "line": 69,
+      "line_hash": "e36e34dc469926fb",
+      "line_text": "      FileInputStream istream = new FileInputStream(fileName);",
+      "line_truncated": false,
+      "match_span": [
+        32,
+        52
+      ],
+      "match_text": "new FileInputStream(",
+      "pattern_index": 0,
+      "rank": 13
+    },
+    {
+      "context_after": [
+        "        StringACLCodec codec = new StringACLCodec(null, f);",
+        "        codec.write(itsMsg);",
+        "        f.close();",
+        "      }"
+      ],
+      "context_before": [
+        "        fileName = fileName + \".acl\";",
+        "      }",
+        "",
+        "      try {"
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+      "hit_id": "0a2f605a1f421160",
+      "line": 221,
+      "line_hash": "66e84aab624f21e2",
+      "line_text": "        FileWriter f = new FileWriter(fileName);",
+      "line_truncated": false,
+      "match_span": [
+        23,
+        38
+      ],
+      "match_text": "new FileWriter(",
+      "pattern_index": 0,
+      "rank": 14
+    },
+    {
+      "context_after": [
+        "\t\tFile tmp = File.createTempFile(\"JADE\", \".tmp\");",
+        "\t\tString s = in.readLine();",
+        "\t\ttry {",
+        "\t\t\tlong counter = Long.parseLong(s);"
+      ],
+      "context_before": [
+        "\t\treturn message;",
+        "\t}",
+        "",
+        "\tprivate void incrementCounter(File f) throws IOException {"
+      ],
+      "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+      "hit_id": "5fc0c24d7a4a707c",
+      "line": 206,
+      "line_hash": "5e319881d4540ced",
+      "line_text": "\t\tBufferedReader in = new BufferedReader(new FileReader(f));",
+      "line_truncated": false,
+      "match_span": [
+        41,
+        56
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 15
+    },
+    {
+      "context_after": [
+        "\t\t\t\t} catch (IOException ioe) {",
+        "\t\t\t\t\t// ignore - Properties not processed",
+        "\t\t\t\t}",
+        "\t\t\t} else {"
+      ],
+      "context_before": [
+        "\t\t} else {",
+        "\t\t\tString fileName = locateFile(\"sniffer.properties\");",
+        "\t\t\tif (fileName != null) {",
+        "\t\t\t\ttry {"
+      ],
+      "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
+      "hit_id": "349871de5d478ac9",
+      "line": 457,
+      "line_hash": "28c7d98a574e5c8b",
+      "line_text": "\t\t\t\t\tproperties.load(new FileInputStream(fileName));",
+      "line_truncated": false,
+      "match_span": [
+        21,
+        41
+      ],
+      "match_text": "new FileInputStream(",
+      "pattern_index": 0,
+      "rank": 16
+    },
+    {
+      "context_after": [
+        "    if(logger.isLoggable(Logger.CONFIG))",
+        "    \tlogger.log(Logger.CONFIG,\"DFAppletClient connected to local port \"+s.getLocalPort()+\" and remote port \"+s.getPort());",
+        "    in = new DataInputStream(s.getInputStream());",
+        "    parser = new ACLParser(in);"
+      ],
+      "context_before": [
+        "    hap = a.getParameter(\"HAP\");",
+        "    if(logger.isLoggable(Logger.FINEST))",
+        "    \tlogger.log(Logger.FINEST,\"HAP:\" + hap);",
+        " "
+      ],
+      "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+      "hit_id": "430e31accdbe6129",
+      "line": 89,
+      "line_hash": "e01f647b7bad5fcb",
+      "line_text": "    Socket s = new Socket(a.getCodeBase().getHost(), DEFAULT_PORT);",
+      "line_truncated": false,
+      "match_span": [
+        15,
+        26
+      ],
+      "match_text": "new Socket(",
+      "pattern_index": 0,
+      "rank": 17
+    },
+    {
+      "context_after": [
+        "\t\t\t\t// do not save -conf=true otherwise ",
+        "\t\t\t\t// -conf <fileName starts the GUI again",
+        "\t\t\t\tpropToSave.put(BootProfileImpl.CONF_KEY,\"false\");",
+        "                                propToSave.store(out, TITLE);"
+      ],
+      "context_before": [
+        "                            propertyFileName = fileName;",
+        "",
+        "                            try {",
+        "                                FileOutputStream out ="
+      ],
+      "file": "src/jade/src/jade/BootGUI.java",
+      "hit_id": "b7ce023ed259f654",
+      "line": 206,
+      "line_hash": "53d2b4415454c45b",
+      "line_text": "                                    new FileOutputStream(fileName);",
+      "line_truncated": false,
+      "match_span": [
+        36,
+        57
+      ],
+      "match_text": "new FileOutputStream(",
+      "pattern_index": 0,
+      "rank": 18
+    },
+    {
+      "context_after": [
+        "\t\t\t\tsocket.setTimeToLive(mcast.ttl);",
+        "\t\t\t\tsocket.setSoTimeout(mcast.firstTimeout);",
+        "\t\t\t} catch (IOException ioe) {",
+        "\t\t\t\tthrow new ProfileException(\"Error setting up multicast socket\", ioe);"
+      ],
+      "context_before": [
+        "",
+        "\t\tMulticastSocket socket = null;",
+        "\t\ttry {",
+        "\t\t\ttry {"
+      ],
+      "file": "src/jade/src/jade/core/MainDetectionManager.java",
+      "hit_id": "a9d0791884abe4d6",
+      "line": 295,
+      "line_hash": "dca08846e08774c8",
+      "line_text": "\t\t\t\tsocket = new MulticastSocket(SRC_PORT);",
+      "line_truncated": false,
+      "match_span": [
+        13,
+        33
+      ],
+      "match_text": "new MulticastSocket(",
+      "pattern_index": 0,
+      "rank": 19
+    },
+    {
+      "context_after": [
+        "\t\tint found = 0;",
+        "\t\tif (rs.next())",
+        "\t\t\tfound = Integer.parseInt(rs.getString(1));",
+        "\t\t"
+      ],
+      "context_before": [
+        "\tprivate void removeAID(String aid) throws SQLException {",
+        "\t\tPreparedStatements pss = getPreparedStatements();",
+        "\t\t// check whether there exists a DF description for the agent",
+        "\t\tpss.stm_selNrOfDescrForAID.setString(1, aid);"
+      ],
+      "file": "src/jade/src/jade/domain/DFDBKB.java",
+      "hit_id": "269411dab726f12a",
+      "line": 1340,
+      "line_hash": "96e1c9cfe2551260",
+      "line_text": "\t\tResultSet rs = pss.stm_selNrOfDescrForAID.executeQuery();",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        16
+      ],
+      "match_text": "\t\tResultSet rs =",
+      "pattern_index": 1,
+      "rank": 20
+    },
+    {
+      "context_after": [
+        "",
+        "\t\tif (timeout > 0) {",
+        "\t\t\tsocket.setSoTimeout((int) timeout);    //Wait before timing out",
+        "\t\t}"
+      ],
+      "context_before": [
+        "\tpublic ACLMessage sendACL(String aMsg, long timeout) throws IOException, UnknownHostException, SocketException {",
+        "\t\tif ( logger.isLoggable( Logger.FINE ) ) {",
+        "\t\t\tlogger.log( Logger.FINE, \"msg to send:\"+aMsg);",
+        "\t\t}"
+      ],
+      "file": "src/jade/src/jade/tools/SocketProxyAgent/JadeBridge.java",
+      "hit_id": "276baa34bf661114",
+      "line": 156,
+      "line_hash": "1bd213814dbe46ef",
+      "line_text": "\t\tSocket socket = new Socket(host, port); // open socket to gateway",
+      "line_truncated": false,
+      "match_span": [
+        18,
+        29
+      ],
+      "match_text": "new Socket(",
+      "pattern_index": 0,
+      "rank": 21
+    },
+    {
+      "context_after": [
+        "       MessageList msgList = mainPanel.panelcan.canvMess.getMessageList();",
+        "       Iterator it = msgList.getMessages();",
+        "       while(it.hasNext()) {",
+        "\t Message curMsg = (Message)it.next();"
+      ],
+      "context_before": [
+        "     JFileChooser fileDialog = new JFileChooser();",
+        "     int returnVal = fileDialog.showSaveDialog(null);",
+        "     if(returnVal == JFileChooser.APPROVE_OPTION){",
+        "       String fileName = fileDialog.getSelectedFile().getAbsolutePath();"
+      ],
+      "file": "src/jade/src/jade/tools/sniffer/WriteMessageListAction.java",
+      "hit_id": "609e4289c227d974",
+      "line": 69,
+      "line_hash": "142e55458b5f44d7",
+      "line_text": "       out = new PrintWriter(new BufferedWriter(new FileWriter(fileName)));",
+      "line_truncated": false,
+      "match_span": [
+        48,
+        63
+      ],
+      "match_text": "new FileWriter(",
+      "pattern_index": 0,
+      "rank": 22
+    },
+    {
+      "context_after": [
+        "\t\tPreparedStatements pss = getPreparedStatements();",
+        "\t\tpss.stm_selServiceId.setString(1, descrId);",
+        "\t\trs = pss.stm_selServiceId.executeQuery();",
+        "\t\t"
+      ],
+      "context_before": [
+        "\t * Deletes all services corresponding to the indicated description ID",
+        "\t * @throws SQLException",
+        "\t */",
+        "\tprivate void removeServices(String descrId) throws SQLException {"
+      ],
+      "file": "src/jade/src/jade/domain/DFDBKB.java",
+      "hit_id": "fe81dbe6d8009a37",
+      "line": 1374,
+      "line_hash": "46db6a077f6e02bd",
+      "line_text": "\t\tResultSet rs = null;",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        16
+      ],
+      "match_text": "\t\tResultSet rs =",
+      "pattern_index": 1,
+      "rank": 23
+    },
+    {
+      "context_after": [
+        "\t\t\tZipEntry ze = zis.getNextEntry();",
+        "\t\t\twhile (ze != null) {",
+        "\t\t\t\tByteArrayOutputStream baos = new ByteArrayOutputStream();",
+        "\t\t\t\tbyte[] tmp = new byte[1024];"
+      ],
+      "context_before": [
+        "\t",
+        "\tprivate Behaviour loadFromZip(String className, byte[] zip) throws ClassNotFoundException, InstantiationException, IllegalAccessException {",
+        "\t\tHashtable classes = new Hashtable();",
+        "\t\ttry {"
+      ],
+      "file": "src/jade/src/jade/core/behaviours/LoaderBehaviour.java",
+      "hit_id": "06c8c64ba157a32f",
+      "line": 247,
+      "line_hash": "d890789e3f0c700c",
+      "line_text": "\t\t\tZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(zip));",
+      "line_truncated": false,
+      "match_span": [
+        24,
+        43
+      ],
+      "match_text": "new ZipInputStream(",
+      "pattern_index": 0,
+      "rank": 24
+    },
+    {
+      "context_after": [
+        "\t\t",
+        "\t\ttry {",
+        "\t\t\tselect = createSelect((DFAgentDescription) template);",
+        "\t\t\t\t\t"
+      ],
+      "context_before": [
+        "\t\t",
+        "\t\t// Get the names of all DFDs matching the template",
+        "\t\tString select = null;",
+        "\t\tResultSet rs = null;"
+      ],
+      "file": "src/jade/src/jade/domain/DFDBKB.java",
+      "hit_id": "3a90522f1f8716cf",
+      "line": 941,
+      "line_hash": "b21c39be4e65d77b",
+      "line_text": "\t\tStatement s = null;",
+      "line_truncated": false,
+      "match_span": [
+        0,
+        15
+      ],
+      "match_text": "\t\tStatement s =",
+      "pattern_index": 1,
+      "rank": 25
+    },
+    {
+      "context_after": [
+        "",
+        "        p.load(in);",
+        "        in.close();",
+        ""
+      ],
+      "context_before": [
+        "     * Read the properties from a specific file.",
+        "     */",
+        "    ExtendedProperties readPropertiesFromFile(String fileName) throws FileNotFoundException, IOException {",
+        "        ExtendedProperties p = new ExtendedProperties();"
+      ],
+      "file": "src/jade/src/jade/BootGUI.java",
+      "hit_id": "ef0480b1f46dc828",
+      "line": 534,
+      "line_hash": "8bcba17d3bc266c0",
+      "line_text": "        FileInputStream in = new FileInputStream(fileName);",
+      "line_truncated": false,
+      "match_span": [
+        29,
+        49
+      ],
+      "match_text": "new FileInputStream(",
+      "pattern_index": 0,
+      "rank": 26
+    },
+    {
+      "context_after": [
+        "        BufferedReader br = new BufferedReader(f);",
+        "        String line = br.readLine();",
+        "        String direction;",
+        "        String theTime;"
+      ],
+      "context_before": [
+        "      String fileName = chooser.getSelectedFile().getAbsolutePath();",
+        "",
+        "      try {",
+        "        clearACLModel();"
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+      "hit_id": "dec1ab863ed3dee2",
+      "line": 427,
+      "line_hash": "033451baf5f32133",
+      "line_text": "        FileReader f = new FileReader(fileName);",
+      "line_truncated": false,
+      "match_span": [
+        23,
+        38
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 27
+    },
+    {
+      "context_after": [
+        "        BufferedWriter bw = new BufferedWriter(f);",
+        "        int size = aclModel.getChildCount(this.aclRoot);",
+        "        for (int i = 0; i < size; i++) {",
+        "          System.out.println(\"aclModel: \" + aclModel.getChild(this.aclRoot, i).getClass());"
+      ],
+      "context_before": [
+        "        fileName = fileName + \".trc\";",
+        "      }",
+        "",
+        "      try {"
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+      "hit_id": "5dcf9d5f04a551e8",
+      "line": 374,
+      "line_hash": "66e84aab624f21e2",
+      "line_text": "        FileWriter f = new FileWriter(fileName);",
+      "line_truncated": false,
+      "match_span": [
+        23,
+        38
+      ],
+      "match_text": "new FileWriter(",
+      "pattern_index": 0,
+      "rank": 28
+    },
+    {
+      "context_after": [
+        "          currentMsgGui.setMsg(codec.decode());",
+        "\t\t\t\t}",
+        "\t\t\t\tcatch(FileNotFoundException e1) {",
+        "\t\t\t\t\t\tJOptionPane.showMessageDialog(null,\"File not found: \"+ fileName + e1.getMessage(),\"Error Message\",JOptionPane.ERROR_MESSAGE);"
+      ],
+      "context_before": [
+        "\t\t\t\t  String fileName = chooser.getSelectedFile().getAbsolutePath();",
+        "",
+        "\t\t\t\ttry {",
+        "          // Note the save/read functionality uses default US-ASCII charset"
+      ],
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "hit_id": "8887d8ab9cb7c2cf",
+      "line": 214,
+      "line_hash": "4af3d0854abbb2ad",
+      "line_text": "          StringACLCodec codec = new StringACLCodec(new FileReader(fileName),null);",
+      "line_truncated": false,
+      "match_span": [
+        52,
+        67
+      ],
+      "match_text": "new FileReader(",
+      "pattern_index": 0,
+      "rank": 29
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "b3784123a76dbe1a30e064e4d872e03a01ec2b8c0dffc8a45fa1f088e55f36c9",
+  "pattern_revision": 1,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "\\bnew\\s+(?:java\\.io\\.|java\\.net\\.|java\\.util\\.zip\\.|java\\.util\\.jar\\.)?(?:FileInputStream|FileOutputStream|FileReader|FileWriter|RandomAccessFile|ZipFile|ZipInputStream|ZipOutputStream|JarFile|JarInputStream|Socket|ServerSocket|DatagramSocket|MulticastSocket)\\s*\\(",
+      "reason": "Acquisition of an external java.io / java.net / java.util.zip resource via its constructor. Every listed type implements java.io.Closeable, which Java 7 retrofitted onto java.lang.AutoCloseable, so each is usable as a try-with-resources resource.",
+      "target_extensions": [
+        ".java"
+      ]
+    },
+    {
+      "index": 1,
+      "pattern": "^(?!\\s*(?:private|public|protected|static|final)\\b)\\s*(?:java\\.sql\\.)?(?:Statement|PreparedStatement|CallableStatement|ResultSet)\\s+\\w+\\s*=",
+      "reason": "Local java.sql Statement / PreparedStatement / ResultSet declaration. Java 7 retrofitted java.sql.Statement and ResultSet to implement AutoCloseable. The leading negative lookahead drops field declarations (private/public/protected/static/final), which are cached for the object's lifetime and are not try-with-resources candidates.",
+      "target_extensions": [
+        ".java"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 1015,
+    "files_with_hits": 41,
+    "hits_per_pattern": {
+      "0": 67,
+      "1": 23
+    },
+    "max_hits_in_one_file": 23,
+    "population_signature": "e47c164a3648360659d032f6f162c198a81ebfa9a84b2d1eb823f94b61474644",
+    "total_hits": 90,
+    "truncated": false
+  },
+  "rule_description": "An external auto-closeable resource is acquired at this line: a java.io file stream/reader/writer, a java.net socket, a java.util.zip / java.util.jar archive, or a java.sql Statement/ResultSet. Pre-Java-7 code has to release it itself with an explicit close(), normally in a finally block, or it leaks; Java 7 try-with-resources closes it automatically when the block exits. The pattern flags the acquisition site - the line a conversion has to move into the try header - whether the resource is bound to a local variable or created inline as a call argument. In-memory streams (ByteArrayInputStream/OutputStream, StringReader/Writer), whose close() is a documented no-op and which are never a try-with-resources target, are deliberately excluded, as are cached java.sql PreparedStatement fields. An acquisition whose resource is stored in a field, and therefore deliberately outlives the method, is NOT this construct.",
+  "rule_id": "TRY_WITH_RESOURCES",
+  "rule_name": "Java 7 try-with-resources — manually released external resource",
+  "run_id": "jade-1.6-to-1.7-v2",
+  "sample_size": 30,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 4,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "36f1f4fd3bb5c77b",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "SAMPLED",
+  "verification_hint": "After the fix the resource is declared inside the try's parentheses, the manual close() call is gone, and any nested try/catch that existed only to swallow that close()'s exception is either removed (when the enclosing catch already covers it) or preserved explicitly. javac -source 1.7 must accept the resource type, which proves it implements AutoCloseable.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-1.6-to-1.7-v2/workspace"
+}

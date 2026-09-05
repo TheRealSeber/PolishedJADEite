@@ -5,5 +5,19 @@
   "artifacts_path": "migration-runs/jade-1.6-to-1.7-v2/artifacts",
   "source_version": "1.6",
   "target_version": "1.7",
-  "baseline_rationale": "The old jade-1.6-to-1.7 run declared baseline_path=JADE-4.6.0 (pristine source tree). That tree's build.xml has source=\"1.5\" target=\"1.5\" and carries none of the jade-1.5-to-1.6 fixes (no STRICTER_CAST_CHECKING markers, no source/target upgrade). Chaining a version-migration pipeline from the pristine tree instead of the prior step's output workspace silently discards every change the previous jump made. migration-runs/jade-1.5-to-1.6/workspace is the verified correct baseline for this run: its build.xml already reads source=\"1.6\" target=\"1.6\" (confirmed by diff against JADE-4.6.0/src/jade/build.xml) and rule-status.json shows STRICTER_CAST_CHECKING as DONE for that run. It is the actual 1.6-level codebase this v2 run must start from."
+  "baseline_rationale": "The old jade-1.6-to-1.7 run declared baseline_path=JADE-4.6.0 (pristine source tree). That tree's build.xml has source=\"1.5\" target=\"1.5\" and carries none of the jade-1.5-to-1.6 fixes (no STRICTER_CAST_CHECKING markers, no source/target upgrade). Chaining a version-migration pipeline from the pristine tree instead of the prior step's output workspace silently discards every change the previous jump made. migration-runs/jade-1.5-to-1.6/workspace is the verified correct baseline for this run: its build.xml already reads source=\"1.6\" target=\"1.6\" (confirmed by diff against JADE-4.6.0/src/jade/build.xml) and rule-status.json shows STRICTER_CAST_CHECKING as DONE for that run. It is the actual 1.6-level codebase this v2 run must start from.",
+  "precision_gate": {
+    "enabled": true,
+    "min_precision": 0.7,
+    "sample_size": 30,
+    "max_sample_size": 120,
+    "context_lines": 4,
+    "max_line_chars": 400,
+    "seed_scope": "rule+pattern",
+    "undecidable_max_ratio": 0.2,
+    "max_revisions": 3,
+    "on_reject": "halt",
+    "manifest_evidence": "digest",
+    "overrides": {}
+  }
 }

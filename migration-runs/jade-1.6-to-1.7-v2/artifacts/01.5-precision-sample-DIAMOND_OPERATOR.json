@@ -1,0 +1,857 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "\t// Map a master replica agent to the pending replica creation requests",
+        "\tprivate Map<AID, List<ReplicaInfo>> pendingReplicaCreationRequests = new Hashtable<AID, List<ReplicaInfo>>();",
+        "",
+        "\tprivate Map<String, Method> cachedAgentMethods = new HashMap<String, Method>();"
+      ],
+      "context_before": [
+        "",
+        "\t// Map a virtual agent to the set of global information associated to it ",
+        "\tprivate Map<AID, GlobalReplicationInfo> globalReplications = new Hashtable<AID, GlobalReplicationInfo>();",
+        "\t// Map a replica agent to the related virtual agent"
+      ],
+      "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+      "hit_id": "9623287430ad8746",
+      "line": 80,
+      "line_hash": "64d83f86802f9256",
+      "line_text": "\tprivate Map<AID, AID> replicaToVirtualMap = new Hashtable<AID, AID>();",
+      "line_truncated": false,
+      "match_span": [
+        45,
+        69
+      ],
+      "match_text": "new Hashtable<AID, AID>(",
+      "pattern_index": 0,
+      "rank": 0
+    },
+    {
+      "context_after": [
+        "\t\tprivate Vector<String> deregisteredMediators = new Vector<String>();",
+        "\t\tprivate String host;",
+        "\t\tprivate int port;",
+        "\t\tprivate Properties leapProps = new Properties();"
+      ],
+      "context_before": [
+        "\t\tprivate String myLogPrefix;",
+        "\t\tprivate int state = INIT_STATE;",
+        "\t\tprivate ServerSocketChannel mySSChannel;",
+        "\t\tprivate long mediatorCnt = 1;"
+      ],
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "hit_id": "c3719c8b260a119f",
+      "line": 508,
+      "line_hash": "2b3518fc28359e33",
+      "line_text": "\t\tprivate Hashtable<String, NIOMediator> mediators = new Hashtable<String, NIOMediator>();",
+      "line_truncated": false,
+      "match_span": [
+        53,
+        88
+      ],
+      "match_text": "new Hashtable<String, NIOMediator>(",
+      "pattern_index": 0,
+      "rank": 1
+    },
+    {
+      "context_after": [
+        "\t\t\tfor (EntityInfo info : monitoredEntities) {",
+        "\t\t\t\tentityMeasures.put(info.getName(), info.getMeasure());",
+        "\t\t\t}",
+        "\t\t\treturn entityMeasures;"
+      ],
+      "context_before": [
+        "\t",
+        "\tprivate Map<String, AverageMeasure> getEntityMeasures() {",
+        "\t\t// Mutual exclusion with modifications of entities/providers",
+        "\t\tsynchronized (myHelper) {"
+      ],
+      "file": "src/jade/src/jade/core/sam/SAMService.java",
+      "hit_id": "98122375c795b4cb",
+      "line": 269,
+      "line_hash": "179d469a29b59dd4",
+      "line_text": "\t\t\tMap<String, AverageMeasure> entityMeasures = new HashMap<String, AverageMeasure>();",
+      "line_truncated": false,
+      "match_span": [
+        48,
+        84
+      ],
+      "match_text": "new HashMap<String, AverageMeasure>(",
+      "pattern_index": 0,
+      "rank": 2
+    },
+    {
+      "context_after": [
+        "\t\tprivate String host;",
+        "\t\tprivate int port;",
+        "\t\tprivate Properties leapProps = new Properties();",
+        "\t\tprivate PDPContextManager myPDPContextManager;"
+      ],
+      "context_before": [
+        "\t\tprivate int state = INIT_STATE;",
+        "\t\tprivate ServerSocketChannel mySSChannel;",
+        "\t\tprivate long mediatorCnt = 1;",
+        "\t\tprivate Hashtable<String, NIOMediator> mediators = new Hashtable<String, NIOMediator>();"
+      ],
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "hit_id": "8385b704004a7bc6",
+      "line": 509,
+      "line_hash": "870033399eea0986",
+      "line_text": "\t\tprivate Vector<String> deregisteredMediators = new Vector<String>();",
+      "line_truncated": false,
+      "match_span": [
+        49,
+        68
+      ],
+      "match_text": "new Vector<String>(",
+      "pattern_index": 0,
+      "rank": 3
+    },
+    {
+      "context_after": [
+        "",
+        "\tsynchronized static LocalJVMMessageRouter getRouter(String platformID) {",
+        "\t\tLocalJVMMessageRouter router = localRouters.get(platformID);",
+        "\t\tif (router == null) {"
+      ],
+      "context_before": [
+        "",
+        "import jade.core.AID;",
+        "",
+        "class LocalJVMMessageRouter {"
+      ],
+      "file": "src/jade/src/jade/core/messaging/LocalJVMMessageRouter.java",
+      "hit_id": "3f2bab8ec2a40e47",
+      "line": 12,
+      "line_hash": "b561deb9ec0d4359",
+      "line_text": "\tprivate static Map<String, LocalJVMMessageRouter> localRouters = new HashMap<String, LocalJVMMessageRouter>();",
+      "line_truncated": false,
+      "match_span": [
+        66,
+        109
+      ],
+      "match_text": "new HashMap<String, LocalJVMMessageRouter>(",
+      "pattern_index": 0,
+      "rank": 4
+    },
+    {
+      "context_after": [
+        "\t\t\t\t}",
+        "\t\t\t\tmm.add(msg);",
+        "\t\t\t\tcnt++;",
+        "\t\t\t\tif (cnt == max) {"
+      ],
+      "context_before": [
+        "\t\t\tACLMessage msg = (ACLMessage)messages.next();",
+        "\t\t\tif (pattern == null || pattern.match(msg)) {",
+        "\t\t\t\tmessages.remove();",
+        "\t\t\t\tif (mm == null) {"
+      ],
+      "file": "src/jade/src/jade/core/ExtendedMessageQueue.java",
+      "hit_id": "f7f706cacd76bb71",
+      "line": 143,
+      "line_hash": "e9edbc8499197d06",
+      "line_text": "\t\t\t\t\tmm = new ArrayList<ACLMessage>(max > 0 ? max : 16);",
+      "line_truncated": false,
+      "match_span": [
+        10,
+        36
+      ],
+      "match_text": "new ArrayList<ACLMessage>(",
+      "pattern_index": 0,
+      "rank": 5
+    },
+    {
+      "context_after": [
+        "\t\t\tsummaryValues = new ArrayList<String>(ff.length);",
+        "\t\t\tfor (String field : ff) {",
+        "\t\t\t\tsummaryFields.add(field);",
+        "\t\t\t\tsummaryValues.add(\"\");"
+      ],
+      "context_before": [
+        "\t\t// Read the summary fields if any",
+        "\t\tString summaryStr = p.getParameter(\"jade_core_sam_SAMService_summary\", null);",
+        "\t\tif (summaryStr != null && summaryStr.length() > 0) {",
+        "\t\t\tString[] ff = summaryStr.split(\";\");"
+      ],
+      "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+      "hit_id": "7eb9b05539c1fc2c",
+      "line": 86,
+      "line_hash": "fb04cd3b0a81d5f3",
+      "line_text": "\t\t\tsummaryFields = new ArrayList<String>(ff.length);",
+      "line_truncated": false,
+      "match_span": [
+        19,
+        41
+      ],
+      "match_text": "new ArrayList<String>(",
+      "pattern_index": 0,
+      "rank": 6
+    },
+    {
+      "context_after": [
+        "\t\t",
+        "\t\tCounterInfo(String name) {",
+        "\t\t\tthis.name = name;",
+        "\t\t}"
+      ],
+      "context_before": [
+        "\t */",
+        "\tprivate class CounterInfo {",
+        "\t\tprivate String name;",
+        "\t\tprivate List<CounterValueProvider> providers = new ArrayList<CounterValueProvider>();"
+      ],
+      "file": "src/jade/src/jade/core/sam/SAMService.java",
+      "hit_id": "20da7c6f14553f0e",
+      "line": 431,
+      "line_hash": "0a2f3831d4b1296f",
+      "line_text": "\t\tprivate List<Long> previousTotalValues = new ArrayList<Long>();",
+      "line_truncated": false,
+      "match_span": [
+        43,
+        63
+      ],
+      "match_text": "new ArrayList<Long>(",
+      "pattern_index": 0,
+      "rank": 7
+    },
+    {
+      "context_after": [
+        "\tprivate MediatedMeasureProvider[] providersArray;",
+        "\t",
+        "\tprivate String[] agentsToMonitor;",
+        "\t"
+      ],
+      "context_before": [
+        "\tprivate Profile myProfile;",
+        "\tprivate AgentContainer myContainer;",
+        "\t",
+        "\tprivate Timer samTimer;"
+      ],
+      "file": "src/jade/src/jade/core/sam/SAMService.java",
+      "hit_id": "a66884d1c15f60f3",
+      "line": 82,
+      "line_hash": "b5b2139bd1061fe7",
+      "line_text": "\tprivate List<MediatedMeasureProvider> providers = new ArrayList<MediatedMeasureProvider>();",
+      "line_truncated": false,
+      "match_span": [
+        51,
+        90
+      ],
+      "match_text": "new ArrayList<MediatedMeasureProvider>(",
+      "pattern_index": 0,
+      "rank": 8
+    },
+    {
+      "context_after": [
+        "",
+        "\tprivate ThreadGroupHttpAuthenticator() {",
+        "\t}",
+        "\t"
+      ],
+      "context_before": [
+        "\tprivate static final String PROXY_KEY = \"PROXY\";",
+        "\tprivate static final String SERVER_DEFAULT_KEY = \"SERVER_DEAFULT\";",
+        "\t",
+        "\tprivate static ThreadGroupHttpAuthenticator theInstance;"
+      ],
+      "file": "src/jade/src/jade/security/ThreadGroupHttpAuthenticator.java",
+      "hit_id": "2f14587983ca4401",
+      "line": 39,
+      "line_hash": "bc04ceea61fb36a3",
+      "line_text": "\tprivate static Map<String, PasswordAuthentication> passwordAuthentications = new HashMap<String, PasswordAuthentication>();",
+      "line_truncated": false,
+      "match_span": [
+        78,
+        122
+      ],
+      "match_text": "new HashMap<String, PasswordAuthentication>(",
+      "pattern_index": 0,
+      "rank": 9
+    },
+    {
+      "context_after": [
+        "\t",
+        "\tprivate SimpleDateFormat timeStampFormatter = new SimpleDateFormat(\"yyyy-MM-dd HH:mm\");",
+        "\tprivate String csvSeparator;",
+        "\t"
+      ],
+      "context_before": [
+        "\tprivate static final String SAM_PREFIX = \"SAM_\";",
+        "\t",
+        "\tprivate Map<String, PrintStream> entityFiles = new HashMap<String, PrintStream>();",
+        "\t// For counters we need to keep the total value together with the Stream used to write the CSV file"
+      ],
+      "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+      "hit_id": "993201807c866555",
+      "line": 47,
+      "line_hash": "7aa6293e9ca77c07",
+      "line_text": "\tprivate Map<String, CounterInfo> counters = new HashMap<String, CounterInfo>();",
+      "line_truncated": false,
+      "match_span": [
+        45,
+        78
+      ],
+      "match_text": "new HashMap<String, CounterInfo>(",
+      "pattern_index": 0,
+      "rank": 10
+    },
+    {
+      "context_after": [
+        "\t",
+        "\tpublic void register(String location, MomMessagingService mms) {",
+        "\t\tlocalServices.put(location, mms);",
+        "\t}"
+      ],
+      "context_before": [
+        "\t\treturn router;",
+        "\t}",
+        "\t",
+        "\t"
+      ],
+      "file": "src/jade/src/jade/core/messaging/LocalJVMMessageRouter.java",
+      "hit_id": "1502a0241aaeac74",
+      "line": 24,
+      "line_hash": "8e6690bd5c86d8cf",
+      "line_text": "\tprivate Map<String, MomMessagingService> localServices = new HashMap<String, MomMessagingService>();",
+      "line_truncated": false,
+      "match_span": [
+        58,
+        99
+      ],
+      "match_text": "new HashMap<String, MomMessagingService>(",
+      "pattern_index": 0,
+      "rank": 11
+    },
+    {
+      "context_after": [
+        "\tprivate int length; // Raw estimation of bytes taken by this MGM",
+        "\t",
+        "\tpublic MultipleGenericMessage(int length) {",
+        "\t\tthis.length = length;"
+      ],
+      "context_before": [
+        "import java.util.List;",
+        "",
+        "public class MultipleGenericMessage extends GenericMessage {",
+        ""
+      ],
+      "file": "src/jade/src/jade/core/messaging/MultipleGenericMessage.java",
+      "hit_id": "8d0c8a756b12c841",
+      "line": 10,
+      "line_hash": "edb6d41f7d1c7c62",
+      "line_text": "\tprivate List<GenericMessage> messages = new ArrayList<GenericMessage>(); ",
+      "line_truncated": false,
+      "match_span": [
+        41,
+        71
+      ],
+      "match_text": "new ArrayList<GenericMessage>(",
+      "pattern_index": 0,
+      "rank": 12
+    },
+    {
+      "context_after": [
+        "\t\t\tIterator<SelectionKey> it = oldLoopManager.getSelector().keys().iterator();",
+        "\t\t\twhile (it.hasNext()) {",
+        "\t\t\t\tSelectionKey selectionKey = it.next();",
+        "\t\t\t\tint interestOps = selectionKey.interestOps();"
+      ],
+      "context_before": [
+        "\t\t}",
+        "\t\t",
+        "\t\tvoid replaceLoopManager(int index, LoopManager newLoopManager) {",
+        "\t\t\tLoopManager oldLoopManager = loopers[index];"
+      ],
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "hit_id": "35ee418f0a3b67ad",
+      "line": 647,
+      "line_hash": "afbefd41b4c9dff4",
+      "line_text": "\t\t\tMap<SelectableChannel, KeyManager> managers = new HashMap<SelectableChannel, KeyManager>();",
+      "line_truncated": false,
+      "match_span": [
+        49,
+        92
+      ],
+      "match_text": "new HashMap<SelectableChannel, KeyManager>(",
+      "pattern_index": 0,
+      "rank": 13
+    },
+    {
+      "context_after": [
+        "\t\tList<Method> getters = new ArrayList<Method>();",
+        "\t\tMap<String, Method> setters = new HashMap<String, Method>();",
+        "\t\tfor (Method method: methodsArray) {",
+        "\t\t\tif (method.getAnnotation(SuppressSlot.class) == null) {"
+      ],
+      "context_before": [
+        "\t\treturn result;",
+        "\t}",
+        "",
+        "\tprivate static Map<SlotKey, SlotAccessData> buildAccessorsMap(String schemaName, Class clazz, Method[] methodsArray) throws BeanOntologyException {"
+      ],
+      "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+      "hit_id": "7f18828eb9f27d98",
+      "line": 213,
+      "line_hash": "53ee0f50711227a1",
+      "line_text": "\t\tMap<SlotKey, SlotAccessData> result = new TreeMap<SlotKey, SlotAccessData>();",
+      "line_truncated": false,
+      "match_span": [
+        40,
+        77
+      ],
+      "match_text": "new TreeMap<SlotKey, SlotAccessData>(",
+      "pattern_index": 0,
+      "rank": 14
+    },
+    {
+      "context_after": [
+        "\t// For counters we need to keep the total value together with the Stream used to write the CSV file",
+        "\tprivate Map<String, CounterInfo> counters = new HashMap<String, CounterInfo>();",
+        "\t",
+        "\tprivate SimpleDateFormat timeStampFormatter = new SimpleDateFormat(\"yyyy-MM-dd HH:mm\");"
+      ],
+      "context_before": [
+        "class DefaultSAMInfoHandlerImpl implements SAMInfoHandler {",
+        "",
+        "\tprivate static final String SAM_PREFIX = \"SAM_\";",
+        "\t"
+      ],
+      "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+      "hit_id": "b483e18bc075cf68",
+      "line": 45,
+      "line_hash": "25a25645e99cd296",
+      "line_text": "\tprivate Map<String, PrintStream> entityFiles = new HashMap<String, PrintStream>();",
+      "line_truncated": false,
+      "match_span": [
+        48,
+        81
+      ],
+      "match_text": "new HashMap<String, PrintStream>(",
+      "pattern_index": 0,
+      "rank": 15
+    },
+    {
+      "context_after": [
+        "\t\tfor (String counterName : counters.keySet()) {",
+        "\t\t\tLong c = counters.get(counterName);",
+        "\t\t\tAggregationInfo ai = getAggregationInfo(counterName, SUM_AGGREGATION);",
+        "\t\t\tif (ai != null) {"
+      ],
+      "context_before": [
+        "\t\t}",
+        "\t}",
+        "\t",
+        "\tprivate static Map<String, Long> oneShotComputeAggregatedCounters(Map<String, Long> counters) {"
+      ],
+      "file": "src/jade/src/jade/core/sam/SAMInfo.java",
+      "hit_id": "61eab23e21240c35",
+      "line": 162,
+      "line_hash": "2346868b8992552c",
+      "line_text": "\t\tMap<String, CounterAggregator> aggregatedCounters = new HashMap<String, CounterAggregator>();",
+      "line_truncated": false,
+      "match_span": [
+        54,
+        93
+      ],
+      "match_text": "new HashMap<String, CounterAggregator>(",
+      "pattern_index": 0,
+      "rank": 16
+    },
+    {
+      "context_after": [
+        "\t\tMap<String, Method> setters = new HashMap<String, Method>();",
+        "\t\tfor (Method method: methodsArray) {",
+        "\t\t\tif (method.getAnnotation(SuppressSlot.class) == null) {",
+        "\t\t\t\tif (isGetter(method)) {"
+      ],
+      "context_before": [
+        "\t}",
+        "",
+        "\tprivate static Map<SlotKey, SlotAccessData> buildAccessorsMap(String schemaName, Class clazz, Method[] methodsArray) throws BeanOntologyException {",
+        "\t\tMap<SlotKey, SlotAccessData> result = new TreeMap<SlotKey, SlotAccessData>();"
+      ],
+      "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+      "hit_id": "8b3b439a7d21bdc6",
+      "line": 214,
+      "line_hash": "56eb75cf4a5a21b8",
+      "line_text": "\t\tList<Method> getters = new ArrayList<Method>();",
+      "line_truncated": false,
+      "match_span": [
+        25,
+        47
+      ],
+      "match_text": "new ArrayList<Method>(",
+      "pattern_index": 0,
+      "rank": 17
+    },
+    {
+      "context_after": [
+        "\t\t",
+        "\t\tEntityInfo(String name) {",
+        "\t\t\tthis.name = name;",
+        "\t\t}"
+      ],
+      "context_before": [
+        "\t * Inner class EntityInfo",
+        "\t */",
+        "\tprivate class EntityInfo {",
+        "\t\tprivate String name;"
+      ],
+      "file": "src/jade/src/jade/core/sam/SAMService.java",
+      "hit_id": "c735aa0201a38c89",
+      "line": 384,
+      "line_hash": "3f3225da87a589ef",
+      "line_text": "\t\tprivate List<AverageMeasureProvider> providers = new ArrayList<AverageMeasureProvider>();",
+      "line_truncated": false,
+      "match_span": [
+        51,
+        89
+      ],
+      "match_text": "new ArrayList<AverageMeasureProvider>(",
+      "pattern_index": 0,
+      "rank": 18
+    },
+    {
+      "context_after": [
+        "\t// Map a replica agent to the related virtual agent",
+        "\tprivate Map<AID, AID> replicaToVirtualMap = new Hashtable<AID, AID>();",
+        "\t// Map a master replica agent to the pending replica creation requests",
+        "\tprivate Map<AID, List<ReplicaInfo>> pendingReplicaCreationRequests = new Hashtable<AID, List<ReplicaInfo>>();"
+      ],
+      "context_before": [
+        "\tprivate Filter incFilter;",
+        "\tprivate ServiceComponent localSlice;",
+        "",
+        "\t// Map a virtual agent to the set of global information associated to it "
+      ],
+      "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+      "hit_id": "22feb364e8e14509",
+      "line": 78,
+      "line_hash": "ee2bf2c913dcecef",
+      "line_text": "\tprivate Map<AID, GlobalReplicationInfo> globalReplications = new Hashtable<AID, GlobalReplicationInfo>();",
+      "line_truncated": false,
+      "match_span": [
+        62,
+        104
+      ],
+      "match_text": "new Hashtable<AID, GlobalReplicationInfo>(",
+      "pattern_index": 0,
+      "rank": 19
+    },
+    {
+      "context_after": [
+        "\t\tl.add(gm);",
+        "\t\tl.add(gm);",
+        "\t\tmgm.setMessages(l);",
+        "\t\tSystem.out.println(stringify(mgm));"
+      ],
+      "context_before": [
+        "\t\tgm.setACLMessage(msg);",
+        "\t\tSystem.out.println(stringify(gm));",
+        "\t\t",
+        "\t\tMultipleGenericMessage mgm = new MultipleGenericMessage(200);"
+      ],
+      "file": "src/jade/src/jade/core/messaging/MessageManager.java",
+      "hit_id": "7f456083e235a44e",
+      "line": 515,
+      "line_hash": "0e4ed50e1407ea3f",
+      "line_text": "\t\tList<GenericMessage> l = new ArrayList<GenericMessage>();",
+      "line_truncated": false,
+      "match_span": [
+        27,
+        57
+      ],
+      "match_text": "new ArrayList<GenericMessage>(",
+      "pattern_index": 0,
+      "rank": 20
+    },
+    {
+      "context_after": [
+        "\tprivate ContentElement receivedContentElement;",
+        "\t",
+        "\tprotected Logger myLogger = Logger.getMyLogger(getClass().getName());",
+        "\t"
+      ],
+      "context_before": [
+        "\tprivate int maxProcessedMessagesPerRun = 1;",
+        "\tprotected MessageTemplate template;",
+        "\tprivate Set<Integer> performativesRequiringReply = new HashSet<Integer>();",
+        "\t"
+      ],
+      "file": "src/jade/src/jade/core/behaviours/OntologyServer.java",
+      "hit_id": "cac8f1efff97044b",
+      "line": 93,
+      "line_hash": "7e2fc3d2678877eb",
+      "line_text": "\tprivate transient Map<String, Method> cachedMethods = new HashMap<String, Method>();",
+      "line_truncated": false,
+      "match_span": [
+        55,
+        83
+      ],
+      "match_text": "new HashMap<String, Method>(",
+      "pattern_index": 0,
+      "rank": 21
+    },
+    {
+      "context_after": [
+        "\t",
+        "\tprivate long deliveryCompletionTimeout = 60000;  // 1 min",
+        "\t",
+        "\t@Override"
+      ],
+      "context_before": [
+        "\tprivate Map<AID, String> locationsCache = new Hashtable<AID, String>();",
+        "\tprivate long deliveryCnt = 0;",
+        "\tprotected boolean active;",
+        "\t"
+      ],
+      "file": "src/jade/src/jade/core/messaging/MomMessagingService.java",
+      "hit_id": "b0505deb8845007e",
+      "line": 38,
+      "line_hash": "8e0d34f26d973775",
+      "line_text": "\tprivate Map<String, DeliveryContext> ongoingDeliveries = new HashMap<String, DeliveryContext>();",
+      "line_truncated": false,
+      "match_span": [
+        58,
+        95
+      ],
+      "match_text": "new HashMap<String, DeliveryContext>(",
+      "pattern_index": 0,
+      "rank": 22
+    },
+    {
+      "context_after": [
+        "\tprivate long deliveryCnt = 0;",
+        "\tprotected boolean active;",
+        "\t",
+        "\tprivate Map<String, DeliveryContext> ongoingDeliveries = new HashMap<String, DeliveryContext>();"
+      ],
+      "context_before": [
+        "\tprivate LocalJVMMessageRouter localRouter;",
+        "\t",
+        "\tprotected String myLocation;",
+        "\t// We need synchronized access --> Hashtable"
+      ],
+      "file": "src/jade/src/jade/core/messaging/MomMessagingService.java",
+      "hit_id": "40912e574b3d3666",
+      "line": 34,
+      "line_hash": "a8fba81a8e6eb48a",
+      "line_text": "\tprivate Map<AID, String> locationsCache = new Hashtable<AID, String>();",
+      "line_truncated": false,
+      "match_span": [
+        43,
+        70
+      ],
+      "match_text": "new Hashtable<AID, String>(",
+      "pattern_index": 0,
+      "rank": 23
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\t\t\tpendingReplicaCreationRequests.put(myAid, rr);",
+        "\t\t\t\t\t\t}",
+        "\t\t\t\t\t\trr.add(new ReplicaInfo(replicaAid, where));",
+        ""
+      ],
+      "context_before": [
+        "",
+        "\t\t\t\t\t\t// Enqueue the replica creation request",
+        "\t\t\t\t\t\tList<ReplicaInfo> rr = pendingReplicaCreationRequests.get(myAid);",
+        "\t\t\t\t\t\tif (rr == null) {"
+      ],
+      "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+      "hit_id": "d0a6a03571b52394",
+      "line": 255,
+      "line_hash": "cd6b1bd56002e0c5",
+      "line_text": "\t\t\t\t\t\t\trr = new ArrayList<ReplicaInfo>();",
+      "line_truncated": false,
+      "match_span": [
+        12,
+        39
+      ],
+      "match_text": "new ArrayList<ReplicaInfo>(",
+      "pattern_index": 0,
+      "rank": 24
+    },
+    {
+      "context_after": [
+        "\t}",
+        "\t",
+        "\t// This constructor is only used by the NIOJICPConnectionWrapper that,",
+        "\t// being just a wrapper, does not need to allocate the internal buffers "
+      ],
+      "context_before": [
+        "",
+        "\tpublic NIOJICPConnection() {",
+        "\t\tsocketData = ByteBuffer.allocateDirect(INITIAL_BUFFER_SIZE); ",
+        "\t\tpayloadBuf = ByteBuffer.allocateDirect(INITIAL_BUFFER_SIZE);"
+      ],
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPConnection.java",
+      "hit_id": "ca4cf8502dcbbb7b",
+      "line": 48,
+      "line_hash": "5aa6f67d893ce371",
+      "line_text": "\t\ttransformers = new LinkedList<BufferTransformerInfo>();",
+      "line_truncated": false,
+      "match_span": [
+        17,
+        55
+      ],
+      "match_text": "new LinkedList<BufferTransformerInfo>(",
+      "pattern_index": 0,
+      "rank": 25
+    },
+    {
+      "context_after": [
+        "\t\t\tfor (SlotKey key : result.keySet()) {",
+        "\t\t\t\tposition = key.position;",
+        "\t\t\t\tif (position != -1) {",
+        "\t\t\t\t\t"
+      ],
+      "context_before": [
+        "\t\t// If a class extends another and ontology is hierarchical the positions must be local to the single classes.",
+        "\t\tif (orderByPosition) {",
+        "\t\t\t",
+        "\t\t\tSlotKey[] positionedSK = new SlotKey[result.size()];"
+      ],
+      "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+      "hit_id": "403a20cc00abefbb",
+      "line": 366,
+      "line_hash": "fd386c41d5dabc55",
+      "line_text": "\t\t\tList<SlotKey> nonPositionedSAD = new ArrayList<SlotKey>();  ",
+      "line_truncated": false,
+      "match_span": [
+        36,
+        59
+      ],
+      "match_text": "new ArrayList<SlotKey>(",
+      "pattern_index": 0,
+      "rank": 26
+    },
+    {
+      "context_after": [
+        "\t\t\tfor (int i=0; i<result.size(); i++) {",
+        "\t\t\t\t",
+        "\t\t\t\tSlotKey key;",
+        "\t\t\t\tif (positionedSK[i] != null) {"
+      ],
+      "context_before": [
+        "\t\t\t\t}",
+        "\t\t\t}",
+        "\t\t\t",
+        "\t\t\tint nonPositionedSADIndex = 0;"
+      ],
+      "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+      "hit_id": "8539b1e51a1007a9",
+      "line": 388,
+      "line_hash": "82b726f11b1beed4",
+      "line_text": "\t\t\tMap<SlotKey, SlotAccessData> orderedMap = new LinkedHashMap<SlotKey, SlotAccessData>();",
+      "line_truncated": false,
+      "match_span": [
+        45,
+        88
+      ],
+      "match_text": "new LinkedHashMap<SlotKey, SlotAccessData>(",
+      "pattern_index": 0,
+      "rank": 27
+    },
+    {
+      "context_after": [
+        "\t}",
+        "\t",
+        "\tSAMInfo(Map<String, AverageMeasure> entityMeasures, Map<String, Long> counterValues) {",
+        "\t\tthis.entityMeasures = entityMeasures;"
+      ],
+      "context_before": [
+        "\tprivate Map<String, Long> counterValues;",
+        "\t",
+        "\t",
+        "\tSAMInfo() {"
+      ],
+      "file": "src/jade/src/jade/core/sam/SAMInfo.java",
+      "hit_id": "6faaa43fd291f6e1",
+      "line": 55,
+      "line_hash": "f0272d4eb2a8f729",
+      "line_text": "\t\tthis(new HashMap<String, AverageMeasure>(), new HashMap<String, Long>());",
+      "line_truncated": false,
+      "match_span": [
+        7,
+        43
+      ],
+      "match_text": "new HashMap<String, AverageMeasure>(",
+      "pattern_index": 0,
+      "rank": 28
+    },
+    {
+      "context_after": [
+        "\t",
+        "\tpublic static void beginTracing() {",
+        "\t\ttracing.set(new DeliveryTracing());",
+        "\t}"
+      ],
+      "context_before": [
+        "//#J2ME_EXCLUDE_FILE",
+        "",
+        "public class DeliveryTracing extends HashMap<String, Object> {",
+        ""
+      ],
+      "file": "src/jade/src/jade/core/messaging/DeliveryTracing.java",
+      "hit_id": "c827634e9aa07db1",
+      "line": 9,
+      "line_hash": "4d9da697e190af4d",
+      "line_text": "\tprivate static final ThreadLocal<DeliveryTracing> tracing = new ThreadLocal<DeliveryTracing>();",
+      "line_truncated": false,
+      "match_span": [
+        61,
+        94
+      ],
+      "match_text": "new ThreadLocal<DeliveryTracing>(",
+      "pattern_index": 0,
+      "rank": 29
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "5b8d8b8b227c95d460abc01ffdc1605a0ee2f614c5dab036eb2421cdd1ca19c0",
+  "pattern_revision": 1,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "\\bnew\\s+\\w+\\s*<[A-Za-z0-9_$<>\\s,?.]+>\\s*\\(",
+      "reason": "Java 7 introduced type inference for generic instance creation: the explicit type arguments of a constructor call may be replaced by <> when the compiler can infer them from context.",
+      "target_extensions": [
+        ".java"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 1015,
+    "files_with_hits": 23,
+    "hits_per_pattern": {
+      "0": 58
+    },
+    "max_hits_in_one_file": 8,
+    "population_signature": "96adf0264ec2a994bab06822880356d496df5d22f76a1afe2fb46814663d0714",
+    "total_hits": 58,
+    "truncated": false
+  },
+  "rule_description": "A generic constructor call spells out its type arguments explicitly (new HashMap<String, Object>()). Java 7 infers them from the assignment context, so the argument list can be replaced by the empty diamond <>. The pattern matches a 'new' expression carrying a non-empty type-argument list immediately before its constructor parentheses.",
+  "rule_id": "DIAMOND_OPERATOR",
+  "rule_name": "Java 7 diamond operator for generic instance creation",
+  "run_id": "jade-1.6-to-1.7-v2",
+  "sample_size": 30,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 4,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "92657adbbc248165",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "SAMPLED",
+  "verification_hint": "After the fix the right-hand side reads new X<>(...) while the declared type on the left is byte-identical to before. javac -source 1.7 must compile with no 'cannot infer type arguments' error.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-1.6-to-1.7-v2/workspace"
+}

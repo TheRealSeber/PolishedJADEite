@@ -20,5 +20,69 @@
       "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL"
     ],
     "deferred": []
+  },
+  "graph_metadata": {
+    "status": "computed",
+    "source_artifact": "03.5-knowledge-graph.json",
+    "suggested_order": [
+      "RMIC_TOOL_REMOVED",
+      "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL",
+      "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+      "APPLET_API_DEPRECATED_FOR_REMOVAL",
+      "MULTICAST_SOCKET_GROUP_API_DEPRECATED"
+    ],
+    "direct_counts": {
+      "RMIC_TOOL_REMOVED": 1,
+      "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL": 52,
+      "APPLET_API_DEPRECATED_FOR_REMOVAL": 4,
+      "MULTICAST_SOCKET_GROUP_API_DEPRECATED": 1,
+      "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL": 1
+    },
+    "impact_counts": {
+      "RMIC_TOOL_REMOVED": 0,
+      "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL": 614,
+      "APPLET_API_DEPRECATED_FOR_REMOVAL": 14,
+      "MULTICAST_SOCKET_GROUP_API_DEPRECATED": 427,
+      "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL": 427
+    },
+    "cycles": [
+      [
+        "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+        "APPLET_API_DEPRECATED_FOR_REMOVAL",
+        "MULTICAST_SOCKET_GROUP_API_DEPRECATED"
+      ]
+    ],
+    "ordering_reasons": [
+      {
+        "rule": "RMIC_TOOL_REMOVED",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      },
+      {
+        "rule": "THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      },
+      {
+        "rule": "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      },
+      {
+        "rule": "APPLET_API_DEPRECATED_FOR_REMOVAL",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      },
+      {
+        "rule": "MULTICAST_SOCKET_GROUP_API_DEPRECATED",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      }
+    ],
+    "diagnostics": [
+      {
+        "kind": "cycle",
+        "rules": [
+          "WRAPPER_CONSTRUCTOR_DEPRECATED_FOR_REMOVAL",
+          "APPLET_API_DEPRECATED_FOR_REMOVAL",
+          "MULTICAST_SOCKET_GROUP_API_DEPRECATED"
+        ]
+      }
+    ]
   }
 }

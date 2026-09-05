@@ -6,3 +6,14 @@
 {"ts": "2026-09-05T02:48:00Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Processing rule BUILD_DOCLINT_STRICT", "artifacts": ["05-rule-batch-status.json"]}
 {"ts": "2026-09-05T02:48:00Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Paused for agent input \u2014 see AWAITING_AGENT.md", "artifacts": ["AWAITING_AGENT.md"]}
 {"ts": "2026-09-05T02:48:00Z", "phase": "AWAITING_AGENT", "status": "ERROR", "message": "Run terminated: AWAITING_AGENT", "artifacts": ["00-run-state.json", "PROGRESS.md"]}
+{"ts": "2026-09-05T03:32:20Z", "phase": "INIT", "status": "OK", "message": "Run initialized", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T03:32:20Z", "phase": "WORKSPACE_READY", "status": "OK", "message": "Workspace ready: migration-runs/jade-1.7-to-1.8-v2/workspace", "artifacts": ["00-run-state.json"]}
+{"ts": "2026-09-05T03:32:20Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Processing rule BUILD_DOCLINT_STRICT", "artifacts": ["05-rule-batch-status.json"]}
+{"ts": "2026-09-05T03:32:20Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule BUILD_DOCLINT_STRICT", "artifacts": ["rule-status.json", "07-build.log"]}
+{"ts": "2026-09-05T03:32:21Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Processing rule BUILD_RMIC_DEPRECATED", "artifacts": ["05-rule-batch-status.json"]}
+{"ts": "2026-09-05T03:32:21Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule BUILD_RMIC_DEPRECATED", "artifacts": ["rule-status.json", "07-build.log"]}
+{"ts": "2026-09-05T03:32:21Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Processing rule JDBC_ODBC_BRIDGE_REMOVED", "artifacts": ["05-rule-batch-status.json"]}
+{"ts": "2026-09-05T03:32:21Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule JDBC_ODBC_BRIDGE_REMOVED", "artifacts": ["rule-status.json", "07-build.log"]}
+{"ts": "2026-09-05T03:32:21Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Processing rule LAMBDA_CONVERSION", "artifacts": ["05-rule-batch-status.json"]}
+{"ts": "2026-09-05T03:32:21Z", "phase": "RULE_BATCH_LOOP", "status": "OK", "message": "Completed rule LAMBDA_CONVERSION", "artifacts": ["rule-status.json", "07-build.log"]}
+{"ts": "2026-09-05T03:33:37Z", "phase": "DONE", "status": "OK", "message": "Run terminated: DONE", "artifacts": ["00-run-state.json", "PROGRESS.md"]}

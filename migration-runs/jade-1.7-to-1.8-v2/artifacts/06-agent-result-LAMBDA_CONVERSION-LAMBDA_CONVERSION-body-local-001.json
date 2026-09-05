@@ -1,0 +1,941 @@
+{
+  "schema_version": 1,
+  "rule_id": "LAMBDA_CONVERSION",
+  "shard_id": "LAMBDA_CONVERSION-body-local-001",
+  "status": "DEFERRED",
+  "match_quality": "exact",
+  "diff_summary": "Deferred 384 JADE-FLAG:LAMBDA_CONVERSION marker(s) across 103 files to JADE-MODERNIZATION-DEFERRED (comment-only rewrite, zero code/behavior change). Reason: LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.",
+  "files": [
+    {
+      "file": "src/jade/src/jade/BootGUI.java",
+      "match_count": 6,
+      "changes": 6,
+      "touched_line_start": 124,
+      "touched_line_end": 351,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 6 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/MicroBoot.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 68,
+      "touched_line_end": 68,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/Agent.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 1055,
+      "touched_line_end": 1055,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/BackEndContainer.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 382,
+      "touched_line_end": 747,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/FullResourceManager.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 53,
+      "touched_line_end": 98,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/JVM.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 33,
+      "touched_line_end": 46,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/MicroRuntime.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 389,
+      "touched_line_end": 389,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/PlatformManagerImpl.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 982,
+      "touched_line_end": 982,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/Runtime.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 181,
+      "touched_line_end": 274,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/ScalabilityTest.java",
+      "match_count": 6,
+      "changes": 6,
+      "touched_line_start": 425,
+      "touched_line_end": 580,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 6 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/behaviours/OntologyServer.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 213,
+      "touched_line_end": 213,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/behaviours/WrapperBehaviour.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 17,
+      "touched_line_end": 17,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/event/NotificationService.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 574,
+      "touched_line_end": 574,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/faultRecovery/FaultRecoveryService.java",
+      "match_count": 3,
+      "changes": 3,
+      "touched_line_start": 225,
+      "touched_line_end": 529,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 3 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/management/AgentManagementService.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 107,
+      "touched_line_end": 107,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 113,
+      "touched_line_end": 126,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/MessageManager.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 238,
+      "touched_line_end": 238,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "match_count": 10,
+      "changes": 10,
+      "touched_line_start": 410,
+      "touched_line_end": 1294,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 10 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/MomMessagingService.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 82,
+      "touched_line_end": 237,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/PersistentDeliveryManager.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 191,
+      "touched_line_end": 191,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/PersistentDeliveryService.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 437,
+      "touched_line_end": 437,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 389,
+      "touched_line_end": 389,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 862,
+      "touched_line_end": 862,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/sam/Poller.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 181,
+      "touched_line_end": 181,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/core/sam/SAMService.java",
+      "match_count": 6,
+      "changes": 6,
+      "touched_line_start": 97,
+      "touched_line_end": 502,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 6 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/domain/ams.java",
+      "match_count": 11,
+      "changes": 11,
+      "touched_line_start": 206,
+      "touched_line_end": 1545,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 11 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/domain/df.java",
+      "match_count": 12,
+      "changes": 12,
+      "touched_line_start": 582,
+      "touched_line_end": 1464,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 12 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/gui/AIDGui.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 194,
+      "touched_line_end": 252,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/gui/APDescriptionPanel.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 159,
+      "touched_line_end": 159,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/gui/APServicePanel.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 157,
+      "touched_line_end": 157,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/gui/AboutJadeAction.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 95,
+      "touched_line_end": 95,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/gui/AclGui.java",
+      "match_count": 9,
+      "changes": 9,
+      "touched_line_start": 265,
+      "touched_line_end": 1614,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 9 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/gui/ClassSelectionDialog.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 387,
+      "touched_line_end": 387,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/gui/ConstraintDlg.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 145,
+      "touched_line_end": 205,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/gui/DFAgentDscDlg.java",
+      "match_count": 3,
+      "changes": 3,
+      "touched_line_start": 199,
+      "touched_line_end": 389,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 3 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/gui/JadeLogoButton.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 61,
+      "touched_line_end": 61,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/gui/ServiceDscDlg.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 212,
+      "touched_line_end": 305,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/gui/StringDlg.java",
+      "match_count": 3,
+      "changes": 3,
+      "touched_line_start": 105,
+      "touched_line_end": 181,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 3 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/gui/TreeHelp.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 80,
+      "touched_line_end": 96,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/gui/UserPropertyGui.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 128,
+      "touched_line_end": 160,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/gui/VisualStringList.java",
+      "match_count": 3,
+      "changes": 3,
+      "touched_line_start": 169,
+      "touched_line_end": 207,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 3 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 781,
+      "touched_line_end": 781,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/JICP/BIBEDispatcher.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 257,
+      "touched_line_end": 551,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/JICP/BIFEDispatcher.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 963,
+      "touched_line_end": 963,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/JICP/FrontEndDispatcher.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 939,
+      "touched_line_end": 949,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/JICP/JICPPeer.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 160,
+      "touched_line_end": 160,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/JICP/JICPSPeer.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 96,
+      "touched_line_end": 96,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/MicroStub.java",
+      "match_count": 3,
+      "changes": 3,
+      "touched_line_start": 133,
+      "touched_line_end": 310,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 3 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/http/HTTPBEDispatcher.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 199,
+      "touched_line_end": 518,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/http/HTTPPeer.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 65,
+      "touched_line_end": 65,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/http/HTTPSPeer.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 23,
+      "touched_line_end": 23,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "match_count": 14,
+      "changes": 14,
+      "touched_line_start": 278,
+      "touched_line_end": 1683,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 14 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOBEDispatcher.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 326,
+      "touched_line_end": 326,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPBEDispatcher.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 576,
+      "touched_line_end": 593,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPPeer.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 26,
+      "touched_line_end": 26,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPSPeer.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 22,
+      "touched_line_end": 22,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPPeer.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 27,
+      "touched_line_end": 27,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPSPeer.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 25,
+      "touched_line_end": 25,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/lang/acl/ConversationList.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 22,
+      "touched_line_end": 22,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/proto/AchieveREInitiator.java",
+      "match_count": 3,
+      "changes": 3,
+      "touched_line_start": 213,
+      "touched_line_end": 235,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 3 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/proto/ContractNetInitiator.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 264,
+      "touched_line_end": 277,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/proto/IteratedAchieveREInitiator.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 88,
+      "touched_line_end": 88,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/proto/ProposeInitiator.java",
+      "match_count": 4,
+      "changes": 4,
+      "touched_line_start": 286,
+      "touched_line_end": 355,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 4 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/proto/SubscriptionInitiator.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 198,
+      "touched_line_end": 209,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/proto/SubscriptionResponder.java",
+      "match_count": 3,
+      "changes": 3,
+      "touched_line_start": 157,
+      "touched_line_end": 206,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 3 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/proto/TwoPh0Initiator.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 127,
+      "touched_line_end": 140,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/proto/TwoPh1Initiator.java",
+      "match_count": 4,
+      "changes": 4,
+      "touched_line_start": 153,
+      "touched_line_end": 191,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 4 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/proto/TwoPh2Initiator.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 169,
+      "touched_line_end": 180,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/proto/TwoPhInitiator.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 199,
+      "touched_line_end": 199,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/proto/states/HandlerSelector.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 107,
+      "touched_line_end": 107,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgent.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 113,
+      "touched_line_end": 113,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "match_count": 11,
+      "changes": 11,
+      "touched_line_start": 136,
+      "touched_line_end": 441,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 11 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/ToolAgent.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 222,
+      "touched_line_end": 222,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/ToolNotifier.java",
+      "match_count": 3,
+      "changes": 3,
+      "touched_line_start": 91,
+      "touched_line_end": 392,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 3 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+      "match_count": 6,
+      "changes": 6,
+      "touched_line_start": 365,
+      "touched_line_end": 557,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 6 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLAIDDialog.java",
+      "match_count": 4,
+      "changes": 4,
+      "touched_line_start": 207,
+      "touched_line_end": 242,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 4 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLAIDList.java",
+      "match_count": 5,
+      "changes": 5,
+      "touched_line_start": 282,
+      "touched_line_end": 327,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 5 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLComboBox.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 85,
+      "touched_line_end": 121,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLContentDialog.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 78,
+      "touched_line_end": 94,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLFrame.java",
+      "match_count": 4,
+      "changes": 4,
+      "touched_line_start": 195,
+      "touched_line_end": 237,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 4 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+      "match_count": 10,
+      "changes": 10,
+      "touched_line_start": 552,
+      "touched_line_end": 692,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 10 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLPropertyList.java",
+      "match_count": 7,
+      "changes": 7,
+      "touched_line_start": 263,
+      "touched_line_end": 511,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 7 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 359,
+      "touched_line_end": 374,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+      "match_count": 6,
+      "changes": 6,
+      "touched_line_start": 805,
+      "touched_line_end": 1264,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 6 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/AIDAddressList.java",
+      "match_count": 7,
+      "changes": 7,
+      "touched_line_start": 233,
+      "touched_line_end": 481,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 7 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "match_count": 16,
+      "changes": 16,
+      "touched_line_start": 153,
+      "touched_line_end": 691,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 16 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/gui/IntrospectorGUI.java",
+      "match_count": 6,
+      "changes": 6,
+      "touched_line_start": 112,
+      "touched_line_end": 340,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 6 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/logging/LogHelperAgent.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 186,
+      "touched_line_end": 186,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/logging/LogManagerAgent.java",
+      "match_count": 4,
+      "changes": 4,
+      "touched_line_start": 37,
+      "touched_line_end": 72,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 4 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java",
+      "match_count": 6,
+      "changes": 6,
+      "touched_line_start": 142,
+      "touched_line_end": 267,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 6 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/rma/InstallMTPDialog.java",
+      "match_count": 3,
+      "changes": 3,
+      "touched_line_start": 101,
+      "touched_line_end": 166,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 3 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+      "match_count": 17,
+      "changes": 17,
+      "touched_line_start": 136,
+      "touched_line_end": 370,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 17 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/rma/ManageMTPsDialog.java",
+      "match_count": 6,
+      "changes": 6,
+      "touched_line_start": 34,
+      "touched_line_end": 200,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 6 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/rma/rma.java",
+      "match_count": 14,
+      "changes": 14,
+      "touched_line_start": 178,
+      "touched_line_end": 333,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 14 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 961,
+      "touched_line_end": 991,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/sniffer/MainWindow.java",
+      "match_count": 6,
+      "changes": 6,
+      "touched_line_start": 140,
+      "touched_line_end": 402,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 6 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
+      "match_count": 6,
+      "changes": 6,
+      "touched_line_start": 351,
+      "touched_line_end": 426,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 6 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/testagent/TestAgent.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 418,
+      "touched_line_end": 418,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+      "match_count": 42,
+      "changes": 42,
+      "touched_line_start": 435,
+      "touched_line_end": 1106,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 42 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/util/ClassFinder.java",
+      "match_count": 4,
+      "changes": 4,
+      "touched_line_start": 189,
+      "touched_line_end": 216,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 4 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/wrapper/gateway/DynamicJadeGateway.java",
+      "match_count": 2,
+      "changes": 2,
+      "touched_line_start": 273,
+      "touched_line_end": 296,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 2 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/wrapper/gateway/GatewayAgent.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 50,
+      "touched_line_end": 50,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    },
+    {
+      "file": "src/jade/src/jade/wrapper/gateway/SplitJadeGateway.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 29,
+      "touched_line_end": 29,
+      "migration_skip_marker": false,
+      "diff_summary": "rewrote 1 JADE-FLAG:LAMBDA_CONVERSION marker(s) to JADE-MODERNIZATION-DEFERRED (comment-only, no code change)"
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "DEFERRED: rule confidence math (0.8 < 0.85 threshold) makes FIXED unreachable for this rule in agent mode; see diff_summary"
+  ]
+}

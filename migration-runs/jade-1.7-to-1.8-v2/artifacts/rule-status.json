@@ -1,0 +1,21 @@
+{
+  "run_id": "jade-1.7-to-1.8-v2",
+  "rules": {
+    "BUILD_DOCLINT_STRICT": {
+      "status": "DONE",
+      "updated_at": "2026-09-05T03:32:20Z"
+    },
+    "BUILD_RMIC_DEPRECATED": {
+      "status": "DONE",
+      "updated_at": "2026-09-05T03:32:21Z"
+    },
+    "JDBC_ODBC_BRIDGE_REMOVED": {
+      "status": "DONE",
+      "updated_at": "2026-09-05T03:32:21Z"
+    },
+    "LAMBDA_CONVERSION": {
+      "status": "DONE",
+      "updated_at": "2026-09-05T03:32:21Z"
+    }
+  }
+}

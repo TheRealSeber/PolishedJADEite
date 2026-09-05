@@ -104,7 +104,7 @@ public class AgentManagementService extends BaseService {
 		// Initialize the agent-loader for "jar agents" and the CodeLocator
 		agentsPath = p.getParameter(AGENTS_PATH, ".");
 		ObjectManager.addLoader(ObjectManager.AGENT_TYPE, new ObjectManager.Loader() {
-// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8
+// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
 			public Object load(String className, Properties pp) throws ClassNotFoundException, IllegalAccessException, InstantiationException { 
 				String jarName = pp.getProperty(CLASS_CODE);
 				boolean warnIfJarNotFound = true;

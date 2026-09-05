@@ -124,7 +124,7 @@ public class TwoPh0Initiator extends Initiator {
         // HANDLE_PROPOSE 
         // This state is activated when a propose message is received as a reply
         b = new OneShotBehaviour(myAgent) {
-// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8
+// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
             public void action() {
                 ACLMessage propose = (ACLMessage) getDataStore().get(REPLY_KEY);
                 handlePropose(propose);
@@ -137,7 +137,7 @@ public class TwoPh0Initiator extends Initiator {
         // This state is activated when all the responsess have been 
         // received or the specified timeout has expired.
         b = new OneShotBehaviour(myAgent) {
-// JADE-FLAG:LAMBDA_CONVERSION Anonymous classes with a single method can be converted to lambda expressions (SAM conversion) as introduced by JEP 126. 0.8
+// JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION LAMBDA_CONVERSION agent-mode FIXED is structurally unreachable: manifest confidence=0.8 x MATCH_QUALITY_FACTORS[exact]=1.0 caps final_confidence at 0.8 < NEEDS_REVIEW_THRESHOLD=0.85 (dispatcher.py), so any FIXED envelope is force-promoted to NEEDS_REVIEW and must roll back regardless of edit quality -- confirmed on 5 prior shards (002-006), each a real gate-passing conversion rolled back solely on this threshold. Deferred as technical debt (anti-bypass Defer path) rather than churning a certain-to-be-discarded 382-site diff.
             public void action() {
                 Vector responses = (Vector) getDataStore().get(ALL_RESPONSES_KEY);
                 Vector proposes = (Vector) getDataStore().get(ALL_PROPOSES_KEY);

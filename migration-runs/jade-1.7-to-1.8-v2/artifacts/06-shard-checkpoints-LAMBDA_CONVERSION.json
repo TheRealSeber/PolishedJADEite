@@ -4,6 +4,323 @@
   "run_id": "jade-1.7-to-1.8-v2",
   "schema_version": 1,
   "shards": {
+    "LAMBDA_CONVERSION-body-local-001": {
+      "created_at": "2026-09-05T03:30:19Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/BootGUI.java"
+        },
+        {
+          "file": "src/jade/src/jade/MicroBoot.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/Agent.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/BackEndContainer.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/FullResourceManager.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/JVM.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/MicroRuntime.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/PlatformManagerImpl.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/Runtime.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/ScalabilityTest.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/behaviours/OntologyServer.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/behaviours/WrapperBehaviour.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/event/NotificationService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/faultRecovery/FaultRecoveryService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/management/AgentManagementService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessageManager.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessagingService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MomMessagingService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/PersistentDeliveryManager.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/PersistentDeliveryService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/Poller.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMService.java"
+        },
+        {
+          "file": "src/jade/src/jade/domain/ams.java"
+        },
+        {
+          "file": "src/jade/src/jade/domain/df.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/AIDGui.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/APDescriptionPanel.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/APServicePanel.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/AboutJadeAction.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/ClassSelectionDialog.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/ConstraintDlg.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/DFAgentDscDlg.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/JadeLogoButton.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/ServiceDscDlg.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/StringDlg.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/TreeHelp.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/UserPropertyGui.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/VisualStringList.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/BIBEDispatcher.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/BIFEDispatcher.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/FrontEndDispatcher.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/JICPPeer.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/JICPSPeer.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/MicroStub.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/http/HTTPBEDispatcher.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/http/HTTPPeer.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/http/HTTPSPeer.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOBEDispatcher.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPBEDispatcher.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPPeer.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPSPeer.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPPeer.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPSPeer.java"
+        },
+        {
+          "file": "src/jade/src/jade/lang/acl/ConversationList.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/AchieveREInitiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/ContractNetInitiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/IteratedAchieveREInitiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/ProposeInitiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/SubscriptionInitiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/SubscriptionResponder.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/TwoPh0Initiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/TwoPh1Initiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/TwoPh2Initiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/TwoPhInitiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/states/HandlerSelector.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgent.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/ToolAgent.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/ToolNotifier.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLAIDDialog.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLAIDList.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLComboBox.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLContentDialog.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLFrame.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPanel.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPropertyList.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/AIDAddressList.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/gui/IntrospectorGUI.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/logging/LogHelperAgent.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/logging/LogManagerAgent.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/InstallMTPDialog.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/ManageMTPsDialog.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/rma.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/MainWindow.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/Sniffer.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgent.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java"
+        },
+        {
+          "file": "src/jade/src/jade/util/ClassFinder.java"
+        },
+        {
+          "file": "src/jade/src/jade/wrapper/gateway/DynamicJadeGateway.java"
+        },
+        {
+          "file": "src/jade/src/jade/wrapper/gateway/GatewayAgent.java"
+        },
+        {
+          "file": "src/jade/src/jade/wrapper/gateway/SplitJadeGateway.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T03:32:11Z"
+    },
     "LAMBDA_CONVERSION-body-local-002": {
       "created_at": "2026-09-05T03:07:34Z",
       "files": [

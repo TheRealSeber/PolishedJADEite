@@ -1,0 +1,9 @@
+[submodule "vendor/extended-green-cloud/extended-green-cloud-simulator"]
+	path = vendor/extended-green-cloud/extended-green-cloud-simulator
+	url = https://github.com/Extended-Green-Cloud/extended-green-cloud-simulator.git
+[submodule "vendor/extended-green-cloud/jrba"]
+	path = vendor/extended-green-cloud/jrba
+	url = https://github.com/Extended-Green-Cloud/jrba.git
+[submodule "vendor/extended-green-cloud/restaurant-recommendation-system"]
+	path = vendor/extended-green-cloud/restaurant-recommendation-system
+	url = https://github.com/Extended-Green-Cloud/restaurant-recommendation-system.git

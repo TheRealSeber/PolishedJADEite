@@ -496,6 +496,18 @@ JADE_IMPORT_RE = re.compile(
     r"^\s*import\s+(?:static\s+)?jade\.([\w.]+?)\s*;", re.MULTILINE
 )
 
+# consumer-playground test runners report their own pass/fail outcome with a
+# SCREAMING_SNAKE_CASE "..._FAILED" marker (RESTAURANT_TEST_FAILED,
+# JRBA_TEST_FAILED, HW_JADE_FAILED, DF_REGISTRATION_FAILED, ...). A consumer
+# whose test-config.json never declared failure_stdout_markers for its own
+# convention must not be reported PASS just because an unrelated success
+# marker also happened to print earlier in the run -- this is exactly how
+# restaurant-recommendation was reported PASS in
+# migration-runs/jade-8-to-11/artifacts/07-runtime-verify.json while its own
+# TestRunnerAgent had printed RESTAURANT_TEST_FAILED. Requires a word boundary
+# on both sides so a bare "FAILED" (no identifier prefix) is not matched.
+GENERIC_FAILURE_MARKER_RE = re.compile(r"\b[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*_FAILED\b")
+
 
 def collect_consumer_jade_fqns(project_dir: pathlib.Path) -> List[str]:
     """Extract sorted JADE FQNs imported by a consumer project's Java sources."""
@@ -975,6 +987,14 @@ def test_consumer(
             result["error"] = f"Container exited with code {rc}"
             return result
 
+        # Check expected markers up front only to build the exclusion set for
+        # the generic failure-marker scan below; the actual pass/fail
+        # decision on these still happens after every failure check.
+        markers = cfg.get("expected_stdout_markers", [])
+        if not isinstance(markers, list):
+            markers = []
+        expected_marker_set = {m for m in markers if isinstance(m, str)}
+
         # Check for failure patterns FIRST (reverse assertion)
         failure_patterns = [
             "NullPointerException",
@@ -1013,8 +1033,27 @@ def test_consumer(
             )
             return result
 
+        # Generic safety net for the repo-wide "..._FAILED" outcome
+        # convention: catches a consumer's own failure signal even when its
+        # test-config.json never opted in via failure_stdout_markers. Markers
+        # that are themselves declared as expected/configured are excluded so
+        # a legitimate success or already-handled failure marker can't
+        # double-trigger here.
+        generic_failure_matches = sorted(
+            match
+            for match in set(GENERIC_FAILURE_MARKER_RE.findall(combined))
+            if match not in expected_marker_set
+            and match not in configured_failure_markers
+        )
+        if generic_failure_matches:
+            result["status"] = "FAIL"
+            result["error"] = (
+                "Unconfigured failure markers detected: "
+                f"{generic_failure_matches}"
+            )
+            return result
+
         # Check expected markers
-        markers = cfg.get("expected_stdout_markers", [])
         missing_markers = [m for m in markers if m not in combined]
 
         if missing_markers:

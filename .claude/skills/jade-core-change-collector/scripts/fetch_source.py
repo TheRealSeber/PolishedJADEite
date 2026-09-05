@@ -38,6 +38,18 @@ _PAYWALL_PATH_TOKENS: Set[str] = {
 
 _LOCAL_HOSTS: Set[str] = {"localhost", "127.0.0.1", "0.0.0.0"}
 
+# ---------------------------------------------------------------------------
+# Soft-404 detection — a redirect that returns HTTP 200 but actually landed
+# on a generic error/home page instead of the requested document.
+# ---------------------------------------------------------------------------
+_SOFT_404_TEXT_MARKERS: tuple[str, ...] = (
+    "page not found",
+    "404 not found",
+    "error 404",
+)
+_SOFT_404_404_PATTERN = re.compile(r"\b404\b")
+MIN_EXPECTED_CONTENT_CHARS = 300
+
 
 def iso_now() -> str:
     return (
@@ -228,6 +240,7 @@ def fetch_url(url: str, timeout_sec: int = 30) -> Dict:
                 "content_hash": content_hash,
                 "content_length": len(text),
                 "http_status": resp.status,
+                "final_url": resp.geturl(),
             }
     except urllib.error.HTTPError as exc:
         return {
@@ -294,6 +307,101 @@ def fetch_file(path: pathlib.Path) -> Dict:
             "content_hash": None,
             "content_length": 0,
         }
+
+
+def extract_label_terms(label: str) -> Set[str]:
+    """Pull meaningful search terms out of a source label for content sanity-checks.
+
+    Short/numeric-only tokens are dropped since they are too generic to prove
+    anything about whether the fetched content matches what was asked for.
+    """
+    tokens = re.findall(r"[A-Za-z0-9]+", label.lower())
+    return {t for t in tokens if len(t) >= 4}
+
+
+def parse_allow_redirect_hosts(raw_values: Optional[list]) -> Set[str]:
+    """Normalize --allow-redirect-host values (repeatable and/or comma-separated)."""
+    hosts: Set[str] = set()
+    for raw in raw_values or []:
+        for piece in str(raw).split(","):
+            piece = piece.strip().lower()
+            if piece:
+                hosts.add(piece)
+    return hosts
+
+
+def detect_soft_404(
+    requested_url: str,
+    final_url: Optional[str],
+    content: Optional[str],
+    source_label: str,
+    allow_redirect_hosts: Optional[Set[str]] = None,
+) -> Optional[str]:
+    """Detect a "soft 404": an HTTP 200 response that did not actually deliver
+    the requested source (typically a redirect to a homepage or generic error
+    page). Returns a human-readable reason string when suspicious, else None.
+
+    Checks (any one is enough to flag the fetch as suspicious):
+      1. The final URL (after redirects) lands on a different host, or on a
+         different/shallower path than what was requested — unless that host
+         is explicitly trusted via allow_redirect_hosts.
+      2. The content contains an explicit not-found marker ("404", "page not
+         found", ...).
+      3. The content is drastically shorter than a real document would be.
+      4. The content contains none of the meaningful terms from the source
+         label (i.e. nothing ties the page back to what was asked for).
+    """
+    if not content:
+        return None
+
+    allow_redirect_hosts = allow_redirect_hosts or set()
+    reasons: list[str] = []
+
+    if final_url:
+        requested = urlparse(requested_url)
+        final = urlparse(final_url)
+        requested_host = (requested.hostname or "").lower()
+        final_host = (final.hostname or "").lower()
+        host_is_trusted = final_host in allow_redirect_hosts
+
+        if not host_is_trusted:
+            if final_host and final_host != requested_host:
+                reasons.append(
+                    f"redirected to a different host: requested {requested_host!r}, "
+                    f"landed on {final_host!r}"
+                )
+            else:
+                requested_path = (requested.path or "/").rstrip("/") or "/"
+                final_path = (final.path or "/").rstrip("/") or "/"
+                if final_path != requested_path and final_path in ("", "/"):
+                    reasons.append(
+                        f"redirected to the site root: requested path "
+                        f"{requested.path or '/'!r}, landed on {final.path or '/'!r}"
+                    )
+
+    lowered = content.lower()
+    if _SOFT_404_404_PATTERN.search(lowered) or any(
+        marker in lowered for marker in _SOFT_404_TEXT_MARKERS
+    ):
+        reasons.append('content contains a not-found indicator ("404" / "page not found")')
+
+    stripped_len = len(content.strip())
+    if stripped_len < MIN_EXPECTED_CONTENT_CHARS:
+        reasons.append(
+            f"content drastically shorter than expected ({stripped_len} chars < "
+            f"{MIN_EXPECTED_CONTENT_CHARS})"
+        )
+
+    label_terms = extract_label_terms(source_label)
+    if label_terms and not any(term in lowered for term in label_terms):
+        reasons.append(
+            "content contains none of the source-label terms: "
+            f"{sorted(label_terms)}"
+        )
+
+    if not reasons:
+        return None
+    return "SUSPECTED_SOFT_404: " + "; ".join(reasons)
 
 
 # ---------------------------------------------------------------------------
@@ -377,6 +485,18 @@ def main(argv: Optional[list[str]] = None) -> int:
         action="store_true",
         help="Store full content in index (default: snippet only)",
     )
+    parser.add_argument(
+        "--allow-redirect-host",
+        action="append",
+        default=None,
+        metavar="HOST",
+        help=(
+            "Host(s) allowed to be the final destination of a redirect "
+            "(repeatable, or comma-separated). Suppresses only the "
+            "redirect-host/path soft-404 check for that host — content "
+            "heuristics (404 markers, size, label terms) still apply."
+        ),
+    )
     args = parser.parse_args(argv)
 
     config_path = pathlib.Path(args.run_config)
@@ -436,6 +556,29 @@ def main(argv: Optional[list[str]] = None) -> int:
         }
     elif is_url(source_url):
         result = fetch_url(source_url, args.timeout)
+        # Soft-404 detection only applies to a real network round trip: it
+        # needs the actual final_url reached (after any redirects), which is
+        # only present when fetch_url really ran (not when a caller/test has
+        # substituted a stand-in fetch_url that returns a bare result dict).
+        if result["status"] == "success" and result.get("final_url"):
+            allow_redirect_hosts = parse_allow_redirect_hosts(args.allow_redirect_host)
+            soft_404_reason = detect_soft_404(
+                requested_url=source_url,
+                final_url=result.get("final_url"),
+                content=result.get("content"),
+                source_label=source_label,
+                allow_redirect_hosts=allow_redirect_hosts,
+            )
+            if soft_404_reason:
+                result = {
+                    "status": "error",
+                    "error_type": "SUSPECTED_SOFT_404",
+                    "error_message": soft_404_reason,
+                    "content": None,
+                    "content_hash": None,
+                    "content_length": 0,
+                    "http_status": result.get("http_status"),
+                }
     else:
         result = fetch_file(pathlib.Path(source_url))
 

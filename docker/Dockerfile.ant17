@@ -1,0 +1,13 @@
+# Ant + Eclipse Temurin JDK 17 build image for the JADE migration pipeline.
+# The central registry (config/docker-images.json) resolves this as the java-17
+# image so the Ant build gate and the JDK-17 consumer runtime share one image.
+#
+# Build:
+#   docker build -t jade-ant:17 -f docker/Dockerfile.ant17 .
+FROM maven:3.9-eclipse-temurin-17
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ant \
+    && rm -rf /var/lib/apt/lists/*
+
+CMD ["ant", "-version"]

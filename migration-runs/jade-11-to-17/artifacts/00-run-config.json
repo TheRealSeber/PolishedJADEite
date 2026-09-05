@@ -1,0 +1,9 @@
+{
+  "run_id": "jade-11-to-17",
+  "baseline_path": "migration-runs/jade-8-to-11-v2/workspace",
+  "workspace_path": "migration-runs/jade-11-to-17/workspace",
+  "artifacts_path": "migration-runs/jade-11-to-17/artifacts",
+  "source_version": "11",
+  "target_version": "17",
+  "baseline_rationale": "Chains from the CORBA-removal variant of 8-to-11, not from the retrofit on master. Starting from the retrofit would carry the vendored GlassFish ORB into 17, which is the dependency the sponsors asked to be removed."
+}

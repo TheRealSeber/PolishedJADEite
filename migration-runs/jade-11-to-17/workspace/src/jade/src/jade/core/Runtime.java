@@ -292,18 +292,16 @@ public class Runtime {
 			theContainer = null;
 
 			//#MIDP_EXCLUDE_BEGIN
-			try {
-// JADE-MODERNIZATION-DEFERRED:TRY_WITH_RESOURCES Extremely broad pattern (1832 flags), deferred for targeted future review
-				criticalThreads.destroy();
-// JADE-FLAG:THREADGROUP_DESTROY_DEPRECATED_FOR_REMOVAL terminally deprecated ThreadGroup member invoked on one of the workspace's own ThreadGroup-typed fields (FullResourceManager.java:39-42, Runtime.java:73). Revision 1 was the untyped '\.destroy\(\)' and caught two java.applet.Applet.destroy() calls; a line-based regex cannot resolve the receiver's type, so revision 2 enumerates the ThreadGroup-typed receivers actually declared in this tree. The limitation is deliberate and recorded: a ThreadGroup held in a differently named variable would not be flagged, which is why the verification hint checks with javac rather than with this regex 0.95
-			}
-			catch(IllegalThreadStateException itse) {
+			// ThreadGroup.destroy() is terminally deprecated (JDK 16); the destruction
+			// mechanism is inherently flawed and the JVM reclaims an empty, unreferenced
+			// ThreadGroup on its own. Preserve the original diagnostic -- a warning plus
+			// the thread listing when time-critical threads are still active at shutdown --
+			// without calling the deprecated method.
+			if (criticalThreads.activeCount() > 0) {
 				myLogger.log(Logger.WARNING, "Time-critical threads still active: ");
 				criticalThreads.list();
 			}
-			finally {
-				criticalThreads = null;
-			}
+			criticalThreads = null;
 			//#MIDP_EXCLUDE_END
 			t.start();
 		}

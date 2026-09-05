@@ -24,15 +24,15 @@
         },
         {
           "file": "src/jade/src/jade/gui/AclGui.java",
-          "line": 782
+          "line": 784
         },
         {
           "file": "src/jade/src/jade/gui/AclGui.java",
-          "line": 864
+          "line": 867
         },
         {
           "file": "src/jade/src/jade/gui/AclGui.java",
-          "line": 1218
+          "line": 1222
         },
         {
           "file": "src/jade/src/jade/gui/TimeChooser.java",
@@ -40,19 +40,19 @@
         },
         {
           "file": "src/jade/src/jade/gui/TimeChooser.java",
-          "line": 283
+          "line": 284
         },
         {
           "file": "src/jade/src/jade/gui/TimeChooser.java",
-          "line": 288
+          "line": 290
         },
         {
           "file": "src/jade/src/jade/gui/TimeChooser.java",
-          "line": 292
+          "line": 295
         },
         {
           "file": "src/jade/src/jade/gui/TimeChooser.java",
-          "line": 298
+          "line": 302
         },
         {
           "file": "src/jade/src/jade/tools/introspector/gui/TablePopupMenuListener.java",
@@ -60,7 +60,7 @@
         },
         {
           "file": "src/jade/src/jade/tools/introspector/gui/TablePopupMenuListener.java",
-          "line": 66
+          "line": 67
         }
       ],
       "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
@@ -127,19 +127,19 @@
         },
         {
           "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
-          "line": 301
+          "line": 302
         },
         {
           "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
-          "line": 305
+          "line": 307
         },
         {
           "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
-          "line": 309
+          "line": 312
         },
         {
           "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
-          "line": 314
+          "line": 318
         }
       ],
       "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",

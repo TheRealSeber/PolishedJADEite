@@ -58,11 +58,11 @@
         },
         {
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 292
+          "line": 293
         },
         {
           "file": "src/jade/src/jade/BootGUI.java",
-          "line": 535
+          "line": 537
         },
         {
           "file": "src/jade/src/jade/core/MainDetectionManager.java",
@@ -82,7 +82,7 @@
         },
         {
           "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
-          "line": 289
+          "line": 290
         },
         {
           "file": "src/jade/src/jade/core/management/JarClassLoader.java",
@@ -94,23 +94,23 @@
         },
         {
           "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
-          "line": 207
+          "line": 208
         },
         {
           "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
-          "line": 212
+          "line": 214
         },
         {
           "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
-          "line": 244
+          "line": 247
         },
         {
           "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
-          "line": 255
+          "line": 259
         },
         {
           "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
-          "line": 289
+          "line": 294
         },
         {
           "file": "src/jade/src/jade/core/messaging/MessagingService.java",
@@ -122,7 +122,7 @@
         },
         {
           "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java",
-          "line": 1125
+          "line": 1126
         },
         {
           "file": "src/jade/src/jade/core/nodeMonitoring/UDPMonitorServer.java",
@@ -130,7 +130,7 @@
         },
         {
           "file": "src/jade/src/jade/core/nodeMonitoring/UDPMonitorServer.java",
-          "line": 360
+          "line": 361
         },
         {
           "file": "src/jade/src/jade/core/resource/ResourceManagementService.java",
@@ -142,67 +142,63 @@
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 351
+          "line": 352
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 376
+          "line": 378
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 407
+          "line": 410
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 445
+          "line": 449
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 672
+          "line": 677
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 941
+          "line": 947
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 942
+          "line": 949
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 998
+          "line": 1006
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 1031
+          "line": 1040
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 1032
+          "line": 1042
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 1109
+          "line": 1120
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 1150
+          "line": 1162
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 1151
+          "line": 1164
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 1283
+          "line": 1297
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 1304
-        },
-        {
-          "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 1325
+          "line": 1319
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
@@ -210,23 +206,27 @@
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 1375
+          "line": 1358
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 1417
+          "line": 1393
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 1630
+          "line": 1436
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 1673
+          "line": 1650
         },
         {
           "file": "src/jade/src/jade/domain/DFDBKB.java",
-          "line": 1749
+          "line": 1694
+        },
+        {
+          "file": "src/jade/src/jade/domain/DFDBKB.java",
+          "line": 1771
         },
         {
           "file": "src/jade/src/jade/domain/ams.java",
@@ -242,7 +242,7 @@
         },
         {
           "file": "src/jade/src/jade/imtp/leap/JICP/JICPConnection.java",
-          "line": 108
+          "line": 109
         },
         {
           "file": "src/jade/src/jade/imtp/leap/JICP/JICPPeer.java",
@@ -250,7 +250,7 @@
         },
         {
           "file": "src/jade/src/jade/imtp/leap/JICP/JICPPeer.java",
-          "line": 181
+          "line": 182
         },
         {
           "file": "src/jade/src/jade/imtp/leap/SSLHelper.java",
@@ -266,7 +266,7 @@
         },
         {
           "file": "src/jade/src/jade/mtp/http/HTTPServer.java",
-          "line": 114
+          "line": 115
         },
         {
           "file": "src/jade/src/jade/mtp/http/KeepAlive.java",
@@ -274,7 +274,7 @@
         },
         {
           "file": "src/jade/src/jade/mtp/http/KeepAlive.java",
-          "line": 98
+          "line": 99
         },
         {
           "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
@@ -282,15 +282,15 @@
         },
         {
           "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
-          "line": 248
+          "line": 249
         },
         {
           "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
-          "line": 291
+          "line": 293
         },
         {
           "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
-          "line": 339
+          "line": 342
         },
         {
           "file": "src/jade/src/jade/tools/SocketProxyAgent/JadeBridge.java",
@@ -314,7 +314,7 @@
         },
         {
           "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
-          "line": 257
+          "line": 258
         },
         {
           "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
@@ -322,11 +322,11 @@
         },
         {
           "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
-          "line": 375
+          "line": 376
         },
         {
           "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
-          "line": 428
+          "line": 430
         },
         {
           "file": "src/jade/src/jade/tools/rma/MainPanel.java",
@@ -342,7 +342,7 @@
         },
         {
           "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
-          "line": 564
+          "line": 565
         },
         {
           "file": "src/jade/src/jade/tools/sniffer/WriteLogFileAction.java",
@@ -358,15 +358,15 @@
         },
         {
           "file": "src/jade/src/jade/util/AccessControlList.java",
-          "line": 262
+          "line": 263
         },
         {
           "file": "src/jade/src/jade/util/AccessControlList.java",
-          "line": 339
+          "line": 341
         },
         {
           "file": "src/jade/src/jade/util/AccessControlList.java",
-          "line": 350
+          "line": 353
         },
         {
           "file": "src/jade/src/jade/util/ExtendedProperties.java",
@@ -382,7 +382,7 @@
         },
         {
           "file": "src/jade/src/jade/util/PerDayFileLogger.java",
-          "line": 67
+          "line": 68
         },
         {
           "file": "src/jade/src/jade/util/leap/Properties.java",
@@ -390,11 +390,11 @@
         },
         {
           "file": "src/jade/src/jade/util/leap/Properties.java",
-          "line": 162
+          "line": 163
         },
         {
           "file": "src/jade/src/jade/util/leap/Properties.java",
-          "line": 167
+          "line": 169
         }
       ],
       "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",

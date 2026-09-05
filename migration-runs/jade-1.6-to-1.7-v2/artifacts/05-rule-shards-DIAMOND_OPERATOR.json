@@ -30,23 +30,23 @@
         },
         {
           "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
-          "line": 215
-        },
-        {
-          "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
           "line": 216
         },
         {
           "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
-          "line": 367
+          "line": 218
         },
         {
           "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
-          "line": 389
+          "line": 370
         },
         {
           "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
-          "line": 585
+          "line": 393
+        },
+        {
+          "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+          "line": 590
         },
         {
           "file": "src/jade/src/jade/content/onto/ClassDiscover.java",
@@ -54,11 +54,11 @@
         },
         {
           "file": "src/jade/src/jade/content/onto/ClassDiscover.java",
-          "line": 55
+          "line": 56
         },
         {
           "file": "src/jade/src/jade/content/onto/ClassDiscover.java",
-          "line": 107
+          "line": 109
         },
         {
           "file": "src/jade/src/jade/content/onto/Ontology.java",
@@ -70,11 +70,11 @@
         },
         {
           "file": "src/jade/src/jade/core/behaviours/OntologyServer.java",
-          "line": 94
+          "line": 95
         },
         {
           "file": "src/jade/src/jade/core/behaviours/OntologyServer.java",
-          "line": 380
+          "line": 382
         }
       ],
       "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
@@ -215,7 +215,7 @@
         },
         {
           "file": "src/jade/src/jade/core/ExtendedMessageQueue.java",
-          "line": 144
+          "line": 145
         },
         {
           "file": "src/jade/src/jade/core/TemplateBasedMessageQueue.java",
@@ -223,7 +223,7 @@
         },
         {
           "file": "src/jade/src/jade/core/TemplateBasedMessageQueue.java",
-          "line": 126
+          "line": 127
         },
         {
           "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
@@ -231,15 +231,15 @@
         },
         {
           "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
-          "line": 509
-        },
-        {
-          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
           "line": 510
         },
         {
           "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
-          "line": 648
+          "line": 512
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 651
         },
         {
           "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPConnection.java",
@@ -343,7 +343,7 @@
         },
         {
           "file": "src/jade/src/jade/core/messaging/LocalJVMMessageRouter.java",
-          "line": 25
+          "line": 26
         },
         {
           "file": "src/jade/src/jade/core/messaging/MessageManager.java",
@@ -355,7 +355,7 @@
         },
         {
           "file": "src/jade/src/jade/core/messaging/MomMessagingService.java",
-          "line": 39
+          "line": 40
         },
         {
           "file": "src/jade/src/jade/core/messaging/MultipleGenericMessage.java",
@@ -404,11 +404,7 @@
         },
         {
           "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
-          "line": 81
-        },
-        {
-          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
-          "line": 83
+          "line": 82
         },
         {
           "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
@@ -416,15 +412,19 @@
         },
         {
           "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
-          "line": 166
+          "line": 88
         },
         {
           "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
-          "line": 256
+          "line": 170
         },
         {
           "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
-          "line": 585
+          "line": 261
+        },
+        {
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+          "line": 591
         }
       ],
       "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
@@ -475,15 +475,15 @@
         },
         {
           "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
-          "line": 48
+          "line": 49
         },
         {
           "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
-          "line": 87
+          "line": 89
         },
         {
           "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
-          "line": 88
+          "line": 91
         },
         {
           "file": "src/jade/src/jade/core/sam/SAMInfo.java",
@@ -491,15 +491,15 @@
         },
         {
           "file": "src/jade/src/jade/core/sam/SAMInfo.java",
-          "line": 131
+          "line": 132
         },
         {
           "file": "src/jade/src/jade/core/sam/SAMInfo.java",
-          "line": 163
+          "line": 165
         },
         {
           "file": "src/jade/src/jade/core/sam/SAMInfo.java",
-          "line": 179
+          "line": 182
         }
       ],
       "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
@@ -530,31 +530,31 @@
         },
         {
           "file": "src/jade/src/jade/core/sam/SAMService.java",
-          "line": 69
+          "line": 70
         },
         {
           "file": "src/jade/src/jade/core/sam/SAMService.java",
-          "line": 83
+          "line": 85
         },
         {
           "file": "src/jade/src/jade/core/sam/SAMService.java",
-          "line": 270
+          "line": 273
         },
         {
           "file": "src/jade/src/jade/core/sam/SAMService.java",
-          "line": 281
+          "line": 285
         },
         {
           "file": "src/jade/src/jade/core/sam/SAMService.java",
-          "line": 385
+          "line": 390
         },
         {
           "file": "src/jade/src/jade/core/sam/SAMService.java",
-          "line": 431
+          "line": 437
         },
         {
           "file": "src/jade/src/jade/core/sam/SAMService.java",
-          "line": 432
+          "line": 439
         }
       ],
       "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",

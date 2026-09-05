@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "rule_id": "BUILD_DOCLINT_STRICT",
+  "shard_id": "BUILD_DOCLINT_STRICT-body-local-001",
+  "status": "NEEDS_REVIEW",
+  "match_quality": "exact",
+  "diff_summary": "Added additionalparam=\"-Xdoclint:none\" to both <javadoc> elements in the doc target and removed their JADE-FLAG:BUILD_DOCLINT_STRICT markers. Real ant doc run under frekele/ant:1.10.3-jdk8 (JDK8) confirms BUILD SUCCESSFUL, exit 0, with the fix applied. The wired verify_shard.py step failed (exit 2) for a reason unrelated to the fix: it always invokes javac against the shard's editable_files, and this shard's only editable_file is build.xml (not a .java source), so javac rejected it with 'invalid flag: /ws/src/jade/build.xml'. That is a structural verify_shard.py limitation (no Ant/javadoc verification path exists for BUILD_* rules), not a defect in this edit.",
+  "files": [
+    {
+      "file": "src/jade/build.xml",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 226,
+      "touched_line_end": 226,
+      "migration_skip_marker": false,
+      "diff_summary": "javadoc destdir=\"${doc}/api\" (API reference target): added additionalparam=\"-Xdoclint:none\"; removed the JADE-FLAG:BUILD_DOCLINT_STRICT marker comment for this element."
+    },
+    {
+      "file": "src/jade/build.xml",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 227,
+      "touched_line_end": 227,
+      "migration_skip_marker": false,
+      "diff_summary": "javadoc destdir=\"${doc}/tools/sniffer/html/jdoc\" (Sniffer reference target): added additionalparam=\"-Xdoclint:none\"; removed the JADE-FLAG:BUILD_DOCLINT_STRICT marker comment for this element."
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "verify_shard.py exit=2: javac invoked against src/jade/build.xml (not a .java file) fails with 'invalid flag: /ws/src/jade/build.xml' -- structural shard/tool mismatch, not a real compile or DocLint error. See 07-shard-verify-BUILD_DOCLINT_STRICT-body-local-001.json and its .log.",
+    "Independent verification performed out-of-band: `docker run --rm -v <workspace>/src/jade:/workspace -w /workspace frekele/ant:1.10.3-jdk8 ant doc -q` with the fix applied => BUILD SUCCESSFUL, 'ant exited 0'.",
+    "Counterfactual measured: the same `ant doc` run WITHOUT the fix (additionalparam removed) ALSO returns BUILD SUCCESSFUL / exit 0 under this exact Ant/JDK8 image, because Ant's <javadoc> task defaults failonerror to false -- the javadoc tool's own DocLint/HTML errors are logged but do not fail the Ant build here. The fix is still correct and worth keeping (suppresses the errors outright, portable to stricter failonerror configurations), but the rule's predicted build-breakage does not reproduce in this repo's actual build environment."
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "rule_id": "BUILD_RMIC_DEPRECATED",
+  "sample_hash": "ee559fad4fe500503ad02ad21488fffb9068ccfe76cc23a899653a4776ff39c5",
+  "schema_version": 1,
+  "verdicts": [
+    {
+      "hit_id": "7b5b69c5dd7ac480",
+      "reason": "Genuine <rmic> Ant task element (NodeRMIImpl) inside the 'jade' target -- confirmed by the real docker build log to emit the JRMP static-stub deprecation warning at this exact call, matching the rule's premise precisely.",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "f9005529e341fcba",
+      "reason": "Genuine <rmic> Ant task element (ServiceManagerRMIImpl) inside the 'jade' target -- same confirmed deprecation warning from the real build, matching the rule's premise.",
+      "verdict": "TRUE_POSITIVE"
+    }
+  ]
+}

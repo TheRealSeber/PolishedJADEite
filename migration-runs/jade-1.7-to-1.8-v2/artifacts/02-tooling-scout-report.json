@@ -1,0 +1,66 @@
+{
+  "run_id": "jade-1.7-to-1.8-v2",
+  "modern_jdk": "/opt/homebrew/Cellar/openjdk@17/17.0.20.1",
+  "tools": {
+    "openrewrite": {
+      "available": false,
+      "version": null
+    },
+    "pmd": {
+      "available": false,
+      "version": null
+    },
+    "checkstyle": {
+      "available": false,
+      "version": null
+    }
+  },
+  "findings": {
+    "run_id": "jade-1.7-to-1.8-v2",
+    "source_version": "1.7",
+    "target_version": "1.8",
+    "workspace_path": "migration-runs/jade-1.7-to-1.8-v2/workspace",
+    "openrewrite": {
+      "available": false,
+      "version": null,
+      "recipes": []
+    },
+    "pmd": {
+      "available": false,
+      "version": null,
+      "violations": []
+    },
+    "checkstyle": {
+      "available": false,
+      "version": null,
+      "violations": []
+    }
+  },
+  "available_tools": [],
+  "unavailable_tools": [
+    "openrewrite",
+    "pmd",
+    "checkstyle"
+  ],
+  "findings_summary": {
+    "openrewrite": {
+      "recipes_total": 0,
+      "recipes_applicable": 0,
+      "recipes_not_applicable": 0
+    },
+    "pmd": {
+      "violations_total": 0,
+      "rulesets_used": [
+        "category/java/bestpractices.xml",
+        "category/java/codestyle.xml",
+        "category/java/errorprone.xml"
+      ]
+    },
+    "checkstyle": {
+      "violations_total": 0,
+      "checks_triggered": []
+    }
+  },
+  "manifest_merge_count": 0,
+  "updated_at": "2026-09-05T02:46:25Z"
+}

@@ -1,0 +1,164 @@
+{
+  "policy": {
+    "max_revisions": 3,
+    "min_precision": 0.7,
+    "on_reject": "halt",
+    "sample_size": 30,
+    "source": "00-run-config.json#precision_gate",
+    "undecidable_max_ratio": 0.2
+  },
+  "rules": {
+    "BUILD_DOCLINT_STRICT": {
+      "counterexamples": [],
+      "effective_min_precision": 0.7,
+      "false_positive": 0,
+      "false_positive_classes": {},
+      "judged": 2,
+      "manifest_rule_hash": "9dbddd77a619dfb9c83b6183d95e5a2f1107fbb9d70c23cf07edb4cf787c3adb",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 1.0,
+      "pattern_revision": 1,
+      "per_pattern": {
+        "0": {
+          "judged": 2,
+          "precision": 1.0,
+          "true_positive": 2
+        }
+      },
+      "population": {
+        "files_with_hits": 1,
+        "total_hits": 2
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-BUILD_DOCLINT_STRICT.json",
+      "sample_hash": "ab1110fc558f206fbe44eafff47710e0cf0400b3e7c79e3d32f9c060c183aa55",
+      "status": "PASS",
+      "true_positive": 2,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-BUILD_DOCLINT_STRICT.json",
+      "verdicts_hash": "a6fde62dffc16bcf13225c89f2c5e1c929fa2d7a956dd37cb6e8479395d1dac8",
+      "wilson_95": [
+        0.3424,
+        1.0
+      ]
+    },
+    "BUILD_RMIC_DEPRECATED": {
+      "counterexamples": [],
+      "effective_min_precision": 0.7,
+      "false_positive": 0,
+      "false_positive_classes": {},
+      "judged": 2,
+      "manifest_rule_hash": "a11263ba3e630d11c4d83259725de665e4b864dee18039862b43a4efac244056",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 1.0,
+      "pattern_revision": 1,
+      "per_pattern": {
+        "0": {
+          "judged": 2,
+          "precision": 1.0,
+          "true_positive": 2
+        }
+      },
+      "population": {
+        "files_with_hits": 1,
+        "total_hits": 2
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-BUILD_RMIC_DEPRECATED.json",
+      "sample_hash": "ee559fad4fe500503ad02ad21488fffb9068ccfe76cc23a899653a4776ff39c5",
+      "status": "PASS",
+      "true_positive": 2,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-BUILD_RMIC_DEPRECATED.json",
+      "verdicts_hash": "dd6dde085cdebf2ccf6ae91989ab49e12616485e0baaf5b3cb5eaab1bcc41028",
+      "wilson_95": [
+        0.3424,
+        1.0
+      ]
+    },
+    "JDBC_ODBC_BRIDGE_REMOVED": {
+      "counterexamples": [],
+      "effective_min_precision": 0.7,
+      "false_positive": 0,
+      "false_positive_classes": {},
+      "judged": 1,
+      "manifest_rule_hash": "aff9ce0f85be5ea22925d294066838cb4bbd781bf00130e028e7170558054a80",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 1.0,
+      "pattern_revision": 1,
+      "per_pattern": {
+        "0": {
+          "judged": 1,
+          "precision": 1.0,
+          "true_positive": 1
+        }
+      },
+      "population": {
+        "files_with_hits": 1,
+        "total_hits": 1
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-JDBC_ODBC_BRIDGE_REMOVED.json",
+      "sample_hash": "1685b5064c0b690fe5a2939143bf602b81ddfcfb6d1f5ac2a30257cd3f00c04f",
+      "status": "PASS",
+      "true_positive": 1,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-JDBC_ODBC_BRIDGE_REMOVED.json",
+      "verdicts_hash": "c551817e6236cf55c21d4fcd1239ce842e4aee740984aaee4384db8d617962f0",
+      "wilson_95": [
+        0.2065,
+        1.0
+      ]
+    },
+    "LAMBDA_CONVERSION": {
+      "counterexamples": [],
+      "effective_min_precision": 0.7,
+      "false_positive": 0,
+      "false_positive_classes": {},
+      "judged": 30,
+      "manifest_rule_hash": "94d0f91fc926847a7e0209dac105d358d4198a4e9d9bda71892d03b7def5dd7c",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 1.0,
+      "pattern_revision": 1,
+      "per_pattern": {
+        "0": {
+          "judged": 30,
+          "precision": 1.0,
+          "true_positive": 30
+        }
+      },
+      "population": {
+        "files_with_hits": 113,
+        "total_hits": 399
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-LAMBDA_CONVERSION.json",
+      "sample_hash": "3f27c27a09da53b8416fee525ffbbd8a683f667d4d876033f71591e55b12e789",
+      "status": "PASS",
+      "true_positive": 30,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-LAMBDA_CONVERSION.json",
+      "verdicts_hash": "02f7a53fb126f931adbe67f5787d0a28a81ceb254f80d41e389ccf510eca2360",
+      "wilson_95": [
+        0.8865,
+        1.0
+      ]
+    }
+  },
+  "run_id": "jade-1.7-to-1.8-v2",
+  "schema_version": 1,
+  "summary": {
+    "abandoned": 0,
+    "inconclusive": 0,
+    "no_population": 0,
+    "overridden": 0,
+    "passed": 4,
+    "rejected": 0,
+    "rules_total": 4
+  },
+  "warnings": []
+}

@@ -1,0 +1,54 @@
+[
+  {
+    "task_id": "BUILD_RMIC_DEPRECATED-body-local-001-f000",
+    "rule_id": "BUILD_RMIC_DEPRECATED",
+    "file": "src/jade/build.xml",
+    "status": "NEEDS_REVIEW",
+    "match_count": 1,
+    "match_region": "lines 172-172",
+    "match_context": "jade-recipe-1.7-1.8-build-rmic-deprecated",
+    "diff_summary": "rmic classname=\"jade.imtp.rmi.ServiceManagerRMIImpl\": marker comment swapped from JADE-FLAG:BUILD_RMIC_DEPRECATED to JADE-MODERNIZATION-DEFERRED:BUILD_RMIC_DEPRECATED; <rmic> element itself unchanged.",
+    "verification_hint": "Confirm `ant jade` still produces the two RMI stub classes under the JDK 8 Docker image (rmic still works on 8, only deprecated); this rule is informational/deferrable for the 1.7->1.8 jump and only becomes a hard blocker at a future 8->9+ jump.",
+    "errors": [],
+    "warnings": [
+      "verify_shard.py exit=2: javac invoked against src/jade/build.xml (not a .java file) fails with 'invalid flag: /ws/src/jade/build.xml' -- structural shard/tool mismatch, not a real compile error. Same limitation already recorded for BUILD_DOCLINT_STRICT-body-local-001. See 07-shard-verify-BUILD_RMIC_DEPRECATED-body-local-001.json and its .log.",
+      "Independent verification performed out-of-band: `docker run --rm -v <workspace>/src/jade:/workspace -w /workspace frekele/ant:1.10.3-jdk8 ant clean jade -q` => BUILD SUCCESSFUL, 'ant exited 0', both expected [rmic] JRMP-deprecation warnings present, both _Stub.class files generated on disk."
+    ],
+    "applied_at": "2026-09-05T02:59:13Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "BUILD_RMIC_DEPRECATED-body-local-001"
+  },
+  {
+    "task_id": "BUILD_RMIC_DEPRECATED-body-local-001-f001",
+    "rule_id": "BUILD_RMIC_DEPRECATED",
+    "file": "src/jade/build.xml",
+    "status": "NEEDS_REVIEW",
+    "match_count": 1,
+    "match_region": "lines 173-173",
+    "match_context": "jade-recipe-1.7-1.8-build-rmic-deprecated",
+    "diff_summary": "rmic classname=\"jade.imtp.rmi.NodeRMIImpl\": marker comment swapped from JADE-FLAG:BUILD_RMIC_DEPRECATED to JADE-MODERNIZATION-DEFERRED:BUILD_RMIC_DEPRECATED; <rmic> element itself unchanged.",
+    "verification_hint": "Confirm `ant jade` still produces the two RMI stub classes under the JDK 8 Docker image (rmic still works on 8, only deprecated); this rule is informational/deferrable for the 1.7->1.8 jump and only becomes a hard blocker at a future 8->9+ jump.",
+    "errors": [],
+    "warnings": [
+      "verify_shard.py exit=2: javac invoked against src/jade/build.xml (not a .java file) fails with 'invalid flag: /ws/src/jade/build.xml' -- structural shard/tool mismatch, not a real compile error. Same limitation already recorded for BUILD_DOCLINT_STRICT-body-local-001. See 07-shard-verify-BUILD_RMIC_DEPRECATED-body-local-001.json and its .log.",
+      "Independent verification performed out-of-band: `docker run --rm -v <workspace>/src/jade:/workspace -w /workspace frekele/ant:1.10.3-jdk8 ant clean jade -q` => BUILD SUCCESSFUL, 'ant exited 0', both expected [rmic] JRMP-deprecation warnings present, both _Stub.class files generated on disk."
+    ],
+    "applied_at": "2026-09-05T02:59:13Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "BUILD_RMIC_DEPRECATED-body-local-001"
+  }
+]

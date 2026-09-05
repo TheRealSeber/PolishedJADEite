@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "rule_id": "LAMBDA_CONVERSION",
+  "shard_id": "LAMBDA_CONVERSION-body-local-002",
+  "status": "FIXED",
+  "match_quality": "exact",
+  "diff_summary": "FSPersistentStorage.java has 4 JADE-FLAG:LAMBDA_CONVERSION sites. Two (clear()/getAllNodes() live #DOTNET_EXCLUDE branches) are genuine single-method FilenameFilter anonymous classes with no fields, no extra methods, no bare `this` -- converted to lambdas, marker removed. The other two sites sit inside the same methods' /*#DOTNET_INCLUDE_BEGIN ... #DOTNET_INCLUDE_END*/ block comment (a dead, inactive alternate-implementation kept for a non-Java target) -- verified with java_source.is_live_code() before touching anything; both are comment text, not live code, so left untouched entirely (no edit, not even a marker swap) and reported SKIPPED. Verified by compiling this file in Docker (frekele/ant:1.10.3-jdk8, javac -source/-target 1.8 against the baseline jar) -- PASS, 0 errors.",
+  "files": [
+    {
+      "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 80,
+      "touched_line_end": 80,
+      "migration_skip_marker": false,
+      "diff_summary": "clear(): new FilenameFilter(){public boolean accept(File,String){...}} (single method, no fields, no other overrides) -> (File dir, String name) -> {...} lambda; JADE-FLAG marker removed."
+    },
+    {
+      "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+      "match_count": 1,
+      "changes": 0,
+      "touched_line_start": 91,
+      "touched_line_end": 91,
+      "migration_skip_marker": true,
+      "diff_summary": "SKIPPED: java_source.is_live_code() is False for this site -- it sits inside a /*#DOTNET_INCLUDE_BEGIN ... #DOTNET_INCLUDE_END*/ block comment (dead alternate-implementation code, not compiled). No edit made; not even the marker comment was touched, to avoid disturbing inactive template code."
+    },
+    {
+      "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 204,
+      "touched_line_end": 204,
+      "migration_skip_marker": false,
+      "diff_summary": "getAllNodes(): new FilenameFilter(){public boolean accept(File,String){return name.endsWith(end);}} -> (File dir, String name) -> {return name.endsWith(end);} lambda; JADE-FLAG marker removed."
+    },
+    {
+      "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+      "match_count": 1,
+      "changes": 0,
+      "touched_line_start": 212,
+      "touched_line_end": 212,
+      "migration_skip_marker": true,
+      "diff_summary": "SKIPPED: same as the line-91 site -- java_source.is_live_code() is False, inside the same /*#DOTNET_INCLUDE_BEGIN...#DOTNET_INCLUDE_END*/ dead block. No edit made."
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "verify_shard.py warnings: baseline_jar_commit_unknown (no matching commit_hash for LAMBDA_CONVERSION in 09-rule-commit-log.json yet -- this is the rule's first accepted shard), empty_read_only_context (shard declares none). Neither affects the PASS verdict."
+  ]
+}

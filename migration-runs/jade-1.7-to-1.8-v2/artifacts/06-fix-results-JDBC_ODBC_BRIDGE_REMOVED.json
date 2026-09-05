@@ -1,0 +1,33 @@
+[
+  {
+    "task_id": "JDBC_ODBC_BRIDGE_REMOVED-body-local-001-f000",
+    "rule_id": "JDBC_ODBC_BRIDGE_REMOVED",
+    "file": "src/jade/src/jade/domain/KBManagement/DBKB.java",
+    "status": "NEEDS_REVIEW",
+    "match_count": 1,
+    "match_region": "lines 58-58",
+    "match_context": "jade-recipe-1.7-1.8-jdbc-odbc-bridge",
+    "diff_summary": "No edit. jade.domain.df.java's dbDefault=true path (line 424, kbFactory.getDFDBKB(maxResultLimit, null, null, null, null, cleanTables)) relies on this field's default value at runtime -- nulling it would only change the failure mode (CNFE -> NPE) at the same call site, not fix anything. A human must choose: bundle a real driver (HSQLDB's own, given the path is documented as 'internal HSQL database') or make the dbDefault path fail fast with a clear, actionable message.",
+    "verification_hint": "No mechanical rewrite exists -- there is no bridge-equivalent driver class. Verify the default driver string is no longer 'sun.jdbc.odbc.JdbcOdbcDriver' and that DBKB callers are documented as needing an explicit setDriver()/constructor-supplied JDBC driver before running on Java 8.",
+    "errors": [],
+    "warnings": [
+      "Real functional risk, not a mechanical fix: jade.domain.df.java line 424 (dbDefault persistent-KB path) is the relying call site -- see jade-core-orchestrator's REVIEW_REQUIRED.md for the full chain (df.java:424 -> DFKBFactory.getDFDBKB -> new DFDBKB(...) -> DBKB.loadDBDriver(null) -> Class.forName(\"sun.jdbc.odbc.JdbcOdbcDriver\"))."
+    ],
+    "applied_at": "2026-09-05T03:21:13Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [
+        "src/jade/src/jade/domain/DFDBKB.java",
+        "src/jade/src/jade/domain/DFKBFactory.java",
+        "src/jade/src/jade/domain/DFMemKB.java",
+        "src/jade/src/jade/domain/KBSubscriptionManager.java",
+        "src/jade/src/jade/domain/df.java"
+      ],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "JDBC_ODBC_BRIDGE_REMOVED-body-local-001"
+  }
+]

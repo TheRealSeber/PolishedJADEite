@@ -233,6 +233,81 @@ def compute_population(
                 continue
 
             skip_prefixes = scanner_module._comment_skip_prefixes(ext)
+
+            if pattern.multiline:
+                # Mirror scan_and_tag.py's multiline branch: match against
+                # the whole file (pattern.compiled already carries
+                # re.DOTALL — see PatternDef in scan_and_tag.py) instead of
+                # per-line, so a population count for a "multiline": true
+                # rule (e.g. LAMBDA_CONVERSION) matches what the real
+                # scanner would flag. Without this branch every multiline
+                # rule reports NO_POPULATION here regardless of how many
+                # hits the scanner actually finds — the precision gate
+                # would rubber-stamp a rule it never really sampled.
+                flag_re = scanner_module._flag_pattern_for_ext(ext)
+                content_parts: List[str] = []
+                line_index_map: List[int] = []
+                line_start_offsets: List[int] = []
+                offset = 0
+                for idx, candidate_line in enumerate(lines):
+                    if flag_re.match(candidate_line.strip()):
+                        continue
+                    piece = candidate_line + "\n"
+                    content_parts.append(piece)
+                    line_index_map.append(idx)
+                    line_start_offsets.append(offset)
+                    offset += len(piece)
+                content = "".join(content_parts)
+                idx_to_pos = {idx: pos for pos, idx in enumerate(line_index_map)}
+
+                matches_by_line: Dict[int, Any] = {}
+                for match in pattern.compiled.finditer(content):
+                    pos_idx = content.count("\n", 0, match.start())
+                    if pos_idx >= len(line_index_map):
+                        continue
+                    match_line_idx = line_index_map[pos_idx]
+                    matches_by_line.setdefault(match_line_idx, match)
+
+                for match_line_idx in sorted(matches_by_line):
+                    raw_line = lines[match_line_idx]
+                    stripped = raw_line.strip()
+                    if stripped.startswith(skip_prefixes):
+                        continue
+                    match = matches_by_line[match_line_idx]
+                    pos_idx = idx_to_pos[match_line_idx]
+                    line_start = line_start_offsets[pos_idx]
+                    line_len = len(content_parts[pos_idx])
+                    col_start = max(match.start() - line_start, 0)
+                    col_end = max(min(match.end(), line_start + line_len) - line_start, 0)
+
+                    line_no = match_line_idx + 1
+                    match_text_full = match.group(0)
+                    match_text = (
+                        match_text_full[:max_line_chars] + "…"
+                        if len(match_text_full) > max_line_chars
+                        else match_text_full
+                    )
+                    line_truncated = len(raw_line) > max_line_chars
+                    stored_line = raw_line[:max_line_chars] if line_truncated else raw_line
+                    raw_hits.append(
+                        {
+                            "pattern_index": pattern_index,
+                            "file": rel,
+                            "line": line_no,
+                            "match_text": match_text,
+                            "match_span": [col_start, col_end],
+                            "line_text_full": raw_line,
+                            "line_text": stored_line,
+                            "line_truncated": line_truncated,
+                            "context_before_src": lines,
+                            "context_index": match_line_idx,
+                        }
+                    )
+                    hits_per_pattern[str(pattern_index)] += 1
+                    files_with_hits.add(rel)
+                    per_file_counts[rel] = per_file_counts.get(rel, 0) + 1
+                continue  # multiline handled above — skip the per-line loop
+
             for i, raw_line in enumerate(lines):
                 stripped = raw_line.strip()
                 if stripped.startswith(skip_prefixes):

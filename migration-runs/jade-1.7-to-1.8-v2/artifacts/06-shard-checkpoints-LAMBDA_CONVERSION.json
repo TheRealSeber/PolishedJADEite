@@ -1,0 +1,451 @@
+{
+  "repo_root": "/Users/sebastian/Desktop/myown/PolishedJADEite-1718",
+  "rule_id": "LAMBDA_CONVERSION",
+  "run_id": "jade-1.7-to-1.8-v2",
+  "schema_version": 1,
+  "shards": {
+    "LAMBDA_CONVERSION-body-local-001": {
+      "created_at": "2026-09-05T03:30:19Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/BootGUI.java"
+        },
+        {
+          "file": "src/jade/src/jade/MicroBoot.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/Agent.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/BackEndContainer.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/FullResourceManager.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/JVM.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/MicroRuntime.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/PlatformManagerImpl.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/Runtime.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/ScalabilityTest.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/behaviours/OntologyServer.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/behaviours/WrapperBehaviour.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/event/NotificationService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/faultRecovery/FaultRecoveryService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/management/AgentManagementService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessageManager.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessagingService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MomMessagingService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/PersistentDeliveryManager.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/PersistentDeliveryService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/Poller.java"
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMService.java"
+        },
+        {
+          "file": "src/jade/src/jade/domain/ams.java"
+        },
+        {
+          "file": "src/jade/src/jade/domain/df.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/AIDGui.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/APDescriptionPanel.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/APServicePanel.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/AboutJadeAction.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/ClassSelectionDialog.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/ConstraintDlg.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/DFAgentDscDlg.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/JadeLogoButton.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/ServiceDscDlg.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/StringDlg.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/TreeHelp.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/UserPropertyGui.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/VisualStringList.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/BIBEDispatcher.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/BIFEDispatcher.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/FrontEndDispatcher.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/JICPPeer.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/JICPSPeer.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/MicroStub.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/http/HTTPBEDispatcher.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/http/HTTPPeer.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/http/HTTPSPeer.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOBEDispatcher.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPBEDispatcher.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPPeer.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPSPeer.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPPeer.java"
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPSPeer.java"
+        },
+        {
+          "file": "src/jade/src/jade/lang/acl/ConversationList.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/AchieveREInitiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/ContractNetInitiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/IteratedAchieveREInitiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/ProposeInitiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/SubscriptionInitiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/SubscriptionResponder.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/TwoPh0Initiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/TwoPh1Initiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/TwoPh2Initiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/TwoPhInitiator.java"
+        },
+        {
+          "file": "src/jade/src/jade/proto/states/HandlerSelector.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgent.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/ToolAgent.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/ToolNotifier.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLAIDDialog.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLAIDList.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLComboBox.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLContentDialog.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLFrame.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPanel.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPropertyList.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/AIDAddressList.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/gui/IntrospectorGUI.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/logging/LogHelperAgent.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/logging/LogManagerAgent.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/InstallMTPDialog.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/ManageMTPsDialog.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/rma.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/MainWindow.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/Sniffer.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgent.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java"
+        },
+        {
+          "file": "src/jade/src/jade/util/ClassFinder.java"
+        },
+        {
+          "file": "src/jade/src/jade/wrapper/gateway/DynamicJadeGateway.java"
+        },
+        {
+          "file": "src/jade/src/jade/wrapper/gateway/GatewayAgent.java"
+        },
+        {
+          "file": "src/jade/src/jade/wrapper/gateway/SplitJadeGateway.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T03:32:11Z"
+    },
+    "LAMBDA_CONVERSION-body-local-002": {
+      "created_at": "2026-09-05T03:07:34Z",
+      "files": [
+        {
+          "blob": "6cdad507fb3d43803325b6d3e7ee9c967b42b10b",
+          "existed": true,
+          "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+          "mode": 420
+        }
+      ],
+      "rollback_reason": "record exit=4 (NEEDS_REVIEW) is structural, not edit-quality: LAMBDA_CONVERSION's manifest confidence is 0.8, MATCH_QUALITY_FACTORS caps at 1.0 for 'exact', so final_confidence=0.8 always < NEEDS_REVIEW_THRESHOLD=0.85 regardless of how clean the site is (confirmed: the single genuinely-FIXED FilenameFilter->lambda site at line80 tripped low_final_confidence on its own, independent of the two SKIPPED dead-code sites). Every LAMBDA_CONVERSION FIXED envelope will hit this same ceiling -- rolling back per the unconditional accept-gate; recorded NEEDS_REVIEW envelope preserves the verified-correct diff for REVIEW_REQUIRED.md.",
+      "state": "ROLLED_BACK",
+      "updated_at": "2026-09-05T03:10:41Z"
+    },
+    "LAMBDA_CONVERSION-body-local-003": {
+      "created_at": "2026-09-05T03:11:25Z",
+      "files": [
+        {
+          "blob": "583fa4fbe826cb0ed88efa34c9286582cd5dd5b8",
+          "existed": true,
+          "file": "src/jade/src/jade/core/nodeMonitoring/UDPMonitorServer.java",
+          "mode": 420
+        }
+      ],
+      "rollback_reason": "gate_signatures.py REJECT (exit=2): the private Thread-anon-class-to-lambda conversion inside handleUnknownPing() does not change UDPMonitorServer's public API, but gate_signatures.py's _node_signature() hashes the WHOLE extracted node (all methods/calls, not scoped to public declarations), so any body-local edit to a file with real external callers (UDPNodeFailureMonitor.java, UDPNodeMonitoringService.java both call/type_ref this file) registers as a signature leak even when nothing public changed. This is a second, independent structural pipeline gap (alongside the confidence-vs-threshold one recorded on shard-002) that blocks body-local LAMBDA_CONVERSION shards whenever the edited file has any real caller. verify_shard.py PASSED (exit 1, real Docker javac compile clean); rolling back only because gate_signatures.py rejected per the unconditional accept-gate.",
+      "state": "ROLLED_BACK",
+      "updated_at": "2026-09-05T03:13:22Z"
+    },
+    "LAMBDA_CONVERSION-body-local-004": {
+      "created_at": "2026-09-05T03:17:18Z",
+      "files": [
+        {
+          "blob": "7ca9001c207db13829986d60c2adbfb9492cb801",
+          "existed": true,
+          "file": "src/jade/src/jade/imtp/leap/nio/StuckSimulator.java",
+          "mode": 420
+        }
+      ],
+      "rollback_reason": "record exit=4 (NEEDS_REVIEW / low_final_confidence): same structural confidence-vs-threshold gap as LAMBDA_CONVERSION-body-local-002/003 (manifest confidence 0.8 < NEEDS_REVIEW_THRESHOLD 0.85, unconditional for any declared status=FIXED). verify PASSED (real Docker javac compile clean) and gate PASSED (no external callers -- debug-only package-private class). Rolling back only because of the confidence ceiling; the verified-correct diff is preserved in 06-fix-results for REVIEW_REQUIRED.md.",
+      "state": "ROLLED_BACK",
+      "updated_at": "2026-09-05T03:18:02Z"
+    },
+    "LAMBDA_CONVERSION-body-local-005": {
+      "created_at": "2026-09-05T03:18:08Z",
+      "files": [
+        {
+          "blob": "e2df7ebce3d0a83c1f75f05e44e4c3711813808e",
+          "existed": true,
+          "file": "src/jade/src/jade/imtp/leap/sms/PhoneBasedSMSManager.java",
+          "mode": 420
+        }
+      ],
+      "rollback_reason": "record exit=4 (NEEDS_REVIEW / low_final_confidence): same structural confidence-vs-threshold gap (0.8 < 0.85) as every other LAMBDA_CONVERSION FIXED shard. verify PASSED and gate PASSED. Rolling back only because of the confidence ceiling.",
+      "state": "ROLLED_BACK",
+      "updated_at": "2026-09-05T03:18:51Z"
+    },
+    "LAMBDA_CONVERSION-body-local-006": {
+      "created_at": "2026-09-05T03:18:56Z",
+      "files": [
+        {
+          "blob": "02530cd862579b0d8c668d7c763a3bedad192edb",
+          "existed": true,
+          "file": "src/jade/src/jade/imtp/leap/sms/SMSManagerGui.java",
+          "mode": 420
+        }
+      ],
+      "rollback_reason": "record exit=4 (NEEDS_REVIEW / low_final_confidence): same structural confidence-vs-threshold gap (0.8 < 0.85) as every other LAMBDA_CONVERSION FIXED shard. verify PASSED and gate PASSED. Rolling back only because of the confidence ceiling.",
+      "state": "ROLLED_BACK",
+      "updated_at": "2026-09-05T03:19:36Z"
+    },
+    "LAMBDA_CONVERSION-body-local-007": {
+      "created_at": "2026-09-05T03:13:29Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/tools/introspector/gui/AboutBoxAction.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T03:14:10Z"
+    },
+    "LAMBDA_CONVERSION-body-local-008": {
+      "created_at": "2026-09-05T03:14:14Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/tools/rma/TablePanel.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T03:14:56Z"
+    },
+    "LAMBDA_CONVERSION-body-local-009": {
+      "created_at": "2026-09-05T03:14:59Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/tools/sniffer/AboutBoxAction.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T03:15:35Z"
+    },
+    "LAMBDA_CONVERSION-body-local-010": {
+      "created_at": "2026-09-05T03:15:38Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/util/PrintStreamSplitter.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T03:16:14Z"
+    },
+    "LAMBDA_CONVERSION-body-local-011": {
+      "created_at": "2026-09-05T03:16:17Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/wrapper/PlatformControllerImpl.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T03:17:00Z"
+    }
+  },
+  "workspace_root": "migration-runs/jade-1.7-to-1.8-v2/workspace"
+}

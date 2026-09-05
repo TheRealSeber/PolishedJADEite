@@ -1,0 +1,46 @@
+{
+  "blast_class": "body-local",
+  "flag_index_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/04-flag-index.json",
+  "flagged_files_missing_from_graph": [],
+  "graph_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+  "graph_content_hash": "a4bb11b5c5b1cd26d4ca04127d18a2cc428e81cac527be0e61cefd72cbde1b16",
+  "manifest_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/01-breaking-changes-manifest.json",
+  "rule_id": "JDBC_ODBC_BRIDGE_REMOVED",
+  "run_id": "jade-1.7-to-1.8-v2",
+  "schema_version": 1,
+  "shard_count": 1,
+  "shards": [
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/domain/KBManagement/DBKB.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/domain/KBManagement/DBKB.java",
+          "line": 58
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [
+        "src/jade/src/jade/domain/DFDBKB.java",
+        "src/jade/src/jade/domain/DFKBFactory.java",
+        "src/jade/src/jade/domain/DFMemKB.java",
+        "src/jade/src/jade/domain/KBSubscriptionManager.java",
+        "src/jade/src/jade/domain/df.java"
+      ],
+      "rule_id": "JDBC_ODBC_BRIDGE_REMOVED",
+      "shard_id": "JDBC_ODBC_BRIDGE_REMOVED-body-local-001"
+    }
+  ],
+  "status": "OK",
+  "total_flagged_files": 1,
+  "total_flags": 1,
+  "warnings": []
+}

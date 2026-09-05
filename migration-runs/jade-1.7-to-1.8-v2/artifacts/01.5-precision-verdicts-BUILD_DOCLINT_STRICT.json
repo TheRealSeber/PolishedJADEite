@@ -1,0 +1,17 @@
+{
+  "rule_id": "BUILD_DOCLINT_STRICT",
+  "sample_hash": "ab1110fc558f206fbe44eafff47710e0cf0400b3e7c79e3d32f9c060c183aa55",
+  "schema_version": 1,
+  "verdicts": [
+    {
+      "hit_id": "34690bce9216851e",
+      "reason": "Genuine <javadoc> Ant element for the sniffer tool docs with no -Xdoclint attribute present anywhere on the tag -- exactly the construct the rule targets, confirmed by manual inspection of build.xml.",
+      "verdict": "TRUE_POSITIVE"
+    },
+    {
+      "hit_id": "9b5f7fd966090fdb",
+      "reason": "Genuine <javadoc> Ant element for the main API docs with no -Xdoclint attribute present anywhere on the tag (checked the full attribute list) -- exactly the construct the rule targets, confirmed by manual inspection of build.xml.",
+      "verdict": "TRUE_POSITIVE"
+    }
+  ]
+}

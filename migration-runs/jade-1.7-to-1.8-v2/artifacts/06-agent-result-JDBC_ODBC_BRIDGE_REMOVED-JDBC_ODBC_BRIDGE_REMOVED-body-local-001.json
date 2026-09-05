@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "rule_id": "JDBC_ODBC_BRIDGE_REMOVED",
+  "shard_id": "JDBC_ODBC_BRIDGE_REMOVED-body-local-001",
+  "status": "NEEDS_REVIEW",
+  "match_quality": "exact",
+  "diff_summary": "DBKB.java:57 `protected String driver = \"sun.jdbc.odbc.JdbcOdbcDriver\";` is still live. Checked read_only_context for every real use site per the recipe: DFKBFactory.getDFDBKB(maxResultLimit, driver, url, user, passwd, cleanTables) constructs `new DFDBKB(maxResultLimit, driver, url, user, passwd, cleanTables)` -> `super(drv, url, user, passwd, maxResultLimit, cleanTables)` -> `DBKB(drv,...)` -> `loadDBDriver(drv)`. jade.domain.df.java calls this factory method from TWO places: (1) line 453, the explicit-config path, always passes a real `dbDriver` value (never relies on the field default); (2) line 424, the `dbDefault=true` ('persistent using internal HSQL database') path, calls `kbFactory.getDFDBKB(maxResultLimit, null, null, null, null, cleanTables)` -- driver=null. In loadDBDriver(), `drv==null` skips the `driver = drv` assignment entirely, so `driver` keeps its field-initializer value (the JDBC-ODBC Bridge string) and `Class.forName(driver)` is called with it. This is a real, live, non-dead call path (the `dbDefault` DF-agent config flag), not a stale/unreachable default. Per the recipe: since at least one use site relies on the field's default, do NOT null it -- that would trade today's clear ClassNotFoundException(sun.jdbc.odbc.JdbcOdbcDriver) for a NullPointerException at the same Class.forName(driver) call (Class.forName(null) throws NPE, not CNFE), which is strictly more confusing for whoever hits it. No edit made; left as-is. This is the one rule in the 1.7->1.8 jump manifest with real functional-break risk (marked HIGH) and it does NOT have a mechanical fix -- a human needs to either (a) supply a bundled JDBC driver (e.g. HSQLDB's own driver, since the code path is literally named 'persistent using internal HSQL database' and probably intended an HSQL driver all along, not ODBC) for the dbDefault path, or (b) fail fast with an explicit, actionable error message instead of falling through to a driver that no longer exists.",
+  "files": [
+    {
+      "file": "src/jade/src/jade/domain/KBManagement/DBKB.java",
+      "match_count": 1,
+      "changes": 0,
+      "touched_line_start": 58,
+      "touched_line_end": 58,
+      "migration_skip_marker": false,
+      "diff_summary": "No edit. jade.domain.df.java's dbDefault=true path (line 424, kbFactory.getDFDBKB(maxResultLimit, null, null, null, null, cleanTables)) relies on this field's default value at runtime -- nulling it would only change the failure mode (CNFE -> NPE) at the same call site, not fix anything. A human must choose: bundle a real driver (HSQLDB's own, given the path is documented as 'internal HSQL database') or make the dbDefault path fail fast with a clear, actionable message."
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "Real functional risk, not a mechanical fix: jade.domain.df.java line 424 (dbDefault persistent-KB path) is the relying call site -- see jade-core-orchestrator's REVIEW_REQUIRED.md for the full chain (df.java:424 -> DFKBFactory.getDFDBKB -> new DFDBKB(...) -> DBKB.loadDBDriver(null) -> Class.forName(\"sun.jdbc.odbc.JdbcOdbcDriver\"))."
+  ]
+}

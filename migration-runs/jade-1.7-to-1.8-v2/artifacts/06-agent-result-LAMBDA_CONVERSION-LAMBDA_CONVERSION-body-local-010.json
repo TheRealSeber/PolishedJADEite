@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "rule_id": "LAMBDA_CONVERSION",
+  "shard_id": "LAMBDA_CONVERSION-body-local-010",
+  "status": "SKIPPED",
+  "match_quality": "exact",
+  "diff_summary": "PrintStreamSplitter.java: super(new OutputStream(){ public void write(int b) throws IOException {} }). java.io.OutputStream is an abstract CLASS (not an interface) with exactly one abstract method (write(int)) -- but Java 8 lambdas can only implement functional interfaces, never extend/subclass any class, regardless of abstract method count. Not convertible. JADE-FLAG marker replaced with JADE-MODERNIZATION-DEFERRED naming the reason; anonymous class untouched. Verified by compiling in Docker (frekele/ant:1.10.3-jdk8) -- PASS, 0 errors; comment-only edit produces zero knowledge-graph diff.",
+  "files": [
+    {
+      "file": "src/jade/src/jade/util/PrintStreamSplitter.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 49,
+      "touched_line_end": 49,
+      "migration_skip_marker": true,
+      "diff_summary": "OutputStream is an abstract class, not an interface -- lambdas cannot target classes even with a single abstract method. Marker swapped to JADE-MODERNIZATION-DEFERRED."
+    }
+  ],
+  "errors": [],
+  "warnings": []
+}

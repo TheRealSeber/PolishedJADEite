@@ -1,0 +1,72 @@
+{
+  "run_id": "jade-1.7-to-1.8-v2",
+  "rules": [
+    "JDBC_ODBC_BRIDGE_REMOVED",
+    "LAMBDA_CONVERSION",
+    "BUILD_DOCLINT_STRICT",
+    "BUILD_RMIC_DEPRECATED"
+  ],
+  "graph_metadata": {
+    "status": "computed",
+    "source_artifact": "03.5-knowledge-graph.json",
+    "suggested_order": [
+      "BUILD_DOCLINT_STRICT",
+      "BUILD_RMIC_DEPRECATED",
+      "JDBC_ODBC_BRIDGE_REMOVED",
+      "LAMBDA_CONVERSION"
+    ],
+    "direct_counts": {
+      "JDBC_ODBC_BRIDGE_REMOVED": 1,
+      "LAMBDA_CONVERSION": 113,
+      "BUILD_DOCLINT_STRICT": 1,
+      "BUILD_RMIC_DEPRECATED": 1
+    },
+    "impact_counts": {
+      "JDBC_ODBC_BRIDGE_REMOVED": 428,
+      "LAMBDA_CONVERSION": 440,
+      "BUILD_DOCLINT_STRICT": 0,
+      "BUILD_RMIC_DEPRECATED": 0
+    },
+    "cycles": [
+      [
+        "JDBC_ODBC_BRIDGE_REMOVED",
+        "LAMBDA_CONVERSION"
+      ]
+    ],
+    "ordering_reasons": [
+      {
+        "rule": "BUILD_DOCLINT_STRICT",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      },
+      {
+        "rule": "BUILD_RMIC_DEPRECATED",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      },
+      {
+        "rule": "JDBC_ODBC_BRIDGE_REMOVED",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      },
+      {
+        "rule": "LAMBDA_CONVERSION",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      }
+    ],
+    "diagnostics": [
+      {
+        "kind": "ambiguous_file_ownership",
+        "file": "src/jade/build.xml",
+        "rules": [
+          "BUILD_DOCLINT_STRICT",
+          "BUILD_RMIC_DEPRECATED"
+        ]
+      },
+      {
+        "kind": "cycle",
+        "rules": [
+          "JDBC_ODBC_BRIDGE_REMOVED",
+          "LAMBDA_CONVERSION"
+        ]
+      }
+    ]
+  }
+}

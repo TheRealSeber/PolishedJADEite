@@ -1,0 +1,1452 @@
+{
+  "schema_version": 1,
+  "rule_id": "LAMBDA_CONVERSION",
+  "shard_id": "LAMBDA_CONVERSION-body-local-001",
+  "status": "SKIPPED",
+  "match_quality": "exact",
+  "diff_summary": "160 of 384 flagged anonymous-class sites in shard LAMBDA_CONVERSION-body-local-001 left unconverted, still carrying the JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker (39 files fully deferred, 22 files partially deferred). Recorded as SKIPPED rather than FAILED: no build or apply error was observed for these sites, they were simply not attempted/left for future review.",
+  "files": [
+    {
+      "file": "src/jade/src/jade/BootGUI.java",
+      "match_count": 1,
+      "touched_line_start": 160,
+      "touched_line_end": 160,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 160; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/Agent.java",
+      "match_count": 1,
+      "touched_line_start": 1055,
+      "touched_line_end": 1055,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1055; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/BackEndContainer.java",
+      "match_count": 1,
+      "touched_line_start": 382,
+      "touched_line_end": 382,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 382; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/FullResourceManager.java",
+      "match_count": 1,
+      "touched_line_start": 53,
+      "touched_line_end": 53,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 53; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/JVM.java",
+      "match_count": 1,
+      "touched_line_start": 33,
+      "touched_line_end": 33,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 33; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/JVM.java",
+      "match_count": 1,
+      "touched_line_start": 45,
+      "touched_line_end": 45,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 45; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/PlatformManagerImpl.java",
+      "match_count": 1,
+      "touched_line_start": 982,
+      "touched_line_end": 982,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 982; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/ScalabilityTest.java",
+      "match_count": 1,
+      "touched_line_start": 425,
+      "touched_line_end": 425,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 425; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/ScalabilityTest.java",
+      "match_count": 1,
+      "touched_line_start": 432,
+      "touched_line_end": 432,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 432; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/ScalabilityTest.java",
+      "match_count": 1,
+      "touched_line_start": 465,
+      "touched_line_end": 465,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 465; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/ScalabilityTest.java",
+      "match_count": 1,
+      "touched_line_start": 532,
+      "touched_line_end": 532,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 532; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/ScalabilityTest.java",
+      "match_count": 1,
+      "touched_line_start": 539,
+      "touched_line_end": 539,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 539; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/ScalabilityTest.java",
+      "match_count": 1,
+      "touched_line_start": 575,
+      "touched_line_end": 575,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 575; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/behaviours/WrapperBehaviour.java",
+      "match_count": 1,
+      "touched_line_start": 17,
+      "touched_line_end": 17,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 17; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/faultRecovery/FaultRecoveryService.java",
+      "match_count": 1,
+      "touched_line_start": 225,
+      "touched_line_end": 225,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 225; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/faultRecovery/FaultRecoveryService.java",
+      "match_count": 1,
+      "touched_line_start": 256,
+      "touched_line_end": 256,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 256; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/management/AgentManagementService.java",
+      "match_count": 1,
+      "touched_line_start": 107,
+      "touched_line_end": 107,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 107; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "match_count": 1,
+      "touched_line_start": 410,
+      "touched_line_end": 410,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 410; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "match_count": 1,
+      "touched_line_start": 420,
+      "touched_line_end": 420,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 420; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "match_count": 1,
+      "touched_line_start": 427,
+      "touched_line_end": 427,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 427; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "match_count": 1,
+      "touched_line_start": 449,
+      "touched_line_end": 449,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 449; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "match_count": 1,
+      "touched_line_start": 455,
+      "touched_line_end": 455,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 455; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "match_count": 1,
+      "touched_line_start": 461,
+      "touched_line_end": 461,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 461; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "match_count": 1,
+      "touched_line_start": 467,
+      "touched_line_end": 467,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 467; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/PersistentDeliveryManager.java",
+      "match_count": 1,
+      "touched_line_start": 191,
+      "touched_line_end": 191,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 191; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java",
+      "match_count": 1,
+      "touched_line_start": 389,
+      "touched_line_end": 389,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 389; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+      "match_count": 1,
+      "touched_line_start": 862,
+      "touched_line_end": 862,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 862; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/sam/SAMService.java",
+      "match_count": 1,
+      "touched_line_start": 97,
+      "touched_line_end": 97,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 97; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/sam/SAMService.java",
+      "match_count": 1,
+      "touched_line_start": 150,
+      "touched_line_end": 150,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 150; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/sam/SAMService.java",
+      "match_count": 1,
+      "touched_line_start": 164,
+      "touched_line_end": 164,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 164; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/core/sam/SAMService.java",
+      "match_count": 1,
+      "touched_line_start": 177,
+      "touched_line_end": 177,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 177; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/ams.java",
+      "match_count": 1,
+      "touched_line_start": 206,
+      "touched_line_end": 206,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 206; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/ams.java",
+      "match_count": 1,
+      "touched_line_start": 966,
+      "touched_line_end": 966,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 966; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/ams.java",
+      "match_count": 1,
+      "touched_line_start": 978,
+      "touched_line_end": 978,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 978; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/ams.java",
+      "match_count": 1,
+      "touched_line_start": 990,
+      "touched_line_end": 990,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 990; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/ams.java",
+      "match_count": 1,
+      "touched_line_start": 1002,
+      "touched_line_end": 1002,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1002; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/ams.java",
+      "match_count": 1,
+      "touched_line_start": 1018,
+      "touched_line_end": 1018,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1018; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/ams.java",
+      "match_count": 1,
+      "touched_line_start": 1535,
+      "touched_line_end": 1535,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1535; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/df.java",
+      "match_count": 1,
+      "touched_line_start": 582,
+      "touched_line_end": 582,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 582; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/df.java",
+      "match_count": 1,
+      "touched_line_start": 1189,
+      "touched_line_end": 1189,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1189; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/df.java",
+      "match_count": 1,
+      "touched_line_start": 1213,
+      "touched_line_end": 1213,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1213; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/df.java",
+      "match_count": 1,
+      "touched_line_start": 1240,
+      "touched_line_end": 1240,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1240; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/df.java",
+      "match_count": 1,
+      "touched_line_start": 1266,
+      "touched_line_end": 1266,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1266; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/df.java",
+      "match_count": 1,
+      "touched_line_start": 1286,
+      "touched_line_end": 1286,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1286; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/df.java",
+      "match_count": 1,
+      "touched_line_start": 1331,
+      "touched_line_end": 1331,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1331; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/df.java",
+      "match_count": 1,
+      "touched_line_start": 1365,
+      "touched_line_end": 1365,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1365; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/df.java",
+      "match_count": 1,
+      "touched_line_start": 1402,
+      "touched_line_end": 1402,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1402; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/df.java",
+      "match_count": 1,
+      "touched_line_start": 1430,
+      "touched_line_end": 1430,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1430; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/domain/df.java",
+      "match_count": 1,
+      "touched_line_start": 1453,
+      "touched_line_end": 1453,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1453; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/gui/AboutJadeAction.java",
+      "match_count": 1,
+      "touched_line_start": 95,
+      "touched_line_end": 95,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 95; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/gui/ClassSelectionDialog.java",
+      "match_count": 1,
+      "touched_line_start": 387,
+      "touched_line_end": 387,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 387; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/gui/TreeHelp.java",
+      "match_count": 1,
+      "touched_line_start": 80,
+      "touched_line_end": 80,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 80; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/gui/TreeHelp.java",
+      "match_count": 1,
+      "touched_line_start": 95,
+      "touched_line_end": 95,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 95; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/JICP/BIFEDispatcher.java",
+      "match_count": 1,
+      "touched_line_start": 963,
+      "touched_line_end": 963,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 963; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/JICP/JICPPeer.java",
+      "match_count": 1,
+      "touched_line_start": 160,
+      "touched_line_end": 160,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 160; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/JICP/JICPSPeer.java",
+      "match_count": 1,
+      "touched_line_start": 96,
+      "touched_line_end": 96,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 96; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/http/HTTPPeer.java",
+      "match_count": 1,
+      "touched_line_start": 65,
+      "touched_line_end": 65,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 65; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/http/HTTPSPeer.java",
+      "match_count": 1,
+      "touched_line_start": 23,
+      "touched_line_end": 23,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 23; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "match_count": 1,
+      "touched_line_start": 347,
+      "touched_line_end": 347,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 347; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "match_count": 1,
+      "touched_line_start": 357,
+      "touched_line_end": 357,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 357; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "match_count": 1,
+      "touched_line_start": 391,
+      "touched_line_end": 391,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 391; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "match_count": 1,
+      "touched_line_start": 399,
+      "touched_line_end": 399,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 399; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "match_count": 1,
+      "touched_line_start": 407,
+      "touched_line_end": 407,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 407; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "match_count": 1,
+      "touched_line_start": 415,
+      "touched_line_end": 415,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 415; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "match_count": 1,
+      "touched_line_start": 423,
+      "touched_line_end": 423,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 423; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "match_count": 1,
+      "touched_line_start": 431,
+      "touched_line_end": 431,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 431; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "match_count": 1,
+      "touched_line_start": 441,
+      "touched_line_end": 441,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 441; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+      "match_count": 1,
+      "touched_line_start": 449,
+      "touched_line_end": 449,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 449; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPPeer.java",
+      "match_count": 1,
+      "touched_line_start": 26,
+      "touched_line_end": 26,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 26; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPSPeer.java",
+      "match_count": 1,
+      "touched_line_start": 22,
+      "touched_line_end": 22,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 22; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPPeer.java",
+      "match_count": 1,
+      "touched_line_start": 27,
+      "touched_line_end": 27,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 27; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPSPeer.java",
+      "match_count": 1,
+      "touched_line_start": 25,
+      "touched_line_end": 25,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 25; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/AchieveREInitiator.java",
+      "match_count": 1,
+      "touched_line_start": 213,
+      "touched_line_end": 213,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 213; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/AchieveREInitiator.java",
+      "match_count": 1,
+      "touched_line_start": 223,
+      "touched_line_end": 223,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 223; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/AchieveREInitiator.java",
+      "match_count": 1,
+      "touched_line_start": 233,
+      "touched_line_end": 233,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 233; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/ContractNetInitiator.java",
+      "match_count": 1,
+      "touched_line_start": 264,
+      "touched_line_end": 264,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 264; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/ContractNetInitiator.java",
+      "match_count": 1,
+      "touched_line_start": 276,
+      "touched_line_end": 276,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 276; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/IteratedAchieveREInitiator.java",
+      "match_count": 1,
+      "touched_line_start": 88,
+      "touched_line_end": 88,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 88; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/ProposeInitiator.java",
+      "match_count": 1,
+      "touched_line_start": 286,
+      "touched_line_end": 286,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 286; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/ProposeInitiator.java",
+      "match_count": 1,
+      "touched_line_start": 295,
+      "touched_line_end": 295,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 295; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/ProposeInitiator.java",
+      "match_count": 1,
+      "touched_line_start": 304,
+      "touched_line_end": 304,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 304; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/ProposeInitiator.java",
+      "match_count": 1,
+      "touched_line_start": 352,
+      "touched_line_end": 352,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 352; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/SubscriptionInitiator.java",
+      "match_count": 1,
+      "touched_line_start": 198,
+      "touched_line_end": 198,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 198; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/SubscriptionInitiator.java",
+      "match_count": 1,
+      "touched_line_start": 208,
+      "touched_line_end": 208,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 208; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/SubscriptionResponder.java",
+      "match_count": 1,
+      "touched_line_start": 157,
+      "touched_line_end": 157,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 157; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/SubscriptionResponder.java",
+      "match_count": 1,
+      "touched_line_start": 180,
+      "touched_line_end": 180,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 180; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/SubscriptionResponder.java",
+      "match_count": 1,
+      "touched_line_start": 204,
+      "touched_line_end": 204,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 204; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/TwoPh0Initiator.java",
+      "match_count": 1,
+      "touched_line_start": 127,
+      "touched_line_end": 127,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 127; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/TwoPh0Initiator.java",
+      "match_count": 1,
+      "touched_line_start": 139,
+      "touched_line_end": 139,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 139; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/TwoPh1Initiator.java",
+      "match_count": 1,
+      "touched_line_start": 153,
+      "touched_line_end": 153,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 153; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/TwoPh1Initiator.java",
+      "match_count": 1,
+      "touched_line_start": 165,
+      "touched_line_end": 165,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 165; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/TwoPh1Initiator.java",
+      "match_count": 1,
+      "touched_line_start": 177,
+      "touched_line_end": 177,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 177; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/TwoPh1Initiator.java",
+      "match_count": 1,
+      "touched_line_start": 188,
+      "touched_line_end": 188,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 188; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/TwoPh2Initiator.java",
+      "match_count": 1,
+      "touched_line_start": 169,
+      "touched_line_end": 169,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 169; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/TwoPh2Initiator.java",
+      "match_count": 1,
+      "touched_line_start": 179,
+      "touched_line_end": 179,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 179; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/TwoPhInitiator.java",
+      "match_count": 1,
+      "touched_line_start": 199,
+      "touched_line_end": 199,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 199; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/proto/states/HandlerSelector.java",
+      "match_count": 1,
+      "touched_line_start": 107,
+      "touched_line_end": 107,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 107; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "match_count": 1,
+      "touched_line_start": 136,
+      "touched_line_end": 136,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 136; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "match_count": 1,
+      "touched_line_start": 159,
+      "touched_line_end": 159,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 159; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "match_count": 1,
+      "touched_line_start": 174,
+      "touched_line_end": 174,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 174; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "match_count": 1,
+      "touched_line_start": 203,
+      "touched_line_end": 203,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 203; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "match_count": 1,
+      "touched_line_start": 238,
+      "touched_line_end": 238,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 238; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "match_count": 1,
+      "touched_line_start": 275,
+      "touched_line_end": 275,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 275; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "match_count": 1,
+      "touched_line_start": 329,
+      "touched_line_end": 329,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 329; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "match_count": 1,
+      "touched_line_start": 376,
+      "touched_line_end": 376,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 376; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "match_count": 1,
+      "touched_line_start": 394,
+      "touched_line_end": 394,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 394; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "match_count": 1,
+      "touched_line_start": 415,
+      "touched_line_end": 415,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 415; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "match_count": 1,
+      "touched_line_start": 431,
+      "touched_line_end": 431,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 431; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/ToolAgent.java",
+      "match_count": 1,
+      "touched_line_start": 222,
+      "touched_line_end": 222,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 222; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/ToolNotifier.java",
+      "match_count": 1,
+      "touched_line_start": 390,
+      "touched_line_end": 390,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 390; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+      "match_count": 1,
+      "touched_line_start": 365,
+      "touched_line_end": 365,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 365; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+      "match_count": 1,
+      "touched_line_start": 378,
+      "touched_line_end": 378,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 378; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+      "match_count": 1,
+      "touched_line_start": 421,
+      "touched_line_end": 421,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 421; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+      "match_count": 1,
+      "touched_line_start": 464,
+      "touched_line_end": 464,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 464; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+      "match_count": 1,
+      "touched_line_start": 505,
+      "touched_line_end": 505,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 505; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+      "match_count": 1,
+      "touched_line_start": 552,
+      "touched_line_end": 552,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 552; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLAIDDialog.java",
+      "match_count": 1,
+      "touched_line_start": 207,
+      "touched_line_end": 207,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 207; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLAIDList.java",
+      "match_count": 1,
+      "touched_line_start": 317,
+      "touched_line_end": 317,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 317; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLAIDList.java",
+      "match_count": 1,
+      "touched_line_start": 323,
+      "touched_line_end": 323,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 323; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLContentDialog.java",
+      "match_count": 1,
+      "touched_line_start": 78,
+      "touched_line_end": 78,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 78; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+      "match_count": 1,
+      "touched_line_start": 576,
+      "touched_line_end": 576,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 576; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+      "match_count": 1,
+      "touched_line_start": 585,
+      "touched_line_end": 585,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 585; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+      "match_count": 1,
+      "touched_line_start": 625,
+      "touched_line_end": 625,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 625; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+      "match_count": 1,
+      "touched_line_start": 658,
+      "touched_line_end": 658,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 658; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLPropertyList.java",
+      "match_count": 1,
+      "touched_line_start": 298,
+      "touched_line_end": 298,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 298; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLPropertyList.java",
+      "match_count": 1,
+      "touched_line_start": 304,
+      "touched_line_end": 304,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 304; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+      "match_count": 1,
+      "touched_line_start": 1189,
+      "touched_line_end": 1189,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1189; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+      "match_count": 1,
+      "touched_line_start": 1202,
+      "touched_line_end": 1202,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1202; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+      "match_count": 1,
+      "touched_line_start": 1221,
+      "touched_line_end": 1221,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1221; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+      "match_count": 1,
+      "touched_line_start": 1240,
+      "touched_line_end": 1240,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1240; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+      "match_count": 1,
+      "touched_line_start": 1259,
+      "touched_line_end": 1259,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1259; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/AIDAddressList.java",
+      "match_count": 1,
+      "touched_line_start": 266,
+      "touched_line_end": 266,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 266; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/AIDAddressList.java",
+      "match_count": 1,
+      "touched_line_start": 272,
+      "touched_line_end": 272,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 272; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "match_count": 1,
+      "touched_line_start": 153,
+      "touched_line_end": 153,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 153; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "match_count": 1,
+      "touched_line_start": 160,
+      "touched_line_end": 160,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 160; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "match_count": 1,
+      "touched_line_start": 177,
+      "touched_line_end": 177,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 177; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "match_count": 1,
+      "touched_line_start": 186,
+      "touched_line_end": 186,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 186; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "match_count": 1,
+      "touched_line_start": 205,
+      "touched_line_end": 205,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 205; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "match_count": 1,
+      "touched_line_start": 224,
+      "touched_line_end": 224,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 224; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "match_count": 1,
+      "touched_line_start": 269,
+      "touched_line_end": 269,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 269; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "match_count": 1,
+      "touched_line_start": 455,
+      "touched_line_end": 455,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 455; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "match_count": 1,
+      "touched_line_start": 462,
+      "touched_line_end": 462,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 462; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "match_count": 1,
+      "touched_line_start": 473,
+      "touched_line_end": 473,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 473; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "match_count": 1,
+      "touched_line_start": 484,
+      "touched_line_end": 484,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 484; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "match_count": 1,
+      "touched_line_start": 509,
+      "touched_line_end": 509,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 509; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "match_count": 1,
+      "touched_line_start": 521,
+      "touched_line_end": 521,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 521; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "match_count": 1,
+      "touched_line_start": 533,
+      "touched_line_end": 533,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 533; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "match_count": 1,
+      "touched_line_start": 545,
+      "touched_line_end": 545,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 545; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+      "match_count": 1,
+      "touched_line_start": 676,
+      "touched_line_end": 676,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 676; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/logging/LogHelperAgent.java",
+      "match_count": 1,
+      "touched_line_start": 186,
+      "touched_line_end": 186,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 186; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java",
+      "match_count": 1,
+      "touched_line_start": 142,
+      "touched_line_end": 142,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 142; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/rma/InstallMTPDialog.java",
+      "match_count": 1,
+      "touched_line_start": 101,
+      "touched_line_end": 101,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 101; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/rma/ManageMTPsDialog.java",
+      "match_count": 1,
+      "touched_line_start": 34,
+      "touched_line_end": 34,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 34; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/rma/ManageMTPsDialog.java",
+      "match_count": 1,
+      "touched_line_start": 42,
+      "touched_line_end": 42,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 42; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/rma/ManageMTPsDialog.java",
+      "match_count": 1,
+      "touched_line_start": 111,
+      "touched_line_end": 111,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 111; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/sniffer/MainWindow.java",
+      "match_count": 1,
+      "touched_line_start": 140,
+      "touched_line_end": 140,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 140; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/testagent/TestAgent.java",
+      "match_count": 1,
+      "touched_line_start": 418,
+      "touched_line_end": 418,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 418; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+      "match_count": 1,
+      "touched_line_start": 1046,
+      "touched_line_end": 1046,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1046; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+      "match_count": 1,
+      "touched_line_start": 1065,
+      "touched_line_end": 1065,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 1065; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    },
+    {
+      "file": "src/jade/src/jade/wrapper/gateway/GatewayAgent.java",
+      "match_count": 1,
+      "touched_line_start": 50,
+      "touched_line_end": 50,
+      "diff_summary": "Left as JADE-MODERNIZATION-DEFERRED:LAMBDA_CONVERSION marker at line 50; not converted in this run.",
+      "changes": 0,
+      "migration_skip_marker": true
+    }
+  ],
+  "errors": [],
+  "warnings": []
+}

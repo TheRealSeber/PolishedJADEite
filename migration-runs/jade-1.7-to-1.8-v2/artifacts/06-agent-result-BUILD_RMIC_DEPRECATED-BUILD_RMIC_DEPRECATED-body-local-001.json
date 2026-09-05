@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "rule_id": "BUILD_RMIC_DEPRECATED",
+  "shard_id": "BUILD_RMIC_DEPRECATED-body-local-001",
+  "status": "NEEDS_REVIEW",
+  "match_quality": "exact",
+  "diff_summary": "Replaced both JADE-FLAG:BUILD_RMIC_DEPRECATED marker comments in the jade target with JADE-MODERNIZATION-DEFERRED:BUILD_RMIC_DEPRECATED comments; the two <rmic> elements themselves are untouched (rmic still works on JDK 8, only deprecated). Real `ant clean jade` run under frekele/ant:1.10.3-jdk8 (JDK8) confirms BUILD SUCCESSFUL, exit 0, both expected JRMP-stub-deprecation warnings present, and both generated stub classes present on disk (jade/imtp/rmi/ServiceManagerRMIImpl_Stub.class, jade/imtp/rmi/NodeRMIImpl_Stub.class). The wired verify_shard.py step failed (exit 2) for a reason unrelated to the fix: it always invokes javac against the shard's editable_files, and this shard's only editable_file is build.xml (not a .java source), so javac rejected it with 'invalid flag: /ws/src/jade/build.xml'. That is the same structural verify_shard.py limitation already hit and documented on the BUILD_DOCLINT_STRICT shard (no Ant verification path exists for BUILD_* rules), not a defect in this edit.",
+  "files": [
+    {
+      "file": "src/jade/build.xml",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 172,
+      "touched_line_end": 172,
+      "migration_skip_marker": false,
+      "diff_summary": "rmic classname=\"jade.imtp.rmi.ServiceManagerRMIImpl\": marker comment swapped from JADE-FLAG:BUILD_RMIC_DEPRECATED to JADE-MODERNIZATION-DEFERRED:BUILD_RMIC_DEPRECATED; <rmic> element itself unchanged."
+    },
+    {
+      "file": "src/jade/build.xml",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 173,
+      "touched_line_end": 173,
+      "migration_skip_marker": false,
+      "diff_summary": "rmic classname=\"jade.imtp.rmi.NodeRMIImpl\": marker comment swapped from JADE-FLAG:BUILD_RMIC_DEPRECATED to JADE-MODERNIZATION-DEFERRED:BUILD_RMIC_DEPRECATED; <rmic> element itself unchanged."
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "verify_shard.py exit=2: javac invoked against src/jade/build.xml (not a .java file) fails with 'invalid flag: /ws/src/jade/build.xml' -- structural shard/tool mismatch, not a real compile error. Same limitation already recorded for BUILD_DOCLINT_STRICT-body-local-001. See 07-shard-verify-BUILD_RMIC_DEPRECATED-body-local-001.json and its .log.",
+    "Independent verification performed out-of-band: `docker run --rm -v <workspace>/src/jade:/workspace -w /workspace frekele/ant:1.10.3-jdk8 ant clean jade -q` => BUILD SUCCESSFUL, 'ant exited 0', both expected [rmic] JRMP-deprecation warnings present, both _Stub.class files generated on disk."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "repo_root": "/Users/sebastian/Desktop/myown/PolishedJADEite-1718",
+  "rule_id": "BUILD_DOCLINT_STRICT",
+  "run_id": "jade-1.7-to-1.8-v2",
+  "schema_version": 1,
+  "shards": {
+    "BUILD_DOCLINT_STRICT-body-local-001": {
+      "created_at": "2026-09-05T02:52:32Z",
+      "files": [
+        {
+          "blob": "dc2ce0f8931be330a98f96771dee9e30d8775ff0",
+          "existed": true,
+          "file": "src/jade/build.xml",
+          "mode": 420
+        }
+      ],
+      "rollback_reason": "verify_shard.py exit=2: javac-only gate cannot verify a build.xml-only shard (invalid flag: /ws/src/jade/build.xml). Structural pipeline gap, not a defect in the edit -- real 'ant doc' under frekele/ant:1.10.3-jdk8 confirms BUILD SUCCESSFUL/exit0 with the fix applied. Rolling back per the unconditional accept-gate (verify must exit 0/1); recorded NEEDS_REVIEW envelope preserves the evidence for REVIEW_REQUIRED.md.",
+      "state": "ROLLED_BACK",
+      "updated_at": "2026-09-05T02:57:49Z"
+    }
+  },
+  "workspace_root": "migration-runs/jade-1.7-to-1.8-v2/workspace"
+}

@@ -1,0 +1,2147 @@
+{
+  "blast_class": "body-local",
+  "flag_index_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/04-flag-index.json",
+  "flagged_files_missing_from_graph": [],
+  "graph_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+  "graph_content_hash": "a4bb11b5c5b1cd26d4ca04127d18a2cc428e81cac527be0e61cefd72cbde1b16",
+  "manifest_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/01-breaking-changes-manifest.json",
+  "rule_id": "LAMBDA_CONVERSION",
+  "run_id": "jade-1.7-to-1.8-v2",
+  "schema_version": 1,
+  "shard_count": 11,
+  "shards": [
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/BootGUI.java",
+        "src/jade/src/jade/MicroBoot.java",
+        "src/jade/src/jade/core/Agent.java",
+        "src/jade/src/jade/core/BackEndContainer.java",
+        "src/jade/src/jade/core/FullResourceManager.java",
+        "src/jade/src/jade/core/JVM.java",
+        "src/jade/src/jade/core/MicroRuntime.java",
+        "src/jade/src/jade/core/PlatformManagerImpl.java",
+        "src/jade/src/jade/core/Runtime.java",
+        "src/jade/src/jade/core/ScalabilityTest.java",
+        "src/jade/src/jade/core/behaviours/OntologyServer.java",
+        "src/jade/src/jade/core/behaviours/WrapperBehaviour.java",
+        "src/jade/src/jade/core/event/NotificationService.java",
+        "src/jade/src/jade/core/faultRecovery/FaultRecoveryService.java",
+        "src/jade/src/jade/core/management/AgentManagementService.java",
+        "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+        "src/jade/src/jade/core/messaging/MessageManager.java",
+        "src/jade/src/jade/core/messaging/MessagingService.java",
+        "src/jade/src/jade/core/messaging/MomMessagingService.java",
+        "src/jade/src/jade/core/messaging/PersistentDeliveryManager.java",
+        "src/jade/src/jade/core/messaging/PersistentDeliveryService.java",
+        "src/jade/src/jade/core/mobility/AgentMobilityService.java",
+        "src/jade/src/jade/core/replication/AgentReplicationService.java",
+        "src/jade/src/jade/core/sam/Poller.java",
+        "src/jade/src/jade/core/sam/SAMService.java",
+        "src/jade/src/jade/domain/ams.java",
+        "src/jade/src/jade/domain/df.java",
+        "src/jade/src/jade/gui/AIDGui.java",
+        "src/jade/src/jade/gui/APDescriptionPanel.java",
+        "src/jade/src/jade/gui/APServicePanel.java",
+        "src/jade/src/jade/gui/AboutJadeAction.java",
+        "src/jade/src/jade/gui/AclGui.java",
+        "src/jade/src/jade/gui/ClassSelectionDialog.java",
+        "src/jade/src/jade/gui/ConstraintDlg.java",
+        "src/jade/src/jade/gui/DFAgentDscDlg.java",
+        "src/jade/src/jade/gui/JadeLogoButton.java",
+        "src/jade/src/jade/gui/ServiceDscDlg.java",
+        "src/jade/src/jade/gui/StringDlg.java",
+        "src/jade/src/jade/gui/TreeHelp.java",
+        "src/jade/src/jade/gui/UserPropertyGui.java",
+        "src/jade/src/jade/gui/VisualStringList.java",
+        "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+        "src/jade/src/jade/imtp/leap/JICP/BIBEDispatcher.java",
+        "src/jade/src/jade/imtp/leap/JICP/BIFEDispatcher.java",
+        "src/jade/src/jade/imtp/leap/JICP/FrontEndDispatcher.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPPeer.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPSPeer.java",
+        "src/jade/src/jade/imtp/leap/MicroStub.java",
+        "src/jade/src/jade/imtp/leap/http/HTTPBEDispatcher.java",
+        "src/jade/src/jade/imtp/leap/http/HTTPPeer.java",
+        "src/jade/src/jade/imtp/leap/http/HTTPSPeer.java",
+        "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOBEDispatcher.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOHTTPBEDispatcher.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOHTTPPeer.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOHTTPSPeer.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOJICPPeer.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOJICPSPeer.java",
+        "src/jade/src/jade/lang/acl/ConversationList.java",
+        "src/jade/src/jade/proto/AchieveREInitiator.java",
+        "src/jade/src/jade/proto/ContractNetInitiator.java",
+        "src/jade/src/jade/proto/IteratedAchieveREInitiator.java",
+        "src/jade/src/jade/proto/ProposeInitiator.java",
+        "src/jade/src/jade/proto/SubscriptionInitiator.java",
+        "src/jade/src/jade/proto/SubscriptionResponder.java",
+        "src/jade/src/jade/proto/TwoPh0Initiator.java",
+        "src/jade/src/jade/proto/TwoPh1Initiator.java",
+        "src/jade/src/jade/proto/TwoPh2Initiator.java",
+        "src/jade/src/jade/proto/TwoPhInitiator.java",
+        "src/jade/src/jade/proto/states/HandlerSelector.java",
+        "src/jade/src/jade/tools/DummyAgent/DummyAgent.java",
+        "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+        "src/jade/src/jade/tools/ToolAgent.java",
+        "src/jade/src/jade/tools/ToolNotifier.java",
+        "src/jade/src/jade/tools/dfgui/DFGUI.java",
+        "src/jade/src/jade/tools/gui/ACLAIDDialog.java",
+        "src/jade/src/jade/tools/gui/ACLAIDList.java",
+        "src/jade/src/jade/tools/gui/ACLComboBox.java",
+        "src/jade/src/jade/tools/gui/ACLContentDialog.java",
+        "src/jade/src/jade/tools/gui/ACLFrame.java",
+        "src/jade/src/jade/tools/gui/ACLPanel.java",
+        "src/jade/src/jade/tools/gui/ACLPropertyList.java",
+        "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+        "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+        "src/jade/src/jade/tools/gui/AIDAddressList.java",
+        "src/jade/src/jade/tools/introspector/Introspector.java",
+        "src/jade/src/jade/tools/introspector/gui/IntrospectorGUI.java",
+        "src/jade/src/jade/tools/logging/LogHelperAgent.java",
+        "src/jade/src/jade/tools/logging/LogManagerAgent.java",
+        "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java",
+        "src/jade/src/jade/tools/rma/InstallMTPDialog.java",
+        "src/jade/src/jade/tools/rma/MainWindow.java",
+        "src/jade/src/jade/tools/rma/ManageMTPsDialog.java",
+        "src/jade/src/jade/tools/rma/rma.java",
+        "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+        "src/jade/src/jade/tools/sniffer/MainWindow.java",
+        "src/jade/src/jade/tools/sniffer/Sniffer.java",
+        "src/jade/src/jade/tools/testagent/TestAgent.java",
+        "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+        "src/jade/src/jade/util/ClassFinder.java",
+        "src/jade/src/jade/wrapper/gateway/DynamicJadeGateway.java",
+        "src/jade/src/jade/wrapper/gateway/GatewayAgent.java",
+        "src/jade/src/jade/wrapper/gateway/SplitJadeGateway.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 124
+        },
+        {
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 160
+        },
+        {
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 170
+        },
+        {
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 240
+        },
+        {
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 332
+        },
+        {
+          "file": "src/jade/src/jade/BootGUI.java",
+          "line": 346
+        },
+        {
+          "file": "src/jade/src/jade/MicroBoot.java",
+          "line": 68
+        },
+        {
+          "file": "src/jade/src/jade/core/Agent.java",
+          "line": 1055
+        },
+        {
+          "file": "src/jade/src/jade/core/BackEndContainer.java",
+          "line": 382
+        },
+        {
+          "file": "src/jade/src/jade/core/BackEndContainer.java",
+          "line": 746
+        },
+        {
+          "file": "src/jade/src/jade/core/FullResourceManager.java",
+          "line": 53
+        },
+        {
+          "file": "src/jade/src/jade/core/FullResourceManager.java",
+          "line": 97
+        },
+        {
+          "file": "src/jade/src/jade/core/JVM.java",
+          "line": 33
+        },
+        {
+          "file": "src/jade/src/jade/core/JVM.java",
+          "line": 45
+        },
+        {
+          "file": "src/jade/src/jade/core/MicroRuntime.java",
+          "line": 389
+        },
+        {
+          "file": "src/jade/src/jade/core/PlatformManagerImpl.java",
+          "line": 982
+        },
+        {
+          "file": "src/jade/src/jade/core/Runtime.java",
+          "line": 181
+        },
+        {
+          "file": "src/jade/src/jade/core/Runtime.java",
+          "line": 273
+        },
+        {
+          "file": "src/jade/src/jade/core/ScalabilityTest.java",
+          "line": 425
+        },
+        {
+          "file": "src/jade/src/jade/core/ScalabilityTest.java",
+          "line": 432
+        },
+        {
+          "file": "src/jade/src/jade/core/ScalabilityTest.java",
+          "line": 465
+        },
+        {
+          "file": "src/jade/src/jade/core/ScalabilityTest.java",
+          "line": 532
+        },
+        {
+          "file": "src/jade/src/jade/core/ScalabilityTest.java",
+          "line": 539
+        },
+        {
+          "file": "src/jade/src/jade/core/ScalabilityTest.java",
+          "line": 575
+        },
+        {
+          "file": "src/jade/src/jade/core/behaviours/OntologyServer.java",
+          "line": 213
+        },
+        {
+          "file": "src/jade/src/jade/core/behaviours/WrapperBehaviour.java",
+          "line": 17
+        },
+        {
+          "file": "src/jade/src/jade/core/event/NotificationService.java",
+          "line": 574
+        },
+        {
+          "file": "src/jade/src/jade/core/faultRecovery/FaultRecoveryService.java",
+          "line": 225
+        },
+        {
+          "file": "src/jade/src/jade/core/faultRecovery/FaultRecoveryService.java",
+          "line": 256
+        },
+        {
+          "file": "src/jade/src/jade/core/faultRecovery/FaultRecoveryService.java",
+          "line": 527
+        },
+        {
+          "file": "src/jade/src/jade/core/management/AgentManagementService.java",
+          "line": 107
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+          "line": 113
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+          "line": 125
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessageManager.java",
+          "line": 238
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+          "line": 410
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+          "line": 420
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+          "line": 427
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+          "line": 449
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+          "line": 455
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+          "line": 461
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+          "line": 467
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+          "line": 473
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+          "line": 479
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+          "line": 1285
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MomMessagingService.java",
+          "line": 82
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MomMessagingService.java",
+          "line": 236
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/PersistentDeliveryManager.java",
+          "line": 191
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/PersistentDeliveryService.java",
+          "line": 437
+        },
+        {
+          "file": "src/jade/src/jade/core/mobility/AgentMobilityService.java",
+          "line": 389
+        },
+        {
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+          "line": 862
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/Poller.java",
+          "line": 181
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 97
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 150
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 164
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 177
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 303
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 497
+        },
+        {
+          "file": "src/jade/src/jade/domain/ams.java",
+          "line": 206
+        },
+        {
+          "file": "src/jade/src/jade/domain/ams.java",
+          "line": 227
+        },
+        {
+          "file": "src/jade/src/jade/domain/ams.java",
+          "line": 288
+        },
+        {
+          "file": "src/jade/src/jade/domain/ams.java",
+          "line": 410
+        },
+        {
+          "file": "src/jade/src/jade/domain/ams.java",
+          "line": 449
+        },
+        {
+          "file": "src/jade/src/jade/domain/ams.java",
+          "line": 966
+        },
+        {
+          "file": "src/jade/src/jade/domain/ams.java",
+          "line": 978
+        },
+        {
+          "file": "src/jade/src/jade/domain/ams.java",
+          "line": 990
+        },
+        {
+          "file": "src/jade/src/jade/domain/ams.java",
+          "line": 1002
+        },
+        {
+          "file": "src/jade/src/jade/domain/ams.java",
+          "line": 1018
+        },
+        {
+          "file": "src/jade/src/jade/domain/ams.java",
+          "line": 1535
+        },
+        {
+          "file": "src/jade/src/jade/domain/df.java",
+          "line": 582
+        },
+        {
+          "file": "src/jade/src/jade/domain/df.java",
+          "line": 643
+        },
+        {
+          "file": "src/jade/src/jade/domain/df.java",
+          "line": 1189
+        },
+        {
+          "file": "src/jade/src/jade/domain/df.java",
+          "line": 1213
+        },
+        {
+          "file": "src/jade/src/jade/domain/df.java",
+          "line": 1240
+        },
+        {
+          "file": "src/jade/src/jade/domain/df.java",
+          "line": 1266
+        },
+        {
+          "file": "src/jade/src/jade/domain/df.java",
+          "line": 1286
+        },
+        {
+          "file": "src/jade/src/jade/domain/df.java",
+          "line": 1331
+        },
+        {
+          "file": "src/jade/src/jade/domain/df.java",
+          "line": 1365
+        },
+        {
+          "file": "src/jade/src/jade/domain/df.java",
+          "line": 1402
+        },
+        {
+          "file": "src/jade/src/jade/domain/df.java",
+          "line": 1430
+        },
+        {
+          "file": "src/jade/src/jade/domain/df.java",
+          "line": 1453
+        },
+        {
+          "file": "src/jade/src/jade/gui/AIDGui.java",
+          "line": 194
+        },
+        {
+          "file": "src/jade/src/jade/gui/AIDGui.java",
+          "line": 251
+        },
+        {
+          "file": "src/jade/src/jade/gui/APDescriptionPanel.java",
+          "line": 159
+        },
+        {
+          "file": "src/jade/src/jade/gui/APServicePanel.java",
+          "line": 157
+        },
+        {
+          "file": "src/jade/src/jade/gui/AboutJadeAction.java",
+          "line": 95
+        },
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 265
+        },
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 388
+        },
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 700
+        },
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 766
+        },
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 851
+        },
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 929
+        },
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 1546
+        },
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 1598
+        },
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "line": 1606
+        },
+        {
+          "file": "src/jade/src/jade/gui/ClassSelectionDialog.java",
+          "line": 387
+        },
+        {
+          "file": "src/jade/src/jade/gui/ConstraintDlg.java",
+          "line": 145
+        },
+        {
+          "file": "src/jade/src/jade/gui/ConstraintDlg.java",
+          "line": 204
+        },
+        {
+          "file": "src/jade/src/jade/gui/DFAgentDscDlg.java",
+          "line": 199
+        },
+        {
+          "file": "src/jade/src/jade/gui/DFAgentDscDlg.java",
+          "line": 326
+        },
+        {
+          "file": "src/jade/src/jade/gui/DFAgentDscDlg.java",
+          "line": 387
+        },
+        {
+          "file": "src/jade/src/jade/gui/JadeLogoButton.java",
+          "line": 61
+        },
+        {
+          "file": "src/jade/src/jade/gui/ServiceDscDlg.java",
+          "line": 212
+        },
+        {
+          "file": "src/jade/src/jade/gui/ServiceDscDlg.java",
+          "line": 304
+        },
+        {
+          "file": "src/jade/src/jade/gui/StringDlg.java",
+          "line": 105
+        },
+        {
+          "file": "src/jade/src/jade/gui/StringDlg.java",
+          "line": 127
+        },
+        {
+          "file": "src/jade/src/jade/gui/StringDlg.java",
+          "line": 179
+        },
+        {
+          "file": "src/jade/src/jade/gui/TreeHelp.java",
+          "line": 80
+        },
+        {
+          "file": "src/jade/src/jade/gui/TreeHelp.java",
+          "line": 95
+        },
+        {
+          "file": "src/jade/src/jade/gui/UserPropertyGui.java",
+          "line": 128
+        },
+        {
+          "file": "src/jade/src/jade/gui/UserPropertyGui.java",
+          "line": 159
+        },
+        {
+          "file": "src/jade/src/jade/gui/VisualStringList.java",
+          "line": 169
+        },
+        {
+          "file": "src/jade/src/jade/gui/VisualStringList.java",
+          "line": 186
+        },
+        {
+          "file": "src/jade/src/jade/gui/VisualStringList.java",
+          "line": 205
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/CommandDispatcher.java",
+          "line": 781
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/BIBEDispatcher.java",
+          "line": 257
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/BIBEDispatcher.java",
+          "line": 550
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/BIFEDispatcher.java",
+          "line": 963
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/FrontEndDispatcher.java",
+          "line": 939
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/FrontEndDispatcher.java",
+          "line": 948
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/JICPPeer.java",
+          "line": 160
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/JICP/JICPSPeer.java",
+          "line": 96
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/MicroStub.java",
+          "line": 133
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/MicroStub.java",
+          "line": 168
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/MicroStub.java",
+          "line": 308
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/http/HTTPBEDispatcher.java",
+          "line": 199
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/http/HTTPBEDispatcher.java",
+          "line": 517
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/http/HTTPPeer.java",
+          "line": 65
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/http/HTTPSPeer.java",
+          "line": 23
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 278
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 347
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 357
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 367
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 379
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 391
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 399
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 407
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 415
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 423
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 431
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 441
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 449
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 1670
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOBEDispatcher.java",
+          "line": 326
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPBEDispatcher.java",
+          "line": 576
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPBEDispatcher.java",
+          "line": 592
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPPeer.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOHTTPSPeer.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPPeer.java",
+          "line": 27
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPSPeer.java",
+          "line": 25
+        },
+        {
+          "file": "src/jade/src/jade/lang/acl/ConversationList.java",
+          "line": 22
+        },
+        {
+          "file": "src/jade/src/jade/proto/AchieveREInitiator.java",
+          "line": 213
+        },
+        {
+          "file": "src/jade/src/jade/proto/AchieveREInitiator.java",
+          "line": 223
+        },
+        {
+          "file": "src/jade/src/jade/proto/AchieveREInitiator.java",
+          "line": 233
+        },
+        {
+          "file": "src/jade/src/jade/proto/ContractNetInitiator.java",
+          "line": 264
+        },
+        {
+          "file": "src/jade/src/jade/proto/ContractNetInitiator.java",
+          "line": 276
+        },
+        {
+          "file": "src/jade/src/jade/proto/IteratedAchieveREInitiator.java",
+          "line": 88
+        },
+        {
+          "file": "src/jade/src/jade/proto/ProposeInitiator.java",
+          "line": 286
+        },
+        {
+          "file": "src/jade/src/jade/proto/ProposeInitiator.java",
+          "line": 295
+        },
+        {
+          "file": "src/jade/src/jade/proto/ProposeInitiator.java",
+          "line": 304
+        },
+        {
+          "file": "src/jade/src/jade/proto/ProposeInitiator.java",
+          "line": 352
+        },
+        {
+          "file": "src/jade/src/jade/proto/SubscriptionInitiator.java",
+          "line": 198
+        },
+        {
+          "file": "src/jade/src/jade/proto/SubscriptionInitiator.java",
+          "line": 208
+        },
+        {
+          "file": "src/jade/src/jade/proto/SubscriptionResponder.java",
+          "line": 157
+        },
+        {
+          "file": "src/jade/src/jade/proto/SubscriptionResponder.java",
+          "line": 180
+        },
+        {
+          "file": "src/jade/src/jade/proto/SubscriptionResponder.java",
+          "line": 204
+        },
+        {
+          "file": "src/jade/src/jade/proto/TwoPh0Initiator.java",
+          "line": 127
+        },
+        {
+          "file": "src/jade/src/jade/proto/TwoPh0Initiator.java",
+          "line": 139
+        },
+        {
+          "file": "src/jade/src/jade/proto/TwoPh1Initiator.java",
+          "line": 153
+        },
+        {
+          "file": "src/jade/src/jade/proto/TwoPh1Initiator.java",
+          "line": 165
+        },
+        {
+          "file": "src/jade/src/jade/proto/TwoPh1Initiator.java",
+          "line": 177
+        },
+        {
+          "file": "src/jade/src/jade/proto/TwoPh1Initiator.java",
+          "line": 188
+        },
+        {
+          "file": "src/jade/src/jade/proto/TwoPh2Initiator.java",
+          "line": 169
+        },
+        {
+          "file": "src/jade/src/jade/proto/TwoPh2Initiator.java",
+          "line": 179
+        },
+        {
+          "file": "src/jade/src/jade/proto/TwoPhInitiator.java",
+          "line": 199
+        },
+        {
+          "file": "src/jade/src/jade/proto/states/HandlerSelector.java",
+          "line": 107
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgent.java",
+          "line": 113
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+          "line": 136
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+          "line": 159
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+          "line": 174
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+          "line": 203
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+          "line": 238
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+          "line": 275
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+          "line": 329
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+          "line": 376
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+          "line": 394
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+          "line": 415
+        },
+        {
+          "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+          "line": 431
+        },
+        {
+          "file": "src/jade/src/jade/tools/ToolAgent.java",
+          "line": 222
+        },
+        {
+          "file": "src/jade/src/jade/tools/ToolNotifier.java",
+          "line": 91
+        },
+        {
+          "file": "src/jade/src/jade/tools/ToolNotifier.java",
+          "line": 102
+        },
+        {
+          "file": "src/jade/src/jade/tools/ToolNotifier.java",
+          "line": 390
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "line": 365
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "line": 378
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "line": 421
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "line": 464
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "line": 505
+        },
+        {
+          "file": "src/jade/src/jade/tools/dfgui/DFGUI.java",
+          "line": 552
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLAIDDialog.java",
+          "line": 207
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLAIDDialog.java",
+          "line": 221
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLAIDDialog.java",
+          "line": 230
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLAIDDialog.java",
+          "line": 239
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLAIDList.java",
+          "line": 282
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLAIDList.java",
+          "line": 296
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLAIDList.java",
+          "line": 310
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLAIDList.java",
+          "line": 317
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLAIDList.java",
+          "line": 323
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLComboBox.java",
+          "line": 85
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLComboBox.java",
+          "line": 120
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLContentDialog.java",
+          "line": 78
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLContentDialog.java",
+          "line": 93
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLFrame.java",
+          "line": 195
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLFrame.java",
+          "line": 211
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLFrame.java",
+          "line": 221
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLFrame.java",
+          "line": 234
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+          "line": 552
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+          "line": 567
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+          "line": 576
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+          "line": 585
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+          "line": 625
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+          "line": 636
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+          "line": 642
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+          "line": 658
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+          "line": 672
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+          "line": 683
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPropertyList.java",
+          "line": 263
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPropertyList.java",
+          "line": 277
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPropertyList.java",
+          "line": 291
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPropertyList.java",
+          "line": 298
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPropertyList.java",
+          "line": 304
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPropertyList.java",
+          "line": 496
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLPropertyList.java",
+          "line": 505
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 359
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+          "line": 373
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+          "line": 805
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+          "line": 1189
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+          "line": 1202
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+          "line": 1221
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+          "line": 1240
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+          "line": 1259
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/AIDAddressList.java",
+          "line": 233
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/AIDAddressList.java",
+          "line": 246
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/AIDAddressList.java",
+          "line": 259
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/AIDAddressList.java",
+          "line": 266
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/AIDAddressList.java",
+          "line": 272
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/AIDAddressList.java",
+          "line": 466
+        },
+        {
+          "file": "src/jade/src/jade/tools/gui/AIDAddressList.java",
+          "line": 475
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+          "line": 153
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+          "line": 160
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+          "line": 177
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+          "line": 186
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+          "line": 205
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+          "line": 224
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+          "line": 269
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+          "line": 455
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+          "line": 462
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+          "line": 473
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+          "line": 484
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+          "line": 509
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+          "line": 521
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+          "line": 533
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+          "line": 545
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/Introspector.java",
+          "line": 676
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/gui/IntrospectorGUI.java",
+          "line": 112
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/gui/IntrospectorGUI.java",
+          "line": 285
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/gui/IntrospectorGUI.java",
+          "line": 299
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/gui/IntrospectorGUI.java",
+          "line": 312
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/gui/IntrospectorGUI.java",
+          "line": 322
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/gui/IntrospectorGUI.java",
+          "line": 335
+        },
+        {
+          "file": "src/jade/src/jade/tools/logging/LogHelperAgent.java",
+          "line": 186
+        },
+        {
+          "file": "src/jade/src/jade/tools/logging/LogManagerAgent.java",
+          "line": 37
+        },
+        {
+          "file": "src/jade/src/jade/tools/logging/LogManagerAgent.java",
+          "line": 43
+        },
+        {
+          "file": "src/jade/src/jade/tools/logging/LogManagerAgent.java",
+          "line": 59
+        },
+        {
+          "file": "src/jade/src/jade/tools/logging/LogManagerAgent.java",
+          "line": 69
+        },
+        {
+          "file": "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java",
+          "line": 142
+        },
+        {
+          "file": "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java",
+          "line": 169
+        },
+        {
+          "file": "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java",
+          "line": 178
+        },
+        {
+          "file": "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java",
+          "line": 187
+        },
+        {
+          "file": "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java",
+          "line": 196
+        },
+        {
+          "file": "src/jade/src/jade/tools/logging/gui/LogManagerGUI.java",
+          "line": 262
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/InstallMTPDialog.java",
+          "line": 101
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/InstallMTPDialog.java",
+          "line": 154
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/InstallMTPDialog.java",
+          "line": 164
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+          "line": 136
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+          "line": 149
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+          "line": 159
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+          "line": 174
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+          "line": 188
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+          "line": 205
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+          "line": 217
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+          "line": 229
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+          "line": 241
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+          "line": 253
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+          "line": 263
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+          "line": 280
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+          "line": 296
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+          "line": 309
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+          "line": 326
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+          "line": 337
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/MainWindow.java",
+          "line": 354
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/ManageMTPsDialog.java",
+          "line": 34
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/ManageMTPsDialog.java",
+          "line": 42
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/ManageMTPsDialog.java",
+          "line": 111
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/ManageMTPsDialog.java",
+          "line": 159
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/ManageMTPsDialog.java",
+          "line": 183
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/ManageMTPsDialog.java",
+          "line": 195
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/rma.java",
+          "line": 178
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/rma.java",
+          "line": 185
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/rma.java",
+          "line": 203
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/rma.java",
+          "line": 212
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/rma.java",
+          "line": 228
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/rma.java",
+          "line": 241
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/rma.java",
+          "line": 251
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/rma.java",
+          "line": 261
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/rma.java",
+          "line": 271
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/rma.java",
+          "line": 281
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/rma.java",
+          "line": 291
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/rma.java",
+          "line": 301
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/rma.java",
+          "line": 310
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/rma.java",
+          "line": 320
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+          "line": 961
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/MMCanvas.java",
+          "line": 990
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/MainWindow.java",
+          "line": 140
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/MainWindow.java",
+          "line": 189
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/MainWindow.java",
+          "line": 322
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/MainWindow.java",
+          "line": 347
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/MainWindow.java",
+          "line": 370
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/MainWindow.java",
+          "line": 397
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
+          "line": 351
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
+          "line": 359
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
+          "line": 376
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
+          "line": 385
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
+          "line": 409
+        },
+        {
+          "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
+          "line": 421
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgent.java",
+          "line": 418
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 435
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 449
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 459
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 469
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 479
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 494
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 504
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 513
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 522
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 537
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 548
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 558
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 569
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 580
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 592
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 603
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 616
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 625
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 634
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 643
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 652
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 661
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 669
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 683
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 692
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 702
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 721
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 732
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 743
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 749
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 760
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 771
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 782
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 793
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 804
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 817
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 823
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 834
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 854
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 860
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 1046
+        },
+        {
+          "file": "src/jade/src/jade/tools/testagent/TestAgentFrame.java",
+          "line": 1065
+        },
+        {
+          "file": "src/jade/src/jade/util/ClassFinder.java",
+          "line": 189
+        },
+        {
+          "file": "src/jade/src/jade/util/ClassFinder.java",
+          "line": 198
+        },
+        {
+          "file": "src/jade/src/jade/util/ClassFinder.java",
+          "line": 207
+        },
+        {
+          "file": "src/jade/src/jade/util/ClassFinder.java",
+          "line": 213
+        },
+        {
+          "file": "src/jade/src/jade/wrapper/gateway/DynamicJadeGateway.java",
+          "line": 273
+        },
+        {
+          "file": "src/jade/src/jade/wrapper/gateway/DynamicJadeGateway.java",
+          "line": 295
+        },
+        {
+          "file": "src/jade/src/jade/wrapper/gateway/GatewayAgent.java",
+          "line": 50
+        },
+        {
+          "file": "src/jade/src/jade/wrapper/gateway/SplitJadeGateway.java",
+          "line": 29
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [
+        "src/jade/src/jade/AppletBoot.java",
+        "src/jade/src/jade/Boot.java",
+        "src/jade/src/jade/Boot3.java",
+        "src/jade/src/jade/core/AgentContainer.java",
+        "src/jade/src/jade/core/AgentContainerImpl.java",
+        "src/jade/src/jade/core/AgentToolkit.java",
+        "src/jade/src/jade/core/BaseService.java",
+        "src/jade/src/jade/core/BehaviourID.java",
+        "src/jade/src/jade/core/CallbackInvokator.java",
+        "src/jade/src/jade/core/DummyToolkit.java",
+        "src/jade/src/jade/core/ExtendedMessageQueue.java",
+        "src/jade/src/jade/core/FEService.java",
+        "src/jade/src/jade/core/FrontEndContainer.java",
+        "src/jade/src/jade/core/InternalMessageQueue.java",
+        "src/jade/src/jade/core/LADT.java",
+        "src/jade/src/jade/core/LifeCycle.java",
+        "src/jade/src/jade/core/MainContainerImpl.java",
+        "src/jade/src/jade/core/MicroAgentControllerImpl.java",
+        "src/jade/src/jade/core/ProfileImpl.java",
+        "src/jade/src/jade/core/Scheduler.java",
+        "src/jade/src/jade/core/Service.java",
+        "src/jade/src/jade/core/ServiceHelper.java",
+        "src/jade/src/jade/core/behaviours/BaseInitiator.java",
+        "src/jade/src/jade/core/behaviours/Behaviour.java",
+        "src/jade/src/jade/core/behaviours/CompositeBehaviour.java",
+        "src/jade/src/jade/core/behaviours/CyclicBehaviour.java",
+        "src/jade/src/jade/core/behaviours/FSMBehaviour.java",
+        "src/jade/src/jade/core/behaviours/LoaderBehaviour.java",
+        "src/jade/src/jade/core/behaviours/OneShotBehaviour.java",
+        "src/jade/src/jade/core/behaviours/ParallelBehaviour.java",
+        "src/jade/src/jade/core/behaviours/ReceiverBehaviour.java",
+        "src/jade/src/jade/core/behaviours/SenderBehaviour.java",
+        "src/jade/src/jade/core/behaviours/SequentialBehaviour.java",
+        "src/jade/src/jade/core/behaviours/SerialBehaviour.java",
+        "src/jade/src/jade/core/behaviours/SimpleBehaviour.java",
+        "src/jade/src/jade/core/behaviours/ThreadedBehaviourFactory.java",
+        "src/jade/src/jade/core/behaviours/TickerBehaviour.java",
+        "src/jade/src/jade/core/behaviours/WakerBehaviour.java",
+        "src/jade/src/jade/core/management/BEAgentManagementService.java",
+        "src/jade/src/jade/core/messaging/IncomingEncodingFilter.java",
+        "src/jade/src/jade/core/messaging/LightMessagingService.java",
+        "src/jade/src/jade/core/messaging/LocalJVMMessageRouter.java",
+        "src/jade/src/jade/core/messaging/OutBox.java",
+        "src/jade/src/jade/core/messaging/OutgoingEncodingFilter.java",
+        "src/jade/src/jade/core/messaging/RoutingTable.java",
+        "src/jade/src/jade/core/messaging/TopicManagementFEService.java",
+        "src/jade/src/jade/core/messaging/TopicManagementService.java",
+        "src/jade/src/jade/core/replication/AgentReplicationHandle.java",
+        "src/jade/src/jade/core/replication/MainReplicationService.java",
+        "src/jade/src/jade/core/resource/ResourceManagementService.java",
+        "src/jade/src/jade/domain/AMSEventQueueFeeder.java",
+        "src/jade/src/jade/domain/AMSFipaAgentManagementBehaviour.java",
+        "src/jade/src/jade/domain/AMSJadeAgentManagementBehaviour.java",
+        "src/jade/src/jade/domain/AMSService.java",
+        "src/jade/src/jade/domain/DFAppletManagementBehaviour.java",
+        "src/jade/src/jade/domain/DFDBKB.java",
+        "src/jade/src/jade/domain/DFFipaAgentManagementBehaviour.java",
+        "src/jade/src/jade/domain/DFIteratedSearchManagementBehaviour.java",
+        "src/jade/src/jade/domain/DFJadeAgentManagementBehaviour.java",
+        "src/jade/src/jade/domain/DFService.java",
+        "src/jade/src/jade/domain/DFSubscriber.java",
+        "src/jade/src/jade/domain/FIPAService.java",
+        "src/jade/src/jade/domain/JADEAgentManagement/QueryAgentsOnLocation.java",
+        "src/jade/src/jade/domain/JADEAgentManagement/QueryPlatformLocationsAction.java",
+        "src/jade/src/jade/domain/JADEAgentManagement/WhereIsAgentAction.java",
+        "src/jade/src/jade/domain/KBManagement/DBKB.java",
+        "src/jade/src/jade/domain/KBManagement/KB.java",
+        "src/jade/src/jade/domain/KBManagement/MemKB.java",
+        "src/jade/src/jade/domain/KBSubscriptionManager.java",
+        "src/jade/src/jade/domain/RemoteDFRequester.java",
+        "src/jade/src/jade/domain/RequestFIPAServiceBehaviour.java",
+        "src/jade/src/jade/domain/RequestManagementBehaviour.java",
+        "src/jade/src/jade/domain/introspection/AMSSubscriber.java",
+        "src/jade/src/jade/domain/introspection/IntrospectionServer.java",
+        "src/jade/src/jade/domain/mobility/CloneAction.java",
+        "src/jade/src/jade/domain/mobility/MobileAgentDescription.java",
+        "src/jade/src/jade/domain/mobility/MobileAgentLanguage.java",
+        "src/jade/src/jade/domain/mobility/MobileAgentOS.java",
+        "src/jade/src/jade/domain/mobility/MobileAgentProfile.java",
+        "src/jade/src/jade/domain/mobility/MobileAgentSystem.java",
+        "src/jade/src/jade/domain/mobility/MoveAction.java",
+        "src/jade/src/jade/gui/BrowserLauncher.java",
+        "src/jade/src/jade/gui/GuiAgent.java",
+        "src/jade/src/jade/gui/GuiEvent.java",
+        "src/jade/src/jade/gui/VisualAIDList.java",
+        "src/jade/src/jade/gui/VisualAPServiceList.java",
+        "src/jade/src/jade/gui/VisualPropertiesList.java",
+        "src/jade/src/jade/gui/VisualServicesList.java",
+        "src/jade/src/jade/imtp/leap/BackEndStub.java",
+        "src/jade/src/jade/imtp/leap/DeliverableDataInputStream.java",
+        "src/jade/src/jade/imtp/leap/DeliverableDataOutputStream.java",
+        "src/jade/src/jade/imtp/leap/FrontEndStub.java",
+        "src/jade/src/jade/imtp/leap/JICP/BIFESDispatcher.java",
+        "src/jade/src/jade/imtp/leap/JICP/ConnectionPool.java",
+        "src/jade/src/jade/imtp/leap/JICP/FrontEndSDispatcher.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPConnection.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPProtocol.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPServer.java",
+        "src/jade/src/jade/imtp/leap/JICP/MaskableJICPPeer.java",
+        "src/jade/src/jade/imtp/leap/LEAPIMTPManager.java",
+        "src/jade/src/jade/imtp/leap/NodeLEAP.java",
+        "src/jade/src/jade/imtp/leap/NodeStub.java",
+        "src/jade/src/jade/imtp/leap/PlatformManagerStub.java",
+        "src/jade/src/jade/imtp/leap/SSLHelper.java",
+        "src/jade/src/jade/imtp/leap/Skeleton.java",
+        "src/jade/src/jade/imtp/leap/Stub.java",
+        "src/jade/src/jade/imtp/leap/http/HTTPFEDispatcher.java",
+        "src/jade/src/jade/imtp/leap/nio/BackEndDispatcher.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOJICPConnection.java",
+        "src/jade/src/jade/imtp/leap/nio/SSLEngineHelper.java",
+        "src/jade/src/jade/imtp/leap/sms/Boot.java",
+        "src/jade/src/jade/imtp/leap/sms/SMSBEDispatcher.java",
+        "src/jade/src/jade/imtp/rmi/RMIIMTPManager.java",
+        "src/jade/src/jade/proto/AchieveREResponder.java",
+        "src/jade/src/jade/proto/ContractNetResponder.java",
+        "src/jade/src/jade/proto/Initiator.java",
+        "src/jade/src/jade/proto/ProposeResponder.java",
+        "src/jade/src/jade/proto/Responder.java",
+        "src/jade/src/jade/proto/SSContractNetResponder.java",
+        "src/jade/src/jade/proto/SSIteratedAchieveREResponder.java",
+        "src/jade/src/jade/proto/SSIteratedContractNetResponder.java",
+        "src/jade/src/jade/proto/SSResponder.java",
+        "src/jade/src/jade/proto/SSResponderDispatcher.java",
+        "src/jade/src/jade/proto/SimpleAchieveREInitiator.java",
+        "src/jade/src/jade/proto/SimpleAchieveREResponder.java",
+        "src/jade/src/jade/proto/TwoPhConstants.java",
+        "src/jade/src/jade/proto/TwoPhResponder.java",
+        "src/jade/src/jade/proto/states/MsgReceiver.java",
+        "src/jade/src/jade/proto/states/ReplySender.java",
+        "src/jade/src/jade/proto/states/StateResetter.java",
+        "src/jade/src/jade/tools/DummyAgent/DummyBehaviour.java",
+        "src/jade/src/jade/tools/DummyAgent/MsgIndication.java",
+        "src/jade/src/jade/tools/SocketProxyAgent/Connection.java",
+        "src/jade/src/jade/tools/SocketProxyAgent/JadeBridge.java",
+        "src/jade/src/jade/tools/SocketProxyAgent/Server.java",
+        "src/jade/src/jade/tools/SocketProxyAgent/SocketProxyAgent.java",
+        "src/jade/src/jade/tools/SocketProxyAgent/WaitAnswersBehaviour.java",
+        "src/jade/src/jade/tools/applet/DFApplet.java",
+        "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+        "src/jade/src/jade/tools/applet/FIPAAppletRequestProto.java",
+        "src/jade/src/jade/tools/applet/JADEAppletRequestProto.java",
+        "src/jade/src/jade/tools/dfgui/AgentNameTableModel.java",
+        "src/jade/src/jade/tools/dfgui/DFGUIAboutAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUICloseGuiAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUIDeregisterAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUIExitDFAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUIFederateAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUIModifyAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUIRefreshAppletAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUIRegisterAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUISearchAction.java",
+        "src/jade/src/jade/tools/dfgui/DFGUIViewAction.java",
+        "src/jade/src/jade/tools/gui/ACLStatisticsFrame.java",
+        "src/jade/src/jade/tools/gui/AIDTextField.java",
+        "src/jade/src/jade/tools/introspector/SensorManager.java",
+        "src/jade/src/jade/tools/introspector/gui/MainBarListener.java",
+        "src/jade/src/jade/tools/introspector/gui/MainWindow.java",
+        "src/jade/src/jade/tools/introspector/gui/StatePanel.java",
+        "src/jade/src/jade/tools/introspector/gui/TablePopupMenuListener.java",
+        "src/jade/src/jade/tools/introspector/gui/TreeAgentPopupMenu.java",
+        "src/jade/src/jade/tools/introspector/gui/TreePanel.java",
+        "src/jade/src/jade/tools/introspector/gui/TreePopupMenuListener.java",
+        "src/jade/src/jade/tools/logging/gui/ContainerLogWindow.java",
+        "src/jade/src/jade/tools/logging/gui/ExitAction.java",
+        "src/jade/src/jade/tools/logging/gui/SetDefaultLoggingSystemAction.java",
+        "src/jade/src/jade/tools/logging/gui/StartManagingLogAction.java",
+        "src/jade/src/jade/tools/logging/gui/StopManagingLogAction.java",
+        "src/jade/src/jade/tools/rma/AddRemotePlatformAction.java",
+        "src/jade/src/jade/tools/rma/AddRemotePlatformFromURLAction.java",
+        "src/jade/src/jade/tools/rma/ChangeAgentOwnershipAction.java",
+        "src/jade/src/jade/tools/rma/CloneAgentAction.java",
+        "src/jade/src/jade/tools/rma/CloseRMAAction.java",
+        "src/jade/src/jade/tools/rma/CustomAction.java",
+        "src/jade/src/jade/tools/rma/DummyAgentAction.java",
+        "src/jade/src/jade/tools/rma/ExitAction.java",
+        "src/jade/src/jade/tools/rma/FreezeAgentAction.java",
+        "src/jade/src/jade/tools/rma/InstallMTPAction.java",
+        "src/jade/src/jade/tools/rma/IntrospectorAction.java",
+        "src/jade/src/jade/tools/rma/KillAction.java",
+        "src/jade/src/jade/tools/rma/LoadAgentAction.java",
+        "src/jade/src/jade/tools/rma/LoadContainerAction.java",
+        "src/jade/src/jade/tools/rma/LogManagerAgentAction.java",
+        "src/jade/src/jade/tools/rma/MainMenu.java",
+        "src/jade/src/jade/tools/rma/MainPanel.java",
+        "src/jade/src/jade/tools/rma/ManageMTPsAction.java",
+        "src/jade/src/jade/tools/rma/MoveAgentAction.java",
+        "src/jade/src/jade/tools/rma/RefreshAMSAgentAction.java",
+        "src/jade/src/jade/tools/rma/RefreshAPDescriptionAction.java",
+        "src/jade/src/jade/tools/rma/RegisterRemoteAgentAction.java",
+        "src/jade/src/jade/tools/rma/RemoveRemoteAMSAction.java",
+        "src/jade/src/jade/tools/rma/ResumeAction.java",
+        "src/jade/src/jade/tools/rma/SaveAgentAction.java",
+        "src/jade/src/jade/tools/rma/SaveContainerAction.java",
+        "src/jade/src/jade/tools/rma/ShowDFGuiAction.java",
+        "src/jade/src/jade/tools/rma/ShutDownAction.java",
+        "src/jade/src/jade/tools/rma/SnifferAction.java",
+        "src/jade/src/jade/tools/rma/StartDialog.java",
+        "src/jade/src/jade/tools/rma/StartNewAgentAction.java",
+        "src/jade/src/jade/tools/rma/SuspendAction.java",
+        "src/jade/src/jade/tools/rma/ThawAgentAction.java",
+        "src/jade/src/jade/tools/rma/ToolBar.java",
+        "src/jade/src/jade/tools/rma/UninstallMTPAction.java",
+        "src/jade/src/jade/tools/rma/ViewAPDescriptionAction.java",
+        "src/jade/src/jade/tools/rma/WindowCloser.java",
+        "src/jade/src/jade/tools/sniffer/DoNotSnifferAction.java",
+        "src/jade/src/jade/tools/sniffer/DoSnifferAction.java",
+        "src/jade/src/jade/tools/sniffer/ExitAction.java",
+        "src/jade/src/jade/tools/sniffer/MainMenu.java",
+        "src/jade/src/jade/tools/sniffer/PanelCanvas.java",
+        "src/jade/src/jade/tools/sniffer/PopMouserAgent.java",
+        "src/jade/src/jade/tools/sniffer/PopMouserMessage.java",
+        "src/jade/src/jade/tools/sniffer/PopNoSniffAgent.java",
+        "src/jade/src/jade/tools/sniffer/PopShowAgent.java",
+        "src/jade/src/jade/tools/sniffer/PopSniffAgent.java",
+        "src/jade/src/jade/tools/sniffer/PopupMessage.java",
+        "src/jade/src/jade/tools/sniffer/ShowOnlyAction.java",
+        "src/jade/src/jade/tools/sniffer/ToolBar.java",
+        "src/jade/src/jade/tools/sniffer/ViewMessage.java",
+        "src/jade/src/jade/tools/testagent/ReceiveCyclicBehaviour.java",
+        "src/jade/src/jade/wrapper/AgentControllerImpl.java",
+        "src/jade/src/jade/wrapper/ContainerController.java",
+        "src/jade/src/jade/wrapper/gateway/JadeGateway.java",
+        "src/jade/src/jade/wrapper/gateway/LocalJadeGateway.java"
+      ],
+      "rule_id": "LAMBDA_CONVERSION",
+      "shard_id": "LAMBDA_CONVERSION-body-local-001"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+          "line": 80
+        },
+        {
+          "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+          "line": 91
+        },
+        {
+          "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+          "line": 204
+        },
+        {
+          "file": "src/jade/src/jade/core/faultRecovery/FSPersistentStorage.java",
+          "line": 212
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [],
+      "rule_id": "LAMBDA_CONVERSION",
+      "shard_id": "LAMBDA_CONVERSION-body-local-002"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/core/nodeMonitoring/UDPMonitorServer.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/core/nodeMonitoring/UDPMonitorServer.java",
+          "line": 501
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [
+        "src/jade/src/jade/core/nodeMonitoring/UDPNodeFailureMonitor.java",
+        "src/jade/src/jade/core/nodeMonitoring/UDPNodeMonitoringService.java"
+      ],
+      "rule_id": "LAMBDA_CONVERSION",
+      "shard_id": "LAMBDA_CONVERSION-body-local-003"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/imtp/leap/nio/StuckSimulator.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/StuckSimulator.java",
+          "line": 12
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [],
+      "rule_id": "LAMBDA_CONVERSION",
+      "shard_id": "LAMBDA_CONVERSION-body-local-004"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/imtp/leap/sms/PhoneBasedSMSManager.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/imtp/leap/sms/PhoneBasedSMSManager.java",
+          "line": 79
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [],
+      "rule_id": "LAMBDA_CONVERSION",
+      "shard_id": "LAMBDA_CONVERSION-body-local-005"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/imtp/leap/sms/SMSManagerGui.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/imtp/leap/sms/SMSManagerGui.java",
+          "line": 64
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [],
+      "rule_id": "LAMBDA_CONVERSION",
+      "shard_id": "LAMBDA_CONVERSION-body-local-006"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/tools/introspector/gui/AboutBoxAction.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/tools/introspector/gui/AboutBoxAction.java",
+          "line": 75
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [],
+      "rule_id": "LAMBDA_CONVERSION",
+      "shard_id": "LAMBDA_CONVERSION-body-local-007"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/tools/rma/TablePanel.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/tools/rma/TablePanel.java",
+          "line": 92
+        },
+        {
+          "file": "src/jade/src/jade/tools/rma/TablePanel.java",
+          "line": 106
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [
+        "src/jade/src/jade/tools/rma/MainPanel.java"
+      ],
+      "rule_id": "LAMBDA_CONVERSION",
+      "shard_id": "LAMBDA_CONVERSION-body-local-008"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/tools/sniffer/AboutBoxAction.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/tools/sniffer/AboutBoxAction.java",
+          "line": 71
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [],
+      "rule_id": "LAMBDA_CONVERSION",
+      "shard_id": "LAMBDA_CONVERSION-body-local-009"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/util/PrintStreamSplitter.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/util/PrintStreamSplitter.java",
+          "line": 49
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [
+        "src/jade/src/jade/imtp/leap/SSLHelper.java"
+      ],
+      "rule_id": "LAMBDA_CONVERSION",
+      "shard_id": "LAMBDA_CONVERSION-body-local-010"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/wrapper/PlatformControllerImpl.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/wrapper/PlatformControllerImpl.java",
+          "line": 46
+        },
+        {
+          "file": "src/jade/src/jade/wrapper/PlatformControllerImpl.java",
+          "line": 228
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.7-to-1.8-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [
+        "src/jade/src/jade/core/MicroAgentControllerImpl.java"
+      ],
+      "rule_id": "LAMBDA_CONVERSION",
+      "shard_id": "LAMBDA_CONVERSION-body-local-011"
+    }
+  ],
+  "status": "OK",
+  "total_flagged_files": 113,
+  "total_flags": 399,
+  "warnings": []
+}

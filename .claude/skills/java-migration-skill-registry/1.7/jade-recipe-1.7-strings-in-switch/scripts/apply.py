@@ -47,13 +47,23 @@ _JADE_COMMENT = "// JADE-FLAG:STRINGS_IN_SWITCH"
 _DEFER_PREFIX = "// JADE-MODERNIZATION-DEFERRED:STRINGS_IN_SWITCH"
 _DEFER_MSG = "(complex chain -- manual review recommended)"
 
+# How far back _resolve_chain_head will look for a chain head. JADE's
+# longest flagged chain (TimeChooser.actionPerformed) spans ~50 lines.
+_CHAIN_HEAD_LOOKBACK = 200
+
 
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
 def _find_block_end(lines: list[str], start: int, has_brace: bool) -> int:
     """Return one-past-end index of a statement body starting at *start*.
-    If *has_brace*, scans for matching close-brace. Otherwise scans for semicolon."""
+
+    If *has_brace* the body's opening brace is on the *start* line and the
+    matching close brace is scanned for. Otherwise the body is either an
+    Allman-style block whose lone ``{`` sits on one of the following lines
+    (JADE uses this style throughout jade/gui and jade/tools/gui), or a
+    single statement terminated by a semicolon.
+    """
     if has_brace:
         depth = 1
         i = start + 1
@@ -62,11 +72,22 @@ def _find_block_end(lines: list[str], start: int, has_brace: bool) -> int:
             depth += s.count("{") - s.count("}")
             i += 1
         return i
-    else:
-        i = start + 1
-        while i < len(lines) and ";" not in lines[i]:
+
+    # Allman brace style: the block opens on a later line that is just "{".
+    probe = _skip_ws_flags(lines, start + 1)
+    if probe < len(lines) and lines[probe].strip() == "{":
+        depth = 1
+        i = probe + 1
+        while i < len(lines) and depth > 0:
+            s = lines[i].rstrip("\n")
+            depth += s.count("{") - s.count("}")
             i += 1
-        return i + 1  # past the semicolon line
+        return i
+
+    i = start + 1
+    while i < len(lines) and ";" not in lines[i]:
+        i += 1
+    return i + 1  # past the semicolon line
 
 
 def _skip_ws_flags(lines: list[str], i: int) -> int:
@@ -202,6 +223,44 @@ def _scan_if_else_chain(
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
+def _resolve_chain_head(lines: list[str], flag_idx: int) -> Optional[int]:
+    """Find the chain-head ``if`` for a flag injected above an ``else if``.
+
+    The scanner injects one JADE-FLAG above every line its rule pattern
+    matched, so a rule pattern that matches ``else if (v.equals("x"))``
+    lands the flag in the middle of a chain, not above its head. The
+    direct backward walk in main() only accepts a head on the immediately
+    preceding line; without this fallback every such flag is deferred and
+    the file gains a JADE-MODERNIZATION-DEFERRED marker instead of a fix.
+
+    Walks backwards from the flag looking for a head ``if`` whose chain,
+    as ``_scan_if_else_chain`` reads it, actually contains the flagged
+    line. Returns the head's index, or None when the flag is not inside a
+    convertible chain after all.
+    """
+    # scan_and_tag.py inserts the flag on the line AFTER the matched code,
+    # so the flagged source line is the nearest non-blank, non-flag line above.
+    flagged = flag_idx - 1
+    while flagged >= 0:
+        t = lines[flagged].strip()
+        if t == "" or _FLAG_RE.match(t):
+            flagged -= 1
+            continue
+        break
+    if flagged < 0:
+        return None
+    if not _ELSE_IF_EQUALS_RE.match(lines[flagged].rstrip("\n")):
+        return None
+    i = flagged - 1
+    while i >= 0 and flagged - i <= _CHAIN_HEAD_LOOKBACK:
+        if _IF_EQUALS_RE.match(lines[i].rstrip("\n")):
+            branches, _else_idx, _end = _scan_if_else_chain(lines, i)
+            if any(idx == flagged for _lit, idx in branches):
+                return i
+        i -= 1
+    return None
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="jade-recipe-1.7-strings-in-switch")
     parser.add_argument("--file", required=True)
@@ -305,6 +364,9 @@ def main() -> int:
         # Not part of an if-chain start pattern
         candidate = None
         break
+
+    if candidate is None or candidate < 0:
+        candidate = _resolve_chain_head(lines, flag_idx)
 
     if candidate is None or candidate < 0:
         _defer_flag(lines, flag_idx)
@@ -456,6 +518,63 @@ def _strip_flag_lines(body_lines: list[str]) -> list[str]:
     return [bl for bl in body_lines if not _FLAG_RE.match(bl.strip())]
 
 
+def _branch_body(lines: list[str], head_idx: int) -> list[str]:
+    """Return the body lines of the if/else-if/else branch headed at *head_idx*.
+
+    Handles the three shapes JADE actually uses: a K&R head ending in "{",
+    an Allman head whose lone "{" is on a following line (jade/gui and
+    jade/tools/gui are written this way), and a braceless single-statement
+    body. Getting Allman wrong used to truncate every case body at its
+    first semicolon and leave the "{" inside the generated switch, which
+    does not compile.
+    """
+    head = lines[head_idx].rstrip("\n")
+    brace_line: Optional[int] = None
+    if head.rstrip().endswith("{"):
+        brace_line = head_idx
+    else:
+        probe = _skip_ws_flags(lines, head_idx + 1)
+        if probe < len(lines) and lines[probe].strip() == "{":
+            brace_line = probe
+
+    body: list[str] = []
+    if brace_line is not None:
+        depth = 1
+        bi = brace_line + 1
+        while bi < len(lines) and depth > 0:
+            t = lines[bi].rstrip("\n")
+            depth += t.count("{") - t.count("}")
+            if depth > 0:
+                body.append(lines[bi])
+            bi += 1
+        return _strip_flag_lines(body)
+
+    bi = head_idx + 1
+    while bi < len(lines) and ";" not in lines[bi]:
+        if _FLAG_RE.match(lines[bi].strip()):
+            bi += 1
+            continue
+        body.append(lines[bi])
+        bi += 1
+    if bi < len(lines):
+        body.append(lines[bi])  # the semicolon line
+    return _strip_flag_lines(body)
+
+
+def _emit_body(switch_lines: list[str], body: list[str], base_indent: str) -> None:
+    """Append *body* to *switch_lines*, re-indented one level, blank lines kept.
+
+    A blank line must stay a blank line: emitting indent-without-newline
+    used to glue it onto the statement that followed it.
+    """
+    for bl in body:
+        t = bl.rstrip("\n")
+        if t.strip() == "":
+            switch_lines.append("\n")
+        else:
+            switch_lines.append(f"{base_indent}    {t.lstrip()}\n")
+
+
 def _build_switch(
     lines: list[str],
     start_idx: int,
@@ -472,37 +591,8 @@ def _build_switch(
 
     for literal, line_idx in branches:
         switch_lines.append(f'{base_indent}case "{literal}":\n')
-        # Extract the body
-        if_line = lines[line_idx].rstrip("\n")
-        has_brace = if_line.rstrip().endswith("{")
-        if has_brace:
-            # Braced body — extract content between braces
-            body = []
-            bi = line_idx + 1
-            depth = 1
-            while bi < len(lines) and depth > 0:
-                s = lines[bi].rstrip("\n")
-                depth += s.count("{") - s.count("}")
-                if depth > 0:
-                    body.append(lines[bi])
-                bi += 1
-            body = _strip_flag_lines(body)
-            for bl in body:
-                switch_lines.append(f"{base_indent}    {bl.lstrip()}")
-        else:
-            # Simple inline — body is on next lines until semicolon
-            body = []
-            bi = line_idx + 1
-            while bi < len(lines) and ";" not in lines[bi]:
-                if _FLAG_RE.match(lines[bi].strip()):
-                    bi += 1
-                    continue
-                body.append(lines[bi])
-                bi += 1
-            if bi < len(lines):
-                body.append(lines[bi])  # the semicolon line
-            for bl in body:
-                switch_lines.append(f"{base_indent}    {bl.lstrip()}")
+        body = _branch_body(lines, line_idx)
+        _emit_body(switch_lines, body, base_indent)
         # Defect (a): a case body that already ends in return/throw must not
         # get a trailing break — javac rejects it as an unreachable statement.
         if not _ends_with_return_or_throw(body):
@@ -510,34 +600,7 @@ def _build_switch(
 
     if else_idx is not None:
         switch_lines.append(f"{base_indent}default:\n")
-        else_line = lines[else_idx].rstrip("\n")
-        has_brace = else_line.rstrip().endswith("{")
-        if has_brace:
-            bi = else_idx + 1
-            depth = 1
-            body = []
-            while bi < len(lines) and depth > 0:
-                s = lines[bi].rstrip("\n")
-                depth += s.count("{") - s.count("}")
-                if depth > 0:
-                    body.append(lines[bi])
-                bi += 1
-            body = _strip_flag_lines(body)
-            for bl in body:
-                switch_lines.append(f"{base_indent}    {bl.lstrip()}")
-        else:
-            bi = else_idx + 1
-            body = []
-            while bi < len(lines) and ";" not in lines[bi]:
-                if _FLAG_RE.match(lines[bi].strip()):
-                    bi += 1
-                    continue
-                body.append(lines[bi])
-                bi += 1
-            if bi < len(lines):
-                body.append(lines[bi])
-            for bl in body:
-                switch_lines.append(f"{base_indent}    {bl.lstrip()}")
+        _emit_body(switch_lines, _branch_body(lines, else_idx), base_indent)
 
     switch_lines.append(f"{base_indent}}}\n")
 

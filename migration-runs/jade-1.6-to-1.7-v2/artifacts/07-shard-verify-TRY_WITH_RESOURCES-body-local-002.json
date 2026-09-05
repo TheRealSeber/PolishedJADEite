@@ -1,0 +1,34 @@
+{
+  "baseline_jar": "migration-runs/jade-1.6-to-1.7-v2/workspace/src/jade/lib/jade.jar",
+  "baseline_jar_commit": null,
+  "compiled_file_count": 1,
+  "compiled_files": [
+    "src/jade/src/jade/mtp/http/https/FriendListAuthentication.java"
+  ],
+  "docker_image": "frekele/ant:1.10.3-jdk8",
+  "docker_image_config": "config/docker-images.json",
+  "docker_image_registry_key": "java-8",
+  "docker_image_resolution_source": "central-registry",
+  "duration_seconds": 5.23,
+  "error_count": 0,
+  "errors": [],
+  "exit_code": 0,
+  "generated_at": "2026-09-05T02:16:18Z",
+  "javac_encoding": "ISO-8859-1",
+  "javac_log": "07-shard-verify-TRY_WITH_RESOURCES-body-local-002.log",
+  "javac_log_excerpt": "[s6-init] making user provided files available at /var/run/s6/etc...exited 0.\n[s6-init] ensuring user provided files have correct perms...exited 0.\n[fix-attrs.d] applying ownership & permissions fixes...\n[fix-attrs.d] done.\n[cont-init.d] executing container initialization scripts...\n[cont-init.d] 01-show-system-info.sh: executing... \n########################### OPERATION SYSTEM INFO ###########################\nPRETTY_NAME=\"Debian GNU/Linux 9 (stretch)\"\nNAME=\"Debian GNU/Linux\"\nVERSION_ID=\"9\"\nVERSION=\"9 (stretch)\"\nID=debian\nHOME_URL=\"https://www.debian.org/\"\nSUPPORT_URL=\"https://www.debian.org/support\"\nBUG_REPORT_URL=\"https://bugs.debian.org/\"\nLinux 37508ed91db2 6.12.76-linuxkit #1 SMP Thu Apr 30 15:11:03 UTC 2026 x86_64 GNU/Linux\nLinux version 6.12.76-linuxkit (root@buildkitsandbox) (gcc (Alpine 15.2.0) 15.2.0, GNU ld (GNU Binutils) 2.45.1) #1 SMP Thu Apr 30 15:11:03 UTC 2026\n#############################################################################\n[cont-init.d] 01-show-system-info.sh: exited 0.\n[cont-init.d] 40-import-trusted-ssl-certs.sh: executing... \n[cont-init.d] 40-import-trusted-ssl-certs.sh: exited 0.\n[cont-init.d] done.\n[services.d] starting services\n[services.d] done.\n[cmd] javac exited 0\n[cont-finish.d] executing container finish scripts...\n[cont-finish.d] done.\n[s6-finish] syncing disks.\n[s6-finish] sending all processes the TERM signal.\n[s6-finish] sending all processes the KILL signal and exiting.\n\nWARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested\n",
+  "javac_source": "1.7",
+  "javac_target": "1.7",
+  "rule_id": "TRY_WITH_RESOURCES",
+  "run_id": "jade-1.6-to-1.7-v2",
+  "schema_version": 1,
+  "shard_class": "body-local",
+  "shard_id": "TRY_WITH_RESOURCES-body-local-002",
+  "status": "PASS",
+  "warnings": [
+    {
+      "kind": "baseline_jar_commit_unknown",
+      "message": "No matching commit_hash found in 09-rule-commit-log.json for rule_id=TRY_WITH_RESOURCES"
+    }
+  ]
+}

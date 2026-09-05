@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "rule_id": "DIAMOND_OPERATOR",
+  "sample_artifact": "01.5-precision-sample-DIAMOND_OPERATOR.json",
+  "sample_hash": "0db06760f2a2ec303ef1868f5da9db7d53f816950ce785f54628d4c07ab81240",
+  "verdicts": [
+    {
+      "hit_id": "9623287430ad8746",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "c3719c8b260a119f",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "98122375c795b4cb",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "8385b704004a7bc6",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "3f2bab8ec2a40e47",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "f7f706cacd76bb71",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Assignment to the previously declared field mm; the explicit ArrayList<ACLMessage> type arguments are inferable from mm's declared type, so <> applies."
+    },
+    {
+      "hit_id": "7eb9b05539c1fc2c",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Assignment to the declared field summaryFields; explicit ArrayList<String> type arguments are redundant under Java 7 inference."
+    },
+    {
+      "hit_id": "20da7c6f14553f0e",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "a66884d1c15f60f3",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "2f14587983ca4401",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "993201807c866555",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "1502a0241aaeac74",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "8d0c8a756b12c841",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "35ee418f0a3b67ad",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "7f18828eb9f27d98",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "b483e18bc075cf68",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "61eab23e21240c35",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "8b3b439a7d21bdc6",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "c735aa0201a38c89",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "22feb364e8e14509",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "7f456083e235a44e",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "cac8f1efff97044b",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "b0505deb8845007e",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "40912e574b3d3666",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "d0a6a03571b52394",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Assignment to the declared local rr; the explicit ArrayList<ReplicaInfo> type arguments are inferable from its declared type."
+    },
+    {
+      "hit_id": "ca4cf8502dcbbb7b",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Assignment to the declared field transformers; explicit LinkedList<BufferTransformerInfo> type arguments are redundant."
+    },
+    {
+      "hit_id": "403a20cc00abefbb",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "8539b1e51a1007a9",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Generic instance creation spelling out its type arguments right before the constructor parentheses, with the same type available from the declaration on the left \u2014 exactly the construct Java 7 diamond inference replaces."
+    },
+    {
+      "hit_id": "6faaa43fd291f6e1",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Two explicit generic constructor calls in this(...) argument position; Java 7 infers both from the delegated constructor's formal parameter types."
+    },
+    {
+      "hit_id": "c827634e9aa07db1",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "Static final field initializer with explicit ThreadLocal<DeliveryTracing> type argument and no anonymous subclass body, so <> applies."
+    }
+  ]
+}

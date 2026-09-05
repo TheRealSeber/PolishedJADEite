@@ -1,0 +1,22 @@
+{
+  "run_id": "jade-1.6-to-1.7-v2",
+  "status": "OK",
+  "build_system": "ant",
+  "build_file": "migration-runs/jade-1.6-to-1.7-v2/workspace/src/jade/build.xml",
+  "source_version": "1.6",
+  "target_version": "1.7",
+  "build_exit_code": 0,
+  "docker_image": "frekele/ant:1.10.3-jdk8",
+  "error_count": 0,
+  "applied_fixes_count": 0,
+  "pending_fixes_count": 0,
+  "dependency_risk_level": "NONE",
+  "dependency_blockers_count": 0,
+  "dependency_warnings_count": 0,
+  "dependency_upgrade_candidates_count": 0,
+  "env": {
+    "docker": "available"
+  },
+  "jade_jar_built": true,
+  "updated_at": "2026-09-05T04:34:59Z"
+}

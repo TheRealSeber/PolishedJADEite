@@ -1,0 +1,59 @@
+{
+  "repo_root": "/Users/sebastian/Desktop/myown/PolishedJADEite-1617",
+  "rule_id": "STRINGS_IN_SWITCH",
+  "run_id": "jade-1.6-to-1.7-v2",
+  "schema_version": 1,
+  "shards": {
+    "STRINGS_IN_SWITCH-body-local-001": {
+      "created_at": "2026-09-05T01:44:07Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/gui/AclGui.java"
+        },
+        {
+          "file": "src/jade/src/jade/gui/TimeChooser.java"
+        },
+        {
+          "file": "src/jade/src/jade/tools/introspector/gui/TablePopupMenuListener.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T01:44:59Z"
+    },
+    "STRINGS_IN_SWITCH-body-local-002": {
+      "created_at": "2026-09-05T01:45:14Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/imtp/leap/MicroStub.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T01:45:26Z"
+    },
+    "STRINGS_IN_SWITCH-body-local-003": {
+      "created_at": "2026-09-05T01:45:33Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T01:45:54Z"
+    },
+    "STRINGS_IN_SWITCH-body-local-004": {
+      "created_at": "2026-09-05T01:46:11Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/tools/introspector/gui/TreeAgentPopupMenu.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T01:46:23Z"
+    }
+  },
+  "workspace_root": "migration-runs/jade-1.6-to-1.7-v2/workspace"
+}

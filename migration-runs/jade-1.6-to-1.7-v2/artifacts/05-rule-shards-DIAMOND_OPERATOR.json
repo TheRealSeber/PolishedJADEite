@@ -1,0 +1,632 @@
+{
+  "blast_class": "body-local",
+  "flag_index_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/04-flag-index.json",
+  "flagged_files_missing_from_graph": [],
+  "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
+  "graph_content_hash": "0113e801dd3de5b2249dc9e286133b79273c784c0981d85c7bce509296251fab",
+  "manifest_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/01-breaking-changes-manifest.json",
+  "rule_id": "DIAMOND_OPERATOR",
+  "run_id": "jade-1.6-to-1.7-v2",
+  "schema_version": 1,
+  "shard_count": 9,
+  "shards": [
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/content/onto/BeanIntrospector.java",
+        "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+        "src/jade/src/jade/content/onto/ClassDiscover.java",
+        "src/jade/src/jade/content/onto/Ontology.java",
+        "src/jade/src/jade/core/behaviours/OntologyServer.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/content/onto/BeanIntrospector.java",
+          "line": 53
+        },
+        {
+          "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+          "line": 214
+        },
+        {
+          "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+          "line": 216
+        },
+        {
+          "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+          "line": 218
+        },
+        {
+          "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+          "line": 370
+        },
+        {
+          "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+          "line": 393
+        },
+        {
+          "file": "src/jade/src/jade/content/onto/BeanOntologyBuilder.java",
+          "line": 590
+        },
+        {
+          "file": "src/jade/src/jade/content/onto/ClassDiscover.java",
+          "line": 54
+        },
+        {
+          "file": "src/jade/src/jade/content/onto/ClassDiscover.java",
+          "line": 56
+        },
+        {
+          "file": "src/jade/src/jade/content/onto/ClassDiscover.java",
+          "line": 109
+        },
+        {
+          "file": "src/jade/src/jade/content/onto/Ontology.java",
+          "line": 1068
+        },
+        {
+          "file": "src/jade/src/jade/core/behaviours/OntologyServer.java",
+          "line": 92
+        },
+        {
+          "file": "src/jade/src/jade/core/behaviours/OntologyServer.java",
+          "line": 95
+        },
+        {
+          "file": "src/jade/src/jade/core/behaviours/OntologyServer.java",
+          "line": 382
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [
+        "src/jade/src/jade/content/ContentManager.java",
+        "src/jade/src/jade/content/OntoACLMessage.java",
+        "src/jade/src/jade/content/abs/AbsHelper.java",
+        "src/jade/src/jade/content/abs/AbsIRE.java",
+        "src/jade/src/jade/content/abs/AbsPrimitive.java",
+        "src/jade/src/jade/content/lang/ByteArrayCodec.java",
+        "src/jade/src/jade/content/lang/Codec.java",
+        "src/jade/src/jade/content/lang/StringCodec.java",
+        "src/jade/src/jade/content/lang/leap/LEAPCodec.java",
+        "src/jade/src/jade/content/lang/sl/ExtendedSLParser.java",
+        "src/jade/src/jade/content/lang/sl/ExtendedSLParserTokenManager.java",
+        "src/jade/src/jade/content/lang/sl/SL0Ontology.java",
+        "src/jade/src/jade/content/lang/sl/SL1Ontology.java",
+        "src/jade/src/jade/content/lang/sl/SL2Ontology.java",
+        "src/jade/src/jade/content/lang/sl/SLCodec.java",
+        "src/jade/src/jade/content/lang/sl/SLOntology.java",
+        "src/jade/src/jade/content/lang/sl/SLParser.java",
+        "src/jade/src/jade/content/lang/sl/SLParserTokenManager.java",
+        "src/jade/src/jade/content/lang/sl/SimpleSLCodec.java",
+        "src/jade/src/jade/content/onto/BCReflectiveIntrospector.java",
+        "src/jade/src/jade/content/onto/BasicOntology.java",
+        "src/jade/src/jade/content/onto/BeanOntology.java",
+        "src/jade/src/jade/content/onto/CFReflectiveIntrospector.java",
+        "src/jade/src/jade/content/onto/ConceptSlotFunction.java",
+        "src/jade/src/jade/content/onto/Introspectable.java",
+        "src/jade/src/jade/content/onto/Introspector.java",
+        "src/jade/src/jade/content/onto/JavaCollectionOntology.java",
+        "src/jade/src/jade/content/onto/MicroIntrospector.java",
+        "src/jade/src/jade/content/onto/OntologyUtils.java",
+        "src/jade/src/jade/content/onto/ReflectiveIntrospector.java",
+        "src/jade/src/jade/content/onto/SerializableOntology.java",
+        "src/jade/src/jade/content/onto/basic/Action.java",
+        "src/jade/src/jade/content/onto/basic/Done.java",
+        "src/jade/src/jade/content/onto/basic/Equals.java",
+        "src/jade/src/jade/content/onto/basic/Result.java",
+        "src/jade/src/jade/content/schema/AgentActionSchema.java",
+        "src/jade/src/jade/content/schema/AggregateSchema.java",
+        "src/jade/src/jade/content/schema/ConceptSchema.java",
+        "src/jade/src/jade/content/schema/ContentElementListSchema.java",
+        "src/jade/src/jade/content/schema/Facet.java",
+        "src/jade/src/jade/content/schema/IRESchema.java",
+        "src/jade/src/jade/content/schema/ObjectSchema.java",
+        "src/jade/src/jade/content/schema/ObjectSchemaImpl.java",
+        "src/jade/src/jade/content/schema/PredicateSchema.java",
+        "src/jade/src/jade/content/schema/PrimitiveSchema.java",
+        "src/jade/src/jade/content/schema/ReferenceSchema.java",
+        "src/jade/src/jade/content/schema/VariableSchema.java",
+        "src/jade/src/jade/content/schema/facets/CardinalityFacet.java",
+        "src/jade/src/jade/content/schema/facets/DefaultValueFacet.java",
+        "src/jade/src/jade/content/schema/facets/DocumentationFacet.java",
+        "src/jade/src/jade/content/schema/facets/JavaTypeFacet.java",
+        "src/jade/src/jade/content/schema/facets/PermittedValuesFacet.java",
+        "src/jade/src/jade/content/schema/facets/RegexFacet.java",
+        "src/jade/src/jade/content/schema/facets/TypedAggregateFacet.java",
+        "src/jade/src/jade/core/BehaviourID.java",
+        "src/jade/src/jade/core/ScalabilityTest.java",
+        "src/jade/src/jade/core/behaviours/ActionExecutor.java",
+        "src/jade/src/jade/core/behaviours/BaseInitiator.java",
+        "src/jade/src/jade/core/behaviours/LoaderBehaviour.java",
+        "src/jade/src/jade/domain/AMSService.java",
+        "src/jade/src/jade/domain/DFGUIManagement/DFAppletOntology.java",
+        "src/jade/src/jade/domain/FIPAAgentManagement/ExceptionOntology.java",
+        "src/jade/src/jade/domain/FIPAAgentManagement/FIPAManagementOntology.java",
+        "src/jade/src/jade/domain/JADEAgentManagement/JADEManagementOntology.java",
+        "src/jade/src/jade/domain/KBSubscriptionManager.java",
+        "src/jade/src/jade/domain/RemoteDFRequester.java",
+        "src/jade/src/jade/domain/RequestFIPAServiceBehaviour.java",
+        "src/jade/src/jade/domain/ams.java",
+        "src/jade/src/jade/domain/df.java",
+        "src/jade/src/jade/domain/introspection/AMSSubscriber.java",
+        "src/jade/src/jade/domain/introspection/IntrospectionOntology.java",
+        "src/jade/src/jade/domain/introspection/IntrospectionServer.java",
+        "src/jade/src/jade/domain/mobility/BehaviourLoadingOntology.java",
+        "src/jade/src/jade/domain/mobility/MobilityOntology.java",
+        "src/jade/src/jade/domain/persistence/PersistenceOntology.java",
+        "src/jade/src/jade/gui/GuiAgent.java",
+        "src/jade/src/jade/proto/AchieveREInitiator.java",
+        "src/jade/src/jade/proto/AchieveREResponder.java",
+        "src/jade/src/jade/proto/ContractNetInitiator.java",
+        "src/jade/src/jade/proto/ContractNetResponder.java",
+        "src/jade/src/jade/proto/Initiator.java",
+        "src/jade/src/jade/proto/IteratedAchieveREInitiator.java",
+        "src/jade/src/jade/proto/ProposeInitiator.java",
+        "src/jade/src/jade/proto/ProposeResponder.java",
+        "src/jade/src/jade/proto/Responder.java",
+        "src/jade/src/jade/proto/SSContractNetResponder.java",
+        "src/jade/src/jade/proto/SSIteratedAchieveREResponder.java",
+        "src/jade/src/jade/proto/SSResponder.java",
+        "src/jade/src/jade/proto/SSResponderDispatcher.java",
+        "src/jade/src/jade/proto/SubscriptionInitiator.java",
+        "src/jade/src/jade/proto/SubscriptionResponder.java",
+        "src/jade/src/jade/proto/TwoPh0Initiator.java",
+        "src/jade/src/jade/proto/TwoPh1Initiator.java",
+        "src/jade/src/jade/proto/TwoPh2Initiator.java",
+        "src/jade/src/jade/proto/TwoPhInitiator.java",
+        "src/jade/src/jade/proto/TwoPhResponder.java",
+        "src/jade/src/jade/proto/states/HandlerSelector.java",
+        "src/jade/src/jade/proto/states/MsgReceiver.java",
+        "src/jade/src/jade/proto/states/ReplySender.java",
+        "src/jade/src/jade/proto/states/StateResetter.java",
+        "src/jade/src/jade/tools/ToolNotifier.java",
+        "src/jade/src/jade/tools/applet/AppletRequestProto.java",
+        "src/jade/src/jade/tools/applet/FIPAAppletRequestProto.java",
+        "src/jade/src/jade/tools/applet/JADEAppletRequestProto.java",
+        "src/jade/src/jade/tools/introspector/Introspector.java",
+        "src/jade/src/jade/tools/introspector/gui/TreePopupMenuListener.java",
+        "src/jade/src/jade/tools/logging/ontology/LogManagementOntology.java",
+        "src/jade/src/jade/tools/rma/rma.java",
+        "src/jade/src/jade/tools/sniffer/Sniffer.java",
+        "src/jade/src/jade/tools/testagent/ReceiveCyclicBehaviour.java",
+        "src/jade/src/jade/wrapper/gateway/GatewayAgent.java"
+      ],
+      "rule_id": "DIAMOND_OPERATOR",
+      "shard_id": "DIAMOND_OPERATOR-body-local-001"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/core/ExtendedMessageQueue.java",
+        "src/jade/src/jade/core/TemplateBasedMessageQueue.java",
+        "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOJICPConnection.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/core/ExtendedMessageQueue.java",
+          "line": 42
+        },
+        {
+          "file": "src/jade/src/jade/core/ExtendedMessageQueue.java",
+          "line": 145
+        },
+        {
+          "file": "src/jade/src/jade/core/TemplateBasedMessageQueue.java",
+          "line": 50
+        },
+        {
+          "file": "src/jade/src/jade/core/TemplateBasedMessageQueue.java",
+          "line": 127
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 140
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 510
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 512
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/BEManagementService.java",
+          "line": 651
+        },
+        {
+          "file": "src/jade/src/jade/imtp/leap/nio/NIOJICPConnection.java",
+          "line": 49
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [
+        "src/jade/src/jade/core/BackEndContainer.java",
+        "src/jade/src/jade/core/behaviours/TickerBehaviour.java",
+        "src/jade/src/jade/core/behaviours/WakerBehaviour.java",
+        "src/jade/src/jade/core/messaging/TopicManagementService.java",
+        "src/jade/src/jade/domain/JADEAgentManagement/QueryAgentsOnLocation.java",
+        "src/jade/src/jade/domain/JADEAgentManagement/QueryPlatformLocationsAction.java",
+        "src/jade/src/jade/domain/JADEAgentManagement/WhereIsAgentAction.java",
+        "src/jade/src/jade/domain/RequestFIPAServiceBehaviour.java",
+        "src/jade/src/jade/domain/ams.java",
+        "src/jade/src/jade/domain/mobility/CloneAction.java",
+        "src/jade/src/jade/domain/mobility/MobileAgentDescription.java",
+        "src/jade/src/jade/domain/mobility/MobileAgentLanguage.java",
+        "src/jade/src/jade/domain/mobility/MobileAgentOS.java",
+        "src/jade/src/jade/domain/mobility/MobileAgentProfile.java",
+        "src/jade/src/jade/domain/mobility/MobileAgentSystem.java",
+        "src/jade/src/jade/domain/mobility/MoveAction.java",
+        "src/jade/src/jade/gui/AclGui.java",
+        "src/jade/src/jade/gui/GuiAgent.java",
+        "src/jade/src/jade/gui/GuiEvent.java",
+        "src/jade/src/jade/imtp/leap/DeliverableDataInputStream.java",
+        "src/jade/src/jade/imtp/leap/DeliverableDataOutputStream.java",
+        "src/jade/src/jade/imtp/leap/LEAPIMTPManager.java",
+        "src/jade/src/jade/imtp/leap/NodeStub.java",
+        "src/jade/src/jade/imtp/leap/PlatformManagerStub.java",
+        "src/jade/src/jade/imtp/leap/Skeleton.java",
+        "src/jade/src/jade/imtp/leap/Stub.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOBEDispatcher.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOHTTPConnection.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOHTTPHelper.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOJICPConnectionWrapper.java",
+        "src/jade/src/jade/imtp/leap/nio/NIOJICPSConnection.java",
+        "src/jade/src/jade/imtp/leap/nio/SSLEngineHelper.java",
+        "src/jade/src/jade/imtp/rmi/RMIIMTPManager.java",
+        "src/jade/src/jade/proto/AchieveREInitiator.java",
+        "src/jade/src/jade/proto/AchieveREResponder.java",
+        "src/jade/src/jade/proto/ContractNetInitiator.java",
+        "src/jade/src/jade/proto/ContractNetResponder.java",
+        "src/jade/src/jade/proto/Initiator.java",
+        "src/jade/src/jade/proto/IteratedAchieveREInitiator.java",
+        "src/jade/src/jade/proto/ProposeInitiator.java",
+        "src/jade/src/jade/proto/ProposeResponder.java",
+        "src/jade/src/jade/proto/Responder.java",
+        "src/jade/src/jade/proto/SSContractNetResponder.java",
+        "src/jade/src/jade/proto/SSIteratedAchieveREResponder.java",
+        "src/jade/src/jade/proto/SSResponder.java",
+        "src/jade/src/jade/proto/SSResponderDispatcher.java",
+        "src/jade/src/jade/proto/SubscriptionInitiator.java",
+        "src/jade/src/jade/proto/SubscriptionResponder.java",
+        "src/jade/src/jade/proto/TwoPh0Initiator.java",
+        "src/jade/src/jade/proto/TwoPh1Initiator.java",
+        "src/jade/src/jade/proto/TwoPh2Initiator.java",
+        "src/jade/src/jade/proto/TwoPhInitiator.java",
+        "src/jade/src/jade/proto/TwoPhResponder.java",
+        "src/jade/src/jade/proto/states/MsgReceiver.java",
+        "src/jade/src/jade/proto/states/ReplySender.java",
+        "src/jade/src/jade/tools/DummyAgent/DummyAgent.java",
+        "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+        "src/jade/src/jade/tools/DummyAgent/DummyBehaviour.java",
+        "src/jade/src/jade/tools/DummyAgent/MsgIndication.java",
+        "src/jade/src/jade/tools/introspector/Introspector.java",
+        "src/jade/src/jade/tools/logging/LogManagerAgent.java",
+        "src/jade/src/jade/tools/rma/MainPanel.java",
+        "src/jade/src/jade/tools/rma/rma.java",
+        "src/jade/src/jade/tools/sniffer/Sniffer.java"
+      ],
+      "rule_id": "DIAMOND_OPERATOR",
+      "shard_id": "DIAMOND_OPERATOR-body-local-002"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/core/messaging/DeliveryTracing.java",
+        "src/jade/src/jade/core/messaging/LocalJVMMessageRouter.java",
+        "src/jade/src/jade/core/messaging/MessageManager.java",
+        "src/jade/src/jade/core/messaging/MomMessagingService.java",
+        "src/jade/src/jade/core/messaging/MultipleGenericMessage.java",
+        "src/jade/src/jade/core/messaging/PersistentDeliveryService.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/core/messaging/DeliveryTracing.java",
+          "line": 10
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/LocalJVMMessageRouter.java",
+          "line": 13
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/LocalJVMMessageRouter.java",
+          "line": 26
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MessageManager.java",
+          "line": 516
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MomMessagingService.java",
+          "line": 35
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MomMessagingService.java",
+          "line": 40
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/MultipleGenericMessage.java",
+          "line": 11
+        },
+        {
+          "file": "src/jade/src/jade/core/messaging/PersistentDeliveryService.java",
+          "line": 453
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [
+        "src/jade/src/jade/core/BackEndContainer.java",
+        "src/jade/src/jade/core/messaging/LightMessagingService.java",
+        "src/jade/src/jade/core/messaging/MessagingService.java",
+        "src/jade/src/jade/core/messaging/OutBox.java",
+        "src/jade/src/jade/core/messaging/PersistentDeliveryManager.java",
+        "src/jade/src/jade/imtp/leap/DeliverableDataInputStream.java",
+        "src/jade/src/jade/imtp/leap/DeliverableDataOutputStream.java",
+        "src/jade/src/jade/imtp/leap/JICP/JICPClient.java",
+        "src/jade/src/jade/imtp/leap/NodeStub.java"
+      ],
+      "rule_id": "DIAMOND_OPERATOR",
+      "shard_id": "DIAMOND_OPERATOR-body-local-003"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/core/replication/AgentReplicationHandle.java",
+        "src/jade/src/jade/core/replication/AgentReplicationService.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/core/replication/AgentReplicationHandle.java",
+          "line": 38
+        },
+        {
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+          "line": 79
+        },
+        {
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+          "line": 82
+        },
+        {
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+          "line": 85
+        },
+        {
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+          "line": 88
+        },
+        {
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+          "line": 170
+        },
+        {
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+          "line": 261
+        },
+        {
+          "file": "src/jade/src/jade/core/replication/AgentReplicationService.java",
+          "line": 591
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [],
+      "rule_id": "DIAMOND_OPERATOR",
+      "shard_id": "DIAMOND_OPERATOR-body-local-004"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/core/resource/SingletonResourceManagementHelper.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/core/resource/SingletonResourceManagementHelper.java",
+          "line": 43
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [
+        "src/jade/src/jade/core/resource/ResourceManagementService.java"
+      ],
+      "rule_id": "DIAMOND_OPERATOR",
+      "shard_id": "DIAMOND_OPERATOR-body-local-005"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+        "src/jade/src/jade/core/sam/SAMInfo.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+          "line": 46
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+          "line": 49
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+          "line": 89
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+          "line": 91
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMInfo.java",
+          "line": 56
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMInfo.java",
+          "line": 132
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMInfo.java",
+          "line": 165
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMInfo.java",
+          "line": 182
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [
+        "src/jade/src/jade/core/sam/Poller.java",
+        "src/jade/src/jade/core/sam/SAMInfoHandler.java",
+        "src/jade/src/jade/core/sam/SAMProxy.java",
+        "src/jade/src/jade/core/sam/SAMSlice.java"
+      ],
+      "rule_id": "DIAMOND_OPERATOR",
+      "shard_id": "DIAMOND_OPERATOR-body-local-006"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/core/sam/SAMService.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 68
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 70
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 85
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 273
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 285
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 390
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 437
+        },
+        {
+          "file": "src/jade/src/jade/core/sam/SAMService.java",
+          "line": 439
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [
+        "src/jade/src/jade/core/JVM.java",
+        "src/jade/src/jade/core/sam/Poller.java"
+      ],
+      "rule_id": "DIAMOND_OPERATOR",
+      "shard_id": "DIAMOND_OPERATOR-body-local-007"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/security/ThreadGroupHttpAuthenticator.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/security/ThreadGroupHttpAuthenticator.java",
+          "line": 40
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [
+        "src/jade/src/jade/core/BackEndContainer.java",
+        "src/jade/src/jade/core/BackEndManager.java",
+        "src/jade/src/jade/core/FrontEndContainer.java",
+        "src/jade/src/jade/imtp/leap/DeliverableDataInputStream.java"
+      ],
+      "rule_id": "DIAMOND_OPERATOR",
+      "shard_id": "DIAMOND_OPERATOR-body-local-008"
+    },
+    {
+      "class": "body-local",
+      "editable_files": [
+        "src/jade/src/jade/wrapper/gateway/DynamicJadeGateway.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/wrapper/gateway/DynamicJadeGateway.java",
+          "line": 40
+        }
+      ],
+      "graph_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/03.5-knowledge-graph.json",
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "parallel_safe": true,
+      "read_only_context": [
+        "src/jade/src/jade/wrapper/gateway/JadeGateway.java",
+        "src/jade/src/jade/wrapper/gateway/LocalJadeGateway.java",
+        "src/jade/src/jade/wrapper/gateway/SplitJadeGateway.java"
+      ],
+      "rule_id": "DIAMOND_OPERATOR",
+      "shard_id": "DIAMOND_OPERATOR-body-local-009"
+    }
+  ],
+  "status": "OK",
+  "total_flagged_files": 23,
+  "total_flags": 58,
+  "warnings": []
+}

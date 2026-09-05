@@ -1,0 +1,533 @@
+{
+  "hits": [
+    {
+      "context_after": [
+        "      retVal = CANCEL;",
+        "      dlg.dispose();",
+        "    }",
+        "    else if (command.equals(\"Close\")) {"
+      ],
+      "context_before": [
+        "      date = null;",
+        "      retVal = OK;",
+        "      dlg.dispose();",
+        "    }"
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+      "hit_id": "b676777e9177c1cf",
+      "line": 300,
+      "line_hash": "a08dfa72f6d392f5",
+      "line_text": "    else if (command.equals(\"Cancel\")) {",
+      "line_truncated": false,
+      "match_span": [
+        4,
+        37
+      ],
+      "match_text": "else if (command.equals(\"Cancel\")",
+      "pattern_index": 0,
+      "rank": 0
+    },
+    {
+      "context_after": [
+        "\t\t{",
+        "\t\t\tdlg.dispose();",
+        "\t\t}",
+        "\t\telse if (command.equals(\"Absolute\"))"
+      ],
+      "context_before": [
+        "\t\t{",
+        "\t\t\tretVal = CANCEL;",
+        "\t\t\tdlg.dispose();",
+        "\t\t}"
+      ],
+      "file": "src/jade/src/jade/gui/TimeChooser.java",
+      "hit_id": "c156af0f064d4d10",
+      "line": 287,
+      "line_hash": "267be509a911afec",
+      "line_text": "\t\telse if (command.equals(\"Close\"))",
+      "line_truncated": false,
+      "match_span": [
+        2,
+        34
+      ],
+      "match_text": "else if (command.equals(\"Close\")",
+      "pattern_index": 0,
+      "rank": 1
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\t{         ",
+        "\t\t\t\t\t\tt.showViewTimeDlg(null);",
+        "\t\t\t\t\t}",
+        "\t\t\t\t} // END actionPerformed(ActionEvent e)"
+      ],
+      "context_before": [
+        "\t\t\t\t\t\t\telse",
+        "\t\t\t\t\t\t\t\treplyBy.setText(ISO8601.toString(replyByDate));",
+        "\t\t\t\t\t\t}",
+        "\t\t\t\t\t}"
+      ],
+      "file": "src/jade/src/jade/gui/AclGui.java",
+      "hit_id": "7793ec5ff0e1ca08",
+      "line": 527,
+      "line_hash": "a03a688ddc69b1c1",
+      "line_text": "\t\t\t\t\telse if (command.equals(\"View\"))",
+      "line_truncated": false,
+      "match_span": [
+        5,
+        36
+      ],
+      "match_text": "else if (command.equals(\"View\")",
+      "pattern_index": 0,
+      "rank": 2
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\tthrow new IMTPException((String) r.getParamAt(2));",
+        "\t\t\t\t}",
+        "\t\t\t}",
+        "\t\t\treturn r;"
+      ],
+      "context_before": [
+        "\t\t\t\t\tString msg = new String(\"Exception \"+(String) r.getParamAt(1)+\" occurred in remote site processing command \"+c.getCode()+\". \"+(String) r.getParamAt(2));",
+        "\t\t\t\t\tlogger.log(Logger.SEVERE,msg);",
+        "\t\t\t\t\tthrow new IMTPException(msg);",
+        "\t\t\t\t}"
+      ],
+      "file": "src/jade/src/jade/imtp/leap/MicroStub.java",
+      "hit_id": "2244942321e6a7d7",
+      "line": 75,
+      "line_hash": "7019bb288ce8baa2",
+      "line_text": "\t\t\t\telse if (((String) r.getParamAt(1)).equals(\"jade.core.IMTPException\")) {",
+      "line_truncated": false,
+      "match_span": [
+        4,
+        73
+      ],
+      "match_text": "else if (((String) r.getParamAt(1)).equals(\"jade.core.IMTPException\")",
+      "pattern_index": 0,
+      "rank": 3
+    },
+    {
+      "context_after": [
+        "\t\t\tprotocol.setSelectedItem(\"Null\");",
+        "\t\telse",
+        "\t\t{",
+        "\t\t\tlowerCase = param.toLowerCase();"
+      ],
+      "context_before": [
+        "\t\treplyBy.setText(param);",
+        "",
+        "\t\tif((param = msg.getProtocol()) == null)",
+        "\t\t\tprotocol.setSelectedItem(\"Null\");"
+      ],
+      "file": "src/jade/src/jade/gui/AclGui.java",
+      "hit_id": "3674ab53e3c3a9c5",
+      "line": 1217,
+      "line_hash": "d3d93e572977b723",
+      "line_text": "\t\telse if (param.equals(\"\") || param.equalsIgnoreCase(\"Null\"))",
+      "line_truncated": false,
+      "match_span": [
+        2,
+        27
+      ],
+      "match_text": "else if (param.equals(\"\")",
+      "pattern_index": 0,
+      "rank": 4
+    },
+    {
+      "context_after": [
+        "      relButton.setSelected(true);",
+        "      absButton.setSelected(false);",
+        "      mode = RELATIVE;",
+        "    }"
+      ],
+      "context_before": [
+        "      absButton.setSelected(true);",
+        "      relButton.setSelected(false);",
+        "      mode = ABSOLUTE;",
+        "    }"
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+      "hit_id": "c1c9229d7eb769c4",
+      "line": 313,
+      "line_hash": "13d86a12c86ef2ba",
+      "line_text": "    else if (command.equals(\"Relative\")) {",
+      "line_truncated": false,
+      "match_span": [
+        4,
+        39
+      ],
+      "match_text": "else if (command.equals(\"Relative\")",
+      "pattern_index": 0,
+      "rank": 5
+    },
+    {
+      "context_after": [
+        "      model.clearRows();",
+        "    }",
+        "",
+        "  }"
+      ],
+      "context_before": [
+        "    }",
+        "    else if(name.equals(\"remove\")) {",
+        "      model.removeRow(selectedRow);",
+        "    }"
+      ],
+      "file": "src/jade/src/jade/tools/introspector/gui/TablePopupMenuListener.java",
+      "hit_id": "8ce4d0d4f84aed84",
+      "line": 65,
+      "line_hash": "315b74910f3bd696",
+      "line_text": "    else if(name.equals(\"clear\")) {",
+      "line_truncated": false,
+      "match_span": [
+        4,
+        32
+      ],
+      "match_text": "else if(name.equals(\"clear\")",
+      "pattern_index": 0,
+      "rank": 6
+    },
+    {
+      "context_after": [
+        "      date = null;",
+        "      retVal = OK;",
+        "      dlg.dispose();",
+        "    }"
+      ],
+      "context_before": [
+        "",
+        "      retVal = OK;",
+        "      dlg.dispose();",
+        "    }"
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+      "hit_id": "cf9848ffff0c9ce3",
+      "line": 295,
+      "line_hash": "17ed89765d9e4e2a",
+      "line_text": "    else if (command.equals(\"Reset\")) {",
+      "line_truncated": false,
+      "match_span": [
+        4,
+        36
+      ],
+      "match_text": "else if (command.equals(\"Reset\")",
+      "pattern_index": 0,
+      "rank": 7
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\t{         ",
+        "\t\t\t\t\t\tt.showViewTimeDlg(null);",
+        "\t\t\t\t\t}",
+        "\t\t\t\t}"
+      ],
+      "context_before": [
+        "\t\t\t\t\t\t\telse",
+        "\t\t\t\t\t\t\t\tdate.setText(ISO8601.toString(dateDate));",
+        "\t\t\t\t\t\t}",
+        "\t\t\t\t\t}"
+      ],
+      "file": "src/jade/src/jade/gui/AclGui.java",
+      "hit_id": "efff19e7b1dc99be",
+      "line": 781,
+      "line_hash": "a03a688ddc69b1c1",
+      "line_text": "\t\t\t\t\telse if (command.equals(\"View\"))",
+      "line_truncated": false,
+      "match_span": [
+        5,
+        36
+      ],
+      "match_text": "else if (command.equals(\"View\")",
+      "pattern_index": 0,
+      "rank": 8
+    },
+    {
+      "context_after": [
+        "\t\t{",
+        "\t\t\tdate = null;",
+        "\t\t\tretVal = OK;",
+        "\t\t\tdlg.dispose();"
+      ],
+      "context_before": [
+        "",
+        "\t\t\tretVal = OK;",
+        "\t\t\tdlg.dispose();",
+        "\t\t}"
+      ],
+      "file": "src/jade/src/jade/gui/TimeChooser.java",
+      "hit_id": "56ed527fde091026",
+      "line": 276,
+      "line_hash": "5e97e0b38cd1e3f0",
+      "line_text": "\t\telse if (command.equals(\"Reset\"))",
+      "line_truncated": false,
+      "match_span": [
+        2,
+        34
+      ],
+      "match_text": "else if (command.equals(\"Reset\")",
+      "pattern_index": 0,
+      "rank": 9
+    },
+    {
+      "context_after": [
+        "      dlg.dispose();",
+        "    }",
+        "",
+        "    else if (command.equals(\"Absolute\")) {"
+      ],
+      "context_before": [
+        "    else if (command.equals(\"Cancel\")) {",
+        "      retVal = CANCEL;",
+        "      dlg.dispose();",
+        "    }"
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+      "hit_id": "8d1313cdf5ffc8eb",
+      "line": 304,
+      "line_hash": "1fd5506734d2858e",
+      "line_text": "    else if (command.equals(\"Close\")) {",
+      "line_truncated": false,
+      "match_span": [
+        4,
+        36
+      ],
+      "match_text": "else if (command.equals(\"Close\")",
+      "pattern_index": 0,
+      "rank": 10
+    },
+    {
+      "context_after": [
+        "\t\t{",
+        "\t\t\trelButton.setSelected(true);",
+        "\t\t\tabsButton.setSelected(false);",
+        "\t\t\tmode = RELATIVE;"
+      ],
+      "context_before": [
+        "\t\t\tabsButton.setSelected(true);",
+        "\t\t\trelButton.setSelected(false);",
+        "\t\t\tmode = ABSOLUTE;",
+        "\t\t}"
+      ],
+      "file": "src/jade/src/jade/gui/TimeChooser.java",
+      "hit_id": "5d9eccf395c32538",
+      "line": 297,
+      "line_hash": "b638836fe058be6a",
+      "line_text": "\t\telse if (command.equals(\"Relative\"))",
+      "line_truncated": false,
+      "match_span": [
+        2,
+        37
+      ],
+      "match_text": "else if (command.equals(\"Relative\")",
+      "pattern_index": 0,
+      "rank": 11
+    },
+    {
+      "context_after": [
+        "\t\t\t\t\t{         ",
+        "\t\t\t\t\t\tt.showViewTimeDlg(null);",
+        "\t\t\t\t\t}",
+        "\t\t\t\t}"
+      ],
+      "context_before": [
+        "\t\t\t\t\t\t\telse",
+        "\t\t\t\t\t\t\t\tdateRec.setText(ISO8601.toString(dateRecDate));",
+        "\t\t\t\t\t\t}",
+        "\t\t\t\t\t}"
+      ],
+      "file": "src/jade/src/jade/gui/AclGui.java",
+      "hit_id": "e1323da8b5777af2",
+      "line": 863,
+      "line_hash": "a03a688ddc69b1c1",
+      "line_text": "\t\t\t\t\telse if (command.equals(\"View\"))",
+      "line_truncated": false,
+      "match_span": [
+        5,
+        36
+      ],
+      "match_text": "else if (command.equals(\"View\")",
+      "pattern_index": 0,
+      "rank": 12
+    },
+    {
+      "context_after": [
+        "\t\t{",
+        "\t\t\tretVal = CANCEL;",
+        "\t\t\tdlg.dispose();",
+        "\t\t}"
+      ],
+      "context_before": [
+        "\t\t\tdate = null;",
+        "\t\t\tretVal = OK;",
+        "\t\t\tdlg.dispose();",
+        "\t\t}"
+      ],
+      "file": "src/jade/src/jade/gui/TimeChooser.java",
+      "hit_id": "52b5756a4c3a5527",
+      "line": 282,
+      "line_hash": "f2539a839e26e417",
+      "line_text": "\t\telse if (command.equals(\"Cancel\"))",
+      "line_truncated": false,
+      "match_span": [
+        2,
+        35
+      ],
+      "match_text": "else if (command.equals(\"Cancel\")",
+      "pattern_index": 0,
+      "rank": 13
+    },
+    {
+      "context_after": [
+        "      absButton.setSelected(true);",
+        "      relButton.setSelected(false);",
+        "      mode = ABSOLUTE;",
+        "    }"
+      ],
+      "context_before": [
+        "    else if (command.equals(\"Close\")) {",
+        "      dlg.dispose();",
+        "    }",
+        ""
+      ],
+      "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
+      "hit_id": "ebf844f6a981b174",
+      "line": 308,
+      "line_hash": "be409a16e342841e",
+      "line_text": "    else if (command.equals(\"Absolute\")) {",
+      "line_truncated": false,
+      "match_span": [
+        4,
+        39
+      ],
+      "match_text": "else if (command.equals(\"Absolute\")",
+      "pattern_index": 0,
+      "rank": 14
+    },
+    {
+      "context_after": [
+        "      model.removeRow(selectedRow);",
+        "    }",
+        "    else if(name.equals(\"clear\")) {",
+        "      model.clearRows();"
+      ],
+      "context_before": [
+        "\tACLMessage m = (ACLMessage)model.getValueAt(selectedRow, 0);",
+        "        if(m != null) AclGui.showMsgInDialog(m, null);",
+        "      }",
+        "    }"
+      ],
+      "file": "src/jade/src/jade/tools/introspector/gui/TablePopupMenuListener.java",
+      "hit_id": "9d9b893335b2e3ce",
+      "line": 62,
+      "line_hash": "fb3af2bb2d90825f",
+      "line_text": "    else if(name.equals(\"remove\")) {",
+      "line_truncated": false,
+      "match_span": [
+        4,
+        33
+      ],
+      "match_text": "else if(name.equals(\"remove\")",
+      "pattern_index": 0,
+      "rank": 15
+    },
+    {
+      "context_after": [
+        "\t  debugger.removeAgent(new AID(agentName, AID.ISGUID));",
+        "\t}",
+        "      }",
+        "    }"
+      ],
+      "context_before": [
+        "\tString agentName = node.getName();",
+        "\tif(source.getName().equals(\"on\")) {",
+        "\t  debugger.addAgent(new AID(agentName, AID.ISGUID));",
+        "\t}"
+      ],
+      "file": "src/jade/src/jade/tools/introspector/gui/TreeAgentPopupMenu.java",
+      "hit_id": "51f9970fc9b93a08",
+      "line": 71,
+      "line_hash": "ed3249c37d5efc66",
+      "line_text": "\telse if(source.getName().equals(\"off\")) {",
+      "line_truncated": false,
+      "match_span": [
+        1,
+        39
+      ],
+      "match_text": "else if(source.getName().equals(\"off\")",
+      "pattern_index": 0,
+      "rank": 16
+    },
+    {
+      "context_after": [
+        "\t\t{",
+        "\t\t\tabsButton.setSelected(true);",
+        "\t\t\trelButton.setSelected(false);",
+        "\t\t\tmode = ABSOLUTE;"
+      ],
+      "context_before": [
+        "\t\telse if (command.equals(\"Close\"))",
+        "\t\t{",
+        "\t\t\tdlg.dispose();",
+        "\t\t}"
+      ],
+      "file": "src/jade/src/jade/gui/TimeChooser.java",
+      "hit_id": "bc69c1a30d903941",
+      "line": 291,
+      "line_hash": "45adb31a86be68da",
+      "line_text": "\t\telse if (command.equals(\"Absolute\"))",
+      "line_truncated": false,
+      "match_span": [
+        2,
+        37
+      ],
+      "match_text": "else if (command.equals(\"Absolute\")",
+      "pattern_index": 0,
+      "rank": 17
+    }
+  ],
+  "manifest_artifact": "migration-runs/jade-1.6-to-1.7-v2/artifacts/01-breaking-changes-manifest.json",
+  "manifest_rule_hash": "c5abe82f14613b76b07855bb9376ae1b6c66f5aeda43be1844e10cdfc0dccb1b",
+  "pattern_revision": 1,
+  "patterns": [
+    {
+      "index": 0,
+      "pattern": "\\belse\\s+if\\s*\\(\\s*(?!!)[^;{]*?\\.\\s*equals\\s*\\(\\s*\\\"[^\\\"]*\\\"\\s*\\)",
+      "reason": "Java 7 added String support in the switch selector. Only an else-if branch comparing a String against a compile-time string constant is convertible to a case label; the previous run's broad '\\.equals\\s*\\(\\s*\"' pattern flagged 121 sites of which 117 were single, unchained ifs and had to be SKIPPED.",
+      "target_extensions": [
+        ".java"
+      ]
+    }
+  ],
+  "population": {
+    "files_scanned": 1015,
+    "files_with_hits": 6,
+    "hits_per_pattern": {
+      "0": 18
+    },
+    "max_hits_in_one_file": 5,
+    "population_signature": "60d7351fadbb133cdaf6c5be2c3a1b3436beff4ac913347d2c9226a2397636a1",
+    "total_hits": 18,
+    "truncated": false
+  },
+  "rule_description": "A branch of an if / else-if chain tests a String-valued expression against a string literal with .equals(). Java 7 permits String in a switch selector, so a chain of such branches over one receiver collapses into a switch with case labels. The pattern deliberately matches only the 'else if' head of a branch (so a lone, unchained if is never flagged), requires a string-literal argument (so an .equals() against an arbitrary object is never flagged), and rejects a negated condition.",
+  "rule_id": "STRINGS_IN_SWITCH",
+  "rule_name": "Java 7 String in switch — if/else-if chain over String constants",
+  "run_id": "jade-1.6-to-1.7-v2",
+  "sample_size": 18,
+  "sampling": {
+    "algorithm": "sha256-rank-uniform-v1",
+    "context_lines": 4,
+    "max_line_chars": 400,
+    "nested": true,
+    "requested_sample_size": 30,
+    "seed": "91a849b0bcd4d750",
+    "seed_scope": "rule+pattern"
+  },
+  "schema_version": 1,
+  "status": "CENSUS",
+  "verification_hint": "After the fix the chain is a single switch on the same receiver, every former branch body is preserved verbatim under its case label, no 'break;' follows an unconditional 'return', and the else-fallthrough becomes 'default'. javac must report no unreachable statement.",
+  "warnings": [],
+  "workspace": "migration-runs/jade-1.6-to-1.7-v2/workspace"
+}

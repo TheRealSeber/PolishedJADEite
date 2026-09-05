@@ -151,14 +151,27 @@ def test_population_parity_with_scanner(tmp_path):
     flag_index = json.loads(
         (scan_artifacts / "04-flag-index.json").read_text(encoding="utf-8")
     )
-    # The scanner records the line of the *injected comment*, one line after
-    # the match (see scan_and_tag_file: insert_at = match_index + 1). The
-    # sampler records the match's own line. Translate before comparing so
-    # both are expressed as "the line the pattern actually matched".
-    scanner_locations = {
-        (f["file"], f["line"] - 1) for f in flag_index["flags"] if f["rule_id"] == "PARITY_RULE"
-    }
-    assert sampler_locations == scanner_locations
+    # The scanner records the line of the *injected comment* as it stands in
+    # the FLAGGED file, one line after the match it belongs to. Injecting a
+    # flag shifts every line below it, so those numbers cannot be compared to
+    # the sampler's (which reads an unflagged copy) by subtracting a constant.
+    # Compare on the invariant that actually matters at dispatch time: each
+    # recorded line really is a flag line in the file on disk, and the line
+    # directly above it is the matched source line.
+    scanner_flags = [f for f in flag_index["flags"] if f["rule_id"] == "PARITY_RULE"]
+    flagged_lines = (scan_workspace / "src" / "A.java").read_text(
+        encoding="utf-8"
+    ).splitlines()
+    scanner_matched_text = set()
+    for f in scanner_flags:
+        assert "JADE-FLAG:PARITY_RULE" in flagged_lines[f["line"] - 1], (
+            f"flag index line {f['line']} is not a flag line: "
+            f"{flagged_lines[f['line'] - 1]!r}"
+        )
+        scanner_matched_text.add(flagged_lines[f["line"] - 2].strip())
+
+    sampler_matched_text = {h["line_text"].strip() for h in sample["hits"]}
+    assert sampler_matched_text == scanner_matched_text
     assert sampler_locations == {("src/A.java", 3), ("src/A.java", 6)}
 
 

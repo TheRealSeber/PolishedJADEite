@@ -1,0 +1,27 @@
+{
+  "run_id": "jade-1.6-to-1.7-v2",
+  "workspace": "migration-runs/jade-1.6-to-1.7-v2/workspace",
+  "total_files_scanned": 1015,
+  "total_new_flags": 166,
+  "idempotent_skips": 0,
+  "by_rule": {
+    "TRY_WITH_RESOURCES": {
+      "name": "Java 7 try-with-resources — manually released external resource",
+      "severity": "MEDIUM",
+      "count": 90
+    },
+    "STRINGS_IN_SWITCH": {
+      "name": "Java 7 String in switch — if/else-if chain over String constants",
+      "severity": "MEDIUM",
+      "count": 18
+    },
+    "DIAMOND_OPERATOR": {
+      "name": "Java 7 diamond operator for generic instance creation",
+      "severity": "MEDIUM",
+      "count": 58
+    }
+  },
+  "by_confidence": {
+    "HIGH": 166
+  }
+}

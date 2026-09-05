@@ -1,0 +1,181 @@
+{
+  "policy": {
+    "max_revisions": 3,
+    "min_precision": 0.7,
+    "on_reject": "halt",
+    "sample_size": 30,
+    "source": "00-run-config.json#precision_gate",
+    "undecidable_max_ratio": 0.2
+  },
+  "rules": {
+    "DIAMOND_OPERATOR": {
+      "counterexamples": [],
+      "effective_min_precision": 0.7,
+      "false_positive": 0,
+      "false_positive_classes": {},
+      "judged": 30,
+      "manifest_rule_hash": "5b8d8b8b227c95d460abc01ffdc1605a0ee2f614c5dab036eb2421cdd1ca19c0",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 1.0,
+      "pattern_revision": 1,
+      "per_pattern": {
+        "0": {
+          "judged": 30,
+          "precision": 1.0,
+          "true_positive": 30
+        }
+      },
+      "population": {
+        "files_with_hits": 23,
+        "total_hits": 58
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-DIAMOND_OPERATOR.json",
+      "sample_hash": "0db06760f2a2ec303ef1868f5da9db7d53f816950ce785f54628d4c07ab81240",
+      "status": "PASS",
+      "true_positive": 30,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-DIAMOND_OPERATOR.json",
+      "verdicts_hash": "2050e33711ebebe15aed53012c60be2ee39091e8300a7125696facf48369ea45",
+      "wilson_95": [
+        0.8865,
+        1.0
+      ]
+    },
+    "STRINGS_IN_SWITCH": {
+      "counterexamples": [
+        {
+          "false_positive_class": "RIGHT_CONSTRUCT_WRONG_CONTEXT",
+          "file": "src/jade/src/jade/gui/AclGui.java",
+          "hit_id": "3674ab53e3c3a9c5",
+          "line": 1217,
+          "line_text": "\t\telse if (param.equals(\"\") || param.equalsIgnoreCase(\"Null\"))",
+          "reason": "The preceding branch tests ((param = msg.getProtocol()) == null), not a String equals, and this condition is a disjunction with equalsIgnoreCase, so no switch case label can express it."
+        },
+        {
+          "false_positive_class": "RIGHT_CONSTRUCT_WRONG_CONTEXT",
+          "file": "src/jade/src/jade/imtp/leap/MicroStub.java",
+          "hit_id": "2244942321e6a7d7",
+          "line": 75,
+          "line_text": "\t\t\t\telse if (((String) r.getParamAt(1)).equals(\"jade.core.IMTPException\")) {",
+          "reason": "The preceding branch is if(!((Boolean) r.getParamAt(0)).booleanValue()), a boolean test, not a String equals, so this else-if is a lone String comparison and not a convertible chain."
+        }
+      ],
+      "effective_min_precision": 0.7,
+      "false_positive": 2,
+      "false_positive_classes": {
+        "RIGHT_CONSTRUCT_WRONG_CONTEXT": 2
+      },
+      "judged": 18,
+      "manifest_rule_hash": "c5abe82f14613b76b07855bb9376ae1b6c66f5aeda43be1844e10cdfc0dccb1b",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 0.8889,
+      "pattern_revision": 1,
+      "per_pattern": {
+        "0": {
+          "judged": 18,
+          "precision": 0.8889,
+          "true_positive": 16
+        }
+      },
+      "population": {
+        "files_with_hits": 6,
+        "total_hits": 18
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-STRINGS_IN_SWITCH.json",
+      "sample_hash": "362a67f05cc32c8a2cb837248c5ac177cc2c03d54f6a3680138137bd5ecf18ea",
+      "status": "PASS",
+      "true_positive": 16,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-STRINGS_IN_SWITCH.json",
+      "verdicts_hash": "71816027266278a617f98d2f5e46fc671fd7f332a05859085868951398d28792",
+      "wilson_95": [
+        0.672,
+        0.969
+      ]
+    },
+    "TRY_WITH_RESOURCES": {
+      "counterexamples": [
+        {
+          "false_positive_class": "RIGHT_CONSTRUCT_WRONG_CONTEXT",
+          "file": "src/jade/src/jade/imtp/leap/JICP/JICPConnection.java",
+          "hit_id": "6d541068dd23e505",
+          "line": 88,
+          "line_text": "\t\t\t\tsc = new Socket();",
+          "reason": "sc is the field 'protected Socket sc' declared at JICPConnection.java:58; the socket is owned by the connection object and closed in its own close() method, so it deliberately outlives this method."
+        },
+        {
+          "false_positive_class": "COMMENT_OR_STRING",
+          "file": "src/jade/src/jade/mtp/http/HTTPServer.java",
+          "hit_id": "15d20058209c40fc",
+          "line": 103,
+          "line_text": "\t\t\t server = new ServerSocket(port);",
+          "reason": "HTTPServer.java:103 sits inside the /*#PJAVA_INCLUDE_BEGIN ... #PJAVA_INCLUDE_END*/ block comment; java_source.is_live_code() returns False for this line, so it is not compiled code at all."
+        },
+        {
+          "false_positive_class": "RIGHT_CONSTRUCT_WRONG_CONTEXT",
+          "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+          "hit_id": "430e31accdbe6129",
+          "line": 89,
+          "line_text": "    Socket s = new Socket(a.getCodeBase().getHost(), DEFAULT_PORT);",
+          "reason": "The socket's stream is stored in the field 'private DataInputStream in' (line 59), so the socket must stay open after this method returns and cannot be scoped to a try-with-resources block here."
+        }
+      ],
+      "effective_min_precision": 0.7,
+      "false_positive": 3,
+      "false_positive_classes": {
+        "COMMENT_OR_STRING": 1,
+        "RIGHT_CONSTRUCT_WRONG_CONTEXT": 2
+      },
+      "judged": 30,
+      "manifest_rule_hash": "b3784123a76dbe1a30e064e4d872e03a01ec2b8c0dffc8a45fa1f088e55f36c9",
+      "min_precision_source": "run-config",
+      "next_action": "NONE",
+      "pattern_precision": 0.9,
+      "pattern_revision": 1,
+      "per_pattern": {
+        "0": {
+          "judged": 22,
+          "precision": 0.8636,
+          "true_positive": 19
+        },
+        "1": {
+          "judged": 8,
+          "precision": 1.0,
+          "true_positive": 8
+        }
+      },
+      "population": {
+        "files_with_hits": 41,
+        "total_hits": 90
+      },
+      "queue_eligible": true,
+      "sample_artifact": "01.5-precision-sample-TRY_WITH_RESOURCES.json",
+      "sample_hash": "4d2d46ec6424e454a7c7a0c576a4ccf55fe6692cb16f9a1463fe1b76b84a4a64",
+      "status": "PASS",
+      "true_positive": 27,
+      "undecidable": 0,
+      "verdicts_artifact": "01.5-precision-verdicts-TRY_WITH_RESOURCES.json",
+      "verdicts_hash": "1bacf7747aafca3e0059c9ccf4ee1d64e168435062fbcb441150ac9b16b55f58",
+      "wilson_95": [
+        0.7438,
+        0.9654
+      ]
+    }
+  },
+  "run_id": "jade-1.6-to-1.7-v2",
+  "schema_version": 1,
+  "summary": {
+    "abandoned": 0,
+    "inconclusive": 0,
+    "no_population": 0,
+    "overridden": 0,
+    "passed": 3,
+    "rejected": 0,
+    "rules_total": 3
+  },
+  "warnings": []
+}

@@ -569,6 +569,20 @@ def scan_and_tag_file(
 
                     lines.insert(insert_at, flag_line)
                     modified = True
+                    # Every flag already recorded for this file that sits at or
+                    # below the insertion point has just shifted down by one.
+                    # Without this the recorded line drifts whenever a later
+                    # rule (or a later pattern of the same rule) injects above
+                    # it, because each rule/pattern pass restarts from the end
+                    # of the already-modified line list. That drift is what
+                    # made 19 of the previous run's 58 DIAMOND_OPERATOR flags
+                    # unresolvable at dispatch time.
+                    for recorded in new_flags:
+                        if recorded.file == rel_path and recorded.line - 1 >= insert_at:
+                            recorded.line += 1
+                    for recorded in existing_flags:
+                        if recorded.file == rel_path and recorded.line - 1 >= insert_at:
+                            recorded.line += 1
                     new_flags.append(
                         FlagEntry(
                             rule_id=rule.id,

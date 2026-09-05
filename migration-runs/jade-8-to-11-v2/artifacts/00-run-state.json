@@ -1,17 +1,16 @@
 {
   "run_id": "jade-8-to-11-v2",
   "state": "DONE",
-  "current_rule_id": "CORBA_REMOVAL",
-  "updated_at": "2026-09-05T02:16:26Z",
+  "current_rule_id": null,
+  "updated_at": "2026-09-05T04:51:05Z",
   "failure_reason": null,
   "artifact_hashes": {
-    "01-breaking-changes-manifest.json": "f045c8fd4f7d58bc64f6f8ebf2976f1c3b60d36df63d271f3285898d1e604031",
+    "01-breaking-changes-manifest.json": "ca167023a3c9198c10f78fd7a86cea2f991134876d44625cba44a827c472c141",
     "02-tooling-scout-report.json": "4dc0a2284029dcebe6b28de2f8cf992ddd31e38bab611b49c663d108e89839c1",
-    "03-build-audit.json": "0706eb1443e203cd4d2c5dfc7c229de94f19dd76a021c7f37b1eda27f74a4f1e",
+    "03-build-audit.json": "62eb7c8a45966937e388bc1b0aea8c28281e17314d540325f7a73f41a4a0effa",
     "03.5-knowledge-graph.json": "fd2dd874d34bfdca4b89b1d9aee045d0bf935993bee2a28a74eee36e48455f1e",
     "04-flag-index.json": "b01ae1e9e788147fb3e34745d095a47101b92b7c3819d8556a23213dcb5ba6db",
-    "07-build.log": "4418575a98cc381c625b0992d0981f7db54b4b32c7b2d12315ee846e9539b777",
-    "07-runtime-verify.json": "73c934e54dd926c3c43681d2f791b5a087f53491503c3e05182b520e06cdaaa4"
+    "07-runtime-verify.json": "133b6cdbc156a3ae82f18f517a8978e194da6f1b038217e5766f437470a5b2c5"
   },
   "graph": {
     "schema_version": 2,

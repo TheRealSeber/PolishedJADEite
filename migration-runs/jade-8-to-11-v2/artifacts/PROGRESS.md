@@ -2,7 +2,7 @@
 
 **Source:** 8 → **Target:** 11
 **Current state:** DONE
-**Updated:** 2026-09-05T02:16:26Z
+**Updated:** 2026-09-05T04:51:05Z
 
 | Phase | Status | Details |
 |-------|--------|---------|
@@ -74,3 +74,6 @@
 | ✅ WORKSPACE_READY | OK | Workspace ready: migration-runs/jade-8-to-11-v2/workspace |
 | ✅ RULE_BATCH_LOOP | OK | Processing rule CORBA_REMOVAL |
 | ✅ RULE_BATCH_LOOP | OK | Completed rule CORBA_REMOVAL |
+| ✅ DONE | OK | Run terminated: DONE |
+| ✅ INIT | OK | Run initialized |
+| ✅ WORKSPACE_READY | OK | Workspace ready: migration-runs/jade-8-to-11-v2/workspace |

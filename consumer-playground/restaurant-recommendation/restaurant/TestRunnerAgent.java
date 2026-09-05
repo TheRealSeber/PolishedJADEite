@@ -25,7 +25,12 @@ public class TestRunnerAgent extends Agent {
                 try {
                     runTest();
                 } catch (Exception e) {
-                    System.err.println("RESTAURANT_TEST_FAILED");
+                    // Print the cause before failing. Swallowing it made every
+                    // failure of this consumer undiagnosable from the harness
+                    // log: the gate reported RESTAURANT_TEST_FAILED with no
+                    // indication of what threw.
+                    System.err.println("RESTAURANT_TEST_FAILED: " + e);
+                    e.printStackTrace(System.err);
                     System.exit(1);
                 }
             }
@@ -84,8 +89,17 @@ public class TestRunnerAgent extends Agent {
         sendOrder("O3", "Italian", "Pizza", 60.0, "zoneA");
         sendOrder("O4", "Japanese", "Sushi", 70.0, "zoneA");
 
-        // Fallback shutdown in case the negotiation coordinator is stuck
-        Thread.sleep(30000);
+        // Fallback shutdown in case the negotiation coordinator is stuck.
+        // On the success path the coordinator exits the JVM first, which
+        // interrupts this sleep -- that is the test passing, not failing, so
+        // it must not propagate to the catch block that prints
+        // RESTAURANT_TEST_FAILED.
+        try {
+            Thread.sleep(30000);
+        } catch (InterruptedException alreadyFinished) {
+            Thread.currentThread().interrupt();
+            return;
+        }
         System.out.println("TEST_RUNNER_FALLBACK_EXIT");
         System.exit(0);
     }

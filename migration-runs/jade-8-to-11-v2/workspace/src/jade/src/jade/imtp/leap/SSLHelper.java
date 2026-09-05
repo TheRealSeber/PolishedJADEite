@@ -29,7 +29,40 @@ public class SSLHelper {
 		Collections.unmodifiableList(Arrays.asList(new String[] {"TLS_ECDH_anon_WITH_AES_128_CBC_SHA"}));
 
 	public static String[] getSupportedKeys() {
+		warnIfDisabledByJdkPolicy();
 		return (String[]) supportedKeys.toArray(new String[0]);
+	}
+
+	private static boolean policyWarningIssued = false;
+
+	/**
+	 * Warn once if the JDK will refuse every suite we declare.
+	 *
+	 * Every suite in supportedKeys is anonymous, and since JDK 11 the "anon"
+	 * keyword sits in the jdk.tls.disabledAlgorithms security property by
+	 * default. The handshake then fails with a generic "no cipher suites in
+	 * common", which says nothing about the cause. Whether to permit
+	 * unauthenticated crypto is a deployment decision, so this only reports
+	 * the situation -- it changes no security setting.
+	 */
+	private static synchronized void warnIfDisabledByJdkPolicy() {
+		if (policyWarningIssued) {
+			return;
+		}
+		policyWarningIssued = true;
+		String disabled = java.security.Security.getProperty("jdk.tls.disabledAlgorithms");
+		if (disabled == null || disabled.indexOf("anon") < 0) {
+			return;
+		}
+		logger.log(Logger.SEVERE,
+				"Every cipher suite JADE declares for SSL over JICP is anonymous ("
+				+ supportedKeys
+				+ "), and this JDK disables anonymous suites through the "
+				+ "jdk.tls.disabledAlgorithms security property. The handshake will "
+				+ "fail with \"no cipher suites in common\". Either configure an "
+				+ "authenticated setup, or, accepting that the connection is then "
+				+ "unauthenticated, remove \"anon\" from that property in "
+				+ "java.security.");
 	}
 	
 	private static Logger logger = Logger.getJADELogger(SSLHelper.class.getName());

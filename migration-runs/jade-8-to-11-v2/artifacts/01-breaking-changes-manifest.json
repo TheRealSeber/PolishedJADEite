@@ -186,91 +186,13 @@
         "counterexamples": []
       },
       "queue_eligible": true
-    },
+    }
+  ],
+  "withdrawn_rules": [
     {
       "id": "CLDR_LOCALE_DATA_DEFAULT",
-      "name": "CLDR locale data is the default provider from JDK 9 on",
-      "description": "Starting in JDK 9 the Unicode Consortium CLDR data is the default locale data provider; in JDK 8 CLDR was bundled but not enabled. Code that uses locale-sensitive services such as date, time and number formatting can therefore produce different output on JDK 11 than on JDK 8. JADE formats message timestamps through DateFormat.getDateTimeInstance(style, style), which resolves its pattern from the default locale provider, so sniffer and DummyAgent timestamps change shape between JDK 8 and JDK 11. Oracle documents two remedies: set java.locale.providers=COMPAT,CLDR, or stop relying on the provider by stating the pattern explicitly.",
-      "fix_strategy": "recipe:jade-recipe-8-11-cldr-locale-data",
-      "severity": "LOW",
-      "category": "BEHAVIOR_CHANGE",
-      "blast_class": "body-local",
-      "blast_class_evidence": {
-        "classification": "body-local",
-        "reason": "Every occurrence is the initializer of a java.text.DateFormat variable or field. Replacing DateFormat.getDateTimeInstance(...) with an explicit SimpleDateFormat keeps the declared type DateFormat, so no field type, no method signature and no caller changes; the alternative fix is a JVM system property and touches no source at all.",
-        "witnesses": [
-          {
-            "file": "src/jade/src/jade/tools/DummyAgent/MsgIndication.java",
-            "line": 56,
-            "code": "private static DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);"
-          },
-          {
-            "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
-            "line": 1729,
-            "code": "private static DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);"
-          },
-          {
-            "file": "src/jade/src/jade/tools/gui/ACLMessageNode.java",
-            "line": 179,
-            "code": "private static DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);"
-          },
-          {
-            "file": "src/jade/src/jade/tools/gui/ACLTimeChooserDialog.java",
-            "line": 226,
-            "code": "DateFormat df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);"
-          },
-          {
-            "file": "src/jade/src/jade/gui/TimeChooser.java",
-            "line": 209,
-            "code": "DateFormat df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);"
-          }
-        ],
-        "graph_evidence": {
-          "note": "All five sites are local variables or private static fields; none is exposed through a public API, so the blast radius stops at the declaring file."
-        }
-      },
-      "match_pattern": "\\bDateFormat\\.getDateTimeInstance\\s*\\(",
-      "patterns": [
-        {
-          "type": "regex",
-          "pattern": "\\bDateFormat\\.getDateTimeInstance\\s*\\(",
-          "target_extensions": [
-            ".java"
-          ],
-          "reason": "locale-sensitive date/time formatting whose pattern comes from the default locale provider, which switched from JRE/COMPAT to CLDR in JDK 9",
-          "confidence": 0.9
-        }
-      ],
-      "evidence_ref": "oracle-migrate-index::lines 355-360",
-      "evidence_hash": "ef4d6e2a5f253596d3d27b45b958d6d63247f1d0b30bafdcb41367c3103f8677",
-      "confidence": 0.9,
-      "pattern_revision": 1,
-      "verification_hint": "Either every flagged site states its own pattern (SimpleDateFormat with an explicit pattern string) and no DateFormat.getDateTimeInstance( call remains flagged, or the run records an explicit java.locale.providers=COMPAT,CLDR decision. Formatted timestamps must be identical on JDK 8 and JDK 11 for the same input, and all four consumers still PASS.",
-      "pattern_precision": {
-        "value": 1.0,
-        "status": "PASS",
-        "judged": 5,
-        "true_positive": 5,
-        "false_positive": 0,
-        "undecidable": 0,
-        "sample_size": 5,
-        "population_total_hits": 5,
-        "wilson_95": [
-          0.5655,
-          1.0
-        ],
-        "effective_min_precision": 0.9,
-        "pattern_revision": 1,
-        "seed": "3a0c97bf477c3397",
-        "sample_artifact": "01.5-precision-sample-CLDR_LOCALE_DATA_DEFAULT.json",
-        "sample_hash": "e96b64b2c6cf09b640b7d86db5a4442ad2a34b467e77dbf2d1560399f030e68a",
-        "verdicts_artifact": "01.5-precision-verdicts-CLDR_LOCALE_DATA_DEFAULT.json",
-        "verdicts_hash": "bad098fda34df657d6a164fd52a9645d819b869fdc148b63a129abc97398db4a",
-        "report_artifact": "01.5-precision-report.json",
-        "false_positive_classes": {},
-        "counterexamples": []
-      },
-      "queue_eligible": true
+      "reason": "Withdrawn on evidence, not deferred. The entire behaviour change is one comma in a debug GUI timestamp: JRE/COMPAT rendered \"11/14/23 10:13 PM\" and CLDR renders \"11/14/23, 10:13 PM\". The proposed fix hard-codes the English COMPAT pattern, which would stop the tools honouring the user's locale -- a regression for non-English operators, and a worse outcome than the comma it avoids. No site is broken by the CLDR default.",
+      "sites": 5
     }
   ]
 }

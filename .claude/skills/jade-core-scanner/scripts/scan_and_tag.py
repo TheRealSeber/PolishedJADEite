@@ -6,6 +6,15 @@ against source lines via regex, and injects inline comment markers (e.g.
 ``// JADE-FLAG:<rule_id>`` for ``.java``, ``<!-- JADE-FLAG:... -->`` for
 ``.xml``, ``# JADE-FLAG:...`` for ``.properties``) exactly once per match.
 Fully idempotent — re-running never creates duplicate flags.
+
+A pattern may set the optional ``"multiline": true`` field. Such a pattern
+is matched against the *entire* file content (``re.DOTALL``) instead of one
+line at a time, so a match may span multiple lines — needed for constructs
+such as a multi-line anonymous SAM class targeted by LAMBDA_CONVERSION.
+The flag comment is still injected as a single line, immediately after the
+line the match *starts* on; the line number is derived from the character
+offset of the match start. Patterns without ``"multiline"`` are matched
+exactly as before (single line, no behaviour change).
 """
 
 from __future__ import annotations
@@ -262,7 +271,9 @@ class PatternDef:
             raise ValueError(
                 "Empty pattern string — skipping rule (would match every line)"
             )
-        self.compiled: re.Pattern = re.compile(raw["pattern"])
+        self.multiline: bool = bool(raw.get("multiline", False))
+        flags = re.DOTALL if self.multiline else 0
+        self.compiled: re.Pattern = re.compile(raw["pattern"], flags)
         self.target_extensions: List[str] = raw.get("target_extensions", [".java"])
         self.reason: str = raw.get("reason", "")
         self.confidence: str = raw.get("confidence", "MEDIUM")
@@ -274,6 +285,7 @@ class PatternDef:
             "target_extensions": self.target_extensions,
             "reason": self.reason,
             "confidence": self.confidence,
+            "multiline": self.multiline,
         }
 
 
@@ -530,6 +542,89 @@ def scan_and_tag_file(
             comment_prefixes = _comment_skip_prefixes(ext)
             flag_re = _flag_pattern_for_ext(ext)
             target = f"JADE-FLAG:{rule.id}"
+
+            if pattern.multiline:
+                # Match against the whole file (re.DOTALL, set on `compiled`
+                # in PatternDef) so a construct spanning multiple lines —
+                # e.g. a multi-line anonymous SAM class — can match. The
+                # flag's line number is derived from the match start
+                # offset, then injected as a single-line comment right
+                # after that starting line (same placement rule as the
+                # single-line path below).
+                #
+                # Already-injected JADE-FLAG marker lines are excluded from
+                # the searched text: such a marker sits *inside* the span a
+                # multi-line pattern matches (e.g. right after the "{" that
+                # opens a SAM body), and its non-whitespace comment text
+                # would otherwise break the match on every subsequent scan
+                # — silently losing the flag from a reconstructed index.
+                # Excluding them keeps the match (and therefore idempotent
+                # reconstruction) stable across reruns.
+                content_parts: List[str] = []
+                line_index_map: List[int] = []
+                for idx, candidate_line in enumerate(lines):
+                    if flag_re.match(candidate_line.strip()):
+                        continue
+                    content_parts.append(candidate_line)
+                    line_index_map.append(idx)
+                content = "".join(content_parts)
+                match_line_idxs = sorted(
+                    {
+                        line_index_map[content.count("\n", 0, m.start())]
+                        for m in compiled.finditer(content)
+                    },
+                    reverse=True,
+                )
+                # Largest index first: an insertion only shifts indices
+                # below it, never one still waiting to be processed.
+                for match_line_idx in match_line_idxs:
+                    line = lines[match_line_idx]
+                    stripped = line.strip()
+                    if stripped.startswith(comment_prefixes):
+                        continue
+                    if _flag_exists(lines, match_line_idx, rule.id, ext):
+                        for offset in range(1, 51):
+                            idx = match_line_idx + offset
+                            if idx >= len(lines):
+                                break
+                            flag_line = lines[idx].strip()
+                            if flag_re.match(flag_line):
+                                if target in flag_line:
+                                    existing_flags.append(
+                                        FlagEntry(
+                                            rule_id=rule.id,
+                                            file=rel_path,
+                                            line=idx + 1,
+                                            confidence=pattern.confidence,
+                                            reason=pattern.reason,
+                                        )
+                                    )
+                                break
+                            if flag_line:
+                                break
+                        continue
+                    flag_line = _format_flag_line(
+                        rule.id, pattern.reason, pattern.confidence, ext
+                    )
+
+                    if ext.lower() == ".xml":
+                        insert_at = _xml_safe_insertion_index(lines, match_line_idx)
+                    else:
+                        insert_at = match_line_idx + 1
+
+                    lines.insert(insert_at, flag_line)
+                    modified = True
+                    new_flags.append(
+                        FlagEntry(
+                            rule_id=rule.id,
+                            file=rel_path,
+                            line=insert_at + 1,
+                            confidence=pattern.confidence,
+                            reason=pattern.reason,
+                        )
+                    )
+                continue  # multiline handled above — skip the per-line loop
+
             # Iterate backwards so insertions do not shift subsequent indices.
             for i in range(len(lines) - 1, -1, -1):
                 line = lines[i]

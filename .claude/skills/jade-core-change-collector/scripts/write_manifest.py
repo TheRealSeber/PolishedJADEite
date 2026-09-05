@@ -78,6 +78,8 @@ def validate_pattern(pattern: Dict[str, Any]) -> List[str]:
         errors.append("pattern.reason must be a string")
     if pattern.get("type") not in ("regex", None):
         errors.append(f"pattern.type must be 'regex', got: {pattern.get('type')}")
+    if "multiline" in pattern and not isinstance(pattern.get("multiline"), bool):
+        errors.append("pattern.multiline must be a boolean when present")
     return errors
 
 

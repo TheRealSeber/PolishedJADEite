@@ -1,0 +1,158 @@
+[
+  {
+    "id": "JEP400_FILE_IO_DEFAULT_CHARSET",
+    "name": "File readers, writers and print streams without an explicit charset switched from the platform default to UTF-8 in JDK 18",
+    "description": "JEP 400 changed Charset.defaultCharset() to return UTF-8 from JDK 18, and with it every java.io constructor that encodes or decodes without an explicit charset. The JEP names them: InputStreamReader, FileReader, OutputStreamWriter, FileWriter and PrintStream. Nothing breaks and nothing warns -- the code compiles identically on 17 and 21 -- but a file written by a JDK 17 JVM on a windows-1252 host and read by a JDK 21 JVM is silently corrupted, which is the exact hazard the JEP describes. This rule covers only the sites where JADE writes a file it later reads back itself: persisted messages, fault recovery state, log and CSV output. Sites whose stream comes from a socket carry the same question as the ACL and JICP wire codecs and are deliberately excluded; that is a protocol compatibility decision for the maintainer.",
+    "fix_strategy": "recipe:jade-recipe-17-21-file-io-charset",
+    "severity": "MEDIUM",
+    "category": "BEHAVIOR_CHANGE",
+    "blast_class": "body-local",
+    "blast_class_evidence": {
+      "classification": "body-local",
+      "reason": "Adding a Charset argument to a constructor call changes no declaration, no field type, no method signature and no return type. The static type of the expression is unchanged, so nothing outside the enclosing method has to be edited. The only cross-file effect is an added import of java.nio.charset.StandardCharsets, which is file-local.",
+      "witnesses": [
+        {
+          "file": "src/jade/core/messaging/FileMessageStorage.java",
+          "line": 295,
+          "code": "out = new BufferedWriter(new FileWriter(toStore));",
+          "note": "written and read back by FileMessageStorage itself; the matching reader is at line 136"
+        },
+        {
+          "file": "src/jade/core/faultRecovery/FSPersistentStorage.java",
+          "line": 117,
+          "code": "writeContent(platformInfoFile, tmp.getBytes());",
+          "note": "same class reads it back at line 127 with new String(content)"
+        },
+        {
+          "file": "src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+          "line": 129,
+          "code": "stream = new PrintStream(f);",
+          "note": "CSV output file, no reader on the other side of a socket"
+        }
+      ],
+      "escalation_condition": "If a flagged constructor turns out to wrap a socket stream rather than a file, the site belongs to the deferred wire-format decision and the recipe must skip it and report, not edit it."
+    },
+    "match_pattern": "new\\s+(?:FileReader|FileWriter|PrintStream)\\s*\\(",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "new\\s+(?:FileReader|FileWriter)\\s*\\(",
+        "target_extensions": [
+          ".java"
+        ],
+        "reason": "java.io FileReader/FileWriter constructor with no Charset argument; JEP 400 changed it from the platform default to UTF-8 in JDK 18",
+        "confidence": 0.95
+      },
+      {
+        "type": "regex",
+        "pattern": "new\\s+PrintStream\\s*\\(",
+        "target_extensions": [
+          ".java"
+        ],
+        "reason": "java.io PrintStream constructor with no charset argument; same JEP 400 change. Socket-backed instances are excluded by the recipe as wire format",
+        "confidence": 0.8
+      }
+    ],
+    "evidence_ref": "jep400-utf8-by-default::lines 27-31",
+    "evidence_hash": "c167aadad741fdc71bc0c3338f90197a89e09a667ac064db1a104b04ea5a4db8",
+    "confidence": 0.95,
+    "verification_hint": "ant clean lib inside jade-ant:21 prints BUILD SUCCESSFUL and exits 0, all four consumers PASS, and every remaining charset-less FileReader/FileWriter/PrintStream site is either socket-backed or named in the shard result with a reason."
+  },
+  {
+    "id": "FINALIZE_DEPRECATED_FOR_REMOVAL",
+    "name": "Object.finalize() overrides are deprecated for removal since JDK 18",
+    "description": "JEP 421 terminally deprecated finalization in JDK 18 by annotating finalize() with @Deprecated(forRemoval=true). These four sites are the only warnings in the tree that changed category between 17 and 21: plain [deprecation] on 17, [removal] on 21. Every finalizer here wraps a cleanup method that already exists, so the transform is to delete the override and keep the cleanup reachable. Server.java is the exception -- its finalizer body is live code called explicitly from a finally block.",
+    "fix_strategy": "recipe:jade-recipe-17-21-finalize-removal",
+    "severity": "MEDIUM",
+    "category": "DEPRECATION",
+    "blast_class": "signature",
+    "blast_class_evidence": {
+      "classification": "signature",
+      "reason": "Reclassified from body-local after the signature gate rejected the first shard. The earlier reasoning -- that finalize() is protected, called by the garbage collector, and named by no other file -- is about REACHABILITY and it still holds: nothing in the tree calls JarClassLoader.finalize(), and the shard compiled clean. But this rule DELETES A METHOD DECLARATION, and the gate compares declarations, not reachability. A rule that removes a declared member is a signature rule by definition, so its shards must carry the dependency closure of the classes they edit. Classifying it body-local was asking the planner for shards the gate would always reject.",
+      "witnesses": [
+        {
+          "file": "src/jade/core/management/JarClassLoader.java",
+          "line": 207,
+          "code": "protected void finalize() throws Throwable {",
+          "note": "deleting this removes a member from the node; CodeLocator.java depends on the class and calls close() at CodeLocator.java:113, which is the normal-path cleanup that makes the deletion safe"
+        },
+        {
+          "file": "src/jade/tools/SocketProxyAgent/Connection.java",
+          "line": 239,
+          "code": "protected void finalize() {",
+          "note": "body is if (!closed) { close(); }; close() is reached from Connection.java:216 and :234 and from Server.java:163"
+        },
+        {
+          "file": "src/jade/tools/SocketProxyAgent/Server.java",
+          "line": 143,
+          "code": "protected void finalize() {",
+          "note": "body is live cleanup called explicitly from the finally block at Server.java:119; the method is renamed rather than deleted, which is still a declaration change"
+        }
+      ],
+      "escalation_condition": "If the resource a finalizer releases has no close/shutdown call on the normal path, deleting the override leaks it. The recipe must record NEEDS_REVIEW instead of editing."
+    },
+    "match_pattern": "(?:void\\s+finalize\\s*\\(|\\bfinalize\\s*\\(\\s*\\)\\s*;)",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "void\\s+finalize\\s*\\(",
+        "target_extensions": [
+          ".java"
+        ],
+        "reason": "override of Object.finalize(), deprecated for removal by JEP 421 in JDK 18",
+        "confidence": 0.98
+      },
+      {
+        "type": "regex",
+        "pattern": "\\bfinalize\\s*\\(\\s*\\)\\s*;",
+        "target_extensions": [
+          ".java"
+        ],
+        "reason": "explicit invocation of a finalizer, including super.finalize(); the call site has to move with the override",
+        "confidence": 0.95
+      }
+    ],
+    "evidence_ref": "jep421-deprecate-finalization-for-removal::lines 2, 78",
+    "evidence_hash": "54fa78a32c256a9be34978b6ac647821ceffc41737e31bdbe23db8cd844cd929",
+    "confidence": 0.98,
+    "verification_hint": "ant clean lib inside jade-ant:21 with -Xlint:removal -Xmaxwarns 100000 reports zero 'finalize() in Object has been deprecated and marked for removal' warnings, down from four. Build exits 0, all consumers PASS."
+  },
+  {
+    "id": "THREADDEATH_DEPRECATED_FOR_REMOVAL",
+    "name": "java.lang.ThreadDeath is deprecated for removal since JDK 20 and can no longer be thrown by the runtime",
+    "description": "JDK 20 changed Thread.stop() to throw UnsupportedOperationException and, as the release note puts it in the following sentence, deprecated java.lang.ThreadDeath for removal as part of the same change. ThreadDeath was only ever raised by Thread.stop(), so from JDK 20 nothing in the runtime can produce one and the catch clause in ThreadedBehaviourFactory is unreachable.",
+    "fix_strategy": "recipe:jade-recipe-17-21-threaddeath-removal",
+    "severity": "LOW",
+    "category": "DEPRECATION",
+    "blast_class": "body-local",
+    "blast_class_evidence": {
+      "classification": "body-local",
+      "reason": "The single site is one catch clause inside one method body. Removing it changes no declaration and no signature: ThreadDeath is an Error, so it was never part of any throws clause.",
+      "witnesses": [
+        {
+          "file": "src/jade/core/behaviours/ThreadedBehaviourFactory.java",
+          "line": 404,
+          "code": "catch (ThreadDeath td) {",
+          "note": "sits between catch (Agent.Interrupted ae) and catch (Throwable t); the body logs and rethrows"
+        }
+      ],
+      "escalation_condition": "If any code in the tree throws ThreadDeath by hand, removing the clause routes it to the Throwable handler and sets ERROR_STATE instead of rethrowing. The recipe must state that in the shard result."
+    },
+    "match_pattern": "\\bThreadDeath\\b",
+    "patterns": [
+      {
+        "type": "regex",
+        "pattern": "\\bThreadDeath\\b",
+        "target_extensions": [
+          ".java"
+        ],
+        "reason": "java.lang.ThreadDeath, deprecated for removal in JDK 20 and no longer raisable by the runtime",
+        "confidence": 0.9
+      }
+    ],
+    "evidence_ref": "oracle-jdk20-release-notes::lines 160-161",
+    "evidence_hash": "b4ce8f90de9f11dddeffc660b4e93792fd6acfc8eba1100f969833780b0c4b8b",
+    "confidence": 0.95,
+    "verification_hint": "ant clean lib inside jade-ant:21 with -Xlint:removal reports zero 'ThreadDeath in java.lang has been deprecated and marked for removal' warnings, down from one. Build exits 0, all consumers PASS; jrba drives the threaded behaviour path this file implements."
+  }
+]

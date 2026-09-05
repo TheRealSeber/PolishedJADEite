@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "rule_id": "JEP400_FILE_IO_DEFAULT_CHARSET",
+  "shard_id": "JEP400_FILE_IO_DEFAULT_CHARSET-body-local-001",
+  "status": "FIXED",
+  "match_quality": "exact",
+  "diff_summary": "33 flagged sites across 17 files, one agent per file. 21 EDITED, 6 SKIPPED, 6 NEEDS_REVIEW; every site is accounted for. Edited sites gained an explicit StandardCharsets.UTF_8 argument and lost their JADE-FLAG marker; 10 files gained an import of java.nio.charset.StandardCharsets and nothing else. Shard compile in jade-ant:21 at source 21: 0 errors, exit 0. Signature gate: 0 changed nodes, 0 leaks. SKIPPED breaks down as 3 socket-backed PrintStreams named by the recipe as wire format (Connection.java:76, JadeBridge.java:172, DFAppletCommunicator.java:97) and 3 sites inside block comments that java_source.is_live_code rejected (AccessControlList.java:346 and :358 in the disabled createTestACL harness, Logger.java:488 inside a #PJAVA_INCLUDE block). NEEDS_REVIEW breaks down as 4 operator-supplied configuration files whose encoding JADE does not own (SocketProxyAgent.java:103 and Sniffer.java:568 read hand-authored .inf files with no writer anywhere in the tree; AccessControlList.java:255 and :266 read the administrator's black/white list) and 2 sites where the transform does not compile: new FileReader(String) throws FileNotFoundException but the charset overload new FileReader(String, Charset) throws the broader IOException, and the enclosing try at DummyAgentGui.java:218 and ACLPanel.java:261 catches only FileNotFoundException. Widening those catches changes the user-facing error path and is outside this recipe. KNOWN ASYMMETRY, recorded rather than fixed: ACLPanel.saveACL and DummyAgentGui now write .acl files as UTF-8 while their matching readers stay unpinned. On the platform this run targets that is not a mismatch -- JEP 400 makes an unpinned reader UTF-8 on JDK 18 and later, and this jar is bytecode 65, so it cannot load on anything older. AclGui.java:616, the third reader of the same files, is pinned.",
+  "files": [
+    {
+      "file": "src/jade/src/jade/core/messaging/FileMessageStorage.java",
+      "match_count": 6,
+      "changes": 6,
+      "touched_line_start": 137,
+      "touched_line_end": 296,
+      "migration_skip_marker": false,
+      "diff_summary": "line 137: BufferedReader in = new BufferedReader(new FileReader(toRead, StandardCharsets.UTF_8));; line 209: BufferedReader in = new BufferedReader(new FileReader(f, StandardCharsets.UTF_8));; line 215: BufferedWriter out = new BufferedWriter(new FileWriter(tmp, StandardCharsets.UTF_8));; line 248: BufferedReader in = new BufferedReader(new FileReader(f, StandardCharsets.UTF_8));; line 260: BufferedWriter out = new BufferedWriter(new FileWriter(tmp, StandardCharsets.UTF_8));; line 296: out = new BufferedWriter(new FileWriter(toStore, StandardCharsets.UTF_8));"
+    },
+    {
+      "file": "src/jade/src/jade/core/messaging/MessagingService.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 349,
+      "touched_line_end": 349,
+      "migration_skip_marker": false,
+      "diff_summary": "line 349: f = new PrintWriter(new FileWriter(fileName, StandardCharsets.UTF_8));"
+    },
+    {
+      "file": "src/jade/src/jade/core/sam/DefaultSAMInfoHandlerImpl.java",
+      "match_count": 3,
+      "changes": 3,
+      "touched_line_start": 130,
+      "touched_line_end": 194,
+      "migration_skip_marker": false,
+      "diff_summary": "line 130: stream = new PrintStream(f, StandardCharsets.UTF_8);; line 163: PrintStream stream = new PrintStream(f, StandardCharsets.UTF_8);; line 194: summaryFile = new PrintStream(f, StandardCharsets.UTF_8);"
+    },
+    {
+      "file": "src/jade/src/jade/domain/ams.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 1481,
+      "touched_line_end": 1481,
+      "migration_skip_marker": false,
+      "diff_summary": "line 1481: FileWriter f = new FileWriter(getProperty(Profile.FILE_DIR, \"\") + \"APDescription.txt\", StandardCharsets.UTF_8)"
+    },
+    {
+      "file": "src/jade/src/jade/gui/AclGui.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 616,
+      "touched_line_end": 616,
+      "migration_skip_marker": false,
+      "diff_summary": "line 616: FileReader aclMsgFile = new FileReader(f, StandardCharsets.UTF_8);"
+    },
+    {
+      "file": "src/jade/src/jade/tools/DummyAgent/DummyAgentGui.java",
+      "match_count": 4,
+      "changes": 3,
+      "touched_line_start": 218,
+      "touched_line_end": 344,
+      "migration_skip_marker": true,
+      "diff_summary": "line 253: FileWriter f = new FileWriter(fileName, StandardCharsets.UTF_8);; line 296: BufferedReader inp = new BufferedReader(new FileReader(fileName, StandardCharsets.UTF_8));; line 344: BufferedWriter out = new BufferedWriter(new FileWriter(fileName, StandardCharsets.UTF_8)); | line 218 NEEDS_REVIEW: Input flagged line 218 (marker line 218, code line 217 before edits; now code 218 / marker 219). Site is live code, a plain file (JFileChooser path), not a socket, no existing charset - so it is in scope for the transform on paper. But the transform does not compile here: new FileReader(String) throws FileNotFoundException, while the char"
+    },
+    {
+      "file": "src/jade/src/jade/tools/SocketProxyAgent/Connection.java",
+      "match_count": 1,
+      "changes": 0,
+      "touched_line_start": 76,
+      "touched_line_end": 76,
+      "migration_skip_marker": true,
+      "diff_summary": "line 76 SKIPPED: Socket-backed, not file-backed: the stream is client.getOutputStream() where client is the java.net.Socket passed into the constructor (field 'private Socket client', assigned from client_socket). The recipe's 'sites this rule must NOT touch' section lists this exact site by name (jade/tools/SocketProxyAgent/Connection.java:75) as wire fo"
+    },
+    {
+      "file": "src/jade/src/jade/tools/SocketProxyAgent/JadeBridge.java",
+      "match_count": 1,
+      "changes": 0,
+      "touched_line_start": 172,
+      "touched_line_end": 172,
+      "migration_skip_marker": true,
+      "diff_summary": "line 172 SKIPPED: Socket-backed stream, not a file. The constructor argument is socket.getOutputStream() inside sendACL(), which writes the ACL message across a process/node boundary to the SocketProxyAgent gateway. The recipe's 'sites this rule must NOT touch' section names this exact site (jade/tools/SocketProxyAgent/JadeBridge.java:171) as wire format. "
+    },
+    {
+      "file": "src/jade/src/jade/tools/SocketProxyAgent/SocketProxyAgent.java",
+      "match_count": 1,
+      "changes": 0,
+      "touched_line_start": 103,
+      "touched_line_end": 103,
+      "migration_skip_marker": true,
+      "diff_summary": "line 103 NEEDS_REVIEW: Reads the operator-supplied per-agent configuration file '<agentname>.inf' (fileName is built at line 82 as myName + \".inf\"). The class javadoc at lines 40-48 documents it as a hand-authored config file: line 0 is the port number, line 1 the list of legal addressee agents. A grep across the whole jade/ tree finds only reads of .inf files "
+    },
+    {
+      "file": "src/jade/src/jade/tools/applet/DFAppletCommunicator.java",
+      "match_count": 1,
+      "changes": 0,
+      "touched_line_start": 97,
+      "touched_line_end": 97,
+      "migration_skip_marker": true,
+      "diff_summary": "line 97 SKIPPED: Socket-backed, not a file. The code line is 96 (marker at 97): the PrintStream wraps s.getOutputStream() where s is the Socket opened at line 91 (new Socket(a.getCodeBase().getHost(), DEFAULT_PORT)) to talk to jade.tools.SocketProxyAgent. This is wire format crossing a process/node boundary, which the recipe excludes; the recipe names thi"
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLPanel.java",
+      "match_count": 2,
+      "changes": 1,
+      "touched_line_start": 225,
+      "touched_line_end": 261,
+      "migration_skip_marker": true,
+      "diff_summary": "line 225: FileWriter f = new FileWriter(fileName, StandardCharsets.UTF_8); | line 261 NEEDS_REVIEW: Transform applied, then reverted because it does not compile. new FileReader(String) throws FileNotFoundException, but the new FileReader(String, Charset) overload throws the broader IOException, and the enclosing try only catches FileNotFoundException and ACLCodec.CodecException: 'error: unreported exception IOException; must be caught o"
+    },
+    {
+      "file": "src/jade/src/jade/tools/gui/ACLTracePanel.java",
+      "match_count": 3,
+      "changes": 3,
+      "touched_line_start": 325,
+      "touched_line_end": 433,
+      "migration_skip_marker": false,
+      "diff_summary": "line 325: FileWriter f = new FileWriter(fileName, StandardCharsets.UTF_8);; line 379: FileWriter f = new FileWriter(fileName, StandardCharsets.UTF_8);; line 433: FileReader f = new FileReader(fileName, StandardCharsets.UTF_8);"
+    },
+    {
+      "file": "src/jade/src/jade/tools/rma/MainPanel.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 175,
+      "touched_line_end": 175,
+      "migration_skip_marker": false,
+      "diff_summary": "line 175: FileReader aclMsgFile = new FileReader(f, StandardCharsets.UTF_8);"
+    },
+    {
+      "file": "src/jade/src/jade/tools/sniffer/Sniffer.java",
+      "match_count": 1,
+      "changes": 0,
+      "touched_line_start": 568,
+      "touched_line_end": 568,
+      "migration_skip_marker": true,
+      "diff_summary": "line 568 NEEDS_REVIEW: Operator-supplied configuration file, encoding not JADE's to choose. The FileReader on line 567 reads the legacy `sniffer.inf` preload configuration file. Call chain: setup() line 466 calls locateFile(\"sniffer.inf\"), which walks up from the current working directory looking for a file the operator placed there, and line 468 passes the res"
+    },
+    {
+      "file": "src/jade/src/jade/tools/sniffer/WriteMessageListAction.java",
+      "match_count": 1,
+      "changes": 1,
+      "touched_line_start": 71,
+      "touched_line_end": 71,
+      "migration_skip_marker": false,
+      "diff_summary": "line 71: out = new PrintWriter(new BufferedWriter(new FileWriter(fileName, StandardCharsets.UTF_8)));"
+    },
+    {
+      "file": "src/jade/src/jade/util/AccessControlList.java",
+      "match_count": 4,
+      "changes": 0,
+      "touched_line_start": 255,
+      "touched_line_end": 358,
+      "migration_skip_marker": true,
+      "diff_summary": "line 255 NEEDS_REVIEW: Live code (is_live_code=True for code line 254). The file is the operator-supplied access-control policy file: fileName reaches file2iacl() from setBlack(String)/setWhite(String), i.e. the black-list / white-list files an administrator authors by hand (class javadoc documents the hand-written '#'-comment plus regex-section format, e.g. bl | line 266 NEEDS_REVIEW: Live code (is_live_code=True for code line 265). Same operator-supplied ACL policy file as the previous site \u2014 this is file2iacl()'s second pass over the same black-list/white-list file, after the line count. Encoding is owned by the operator who wrote the file, so UTF-8 cannot be pinned unilaterally: not edited, JADE-FLAG marker kept. (I | line 346 SKIPPED: Not live code: is_live_code=False for code line 345. It sits inside the /* ... */ block comment spanning lines 309-389, the disabled 'only for class-level testing' createTestACL() harness. The recipe forbids editing a site inside a comment, so no change and the JADE-FLAG marker is kept. (Input listed this site as line 344; on-disk marker  | line 358 SKIPPED: Not live code: is_live_code=False for code line 357. Same commented-out createTestACL() test harness inside the block comment at lines 309-389. No change, JADE-FLAG marker kept. (Input listed this site as line 355; on-disk marker is line 358.)"
+    },
+    {
+      "file": "src/jade/src/jade/util/Logger.java",
+      "match_count": 1,
+      "changes": 0,
+      "touched_line_start": 488,
+      "touched_line_end": 488,
+      "migration_skip_marker": true,
+      "diff_summary": "line 488 SKIPPED: Not live code. The constructor sits on line 487, inside the /*#PJAVA_INCLUDE_BEGIN ... #PJAVA_INCLUDE_END*/ block comment spanning lines 479-503, so it is PersonalJava preprocessor comment text and not compiled source. java_source.is_live_code(src, 487) and is_live_code(src, 488) both return False. The recipe forbids this edit twice over:"
+    }
+  ],
+  "errors": [],
+  "warnings": [
+    "DummyAgentGui.java:218 and ACLPanel.java:261 cannot take the charset overload without widening their catch from FileNotFoundException to IOException; left unedited with their markers, recorded NEEDS_REVIEW.",
+    "SocketProxyAgent.java:103, Sniffer.java:568, AccessControlList.java:255 and :266 read operator-authored files that JADE never writes; their encoding is not JADE's to pin. Left unedited with their markers, recorded NEEDS_REVIEW.",
+    "ACLPanel and DummyAgentGui now write .acl files as UTF-8 while their own readers stay unpinned. Harmless on this run's target: JEP 400 makes an unpinned reader UTF-8 from JDK 18, and a bytecode-65 jar cannot load on anything older.",
+    "Logger.java:488, AccessControlList.java:346 and :358 sit inside block comments and keep their markers, because deleting a marker inside an untouchable comment block would itself be an edit there."
+  ]
+}

@@ -131,5 +131,23 @@
     "skill_md": ".claude/skills/java-migration-skill-registry/11-to-17/jade-recipe-11-17-threadgroup-destroy/SKILL.md",
     "description": "Remove the terminally deprecated ThreadGroup.destroy() call in jade.core.Runtime while preserving the shutdown diagnostic",
     "mode": "agent"
+  },
+  "JEP400_FILE_IO_DEFAULT_CHARSET": {
+    "skill": "jade-recipe-17-21-file-io-charset",
+    "skill_md": ".claude/skills/java-migration-skill-registry/17-to-21/jade-recipe-17-21-file-io-charset/SKILL.md",
+    "description": "Pin an explicit UTF-8 charset on the file reader, writer and print stream constructors JADE uses for files it writes and reads back itself; skip anything crossing a process or node boundary",
+    "mode": "agent"
+  },
+  "FINALIZE_DEPRECATED_FOR_REMOVAL": {
+    "skill": "jade-recipe-17-21-finalize-removal",
+    "skill_md": ".claude/skills/java-migration-skill-registry/17-to-21/jade-recipe-17-21-finalize-removal/SKILL.md",
+    "description": "Remove Object.finalize() overrides in favour of the close or shutdown method each already delegates to, after confirming that method is reachable on the normal path",
+    "mode": "agent"
+  },
+  "THREADDEATH_DEPRECATED_FOR_REMOVAL": {
+    "skill": "jade-recipe-17-21-threaddeath-removal",
+    "skill_md": ".claude/skills/java-migration-skill-registry/17-to-21/jade-recipe-17-21-threaddeath-removal/SKILL.md",
+    "description": "Remove the catch of java.lang.ThreadDeath, unreachable since JDK 20 made Thread.stop() throw UnsupportedOperationException",
+    "mode": "agent"
   }
 }

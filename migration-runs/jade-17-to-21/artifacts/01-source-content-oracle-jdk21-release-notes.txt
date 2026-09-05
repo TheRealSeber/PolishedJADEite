@@ -1,0 +1,731 @@
+JDK 21 Release Notes, Important Changes, and Information
+Skip to content
+Accessibility Policy
+Menu
+QUICK LINKS
+Cloud
+Database
+Java
+AI
+SUGGESTED LINKS
+SUGGESTED SEARCHES
+Country
+Back
+Cloud Account
+Sign in to Cloud
+Sign Up for Free Cloud Tier
+Oracle Account
+Sign-In
+Create an Account
+Help
+Sign Out
+JDK 21 Release Notes
+All JDK Release Notes
+Java Development Kit 21 Release Notes
+JDK 21 Release Notes
+Publication Date: 19 September 2023
+The following sections are included in these Release Notes:
+Java™ SE Development Kit 21
+Major New Functionality
+New Features
+Removed Features and Options
+Deprecated Features and Options
+Notable Issues Resolved
+Known Issues
+Other Notes
+Differences Between Oracle JDK and OpenJDK
+Java™ SE Development Kit 21
+These notes describe important changes, enhancements, removed APIs and features, deprecated APIs and features, and other information about JDK 21 and Java SE 21. In some cases, the descriptions provide links to additional detailed information about an issue or a change. This page does not duplicate the descriptions provided by the  Java SE 21 ( JSR 396) Platform Specification , which provides informative background for all specification changes and might also include the identification of removed or deprecated APIs and features not described here. The Java SE 21 ( JSR 396) specification provides links to:
+Annex 1:  The complete
+Java SE 21 API Specification .
+Annex 2:  An
+annotated API specification  showing the exact differences between Java SE 20 and Java SE 21. Informative background for these changes may be found in the list of approved Change Specification Requests for this release.
+Annex 3:  Java SE 21 Editions of
+The Java Language Specification  and
+The Java Virtual Machine Specification . The Java SE 21 Editions contain all corrections and clarifications made since the Java SE 20 Editions, as well as additions for new features.
+You should be aware of the content in the Java SE 21 ( JSR 396) specification as well as the items described in this page.
+The descriptions on this Release Notes page also identify potential compatibility issues that you might encounter when migrating to JDK 21. The  Kinds of Compatibility  page on the OpenJDK wiki identifies the following three types of potential compatibility issues for Java programs that might be used in these release notes:
+Source:  Source compatibility preserves the ability to compile existing source code without error.
+Binary:  Binary compatibility is defined in The Java Language Specification as preserving the ability to link existing class files without error.
+Behavioral:  Behavioral compatibility includes the semantics of the code that is executed at runtime.
+See  CSRs Approved for JDK 21  for the list of CSRs closed in JDK 21 and the  Compatibility & Specification Review (CSR)  page on the OpenJDK wiki for general information about compatibility.
+The full version string for this release is build 21+35 (where "+" means "build"). The version number is 21.
+IANA Data 2023c
+JDK 21 contains IANA time zone data version 2023c. For more information, refer to
+Timezone Data Versions in Java Runtimes .
+TOP
+Major New Functionality
+1. Language Feature
+➜   Record Patterns
+Enhance the Java programming language with  record patterns  to deconstruct record values. Record patterns and type patterns can be nested to enable a powerful, declarative, and composable form of data navigation and processing.
+See JEP 440
+➜   Pattern Matching for switch
+Enhance the Java programming language with pattern matching for  switch  expressions and statements. Extending pattern matching to  switch  allows an expression to be tested against a number of patterns, each with a specific action, so that complex data-oriented queries can be expressed concisely and safely.
+See JEP 441
+1.1 Language Features Previews
+➜   String Templates (Preview)
+Enhance the Java programming language with  string templates . String templates complement Java's existing string literals and text blocks by coupling literal text with embedded expressions and  template processors  to produce specialized results. This is a  preview language feature and API .
+See JEP 430
+See below for additional information
+➜   Unnamed Patterns and Variables (Preview)
+Enhance the Java language with  unnamed patterns , which match a record component without stating the component's name or type, and  unnamed variables , which can be initialized but not used. Both are denoted by an underscore character,  _ . This is a  preview language feature .
+See JEP 443
+➜   Unnamed Classes and Instance Main Methods (Preview)
+Evolve the Java language so that students can write their first programs without needing to understand language features designed for large programs. Far from using a separate dialect of Java, students can write streamlined declarations for single-class programs and then seamlessly expand their programs to use more advanced features as their skills grow. This is a  preview language feature .
+See JEP 445
+See below for additional information
+2. Libraries Improvements
+➜   Virtual Threads
+Introduce  virtual threads  to the Java Platform. Virtual threads are lightweight threads that dramatically reduce the effort of writing, maintaining, and observing high-throughput concurrent applications.
+See JEP 444
+➜   Sequenced Collections
+Introduce new interfaces to represent collections with a defined encounter order. Each such collection has a well-defined first element, second element, and so forth, up to the last element. It also provides uniform APIs for accessing its first and last elements, and for processing its elements in reverse order.
+"Life can only be understood backwards; but it must be lived forwards."  — Kierkegaard
+See JEP 431
+See below for additional information
+➜   Key Encapsulation Mechanism API
+Introduce an API for key encapsulation mechanisms (KEMs), an encryption technique for securing symmetric keys using public key cryptography.
+See JEP 452
+2.1 Library Improvements Previews and Incubator
+➜   Foreign Function & Memory API (Third Preview)
+Introduce an API by which Java programs can interoperate with code and data outside of the Java runtime. By efficiently invoking foreign functions (i.e., code outside the JVM), and by safely accessing foreign memory (i.e., memory not managed by the JVM), the API enables Java programs to call native libraries and process native data without the brittleness and danger of JNI. This is a  preview API .
+See JEP 442
+➜   Structured Concurrency (Preview)
+Simplify concurrent programming by introducing an API for  structured concurrency . Structured concurrency treats groups of related tasks running in different threads as a single unit of work, thereby streamlining error handling and cancellation, improving reliability, and enhancing observability. This is a  preview API .
+See JEP 453
+➜   Scoped Values (Preview)
+Introduce  scoped values , values that may be safely and efficiently shared to methods without using method parameters. They are preferred to thread-local variables, especially when using large numbers of virtual threads. This is a  preview API .
+In effect, a scoped value is an  implicit method parameter . It is "as if" every method in a sequence of calls has an additional, invisible, parameter. None of the methods declare this parameter and only the methods that have access to the scoped value object can access its value (the data). Scoped values make it possible to pass data securely from a caller to a faraway callee through a sequence of intermediate methods that do not declare a parameter for the data and have no access to the data.
+See JEP 446
+➜   Vector API (Sixth Incubator)
+Introduce an API to express vector computations that reliably compile at runtime to optimal vector instructions on supported CPU architectures, thus achieving performance superior to equivalent scalar computations.
+See JEP 448
+3. Performance Improvements
+➜   Generational ZGC
+Improve application performance by extending the Z Garbage Collector ( ZGC ) to maintain separate  generations  for young and old objects. This will allow ZGC to collect young objects — which tend to die young — more frequently.
+See JEP 439
+See below for additional information
+4. Stewardship
+➜   Prepare to Disallow the Dynamic Loading of Agents
+Issue warnings when agents are loaded dynamically into a running JVM. These warnings aim to prepare users for a future release which disallows the dynamic loading of agents by default in order to  improve integrity by default . Serviceability tools that load agents at startup will not cause warnings to be issued in any release.
+See JEP 451
+See below for additional information
+TOP
+New Features
+This section describes some of the enhancements in Java SE 21 and JDK 21. In some cases, the descriptions provide links to additional detailed information about an issue or a change. The APIs described here are provided with the Oracle JDK. It includes a complete implementation of the Java SE 21 Platform and additional Java APIs to support developing, debugging, and monitoring Java applications. Another source of information about important enhancements and new features in Java SE 21 and JDK 21 is the  Java SE 21 ( JSR 396)  Platform Specification, which documents the changes to the specification made between Java SE 20 and Java SE 21. This document includes descriptions of those new features and enhancements that are also changes to the specification. The descriptions also identify potential compatibility issues that you might encounter when migrating to JDK 21.
+core-libs/java.lang
+➜    Runtime.exec  and  ProcessBuilder  Logging of Command Arguments
+( JDK-8303392 )
+Processes started by  Runtime.exec  and  ProcessBuilder  can be enabled to log the command, arguments, directory, stack trace, and process id. The exposure of this information should be reviewed before implementation. Logging of the information is enabled when the logging level of the  System#getLogger(String)  named  java.lang.ProcessBuilder  is  System.Logger.Level.DEBUG  or  Logger.Level.TRACE . When enabled for  Level.DEBUG , only the process id, directory, command, and stack trace are logged. When enabled for  Level.TRACE , the command arguments are included with the process id, directory, command, and stack trace.
+core-libs/java.lang
+➜    System.exit()  and  Runtime.exit()  Logging
+( JDK-8301627 )
+Calls to  java.lang.System.exit()  and  Runtime.exit()  are logged to the logger named  java.lang.Runtime  with a logging level of  System.Logger.DEBUG . When the configuration of the logger allows, the caller can be identified from the stack trace included in the log.
+core-libs/java.lang
+➜    Math.clamp()  and  StrictMath.clamp()  Methods
+( JDK-8301226 )
+The methods  Math.clamp()  and  StrictMath.clamp()  are added to conveniently clamp the numeric value between the specified minimum and maximum values. Four overloads are provided in both  Math  and  StrictMath  classes for  int ,  long ,  float , and  double  types. A  clamp(long value, int min, int max)  overload can also be used to safely narrow a  long  value to  int .
+core-libs/java.lang
+➜   New  String   indexOf(int,int,int)  and  indexOf(String,int,int)  Methods to Support a Range of Indices
+( JDK-8302590 )
+Two new methods  indexOf(int ch, int beginIndex, int endIndex)  and  indexOf(String str, int beginIndex, int endIndex)  are added to  java.lang.String  to support forward searches of character  ch , and of  String   str , respectively, and limited to the specified range of indices.
+Besides full control on the search range, they are safer to use than  indexOf(int ch, int fromIndex)  and  indexOf(String str, int fromIndex) , respectively, because they throw an exception on illegal search ranges.
+Method  indexOf(int ch, int beginIndex, int endIndex)  is covered by  JDK-8302590 , and method  indexOf(String str, int beginIndex, int endIndex)  is covered by  JDK-8303648 .
+core-libs/java.lang
+➜   Unicode Emoji Properties
+( JDK-8303018 )
+The following six new methods are added to  java.lang.Character  for obtaining Emoji character properties, which are defined in the  Unicode Emoji  Technical Standard ( UTS #51 ) :
+isEmoji(int codePoint)
+isEmojiPresentation(int codePoint)
+isEmojiModifier(int codePoint)
+isEmojiModifierBase(int codePoint)
+isEmojiComponent(int codePoint)
+isExtendedPictographic(int codePoint)
+core-libs/java.lang
+➜   New  splitWithDelimiters()  Methods Added to  String  and  java.util.regex.Pattern
+( JDK-8305486 )
+Unlike the  split()  methods, these new  splitWithDelimiters()  methods in  java.lang.String  and  java.util.regex.Pattern  return an alternation of strings and matching delimiters, rather than just the strings.
+core-libs/java.net
+➜   The  java.net.http.HttpClient  Is Now AutoCloseable
+( JDK-8267140 )
+The following methods have been added to the API:
+void close() : closes the client gracefully, waiting for submitted requests to complete.
+void shutdown() : initiates a graceful shutdown, then returns immediately without waiting for the client to terminate.
+void shutdownNow() : initiates an immediate shutdown, trying to interrupt active operations, and returns immediately without waiting for the client to terminate.
+boolean awaitTermination(Duration duration) : waits for the client to terminate, within the given duration; returns true if the client is terminated, false otherwise.
+boolean isTerminated() : returns true if the client is terminated.
+The instances returned by  HttpClient.newHttpClient() , and the instances built from  HttpClient.newBuilder() , provide a best effort implementation for these methods. They allow the reclamation of resources allocated by the  HttpClient  early, without waiting for its garbage collection.
+Note that an  HttpClient  instance typically manages its own pools of connections, which it may then reuse when necessary. Connection pools are typically not shared between  HttpClient  instances. Creating a new client for each operation, though possible, will usually prevent reusing such connections.
+core-libs/java.nio.charsets
+➜   Support for GB18030-2022
+( JDK-8301119 )
+China National Standard body (CESI) has recently published GB18030-2022 which is an updated version of the GB18030 standard and brings GB18030 in sync with Unicode version 11.0. The  Charset  implementation for this new standard has now replaced the prior  2000  standard. However, this new standard has some incompatible changes from the prior implementation. For those who need to use the old mappings, a new system property  jdk.charset.GB18030  is introduced. By setting its value to  2000 , the previous JDK releases' mappings for the  GB18030 Charset  are used which are based on the  2000  standard.
+core-libs/java.util
+➜   New  StringBuilder  and  StringBuffer   repeat  Methods
+( JDK-8302323 )
+The methods  public StringBuilder repeat(int codePoint, int count)  and  public StringBuilder repeat(CharSequence cs, int count)  have been added to  java.lang.StringBuilder  and  java.lang.StringBuffer  to simplify the appending of multiple copies of characters or strings. For example,  sb.repeat('-', 80)  will insert 80 hyphens into the value of the  java.lang.StringBuilder sb  object.
+core-libs/java.util.regex
+➜   Emoji Related Binary Properties in RegEx
+( JDK-8305107 )
+Emoji-related properties introduced in ( JDK-8303018 ) can now be used as binary properties in the  java.util.regex.Pattern  class. One can match characters that have Emoji-related properties with the new  \p{IsXXX}  constructs.  For example,
+Pattern.compile("\\p{IsEmoji}").matcher("🉐").matches()
+returns  true .
+core-libs/java.util:collections
+➜   Sequenced Collections
+( JEP 431 )
+The Sequenced Collection API introduces several new interfaces into the collections framework, providing enhancements to many existing collections classes. The new API facilitates access to elements at each end of a sequenced collection, and provides the ability to view and iterate such collections in reverse order. See  JEP 431  for additional information.
+The introduction of new collections interfaces, along with default methods, introduces some compatibility risk, including the possibility of both source and binary incompatibilities. The introduction of default methods in an interface hierarchy may cause conflicts with methods declared on existing classes or interfaces that extend collections interfaces - this could result in either source or binary incompatibilities. The introduction of new interfaces also introduces new types into the system, which can change the results of type inference, leading in turn to source incompatibilities.
+For a discussion of potential incompatibilities and possible ways to mitigate them, please see the document  JDK 21: Sequenced Collections Incompatibilities .
+core-svc/tools
+➜   Warning Printed When an Agent Is Loaded into a Running VM
+( JEP 451 )
+The Java Virtual Machine (JVM) now prints a warning to standard error when a JVM Tool Interface (JVM TI) agent or Java Agent is dynamically loaded into a running JVM. The warning is intended to prepare for a future release that disallows, by default, dynamic loading of agent code into a running JVM.
+Agents are programs that run in the JVM process and make use of powerful JVM TI or  java.lang.instrument  APIs. These APIs are designed to support tooling such as profilers and debuggers. Agents are started via a command line option, for example  -agentlib  or  -javaagent , or they can be started into a running VM using the JDK specific  com.sun.tools.attach  API or the  jcmd  command. Agents loaded into a running VM will now print a warning. There is no warning for agents that are loaded at startup via command line options.
+The HotSpot VM option  EnableDynamicAgentLoading  controls dynamic loading of agents. This option has existed since JDK 9. The default, since JDK 9, is to allow dynamic loading of agents. Running with  -XX:+EnableDynamicAgentLoading  on the command line serves as an explicit  "opt-in" that allows agent code to be loaded into a running VM and thus suppresses the warning. Running with   -XX:-EnableDynamicAgentLoading  disallows agent code from being loaded into a running VM and can be used to test possible future behavior.
+In addition, the system property  jdk.instrument.traceUsage  can be used to trace uses of the  java.lang.instrument  API. Running with  -Djdk.instrument.traceUsage  or  -Djdk.instrument.traceUsage=true  causes usages of the API to print a trace message and stack trace. This can be used to identify agents that are dynamically loaded instead of being started on the command line with  -javaagent .
+More information on this change can be found in  JEP 451 .
+hotspot/gc
+➜   Generational ZGC
+( JEP 439 )
+Applications running with Generational ZGC should enjoy:
+Lower risks of allocations stalls,
+Lower required heap memory overhead, and
+Lower garbage collection CPU overhead.
+Enable Generational ZGC with command line options  -XX:+UseZGC -XX:+ZGenerational
+For further details, see  JEP 439 .
+hotspot/gc
+➜   Last Resort G1 Full GC Moves Humongous Objects
+( JDK-8191565 )
+A full garbage collection (GC) in the Garbage First (G1) collector now moves humongous objects to avoid Out-Of-Memory situations due to a lack of contiguous space in the Java heap when the application allocates humongous objects.
+Previously, G1 failed to allocate those humongous objects, reporting an Out-Of-Memory exception in this situation.
+This functionality is a last resort measure, causing a second full GC in the same pause after the previous full GC fails to clear out enough contiguous memory for the allocation.
+hotspot/jfr
+➜   New JFR  View  Command
+( JDK-8306703 )
+A new  view  command has been added to the JFR tool and  jcmd . The command can aggregate and display event data in a tabular form without the need to dump a recording file or open JDK Mission Control. There are 70 predefined views, such as  hot-methods ,  gc-pauses ,  pinned-threads ,  allocation-by-site ,  gc ,  memory-leaks-by-class , and more.  A list of available views can be found through using  jcmd <pid> JFR.view  or  jfr view .
+security-libs/java.security
+➜   Enhanced OCSP, Certificate, and CRL Fetch Timeouts
+( JDK-8179502 )
+This feature delivers an enhanced syntax for properties related to certificate, CRL, and OCSP connect and read timeouts.  The new syntax allows the timeout values to be specified either in seconds or milliseconds.  This feature also delivers three new System properties related to connect and read timeouts.
+New properties : The existing  com.sun.security.ocsp.timeout  property will now be paired with the new  com.sun.security.ocsp.readtimeout  property.  The former property will be used to set timeouts for the transport-layer connection while the latter will be used to manage timeouts for reading the data. The new  com.sun.security.cert.timeout  and  com.sun.security.cert.readtimeout  properties will be used to control connect and read timeouts, respectively, when following an X.509 certificate's AuthorityInfoAccess extension.  For the certificate fetching properties, the  com.sun.security.enableAIAcaIssuers  property must be set to  true  in order for fetching to occur and these property timeouts to be enabled.
+Enhanced timeout syntax : The new syntax applies to the aforementioned properties, and also to the  com.sun.security.crl.timeout  and  com.sun.security.crl.readtimeout  properties as well.  The allowed syntax is as follows:
+A decimal integer will be interpreted in seconds and ensures backward compatibility.
+A decimal integer ending in "s" (case-insensitive, no space) appended to it. This will also be interpreted in seconds.
+A decimal integer value with "ms" (case-insensitive, no space) appended to it. This will be interpreted as milliseconds. For example, a value of "2500ms" will be a 2.5 second timeout.
+Negative, non-numeric, or non-decimal (for example, hexadecimal values prepended by "0x") values will be interpreted as illegal and will default to the 15 second timeout.
+Whether the value is interpreted in seconds or milliseconds, a value of zero will disable the timeout.
+security-libs/java.security
+➜   Support for HSS/LMS Signature Verification
+( JDK-8298127 )
+A new standard signature algorithm named "HSS/LMS" has been introduced. The HSS/LMS algorithm is defined in  RFC 8554: Leighton-Micali Hash-Based Signatures and NIST Special Publication 800-208 . New  KeyFactory  and  Signature  implementations are available for the algorithm. The  KeyFactory  only operates on public keys and the  Signature  only covers the verification part.
+security-libs/javax.crypto
+➜   SunJCE Provider Now Supports SHA-512/224 and SHA-512/256 As Digests for the PBES2 Algorithms
+( JDK-8288050 )
+The SunJCE provider is enhanced with additional PBES2 Cipher and Mac algorithms, such as those using SHA-512/224 and SHA-512/256 message digests. To be more specific, callers can now use the SunJCE provider for  PBEWithHmacSHA512/224AndAES_128 ,  PBEWithHmacSHA512/256AndAES_128 ,  PBEWithHmacSHA512/224AndAES_256 , and  PBEWithHmacSHA512/256AndAES_256  Ciphers and  PBEWithHmacSHA512/224 , and  PBEWithHmacSHA512/256  Mac.
+security-libs/javax.crypto:pkcs11
+➜   Support for Password-Based Cryptography in SunPKCS11
+( JDK-8301553 )
+The SunPKCS11 security provider now supports Password-Based Cryptography algorithms for Cipher, Mac, and SecretKeyFactory service types. You will find the list of algorithms in  JDK-8308719 . As a result of this enhancement, SunPKCS11 can now be used for privacy and integrity in PKCS #12 key stores.
+security-libs/javax.xml.crypto
+➜   New System Property to Toggle XML Signature Secure Validation Mode
+( JDK-8301260 )
+A new system property named  org.jcp.xml.dsig.secureValidation  has been added. It can be used to enable or disable the XML Signature secure validation mode. The system property should be set to "true" to enable, or "false" to disable. Any other value for the system property is treated as "false". If the system property is set, it supersedes the  XMLCryptoContext  property value.
+By default, the secure validation mode is enabled. Disabling the secure validation mode should be done at your own risk.
+security-libs/javax.xml.crypto
+➜   Update XML Security for Java to 3.0.2
+( JDK-8305972 )
+The XML Signature implementation has been updated to Santuario 3.0.2. The main, new feature is support for EdDSA. One difference is that the JDK still supports the   here()  function  by default. However, we recommend avoiding the use of the  here()  function in new signatures and replacing existing signatures that use the  here()  function. Future versions of the JDK will likely disable, and eventually remove, support for this function, as it cannot be supported using the standard Java XPath API. Users can now disable the  here()  function by setting the security property  jdk.xml.dsig.hereFunctionSupported  to "false".
+specification/language
+➜   String Templates (Preview)
+( JEP 430 )
+String templates allow text and expressions to be composed without using the  +  operator. The result is often a string, but can also be an object of another type. Each string template has a template processor that validates the text and expressions before composing them, achieving greater safety than basic 'string interpolation' features in other languages.
+specification/language
+➜   Unnamed Classes and Instance Main Methods (Preview)
+( JEP 445 )
+Unnamed classes and instance main methods enable students to write streamlined declarations for single-class programs and then seamlessly expand their programs later to use more advanced features as their skills grow. Unnamed classes allow the user to provide class content without the full ceremony of the class declaration. The instance main method feature allows the user to drop the formality of  public static void main(String[] args)  and simply declare  void main() .
+tools/javac
+➜   New  javac  Warning When Calling Overridable Methods in Constructors
+( JDK-8015831 )
+The new lint option,  this-escape , has been added to  javac  to warn about calls to overridable methods in the constructor body which might result in access to a partially constructed object from subclasses.
+The new warning can be suppressed using  SuppressWarnings("this-escape") .
+tools/javac
+➜   Generate "output file clash" Warning when an Output File is Overwritten During Compilation
+( JDK-8287885 )
+Prior to JDK 21, the  javac  compiler was overwriting some output files during compilation. This can occur, for example, on case-insensitive file systems.
+Starting from JDK 21 a new compiler option:  -Xlint:output-file-clash  has been added to the  javac  compiler. This new option should provide a way for users experiencing this problem to convert what is currently a runtime error into a compile-time warning (or error with  -Werror ). This new compiler option enables output file clash detection. The term "output file" covers class files, source files, and native header files.
+tools/javadoc(tool)
+➜   Support Searching for Section Headings in Generated Documentation
+( JDK-8286470 )
+API documentation generated by JavaDoc now supports searching for headings of sections within the documentation.
+tools/jshell
+➜   JDK Tool Access in JShell
+( JDK-8306560 )
+The JShell tool for interactive exploration of Java code has been enhanced with a new predefined script,  TOOLING . The  TOOLING  script provides direct access to the JDK's command line tools, such as  javac ,  javadoc , and  javap , from within JShell.
+Similar to the existing predefined  DEFAULT  and  PRINTING  scripts, the  TOOLING  script can be loaded when JShell starts by running:  jshell TOOLING . Alternatively, it can be loaded within a JShell session by using:  /open TOOLING . With the  TOOLING  script loaded, JDK tools can be run by passing a name and arguments to the method  run(String name, String... args) . The method  tools()  prints the names of available tools.
+The  TOOLING  script defines convenience methods for the most commonly used tools, such as  javac(String... args) . Here is an example of running the  javap  tool that disassembles and prints an overview of a class or interface:
+jshell> interface Empty {}
+jshell> javap(Empty.class)
+tools/launcher
+➜    -XshowSettings:locale  Output Now Includes Tzdata Version
+( JDK-8305950 )
+The  -XshowSettings  launcher option has been enhanced to print the tzdata version configured with the JDK. The tzdata version is displayed as part of the  locale  showSettings option.
+Example output using  -X:showSettings:locale :
+.....
+Locale settings:
+default locale = English
+default display locale = English
+default format locale = English
+tzdata version = 2023c
+.....
+xml/jaxp
+➜   Changes to JAXP Configuration Files
+( JDK-8303530 )
+The following changes have been made with regard to the JAXP configuration files:
+Added the  jaxp.properties  file to the JDK at  $JAVA_HOME/conf/jaxp.properties  as the default JAXP configuration file. Property settings in the file reflect the current, built-in defaults for the JDK.
+Added a new System Property,  java.xml.config.file , for specifying the location of a custom configuration file. If it is set and the named file exists, the property settings contained in the file override those in the default JAXP configuration file. For more details, see the  Configuration  section of the module specification.
+Deprecated the  stax.properties  file that was defined in the StAX API and used by the StAX factories. It had been made redundant after StAX's integration into JAXP since the function has been fully covered by the JAXP configuration file. It is recommended that applications migrate to the JAXP configuration file as the  stax.properties  file is deprecated and may no longer be supported in the future.
+TOP
+Removed Features and Options
+This section describes the APIs, features, and options that were removed in Java SE 21 and JDK 21. The APIs described
+here are those that are provided with the Oracle JDK. It includes a complete implementation of the Java SE 21 Platform
+and additional Java APIs to support developing, debugging, and monitoring Java applications. Another source of
+information about important enhancements and new features in Java SE 21 and JDK 21 is the
+Java SE 21 ( JSR 396)  Platform Specification, which
+documents changes to the specification made between Java SE 20 and Java SE 21. This document includes the
+identification of removed APIs and features not described here. The descriptions below might also identify
+potential compatibility issues that you could encounter when migrating to JDK 21.
+See  CSRs Approved for JDK 21  for the list of CSRs closed in JDK 21.
+core-libs/java.io
+➜    java.io.File 's Canonical Path Cache Is Removed
+( JDK-8300977 )
+java.io.File  has historically cached canonical paths, and part paths, to help the performance of the  File::getCanonicalFile  and  File::getCanonicalPath  when running with a  SecurityManager  set.  The cache had correctness issues in environments with symbolic links and has been disabled by default since JDK 12.  The cache has been removed in this release, along with the system properties  sun.io.useCanonCaches  and  sun.io.useCanonPrefixCache . Setting these properties no longer has any effect.
+core-libs/java.lang
+➜    ThreadGroup.allowThreadSuspension  Is Removed
+( JDK-8297295 )
+The method  java.lang.ThreadGroup.allowThreadSuspension(boolean)  has been removed in this release. The method was used for low memory handling in JDK 1.1 but was never fully specified. It was deprecated and changed to "do nothing" in JDK 1.2 (1998).
+core-libs/java.lang
+➜   Removal of the  java.compiler  System Property
+( JDK-8041676 )
+The system property  java.compiler  has been removed from the list of standard system properties.
+Running with this system property set on the command line will now print a warning to say that the system property is obsolete; it has no other effect. In previous releases, running with  -Djava.compiler  or  -Djava.compiler=NONE  on the command line selected interpreter only execution mode.  If needed, the  -Xint  option can be used to run in interpreter only mode.
+core-libs/java.lang
+➜   The  java.lang.Compiler  Class Has Been Removed
+( JDK-8205129 )
+The  java.lang.Compiler  class has been removed. This under-specified API dates from JDK 1.0 and the "Classic VM" used in early JDK releases. Its implementation in the HotSpot VM does nothing but print a warning that it is not supported. The class has been deprecated and marked for removal since Java SE 9.
+core-libs/java.util.jar
+➜   Remove the JAR Index Feature
+( JDK-8302819 )
+The "JAR Index" feature has been dropped from the JAR file specification. JAR Index was a legacy optimization in early JDK releases to allow downloading of JAR files to be postponed when loading applets or other classes over the network. The feature has been disabled since JDK 18, meaning the  META-INF/INDEX.LIST  entry in a JAR file is ignored at run-time.
+The system property  jdk.net.URLClassPath.enableJarIndex , introduced in JDK 18 to re-enable the feature, has been removed. Setting this property no longer has any effect.
+As part of the change, the  jar  tool will now output a warning if the  -i  or  --generate-index  options are used.
+core-svc/javax.management
+➜    javax.management.remote.rmi.RMIIIOPServerImpl  Is Removed
+( JDK-8307244 )
+The class  javax.management.remote.rmi.RMIIIOPServerImpl  has been removed.  The IIOP transport was removed from the JMX Remote API in JDK 9. This class has been deprecated and its constructor changed to throw  UnsupportedOperationException  since Java SE 9.
+hotspot/gc
+➜   Removal of G1 Hot Card Cache
+( JDK-8225409 )
+The G1 Hot Card Cache has been removed. Performance testing has shown that after improvements to the concurrent refinement control, it does not contribute to performance.
+Removal reduces the memory footprint of the G1 garbage collector by around 0.2% of the Java heap size.
+The associated configuration options  G1ConcRSLogCacheSize  and  G1ConcRSHotCardLimit  have been obsoleted. A warning will be issued at startup about these options if they are used.
+hotspot/runtime
+➜   Obsolete Legacy HotSpot Parallel Class Loading Workaround Option  -XX:+EnableWaitForParallelLoad  Is Removed
+( JDK-8298469 )
+Some older, user-defined class loaders would workaround a deadlock issue by releasing the class loader lock during the loading process. To prevent these loaders from encountering a  java.lang.LinkageError: attempted duplicate class definition  while loading the same class by parallel threads, the HotSpot Virtual Machine introduced a workaround in JDK 6 that serialized the load attempts, causing the subsequent attempts to wait for the first to complete.
+The need for class loaders to work this way was removed in JDK 7 when parallel-capable class loaders were introduced, but the workaround remained in the VM. The workaround was deprecated in JDK 20 and the option  -XX:+EnableWaitForParallelLoad  was introduced for users who relied on this legacy behavior.  The default for this option was off.
+In JDK 21, the option  -XX:+EnableWaitForParallelLoad , and the code to support it, has been removed.
+See CSR  JDK-8304056  for more details.
+hotspot/runtime
+➜   The  MetaspaceReclaimPolicy  Flag has Been Obsoleted
+( JDK-8302385 )
+The option  MetaspaceReclaimPolicy  existed to fine-tune the memory reclamation behavior of metaspace after class unloading. In practice, this had limited effect and was rarely used.
+The option has therefore been obsoleted. It now produces an obsolete warning and is ignored.
+security-libs/java.security
+➜   Removed SECOM Trust System's RootCA1 Root Certificate
+( JDK-8295894 )
+The following root certificate from SECOM Trust System has been removed from the  cacerts  keystore:
++ alias name "secomscrootca1 [jdk]"
+Distinguished Name: OU=Security Communication RootCA1, O=SECOM Trust.net, C=JP
+security-libs/jdk.security
+➜   Removal of ContentSigner APIs and  jarsigner -altsigner  and  -altsignerpath  Options
+( JDK-8303410 )
+The jarsigner options  -altsigner  and  -altsignerpath  have been removed, along with the underlying  ContentSigner  API in the  com.sun.jarsigner  package. The mechanism was deprecated in JDK 9 and marked for removal in JDK 15.
+TOP
+Deprecated Features and Options
+Additional sources of information about the APIs, features, and options deprecated in Java SE 21 and JDK 21 include:
+The  Deprecated API  page identifies
+all deprecated APIs including those deprecated in Java SE 21.
+The  Java SE 21 ( JSR 396)  specification documents changes
+to the specification made between Java SE 20 and Java SE 21 that include the identification of deprecated APIs
+and features not described here.
+JEP 277: Enhanced Deprecation  provides a detailed description of the
+deprecation policy. You should be aware of the updated policy described in this document.
+You should be aware of the contents in those documents as well as the items described in this release notes page.
+The descriptions of deprecated APIs might include references to the deprecation warnings of  forRemoval=true  and  forRemoval=false . The  forRemoval=true  text indicates that a deprecated API might be removed from the next major release. The  forRemoval=false  text indicates that a deprecated API is not expected to be removed from the next major release but might be removed in some later release.
+The descriptions below also identify potential compatibility issues that you might encounter when migrating to
+JDK 21. See  CSRs Approved for JDK 21  for the list of CSRs closed in JDK 21.
+client-libs/java.awt
+➜   Deprecate GTK2 for Removal
+( JDK-8280031 )
+Implementation support for AWT/Swing using GTK2 on Linux is now deprecated for removal.
+With the announcement of the GTK4 release in December 2020, the GTK 2 toolkit is reaching its end of life. GTK2 support is therefore expected to be removed some time after no JDK supported platform needs it.
+GTK3 is the current default and Swing applications which opt-in to using GTK2 on Linux by setting the System Property  -Djdk.gtk.version=2  will now see the following warning printed:
+WARNING: the GTK 2 library is deprecated and its support will be removed in a future release .
+core-libs/java.nio
+➜    com.sun.nio.file.SensitivityWatchEventModifier  Is Deprecated
+( JDK-8303175 )
+com.sun.nio.file.SensitivityWatchEventModifier  has been deprecated and is marked for removal in a future release. The constants in this enum were used with the polling based  WatchService  implementation on macOS to set the interval when polling files for changes. The polling based  WatchService  has been changed to ignore these modifiers when registering files to be watched.
+core-libs/java.util:i18n
+➜   Emit Warning for Removal of  COMPAT  Provider
+( JDK-8304982 )
+Users now see a warning message if they specify either  COMPAT  or  JRE  locale data with the  java.locale.providers  system property and call some locale-sensitive operations.  COMPAT  was provided for migration to the  CLDR  locale data at the time of JDK 9, where it became the default locale data ( JEP 252 ). JDK 21 retains the legacy locale data of JDK 8 for compatibility, but some of the newer functionalities are not applied. The legacy locale data will be removed in a future release. Users are encouraged to migrate to the  CLDR  locale data.
+core-svc/javax.management
+➜   Deprecate JMX Subject Delegation and the  JMXConnector.getMBeanServerConnection(Subject)  Method for Removal
+( JDK-8298966 )
+The JMX Subject Delegation feature is deprecated and marked for removal in a future release.  This feature is enabled by the method  javax.management.remote.JMXConnector.getMBeanServerConnection(javax.security.auth.Subject)  which is deprecated for removal.
+If a client application needs to perform operations as, or on behalf of, multiple identities, it will need to make multiple calls to  JMXConnectorFactory.connect()  and to the  getMBeanServerConnection()  method on the returned  JMXConnector .
+TOP
+Notable Issues Resolved
+The following notes describe previous known issues or limitations that have been corrected in this release.
+core-libs/java.lang
+➜   Fixed Indefinite  jspawnhelper  Hangs
+( JDK-8307990 )
+Since JDK 13, executing commands in a sub-process uses the so-called  POSIX_SPAWN  launching mechanism (that is,  -Djdk.lang.Process.launchMechanism=POSIX_SPAWN ) by default on Linux. In cases where the parent JVM process terminates abnormally before the handshake between the JVM and the newly created  jspawnhelper  process has completed,  jspawnhelper  can hang indefinitely in JDK 13 to JDK 20. This issue is fixed in JDK 21. The issue was especially harmful if the parent process had open sockets, because in that case, the forked  jspawnhelper  process will inherit them and keep all the corresponding ports open, effectively preventing other processes from binding to them.
+This misbehavior has been observed with applications which frequently fork child processes in environments with tight memory constraints. In such cases, the OS can kill the JVM in the middle of the forking process leading to the described issue. Restarting the JVM process after such a crash will be impossible if the new process tries to bind to the same ports as the initial application because they will be blocked by the hanging  jspawnhelper  child process.
+The root cause of this issue is  jspawnhelper 's omission to close its writing end of the pipe, which is used for the handshake with the parent JVM. It was fixed by closing the writing end of the communication pipe before attempting to read data from the parent process. This way,  jspawnhelper  will reliably read an EOF event from the communication pipe and terminate once the parent process dies prematurely.
+A second variant of this issue could happen because the handshaking code in the JDK didn't handle interrupts to  write(2)  correctly. This could lead to incomplete messages being sent to the  jspawnhelper  child process. The result is a deadlock between the parent thread and the child process which manifests itself in a  jspawnhelper  process being blocked while reading from a pipe and the following stack trace in the corresponding parent Java process:
+java.lang.Thread.State: RUNNABLE
+at java.lang.ProcessImpl.forkAndExec(java.base@17.0.7/Native Method)
+at java.lang.ProcessImpl.<init>(java.base@17.0.7/ProcessImpl.java:314)
+at java.lang.ProcessImpl.start(java.base@17.0.7/ProcessImpl.java:244)
+at java.lang.ProcessBuilder.start(java.base@17.0.7/ProcessBuilder.java:1110)
+at java.lang.ProcessBuilder.start(java.base@17.0.7/ProcessBuilder.java:1073)
+core-libs/java.time
+➜   Error Computing the Amount of Milli- and Microseconds between  java.time.Instants
+( JDK-8307466 )
+The computation of the time between  java.time.Instants  using  ChronoUnit.MILLIS.between(t1, t2) ,  ChronoUnit.MICROS.between(t1, t2) ,  t1.until(t2, MILLIS) , or  t1.until(t2, MICROS)  has been corrected. The implementation computing the number of units between Instants, as of JDK 18, did not propagate carry and borrow between seconds and nanoseconds when computing milliseconds and microseconds.
+install/install
+➜   Installation of JDK RPM Corrupts Alternatives
+(JDK-8308244 (not public))
+The JDK RPM installer will remove incorrectly constructed entries of "java" and "javac" groups registered by older Oracle JDK RPM installers from the alternatives before registering new "java" and "javac" entries.
+An incorrectly constructed entry of the "java" group contains commands that are supposed to belong to the "javac" group.
+An incorrectly constructed entry of the "javac" group contains commands that are supposed to belong to the "java" group.
+All incorrectly constructed entries belonging to Oracle JDK RPM packages will be removed from the alternatives to avoid corruption of the alternatives internal data.
+The removal has a potential side effect for users who have installed multiple JDK versions that are not updated to the latest release. Commands from a removed "java" or "javac" group are now unavailable for system Java switch, which potentially changes the current system Java without a warning. For example, if there is an out-of-date JDK RPM from an 11+ release, say 11.0.17, with an incorrectly constructed single "java" group installed and 8u381 RPM with this patch is installed, it will remove an entry from the "java" group belonging to the 11.0.17 RPM and thus will switch the current system Java from 11.0.17 to 8u381. The side effect will only happen when you install a lower JDK family with the fix, such as 8u381, and there is an out-of-date JDK from a higher family, such as 11.0.17, installed on the system. In that case, 8u381 will replace the older 11.0.17 as the latest. The remedy for the user is to install the latest JDK 11.
+security-libs/java.security
+➜   Enhance Contents (Trusted Certificate Entries) of macOS KeychainStore
+( JDK-8303465 )
+The macOS KeychainStore implementation now exposes certificates with proper trust in the user domain, admin domain, or both. Before, only the user domain was considered. Furthermore, if there exists a "deny" entry for a particular purpose in a certificate's trust settings in either domain, the certificate will not be part of the macOS KeychainStore.
+security-libs/javax.crypto
+➜   Allow Key/Nonce Reuse for DECRYPT_MODE ChaCha20 and ChaCha20-Poly1305 Cipher Objects
+( JDK-8305091 )
+The SunJCE implementation for  Cipher  objects using the ChaCha20 and ChaCha20-Poly1305 algorithms will now allow key/nonce reuse when in  DECRYPT_MODE .  This change aligns these algorithms with the current SunJCE AES-GCM decrypt mode behavior as it pertains to key/nonce reuse.  All  ENCRYPT_MODE  key/nonce reuse prohibitions remain unchanged from their current behavior.
+tools/javac
+➜   Disallow Extra Semicolons Between "import" Statements
+( JDK-8027682 )
+The Java Language Specification does not allow extra semicolons to appear between  import  statements, yet the compiler was allowing them;  JDK-8027682  fixed this.
+As a result, a program like this, which previously would have compiled successfully:
+import java.util.Map;;;;
+import java.util.Set;
+class Test { }
+will now generate an error:
+Test.java:1: error: extraneous semicolon
+import java.util.Map;;;;
+^
+For backward compatibility, when compiling source versions prior to 21, a warning is generated instead of an error.
+TOP
+Known Issues
+The following notes describe known issues or limitations in this release.
+core-libs/java.util.jar
+➜   Validations on ZIP64 Extra Fields
+( JDK-8313765 )
+A  JDK enhancement  has improved validation of the ZIP64 Extra Fields contained within zip files and jar files. Files which do not satisfy these new validation checks may result in  ZipException : Invalid CEN header (invalid zip64 extra data field size) .
+The following third party tools have released patches to better adhere to the ZIP File Format Specification:
+Apache Commons Compress fix for Empty CEN Zip64 Extra Headers fixed in Commons Compress release 1.11
+Apache Ant fix for Empty CEN Zip64 Extra Headers fixed in Ant 1.10.14
+BND issue with writing invalid Extra Headers fixed in BND 5.3
+The maven-bundle-plugin 5.1.5 includes the BND 5.3 patch.
+If these improved validation checks cause issues for deployed zip or jar files, check how the file was created and whether patches are available from the generating software to resolve the issue. The new validation checks can be disabled by adding  -Djdk.util.zip.disableZip64ExtraFieldValidation=true  to the runtime launcher arguments.
+Further modification of validations on ZIP64 Extra Fields contained within zip and jar files will be made in the upcoming JDK release. See  JDK-8313765 .
+core-libs/java.util.regex
+➜    java.util.regex.MatchResult  Might Throw  StringIndexOutOfBoundsException  on Regex Patterns Containing Lookaheads and Lookbehinds
+( JDK-8132995 )
+JDK-8132995 introduced an unintended regression when using instances returned by  java.util.regex.Matcher.toMatchResult() .
+This happens on  java.util.regex.Pattern s containing lookaheads and lookbehinds that, in turn, contain groups. If these are located outside the match, it results in throwing  StringIndexOutOfBoundsException  when accessing these groups. See  JDK-8312976  for an example.
+hotspot/compiler
+➜   JVM May Crash or Malfunction When Using ZGC and Non-Default ObjectAlignmentInBytes
+( JDK-8312749 )
+Running the JVM with  -XX:+UseZGC  and non-default value of  -XX:ObjectAlignmentInBytes  may lead to JVM crashes or incorrect execution. The issue is caused by an incorrect JIT compiler optimization of the  java.lang.Object.clone()  method for this configuration. If using ZGC with a non-default value of  ObjectAlignmentInBytes  is desired, JIT compilation of  java.lang.Object.clone()  can be disabled using the command-line options  -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_clone .
+hotspot/gc
+➜   JVM May Hang When Using Generational ZGC if a VM Handshake Stalls on Memory
+( JDK-8311981 )
+The JVM can hang under an uncommon condition that involves the JVM running out of heap memory, the GC just starting a relocation phase to reclaim memory, and a JVM thread-local Handshake asking to relocate an object.
+hotspot/gc
+➜   Long Garbage Collection Pause Times in Stop-The-World Collectors
+( JDK-8326092 )
+Applications using early releases of JDK 21 may experience long pause times during stop-the-world (STW) garbage collection. This affects various phases of the collection pauses including  Class Unloading ,  Root Scanning , and  CodeCache Unloading  in all STW garbage collectors (Serial, Parallel, and G1 GC).
+These performance problems have been addressed in JDK 21.0.4.
+TOP
+Other Notes
+The following notes describe additional changes and information about this release. In some cases, the following descriptions provide links to additional detailed information about an issue or a change.
+security-libs/java.security
+➜    KeyFactory Will Reject EncodedKeySpec With Extra Bytes at the End
+( JDK-8308010 )
+If  KeyFactory.generatePrivate  or  KeyFactory.generatePublic  is called on a  PKCS8EncodedKeySpec  or  X509EncodedKeySpec  object that has extra bytes at the end of its ASN.1 encoding, an  InvalidKeySpecException  will be thrown. Before this code change, these extra bytes were ignored.
+client-libs/javax.swing
+➜   System Property to Handle HTML ObjectView Creation
+(JDK-8296832 (not public))
+Some Swing components, such as JLabels and JButtons, which display application text, will try to interpret that text as HTML, principally to enable styled text. The HTML processing of the text for these components will no longer recognize the  <object>  tag which allows for subclasses of  java.awt.Component  to be rendered on the component. To re-enable this, applications must specify  -Dswing.html.object=true .
+core-libs/java.io
+➜    File::listRoots  Changed to Return All Available Drives on Windows
+( JDK-8208077 )
+The behavior of the method  java.io.File.listRoots()  on Microsoft Windows has changed in this release so that the returned array includes a  File  object for all available disk drives. This differs from the behavior in JDK 10 to JDK 20, where this method filtered out disk drives that were not accessible or did not have media present. This change avoids performance issues observed in the previous releases and also ensures that the method is consistent with the root directories in the iteration returned by  FileSystem.getDefault().getRootDirectories() .
+core-libs/java.io:serialization
+➜    ObjectInputStream::readObject()  Should Handle Negative Array Sizes without Throwing  NegativeArraySizeExceptions
+( JDK-8306461 )
+ObjectInputStream::readObject()  now throws a  StreamCorruptedException  instead of a  NegativeArraySizeException  when reading an array with a negative array size from a corrupted object input stream. Collection classes with a custom  readObject()  method which previously threw a  NegativeArraySizeException  when the number of their elements read from the deserialization stream was negative will now throw a  StreamCorruptedException  instead.
+core-libs/java.lang
+➜    Thread.sleep(millis, nanos)  Is Now Able to Perform Sub-Millisecond Sleeps
+( JDK-8305092 )
+The  Thread.sleep(millis, nanos)  method is now able to perform sub-millisecond sleeps on POSIX platforms. Before this change, a non-zero  nanos  argument would round up to a full millisecond. While the precision is improved on most POSIX systems, the actual sleep duration is still subject to the precision and accuracy of system facilities.
+core-libs/java.net
+➜   New Network Interface Names on Windows
+( JDK-8302659 )
+Maintainers of applications that do network multicasting or use the  java.net.NetworkInterface  API should note that the names that the JDK assigns to network interfaces on Windows have changed in this release. The JDK historically synthesized names for network interfaces on Windows. This has changed to use the names assigned by the Windows operating system. For example, the JDK may have historically assigned a name such as “eth0” for an Ethernet interface and “lo” for the loopback. The equivalent names that Windows assigns may be names such as “ethernet_32768” and “loopback_0".
+This change may impact code that does a lookup of network interfaces with the  NetworkInterace.getByName(String name)  method. It also may also be surprising to code that enumerates all network interfaces with the  NetworkInterfaces.networkInterfaces()  or  NetworkInterface.getNetworkInterfaces()  methods as the names of the network interfaces will look different to previous releases. Depending on configuration, it is possible that enumerating all network interfaces will enumerate network interfaces that weren’t previously enumerated because they didn’t have an Internet Protocol address assigned. The display name returned by  NetworkInterface::getDisplayName  has not changed so this should facilitate the identification of network interfaces when using Windows native tools.
+core-libs/java.nio
+➜    FileChannel.transferFrom  Extends File if Called to Transfer Bytes to the File
+( JDK-8303260 )
+FileChannel.transferFrom  has changed in this release to support transferring bytes from a source channel to a file at a file position that is beyond the file's current size.  FileChannel.transferFrom  was previously specified to not transfer any bytes when called with a file position greater than the file's current size.
+core-libs/java.nio.charsets
+➜   Clarification of the Default Charset Initialization with  file.encoding
+( JDK-8300916 )
+If the system property  file.encoding  is set on the command line to the name of a charset that is not in the  java.base  module, then the JDK will ignore it and default to UTF-8. In JDK 17 and older, the JDK would attempt to locate the charset, even though it was never supported or documented to change the value of this system property in these releases. Since JDK 18, it is possible to set the system property on the command line to the value  UTF-8  (the default) or  COMPAT . Setting it to any other value is not defined.
+core-libs/java.text
+➜   Support Unicode Extension for Collation Settings
+( JDK-8308108 )
+The BCP 47 Unicode extension for the  strength  and  normalization  collation settings are now supported in the  java.text.Collator . If the locale passed to the  getInstance(Locale)  factory method contains  ks  and/or  kk  collation settings, the created  Collator  instance is set to have the strength and the decomposition modes corresponding to the specified strength and normalization settings.
+core-libs/java.text
+➜   Swedish Collation Rules
+( JDK-8306927 )
+Swedish collation rules have been modified to reflect the modern sorting for the language. Collation in Swedish now distinguishes 'v' and 'w' as well as sorting alphabetically. For example,  {"wb", "va", "vc"}  is sorted as  {"va", "vc", "wb"}  with this change, whereas previously it was sorted as  {"va", "wb", "vc"} . In order to specify the old collation, use the  co  Unicode identifier in the locale. Refer to  Support variant collations  for more detail.
+core-libs/java.text
+➜   Support Variant Collations
+( JDK-8307547 )
+java.text.Collator  now supports multiple collations for a locale. The type of collation may be specified with the  Unicode collation identifier  if the runtime provides an implementation. For example, the  Collator  instance created with the locale  sv-u-co-trad , traditional collation in the Swedish language, may sort strings, treating  v  and  w  the same.
+core-libs/java.util
+➜    java.util.Formatter  May Return Slightly Different Results on  double  and  float
+( JDK-8300869 )
+The implementation of  java.util.Formatter  for  double  and  float  conversions to decimal ( 'e' ,  'E' ,  'f' ,  'g' ,  'G' ) is now aligned with the one in  Double.toString(double) , which was changed in JDK 19.
+As a consequence, in some rare circumstances, the outcomes may slightly differ from the ones in earlier releases.
+One example is with  double   2e23  and format  "%.16e" . With this change, the outcome is  2.0000000000000000e+23 , while earlier releases produce  1.9999999999999998e+23 . Any smaller precision in the format (e.g., "%.15e") on this value will produce outcomes that are equal to each other, though.
+Another example is with  double   9.9e-324  and format  "%.2g" . The new outcome is  9.9e-324 , but earlier releases generate  "1.0e-323" .
+core-libs/java.util.jar
+➜   Improved ZIP64 Extra Field Validation
+(JDK-8302483 (not public))
+java.util.zip.ZipFile  and the Zip FileSystem provider have been updated to provide additional validation of ZIP64 extra fields when opening a ZIP file. The validation that is done by  java.util.zip.ZipFile  may be disabled  by setting the system property  jdk.util.zip.disableZip64ExtraFieldValidation  to  true .  The validation can not be disabled for the Zip FileSystem provider.
+core-libs/java.util:i18n
+➜   Support for CLDR Version 43
+( JDK-8296248 )
+Locale data based on the Unicode Consortium's CLDR has been upgraded to version 43. The JDK locale data now employs   coverageLevels.txt  , including the 'basic' and above level locale data, in addition to the data already existing in prior JDK releases for compatibility. For detailed locale data changes, please refer to the  Unicode Consortium's CLDR release notes .
+hotspot/jvmti
+➜   JVM TI  ThreadStart  and  ThreadEnd  Events Not Sent for Virtual Threads
+( JDK-8307399 )
+Maintainers of JVM Tool Interface (JVM TI) agents should note that JVM TI now specifies that the  ThreadStart  and  ThreadEnd  events are not sent for virtual threads. This is different from when virtual threads were a preview feature in Java SE 19 and Java SE 20. When the feature was in preview, these events were sent for virtual threads even when the  can_support_virtual_threads  capability was not enabled. Agents that wish to be notified when virtual threads start or terminate need to add the  can_support_virtual_threads  capability and enable the  VirtualThreadStart  and  VirtualThreadEnd  events.
+hotspot/runtime
+➜   ASLR Support for CDS Archive
+(JDK-8294323 (not public))
+Starting with the July 2023 CPU, on operating systems where ASLR (Address Space Layout Randomization)  is enabled, the CDS archive will be placed at a random address picked by the operating system.
+This change may have a minor performance impact: (a) Start-up time may increase because the JVM needs to patch pointers inside the CDS archive; (b) Memory usage may increase because the memory used by the CDS archive is no longer shareable across processes. We expect the impact to be small because such increases should be only a small fraction of the overall application usage.
+In the unlikely event that you must disable ASLR for CDS, you can use the JVM flags  -XX:+UnlockDiagnosticVMOptions -XX:ArchiveRelocationMode=0 . The usage of such flags is not recommended.
+hotspot/runtime
+➜   The  JNI_GetCreatedJavaVMs  Method Will Now Only Return a Fully Initialized VM
+( JDK-8308341 )
+In prior releases,  JNI_GetCreatedJavaVMs :
+jint JNI_GetCreatedJavaVMs(JavaVM **vmBuf, jsize bufLen, jsize *nVMs);
+could return a  JavaVM , via the  vmBuf  array, that was still in the process of being initialized and may not be ready for use. This has now changed so that it will only return fully initialized VMs. It is important that the programmer checks that the returned number of VMs, in  nVMs , is greater than zero, before trying to use any  vmBuf  entries.
+install/install
+➜   Debian JDK Installer Changes
+(JDK-8284854 (not public))
+The installation directory of Oracle JDK Debian packages has changed from  /usr/lib/jvm/jdk-${FEATURE}  to  /usr/lib/jvm/jdk-${FEATURE}-oracle-${ARCH} .
+The Oracle JDK Debian package registers  jexec  as an interpreter for launching  .jar  files from the command line.
+The Oracle JDK Debian package configures storage for Java Preferences API in the  /etc/.java/.systemPrefs  directory.
+The Oracle JDK Debian package registers JDK commands with the  update-alternatives  command and supplies the  /usr/lib/jvm/.jdk-${FEATURE}-oracle-${ARCH}.jinfo  file for the  update-java-alternatives  command.
+security-libs/java.security
+➜   Added Certigna(Dhimyotis) CA Certificate
+( JDK-8245654 )
+The following root certificate has been added to the cacerts truststore:
++ Certigna (Dhimyotis)
++ certignaca
+DN: CN=Certigna, O=Dhimyotis, C=FR
+security-libs/java.security
+➜   Added Microsoft Corporation's 2 TLS Root CA Certificates
+( JDK-8304760 )
+The following root certificates have been added to the cacerts truststore:
++ Microsoft Corporation
++ microsoftecc2017
+DN: CN=Microsoft ECC Root Certificate Authority 2017, O=Microsoft Corporation, C=US
++ Microsoft Corporation
++ microsoftrsa2017
+DN: CN=Microsoft RSA Root Certificate Authority 2017, O=Microsoft Corporation, C=US
+security-libs/java.security
+➜   Added TWCA Root CA Certificate
+( JDK-8305975 )
+The following root certificate has been added to the cacerts truststore:
++ TWCA
++ twcaglobalrootca
+DN: CN=TWCA Global Root CA, OU=Root CA, O=TAIWAN-CA, C=TW
+security-libs/java.security
+➜   Added 4 GTS Root CA Certificates
+( JDK-8307134 )
+The following root certificates have been added to the cacerts truststore:
++ Google Trust Services LLC
++ gtsrootcar1
+DN: CN=GTS Root R1, O=Google Trust Services LLC, C=US
++ Google Trust Services LLC
++ gtsrootcar2
+DN: CN=GTS Root R2, O=Google Trust Services LLC, C=US
++ Google Trust Services LLC
++ gtsrootecccar3
+DN: CN=GTS Root R3, O=Google Trust Services LLC, C=US
++ Google Trust Services LLC
++ gtsrootecccar4
+DN: CN=GTS Root R4, O=Google Trust Services LLC, C=US
+security-libs/java.security
+➜   Add  final  Keyword to Some Static Methods
+( JDK-8302696 )
+Added the  final  keyword to the static  java.security.cert.CertStore::getDefaultType() ,  javax.net.ssl.KeyManagerFactory::getDefaultAlgorithm()  and  javax.net.ssl.TrustManagerFactory::getDefaultAlgorithm()  methods.
+This reverts changes made in JDK 19 and JDK 20.
+security-libs/java.security
+➜    keytool -genseckey  And  -importpass  Commands Warn if Weak PBE Algorithms Are Used
+( JDK-8286907 )
+The  keytool   -genseckey  and  -importpass  commands have been updated to warn users when weak password-based encryption algorithms are specified by the  -keyalg  option.
+security-libs/java.security
+➜   New System Property to Control the Maximum Size of Signature Files
+(JDK-8300596 (not public))
+A new system property,  jdk.jar.maxSignatureFileSize , has been added to allow applications to control the maximum size of signature files in a signed JAR. The value of the system property is the desired size in bytes. The default value is 8000000 bytes.
+security-libs/javax.crypto:pkcs11
+➜   SunPKCS11 Provider Now Uses the Same DH Private Exponent Length as Other JDK Providers
+( JDK-8295425 )
+When initializing the DH  KeyPairGenerator  implementation of the SunPKCS11 provider with the  keysize  argument, it looks up the default DH parameters, including the default private exponent length used by other JDK providers, to initialize the underlying native PKCS11 implementation. If the  KeyPairGenerator  implementation is initialized with the  DHParameterSpec  object having a negative private exponent length, this invalid negative value will also be overridden with a default value matching the DH prime size.
+security-libs/javax.net.ssl
+➜   The Default TLS Diffie-Hellman Group Size Has Been Increased from 1024-bit to 2048-bit
+( JDK-8301700 )
+The JDK implementation of TLS 1.2 now uses a default Diffie Hellman keysize of 2048 bits when a TLS_DHE cipher suite is negotiated and either the client or server does not support FFDHE, which can negotiate a stronger keysize. The JDK TLS implementation supports FFDHE and it is enabled by default.
+As a workaround, users can revert to the previous size by setting the  jdk.tls.ephemeralDHKeySize  system property to 1024 (at their own risk).
+This change does not affect TLS 1.3 as the minimum DH group size is already 2048 bits.
+tools/javac
+➜    javac  Message If Implicit Annotation Processors Are Being Used
+( JDK-8310061 )
+Annotation processing by  javac  is enabled by default, including when no annotation processing configuration options are present. Implicit annotation processing by default may be disabled in a future release, possibly as early as JDK 22. To alert  javac  users of this possibility, in JDK 21  javac  prints a note if implicit annotation processing is being used. The text of the note is:
+Annotation processing is enabled because one or more processors were
+found on the class path. A future release of javac may disable
+annotation processing unless at least one processor is specified by
+name (-processor), or a search path is specified (--processor-path,
+--processor-module-path), or annotation processing is enabled
+explicitly (-proc:only, -proc:full).
+Use -Xlint:-options to suppress this message.
+Use -proc:none to disable annotation processing.
+Good build hygiene includes explicitly configuring annotation processing. To ease the transition to a different default policy in the future, the new-in-JDK-21  -proc:full   javac  option requests the current default behavior of looking for annotation processors on the class path.
+tools/javac
+➜   Detection for Output File Clashes
+( JDK-8296656 )
+A new compiler lint flag,  output-file-clash , enables detection of output file clashes. An output file clash is when the compiler intends to write two different output files, but due to the behavior of the operating system, these files end up being written to the same underlying file.
+This usually happens due to case-insensitive file systems. For example, a class like this would cause two class files to be written to the same file,  Test$Inner.class :
+public class Test {
+class Inner {
+}
+class INNER {
+}
+}
+However, this problem can also happen when the file system "normalizes" file names. For example, on macOS, compiling this class will generate such a clash:
+public class Test {
+interface Cafe\u0301 {
+}
+interface Caf\u00e9 {
+}
+}
+The reason is that  \u0301  is the Unicode character "Combining Acute Accent" which means "add an accent over the previous character". MacOS normalizes the letter  e  followed by a  \u0301  into a Unicode  \u00e9 , that is,  é . However, the Java language treats these the two names,  Cafe\u0301  and  Caf\u00e9 , as distinct.
+Compiling the example above on macOS with  -Xlint:output-file-clash  will now generate a warning like this:
+warning: [output-file-clash] output file written more than once: /home/test/Test$Café.class
+tools/javac
+➜   Generate "potentially ambiguous overload" Warning for Inherited Methods
+( JDK-8026369 )
+Prior to JDK 21, the  javac  compiler was omitting some "potentially ambiguous overload" warnings enabled by the  -Xlint:overloads  option.
+If the  -Xlint:overloads  option is enabled, the compiler warns when the methods in a class create a potential ambiguity for method invocations containing an implicit lambda expression parameter like  x -> { ... } . An ambiguity can occur if two or more methods could match such a method call, like when one method takes a  Consumer<Integer>  parameter where the other takes an  IntConsumer . For example, the  javac  compiler should issue a warning for code such as:
+interface I {
+void foo(Consumer<Integer> c);
+void foo(IntConsumer c);
+}
+Prior to JDK 21, the warning was only issued for a class if one of the methods was declared in the class. The  javac  compiler now also warns when neither method is declared in the class. That is, both methods are inherited from supertypes. For example, for code like:
+interface I {
+void foo(Consumer<Integer> c);
+}
+interface J {
+void foo(IntConsumer c);
+}
+interface K extends I, J {}
+tools/javac
+➜   Emit  synthetic  and  mandated  Flags for Parameters by Default
+( JDK-8292275 )
+Prior to JDK 21, the  javac  compiler did not always mark method parameters as  synthetic  or  mandated  when applicable. Starting with JDK 21, the  javac  compiler emits the  MethodParameters  attribute in the class file when applicable. This attribute stores information on whether or not parameters are  synthetic  or  mandated . This change applies to all release and target versions supported by  javac   since all currently supported releases and targets have the  MethodParameters  attribute defined.
+This change is justified by JLS § 13.1, in particular:
+A binary representation for a class or interface must also contain all of the following:
+[...]
+11. A construct emitted by a Java compiler must be marked as synthetic if it does not
+correspond to a construct declared explicitly or implicitly in source code, unless
+the emitted construct is a class initialization method (JVMS §2.9).
+12. A construct emitted by a Java compiler must be marked as mandated if it corresponds
+to a formal parameter declared implicitly in source code (§8.8.1, §8.8.9, §8.9.3,
+§15.9.5.1).
+tools/javac
+➜   Annotations with No  @Target  Annotation Should Be Applicable to Type Parameter Declarations
+( JDK-8303784 )
+Prior to JDK 21, the  javac  compiler was not allowing annotations with no  @Target  annotation to be applied to type parameter declarations.
+This is a bug in the  javac  compiler in versions prior to JDK21.  JLS 9.6.4.1  specifies that annotations without an  @Target  annotation are applicable in 'all declaration contexts', which includes type parameter declarations.
+Starting from JDK21, the  javac  compiler will accept code like:
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+@Retention(RetentionPolicy.RUNTIME)
+@interface Anno {}
+class C<@Anno T> {}
+This change affects compilations targeting  -source / --release  14 and higher.
+client-libs
+➜   Relax the java.awt.Robot Specification
+( JDK-8307779 )
+This JDK release relaxes the specification of  java.awt.Robot  to account for possible platform and desktop environment access restrictions or limitations.
+hotspot/runtime    ➜   NMT: Make Peak Values Available in Release Builds
+NMT reports will now show peak values for all categories. Peak values contain the highest value for committed memory in a given NMT category over the lifetime of the JVM process.
+If the committed memory for an NMT category is currently at peak, NMT prints "at peak"; otherwise, it prints the peak value.
+For example:
+- Compiler (reserved=230KB, committed=230KB)
+(malloc=34KB #64) (peak=49KB #71)
+(arena=196KB #4) (peak=6126KB #16)
+This shows Compiler arena memory peaked at a bit more than 6MB, whereas it now hovers around 200 KB.
+See  JDK-8317772
+TOP
+Differences Between Oracle JDK and OpenJDK
+Although we have stated the goal to have Oracle JDK and OpenJDK binaries be as close to each other as possible, there remain several differences between the two options.
+The current differences are:
+Oracle JDK offers "installers" ( msi ,  rpm ,  deb , etc.) which not only place the JDK binaries in your system but also contain update rules and in some cases handle some common configurations like set common environmental variables (such as, JAVA_HOME in Windows) and establish file associations (such as, use  java  to launch  .jar  files). OpenJDK is offered only as compressed archive ( tar.gz  or  .zip ).
+Usage Logging is only available in Oracle JDK.
+Oracle JDK requires that third-party cryptographic providers be signed with a Java Cryptography Extension (JCE) Code Signing Certificate. OpenJDK continues allowing the use of unsigned third-party crypto providers.
+The output of  java -version  is different. Oracle JDK returns java and includes the Oracle-specific identifier. OpenJDK returns OpenJDK and does not include the Oracle-specific identifier.
+Oracle JDK will be released under the  Oracle No-Fee Terms and Conditions License . OpenJDK is released under  GPLv2wCP . License files included with each will therefore be different.
+Oracle JDK distributes FreeType under the FreeType license and OpenJDK does so under GPLv2. The contents of  \legal\java.desktop\freetype.md  is therefore different.
+Oracle JDK has Java cup and steam icons and OpenJDK has Duke icons.
+Oracle JDK source code includes "ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms." Source code distributed with OpenJDK refers to the GPL license terms instead.
+© 2026 Oracle
+Privacy
+/
+Do Not Sell My Info
+Ad Choices
+Careers
+Subscribe to emails
+Integrity Helpline
+Resources
+Contact Us
+Facebook
+X
+LinkedIn
+YouTube

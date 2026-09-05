@@ -1,0 +1,12 @@
+{
+  "rule_id": "THREADDEATH_DEPRECATED_FOR_REMOVAL",
+  "sample_artifact": "01.5-precision-sample-THREADDEATH_DEPRECATED_FOR_REMOVAL.json",
+  "sample_hash": "c5583bd96f0f99a3219bd9277c27c6c787437c9850d6df8f3be16154b1f7a0c3",
+  "verdicts": [
+    {
+      "hit_id": "b11347f754f75e1b",
+      "verdict": "TRUE_POSITIVE",
+      "reason": "ThreadedBehaviourFactory.java:404 catches java.lang.ThreadDeath, the class JDK 20 deprecated for removal when Thread.stop() was changed to throw UnsupportedOperationException. The receiver is the JDK type, not a JADE one."
+    }
+  ]
+}

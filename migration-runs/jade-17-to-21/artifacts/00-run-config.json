@@ -1,0 +1,21 @@
+{
+  "run_id": "jade-17-to-21",
+  "baseline_path": "migration-runs/jade-11-to-17/workspace",
+  "workspace_path": "migration-runs/jade-17-to-21/workspace",
+  "artifacts_path": "migration-runs/jade-17-to-21/artifacts",
+  "source_version": "17",
+  "target_version": "21",
+  "baseline_rationale": "Chains from the 11-to-17 workspace, which reaches DONE with BUILD SUCCESSFUL on jade-ant:17 and 4/4 consumers passing. That tree already has CORBA removed and the <rmic> pregeneration steps deleted, so the 17-to-21 window starts from the last verified state rather than from any tree on master.",
+  "precision_gate": {
+    "enabled": true,
+    "min_precision": 0.7,
+    "sample_size": 30,
+    "max_sample_size": 120,
+    "context_lines": 3,
+    "undecidable_max_ratio": 0.2,
+    "max_revisions": 3,
+    "seed_scope": "rule+pattern",
+    "manifest_evidence": "digest",
+    "on_reject": "REWRITE_PATTERN"
+  }
+}

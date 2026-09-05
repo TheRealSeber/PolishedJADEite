@@ -1,0 +1,17 @@
+{
+  "run_id": "jade-17-to-21",
+  "rules": {
+    "JEP400_FILE_IO_DEFAULT_CHARSET": {
+      "status": "DONE",
+      "updated_at": "2026-09-05T16:34:20Z"
+    },
+    "THREADDEATH_DEPRECATED_FOR_REMOVAL": {
+      "status": "DONE",
+      "updated_at": "2026-09-05T16:34:20Z"
+    },
+    "FINALIZE_DEPRECATED_FOR_REMOVAL": {
+      "status": "DONE",
+      "updated_at": "2026-09-05T16:35:30Z"
+    }
+  }
+}

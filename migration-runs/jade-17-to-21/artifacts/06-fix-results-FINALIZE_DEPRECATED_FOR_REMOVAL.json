@@ -1,0 +1,152 @@
+[
+  {
+    "task_id": "FINALIZE_DEPRECATED_FOR_REMOVAL-signature-001-f000",
+    "rule_id": "FINALIZE_DEPRECATED_FOR_REMOVAL",
+    "file": "src/jade/src/jade/core/management/JarClassLoader.java",
+    "status": "NEEDS_REVIEW",
+    "match_count": 2,
+    "match_region": "lines 202-216",
+    "match_context": "jade-recipe-17-21-finalize-removal",
+    "diff_summary": "Deleted the finalize() override and the javadoc that documented it (15 lines). The body was close() followed by super.finalize(); close() is public and is called from CodeLocator.java:113 when an agent is removed, which is the path the deleted javadoc itself described as 'if it has not explicitly done before by using the provided close() method'.",
+    "verification_hint": "ant clean lib inside jade-ant:21 with -Xlint:removal -Xmaxwarns 100000 reports zero 'finalize() in Object has been deprecated and marked for removal' warnings, down from four. Build exits 0, all consumers PASS.",
+    "errors": [],
+    "warnings": [
+      "Deleting a finalizer removes a garbage-collection-time safety net, which is the intent of JEP 421 and still a behaviour change. Each deletion was checked against a normal-path close/closeDown call before it was made; the three call sites are named in the per-file summaries.",
+      "Server.cleanup() is protected, so a subclass outside this tree that overrode finalize() to extend the old behaviour would no longer be called by run(). No subclass of Server exists in the tree.",
+      "NEEDS_REVIEW: diff_outside_flagged_region",
+      "NEEDS_REVIEW: multiple_matches"
+    ],
+    "applied_at": "2026-09-05T16:33:12Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-17-to-21/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [
+        "src/jade/src/jade/core/management/AgentManagementService.java",
+        "src/jade/src/jade/core/mobility/AgentMobilityService.java"
+      ],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "FINALIZE_DEPRECATED_FOR_REMOVAL-signature-001"
+  },
+  {
+    "task_id": "FINALIZE_DEPRECATED_FOR_REMOVAL-signature-001-f001",
+    "rule_id": "FINALIZE_DEPRECATED_FOR_REMOVAL",
+    "file": "src/jade/src/jade/tools/SocketProxyAgent/Connection.java",
+    "status": "NEEDS_REVIEW",
+    "match_count": 1,
+    "match_region": "lines 239-245",
+    "match_context": "jade-recipe-17-21-finalize-removal",
+    "diff_summary": "Deleted the finalize() override whose body was 'if (!closed) { close(); }'. close() sets closed=true at line 275 and is already reached from Connection.java:216, Connection.java:234 and Server.java:163.",
+    "verification_hint": "ant clean lib inside jade-ant:21 with -Xlint:removal -Xmaxwarns 100000 reports zero 'finalize() in Object has been deprecated and marked for removal' warnings, down from four. Build exits 0, all consumers PASS.",
+    "errors": [],
+    "warnings": [
+      "Deleting a finalizer removes a garbage-collection-time safety net, which is the intent of JEP 421 and still a behaviour change. Each deletion was checked against a normal-path close/closeDown call before it was made; the three call sites are named in the per-file summaries.",
+      "Server.cleanup() is protected, so a subclass outside this tree that overrode finalize() to extend the old behaviour would no longer be called by run(). No subclass of Server exists in the tree.",
+      "NEEDS_REVIEW: diff_outside_flagged_region"
+    ],
+    "applied_at": "2026-09-05T16:33:12Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-17-to-21/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [
+        "src/jade/src/jade/core/management/AgentManagementService.java",
+        "src/jade/src/jade/core/mobility/AgentMobilityService.java"
+      ],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "FINALIZE_DEPRECATED_FOR_REMOVAL-signature-001"
+  },
+  {
+    "task_id": "FINALIZE_DEPRECATED_FOR_REMOVAL-signature-001-f002",
+    "rule_id": "FINALIZE_DEPRECATED_FOR_REMOVAL",
+    "file": "src/jade/src/jade/tools/SocketProxyAgent/Server.java",
+    "status": "NEEDS_REVIEW",
+    "match_count": 2,
+    "match_region": "lines 118-147",
+    "match_context": "jade-recipe-17-21-finalize-removal",
+    "diff_summary": "Renamed finalize() to cleanup() and rewrote its javadoc, which had read 'try to clean up on GC' and was wrong: run() calls the method explicitly from its finally block, so the body always ran on the normal path and never depended on the collector. Updated that call site from finalize() to cleanup(). The body is unchanged.",
+    "verification_hint": "ant clean lib inside jade-ant:21 with -Xlint:removal -Xmaxwarns 100000 reports zero 'finalize() in Object has been deprecated and marked for removal' warnings, down from four. Build exits 0, all consumers PASS.",
+    "errors": [],
+    "warnings": [
+      "Deleting a finalizer removes a garbage-collection-time safety net, which is the intent of JEP 421 and still a behaviour change. Each deletion was checked against a normal-path close/closeDown call before it was made; the three call sites are named in the per-file summaries.",
+      "Server.cleanup() is protected, so a subclass outside this tree that overrode finalize() to extend the old behaviour would no longer be called by run(). No subclass of Server exists in the tree.",
+      "NEEDS_REVIEW: diff_outside_flagged_region",
+      "NEEDS_REVIEW: multiple_matches"
+    ],
+    "applied_at": "2026-09-05T16:33:12Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-17-to-21/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [
+        "src/jade/src/jade/core/management/AgentManagementService.java",
+        "src/jade/src/jade/core/mobility/AgentMobilityService.java"
+      ],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "FINALIZE_DEPRECATED_FOR_REMOVAL-signature-001"
+  },
+  {
+    "task_id": "FINALIZE_DEPRECATED_FOR_REMOVAL-signature-001-f003",
+    "rule_id": "FINALIZE_DEPRECATED_FOR_REMOVAL",
+    "file": "src/jade/src/jade/core/management/CodeLocator.java",
+    "status": "NEEDS_REVIEW",
+    "match_count": 0,
+    "match_region": "lines 0-0",
+    "match_context": "jade-recipe-17-21-finalize-removal",
+    "diff_summary": "In the shard as the dependency closure of JarClassLoader. Not edited: it calls close(), never finalize().",
+    "verification_hint": "ant clean lib inside jade-ant:21 with -Xlint:removal -Xmaxwarns 100000 reports zero 'finalize() in Object has been deprecated and marked for removal' warnings, down from four. Build exits 0, all consumers PASS.",
+    "errors": [],
+    "warnings": [
+      "Deleting a finalizer removes a garbage-collection-time safety net, which is the intent of JEP 421 and still a behaviour change. Each deletion was checked against a normal-path close/closeDown call before it was made; the three call sites are named in the per-file summaries.",
+      "Server.cleanup() is protected, so a subclass outside this tree that overrode finalize() to extend the old behaviour would no longer be called by run(). No subclass of Server exists in the tree."
+    ],
+    "applied_at": "2026-09-05T16:33:12Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-17-to-21/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [
+        "src/jade/src/jade/core/management/AgentManagementService.java",
+        "src/jade/src/jade/core/mobility/AgentMobilityService.java"
+      ],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "FINALIZE_DEPRECATED_FOR_REMOVAL-signature-001"
+  },
+  {
+    "task_id": "FINALIZE_DEPRECATED_FOR_REMOVAL-signature-001-f004",
+    "rule_id": "FINALIZE_DEPRECATED_FOR_REMOVAL",
+    "file": "src/jade/src/jade/tools/SocketProxyAgent/SocketProxyAgent.java",
+    "status": "NEEDS_REVIEW",
+    "match_count": 0,
+    "match_region": "lines 0-0",
+    "match_context": "jade-recipe-17-21-finalize-removal",
+    "diff_summary": "In the shard as the dependency closure of Server. Not edited: it calls closeDown() at line 187, never finalize().",
+    "verification_hint": "ant clean lib inside jade-ant:21 with -Xlint:removal -Xmaxwarns 100000 reports zero 'finalize() in Object has been deprecated and marked for removal' warnings, down from four. Build exits 0, all consumers PASS.",
+    "errors": [],
+    "warnings": [
+      "Deleting a finalizer removes a garbage-collection-time safety net, which is the intent of JEP 421 and still a behaviour change. Each deletion was checked against a normal-path close/closeDown call before it was made; the three call sites are named in the per-file summaries.",
+      "Server.cleanup() is protected, so a subclass outside this tree that overrode finalize() to extend the old behaviour would no longer be called by run(). No subclass of Server exists in the tree."
+    ],
+    "applied_at": "2026-09-05T16:33:12Z",
+    "graph_context": {
+      "status": "shard",
+      "source_artifact": "migration-runs/jade-17-to-21/artifacts/03.5-knowledge-graph.json",
+      "target_node": null,
+      "impact_files": [
+        "src/jade/src/jade/core/management/AgentManagementService.java",
+        "src/jade/src/jade/core/mobility/AgentMobilityService.java"
+      ],
+      "diagnostics": []
+    },
+    "mode": "agent",
+    "shard_id": "FINALIZE_DEPRECATED_FOR_REMOVAL-signature-001"
+  }
+]

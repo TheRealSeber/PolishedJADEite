@@ -1,0 +1,20 @@
+{
+  "repo_root": "/Users/sebastian/Desktop/myown/PolishedJADEite-1721",
+  "rule_id": "THREADDEATH_DEPRECATED_FOR_REMOVAL",
+  "run_id": "jade-17-to-21",
+  "schema_version": 1,
+  "shards": {
+    "THREADDEATH_DEPRECATED_FOR_REMOVAL-body-local-001": {
+      "created_at": "2026-09-05T16:33:22Z",
+      "files": [
+        {
+          "file": "src/jade/src/jade/core/behaviours/ThreadedBehaviourFactory.java"
+        }
+      ],
+      "rollback_reason": null,
+      "state": "ACCEPTED",
+      "updated_at": "2026-09-05T16:33:58Z"
+    }
+  },
+  "workspace_root": "migration-runs/jade-17-to-21/workspace"
+}

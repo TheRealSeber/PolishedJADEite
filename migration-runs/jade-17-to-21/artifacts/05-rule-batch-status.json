@@ -1,0 +1,11 @@
+{
+  "run_id": "jade-17-to-21",
+  "rule_id": "THREADDEATH_DEPRECATED_FOR_REMOVAL",
+  "total_files": 1,
+  "completed": 0,
+  "failed": 0,
+  "skipped": 0,
+  "pending": 1,
+  "status": "IN_PROGRESS",
+  "updated_at": "content-sha256:7b01de42682b4a1c"
+}

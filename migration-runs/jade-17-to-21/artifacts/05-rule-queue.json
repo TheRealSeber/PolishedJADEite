@@ -1,0 +1,68 @@
+{
+  "run_id": "jade-17-to-21",
+  "rules": [
+    "JEP400_FILE_IO_DEFAULT_CHARSET",
+    "FINALIZE_DEPRECATED_FOR_REMOVAL",
+    "THREADDEATH_DEPRECATED_FOR_REMOVAL"
+  ],
+  "generated_at": "2026-09-05T16:21:00Z",
+  "decision": "User instruction for this run, verbatim: 'lecimy z mechanicznymi' -- apply the mechanical rules only. Nothing is deferred: all three rules in the manifest clear the precision gate and all three enter the queue. JEP400_FILE_IO_DEFAULT_CHARSET 30 judged of a 33-hit population at 0.9333, FINALIZE_DEPRECATED_FOR_REMOVAL 5/5 census at 1.0, THREADDEATH_DEPRECATED_FOR_REMOVAL 1/1 census at 1.0. The rules NOT in this manifest were excluded before the run rather than deferred during it, and the reasoning is in migration-runs/jade-17-to-21/PLAN.md: every charset site that crosses a process or node boundary -- the ACL and content wire codecs, the JICP and IMTP transport, the socket-backed print streams -- carries a protocol compatibility decision that belongs to the maintainer, not to the pipeline. The two socket-backed PrintStream sites that this rule's pattern does reach are judged FALSE_POSITIVE in the precision verdicts and the recipe is required to skip them.",
+  "graph_metadata": {
+    "status": "computed",
+    "source_artifact": "03.5-knowledge-graph.json",
+    "suggested_order": [
+      "JEP400_FILE_IO_DEFAULT_CHARSET",
+      "FINALIZE_DEPRECATED_FOR_REMOVAL",
+      "THREADDEATH_DEPRECATED_FOR_REMOVAL"
+    ],
+    "direct_counts": {
+      "JEP400_FILE_IO_DEFAULT_CHARSET": 17,
+      "FINALIZE_DEPRECATED_FOR_REMOVAL": 3,
+      "THREADDEATH_DEPRECATED_FOR_REMOVAL": 1
+    },
+    "impact_counts": {
+      "JEP400_FILE_IO_DEFAULT_CHARSET": 688,
+      "FINALIZE_DEPRECATED_FOR_REMOVAL": 15,
+      "THREADDEATH_DEPRECATED_FOR_REMOVAL": 427
+    },
+    "cycles": [
+      [
+        "JEP400_FILE_IO_DEFAULT_CHARSET",
+        "FINALIZE_DEPRECATED_FOR_REMOVAL",
+        "THREADDEATH_DEPRECATED_FOR_REMOVAL"
+      ]
+    ],
+    "ordering_reasons": [
+      {
+        "rule": "JEP400_FILE_IO_DEFAULT_CHARSET",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      },
+      {
+        "rule": "FINALIZE_DEPRECATED_FOR_REMOVAL",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      },
+      {
+        "rule": "THREADDEATH_DEPRECATED_FOR_REMOVAL",
+        "reason": "binding dependency order \u2014 dependent transforms first"
+      }
+    ],
+    "diagnostics": [
+      {
+        "kind": "ambiguous_file_ownership",
+        "file": "src/jade/src/jade/tools/SocketProxyAgent/Connection.java",
+        "rules": [
+          "FINALIZE_DEPRECATED_FOR_REMOVAL",
+          "JEP400_FILE_IO_DEFAULT_CHARSET"
+        ]
+      },
+      {
+        "kind": "cycle",
+        "rules": [
+          "JEP400_FILE_IO_DEFAULT_CHARSET",
+          "FINALIZE_DEPRECATED_FOR_REMOVAL",
+          "THREADDEATH_DEPRECATED_FOR_REMOVAL"
+        ]
+      }
+    ]
+  }
+}

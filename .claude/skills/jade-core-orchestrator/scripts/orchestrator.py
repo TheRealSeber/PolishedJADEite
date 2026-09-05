@@ -98,8 +98,12 @@ ARTIFACT_CONTENT_RULES: Dict[str, Dict[str, Any]] = {
         "json_nonempty_dict": ["tools"],
     },
     "03-build-audit.json": {
-        "json_keys_required": ["build_system", "build_file"],
+        "json_keys_required": ["build_system", "build_file", "build_exit_code"],
         "json_nonempty_str": ["build_system", "build_file"],
+        # AGENTS.md #15: only BUILD SUCCESSFUL with exit 0 counts as build
+        # evidence. Without this the gate accepted an audit whose own recorded
+        # build_exit_code was non-zero, and the run advanced on a failed build.
+        "json_equals": {"build_exit_code": 0},
         "json_contains": {
             "env": {
                 "docker": "available",
@@ -131,6 +135,7 @@ json_nonempty_list   — key must be a list with len > 0
 json_nonempty_str    — key must be a non-empty string
 json_nonempty_dict   — key must be a dict with at least 1 entry
 json_nonzero_int     — key must be an int > 0
+json_equals          — key must equal the expected value exactly
 json_contains        — nested key path must have expected value
 json_len_match       — len(key[0]) must equal int(key[1])
 """
@@ -322,6 +327,9 @@ def _validate_artifact(path: pathlib.Path, phase: str) -> Tuple[bool, str]:
             val = data.get(key)
             if not isinstance(val, (int, float)) or val <= 0:
                 return False, f"key '{key}' must be > 0"
+        for key, expected in rules.get("json_equals", {}).items():
+            if data.get(key) != expected:
+                return False, f"key '{key}' must equal {expected!r}, got {data.get(key)!r}"
         for list_key, count_key in rules.get("json_len_match", []):
             lst = data.get(list_key)
             cnt = data.get(count_key)
@@ -1171,10 +1179,30 @@ def validate_shard_ledger(
         if isinstance(s, dict) and isinstance(s.get("shard_id"), str)
     }
     ledger_shard_ids = set(shards_ledger.keys())
-    if ledger_shard_ids != plan_shard_ids:
+    missing_from_ledger = plan_shard_ids - ledger_shard_ids
+    if missing_from_ledger:
         return False, (
-            f"shard ledger keys {sorted(ledger_shard_ids)} do not match plan "
-            f"shard_ids {sorted(plan_shard_ids)}"
+            f"shard ledger is missing plan shard_ids {sorted(missing_from_ledger)}"
+        )
+    # A ledger entry with no shard in the current plan is only legitimate when
+    # it was ROLLED_BACK: that is the shape left behind when a rule is
+    # re-planned after a rollback -- the classification changed, the planner
+    # produced different shard ids, and the superseded shard's edits are gone
+    # from the workspace. Demanding exact set equality made rollback a dead end,
+    # since the recovery it exists for always renames the shards. Anything else
+    # outside the plan (CHECKPOINTED or ACCEPTED) is still a hard failure: those
+    # states mean edits are live in a shard the plan does not know about.
+    stale = sorted(ledger_shard_ids - plan_shard_ids)
+    not_rolled_back = [
+        shard_id
+        for shard_id in stale
+        if not isinstance(shards_ledger.get(shard_id), dict)
+        or shards_ledger[shard_id].get("state") != "ROLLED_BACK"
+    ]
+    if not_rolled_back:
+        return False, (
+            f"shard ledger keys {not_rolled_back} are absent from the plan "
+            f"{sorted(plan_shard_ids)} and are not ROLLED_BACK"
         )
     for shard_id, info in shards_ledger.items():
         if not isinstance(info, dict):

@@ -35,7 +35,16 @@ MAX_IMPACT_PATHS_TOTAL = 5000
 
 # Line metadata is volatile across rebuilds (comment/code insertions shift lines
 # without changing declarations); exclude it from the change-detection signature.
-_VOLATILE_NODE_KEYS = frozenset({"line_start", "line_end"})
+#
+# A file's own import list is excluded for the same reason: it is not a
+# declaration. This gate asks whether a shard changed something that files
+# OUTSIDE the shard depend on, and an import is file-local name resolution --
+# no dependent of a file can observe it. Without this exclusion any recipe that
+# has to add an import (StandardCharsets, for one) trips the gate on every file
+# it touches, with no signature having moved. An import that does change meaning
+# by shadowing an in-tree type still shows up, because that changes the file's
+# type_refs/calls edges and those are diffed separately as added/removed edges.
+_VOLATILE_NODE_KEYS = frozenset({"line_start", "line_end", "imports"})
 
 
 def _canonical_dump(value) -> str:

@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "run_id": "jade-17-to-21",
+  "rule_id": "THREADDEATH_DEPRECATED_FOR_REMOVAL",
+  "mode": "agent",
+  "recipe_skill": "jade-recipe-17-21-threaddeath-removal",
+  "recipe_skill_md": ".claude/skills/java-migration-skill-registry/17-to-21/jade-recipe-17-21-threaddeath-removal/SKILL.md",
+  "blast_class": "body-local",
+  "shard_plan_artifact": "migration-runs/jade-17-to-21/artifacts/05-rule-shards-THREADDEATH_DEPRECATED_FOR_REMOVAL.json",
+  "artifacts_dir": "migration-runs/jade-17-to-21/artifacts",
+  "workspace_root": "migration-runs/jade-17-to-21/workspace",
+  "verification_hint": "ant clean lib inside jade-ant:21 with -Xlint:removal reports zero 'ThreadDeath in java.lang has been deprecated and marked for removal' warnings, down from one. Build exits 0, all consumers PASS; jrba drives the threaded behaviour path this file implements.",
+  "generated_at": "2026-09-05T16:33:22Z",
+  "task_count": 1,
+  "tasks": [
+    {
+      "task_id": "THREADDEATH_DEPRECATED_FOR_REMOVAL-body-local-001",
+      "shard_id": "THREADDEATH_DEPRECATED_FOR_REMOVAL-body-local-001",
+      "rule_id": "THREADDEATH_DEPRECATED_FOR_REMOVAL",
+      "class": "body-local",
+      "parallel_safe": true,
+      "editable_files": [
+        "src/jade/src/jade/core/behaviours/ThreadedBehaviourFactory.java"
+      ],
+      "read_only_context": [
+        "src/jade/src/jade/core/BehaviourID.java",
+        "src/jade/src/jade/core/ScalabilityTest.java",
+        "src/jade/src/jade/domain/RemoteDFRequester.java",
+        "src/jade/src/jade/domain/ams.java",
+        "src/jade/src/jade/domain/df.java",
+        "src/jade/src/jade/domain/introspection/AMSSubscriber.java",
+        "src/jade/src/jade/gui/GuiAgent.java",
+        "src/jade/src/jade/proto/AchieveREInitiator.java",
+        "src/jade/src/jade/proto/AchieveREResponder.java",
+        "src/jade/src/jade/proto/ContractNetInitiator.java",
+        "src/jade/src/jade/proto/ContractNetResponder.java",
+        "src/jade/src/jade/proto/Initiator.java",
+        "src/jade/src/jade/proto/IteratedAchieveREInitiator.java",
+        "src/jade/src/jade/proto/ProposeInitiator.java",
+        "src/jade/src/jade/proto/ProposeResponder.java",
+        "src/jade/src/jade/proto/Responder.java",
+        "src/jade/src/jade/proto/SSContractNetResponder.java",
+        "src/jade/src/jade/proto/SSIteratedAchieveREResponder.java",
+        "src/jade/src/jade/proto/SSResponder.java",
+        "src/jade/src/jade/proto/SSResponderDispatcher.java",
+        "src/jade/src/jade/proto/SubscriptionInitiator.java",
+        "src/jade/src/jade/proto/SubscriptionResponder.java",
+        "src/jade/src/jade/proto/TwoPh0Initiator.java",
+        "src/jade/src/jade/proto/TwoPh1Initiator.java",
+        "src/jade/src/jade/proto/TwoPh2Initiator.java",
+        "src/jade/src/jade/proto/TwoPhInitiator.java",
+        "src/jade/src/jade/proto/TwoPhResponder.java",
+        "src/jade/src/jade/proto/states/HandlerSelector.java",
+        "src/jade/src/jade/proto/states/MsgReceiver.java",
+        "src/jade/src/jade/proto/states/ReplySender.java",
+        "src/jade/src/jade/proto/states/StateResetter.java",
+        "src/jade/src/jade/tools/ToolNotifier.java",
+        "src/jade/src/jade/tools/introspector/Introspector.java",
+        "src/jade/src/jade/tools/introspector/gui/TreePopupMenuListener.java",
+        "src/jade/src/jade/tools/rma/rma.java",
+        "src/jade/src/jade/tools/sniffer/Sniffer.java",
+        "src/jade/src/jade/tools/testagent/ReceiveCyclicBehaviour.java",
+        "src/jade/src/jade/wrapper/gateway/GatewayAgent.java"
+      ],
+      "entry_points": [
+        {
+          "file": "src/jade/src/jade/core/behaviours/ThreadedBehaviourFactory.java",
+          "line": 405
+        }
+      ],
+      "invariants": [
+        "EDITS_CONFINED_TO_EDITABLE_FILES",
+        "PUBLIC_SIGNATURES_UNCHANGED",
+        "READ_ONLY_CONTEXT_NOT_MODIFIED"
+      ],
+      "graph_artifact": "migration-runs/jade-17-to-21/artifacts/03.5-knowledge-graph.json",
+      "result_file": "migration-runs/jade-17-to-21/artifacts/06-agent-result-THREADDEATH_DEPRECATED_FOR_REMOVAL-THREADDEATH_DEPRECATED_FOR_REMOVAL-body-local-001.json",
+      "checkpoint_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-17-to-21/artifacts --rule-id THREADDEATH_DEPRECATED_FOR_REMOVAL --shard-id THREADDEATH_DEPRECATED_FOR_REMOVAL-body-local-001 --workspace migration-runs/jade-17-to-21/workspace --create",
+      "verify_command": "python .claude/skills/jade-core-verification/scripts/verify_shard.py --artifacts-dir migration-runs/jade-17-to-21/artifacts --rule-id THREADDEATH_DEPRECATED_FOR_REMOVAL --shard-id THREADDEATH_DEPRECATED_FOR_REMOVAL-body-local-001",
+      "gate_command": "python .claude/skills/jade-core-verification/scripts/gate_signatures.py --artifacts-dir migration-runs/jade-17-to-21/artifacts --rule-id THREADDEATH_DEPRECATED_FOR_REMOVAL --shard-id THREADDEATH_DEPRECATED_FOR_REMOVAL-body-local-001 --before-graph migration-runs/jade-17-to-21/artifacts/03.5-knowledge-graph.json --after-graph migration-runs/jade-17-to-21/artifacts/03.5-knowledge-graph-after-THREADDEATH_DEPRECATED_FOR_REMOVAL-body-local-001.json",
+      "record_command": "python .claude/skills/jade-core-rule-dispatcher/scripts/dispatcher.py --artifacts-dir migration-runs/jade-17-to-21/artifacts --rule-id THREADDEATH_DEPRECATED_FOR_REMOVAL --record-agent-result --shard-id THREADDEATH_DEPRECATED_FOR_REMOVAL-body-local-001 --result-file migration-runs/jade-17-to-21/artifacts/06-agent-result-THREADDEATH_DEPRECATED_FOR_REMOVAL-THREADDEATH_DEPRECATED_FOR_REMOVAL-body-local-001.json",
+      "accept_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-17-to-21/artifacts --rule-id THREADDEATH_DEPRECATED_FOR_REMOVAL --shard-id THREADDEATH_DEPRECATED_FOR_REMOVAL-body-local-001 --workspace migration-runs/jade-17-to-21/workspace --accept",
+      "rollback_command": "python .claude/skills/jade-core-orchestrator/scripts/shard_checkpoint.py --artifacts-dir migration-runs/jade-17-to-21/artifacts --rule-id THREADDEATH_DEPRECATED_FOR_REMOVAL --shard-id THREADDEATH_DEPRECATED_FOR_REMOVAL-body-local-001 --workspace migration-runs/jade-17-to-21/workspace --rollback --reason \"<why>\""
+    }
+  ],
+  "warnings": []
+}

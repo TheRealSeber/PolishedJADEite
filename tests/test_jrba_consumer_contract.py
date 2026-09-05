@@ -57,7 +57,11 @@ def test_jrba_config_uses_maven_verifier_contract():
     assert config["main_class"] == "jade.Boot"
     assert config["boot_args"] == ["-agents", "runner:org.jrba.consumer.JrbaScenariosAgent"]
     assert config["source_level"] == 17
-    assert config["runtime_java_version"] == 17
+    # jrba stays compiled at release 17 (see the pom assertions above) but is
+    # RUN on 21: that combination is the point of this consumer, because it is
+    # the closest thing the playground has to a downstream user who has not
+    # moved their own language level yet.
+    assert config["runtime_java_version"] == 21
     assert config["jade_artifact"] == "src/jade/lib/jade.jar"
     assert config["classpath_deps"] == ["src/jade/lib/jade.jar"]
     assert config["expected_stdout_markers"] == [
@@ -98,14 +102,21 @@ def test_jrba_consumer_has_no_binary_files():
     assert binaries == []
 
 
-def test_java_registry_rejects_unsupported_target_without_java_21_image():
+def test_java_registry_resolves_known_targets_and_rejects_the_rest():
+    # This test previously asserted that java-21 was ABSENT and that a target of
+    # 21 was therefore rejected. That was the correct contract while 17 was the
+    # newest lane. docker/Dockerfile.ant21 and the java-21 registry entry now
+    # exist and are exercised by migration-runs/jade-17-to-21, so the assertion
+    # is inverted here rather than deleted: the registry must carry exactly the
+    # lanes that have an image, and must still refuse anything beyond them.
     runtime_verify = _load_runtime_verify()
     registry = json.loads((REPO_ROOT / "config/docker-images.json").read_text())
 
-    assert set(registry) == {"java-8", "java-11", "java-17"}
+    assert set(registry) == {"java-8", "java-11", "java-17", "java-21"}
     assert runtime_verify.resolve_docker_image("17", registry) == registry["java-17"]
+    assert runtime_verify.resolve_docker_image("21", registry) == registry["java-21"]
     with pytest.raises(ValueError, match="unsupported"):
-        runtime_verify.resolve_docker_image("21", registry)
+        runtime_verify.resolve_docker_image("25", registry)
     for invalid_version in ("", "not-a-version"):
         with pytest.raises(ValueError, match="invalid or unsupported"):
             runtime_verify.resolve_docker_image(invalid_version, registry)

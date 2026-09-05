@@ -1,0 +1,30 @@
+{
+  "run_id": "jade-17-to-21",
+  "workspace": "migration-runs/jade-17-to-21/workspace",
+  "total_files_scanned": 972,
+  "total_new_flags": 39,
+  "idempotent_skips": 0,
+  "by_rule": {
+    "JEP400_FILE_IO_DEFAULT_CHARSET": {
+      "name": "File readers, writers and print streams without an explicit charset switched from the platform default to UTF-8 in JDK 18",
+      "severity": "MEDIUM",
+      "count": 33
+    },
+    "FINALIZE_DEPRECATED_FOR_REMOVAL": {
+      "name": "Object.finalize() overrides are deprecated for removal since JDK 18",
+      "severity": "MEDIUM",
+      "count": 5
+    },
+    "THREADDEATH_DEPRECATED_FOR_REMOVAL": {
+      "name": "java.lang.ThreadDeath is deprecated for removal since JDK 20 and can no longer be thrown by the runtime",
+      "severity": "LOW",
+      "count": 1
+    }
+  },
+  "by_confidence": {
+    "0.95": 28,
+    "0.8": 7,
+    "0.98": 3,
+    "0.9": 1
+  }
+}
